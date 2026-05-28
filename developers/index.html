@@ -54,58 +54,46 @@
 
       <!-- Diagram placed first = appears on LEFT in desktop flex row -->
       <div class="info__right">
-        <svg viewBox="0 0 480 340" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:480px;display:block;margin-top:26px">
+        <svg viewBox="0 0 500 340" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:500px;display:block;margin-top:26px">
+
           <!-- Lines from airlines to DRCT hub -->
-          <path d="M78 53 Q185 53 244 168" stroke="rgba(255,255,255,0.5)" stroke-width="1.2" fill="none"/>
-          <path d="M78 123 Q178 123 244 168" stroke="rgba(255,255,255,0.5)" stroke-width="1.2" fill="none"/>
-          <path d="M78 217 Q178 217 244 172" stroke="rgba(255,255,255,0.5)" stroke-width="1.2" fill="none"/>
-          <path d="M78 287 Q185 287 244 172" stroke="rgba(255,255,255,0.5)" stroke-width="1.2" fill="none"/>
-          <!-- DRCT hub to App line -->
-          <line x1="292" y1="170" x2="366" y2="170" stroke="rgba(255,255,255,0.45)" stroke-width="1.5"/>
-          <circle cx="329" cy="170" r="3.5" fill="#2a8aea" stroke="rgba(255,255,255,0.7)" stroke-width="1.5"/>
+          <path d="M100 50 C178 50 178 168 218 168" stroke="rgba(42,138,234,0.3)" stroke-width="1.5" fill="none"/>
+          <path d="M100 120 C175 120 175 168 218 168" stroke="rgba(42,138,234,0.3)" stroke-width="1.5" fill="none"/>
+          <path d="M100 210 C175 210 175 172 218 172" stroke="rgba(42,138,234,0.3)" stroke-width="1.5" fill="none"/>
+          <path d="M100 280 C178 280 178 172 218 172" stroke="rgba(42,138,234,0.3)" stroke-width="1.5" fill="none"/>
 
-          <!-- Airline 1: BA (British Airways) -->
-          <circle cx="78" cy="53" r="34" fill="white" opacity="0.95"/>
-          <clipPath id="devc1"><circle cx="78" cy="53" r="34"/></clipPath>
-          <g clip-path="url(#devc1)">
-            <rect x="44" y="19" width="68" height="68" fill="white"/>
-            <path d="M44 39 L112 39 L112 51 L44 51 Z" fill="#012169"/>
-            <path d="M44 55 L112 55 L112 64 L44 64 Z" fill="#c8102e"/>
-          </g>
+          <!-- D hub to Your Super App -->
+          <line x1="312" y1="170" x2="376" y2="170" stroke="rgba(42,138,234,0.3)" stroke-width="1.5"/>
+          <circle cx="312" cy="170" r="3.5" fill="rgba(42,138,234,0.5)"/>
 
-          <!-- Airline 2: LH (Lufthansa) -->
-          <circle cx="78" cy="123" r="34" fill="#05164d" opacity="0.95"/>
-          <circle cx="78" cy="112" r="16" fill="#f9b000"/>
-          <text x="78" y="116" font-family="IBM Plex Sans,sans-serif" font-size="7" font-weight="700" fill="#05164d" text-anchor="middle">LH</text>
+          <!-- Airline 1: italic B, no container -->
+          <text x="100" y="66" font-family="Georgia,serif" font-size="44" font-weight="700" font-style="italic" fill="#1b2733" text-anchor="middle">B</text>
 
-          <!-- Airline 3: Emirates -->
-          <circle cx="78" cy="217" r="34" fill="white" opacity="0.95"/>
-          <text x="78" y="213" font-family="IBM Plex Sans,sans-serif" font-size="9.5" font-weight="700" fill="#c60c30" text-anchor="middle">EMIR-</text>
-          <text x="78" y="226" font-family="IBM Plex Sans,sans-serif" font-size="9.5" font-weight="700" fill="#c60c30" text-anchor="middle">ATES</text>
+          <!-- Airline 2: Lufthansa badge, no container -->
+          <circle cx="100" cy="120" r="22" fill="#f9b000"/>
+          <text x="100" y="124" font-family="IBM Plex Sans,sans-serif" font-size="11" font-weight="700" fill="#05164d" text-anchor="middle">LH</text>
 
-          <!-- Airline 4: Air France -->
-          <circle cx="78" cy="287" r="34" fill="white" opacity="0.95"/>
-          <clipPath id="devc4"><circle cx="78" cy="287" r="34"/></clipPath>
-          <g clip-path="url(#devc4)">
-            <rect x="44" y="253" width="23" height="68" fill="#002395"/>
-            <rect x="67" y="253" width="22" height="68" fill="white"/>
-            <rect x="89" y="253" width="23" height="68" fill="#ed2939"/>
-          </g>
+          <!-- Airline 3: red swoosh, no container -->
+          <path d="M60 208 Q100 192 140 208" stroke="#e31837" stroke-width="6" fill="none" stroke-linecap="round"/>
+          <path d="M68 222 Q100 207 132 222" stroke="#e31837" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+
+          <!-- Airline 4: red angled mark, no container -->
+          <path d="M80 294 L120 268" stroke="#e31837" stroke-width="5.5" stroke-linecap="round"/>
+          <path d="M80 280 L108 268" stroke="#e31837" stroke-width="2.5" stroke-linecap="round" opacity="0.5"/>
 
           <!-- DRCT central hub -->
-          <circle cx="266" cy="170" r="49" fill="#2a8aea"/>
-          <text x="266" y="186" font-family="IBM Plex Sans,sans-serif" font-size="42" font-weight="700" fill="white" text-anchor="middle">D</text>
+          <circle cx="264" cy="170" r="48" fill="#2a8aea"/>
+          <text x="264" y="186" font-family="IBM Plex Sans,sans-serif" font-size="42" font-weight="700" fill="white" text-anchor="middle">D</text>
 
-          <!-- App icon -->
-          <rect x="368" y="146" width="68" height="56" rx="14" fill="white" opacity="0.95"/>
-          <g transform="translate(402, 172)">
-            <path d="M-5 7 Q0 -10 5 7 L5 14 L-5 14 Z" fill="#ff5f40"/>
-            <circle cy="1" r="3" fill="#e8f4ff" stroke="#2a8aea" stroke-width="0.8"/>
-            <path d="M-5 10 L-10 15 L-5 15 Z" fill="#c0392b"/>
-            <path d="M5 10 L10 15 L5 15 Z" fill="#c0392b"/>
-            <path d="M-3 14 Q0 19 3 14" fill="#f39c12"/>
-          </g>
-          <text x="402" y="216" font-family="IBM Plex Sans,sans-serif" font-size="9" fill="rgba(27,39,51,0.6)" text-anchor="middle">Your Super App</text>
+          <!-- Your Super App node -->
+          <circle cx="406" cy="170" r="30" fill="#1b2733"/>
+          <!-- App icon: simplified phone/screen -->
+          <rect x="396" y="159" width="9" height="13" rx="1.5" fill="rgba(255,255,255,0.9)"/>
+          <rect x="407" y="159" width="9" height="6" rx="1.5" fill="rgba(255,255,255,0.6)"/>
+          <rect x="407" y="167" width="9" height="5" rx="1.5" fill="rgba(255,255,255,0.45)"/>
+          <rect x="396" y="174" width="20" height="3" rx="1" fill="rgba(255,255,255,0.3)"/>
+          <text x="406" y="218" font-family="IBM Plex Sans,sans-serif" font-size="11" fill="rgba(27,39,51,0.65)" text-anchor="middle">Your Super App</text>
+
         </svg>
       </div>
 
