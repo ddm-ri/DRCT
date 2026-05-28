@@ -46,60 +46,97 @@
 <!-- ================================================================
      HERO + ADVANTAGES
 ================================================================ -->
-<div class="landing-new loaded">
+<div class="landing-new loaded" style="background-image: linear-gradient(to right, rgba(42,138,234,0.2) 0%, rgba(42,138,234,0) 58%);">
   <div class="landing-new__body">
 
-    <!-- HERO -->
+    <!-- HERO: network diagram LEFT (info__right first), text RIGHT (info__left second) -->
     <section class="info">
+
+      <!-- Diagram placed first = LEFT in desktop flex row -->
+      <div class="info__right">
+        <svg viewBox="0 0 640 374" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:640px;display:block;margin-top:26px">
+
+          <!-- Connecting lines: airlines → DRCT hub -->
+          <path d="M114 50 C186 50 186 167 258 167" stroke="rgba(42,138,234,0.3)" stroke-width="1.5" fill="none"/>
+          <path d="M114 128 C185 128 185 167 258 167" stroke="rgba(42,138,234,0.3)" stroke-width="1.5" fill="none"/>
+          <path d="M114 206 C185 206 185 167 258 167" stroke="rgba(42,138,234,0.3)" stroke-width="1.5" fill="none"/>
+          <path d="M114 284 C186 284 186 167 258 167" stroke="rgba(42,138,234,0.3)" stroke-width="1.5" fill="none"/>
+
+          <!-- Connecting lines: DRCT hub → service nodes -->
+          <path d="M362 167 C430 167 430 80 513 80" stroke="rgba(42,138,234,0.3)" stroke-width="1.5" fill="none"/>
+          <line x1="362" y1="167" x2="513" y2="167" stroke="rgba(42,138,234,0.3)" stroke-width="1.5"/>
+          <path d="M362 167 C430 167 430 254 513 254" stroke="rgba(42,138,234,0.3)" stroke-width="1.5" fill="none"/>
+
+          <!-- Airline 1: stylised B logo -->
+          <circle cx="70" cy="50" r="44" fill="white" opacity="0.95"/>
+          <text x="68" y="66" font-family="Georgia,serif" font-size="38" font-weight="700" font-style="italic" fill="#1a1a1a" text-anchor="middle">B</text>
+          <text x="86" y="54" font-family="IBM Plex Sans,sans-serif" font-size="9" fill="#555" text-anchor="start">ec</text>
+
+          <!-- Airline 2: Lufthansa -->
+          <circle cx="70" cy="128" r="44" fill="#05164d" opacity="0.95"/>
+          <circle cx="70" cy="116" r="20" fill="#f9b000"/>
+          <text x="70" y="120" font-family="IBM Plex Sans,sans-serif" font-size="9" font-weight="700" fill="#05164d" text-anchor="middle">LH</text>
+          <text x="70" y="152" font-family="IBM Plex Sans,sans-serif" font-size="8" fill="#f9b000" text-anchor="middle">LUFTHANSA</text>
+
+          <!-- Airline 3: red swoosh -->
+          <circle cx="70" cy="206" r="44" fill="white" opacity="0.95"/>
+          <clipPath id="aclip3"><circle cx="70" cy="206" r="44"/></clipPath>
+          <path d="M26 202 Q70 183 114 202" stroke="#e31837" stroke-width="5.5" fill="none" stroke-linecap="round" clip-path="url(#aclip3)"/>
+          <path d="M34 216 Q70 200 106 216" stroke="#e31837" stroke-width="3.5" fill="none" stroke-linecap="round" clip-path="url(#aclip3)"/>
+
+          <!-- Airline 4: Your airline -->
+          <circle cx="70" cy="284" r="44" fill="white" opacity="0.95"/>
+          <line x1="70" y1="264" x2="70" y2="304" stroke="#2a8aea" stroke-width="5" stroke-linecap="round"/>
+          <line x1="50" y1="284" x2="90" y2="284" stroke="#2a8aea" stroke-width="5" stroke-linecap="round"/>
+          <text x="70" y="348" font-family="IBM Plex Sans,sans-serif" font-size="11.5" fill="rgba(27,39,51,0.65)" text-anchor="middle">Your airline</text>
+
+          <!-- DRCT central hub -->
+          <circle cx="310" cy="167" r="52" fill="#2a8aea"/>
+          <text x="310" y="183" font-family="IBM Plex Sans,sans-serif" font-size="44" font-weight="700" fill="white" text-anchor="middle">D</text>
+
+          <!-- Service node 1: New markets -->
+          <g transform="translate(535, 80)">
+            <circle r="26" fill="rgba(42,138,234,0.12)"/>
+            <rect x="-10" y="-10" width="8" height="8" rx="1.5" fill="#2a8aea"/>
+            <rect x="4"  y="-10" width="8" height="8" rx="1.5" fill="#2a8aea"/>
+            <rect x="-10" y="4"  width="8" height="8" rx="1.5" fill="#2a8aea"/>
+            <rect x="4"  y="4"  width="8" height="8" rx="1.5" fill="#2a8aea"/>
+            <text y="46" font-family="IBM Plex Sans,sans-serif" font-size="11.5" fill="rgba(27,39,51,0.7)" text-anchor="middle">New markets</text>
+          </g>
+
+          <!-- Service node 2: GDS distribution -->
+          <g transform="translate(535, 167)">
+            <circle r="26" fill="rgba(42,138,234,0.12)"/>
+            <rect x="-10" y="-10" width="8" height="8" rx="1.5" fill="#2a8aea"/>
+            <rect x="4"  y="-10" width="8" height="8" rx="1.5" fill="#2a8aea"/>
+            <rect x="-10" y="4"  width="8" height="8" rx="1.5" fill="#2a8aea"/>
+            <rect x="4"  y="4"  width="8" height="8" rx="1.5" fill="#2a8aea"/>
+            <text y="46" font-family="IBM Plex Sans,sans-serif" font-size="11.5" fill="rgba(27,39,51,0.7)" text-anchor="middle">GDS distribution</text>
+          </g>
+
+          <!-- Service node 3: Personalization -->
+          <g transform="translate(535, 254)">
+            <circle r="26" fill="rgba(42,138,234,0.12)"/>
+            <rect x="-10" y="-10" width="8" height="8" rx="1.5" fill="#2a8aea"/>
+            <rect x="4"  y="-10" width="8" height="8" rx="1.5" fill="#2a8aea"/>
+            <rect x="-10" y="4"  width="8" height="8" rx="1.5" fill="#2a8aea"/>
+            <rect x="4"  y="4"  width="8" height="8" rx="1.5" fill="#2a8aea"/>
+            <text y="46" font-family="IBM Plex Sans,sans-serif" font-size="11.5" fill="rgba(27,39,51,0.7)" text-anchor="middle">Personalization</text>
+          </g>
+
+        </svg>
+      </div>
+
+      <!-- Text placed second = RIGHT in desktop flex row -->
       <div class="info__left">
         <h2>Bringing airlines closer to passengers</h2>
         <p>DRCT is a tech provider building a new era Uber-like distribution platform to unite carriers and passengers in a solid eco-system delivering a unique shopping experience.</p>
-        <a href="#" class="btn-primary" data-demo>Request Demo</a>
-      </div>
-      <div class="info__right">
-        <div class="info__video-fallback">
-          <div class="drct-mock">
-            <div class="drct-mock__bar">
-              <ul class="drct-mock__tabs">
-                <li class="drct-mock__tab active">Search</li>
-                <li class="drct-mock__tab">Bookings</li>
-                <li class="drct-mock__tab">Reports</li>
-              </ul>
-            </div>
-            <div class="drct-mock__search">
-              <div class="drct-mock__field"><span>From</span><strong>London LHR</strong></div>
-              <div class="drct-mock__field"><span>To</span><strong>Frankfurt FRA</strong></div>
-              <div class="drct-mock__field"><span>Date</span><strong>15 Feb</strong></div>
-            </div>
-            <div class="drct-mock__results">
-              <div class="drct-mock__result active-row">
-                <span class="drct-mock__airline">LH</span>
-                <span class="drct-mock__flight">LH 900</span>
-                <span class="drct-mock__time">07:00 – 09:45</span>
-                <span class="drct-mock__price drct-mock__price--ndc">€ 189 <em>NDC</em></span>
-              </div>
-              <div class="drct-mock__result">
-                <span class="drct-mock__airline">LH</span>
-                <span class="drct-mock__flight">LH 924</span>
-                <span class="drct-mock__time">10:15 – 13:00</span>
-                <span class="drct-mock__price">€ 245</span>
-              </div>
-              <div class="drct-mock__result">
-                <span class="drct-mock__airline">BA</span>
-                <span class="drct-mock__flight">BA 213</span>
-                <span class="drct-mock__time">14:00 – 16:55</span>
-                <span class="drct-mock__price drct-mock__price--ndc">€ 199 <em>NDC</em></span>
-              </div>
-              <div class="drct-mock__result">
-                <span class="drct-mock__airline">EK</span>
-                <span class="drct-mock__flight">EK 031</span>
-                <span class="drct-mock__time">08:30 – 14:25</span>
-                <span class="drct-mock__price drct-mock__price--ndc">€ 312 <em>NDC</em></span>
-              </div>
-            </div>
-          </div>
+        <div style="display:flex;border:1.5px solid rgba(27,39,51,0.18);border-radius:4px;overflow:hidden;max-width:420px;margin-top:28px;height:46px;">
+          <input type="email" placeholder="Enter your e-mail" style="flex:1;padding:0 16px;border:none;font-family:var(--font-sans);font-size:13px;color:var(--dark);outline:none;min-width:0;background:transparent;">
+          <button type="button" style="background:var(--blue);color:white;border:none;padding:0 20px;font-family:var(--font-sans);font-size:13px;font-weight:700;letter-spacing:0.6px;text-transform:uppercase;cursor:pointer;white-space:nowrap;" data-demo>Request Demo</button>
         </div>
       </div>
+
       <a href="#" class="info__try-mobile" data-demo>Request Demo</a>
     </section>
 
