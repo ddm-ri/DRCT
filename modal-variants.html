@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet" />
   <style>
-    /* ── Design tokens (exact copy from styles.css) ── */
+    /* ── Design tokens ─────────────────────────────────── */
     :root {
       --dark:        #1b2733;
       --dark-90:     rgba(27,39,51,0.9);
@@ -39,7 +39,6 @@
       --font-sans:   'IBM Plex Sans', 'Roboto', sans-serif;
       --font-mono:   'IBM Plex Mono', monospace;
 
-      --shadow-image: 0 25px 30px rgba(27,39,51,0.2), 0 0 20px rgba(27,39,51,0.1);
       --shadow-card:  0 8px 40px rgba(27,39,51,0.2);
       --shadow-header:0 4px 8px rgba(27,39,51,0.1);
       --shadow-pop:   0 6px 12px rgba(27,39,51,0.2);
@@ -48,16 +47,16 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      background: #e8eaed;
+      /* Simulates the dimmed page behind the modal */
+      background: #dde0e4;
       font-family: var(--font-sans);
       padding: 56px 24px 80px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 0;
     }
 
-    /* ── Page header ─────────────────────────────── */
+    /* ── Page header ──────────────────────────────────── */
     .page-header {
       text-align: center;
       margin-bottom: 52px;
@@ -71,23 +70,23 @@
       margin-bottom: 6px;
     }
     .page-header__title {
-      font-size: 22px;
+      font-size: 20px;
       font-weight: 700;
       color: var(--dark);
     }
 
-    /* ── Section wrapper ─────────────────────────── */
+    /* ── Section wrapper ──────────────────────────────── */
     .section {
       width: 100%;
       max-width: 860px;
-      margin-bottom: 56px;
+      margin-bottom: 52px;
     }
     .section__meta {
       display: flex;
       align-items: baseline;
       gap: 12px;
-      margin-bottom: 16px;
-      padding: 0 4px;
+      margin-bottom: 14px;
+      padding: 0 2px;
     }
     .section__num {
       font-size: 11px;
@@ -95,21 +94,21 @@
       letter-spacing: 1.2px;
       text-transform: uppercase;
       color: var(--blue);
-      opacity: 0.8;
+      opacity: 0.7;
     }
     .section__name {
       font-size: 13px;
       font-weight: 700;
       color: var(--dark);
-      letter-spacing: 0.2px;
+      letter-spacing: 0.1px;
     }
     .section__desc {
       font-size: 12px;
       color: var(--dark-40);
-      line-height: 1.4;
     }
     .section__stage {
-      background: rgba(27,39,51,0.25);
+      /* Simulates the app page behind a modal overlay */
+      background: rgba(27,39,51,0.18);
       border-radius: 6px;
       display: flex;
       align-items: center;
@@ -117,10 +116,10 @@
       padding: 48px 24px;
     }
 
-    /* ── Shared modal shell ──────────────────────── */
+    /* ── Shared modal shell ───────────────────────────── */
     .modal {
       background: var(--white);
-      border: 1.5px dashed var(--blue-20);
+      border: 1px solid var(--dark-10);
       border-radius: 4px;
       box-shadow: var(--shadow-card);
       font-family: var(--font-sans);
@@ -128,7 +127,7 @@
       max-width: 100%;
     }
 
-    /* ── Shared buttons ──────────────────────────── */
+    /* ── Shared buttons ───────────────────────────────── */
     .btn-primary {
       align-items: center;
       background: var(--blue);
@@ -153,9 +152,9 @@
     .btn-ghost {
       align-items: center;
       background: transparent;
-      border: 1.5px solid var(--blue-20);
+      border: 1px solid var(--dark-15);
       border-radius: 4px;
-      color: var(--blue);
+      color: var(--dark-70);
       cursor: pointer;
       display: inline-flex;
       font-family: var(--font-sans);
@@ -169,7 +168,7 @@
       text-transform: uppercase;
       white-space: nowrap;
     }
-    .btn-ghost:hover { opacity: 1; border-color: rgba(42,138,234,0.5); }
+    .btn-ghost:hover { opacity: 1; border-color: var(--dark-26); color: var(--dark); }
 
     .link-btn {
       align-items: center;
@@ -188,17 +187,16 @@
     }
     .link-btn:hover { opacity: 1; }
 
-    /* ── Icon helpers ────────────────────────────── */
     .icon { display: inline-flex; align-items: center; justify-content: center; }
     .icon svg { display: block; }
 
 
     /*
-    ══════════════════════════════════════════════════
-      VARIANT 1
-      Centered icon stack · icon top, centered title,
-      centered body copy, side-by-side buttons
-    ══════════════════════════════════════════════════
+    ══════════════════════════════════════════════════════
+      VARIANT 1 — Centered icon stack
+      Large centered icon · centered title & body ·
+      side-by-side primary + ghost buttons
+    ══════════════════════════════════════════════════════
     */
     .v1 {
       padding: 36px 32px 30px;
@@ -206,15 +204,15 @@
       flex-direction: column;
       align-items: center;
       text-align: center;
-      gap: 12px;
+      gap: 10px;
     }
     .v1__icon {
       color: var(--blue);
-      margin-bottom: 2px;
+      margin-bottom: 4px;
     }
     .v1__title {
       color: var(--dark);
-      font-size: 20px;
+      font-size: 19px;
       font-weight: 700;
       line-height: 1.25;
     }
@@ -222,43 +220,43 @@
       color: var(--dark-70);
       font-size: 14px;
       line-height: 1.55;
-      max-width: 290px;
+      max-width: 288px;
     }
     .v1__actions {
       display: flex;
       gap: 10px;
-      margin-top: 6px;
+      margin-top: 8px;
     }
 
 
     /*
-    ══════════════════════════════════════════════════
-      VARIANT 2
-      Inline icon + title · icon and title share a row,
-      horizontal divider, left body, right-aligned buttons
-    ══════════════════════════════════════════════════
+    ══════════════════════════════════════════════════════
+      VARIANT 2 — Inline icon + title with divider
+      Icon & title on one row · thin rule ·
+      body left-aligned · buttons right-aligned
+    ══════════════════════════════════════════════════════
     */
-    .v2 { padding: 26px 28px 24px; }
+    .v2 { padding: 24px 26px 22px; }
     .v2__header {
       display: flex;
       align-items: center;
-      gap: 11px;
+      gap: 10px;
       padding-bottom: 16px;
       border-bottom: 1px solid var(--dark-10);
       margin-bottom: 16px;
     }
-    .v2__icon { color: var(--dark-70); flex-shrink: 0; }
+    .v2__icon { color: var(--dark-40); flex-shrink: 0; }
     .v2__title {
       color: var(--dark);
-      font-size: 18px;
+      font-size: 16px;
       font-weight: 700;
-      line-height: 1.2;
+      line-height: 1.25;
     }
     .v2__body {
       color: var(--dark-70);
       font-size: 14px;
       line-height: 1.55;
-      margin-bottom: 20px;
+      margin-bottom: 18px;
     }
     .v2__actions {
       display: flex;
@@ -269,29 +267,30 @@
 
 
     /*
-    ══════════════════════════════════════════════════
-      VARIANT 3
-      Tinted header band · blue-10 header strip with
-      icon + title, white body with text + buttons
-    ══════════════════════════════════════════════════
+    ══════════════════════════════════════════════════════
+      VARIANT 3 — Tinted header band
+      off-white header strip with icon + title ·
+      white body with text & side-by-side buttons
+    ══════════════════════════════════════════════════════
     */
     .v3 { overflow: hidden; }
     .v3__head {
-      background: var(--blue-10);
-      border-radius: 3px 3px 0 0;
-      padding: 14px 24px;
+      background: var(--off-white);
+      border-bottom: 1px solid var(--dark-10);
+      border-radius: 4px 4px 0 0;
+      padding: 16px 22px;
       display: flex;
       align-items: center;
       gap: 12px;
     }
-    .v3__head-icon { color: var(--blue); flex-shrink: 0; }
+    .v3__head-icon { color: var(--dark-40); flex-shrink: 0; }
     .v3__head-title {
       color: var(--dark);
-      font-size: 16px;
+      font-size: 15px;
       font-weight: 700;
       line-height: 1.25;
     }
-    .v3__body { padding: 20px 24px 22px; }
+    .v3__body { padding: 20px 22px 22px; }
     .v3__text {
       color: var(--dark-70);
       font-size: 14px;
@@ -302,29 +301,28 @@
 
 
     /*
-    ══════════════════════════════════════════════════
-      VARIANT 4
-      Icon sidebar · left tinted column holds the icon,
-      right column has title, body, stacked full-width
-      buttons — vertical CTA hierarchy
-    ══════════════════════════════════════════════════
+    ══════════════════════════════════════════════════════
+      VARIANT 4 — Icon sidebar
+      Left off-white column with icon · right column
+      with title, body, stacked full-width buttons
+    ══════════════════════════════════════════════════════
     */
     .v4 { display: flex; overflow: hidden; }
     .v4__aside {
       align-items: center;
-      background: var(--blue-10);
-      border-radius: 3px 0 0 3px;
+      background: var(--off-white);
+      border-radius: 4px 0 0 4px;
+      border-right: 1px solid var(--dark-10);
       display: flex;
       flex-shrink: 0;
       justify-content: center;
-      padding: 0 24px;
-      width: 90px;
+      width: 88px;
     }
-    .v4__aside-icon { color: var(--blue); }
-    .v4__content { flex: 1; padding: 24px 24px 22px; }
+    .v4__aside-icon { color: var(--dark-26); }
+    .v4__content { flex: 1; padding: 22px 22px 20px; }
     .v4__title {
       color: var(--dark);
-      font-size: 17px;
+      font-size: 16px;
       font-weight: 700;
       line-height: 1.3;
       margin-bottom: 8px;
@@ -341,12 +339,12 @@
 
 
     /*
-    ══════════════════════════════════════════════════
-      VARIANT 5
-      Minimal accent strip · 3 px warning top stripe,
-      no decorative icon, left-aligned content,
-      primary button full-width + text-link below
-    ══════════════════════════════════════════════════
+    ══════════════════════════════════════════════════════
+      VARIANT 5 — Minimal accent stripe
+      3 px warning top stripe · no decorative icon ·
+      eyebrow label · left-aligned · full-width primary
+      + text link below it
+    ══════════════════════════════════════════════════════
     */
     .v5 { overflow: hidden; }
     .v5__stripe {
@@ -354,18 +352,18 @@
       background: var(--warning);
       border-radius: 3px 3px 0 0;
     }
-    .v5__inner { padding: 22px 28px 26px; }
+    .v5__inner { padding: 20px 26px 24px; }
     .v5__eyebrow {
       color: var(--warning);
       font-size: 11px;
       font-weight: 700;
       letter-spacing: 1.2px;
       text-transform: uppercase;
-      margin-bottom: 6px;
+      margin-bottom: 5px;
     }
     .v5__title {
       color: var(--dark);
-      font-size: 19px;
+      font-size: 18px;
       font-weight: 700;
       line-height: 1.25;
       margin-bottom: 10px;
@@ -395,7 +393,7 @@
   </div>
 
 
-  <!-- ══ VARIANT 1 ════════════════════════════════ -->
+  <!-- ══ VARIANT 1 ══════════════════════════════════ -->
   <div class="section">
     <div class="section__meta">
       <span class="section__num">V1</span>
@@ -406,11 +404,10 @@
       <div class="modal">
         <div class="v1">
           <span class="v1__icon icon">
-            <!-- Circular refresh arrows -->
-            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="M23 4v6h-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-              <path d="M1 20v-6h6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-              <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            <svg width="34" height="34" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M23 4v6h-6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M1 20v-6h6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </span>
           <h2 class="v1__title">Time to update</h2>
@@ -425,7 +422,7 @@
   </div>
 
 
-  <!-- ══ VARIANT 2 ════════════════════════════════ -->
+  <!-- ══ VARIANT 2 ══════════════════════════════════ -->
   <div class="section">
     <div class="section__meta">
       <span class="section__num">V2</span>
@@ -437,8 +434,7 @@
         <div class="v2">
           <div class="v2__header">
             <span class="v2__icon icon">
-              <!-- Clock face -->
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.8"/>
                 <path d="M12 7v5l3.5 2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
@@ -456,20 +452,19 @@
   </div>
 
 
-  <!-- ══ VARIANT 3 ════════════════════════════════ -->
+  <!-- ══ VARIANT 3 ══════════════════════════════════ -->
   <div class="section">
     <div class="section__meta">
       <span class="section__num">V3</span>
-      <span class="section__name">Tinted header band</span>
-      <span class="section__desc">Blue-10 header strip with icon + title · white body · side-by-side buttons</span>
+      <span class="section__name">Off-white header band</span>
+      <span class="section__desc">Muted header strip with icon + title · white body · side-by-side buttons</span>
     </div>
     <div class="section__stage">
       <div class="modal">
         <div class="v3">
           <div class="v3__head">
             <span class="v3__head-icon icon">
-              <!-- Alert / bell icon -->
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
                 <path d="M13.73 21a2 2 0 0 1-3.46 0" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
@@ -489,24 +484,23 @@
   </div>
 
 
-  <!-- ══ VARIANT 4 ════════════════════════════════ -->
+  <!-- ══ VARIANT 4 ══════════════════════════════════ -->
   <div class="section">
     <div class="section__meta">
       <span class="section__num">V4</span>
       <span class="section__name">Icon sidebar</span>
-      <span class="section__desc">Left tinted column · right column with title, body, and stacked full-width buttons</span>
+      <span class="section__desc">Left off-white column · right column with title, body, stacked full-width buttons</span>
     </div>
     <div class="section__stage">
       <div class="modal">
         <div class="v4">
           <div class="v4__aside">
             <span class="v4__aside-icon icon">
-              <!-- Hourglass -->
-              <svg width="30" height="30" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M5 22h14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-                <path d="M5 2h14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-                <path d="M17 22v-4.17a2 2 0 0 0-.59-1.42L12 12l-4.41 4.41A2 2 0 0 0 7 17.83V22" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M7 2v4.17a2 2 0 0 0 .59 1.42L12 12l4.41-4.41A2 2 0 0 0 17 6.17V2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M5 22h14" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+                <path d="M5 2h14" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+                <path d="M17 22v-4.17a2 2 0 0 0-.59-1.42L12 12l-4.41 4.41A2 2 0 0 0 7 17.83V22" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M7 2v4.17a2 2 0 0 0 .59 1.42L12 12l4.41-4.41A2 2 0 0 0 17 6.17V2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </span>
           </div>
@@ -524,12 +518,12 @@
   </div>
 
 
-  <!-- ══ VARIANT 5 ════════════════════════════════ -->
+  <!-- ══ VARIANT 5 ══════════════════════════════════ -->
   <div class="section">
     <div class="section__meta">
       <span class="section__num">V5</span>
-      <span class="section__name">Minimal with accent stripe</span>
-      <span class="section__desc">3 px warning stripe at top · eyebrow label · left-aligned · full-width primary + text link</span>
+      <span class="section__name">Minimal accent stripe</span>
+      <span class="section__desc">3 px warning stripe at top · eyebrow label · full-width primary + text link</span>
     </div>
     <div class="section__stage">
       <div class="modal">
