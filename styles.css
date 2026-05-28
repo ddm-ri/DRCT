@@ -567,8 +567,8 @@ a.inline-link,
    HOW IT WORKS
 ---------------------------------------------------------------- */
 .how {
-  padding-bottom: 50px;
-  padding-top: 50px;
+  padding-bottom: 90px;
+  padding-top: 90px;
   position: relative;
 }
 
@@ -614,6 +614,7 @@ a.inline-link,
   text-align: center;
 }
 @media (max-width: 767px) {
+  .how { padding-top: 70px; padding-bottom: 70px; }
   .how__body { padding-bottom: 110px; }
 }
 
@@ -1500,8 +1501,8 @@ a.inline-link,
 ---------------------------------------------------------------- */
 .benefits {
   background-image: linear-gradient(0deg, rgba(42,138,234,0), rgba(42,138,234,0.2));
-  padding-bottom: 50px;
-  padding-top: 50px;
+  padding-bottom: 80px;
+  padding-top: 80px;
 }
 @media (max-width: 767px) {
   .benefits { display: none; }
@@ -1598,7 +1599,7 @@ a.inline-link,
 .questions {
   margin: 0 auto;
   padding-bottom: 50px;
-  padding-top: 100px;
+  padding-top: 120px;
   text-align: center;
   width: var(--container);
 }
@@ -1721,10 +1722,11 @@ a.inline-link,
    CERTIFIED
 ---------------------------------------------------------------- */
 .certified {
+  padding-bottom: 100px;
   padding-top: 100px;
 }
 @media (max-width: 767px) {
-  .certified { padding-bottom: 50px; padding-top: 50px; }
+  .certified { padding-bottom: 70px; padding-top: 70px; }
 }
 
 .certified h2 {
@@ -1837,7 +1839,7 @@ a.inline-link,
 .footer {
   background: var(--white);
   border-top: 1px solid var(--dark-10);
-  margin-top: 60px;
+  margin-top: 80px;
   position: relative;
 }
 
