@@ -99,136 +99,6 @@
       </ul>
     </div>
 
-    <!-- HOW IT WORKS -->
-    <section class="how">
-      <div class="how__mobile-gradient"></div>
-      <h2>Try it yourself</h2>
-      <p>Enter the fare calculation command from the GDS to get the price from the airline's direct channel.</p>
-      <div class="how__body">
-
-        <div class="how__terminal">
-          <div class="terminal__header">
-            <ul class="terminal__controls">
-              <li></li><li></li><li></li>
-            </ul>
-            <span>DRCT</span>
-            <span class="terminal__drct-icon">
-              <svg width="17" height="17" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="8" cy="8" r="8" fill="#2a8aea"/>
-                <path fill="#fff" d="M5.78 12V4h2.415q1.035 0 1.852.475.817.476 1.275 1.352t.458 1.992v.368q0 1.115-.45 1.983a3.26 3.26 0 0 1-1.27 1.346A3.64 3.64 0 0 1 8.211 12zm1.617-6.665v5.34h.782q.948 0 1.45-.631.501-.632.512-1.808v-.423q0-1.22-.496-1.849-.495-.63-1.45-.629z"/>
-              </svg>
-            </span>
-          </div>
-          <div class="terminal__body">
-            <div class="terminal-input__main">
-              <i>&gt;</i>
-              <input
-                type="text"
-                id="terminalCommand"
-                class="terminal__input"
-                placeholder="FQD LON/LH/D15FEB"
-                autocomplete="off"
-                spellcheck="false"
-              >
-            </div>
-            <div class="terminal-input__commands">
-              <div class="terminal-commands" id="terminalCommandsWide">
-                <p>Put the fare calculation entry as in GDS</p>
-                <ul>
-                  <li data-cmd="FQD LON/LH/D15FEB">FQD LON/LH/D15FEB</li>
-                  <li data-cmd="FQD JFK/BA/D20MAR">FQD JFK/BA/D20MAR</li>
-                  <li data-cmd="FQD CDG/AF/D08APR">FQD CDG/AF/D08APR</li>
-                  <li data-cmd="FQD DXB/EK/D12MAR">FQD DXB/EK/D12MAR</li>
-                </ul>
-              </div>
-              <div id="terminalResultArea" class="terminal-result-area"></div>
-            </div>
-
-            <!-- Mobile commands label -->
-            <div class="terminal-input__commands--mobile">
-              <h3>Put the fare calculation entry as in GDS</h3>
-              <div class="terminal-commands terminal-commands--mobile">
-                <ul>
-                  <li data-cmd="FQD LON/LH/D15FEB">FQD LON/LH/D15FEB</li>
-                  <li data-cmd="FQD JFK/BA/D20MAR">FQD JFK/BA/D20MAR</li>
-                  <li data-cmd="FQD CDG/AF/D08APR">FQD CDG/AF/D08APR</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <!-- Popover result -->
-          <div class="terminal-popover" id="terminalPopover">
-            <div class="terminal-popover__header">
-              <p>DRCT</p>
-              <span>Book to fix your price</span>
-            </div>
-            <div class="terminal-popover__body">
-              <div class="terminal-popover__command" id="popoverCommand">&gt; FQD LON/LH/D15FEB</div>
-              <pre class="terminal-popover__result" id="popoverResult">01 Y EUR 245.00 NDC
-02 M EUR 189.00 NDC
-03 B EUR 164.00 NDC</pre>
-              <button class="terminal-popover__btn" onclick="document.getElementById('terminalPopover').classList.remove('active')">
-                <span>Use your free version to finish the booking</span>
-                <p>BOOK</p>
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <a href="#" class="link-btn" id="changePnr">Try another itinerary</a>
-      </div>
-    </section>
-
-    <!-- SAVINGS CALCULATOR -->
-    <section class="savings">
-      <h2>Earn more now</h2>
-      <p>30-day free period. Indicate below how many tickets your agency sells and check the potential profit. The calculation is made for the NDC fares of airlines: LH, OS, LX, SN, AF, KL, BA, A3, and OA.</p>
-      <div class="savings__body">
-        <div class="savings__try">
-          <div class="savings__tooltip savings__tooltip--mobile" id="savingsTooltipMobile">
-            <div><span id="savingsAmountMobile">$1,200</span><span class="savings__currency">USD</span></div>
-            <p>Get your income with DRCT on <span id="savingsTicketsMobile">600</span> tickets</p>
-          </div>
-          <div class="savings__slider-row">
-            <div class="savings__tooltip savings__tooltip--desktop" id="savingsTooltipDesktop">
-              <div><span id="savingsAmountDesktop">$1,200</span><span class="savings__currency">USD</span></div>
-              <p>Get your income with DRCT on <span id="savingsTicketsDesktop">600</span> tickets</p>
-            </div>
-            <div class="savings__track-wrap">
-              <div class="savings__dot" id="savingsDot">
-                <svg width="7" height="9" viewBox="0 0 6 9" fill="none" xmlns="http://www.w3.org/2000/svg" style="transform:rotate(180deg);opacity:.5;position:absolute;left:7px;top:24px">
-                  <path fill="#fff" fill-rule="nonzero" d="M.415 1.078 3.85 4.513.456 7.907l1.07 1.071L5.98 4.526 1.473.02z"/>
-                </svg>
-                <svg width="7" height="9" viewBox="0 0 6 9" fill="none" xmlns="http://www.w3.org/2000/svg" style="opacity:.5;position:absolute;right:7px;top:24px">
-                  <path fill="#fff" fill-rule="nonzero" d="M.415 1.078 3.85 4.513.456 7.907l1.07 1.071L5.98 4.526 1.473.02z"/>
-                </svg>
-              </div>
-              <input
-                type="range"
-                class="savings__range"
-                id="savingsSlider"
-                min="100"
-                max="5000"
-                value="600"
-                step="100"
-              >
-              <div class="savings__track-fill" id="savingsTrackFill"></div>
-            </div>
-          </div>
-          <div class="savings__marks">
-            <span>100</span>
-            <span>1 000</span>
-            <span>2 000</span>
-            <span>3 000</span>
-            <span>4 000</span>
-            <span>5 000</span>
-          </div>
-        </div>
-        <a href="#" class="btn-primary" data-demo>Request Demo</a>
-      </div>
-    </section>
-
     <!-- ONE PLACE -->
     <section class="one-place">
       <div class="one-place__mobile-gradient"></div>
@@ -416,70 +286,7 @@
 <div class="landing-new loaded">
   <div class="landing-new__body">
 
-    <!-- FAQ -->
-    <section class="questions">
-      <h2>FAQ</h2>
-      <p>If you didn't find an answer to your question, please ask our support.</p>
-      <div class="questions__body">
-        <ul id="faqList">
-          <li>
-            <h3>Which airlines already work with DRCT? <span></span></h3>
-            <p>Aegean Airlines, airBaltic, American Airlines, British Airways, Brussels Airlines, Emirates, flydubai, Iberia, LOT, Lufthansa, SWISS, TAP, United Airlines and more than 30 other airlines. <a href="#" data-demo>Request a DEMO</a> to get an updated list of integrations.</p>
-          </li>
-          <li>
-            <h3>Is DRCT a ticketing agency? <span></span></h3>
-            <p>No, DRCT is a technology provider and airline aggregator. We do not sell air tickets but provide agencies and other ticket sellers with the tech solution for ticketing.</p>
-          </li>
-          <li>
-            <h3>Will I lose my incentive agreement with the airline? <span></span></h3>
-            <p>No, all sales via DRCT will be done under your own airline agreements. If it includes incentives, you keep it.</p>
-          </li>
-          <li>
-            <h3>What is NDC? <span></span></h3>
-            <p>New Distribution Capabilities (NDC) is an XML-based data transmission standard. NDC enables data transmission directly from air carriers to agents bypassing outdated intermediates such as GDS. It provides access to complete airline content including exclusive fares, ancillaries, and personalised offers.</p>
-          </li>
-          <li>
-            <h3>How to get credentials from an airline? <span></span></h3>
-            <p>DRCT's team assists with the application process for airline NDC credentials. Contact us and we will help you get started with all the major airlines in our network.</p>
-          </li>
-          <li>
-            <h3>How to start working? <span></span></h3>
-            <p>Installation takes only 10 minutes. Request a demo and our team will guide you through the setup process and 30-day free trial.</p>
-          </li>
-          <li>
-            <h3>Which IATA office is used for ticketing? <span></span></h3>
-            <p>Ticketing is done via your own IATA office number. DRCT does not issue tickets — your agency does, using your own credentials and BSP settlement.</p>
-          </li>
-          <li>
-            <h3>Can I trust DRCT? <span></span></h3>
-            <p>DRCT is certified by IATA as an Airline Retailing Maturity (ARM) System Provider. We work with over 40 airlines and hundreds of agencies globally.</p>
-          </li>
-          <li>
-            <h3>How to make a refund or exchange? <span></span></h3>
-            <p>Refunds and exchanges can be processed directly within the DRCT interface or through your GDS workflow, depending on the airline's NDC capabilities.</p>
-          </li>
-          <li>
-            <h3>What should I do if my airline's NDC lacks functionality? <span></span></h3>
-            <p>Our support team provides 24/7 assistance and can escalate directly to the airline's NDC team. We also proactively monitor NDC quality and flag issues before they affect your workflow.</p>
-          </li>
-          <li>
-            <h3>Is it possible to get an ADM using DRCT? <span></span></h3>
-            <p>DRCT specifically protects against ADMs. Our workflows are designed to comply with airline requirements and avoid debit memos. We own the migration risk so you don't have to.</p>
-          </li>
-          <li>
-            <h3>How is the search for cheaper booking classes working? <span></span></h3>
-            <p>DRCT automatically checks every booking for lower NDC fare classes post-purchase. If a better price is found before ticketing, you receive a notification with the option to reprice.</p>
-          </li>
-          <li>
-            <h3>Are the queues available in DRCT? <span></span></h3>
-            <p>Yes, DRCT integrates with your GDS queues. You can monitor NDC bookings alongside your regular GDS queue workflow without switching interfaces.</p>
-          </li>
-        </ul>
-      </div>
-      <a href="#" class="link-btn" data-demo>Ask a question</a>
-    </section>
-
-    <!-- CERTIFIED -->
+    <!-- WORKING WITH -->
     <section class="certified">
       <h2>Working with</h2>
       <p class="certified__description">Over 40 leading airlines that have already chosen DRCT as a partner.</p>
@@ -554,6 +361,150 @@
         <h3>ARM System Provider certified by IATA</h3>
         <p>More information at <a href="https://retailing.iata.org/armi/registry/drct/" target="_blank" rel="noopener">IATA ARM index registry</a></p>
       </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="how">
+      <div class="how__mobile-gradient"></div>
+      <h2>Try it yourself</h2>
+      <p>Enter the fare calculation command from the GDS to get the price from the airline's direct channel.</p>
+      <div class="how__body">
+
+        <div class="how__terminal">
+          <div class="terminal__header">
+            <ul class="terminal__controls">
+              <li></li><li></li><li></li>
+            </ul>
+            <span>DRCT</span>
+            <span class="terminal__drct-icon">
+              <svg width="17" height="17" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="8" cy="8" r="8" fill="#2a8aea"/>
+                <path fill="#fff" d="M5.78 12V4h2.415q1.035 0 1.852.475.817.476 1.275 1.352t.458 1.992v.368q0 1.115-.45 1.983a3.26 3.26 0 0 1-1.27 1.346A3.64 3.64 0 0 1 8.211 12zm1.617-6.665v5.34h.782q.948 0 1.45-.631.501-.632.512-1.808v-.423q0-1.22-.496-1.849-.495-.63-1.45-.629z"/>
+              </svg>
+            </span>
+          </div>
+          <div class="terminal__body">
+            <div class="terminal-input__main">
+              <i>&gt;</i>
+              <input
+                type="text"
+                id="terminalCommand"
+                class="terminal__input"
+                placeholder="FQD LON/LH/D15FEB"
+                autocomplete="off"
+                spellcheck="false"
+              >
+            </div>
+            <div class="terminal-input__commands">
+              <div class="terminal-commands" id="terminalCommandsWide">
+                <p>Put the fare calculation entry as in GDS</p>
+                <ul>
+                  <li data-cmd="FQD LON/LH/D15FEB">FQD LON/LH/D15FEB</li>
+                  <li data-cmd="FQD JFK/BA/D20MAR">FQD JFK/BA/D20MAR</li>
+                  <li data-cmd="FQD CDG/AF/D08APR">FQD CDG/AF/D08APR</li>
+                  <li data-cmd="FQD DXB/EK/D12MAR">FQD DXB/EK/D12MAR</li>
+                </ul>
+              </div>
+              <div id="terminalResultArea" class="terminal-result-area"></div>
+            </div>
+
+            <!-- Mobile commands label -->
+            <div class="terminal-input__commands--mobile">
+              <h3>Put the fare calculation entry as in GDS</h3>
+              <div class="terminal-commands terminal-commands--mobile">
+                <ul>
+                  <li data-cmd="FQD LON/LH/D15FEB">FQD LON/LH/D15FEB</li>
+                  <li data-cmd="FQD JFK/BA/D20MAR">FQD JFK/BA/D20MAR</li>
+                  <li data-cmd="FQD CDG/AF/D08APR">FQD CDG/AF/D08APR</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Popover result -->
+          <div class="terminal-popover" id="terminalPopover">
+            <div class="terminal-popover__header">
+              <p>DRCT</p>
+              <span>Book to fix your price</span>
+            </div>
+            <div class="terminal-popover__body">
+              <div class="terminal-popover__command" id="popoverCommand">&gt; FQD LON/LH/D15FEB</div>
+              <pre class="terminal-popover__result" id="popoverResult">01 Y EUR 245.00 NDC
+02 M EUR 189.00 NDC
+03 B EUR 164.00 NDC</pre>
+              <button class="terminal-popover__btn" onclick="document.getElementById('terminalPopover').classList.remove('active')">
+                <span>Use your free version to finish the booking</span>
+                <p>BOOK</p>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <a href="#" class="link-btn" id="changePnr">Try another itinerary</a>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="questions">
+      <h2>FAQ</h2>
+      <p>If you didn't find an answer to your question, please ask our support.</p>
+      <div class="questions__body">
+        <ul id="faqList">
+          <li>
+            <h3>Which airlines already work with DRCT? <span></span></h3>
+            <p>Aegean Airlines, airBaltic, American Airlines, British Airways, Brussels Airlines, Emirates, flydubai, Iberia, LOT, Lufthansa, SWISS, TAP, United Airlines and more than 30 other airlines. <a href="#" data-demo>Request a DEMO</a> to get an updated list of integrations.</p>
+          </li>
+          <li>
+            <h3>Is DRCT a ticketing agency? <span></span></h3>
+            <p>No, DRCT is a technology provider and airline aggregator. We do not sell air tickets but provide agencies and other ticket sellers with the tech solution for ticketing.</p>
+          </li>
+          <li>
+            <h3>Will I lose my incentive agreement with the airline? <span></span></h3>
+            <p>No, all sales via DRCT will be done under your own airline agreements. If it includes incentives, you keep it.</p>
+          </li>
+          <li>
+            <h3>What is NDC? <span></span></h3>
+            <p>New Distribution Capabilities (NDC) is an XML-based data transmission standard. NDC enables data transmission directly from air carriers to agents bypassing outdated intermediates such as GDS. It provides access to complete airline content including exclusive fares, ancillaries, and personalised offers.</p>
+          </li>
+          <li>
+            <h3>How to get credentials from an airline? <span></span></h3>
+            <p>DRCT's team assists with the application process for airline NDC credentials. Contact us and we will help you get started with all the major airlines in our network.</p>
+          </li>
+          <li>
+            <h3>How to start working? <span></span></h3>
+            <p>Installation takes only 10 minutes. Request a demo and our team will guide you through the setup process and 30-day free trial.</p>
+          </li>
+          <li>
+            <h3>Which IATA office is used for ticketing? <span></span></h3>
+            <p>Ticketing is done via your own IATA office number. DRCT does not issue tickets — your agency does, using your own credentials and BSP settlement.</p>
+          </li>
+          <li>
+            <h3>Can I trust DRCT? <span></span></h3>
+            <p>DRCT is certified by IATA as an Airline Retailing Maturity (ARM) System Provider. We work with over 40 airlines and hundreds of agencies globally.</p>
+          </li>
+          <li>
+            <h3>How to make a refund or exchange? <span></span></h3>
+            <p>Refunds and exchanges can be processed directly within the DRCT interface or through your GDS workflow, depending on the airline's NDC capabilities.</p>
+          </li>
+          <li>
+            <h3>What should I do if my airline's NDC lacks functionality? <span></span></h3>
+            <p>Our support team provides 24/7 assistance and can escalate directly to the airline's NDC team. We also proactively monitor NDC quality and flag issues before they affect your workflow.</p>
+          </li>
+          <li>
+            <h3>Is it possible to get an ADM using DRCT? <span></span></h3>
+            <p>DRCT specifically protects against ADMs. Our workflows are designed to comply with airline requirements and avoid debit memos. We own the migration risk so you don't have to.</p>
+          </li>
+          <li>
+            <h3>How is the search for cheaper booking classes working? <span></span></h3>
+            <p>DRCT automatically checks every booking for lower NDC fare classes post-purchase. If a better price is found before ticketing, you receive a notification with the option to reprice.</p>
+          </li>
+          <li>
+            <h3>Are the queues available in DRCT? <span></span></h3>
+            <p>Yes, DRCT integrates with your GDS queues. You can monitor NDC bookings alongside your regular GDS queue workflow without switching interfaces.</p>
+          </li>
+        </ul>
+      </div>
+      <a href="#" class="link-btn" data-demo>Ask a question</a>
     </section>
 
   </div><!-- /landing-new__body -->
