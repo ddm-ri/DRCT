@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>DRCT — Block Library</title>
+  <meta name="description" content="DRCT — complete section and block library.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    /* ── Block Library — page-scoped additions only ── */
+
+    /* Section label pill */
+    .sl-pill {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(42,138,234,0.1); border-radius: 20px;
+      padding: 5px 12px; font-family: var(--font-mono); font-size: 10px;
+      font-weight: 600; letter-spacing: 0.8px; color: var(--dark-70);
+      text-transform: uppercase; margin-bottom: 18px;
+    }
+    .sl-pill::before {
+      content: ''; width: 5px; height: 5px; border-radius: 50%;
+      background: var(--blue); display: block; flex-shrink: 0;
+    }
+    .sl-pill--light { background: rgba(42,138,234,0.15); color: rgba(255,255,255,0.5); }
+    .sl-pill--light::before { background: #33c100; }
+
+    /* Hero stats */
+    .stat-row { padding: 18px 0; border-top: 1px solid rgba(27,39,51,0.12); }
+    .stat-row:last-child { border-bottom: 1px solid rgba(27,39,51,0.12); }
+    .stat-val { font-family: var(--font-mono); font-size: 26px; font-weight: 700; color: var(--dark); }
+    .stat-lbl { font-family: var(--font-mono); font-size: 11px; color: var(--dark-40); margin-top: 3px; letter-spacing: 0.3px; }
+
+    /* Platform diagram (Block 2) */
+    .plat { display: flex; gap: 12px; margin-top: 48px; align-items: flex-start; }
+    .plat__col { flex: 1; }
+    .plat__col--center {
+      background: var(--near-black); border-radius: 12px;
+      padding: 20px; flex: 1.2;
+    }
+    .plat__meta {
+      font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.7px;
+      text-transform: uppercase; color: var(--dark-40); margin-bottom: 5px;
+    }
+    .plat__meta--w { color: rgba(255,255,255,0.3); }
+    .plat__heading { font-size: 20px; font-weight: 700; color: var(--dark); margin-bottom: 4px; }
+    .plat__sub { font-family: var(--font-mono); font-size: 11px; color: var(--dark-40); margin-bottom: 20px; }
+    .plat__tag {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(255,255,255,0.08); border-radius: 20px; padding: 4px 12px;
+      font-family: var(--font-mono); font-size: 10px; color: rgba(255,255,255,0.55);
+      letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 16px;
+    }
+    .plat__tag::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: #33c100; display: block; flex-shrink: 0; }
+    .plat__step {
+      background: rgba(255,255,255,0.06); border-radius: 7px;
+      padding: 10px 14px; margin-bottom: 6px; display: flex;
+      align-items: center; gap: 10px; font-size: 13px; color: rgba(255,255,255,0.85);
+    }
+    .plat__step em { font-family: var(--font-mono); font-size: 10px; color: rgba(255,255,255,0.3); font-style: normal; font-weight: 600; flex-shrink: 0; }
+    .plat__note { font-family: var(--font-mono); font-size: 10px; color: rgba(255,255,255,0.25); margin-top: 14px; letter-spacing: 0.3px; text-align: center; }
+    .plat__item {
+      border: 1px solid rgba(27,39,51,0.12); border-radius: 7px;
+      padding: 10px 14px; margin-bottom: 6px; display: flex;
+      align-items: center; gap: 8px; font-size: 13px; color: var(--dark);
+    }
+    .plat__dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+
+    /* 4-step numbered grid (Block 3) */
+    .steps { display: flex; border-top: 1px solid rgba(27,39,51,0.1); margin-top: 0; }
+    .step { flex: 1; padding: 36px 28px; border-right: 1px solid rgba(27,39,51,0.1); }
+    .step:last-child { border-right: none; }
+    .step__num { font-family: var(--font-mono); font-size: 10px; font-weight: 600; color: var(--blue); letter-spacing: 0.3px; margin-bottom: 14px; }
+    .step h3 { font-size: 16px; font-weight: 700; color: var(--dark); margin-bottom: 10px; line-height: 1.3; }
+    .step p { font-size: 13px; line-height: 1.6; color: var(--dark-70); }
+
+    /* 6-feature grid (Block 4) */
+    .feats {
+      display: grid; grid-template-columns: repeat(3,1fr);
+      border: 1px solid rgba(27,39,51,0.1); border-radius: 10px;
+      overflow: hidden; margin-top: 36px;
+    }
+    .feat { padding: 28px 26px; border-right: 1px solid rgba(27,39,51,0.1); border-bottom: 1px solid rgba(27,39,51,0.1); }
+    .feat:nth-child(3n) { border-right: none; }
+    .feat:nth-child(n+4) { border-bottom: none; }
+    .feat--dark { background: var(--near-black); }
+    .feat__num { font-family: var(--font-mono); font-size: 10px; font-weight: 600; color: var(--blue); display: block; margin-bottom: 12px; }
+    .feat--dark .feat__num { color: rgba(42,138,234,0.7); }
+    .feat h3 { font-size: 15px; font-weight: 700; color: var(--dark); margin-bottom: 8px; line-height: 1.35; }
+    .feat--dark h3 { color: #fff; }
+    .feat p { font-size: 13px; line-height: 1.6; color: var(--dark-70); }
+    .feat--dark p { color: rgba(255,255,255,0.5); }
+
+    /* Problems We Solve — dark (Block 5) */
+    .probs { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 40px; }
+    .prob { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 28px; }
+    .prob--full { grid-column: 1/-1; }
+    .prob__meta { display: flex; justify-content: space-between; margin-bottom: 14px; }
+    .prob__n { font-family: var(--font-mono); font-size: 10px; color: rgba(255,255,255,0.25); font-weight: 600; }
+    .prob__cat { font-family: var(--font-mono); font-size: 10px; color: rgba(255,255,255,0.2); letter-spacing: 0.4px; text-transform: uppercase; }
+    .prob h3 { font-size: 18px; font-weight: 700; color: #fff; margin-bottom: 16px; line-height: 1.3; }
+    .prob__badge {
+      display: inline-flex; border-radius: 20px; padding: 3px 10px;
+      font-family: var(--font-mono); font-size: 10px; font-weight: 600;
+      letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 8px;
+    }
+    .prob__badge--p { background: rgba(180,80,0,0.35); color: #ffb480; }
+    .prob__badge--s { background: rgba(42,138,234,0.18); color: #6ddbc6; }
+    .prob p { font-size: 13px; line-height: 1.6; color: rgba(255,255,255,0.55); margin-bottom: 14px; }
+    .prob hr { border: none; border-top: 1px solid rgba(255,255,255,0.07); margin: 14px 0; }
+    .prob--full .prob__cols { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+
+    /* Product cards 2×2 (Block 6) */
+    .pcard-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 36px; }
+    .pcard { border-radius: 14px; padding: 30px 28px 24px; min-height: 210px; display: flex; flex-direction: column; position: relative; }
+    .pcard--lav { background: linear-gradient(135deg, #ede8fa 0%, #d8d0f2 100%); }
+    .pcard--mint { background: linear-gradient(135deg, #d6f5ed 0%, #c0eadf 100%); }
+    .pcard--dark { background: linear-gradient(135deg, #1a1a2e 0%, #13131f 100%); }
+    .pcard--peach { background: linear-gradient(135deg, #faeadb 0%, #f5d8c2 100%); }
+    .pcard__breadcrumb { font-family: var(--font-mono); font-size: 10px; color: rgba(27,39,51,0.4); letter-spacing: 0.5px; margin-bottom: 10px; }
+    .pcard--dark .pcard__breadcrumb { color: rgba(255,255,255,0.3); }
+    .pcard__tag {
+      position: absolute; top: 30px; right: 28px;
+      background: rgba(27,39,51,0.1); border-radius: 20px;
+      padding: 4px 10px; font-family: var(--font-mono); font-size: 10px;
+      color: rgba(27,39,51,0.55); letter-spacing: 0.3px;
+    }
+    .pcard--dark .pcard__tag { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.4); }
+    .pcard h3 { font-size: 20px; font-weight: 700; color: var(--dark); margin-bottom: 12px; }
+    .pcard--dark h3 { color: #fff; }
+    .pcard p { font-size: 13px; line-height: 1.6; color: rgba(27,39,51,0.72); flex: 1; }
+    .pcard--dark p { color: rgba(255,255,255,0.55); }
+    .pcard__link {
+      display: inline-block; font-size: 13px; font-weight: 600; color: var(--dark);
+      text-decoration: none; margin-top: 18px;
+      border-bottom: 1px solid rgba(27,39,51,0.3); padding-bottom: 1px;
+    }
+    .pcard--dark .pcard__link { color: rgba(255,255,255,0.75); border-color: rgba(255,255,255,0.25); }
+
+    /* Airline network split layout (Block 7) */
+    .network-wrap { display: flex; gap: 60px; align-items: flex-start; padding: 80px 0 60px; }
+    .network-wrap .certified__airlines { flex: 1; min-width: 0; }
+
+    /* Seller pipeline (Block 8) */
+    .pipe { display: flex; border: 1px solid rgba(27,39,51,0.1); border-radius: 10px; overflow: hidden; margin: 36px 0 28px; }
+    .pipe__step { flex: 1; padding: 20px 14px; border-right: 1px solid rgba(27,39,51,0.1); text-align: center; }
+    .pipe__step:last-child { border-right: none; }
+    .pipe__step--on { outline: 2px solid var(--blue); border-radius: 8px; outline-offset: -1px; background: rgba(42,138,234,0.04); }
+    .pipe__step h4 { font-size: 13px; font-weight: 700; color: var(--dark); margin-bottom: 5px; }
+    .pipe__step--on h4 { color: var(--blue); }
+    .pipe__step p { font-size: 11px; color: var(--dark-40); line-height: 1.4; font-style: italic; }
+    .pipe__list { list-style: decimal; padding-left: 18px; }
+    .pipe__list li { font-size: 14px; line-height: 1.7; color: var(--dark-90); margin-bottom: 10px; }
+    .pipe__list li strong { color: var(--dark); }
+
+    /* CTA banner (Block 10) */
+    .cta-box {
+      background: rgba(27,39,51,0.03); border: 1px solid rgba(27,39,51,0.1);
+      border-radius: 14px; padding: 60px 40px; text-align: center;
+      margin: 80px 0;
+    }
+    .cta-box h2 { font-size: 22px; font-weight: 700; color: var(--dark); margin-bottom: 8px; }
+    .cta-box > p { font-size: 14px; color: var(--dark-70); margin-bottom: 26px; }
+    .btn-outline-dark {
+      display: inline-flex; align-items: center; height: 38px; padding: 0 18px;
+      border: 1.5px solid rgba(27,39,51,0.25); border-radius: 4px;
+      font-family: var(--font-sans); font-size: 13px; font-weight: 700;
+      letter-spacing: 0.6px; text-transform: uppercase; color: var(--dark);
+      text-decoration: none;
+    }
+
+    /* Mobile */
+    @media (max-width: 767px) {
+      .plat { flex-direction: column; }
+      .steps { flex-direction: column; }
+      .step { border-right: none; border-bottom: 1px solid rgba(27,39,51,0.1); }
+      .step:last-child { border-bottom: none; }
+      .feats { grid-template-columns: 1fr; }
+      .feat { border-right: none !important; border-bottom: 1px solid rgba(27,39,51,0.1) !important; }
+      .feat:last-child { border-bottom: none !important; }
+      .probs { grid-template-columns: 1fr; }
+      .prob--full .prob__cols { grid-template-columns: 1fr; gap: 20px; }
+      .pcard-grid { grid-template-columns: 1fr; }
+      .network-wrap { flex-direction: column; gap: 32px; padding: 40px 0 32px; }
+      .pipe { flex-direction: column; }
+      .pipe__step { border-right: none; border-bottom: 1px solid rgba(27,39,51,0.1); }
+      .pipe__step:last-child { border-bottom: none; }
+      .cta-box { padding: 40px 20px; }
+      .cta-box .btn-outline-dark { margin-top: 10px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ================================================================
+     HEADER
+================================================================ -->
+<header class="header" id="header">
+  <div class="header__links">
+    <div class="header__links-left">
+      <a href="../index.html" class="header__logo">DRCT</a>
+      <a href="../index.html" class="header__nav-link">For agencies</a>
+      <a href="../airlines/index.html" class="header__nav-link">For airlines</a>
+      <a href="../developers/index.html" class="header__nav-link">For developers</a>
+    </div>
+    <div class="header__links-right">
+      <a href="#" class="header__signin">Sign in</a>
+      <a href="#" class="header__try" data-demo>Request Demo</a>
+    </div>
+    <button class="header__menu-cross" id="menuToggle" aria-label="Toggle navigation">
+      <div class="line-1"></div>
+      <div class="line-2"></div>
+    </button>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+  <ul class="menu__links">
+    <li><a href="../index.html">For agencies</a></li>
+    <li><a href="../airlines/index.html">For airlines</a></li>
+    <li><a href="../developers/index.html">For developers</a></li>
+  </ul>
+</div>
+
+<!-- ================================================================
+     BLOCK 1 — HERO
+     Source: For Airlines page
+================================================================ -->
+<div class="landing-new loaded" style="background-image: linear-gradient(135deg, rgba(42,138,234,0.18) 0%, rgba(42,138,234,0.06) 45%, rgba(42,138,234,0) 70%);">
+  <div class="landing-new__body">
+    <section class="info">
+
+      <div class="info__left">
+        <div class="sl-pill">For Airlines</div>
+        <h2 style="font-size:36px;line-height:1.15;margin-bottom:18px">One Platform to<br>Distribute, Retail,<br>and Grow.</h2>
+        <p><strong>Adaptive Offer Orchestration.</strong> Adapt, enhance, and activate your airline offers through a unified airline distribution platform — while retaining full control over distribution and reaching IATA and non-IATA agencies, OTAs, TMS, and Super Apps.</p>
+        <div style="margin-top:26px">
+          <a href="#" class="btn-primary" data-demo>Partner as an airline →</a>
+        </div>
+      </div>
+
+      <div class="info__right">
+        <div style="margin-top:26px">
+          <div class="stat-row">
+            <div class="stat-val">60+</div>
+            <div class="stat-lbl">Airlines connected</div>
+          </div>
+          <div class="stat-row">
+            <div class="stat-val">GDS · NDC</div>
+            <div class="stat-lbl">Unified in one layer</div>
+          </div>
+          <div class="stat-row">
+            <div class="stat-val">24/7</div>
+            <div class="stat-lbl">Operational support</div>
+          </div>
+        </div>
+      </div>
+
+      <a href="#" class="info__try-mobile" data-demo>Partner as an airline →</a>
+    </section>
+  </div>
+</div>
+
+<!-- ================================================================
+     BLOCK 2 — HOW IT WORKS (Platform Diagram)
+     Source: For Airlines page
+================================================================ -->
+<div class="landing-new loaded">
+  <div class="landing-new__body">
+    <section class="how">
+      <h2>How It Works</h2>
+      <p>DRCT connects your inventory to travel sellers through a single distribution layer — preserving offer structure and enabling full control over how your content is delivered and managed.</p>
+
+      <div class="plat">
+
+        <!-- Left: Airline Inventory -->
+        <div class="plat__col">
+          <p class="plat__meta">01 · Airline Inventory</p>
+          <h3 class="plat__heading">Your offers</h3>
+          <p class="plat__sub">GDS · NDC · Direct</p>
+          <div class="plat__item">
+            <span class="plat__dot" style="background:var(--blue)"></span>GDS content
+          </div>
+          <div class="plat__item">
+            <span class="plat__dot" style="background:var(--blue)"></span>NDC offers
+          </div>
+          <div class="plat__item">
+            <span class="plat__dot" style="background:rgba(42,138,234,0.45)"></span>Custom Scheme
+          </div>
+        </div>
+
+        <!-- Center: DRCT Platform (dark card) -->
+        <div class="plat__col plat__col--center">
+          <span class="plat__tag">DRCT Platform</span>
+          <div class="plat__step"><em>01</em> Ingestion &amp; normalization</div>
+          <div class="plat__step"><em>02</em> Offer assembly &amp; enrichment</div>
+          <div class="plat__step"><em>03</em> Merchandising &amp; pricing</div>
+          <div class="plat__step"><em>04</em> Order &amp; servicing layer</div>
+          <p class="plat__note">Full control · Unified structure · Preserved offer logic</p>
+        </div>
+
+        <!-- Right: Travel Sellers -->
+        <div class="plat__col">
+          <p class="plat__meta">03 · Travel Sellers</p>
+          <h3 class="plat__heading">Every channel</h3>
+          <p class="plat__sub">Agencies · OTAs · TMCs · Super Apps</p>
+          <div class="plat__item">
+            <span class="plat__dot" style="background:#9370db"></span>IATA agencies
+          </div>
+          <div class="plat__item">
+            <span class="plat__dot" style="background:#ff9f00"></span>Non-IATA agents
+          </div>
+          <div class="plat__item">
+            <span class="plat__dot" style="background:#33c100"></span>OTAs · Tech sellers
+          </div>
+          <div class="plat__item">
+            <span class="plat__dot" style="background:var(--blue)"></span>TMCs · Super Apps
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- ================================================================
+     BLOCK 3 — NUMBERED STEPS (4-column breakdown)
+     Source: For Airlines page
+================================================================ -->
+<div class="landing-new loaded" style="background: rgba(27,39,51,0.025);">
+  <div class="landing-new__body">
+    <div style="padding:80px 0">
+      <div class="steps">
+        <div class="step">
+          <p class="step__num">01</p>
+          <h3>Offer ingestion</h3>
+          <p>DRCT ingests your offers, normalizing them into a unified structure while preserving full offer logic and attributes.</p>
+        </div>
+        <div class="step">
+          <p class="step__num">02</p>
+          <h3>Offer assembly and enrichment</h3>
+          <p>DRCT assembles and enriches offers — including virtual interlining, where itineraries are built from multiple airline offers to create routing options not available through a single carrier.</p>
+        </div>
+        <div class="step">
+          <p class="step__num">03</p>
+          <h3>Distribution to sellers</h3>
+          <p>Enriched offers are delivered to every connected seller — through DRCT Extension, Search, or API — intact and consistent across channels.</p>
+        </div>
+        <div class="step">
+          <p class="step__num">04</p>
+          <h3>Order management</h3>
+          <p>All post-booking operations — changes, cancellations, refunds, ancillaries — are handled through DRCT's order management layer. Airlines retain full visibility while agents service bookings without additional airline involvement.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================================================================
+     BLOCK 4 — WHY DRCT (6-feature grid)
+     Source: For Airlines page
+================================================================ -->
+<div class="landing-new loaded">
+  <div class="landing-new__body">
+    <section class="how">
+      <div class="sl-pill">Why DRCT</div>
+      <h2>Why Airlines Choose DRCT</h2>
+      <p>DRCT gives airlines something most airline distribution platforms can't: genuine coverage of every agent type, with the tools those agents actually need to sell and service NDC content confidently.</p>
+
+      <div class="feats">
+        <div class="feat">
+          <span class="feat__num">01</span>
+          <h3>Full agent coverage across all workflows</h3>
+          <p>Reach IATA and non-IATA agencies, OTAs, and TMCs: DRCT offers Extension (inside GDS), Search (UI), and API, allowing all three to work together and giving agents instant access to NDC content in the environment they already use.</p>
+        </div>
+        <div class="feat">
+          <span class="feat__num">02</span>
+          <h3>Autonomous sales for agents</h3>
+          <p>Agents search, compare, and book your NDC content without needing to call your airline. Full self-service from fare selection to ticketing.</p>
+        </div>
+        <div class="feat">
+          <span class="feat__num">03</span>
+          <h3>Post-booking self-service</h3>
+          <p>Changes, cancellations, refunds, and ancillary additions handled by agents directly. No manual queues. No airline intervention required.</p>
+        </div>
+        <div class="feat">
+          <span class="feat__num">04</span>
+          <h3>Ancillaries and add-ons</h3>
+          <p>Agents can attach seats, baggage, and other services at the point of sale — increasing average booking value without extra effort on your side.</p>
+        </div>
+        <div class="feat">
+          <span class="feat__num">05</span>
+          <h3>Faster NDC adoption</h3>
+          <p>Agents join NDC on their own terms — through the tool that fits their workflow. No forced migration.</p>
+        </div>
+        <div class="feat feat--dark">
+          <span class="feat__num">06</span>
+          <h3>24/7 operational support</h3>
+          <p>Distribution issues, booking failures, and escalations — resolved by people who built the platform.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- ================================================================
+     BLOCK 5 — PROBLEMS WE SOLVE (dark)
+     Source: For Airlines page
+================================================================ -->
+<div class="landing-new loaded" style="background: var(--near-black);">
+  <div class="landing-new__body">
+    <section style="padding: 80px 0">
+
+      <div class="sl-pill sl-pill--light">Problems We Solve</div>
+      <h2 style="color:#fff;max-width:700px;line-height:1.2;margin-bottom:14px">Challenges in Airline Distribution — and How DRCT Solves Them</h2>
+      <p style="color:rgba(255,255,255,0.55);max-width:560px;font-size:14px;line-height:1.6">Airlines lose control of their offers across GDS and indirect channels. DRCT provides a unified layer to distribute, manage, and preserve offers consistently across every channel.</p>
+
+      <div class="probs">
+
+        <div class="prob">
+          <div class="prob__meta">
+            <span class="prob__n">01</span>
+            <span class="prob__cat">Channel architecture</span>
+          </div>
+          <h3>Fragmented distribution channels</h3>
+          <div class="prob__badge prob__badge--p">Problem</div>
+          <p>Managing separate connections for GDS, NDC, and direct channels creates operational overhead. Mixing GDS and NDC content without a unified layer leads to gaps in coverage, reconciliation errors, and inconsistent workflows.</p>
+          <hr>
+          <div class="prob__badge prob__badge--s">Solution</div>
+          <p>DRCT provides a unified distribution layer where all airline offers are normalized and delivered through a single integration. Order management, reporting, and settlement are handled in one place, reducing operational complexity and eliminating fragmentation.</p>
+        </div>
+
+        <div class="prob">
+          <div class="prob__meta">
+            <span class="prob__n">02</span>
+            <span class="prob__cat">Retailing</span>
+          </div>
+          <h3>Limited merchandising and offer control</h3>
+          <div class="prob__badge prob__badge--p">Problem</div>
+          <p>GDS channels were not built for modern airline retailing. Bundles, ancillaries, and dynamic offers are either not supported or not displayed correctly, leading to lost revenue and broken offer presentation.</p>
+          <hr>
+          <div class="prob__badge prob__badge--s">Solution</div>
+          <p>DRCT preserves the full structure of your offer — including fares, ancillaries, bundles, and pricing logic — and delivers it consistently across all channels. This ensures your content is presented as intended and increases ancillary revenue per booking.</p>
+        </div>
+
+        <div class="prob">
+          <div class="prob__meta">
+            <span class="prob__n">03</span>
+            <span class="prob__cat">Unit economics</span>
+          </div>
+          <h3>High distribution costs</h3>
+          <div class="prob__badge prob__badge--p">Problem</div>
+          <p>Traditional GDS models introduce multiple intermediaries, increasing cost-per-booking without proportional value. Airlines have limited control over how distribution costs scale.</p>
+          <hr>
+          <div class="prob__badge prob__badge--s">Solution</div>
+          <p>DRCT enables direct airline-to-seller distribution and supports gradual volume shift from GDS to NDC channels. By reducing dependency on intermediaries, airlines improve unit economics while maintaining distribution reach.</p>
+        </div>
+
+        <div class="prob">
+          <div class="prob__meta">
+            <span class="prob__n">04</span>
+            <span class="prob__cat">Adoption</span>
+          </div>
+          <h3>Agent resistance to NDC</h3>
+          <div class="prob__badge prob__badge--p">Problem</div>
+          <p>Agents rely on familiar GDS workflows. NDC adoption is slowed by operational challenges such as inconsistent booking flows, NDC ADM risk, and settlement complexity.</p>
+          <hr>
+          <div class="prob__badge prob__badge--s">Solution</div>
+          <p>DRCT delivers NDC content inside familiar agent workflows — including GDS-adjacent environments — eliminating the need to learn new systems. This accelerates NDC adoption without disrupting existing agent behavior.</p>
+        </div>
+
+        <!-- Card 05 — full width, side-by-side columns -->
+        <div class="prob prob--full">
+          <div class="prob__meta">
+            <span class="prob__n">05</span>
+            <span class="prob__cat">Revenue management</span>
+          </div>
+          <h3>Inefficient revenue optimization</h3>
+          <div class="prob__cols">
+            <div>
+              <div class="prob__badge prob__badge--p">Problem</div>
+              <p>When distribution is fragmented, airlines lose control over pricing signals and personalization. Offers are reshaped or degraded across channels, making effective revenue management difficult.</p>
+            </div>
+            <div>
+              <div class="prob__badge prob__badge--s">Solution</div>
+              <p>DRCT maintains control over how offers are distributed and consumed, enabling consistent pricing, better personalization, and more accurate demand signals across all channels.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- ================================================================
+     BLOCK 6 — PRODUCT OVERVIEW (intro + 4 gradient cards)
+     Source: Home / Airlines pages
+================================================================ -->
+<div class="landing-new loaded">
+  <div class="landing-new__body">
+    <section class="how">
+      <div class="sl-pill">Product Overview</div>
+      <h2>Tools to adapt, enhance, and activate airline offers across every channel.</h2>
+      <p>One distribution layer, four surfaces — each tuned to a specific audience of travel sellers.</p>
+
+      <div class="pcard-grid">
+
+        <div class="pcard pcard--lav">
+          <p class="pcard__breadcrumb">DRCT / BT</p>
+          <span class="pcard__tag">Agencies · Non-IATA</span>
+          <h3><strong>DRCT</strong> BT</h3>
+          <p>A full-featured booking interface for independent travel agents and non-IATA agencies — search, book, issue, and service airline tickets without accreditation or direct airline contracts.</p>
+          <a href="#" class="pcard__link">Learn more →</a>
+        </div>
+
+        <div class="pcard pcard--mint">
+          <p class="pcard__breadcrumb">DRCT / BT for TMC</p>
+          <span class="pcard__tag">Corporate travel</span>
+          <h3><strong>DRCT</strong> BT TMC</h3>
+          <p>Built for travel management companies handling corporate accounts — policy controls, multi-traveler management, and NDC access integrated into a single workflow.</p>
+          <a href="#" class="pcard__link">Learn more →</a>
+        </div>
+
+        <div class="pcard pcard--dark">
+          <p class="pcard__breadcrumb">DRCT / API</p>
+          <span class="pcard__tag">OTAs · Tech sellers</span>
+          <h3><strong>DRCT</strong> API</h3>
+          <p>A direct API integration for OTAs and tech-enabled travel sellers — programmatic access to the full DRCT distribution layer, including NDC fares, GDS content, and order management endpoints.</p>
+          <a href="#" class="pcard__link">Learn more →</a>
+        </div>
+
+        <div class="pcard pcard--peach">
+          <p class="pcard__breadcrumb">DRCT / Extension</p>
+          <span class="pcard__tag">GDS users</span>
+          <h3><strong>DRCT</strong> Extension</h3>
+          <p>An NDC layer that runs inside the GDS — agents access NDC content, enhanced offers, and direct airline inventory without leaving the GDS interface they already use.</p>
+          <a href="#" class="pcard__link">Learn more →</a>
+        </div>
+
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- ================================================================
+     BLOCK 7 — AIRLINE NETWORK
+     Source: Home / Airlines pages
+================================================================ -->
+<div class="landing-new loaded" style="background: rgba(27,39,51,0.025);">
+  <div class="landing-new__body">
+    <div class="network-wrap">
+
+      <!-- Left: heading + text + CTA -->
+      <div style="width:340px;flex-shrink:0">
+        <div class="sl-pill">Airline Network</div>
+        <h2 style="font-size:27px;line-height:1.2;margin-bottom:16px">Leading carriers.<br>One connection.</h2>
+        <p style="font-size:14px;line-height:1.6;color:var(--dark-70);margin-bottom:8px">Access direct, normalized offers from leading airlines through a single integration.</p>
+        <p style="font-size:14px;line-height:1.6;color:var(--dark-70);margin-bottom:24px">Full content, consistent terms, no per-carrier contracts.</p>
+        <a href="#" style="display:inline-flex;align-items:center;height:36px;padding:0 16px;border:1.5px solid rgba(27,39,51,0.22);border-radius:20px;font-size:13px;font-weight:600;color:var(--dark);text-decoration:none;gap:4px">See full network →</a>
+        <p style="font-family:var(--font-mono);font-size:11px;color:var(--dark-40);margin-top:20px;line-height:1.6">— and 50+ more carriers<br>Full content · Direct NDC</p>
+      </div>
+
+      <!-- Right: airline grid -->
+      <div class="certified__airlines">
+        <div class="certified__airline" title="Lufthansa">
+          <svg xmlns="http://www.w3.org/2000/svg" width="85" height="85" viewBox="0 0 85 85"><rect width="85" height="85" rx="14" fill="#f0f4f8"/><text x="42.5" y="49" font-family="IBM Plex Sans,sans-serif" font-size="13" font-weight="700" fill="#1b2733" text-anchor="middle">LH</text></svg>
+          <p>Lufthansa</p>
+        </div>
+        <div class="certified__airline" title="British Airways">
+          <svg xmlns="http://www.w3.org/2000/svg" width="85" height="85" viewBox="0 0 85 85"><rect width="85" height="85" rx="14" fill="#f0f4f8"/><text x="42.5" y="49" font-family="IBM Plex Sans,sans-serif" font-size="13" font-weight="700" fill="#1b2733" text-anchor="middle">BA</text></svg>
+          <p>British Airways</p>
+        </div>
+        <div class="certified__airline" title="Air France">
+          <svg xmlns="http://www.w3.org/2000/svg" width="85" height="85" viewBox="0 0 85 85"><rect width="85" height="85" rx="14" fill="#f0f4f8"/><text x="42.5" y="49" font-family="IBM Plex Sans,sans-serif" font-size="13" font-weight="700" fill="#1b2733" text-anchor="middle">AF</text></svg>
+          <p>Air France</p>
+        </div>
+        <div class="certified__airline" title="KLM">
+          <svg xmlns="http://www.w3.org/2000/svg" width="85" height="85" viewBox="0 0 85 85"><rect width="85" height="85" rx="14" fill="#f0f4f8"/><text x="42.5" y="49" font-family="IBM Plex Sans,sans-serif" font-size="13" font-weight="700" fill="#1b2733" text-anchor="middle">KL</text></svg>
+          <p>KLM</p>
+        </div>
+        <div class="certified__airline" title="SWISS">
+          <svg xmlns="http://www.w3.org/2000/svg" width="85" height="85" viewBox="0 0 85 85"><rect width="85" height="85" rx="14" fill="#f0f4f8"/><text x="42.5" y="49" font-family="IBM Plex Sans,sans-serif" font-size="13" font-weight="700" fill="#1b2733" text-anchor="middle">LX</text></svg>
+          <p>SWISS</p>
+        </div>
+        <div class="certified__airline" title="Austrian">
+          <svg xmlns="http://www.w3.org/2000/svg" width="85" height="85" viewBox="0 0 85 85"><rect width="85" height="85" rx="14" fill="#f0f4f8"/><text x="42.5" y="49" font-family="IBM Plex Sans,sans-serif" font-size="13" font-weight="700" fill="#1b2733" text-anchor="middle">OS</text></svg>
+          <p>Austrian</p>
+        </div>
+        <div class="certified__airline" title="Brussels Airlines">
+          <svg xmlns="http://www.w3.org/2000/svg" width="85" height="85" viewBox="0 0 85 85"><rect width="85" height="85" rx="14" fill="#f0f4f8"/><text x="42.5" y="49" font-family="IBM Plex Sans,sans-serif" font-size="13" font-weight="700" fill="#1b2733" text-anchor="middle">SN</text></svg>
+          <p>Brussels</p>
+        </div>
+        <div class="certified__airline" title="Iberia">
+          <svg xmlns="http://www.w3.org/2000/svg" width="85" height="85" viewBox="0 0 85 85"><rect width="85" height="85" rx="14" fill="#f0f4f8"/><text x="42.5" y="49" font-family="IBM Plex Sans,sans-serif" font-size="13" font-weight="700" fill="#1b2733" text-anchor="middle">IB</text></svg>
+          <p>Iberia</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ================================================================
+     BLOCK 8 — HOW IT WORKS / SELLER PIPELINE
+     Source: IATA / Non-IATA / TMC / OTA pages
+================================================================ -->
+<div class="landing-new loaded">
+  <div class="landing-new__body">
+    <section class="how">
+      <h2>How it works</h2>
+      <p>From access and booking to accounting and post-sale support — every step runs through a single DRCT layer.</p>
+
+      <div class="pipe">
+        <div class="pipe__step">
+          <h4>Offer</h4>
+          <p>NDC, low-cost, charters</p>
+        </div>
+        <div class="pipe__step pipe__step--on">
+          <h4>Enhancement</h4>
+          <p>Ancillaries, bundles, pricing</p>
+        </div>
+        <div class="pipe__step pipe__step--on">
+          <h4>Delivery</h4>
+          <p>Into your agent interface</p>
+        </div>
+        <div class="pipe__step">
+          <h4>Sale</h4>
+          <p>Book, issue, report</p>
+        </div>
+        <div class="pipe__step">
+          <h4>Post-sale</h4>
+          <p>Changes, refunds, servicing</p>
+        </div>
+      </div>
+
+      <ol class="pipe__list">
+        <li><strong>Offer enhancement</strong> — Airline content from different sources is normalized and enriched — with ancillaries, seat options, and dynamic bundles assembled into complete, comparable offers.</li>
+        <li><strong>Delivery into workflows</strong> — Enhanced offers arrive in the interface your agents already use — with no format switching, no re-entry, and no parallel data streams to reconcile later.</li>
+        <li><strong>Booking and post-sale servicing</strong> — Agents book, issue, and report in one system. DRCT centralizes NDC order management, so changes, cancellations, and refunds are handled in one place — with self-service for routine actions and support for complex cases.</li>
+      </ol>
+    </section>
+  </div>
+</div>
+
+<!-- ================================================================
+     BLOCK 9 — FAQ
+     Source: IATA / Non-IATA pages
+================================================================ -->
+<div class="landing-new loaded" style="background: rgba(27,39,51,0.025);">
+  <div class="landing-new__body">
+    <section class="questions">
+      <h2>Frequently Asked Questions</h2>
+      <div class="questions__body">
+        <ul id="faqList">
+          <li>
+            <h3>How do IATA agents access NDC content through DRCT? <span></span></h3>
+            <p>IATA agents access NDC content through DRCT Extension (a GDS-embedded tool), DRCT Search (a standalone booking interface), or via direct API integration. All options deliver the same normalized NDC content and allow agents to book, issue, and service orders through familiar workflows.</p>
+          </li>
+          <li>
+            <h3>What does NDC integration for agencies actually involve? <span></span></h3>
+            <p>For most agencies, integration means enabling DRCT Extension inside your existing GDS — no new systems, no workflow changes. For tech-enabled agencies, DRCT provides a full API with documentation, sandbox access, and implementation support. Either way, your team gets NDC access without managing airline-by-airline integrations.</p>
+          </li>
+          <li>
+            <h3>How do I manage NDC orders — changes, cancellations, and refunds? <span></span></h3>
+            <p>All NDC order management is handled through DRCT's servicing layer. Agents can initiate changes, void tickets, and request refunds directly — with DRCT normalizing the servicing flow across all connected airlines. No need to contact the airline directly for routine post-booking actions.</p>
+          </li>
+          <li>
+            <h3>Why do NDC bookings sometimes fail, and how does DRCT handle this? <span></span></h3>
+            <p>NDC booking failures can result from airline system timeouts, fare expiry, or validation errors. DRCT monitors these in real time and surfaces clear error messages with recovery guidance. For booking-critical failures, DRCT's 24/7 support team is available to assist directly.</p>
+          </li>
+          <li>
+            <h3>Does DRCT handle the full NDC accounting workflow? <span></span></h3>
+            <p>Yes. DRCT supports BSP settlement for NDC tickets and provides reporting tools that integrate with back-office and mid-office systems. Agents can track NDC bookings alongside GDS content in a single reporting view, with structured data for reconciliation and accounting.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- ================================================================
+     BLOCK 10 — CTA BANNER
+     Source: Home / Airlines pages
+================================================================ -->
+<div class="landing-new loaded">
+  <div class="landing-new__body">
+    <div class="cta-box">
+      <h2>Ready to grow your distribution?</h2>
+      <p>Partner as an airline or get access as a travel seller.</p>
+      <div style="display:flex;justify-content:center;flex-wrap:wrap;gap:10px">
+        <a href="#" class="btn-primary" data-demo>Partner as an Airline →</a>
+        <a href="#" class="btn-outline-dark" data-demo>Get Access as Travel Seller →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================================================================
+     FOOTER
+================================================================ -->
+<footer class="footer">
+  <div class="landing-new__body">
+    <div class="footer__top">
+      <div class="footer__left">
+        <a href="../index.html" class="footer__l">DRCT</a>
+        <ul class="footer__links">
+          <li><a href="../index.html">For agencies</a></li>
+          <li><a href="../airlines/index.html">For airlines</a></li>
+          <li><a href="../developers/index.html">For developers</a></li>
+        </ul>
+      </div>
+      <div class="footer__right">
+        <ul class="footer__policy">
+          <li><a href="#">Privacy policy</a></li>
+          <li><a href="#">Website terms of use</a></li>
+          <li><a href="#">Extension terms of use</a></li>
+        </ul>
+        <div class="footer__f">
+          <a href="#" aria-label="LinkedIn">in</a>
+          <a href="#" aria-label="Facebook">f</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <p>Copyright © 2017–2026 DRCT Ltd. Demajo Business Centre, Level 3-701, Dan Kann Street, Birkirkara, BKR9014, Malta</p>
+    </div>
+  </div>
+</footer>
+
+<!-- Cookie banner -->
+<div class="cookie" id="cookieBanner" style="display:none">
+  <div class="cookie__wrapper">
+    <p>By continuing to use this website, you consent to the use of cookies in accordance with our <a href="#">Privacy policy</a></p>
+    <button id="cookieAccept">OK</button>
+  </div>
+</div>
+
+<script src="../main.js"></script>
+</body>
+</html>
