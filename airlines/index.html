@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>DRCT</title>
-  <meta name="description" content="Sell flights and ancillaries directly with airlines without leaving your GDS. Increase your markups thanks to the agent-oriented software and 0 ticketing fee.">
+  <title>DRCT for Airlines</title>
+  <meta name="description" content="Connect your NDC content to thousands of GDS-based travel agencies. DRCT is a trusted NDC distribution partner for 40+ airlines worldwide.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="../styles.css">
 </head>
 <body>
 
@@ -19,13 +19,13 @@
   <div class="header__links">
     <div class="header__links-left">
       <a href="/" class="header__logo">DRCT</a>
-      <a href="/" class="header__nav-link active">For agencies</a>
-      <a href="/airlines/" class="header__nav-link">For airlines</a>
+      <a href="/" class="header__nav-link">For agencies</a>
+      <a href="/airlines/" class="header__nav-link active">For airlines</a>
       <a href="/developers/" class="header__nav-link">For developers</a>
     </div>
     <div class="header__links-right">
       <a href="#" class="header__signin">Sign in</a>
-      <a href="#" class="header__try">Request Demo</a>
+      <a href="#" class="header__try" data-demo>Become a partner</a>
     </div>
     <button class="header__menu-cross" id="menuToggle" aria-label="Toggle navigation">
       <div class="line-1"></div>
@@ -37,8 +37,8 @@
 <!-- Mobile menu -->
 <div class="mobile-menu" id="mobileMenu">
   <ul class="menu__links">
-    <li><a href="/" class="active">For agencies</a></li>
-    <li><a href="/airlines/">For airlines</a></li>
+    <li><a href="/">For agencies</a></li>
+    <li><a href="/airlines/" class="active">For airlines</a></li>
     <li><a href="/developers/">For developers</a></li>
   </ul>
 </div>
@@ -52,77 +52,90 @@
     <!-- HERO -->
     <section class="info">
       <div class="info__left">
-        <h2>GET THE BEST OF NDC</h2>
-        <p>Unique fares directly from airline channels are now in your GDS. Book, issue tickets, check queues, make changes, and sell ancillary services. No new interfaces. No GDS fees.</p>
-        <a href="#" class="btn-primary" data-demo>Request Demo</a>
+        <h2>THE NDC DISTRIBUTION PARTNER FOR AIRLINES</h2>
+        <p>Connect your NDC content to thousands of GDS-based travel agencies worldwide. DRCT bridges your direct channel to agents — no agency-side complexity, no extra ticketing fees.</p>
+        <a href="#" class="btn-primary" data-demo>Become a partner</a>
       </div>
       <div class="info__right">
-        <video
-          class="info__video"
-          preload="metadata"
-          muted
-          autoplay
-          playsinline
-          loop
-          aria-label="DRCT interface demo"
-        >
-          <source src="https://drct-board-storage.s3.eu-central-1.amazonaws.com/DRCT_en_v2.mp4" type="video/mp4">
-          <!-- Fallback when video can't load -->
-          <div class="info__video-fallback">
-            <div class="terminal-mock">
-              <div class="terminal-mock__header">
-                <ul class="terminal-mock__controls"><li></li><li></li><li></li></ul>
-                <span>DRCT</span>
+        <div class="info__video-fallback">
+          <div class="drct-mock">
+            <div class="drct-mock__bar">
+              <ul class="drct-mock__tabs">
+                <li class="drct-mock__tab active">Search</li>
+                <li class="drct-mock__tab">Bookings</li>
+                <li class="drct-mock__tab">Reports</li>
+              </ul>
+            </div>
+            <div class="drct-mock__search">
+              <div class="drct-mock__field"><span>From</span><strong>London LHR</strong></div>
+              <div class="drct-mock__field"><span>To</span><strong>Frankfurt FRA</strong></div>
+              <div class="drct-mock__field"><span>Date</span><strong>15 Feb</strong></div>
+            </div>
+            <div class="drct-mock__results">
+              <div class="drct-mock__result active-row">
+                <span class="drct-mock__airline">LH</span>
+                <span class="drct-mock__flight">LH 900</span>
+                <span class="drct-mock__time">07:00 – 09:45</span>
+                <span class="drct-mock__price drct-mock__price--ndc">€ 189 <em>NDC</em></span>
               </div>
-              <div class="terminal-mock__body">
-                <div class="terminal-mock__line"><i>&gt;</i><span>FQD LON/LH/D15FEB</span></div>
-                <div class="terminal-mock__result">
-                  <p>01 Y  EUR 245.00 NDC Q EUR 0.00</p>
-                  <p>02 M  EUR 189.00 NDC Q EUR 0.00</p>
-                  <p>03 B  EUR 164.00 NDC Q EUR 0.00</p>
-                  <p>04 K  EUR 129.00 NDC Q EUR 0.00</p>
-                </div>
+              <div class="drct-mock__result">
+                <span class="drct-mock__airline">LH</span>
+                <span class="drct-mock__flight">LH 924</span>
+                <span class="drct-mock__time">10:15 – 13:00</span>
+                <span class="drct-mock__price">€ 245</span>
+              </div>
+              <div class="drct-mock__result">
+                <span class="drct-mock__airline">BA</span>
+                <span class="drct-mock__flight">BA 213</span>
+                <span class="drct-mock__time">14:00 – 16:55</span>
+                <span class="drct-mock__price drct-mock__price--ndc">€ 199 <em>NDC</em></span>
+              </div>
+              <div class="drct-mock__result">
+                <span class="drct-mock__airline">EK</span>
+                <span class="drct-mock__flight">EK 031</span>
+                <span class="drct-mock__time">08:30 – 14:25</span>
+                <span class="drct-mock__price drct-mock__price--ndc">€ 312 <em>NDC</em></span>
               </div>
             </div>
           </div>
-        </video>
+        </div>
       </div>
-      <a href="#" class="info__try-mobile" data-demo>Request Demo</a>
+      <a href="#" class="info__try-mobile" data-demo>Become a partner</a>
     </section>
 
     <!-- ADVANTAGES -->
     <div class="advantages">
       <ul>
-        <li>Installation within 10 minutes</li>
-        <li>30 days free trial</li>
-        <li>24/7 support</li>
+        <li>40+ airlines connected</li>
+        <li>1,000+ travel agencies reached</li>
+        <li>IATA ARM certified</li>
       </ul>
     </div>
 
-    <!-- ONE PLACE -->
+    <!-- FEATURES -->
     <section class="one-place">
       <div class="one-place__mobile-gradient"></div>
-      <h2>All NDC features in familiar interface</h2>
-      <p>DRCT has everything you need to work with bookings.</p>
+      <h2>Everything agencies need from your airline</h2>
+      <p>DRCT delivers your NDC content where agents already work.</p>
       <div class="one-place__body">
 
         <!-- Desktop options accordion -->
         <div class="one-place__options" id="onePlaceOptions">
           <div class="one-place__option active" data-index="0">
-            <h3>Book without leaving GDS <span class="active"></span></h3>
-            <p>Search for flights and create bookings through NDC without leaving the GDS. Available now: Aegean Airlines, airBaltic, American Airlines, British Airways, Brussels Airlines, Emirates, flydubai, Iberia, LOT, Lufthansa, SWISS, TAP, United Airlines and more than 30 other airlines.</p>
+            <h3>Reach agencies in GDS <span class="active"></span></h3>
+            <p>Your NDC fares appear alongside GDS results in agents' existing interfaces. No new tools, no retraining. DRCT connects to Amadeus, Sabre, and Galileo — where most agencies already operate.</p>
           </div>
           <div class="one-place__option" data-index="1">
-            <h3>Manage <span></span></h3>
-            <p>Full access to your reservation. View booking details, passenger information, seat maps, and fare conditions in one place.</p>
+            <h3>Sell ancillaries <span></span></h3>
+            <p>Distribute your full ancillary catalog — seats, bags, meals, and extras — through agency channels. Agents book ancillaries directly within DRCT without leaving their GDS workflow.</p>
           </div>
           <div class="one-place__option" data-index="2">
-            <h3>Control <span></span></h3>
-            <p>Set up roles and booking visibility for your agency and subagents. Manage user access and track all transactions.</p>
+            <h3>Control your distribution <span></span></h3>
+            <p>Define which agencies access your content, set fare rules, and monitor booking volumes in real time through DRCT's reporting dashboard.</p>
           </div>
           <div class="one-place__option" data-index="3">
-            <h3>Make changes <span></span></h3>
-            <p>Exchanges, refunds, and voids — manage the full post-sales lifecycle directly from your GDS workflow without switching tools.</p>
+            <h3>Full post-sales support <span></span></h3>
+            <p>Exchanges, refunds, and voids are handled through DRCT's post-sales workflow. Agencies manage the full booking lifecycle without contacting your support team directly.</p>
           </div>
         </div>
 
@@ -176,32 +189,33 @@
               <div class="drct-mock__bar"><ul class="drct-mock__tabs"><li class="drct-mock__tab active">Search</li><li class="drct-mock__tab">Bookings</li></ul></div>
               <div class="drct-mock__results drct-mock__results--sm">
                 <div class="drct-mock__result active-row"><span class="drct-mock__airline">LH</span><span class="drct-mock__flight">LH 900</span><span class="drct-mock__price drct-mock__price--ndc">€189 <em>NDC</em></span></div>
-                <div class="drct-mock__result"><span class="drct-mock__airline">BA</span><span class="drct-mock__flight">BA 924</span><span class="drct-mock__price">€245</span></div>
+                <div class="drct-mock__result"><span class="drct-mock__airline">BA</span><span class="drct-mock__flight">BA 213</span><span class="drct-mock__price drct-mock__price--ndc">€199 <em>NDC</em></span></div>
               </div>
             </div>
-            <h3>Book without leaving GDS</h3>
-            <p>Search for flights and create bookings through NDC without leaving the GDS.</p>
+            <h3>Reach agencies in GDS</h3>
+            <p>Your NDC fares appear alongside GDS results in agents' existing interfaces.</p>
           </div>
           <div class="one-place__carousel-slide">
             <div class="drct-mock drct-mock--sm">
-              <div class="drct-mock__bar"><ul class="drct-mock__tabs"><li class="drct-mock__tab">Search</li><li class="drct-mock__tab active">Bookings</li></ul></div>
+              <div class="drct-mock__bar"><ul class="drct-mock__tabs"><li class="drct-mock__tab active">Search</li><li class="drct-mock__tab">Bookings</li></ul></div>
               <div class="drct-mock__results drct-mock__results--sm">
-                <div class="drct-mock__result active-row"><span class="drct-mock__airline">LH</span><span class="drct-mock__flight">WRSXYZ</span><span class="drct-mock__price drct-mock__price--ndc">Confirmed <em>NDC</em></span></div>
+                <div class="drct-mock__result active-row"><span>Seat 12A</span><span class="drct-mock__price drct-mock__price--ndc">€19 <em>NDC</em></span></div>
+                <div class="drct-mock__result"><span>Extra bag 23kg</span><span class="drct-mock__price drct-mock__price--ndc">€35 <em>NDC</em></span></div>
               </div>
             </div>
-            <h3>Manage</h3>
-            <p>Full access to your reservation in one place.</p>
+            <h3>Sell ancillaries</h3>
+            <p>Seats, bags, meals and extras distributed through agency channels.</p>
           </div>
           <div class="one-place__carousel-slide">
             <div class="drct-mock drct-mock--sm">
-              <div class="drct-mock__bar"><ul class="drct-mock__tabs"><li class="drct-mock__tab">Search</li><li class="drct-mock__tab active">Reports</li></ul></div>
+              <div class="drct-mock__bar"><ul class="drct-mock__tabs"><li class="drct-mock__tab active">Search</li><li class="drct-mock__tab active">Reports</li></ul></div>
               <div class="drct-mock__results drct-mock__results--sm">
-                <div class="drct-mock__result active-row"><span>Users</span><span class="drct-mock__price">3 active</span></div>
-                <div class="drct-mock__result"><span>Balance</span><span class="drct-mock__price drct-mock__price--ndc">$2,400</span></div>
+                <div class="drct-mock__result active-row"><span>Active agencies</span><span class="drct-mock__price">127</span></div>
+                <div class="drct-mock__result"><span>NDC bookings</span><span class="drct-mock__price drct-mock__price--ndc">3,842</span></div>
               </div>
             </div>
-            <h3>Control</h3>
-            <p>Set up roles and booking visibility.</p>
+            <h3>Control your distribution</h3>
+            <p>Define access rules and monitor NDC performance in real time.</p>
           </div>
           <div class="one-place__carousel-slide">
             <div class="drct-mock drct-mock--sm">
@@ -211,8 +225,8 @@
                 <div class="drct-mock__result"><span>Void</span><span class="drct-mock__price">24h window</span></div>
               </div>
             </div>
-            <h3>Make changes</h3>
-            <p>Exchanges, refunds, voids from your GDS workflow.</p>
+            <h3>Full post-sales support</h3>
+            <p>Exchanges, refunds, and voids handled through DRCT's post-sales workflow.</p>
           </div>
         </div>
         <div class="one-place__carousel-nav" id="carouselNav">
@@ -226,52 +240,52 @@
     </section>
 
   </div><!-- /landing-new__body -->
-</div><!-- /landing-new (above-fold block) -->
+</div><!-- /landing-new (above-fold) -->
 
 <!-- ================================================================
      BENEFITS  —  full-width gradient section
 ================================================================ -->
 <section class="benefits">
   <div class="benefits__container">
-    <h2>Work on the same platform</h2>
-    <p>Keep working in the GDS the way you are used to.</p>
+    <h2>Why airlines choose DRCT</h2>
+    <p>Simple integration, broad agency reach, full post-sales coverage.</p>
     <div class="benefits__body">
       <div class="benefits__list" id="benefitsList">
 
-        <div class="benefit__item benefit__item--0">
+        <div class="benefit__item">
+          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='42' height='42' viewBox='0 0 42 42'%3E%3Crect width='42' height='42' rx='8' fill='%232a8aea' fill-opacity='.12'/%3E%3Cpath stroke='%232a8aea' stroke-width='1.5' fill='none' d='M12 21h18M24 15l6 6-6 6'/%3E%3C/svg%3E" alt="">
+          <h3>Fast integration</h3>
+          <p>Connect your NDC API to DRCT in days. Our team manages the certification, testing, and configuration — you provide NDC access and we handle the rest.</p>
+        </div>
+
+        <div class="benefit__item">
+          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='42' height='42' viewBox='0 0 42 42'%3E%3Crect width='42' height='42' rx='8' fill='%232a8aea' fill-opacity='.12'/%3E%3Ccircle cx='21' cy='21' r='9' fill='none' stroke='%232a8aea' stroke-width='1.5'/%3E%3Ccircle cx='21' cy='21' r='3' fill='%232a8aea'/%3E%3Cpath stroke='%232a8aea' stroke-width='1.5' d='M21 12v3M21 27v3M12 21h3M27 21h3'/%3E%3C/svg%3E" alt="">
+          <h3>Broad agency reach</h3>
+          <p>Your NDC fares reach 1,000+ travel agencies across Amadeus, Sabre, and Galileo — without requiring agencies to adopt new tools or change their workflow.</p>
+        </div>
+
+        <div class="benefit__item">
           <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='42' height='42' viewBox='0 0 42 42'%3E%3Crect width='42' height='42' rx='8' fill='%232a8aea' fill-opacity='.12'/%3E%3Cpath fill='%232a8aea' d='M9 14h24v3H9zm0 5h24v2H9zm0 4h14v2H9z'/%3E%3Crect x='9' y='11' width='24' height='20' rx='3' fill='none' stroke='%232a8aea' stroke-width='1.5'/%3E%3C/svg%3E" alt="">
-          <h3>Pay via BSP</h3>
-          <p>Use your current agreements with airlines you work with now. Nothing changes. Settle your payments via BSP.</p>
+          <h3>BSP settlement</h3>
+          <p>No new commercial model required. Payments settle via standard BSP — your existing agreements with agencies remain unchanged.</p>
         </div>
 
-        <div class="benefit__item benefit__item--1">
-          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='42' height='42' viewBox='0 0 42 42'%3E%3Crect width='42' height='42' rx='8' fill='%232a8aea' fill-opacity='.12'/%3E%3Ccircle cx='17' cy='17' r='4.5' fill='none' stroke='%232a8aea' stroke-width='1.5'/%3E%3Ccircle cx='27' cy='17' r='4.5' fill='none' stroke='%232a8aea' stroke-width='1.5'/%3E%3Cpath stroke='%232a8aea' stroke-width='1.5' fill='none' d='M10 30c0-3.866 3.134-7 7-7h8c3.866 0 7 3.134 7 7'/%3E%3C/svg%3E" alt="">
-          <h3>Add users</h3>
-          <p>Manage your balance, open and close DRCT access, and expand your subagent's network by yourself. No bureaucracy, just easy.</p>
-        </div>
-
-        <div class="benefit__item benefit__item--2">
+        <div class="benefit__item">
           <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='42' height='42' viewBox='0 0 42 42'%3E%3Crect width='42' height='42' rx='8' fill='%232a8aea' fill-opacity='.12'/%3E%3Crect x='13' y='19' width='16' height='12' rx='2' fill='none' stroke='%232a8aea' stroke-width='1.5'/%3E%3Cpath stroke='%232a8aea' stroke-width='1.5' fill='none' d='M16 19v-4a5 5 0 0 1 10 0v4'/%3E%3Ccircle cx='21' cy='25' r='1.5' fill='%232a8aea'/%3E%3C/svg%3E" alt="">
-          <h3>Control personal data</h3>
-          <p>Set up the roles and bookings visibility up to your preferences.</p>
+          <h3>Content control</h3>
+          <p>Set fare access rules, manage which agencies see your NDC content, and monitor distribution performance through DRCT's reporting dashboard.</p>
         </div>
 
-        <div class="benefit__item benefit__item--3">
-          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='42' height='42' viewBox='0 0 42 42'%3E%3Crect width='42' height='42' rx='8' fill='%232a8aea' fill-opacity='.12'/%3E%3Cpath stroke='%232a8aea' stroke-width='1.5' fill='none' d='M21 10a9 9 0 1 1 0 18 9 9 0 0 1 0-18zm0 3v5.5l3.5 2'/%3E%3Cpath fill='%232a8aea' d='M17 9.5l4-2 4 2-1 1.5-3-1.5-3 1.5z'/%3E%3C/svg%3E" alt="">
-          <h3>Stay informed</h3>
-          <p>Receive change notifications and stay updated.</p>
+        <div class="benefit__item">
+          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='42' height='42' viewBox='0 0 42 42'%3E%3Crect width='42' height='42' rx='8' fill='%232a8aea' fill-opacity='.12'/%3E%3Cpath stroke='%232a8aea' stroke-width='1.5' fill='none' d='M14 28l4-8 4 4 3-6 4 10'/%3E%3Crect x='10' y='11' width='22' height='20' rx='2' fill='none' stroke='%232a8aea' stroke-width='1.5'/%3E%3C/svg%3E" alt="">
+          <h3>Ancillary distribution</h3>
+          <p>Sell seats, bags, meals, and extras through agency channels. DRCT passes your full ancillary catalog to agents without losing product fidelity.</p>
         </div>
 
-        <div class="benefit__item benefit__item--4">
-          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='42' height='42' viewBox='0 0 42 42'%3E%3Crect width='42' height='42' rx='8' fill='%232a8aea' fill-opacity='.12'/%3E%3Crect x='12' y='10' width='18' height='22' rx='2' fill='none' stroke='%232a8aea' stroke-width='1.5'/%3E%3Cpath stroke='%232a8aea' stroke-width='1.5' d='M16 16h10M16 20h10M16 24h6'/%3E%3C/svg%3E" alt="">
-          <h3>Keep record</h3>
-          <p>Upload sales from DRCT to your back and mid-offices.</p>
-        </div>
-
-        <div class="benefit__item benefit__item--5">
+        <div class="benefit__item">
           <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='42' height='42' viewBox='0 0 42 42'%3E%3Crect width='42' height='42' rx='8' fill='%232a8aea' fill-opacity='.12'/%3E%3Cpath fill='%232a8aea' d='M21 10l2.7 5.5 6.1.9-4.4 4.3 1 6-5.4-2.9-5.4 2.9 1-6-4.4-4.3 6.1-.9z'/%3E%3C/svg%3E" alt="">
-          <h3>Earn more</h3>
-          <p>Use the search for the cheapest class. DRCT checks every booking for the cheapest class available. If a better price is found, DRCT will send you a notification.</p>
+          <h3>IATA ARM certified</h3>
+          <p>DRCT is certified by IATA as an Airline Retailing Maturity (ARM) System Provider — a trusted, compliant distribution partner that meets industry standards.</p>
         </div>
 
       </div>
@@ -286,10 +300,10 @@
 <div class="landing-new loaded">
   <div class="landing-new__body">
 
-    <!-- WORKING WITH -->
+    <!-- PARTNER AIRLINES -->
     <section class="certified">
-      <h2>Working with</h2>
-      <p class="certified__description">Over 40 leading airlines that have already chosen DRCT as a partner.</p>
+      <h2>Airlines already on DRCT</h2>
+      <p class="certified__description">Over 40 leading airlines trust DRCT to distribute their NDC content to travel agencies worldwide.</p>
       <div class="certified__airlines">
         <div class="certified__airline" title="Aegean Airlines">
           <svg xmlns="http://www.w3.org/2000/svg" width="85" height="85" viewBox="0 0 85 85"><rect width="85" height="85" rx="14" fill="#f0f4f8"/><text x="42.5" y="49" font-family="IBM Plex Sans,sans-serif" font-size="11" font-weight="700" fill="#1b2733" text-anchor="middle">A3</text></svg>
@@ -363,148 +377,47 @@
       </div>
     </section>
 
-    <!-- HOW IT WORKS -->
-    <section class="how">
-      <div class="how__mobile-gradient"></div>
-      <h2>Try it yourself</h2>
-      <p>Enter the fare calculation command from the GDS to get the price from the airline's direct channel.</p>
-      <div class="how__body">
-
-        <div class="how__terminal">
-          <div class="terminal__header">
-            <ul class="terminal__controls">
-              <li></li><li></li><li></li>
-            </ul>
-            <span>DRCT</span>
-            <span class="terminal__drct-icon">
-              <svg width="17" height="17" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="8" cy="8" r="8" fill="#2a8aea"/>
-                <path fill="#fff" d="M5.78 12V4h2.415q1.035 0 1.852.475.817.476 1.275 1.352t.458 1.992v.368q0 1.115-.45 1.983a3.26 3.26 0 0 1-1.27 1.346A3.64 3.64 0 0 1 8.211 12zm1.617-6.665v5.34h.782q.948 0 1.45-.631.501-.632.512-1.808v-.423q0-1.22-.496-1.849-.495-.63-1.45-.629z"/>
-              </svg>
-            </span>
-          </div>
-          <div class="terminal__body">
-            <div class="terminal-input__main">
-              <i>&gt;</i>
-              <input
-                type="text"
-                id="terminalCommand"
-                class="terminal__input"
-                placeholder="FQD LON/LH/D15FEB"
-                autocomplete="off"
-                spellcheck="false"
-              >
-            </div>
-            <div class="terminal-input__commands">
-              <div class="terminal-commands" id="terminalCommandsWide">
-                <p>Put the fare calculation entry as in GDS</p>
-                <ul>
-                  <li data-cmd="FQD LON/LH/D15FEB">FQD LON/LH/D15FEB</li>
-                  <li data-cmd="FQD JFK/BA/D20MAR">FQD JFK/BA/D20MAR</li>
-                  <li data-cmd="FQD CDG/AF/D08APR">FQD CDG/AF/D08APR</li>
-                  <li data-cmd="FQD DXB/EK/D12MAR">FQD DXB/EK/D12MAR</li>
-                </ul>
-              </div>
-              <div id="terminalResultArea" class="terminal-result-area"></div>
-            </div>
-
-            <!-- Mobile commands label -->
-            <div class="terminal-input__commands--mobile">
-              <h3>Put the fare calculation entry as in GDS</h3>
-              <div class="terminal-commands terminal-commands--mobile">
-                <ul>
-                  <li data-cmd="FQD LON/LH/D15FEB">FQD LON/LH/D15FEB</li>
-                  <li data-cmd="FQD JFK/BA/D20MAR">FQD JFK/BA/D20MAR</li>
-                  <li data-cmd="FQD CDG/AF/D08APR">FQD CDG/AF/D08APR</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <!-- Popover result -->
-          <div class="terminal-popover" id="terminalPopover">
-            <div class="terminal-popover__header">
-              <p>DRCT</p>
-              <span>Book to fix your price</span>
-            </div>
-            <div class="terminal-popover__body">
-              <div class="terminal-popover__command" id="popoverCommand">&gt; FQD LON/LH/D15FEB</div>
-              <pre class="terminal-popover__result" id="popoverResult">01 Y EUR 245.00 NDC
-02 M EUR 189.00 NDC
-03 B EUR 164.00 NDC</pre>
-              <button class="terminal-popover__btn" onclick="document.getElementById('terminalPopover').classList.remove('active')">
-                <span>Use your free version to finish the booking</span>
-                <p>BOOK</p>
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <a href="#" class="link-btn" id="changePnr">Try another itinerary</a>
-      </div>
-    </section>
-
     <!-- FAQ -->
     <section class="questions">
       <h2>FAQ</h2>
-      <p>If you didn't find an answer to your question, please ask our support.</p>
+      <p>Have a question about becoming a DRCT partner? Reach out to our team.</p>
       <div class="questions__body">
         <ul id="faqList">
           <li>
-            <h3>Which airlines already work with DRCT? <span></span></h3>
-            <p>Aegean Airlines, airBaltic, American Airlines, British Airways, Brussels Airlines, Emirates, flydubai, Iberia, LOT, Lufthansa, SWISS, TAP, United Airlines and more than 30 other airlines. <a href="#" data-demo>Request a DEMO</a> to get an updated list of integrations.</p>
+            <h3>How does airline integration with DRCT work? <span></span></h3>
+            <p>Provide your NDC API credentials to DRCT. Our team handles certification, testing, and configuration, then distributes your content to all connected agencies. Integration typically takes 2–6 weeks depending on your NDC setup.</p>
           </li>
           <li>
-            <h3>Is DRCT a ticketing agency? <span></span></h3>
-            <p>No, DRCT is a technology provider and airline aggregator. We do not sell air tickets but provide agencies and other ticket sellers with the tech solution for ticketing.</p>
+            <h3>Which NDC standard does DRCT support? <span></span></h3>
+            <p>DRCT supports IATA NDC standard versions 17.2 and 21.3. We work with airlines across all major GDS platforms and can accommodate airline-specific extensions to the standard.</p>
           </li>
           <li>
-            <h3>Will I lose my incentive agreement with the airline? <span></span></h3>
-            <p>No, all sales via DRCT will be done under your own airline agreements. If it includes incentives, you keep it.</p>
+            <h3>Do travel agencies need new credentials or training? <span></span></h3>
+            <p>No. Agencies access your NDC fares through the DRCT extension within their existing GDS. There is no new interface, no separate login, and no retraining required for agency teams.</p>
           </li>
           <li>
-            <h3>What is NDC? <span></span></h3>
-            <p>New Distribution Capabilities (NDC) is an XML-based data transmission standard. NDC enables data transmission directly from air carriers to agents bypassing outdated intermediates such as GDS. It provides access to complete airline content including exclusive fares, ancillaries, and personalised offers.</p>
+            <h3>How are NDC bookings settled? <span></span></h3>
+            <p>Bookings made through DRCT settle via standard BSP — the same process as your existing GDS sales. Your commercial agreements with agencies remain unchanged.</p>
           </li>
           <li>
-            <h3>How to get credentials from an airline? <span></span></h3>
-            <p>DRCT's team assists with the application process for airline NDC credentials. Contact us and we will help you get started with all the major airlines in our network.</p>
+            <h3>Can we control which agencies access our content? <span></span></h3>
+            <p>Yes. DRCT provides airline-side controls for managing content access. You can set rules by agency, by GDS, or by booking type, and monitor distribution in real time through DRCT reporting.</p>
           </li>
           <li>
-            <h3>How to start working? <span></span></h3>
-            <p>Installation takes only 10 minutes. Request a demo and our team will guide you through the setup process and 30-day free trial.</p>
+            <h3>What post-sales operations does DRCT support? <span></span></h3>
+            <p>DRCT supports date changes, fare exchanges, refunds, and voids — all processed through the same workflow agencies use for standard GDS bookings. We handle the complexity so agencies don't need to contact your support team directly.</p>
           </li>
           <li>
-            <h3>Which IATA office is used for ticketing? <span></span></h3>
-            <p>Ticketing is done via your own IATA office number. DRCT does not issue tickets — your agency does, using your own credentials and BSP settlement.</p>
+            <h3>Is DRCT IATA certified? <span></span></h3>
+            <p>Yes. DRCT is certified by IATA as an Airline Retailing Maturity (ARM) System Provider, confirming we meet IATA's standards for NDC distribution and airline retailing.</p>
           </li>
           <li>
-            <h3>Can I trust DRCT? <span></span></h3>
-            <p>DRCT is certified by IATA as an Airline Retailing Maturity (ARM) System Provider. We work with over 40 airlines and hundreds of agencies globally.</p>
-          </li>
-          <li>
-            <h3>How to make a refund or exchange? <span></span></h3>
-            <p>Refunds and exchanges can be processed directly within the DRCT interface or through your GDS workflow, depending on the airline's NDC capabilities.</p>
-          </li>
-          <li>
-            <h3>What should I do if my airline's NDC lacks functionality? <span></span></h3>
-            <p>Our support team provides 24/7 assistance and can escalate directly to the airline's NDC team. We also proactively monitor NDC quality and flag issues before they affect your workflow.</p>
-          </li>
-          <li>
-            <h3>Is it possible to get an ADM using DRCT? <span></span></h3>
-            <p>DRCT specifically protects against ADMs. Our workflows are designed to comply with airline requirements and avoid debit memos. We own the migration risk so you don't have to.</p>
-          </li>
-          <li>
-            <h3>How is the search for cheaper booking classes working? <span></span></h3>
-            <p>DRCT automatically checks every booking for lower NDC fare classes post-purchase. If a better price is found before ticketing, you receive a notification with the option to reprice.</p>
-          </li>
-          <li>
-            <h3>Are the queues available in DRCT? <span></span></h3>
-            <p>Yes, DRCT integrates with your GDS queues. You can monitor NDC bookings alongside your regular GDS queue workflow without switching interfaces.</p>
+            <h3>How long does onboarding take? <span></span></h3>
+            <p>Most airline integrations go live within 2–6 weeks. Our team manages the certification, testing, and configuration process — you provide NDC access and we handle the rest.</p>
           </li>
         </ul>
       </div>
-      <a href="#" class="link-btn" data-demo>Ask a question</a>
+      <a href="#" class="link-btn" data-demo>Contact us</a>
     </section>
 
   </div><!-- /landing-new__body -->
@@ -565,6 +478,6 @@
   </div>
 </div>
 
-<script src="main.js"></script>
+<script src="../main.js"></script>
 </body>
 </html>

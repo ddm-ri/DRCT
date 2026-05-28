@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>DRCT for Developers</title>
+  <meta name="description" content="Integrate NDC flight content from 40+ airlines into your travel product. DRCT API provides search, booking, ticketing, and post-sales in a single integration.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+
+<!-- ================================================================
+     HEADER
+================================================================ -->
+<header class="header" id="header">
+  <div class="header__links">
+    <div class="header__links-left">
+      <a href="/" class="header__logo">DRCT</a>
+      <a href="/" class="header__nav-link">For agencies</a>
+      <a href="/airlines/" class="header__nav-link">For airlines</a>
+      <a href="/developers/" class="header__nav-link active">For developers</a>
+    </div>
+    <div class="header__links-right">
+      <a href="#" class="header__signin">Sign in</a>
+      <a href="#" class="header__try" data-demo>Get API access</a>
+    </div>
+    <button class="header__menu-cross" id="menuToggle" aria-label="Toggle navigation">
+      <div class="line-1"></div>
+      <div class="line-2"></div>
+    </button>
+  </div>
+</header>
+
+<!-- Mobile menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <ul class="menu__links">
+    <li><a href="/">For agencies</a></li>
+    <li><a href="/airlines/">For airlines</a></li>
+    <li><a href="/developers/" class="active">For developers</a></li>
+  </ul>
+</div>
+
+<!-- ================================================================
+     LANDING — ABOVE THE FOLD
+================================================================ -->
+<div class="landing-new loaded">
+  <div class="landing-new__body">
+
+    <!-- HERO -->
+    <section class="info">
+      <div class="info__left">
+        <h2>BUILD WITH DRCT API</h2>
+        <p>Integrate NDC flight content from 40+ airlines into your travel product. One API for search, booking, ticketing, and post-sales across all connected airlines — no per-airline integrations.</p>
+        <a href="#" class="btn-primary" data-demo>Get API access</a>
+      </div>
+      <div class="info__right">
+        <div class="info__video-fallback">
+          <div class="terminal-mock">
+            <div class="terminal-mock__header">
+              <ul class="terminal-mock__controls"><li></li><li></li><li></li></ul>
+              <span>DRCT API</span>
+            </div>
+            <div class="terminal-mock__body">
+              <div class="terminal-mock__line">
+                <i>&gt;</i>
+                <span>FQD LON/LH/D15FEB</span>
+              </div>
+              <div class="terminal-mock__result">
+                <p>01 Y  EUR 245.00 NDC Q EUR 0.00</p>
+                <p>02 M  EUR 189.00 NDC Q EUR 0.00</p>
+                <p>03 B  EUR 164.00 NDC Q EUR 0.00</p>
+                <p>04 K  EUR 129.00 NDC Q EUR 0.00</p>
+              </div>
+              <div class="terminal-mock__line" style="margin-top:12px">
+                <i>&gt;</i>
+                <span>FQD JFK/BA/D20MAR</span>
+              </div>
+              <div class="terminal-mock__result">
+                <p>01 F  USD 4120.00 NDC Q USD 0.00</p>
+                <p>02 J  USD 2890.00 NDC Q USD 0.00</p>
+                <p>03 Y  USD  890.00 NDC Q USD 0.00</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <a href="#" class="info__try-mobile" data-demo>Get API access</a>
+    </section>
+
+    <!-- ADVANTAGES -->
+    <div class="advantages">
+      <ul>
+        <li>REST API</li>
+        <li>40+ airlines connected</li>
+        <li>Full post-sales coverage</li>
+      </ul>
+    </div>
+
+    <!-- API FEATURES -->
+    <section class="one-place">
+      <div class="one-place__mobile-gradient"></div>
+      <h2>Everything you need in one integration</h2>
+      <p>The full NDC booking lifecycle — from search to refund.</p>
+      <div class="one-place__body">
+
+        <!-- Desktop options accordion -->
+        <div class="one-place__options" id="onePlaceOptions">
+          <div class="one-place__option active" data-index="0">
+            <h3>Search NDC fares <span class="active"></span></h3>
+            <p>A single API call returns NDC fares from all connected airlines. GDS-compatible fare query format (FQD-style) so you can integrate alongside existing GDS workflows without a separate search stack.</p>
+          </div>
+          <div class="one-place__option" data-index="1">
+            <h3>Book and ticket <span></span></h3>
+            <p>Create PNRs, issue tickets, and manage payment via your existing IATA credentials and BSP. No new commercial arrangements or ticketing authorities required.</p>
+          </div>
+          <div class="one-place__option" data-index="2">
+            <h3>Manage bookings <span></span></h3>
+            <p>Retrieve full booking details, seat maps, fare conditions, and passenger information through the API. Build rich booking management interfaces without airline-by-airline integration work.</p>
+          </div>
+          <div class="one-place__option" data-index="3">
+            <h3>Handle post-sales <span></span></h3>
+            <p>Exchanges, refunds, and voids all go through the same API endpoints. DRCT normalises airline-specific post-sales rules so your product handles every case the same way.</p>
+          </div>
+        </div>
+
+        <!-- Desktop screenshot -->
+        <div class="one-place__details" id="onePlaceDetails">
+          <div class="one-place__screenshot-wrap" id="onePlaceScreenshot">
+            <div class="drct-mock" data-index="0">
+              <div class="drct-mock__bar">
+                <ul class="drct-mock__tabs">
+                  <li class="drct-mock__tab active">Search</li>
+                  <li class="drct-mock__tab">Bookings</li>
+                  <li class="drct-mock__tab">Reports</li>
+                </ul>
+              </div>
+              <div class="drct-mock__search">
+                <div class="drct-mock__field"><span>From</span><strong>London LHR</strong></div>
+                <div class="drct-mock__field"><span>To</span><strong>Frankfurt FRA</strong></div>
+                <div class="drct-mock__field"><span>Date</span><strong>15 Feb 2024</strong></div>
+              </div>
+              <div class="drct-mock__results">
+                <div class="drct-mock__result active-row">
+                  <span class="drct-mock__airline">LH</span>
+                  <span class="drct-mock__flight">LH 900</span>
+                  <span class="drct-mock__time">07:00 – 09:45</span>
+                  <span class="drct-mock__price drct-mock__price--ndc">€ 189 <em>NDC</em></span>
+                </div>
+                <div class="drct-mock__result">
+                  <span class="drct-mock__airline">LH</span>
+                  <span class="drct-mock__flight">LH 924</span>
+                  <span class="drct-mock__time">10:15 – 13:00</span>
+                  <span class="drct-mock__price">€ 245</span>
+                </div>
+                <div class="drct-mock__result">
+                  <span class="drct-mock__airline">LH</span>
+                  <span class="drct-mock__flight">LH 938</span>
+                  <span class="drct-mock__time">14:30 – 17:10</span>
+                  <span class="drct-mock__price">€ 164</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Mobile carousel -->
+      <div class="one-place__carousel" id="onePlaceCarousel">
+        <div class="one-place__carousel-track" id="carouselTrack">
+          <div class="one-place__carousel-slide">
+            <div class="drct-mock drct-mock--sm">
+              <div class="drct-mock__bar"><ul class="drct-mock__tabs"><li class="drct-mock__tab active">Search</li><li class="drct-mock__tab">Bookings</li></ul></div>
+              <div class="drct-mock__results drct-mock__results--sm">
+                <div class="drct-mock__result active-row"><span class="drct-mock__airline">LH</span><span class="drct-mock__flight">LH 900</span><span class="drct-mock__price drct-mock__price--ndc">€189 <em>NDC</em></span></div>
+                <div class="drct-mock__result"><span class="drct-mock__airline">BA</span><span class="drct-mock__flight">BA 924</span><span class="drct-mock__price">€245</span></div>
+              </div>
+            </div>
+            <h3>Search NDC fares</h3>
+            <p>One API call returns fares from all connected airlines alongside GDS results.</p>
+          </div>
+          <div class="one-place__carousel-slide">
+            <div class="drct-mock drct-mock--sm">
+              <div class="drct-mock__bar"><ul class="drct-mock__tabs"><li class="drct-mock__tab">Search</li><li class="drct-mock__tab active">Bookings</li></ul></div>
+              <div class="drct-mock__results drct-mock__results--sm">
+                <div class="drct-mock__result active-row"><span class="drct-mock__airline">LH</span><span class="drct-mock__flight">WRSXYZ</span><span class="drct-mock__price drct-mock__price--ndc">Confirmed <em>NDC</em></span></div>
+              </div>
+            </div>
+            <h3>Book and ticket</h3>
+            <p>Create PNRs and issue tickets via your IATA credentials and BSP settlement.</p>
+          </div>
+          <div class="one-place__carousel-slide">
+            <div class="drct-mock drct-mock--sm">
+              <div class="drct-mock__bar"><ul class="drct-mock__tabs"><li class="drct-mock__tab">Search</li><li class="drct-mock__tab active">Reports</li></ul></div>
+              <div class="drct-mock__results drct-mock__results--sm">
+                <div class="drct-mock__result active-row"><span>Users</span><span class="drct-mock__price">3 active</span></div>
+                <div class="drct-mock__result"><span>Balance</span><span class="drct-mock__price drct-mock__price--ndc">$2,400</span></div>
+              </div>
+            </div>
+            <h3>Manage bookings</h3>
+            <p>Full booking details, seat maps, and fare conditions through one API.</p>
+          </div>
+          <div class="one-place__carousel-slide">
+            <div class="drct-mock drct-mock--sm">
+              <div class="drct-mock__bar"><ul class="drct-mock__tabs"><li class="drct-mock__tab active">Changes</li><li class="drct-mock__tab">Refunds</li></ul></div>
+              <div class="drct-mock__results drct-mock__results--sm">
+                <div class="drct-mock__result active-row"><span>Exchange</span><span class="drct-mock__price drct-mock__price--ndc">Available</span></div>
+                <div class="drct-mock__result"><span>Void</span><span class="drct-mock__price">24h window</span></div>
+              </div>
+            </div>
+            <h3>Handle post-sales</h3>
+            <p>Exchanges, refunds, and voids — same endpoints for every airline.</p>
+          </div>
+        </div>
+        <div class="one-place__carousel-nav" id="carouselNav">
+          <span class="active" data-slide="0"></span>
+          <span data-slide="1"></span>
+          <span data-slide="2"></span>
+          <span data-slide="3"></span>
+        </div>
+      </div>
+
+    </section>
+
+  </div><!-- /landing-new__body -->
+</div><!-- /landing-new (above-fold) -->
+
+<!-- ================================================================
+     BENEFITS  —  full-width gradient section
+================================================================ -->
+<section class="benefits">
+  <div class="benefits__container">
+    <h2>Built for developers</h2>
+    <p>Straightforward integration, comprehensive documentation, and production-ready APIs.</p>
+    <div class="benefits__body">
+      <div class="benefits__list" id="benefitsList">
+
+        <div class="benefit__item">
+          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='42' height='42' viewBox='0 0 42 42'%3E%3Crect width='42' height='42' rx='8' fill='%232a8aea' fill-opacity='.12'/%3E%3Cpath fill='none' stroke='%232a8aea' stroke-width='1.5' d='M15 17l-5 4 5 4M27 17l5 4-5 4M23 14l-4 14'/%3E%3C/svg%3E" alt="">
+          <h3>Single API endpoint</h3>
+          <p>One integration covers 40+ airlines. No per-airline SDKs, no separate credentials per carrier. DRCT normalises differences across NDC implementations so you don't have to.</p>
+        </div>
+
+        <div class="benefit__item">
+          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='42' height='42' viewBox='0 0 42 42'%3E%3Crect width='42' height='42' rx='8' fill='%232a8aea' fill-opacity='.12'/%3E%3Crect x='11' y='14' width='20' height='14' rx='2' fill='none' stroke='%232a8aea' stroke-width='1.5'/%3E%3Cpath stroke='%232a8aea' stroke-width='1.5' d='M15 21h12M21 17v8'/%3E%3C/svg%3E" alt="">
+          <h3>REST architecture</h3>
+          <p>Standard JSON over HTTPS. Compatible with any language or framework. Full OpenAPI spec available — import into your favourite HTTP client and start testing in minutes.</p>
+        </div>
+
+        <div class="benefit__item">
+          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='42' height='42' viewBox='0 0 42 42'%3E%3Crect width='42' height='42' rx='8' fill='%232a8aea' fill-opacity='.12'/%3E%3Cpath stroke='%232a8aea' stroke-width='1.5' fill='none' d='M21 12a9 9 0 1 1 0 18 9 9 0 0 1 0-18zM21 16v6l4 2'/%3E%3C/svg%3E" alt="">
+          <h3>Sandbox environment</h3>
+          <p>Full sandbox with simulated airline responses. Test search, booking, ticketing, and post-sales without live transactions. Sandbox credentials provided with API access.</p>
+        </div>
+
+        <div class="benefit__item">
+          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='42' height='42' viewBox='0 0 42 42'%3E%3Crect width='42' height='42' rx='8' fill='%232a8aea' fill-opacity='.12'/%3E%3Cpath stroke='%232a8aea' stroke-width='1.5' fill='none' d='M14 21c0-3.866 3.134-7 7-7s7 3.134 7 7-3.134 7-7 7'/%3E%3Cpath stroke='%232a8aea' stroke-width='1.5' fill='none' d='M21 28v4M19 30h4'/%3E%3Ccircle cx='21' cy='21' r='2' fill='%232a8aea'/%3E%3C/svg%3E" alt="">
+          <h3>GDS-compatible commands</h3>
+          <p>DRCT API accepts GDS-style fare entry commands (FQD-style). Integrate alongside existing GDS workflows — your agents see NDC fares in the same format they already know.</p>
+        </div>
+
+        <div class="benefit__item">
+          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='42' height='42' viewBox='0 0 42 42'%3E%3Crect width='42' height='42' rx='8' fill='%232a8aea' fill-opacity='.12'/%3E%3Cpath stroke='%232a8aea' stroke-width='1.5' fill='none' d='M11 30l6-8 5 5 4-6 5 9'/%3E%3Crect x='9' y='11' width='24' height='20' rx='2' fill='none' stroke='%232a8aea' stroke-width='1.5'/%3E%3C/svg%3E" alt="">
+          <h3>Webhooks and queues</h3>
+          <p>Receive real-time notifications for booking changes, schedule disruptions, and queue events. Configure webhook endpoints in your DRCT developer account for any booking lifecycle event.</p>
+        </div>
+
+        <div class="benefit__item">
+          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='42' height='42' viewBox='0 0 42 42'%3E%3Crect width='42' height='42' rx='8' fill='%232a8aea' fill-opacity='.12'/%3E%3Crect x='12' y='10' width='18' height='22' rx='2' fill='none' stroke='%232a8aea' stroke-width='1.5'/%3E%3Cpath stroke='%232a8aea' stroke-width='1.5' d='M16 16h10M16 20h10M16 24h6'/%3E%3C/svg%3E" alt="">
+          <h3>Full documentation</h3>
+          <p>OpenAPI spec, integration guides, code examples, and error reference available at developers.drct.aero. 24/7 developer support for integration questions.</p>
+        </div>
+
+      </div>
+      <a href="#" class="link-btn" id="benefitsToggle">View more</a>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================
+     BELOW-FOLD SECTIONS
+================================================================ -->
+<div class="landing-new loaded">
+  <div class="landing-new__body">
+
+    <!-- TRY THE API -->
+    <section class="how">
+      <div class="how__mobile-gradient"></div>
+      <h2>Try it yourself</h2>
+      <p>Enter the fare calculation command from the GDS to get the price from the airline's direct channel.</p>
+      <div class="how__body">
+
+        <div class="how__terminal">
+          <div class="terminal__header">
+            <ul class="terminal__controls">
+              <li></li><li></li><li></li>
+            </ul>
+            <span>DRCT</span>
+            <span class="terminal__drct-icon">
+              <svg width="17" height="17" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="8" cy="8" r="8" fill="#2a8aea"/>
+                <path fill="#fff" d="M5.78 12V4h2.415q1.035 0 1.852.475.817.476 1.275 1.352t.458 1.992v.368q0 1.115-.45 1.983a3.26 3.26 0 0 1-1.27 1.346A3.64 3.64 0 0 1 8.211 12zm1.617-6.665v5.34h.782q.948 0 1.45-.631.501-.632.512-1.808v-.423q0-1.22-.496-1.849-.495-.63-1.45-.629z"/>
+              </svg>
+            </span>
+          </div>
+          <div class="terminal__body">
+            <div class="terminal-input__main">
+              <i>&gt;</i>
+              <input
+                type="text"
+                id="terminalCommand"
+                class="terminal__input"
+                placeholder="FQD LON/LH/D15FEB"
+                autocomplete="off"
+                spellcheck="false"
+              >
+            </div>
+            <div class="terminal-input__commands">
+              <div class="terminal-commands" id="terminalCommandsWide">
+                <p>Put the fare calculation entry as in GDS</p>
+                <ul>
+                  <li data-cmd="FQD LON/LH/D15FEB">FQD LON/LH/D15FEB</li>
+                  <li data-cmd="FQD JFK/BA/D20MAR">FQD JFK/BA/D20MAR</li>
+                  <li data-cmd="FQD CDG/AF/D08APR">FQD CDG/AF/D08APR</li>
+                  <li data-cmd="FQD DXB/EK/D12MAR">FQD DXB/EK/D12MAR</li>
+                </ul>
+              </div>
+              <div id="terminalResultArea" class="terminal-result-area"></div>
+            </div>
+
+            <!-- Mobile commands label -->
+            <div class="terminal-input__commands--mobile">
+              <h3>Put the fare calculation entry as in GDS</h3>
+              <div class="terminal-commands terminal-commands--mobile">
+                <ul>
+                  <li data-cmd="FQD LON/LH/D15FEB">FQD LON/LH/D15FEB</li>
+                  <li data-cmd="FQD JFK/BA/D20MAR">FQD JFK/BA/D20MAR</li>
+                  <li data-cmd="FQD CDG/AF/D08APR">FQD CDG/AF/D08APR</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Popover result -->
+          <div class="terminal-popover" id="terminalPopover">
+            <div class="terminal-popover__header">
+              <p>DRCT</p>
+              <span>Book to fix your price</span>
+            </div>
+            <div class="terminal-popover__body">
+              <div class="terminal-popover__command" id="popoverCommand">&gt; FQD LON/LH/D15FEB</div>
+              <pre class="terminal-popover__result" id="popoverResult">01 Y EUR 245.00 NDC
+02 M EUR 189.00 NDC
+03 B EUR 164.00 NDC</pre>
+              <button class="terminal-popover__btn" onclick="document.getElementById('terminalPopover').classList.remove('active')">
+                <span>Use your free version to finish the booking</span>
+                <p>BOOK</p>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <a href="#" class="link-btn" id="changePnr">Try another itinerary</a>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="questions">
+      <h2>FAQ</h2>
+      <p>If you didn't find an answer to your question, please reach out to our developer support.</p>
+      <div class="questions__body">
+        <ul id="faqList">
+          <li>
+            <h3>How do I get API access? <span></span></h3>
+            <p>Request access through this page. Our team will provide sandbox credentials within 24–48 hours. Production access follows once your integration testing is complete and reviewed.</p>
+          </li>
+          <li>
+            <h3>Is there a sandbox environment? <span></span></h3>
+            <p>Yes. All API partners receive full sandbox access with simulated airline responses. You can test search, booking, ticketing, and post-sales endpoints without live transactions or billing.</p>
+          </li>
+          <li>
+            <h3>Which authentication method does the API use? <span></span></h3>
+            <p>The DRCT API uses API key authentication passed via request header. Full authentication documentation, including request signing and token refresh flows, is available at developers.drct.aero.</p>
+          </li>
+          <li>
+            <h3>Which airlines are available through the API? <span></span></h3>
+            <p>The API provides access to all 40+ airlines connected to DRCT, including Lufthansa, British Airways, Emirates, American Airlines, Iberia, SWISS, TAP, LOT, and more. The full live list is available at developers.drct.aero.</p>
+          </li>
+          <li>
+            <h3>Which GDS platforms are supported? <span></span></h3>
+            <p>DRCT integrates with Amadeus, Sabre, and Galileo/Travelport. You can use the API independently or as part of a GDS-integrated workflow — both approaches are fully supported.</p>
+          </li>
+          <li>
+            <h3>Are webhooks available for booking events? <span></span></h3>
+            <p>Yes. DRCT provides webhooks for booking status changes, schedule disruptions, and queue notifications. Configure webhook endpoints in your DRCT developer account for any booking lifecycle event.</p>
+          </li>
+          <li>
+            <h3>Where is the API documentation? <span></span></h3>
+            <p>Full API reference, integration guides, and OpenAPI spec are available at <a href="https://developers.drct.aero/" target="_blank" rel="noopener">developers.drct.aero</a>. The documentation covers all endpoints, request/response formats, and error codes.</p>
+          </li>
+          <li>
+            <h3>What is the pricing model? <span></span></h3>
+            <p>DRCT collects a fixed service fee only when a booking is ticketed — no subscription, no monthly fee, no per-search charge. Contact us for volume pricing on high-traffic implementations.</p>
+          </li>
+        </ul>
+      </div>
+      <a href="#" class="link-btn" data-demo>Ask a question</a>
+    </section>
+
+  </div><!-- /landing-new__body -->
+</div><!-- /landing-new (below-fold) -->
+
+<!-- ================================================================
+     FOOTER
+================================================================ -->
+<footer class="footer">
+  <div class="footer__top">
+    <div class="footer__left">
+      <div class="footer__links">
+        <span>Products</span>
+        <ul>
+          <li><a href="/">For agencies</a></li>
+          <li><a href="/airlines/">For airlines</a></li>
+          <li><a href="/developers/">For developers</a></li>
+        </ul>
+      </div>
+      <div class="footer__links footer__policy">
+        <span><a href="#">Policy</a></span>
+        <ul>
+          <li><a href="#">Privacy policy</a></li>
+          <li><a href="#">Website terms of use</a></li>
+          <li><a href="#">Extension terms of use</a></li>
+          <li><a href="#">Communication policy</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__right">
+      <span>Follow us</span>
+      <ul>
+        <li>
+          <a href="https://www.linkedin.com/company/drct/" target="_blank" rel="noopener" class="footer__l" aria-label="LinkedIn"></a>
+        </li>
+        <li>
+          <a href="https://www.facebook.com/drct.aero/" target="_blank" rel="noopener" class="footer__f" aria-label="Facebook"></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer__bottom">
+    <div>
+      <i>© 2024 DRCT</i>
+      <ul>
+        <li><a href="#">Privacy</a></li>
+        <li><a href="#">Terms</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<!-- Cookie banner -->
+<div class="cookie" id="cookieBanner" style="display:none">
+  <div class="cookie__wrapper">
+    <p>By continuing to use this website, you consent to the use of cookies in accordance with our <a href="#">Privacy policy</a>.</p>
+    <button id="cookieAccept">OK</button>
+  </div>
+</div>
+
+<script src="../main.js"></script>
+</body>
+</html>
