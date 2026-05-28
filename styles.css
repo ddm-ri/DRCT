@@ -1118,6 +1118,18 @@ a.inline-link,
   width: 16px;
 }
 
+/* Filled track behind slider */
+.savings__track-fill {
+  background-color: var(--blue);
+  border-radius: 15px;
+  height: 4px;
+  left: 20px;
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  width: 0;
+}
+
 /* Custom dot handle overlay */
 .savings__dot {
   background-color: var(--blue);

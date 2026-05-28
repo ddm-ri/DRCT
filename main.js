@@ -177,6 +177,7 @@ document.addEventListener('DOMContentLoaded', function () {
   --------------------------------------------------------------- */
   var slider            = document.getElementById('savingsSlider');
   var dot               = document.getElementById('savingsDot');
+  var trackFill         = document.getElementById('savingsTrackFill');
   var amountDesktop     = document.getElementById('savingsAmountDesktop');
   var ticketsDesktop    = document.getElementById('savingsTicketsDesktop');
   var amountMobile      = document.getElementById('savingsAmountMobile');
@@ -219,6 +220,11 @@ document.addEventListener('DOMContentLoaded', function () {
     var leftPx = pad + pct * usable;
 
     dot.style.left = leftPx + 'px';
+
+    // Update filled track width
+    if (trackFill) {
+      trackFill.style.width = (leftPx - pad) + 'px';
+    }
 
     // Also move desktop tooltip to follow dot on wide screens
     if (tooltipDesktop && window.innerWidth > 1024) {
