@@ -460,11 +460,16 @@
 </div>
 
 <!-- ================================================================
+     SHARED GRADIENT SURFACE — blocks 4 + 5 flow as one continuous section
+================================================================ -->
+<div style="background-image: linear-gradient(180deg, rgba(42,138,234,0.04) 0%, rgba(42,138,234,0.17) 22%, rgba(42,138,234,0.11) 48%, rgba(42,138,234,0.14) 68%, rgba(42,138,234,0.04) 100%);">
+
+<!-- ================================================================
      BLOCK 4 — WHY DRCT (6 features)
      Components: .benefits, .benefits__container, .benefits__list, .benefit__item × 6
      JS: main.js hides items 3–5, #benefitsToggle shows/hides them
 ================================================================ -->
-<section class="benefits">
+<section class="benefits" style="background: transparent;">
   <div class="benefits__container">
     <h2>Why Airlines Choose DRCT</h2>
     <p>Full agent coverage, autonomous sales, and consistent offer delivery — across every channel type.</p>
@@ -514,10 +519,10 @@
 </section>
 
 <!-- ================================================================
-     BLOCK 5 — PROBLEMS WE SOLVE (dark)
-     Components: .landing-new (near-black), .how heading, .prob-wrap/.prob-card
+     BLOCK 5 — PROBLEMS WE SOLVE
+     Components: .landing-new, .how heading, .prob-wrap/.prob-card
 ================================================================ -->
-<div class="landing-new loaded" style="background-image: linear-gradient(180deg, rgba(42,138,234,0.06) 0%, rgba(42,138,234,0.13) 50%, rgba(42,138,234,0.05) 100%);">
+<div class="landing-new loaded" style="background: transparent;">
   <div class="landing-new__body">
     <section class="how" style="padding-bottom: 80px;">
       <h2 style="max-width: 680px; margin: 0 auto 0; line-height: 1.2;">Challenges in Airline Distribution — and How DRCT Solves Them</h2>
@@ -584,6 +589,8 @@
     </section>
   </div>
 </div>
+
+</div><!-- /shared gradient surface blocks 4+5 -->
 
 <!-- ================================================================
      BLOCK 6 — PRODUCT OVERVIEW
