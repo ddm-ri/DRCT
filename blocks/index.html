@@ -463,46 +463,9 @@
       }
     }
 
-    /* Block 8: side-split layout */
-    .how-split {
-      display: flex;
-      gap: 56px;
-      align-items: flex-start;
-      margin-top: 44px;
-    }
-    .how-split__text {
-      flex: 0 0 300px;
-    }
-    .how-split__visual {
-      flex: 1;
-      min-width: 0;
-    }
-    .how-split__text .pipe-list {
-      margin-top: 24px;
-      padding-left: 0;
-    }
-    .how-split__text .pipe-list li {
-      position: relative;
-      padding: 14px 0 14px 26px;
-      border-top: 1px solid rgba(27,39,51,0.07);
-      font-size: 13px;
-      line-height: 1.6;
-      color: rgba(27,39,51,0.75);
-      margin-bottom: 0;
-    }
-    .how-split__text .pipe-list li::before {
-      content: attr(data-n);
-      position: absolute;
-      left: 0;
-      top: 16px;
-      font-family: var(--font-mono);
-      font-size: 10px;
-      font-weight: 700;
-      color: var(--blue);
-    }
-    @media (max-width: 767px) {
-      .how-split { flex-direction: column; gap: 32px; }
-      .how-split__text { flex: none; width: 100%; }
+    /* Block 8: one-place details — override fixed height for live drct-mock */
+    .one-place__details {
+      height: auto;
     }
   </style>
 </head>
@@ -1072,64 +1035,104 @@
 
 <!-- ================================================================
      BLOCK 8 — SELLER PIPELINE
-     Components: .how heading, .how__body, .drct-mock interface
+     Components: .one-place (direct reuse — JS-controlled accordion + mock)
+     data-index maps to updateOnePlaceMock(idx) configs in main.js:
+       0 = Search, 1 = Bookings, 3 = Changes/post-sale
 ================================================================ -->
 <div class="landing-new loaded">
   <div class="landing-new__body">
-    <section class="how">
+    <section class="one-place">
+
       <h2>How it works for sellers</h2>
       <p>From access and booking to accounting and post-sale support — every step runs through a single DRCT layer.</p>
 
-      <div class="how-split">
+      <div class="one-place__body">
 
-        <div class="how-split__text">
-          <ol class="pipe-list">
-            <li data-n="01"><strong>Offer enhancement</strong> — Airline content from different sources is normalized and enriched — ancillaries, seat options, and dynamic bundles assembled into complete, comparable offers.</li>
-            <li data-n="02"><strong>Delivery into workflows</strong> — Enhanced offers arrive in the interface agents already use — no format switching, no re-entry, no parallel data streams to reconcile.</li>
-            <li data-n="03"><strong>Booking and post-sale</strong> — Agents book, issue, and report in one system. DRCT centralizes NDC order management so changes, cancellations, and refunds are handled in one place.</li>
-          </ol>
+        <!-- Desktop accordion (left) -->
+        <div class="one-place__options">
+
+          <div class="one-place__option active" data-index="0">
+            <h3>Offer enhancement <span class="active"></span></h3>
+            <p>Airline content from different sources is normalized and enriched — ancillaries, seat options, and dynamic bundles assembled into complete, comparable offers.</p>
+          </div>
+
+          <div class="one-place__option" data-index="1">
+            <h3>Delivery into workflows <span></span></h3>
+            <p>Enhanced offers arrive in the interface agents already use — no format switching, no re-entry, no parallel data streams to reconcile.</p>
+          </div>
+
+          <div class="one-place__option" data-index="3">
+            <h3>Booking and post-sale <span></span></h3>
+            <p>Agents book, issue, and report in one system. DRCT centralizes NDC order management so changes, cancellations, and refunds are handled in one place.</p>
+          </div>
+
         </div>
 
-        <div class="how-split__visual">
-          <div class="drct-mock" style="box-shadow: var(--shadow-image); border: 1px solid var(--dark-15); border-radius: 1px;">
-            <div class="drct-mock__bar">
-              <ul class="drct-mock__tabs">
-                <li class="drct-mock__tab active">Search</li>
-                <li class="drct-mock__tab">Bookings</li>
-                <li class="drct-mock__tab">Reports</li>
-                <li class="drct-mock__tab">Changes</li>
-              </ul>
-            </div>
-            <div class="drct-mock__search">
-              <div class="drct-mock__field"><span>From</span><strong>London LHR</strong></div>
-              <div class="drct-mock__field"><span>To</span><strong>Frankfurt FRA</strong></div>
-              <div class="drct-mock__field"><span>Date</span><strong>15 Feb 2024</strong></div>
-              <div class="drct-mock__field"><span>Channel</span><strong>NDC + GDS</strong></div>
-            </div>
-            <div class="drct-mock__results">
-              <div class="drct-mock__result active-row">
-                <span class="drct-mock__airline">LH</span>
-                <span class="drct-mock__flight">LH 900</span>
-                <span class="drct-mock__time">07:00 – 09:45</span>
-                <span class="drct-mock__price drct-mock__price--ndc">€ 189 <em>NDC</em></span>
+        <!-- Desktop visual preview (right) — updated by main.js on option click -->
+        <div class="one-place__details">
+          <div class="one-place__screenshot-wrap">
+            <div class="drct-mock">
+              <div class="drct-mock__bar">
+                <ul class="drct-mock__tabs">
+                  <li class="drct-mock__tab active">Search</li>
+                  <li class="drct-mock__tab">Bookings</li>
+                  <li class="drct-mock__tab">Reports</li>
+                </ul>
               </div>
-              <div class="drct-mock__result">
-                <span class="drct-mock__airline">LH</span>
-                <span class="drct-mock__flight">LH 924</span>
-                <span class="drct-mock__time">10:15 – 13:00</span>
-                <span class="drct-mock__price">€ 245</span>
+              <div class="drct-mock__search">
+                <div class="drct-mock__field"><span>From</span><strong>London LHR</strong></div>
+                <div class="drct-mock__field"><span>To</span><strong>Frankfurt FRA</strong></div>
+                <div class="drct-mock__field"><span>Date</span><strong>15 Feb</strong></div>
               </div>
-              <div class="drct-mock__result">
-                <span class="drct-mock__airline">BA</span>
-                <span class="drct-mock__flight">BA 438</span>
-                <span class="drct-mock__time">09:30 – 12:20</span>
-                <span class="drct-mock__price drct-mock__price--ndc">€ 174 <em>NDC</em></span>
+              <div class="drct-mock__results">
+                <div class="drct-mock__result active-row">
+                  <span class="drct-mock__airline">LH</span>
+                  <span class="drct-mock__flight">LH 900</span>
+                  <span class="drct-mock__time">07:00 – 09:45</span>
+                  <span class="drct-mock__price drct-mock__price--ndc">€ 189 <em>NDC</em></span>
+                </div>
+                <div class="drct-mock__result">
+                  <span class="drct-mock__airline">LH</span>
+                  <span class="drct-mock__flight">LH 924</span>
+                  <span class="drct-mock__time">10:15 – 13:00</span>
+                  <span class="drct-mock__price">€ 245</span>
+                </div>
+                <div class="drct-mock__result">
+                  <span class="drct-mock__airline">LH</span>
+                  <span class="drct-mock__flight">LH 938</span>
+                  <span class="drct-mock__time">14:30 – 17:10</span>
+                  <span class="drct-mock__price">€ 164</span>
+                </div>
               </div>
             </div>
           </div>
         </div>
 
-      </div>
+      </div><!-- /.one-place__body -->
+
+      <!-- Mobile carousel -->
+      <div class="one-place__carousel">
+        <div class="one-place__carousel-track" id="carouselTrack">
+          <div class="one-place__carousel-slide">
+            <h3>Offer enhancement</h3>
+            <p>Airline content from different sources is normalized and enriched — ancillaries, seat options, and dynamic bundles assembled into complete, comparable offers.</p>
+          </div>
+          <div class="one-place__carousel-slide">
+            <h3>Delivery into workflows</h3>
+            <p>Enhanced offers arrive in the interface agents already use — no format switching, no re-entry, no parallel data streams to reconcile.</p>
+          </div>
+          <div class="one-place__carousel-slide">
+            <h3>Booking and post-sale</h3>
+            <p>Agents book, issue, and report in one system. DRCT centralizes NDC order management so changes, cancellations, and refunds are handled in one place.</p>
+          </div>
+        </div>
+        <div class="one-place__carousel-nav" id="carouselNav">
+          <span class="active"></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div><!-- /.one-place__carousel -->
+
     </section>
   </div>
 </div>
