@@ -254,8 +254,8 @@
     .ps-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 16px;
-      margin-top: 48px;
+      gap: 24px;
+      margin-top: 52px;
     }
     .ps-card {
       display: flex;
@@ -269,7 +269,7 @@
     .ps-card--wide { grid-column: 1 / -1; }
     .ps-half {
       flex: 1;
-      padding: 28px 24px;
+      padding: 32px 28px;
       display: flex;
       flex-direction: column;
     }
@@ -283,11 +283,21 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 36px;
+      width: 48px;
       flex-shrink: 0;
-      background: linear-gradient(180deg, rgba(180,80,0,0.04) 0%, rgba(42,138,234,0.04) 100%);
-      border-left: 1px solid rgba(180,80,0,0.09);
-      border-right: 1px solid rgba(42,138,234,0.09);
+      background: rgba(27,39,51,0.018);
+    }
+    .ps-split__circle {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: var(--white);
+      border: 1px solid rgba(27,39,51,0.1);
+      box-shadow: 0 2px 8px rgba(27,39,51,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
     }
     .ps-icon {
       width: 40px;
@@ -329,12 +339,8 @@
       .ps-grid { grid-template-columns: 1fr; }
       .ps-card--wide { grid-column: 1; }
       .ps-card { flex-direction: column; }
-      .ps-split {
-        width: auto; height: 32px;
-        border-left: none; border-right: none;
-        border-top: 1px solid rgba(180,80,0,0.09);
-        border-bottom: 1px solid rgba(42,138,234,0.09);
-      }
+      .ps-split { width: auto; height: 44px; background: rgba(27,39,51,0.018); }
+      .ps-split__circle { transform: rotate(90deg); }
     }
 
     /* Product cards */
@@ -820,7 +826,9 @@
             <p>Managing separate connections for GDS, NDC, and direct channels creates operational overhead. Mixing content without a unified layer leads to reconciliation errors and inconsistent workflows.</p>
           </div>
           <div class="ps-split">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 8h10M9 5l3 3-3 3" stroke="rgba(27,39,51,0.25)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <div class="ps-split__circle">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 6h8M7 3l3 3-3 3" stroke="rgba(27,39,51,0.45)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
           </div>
           <div class="ps-half ps-half--sol">
             <div class="ps-icon ps-icon--sol">
@@ -851,7 +859,9 @@
             <p>GDS channels were not built for modern airline retailing. Bundles, ancillaries, and dynamic offers are either not supported or not displayed correctly, leading to lost revenue.</p>
           </div>
           <div class="ps-split">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 8h10M9 5l3 3-3 3" stroke="rgba(27,39,51,0.25)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <div class="ps-split__circle">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 6h8M7 3l3 3-3 3" stroke="rgba(27,39,51,0.45)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
           </div>
           <div class="ps-half ps-half--sol">
             <div class="ps-icon ps-icon--sol">
@@ -882,7 +892,9 @@
             <p>Traditional GDS models introduce multiple intermediaries, increasing cost-per-booking without proportional value. Airlines have limited control over how distribution costs scale.</p>
           </div>
           <div class="ps-split">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 8h10M9 5l3 3-3 3" stroke="rgba(27,39,51,0.25)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <div class="ps-split__circle">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 6h8M7 3l3 3-3 3" stroke="rgba(27,39,51,0.45)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
           </div>
           <div class="ps-half ps-half--sol">
             <div class="ps-icon ps-icon--sol">
@@ -912,7 +924,9 @@
             <p>Agents rely on familiar GDS workflows. NDC adoption is slowed by operational challenges — inconsistent booking flows, NDC ADM risk, and settlement complexity.</p>
           </div>
           <div class="ps-split">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 8h10M9 5l3 3-3 3" stroke="rgba(27,39,51,0.25)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <div class="ps-split__circle">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 6h8M7 3l3 3-3 3" stroke="rgba(27,39,51,0.45)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
           </div>
           <div class="ps-half ps-half--sol">
             <div class="ps-icon ps-icon--sol">
@@ -940,7 +954,9 @@
             <p>When distribution is fragmented, airlines lose control over pricing signals. Offers are reshaped or degraded across channels, making effective revenue management difficult.</p>
           </div>
           <div class="ps-split">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 8h10M9 5l3 3-3 3" stroke="rgba(27,39,51,0.25)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <div class="ps-split__circle">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 6h8M7 3l3 3-3 3" stroke="rgba(27,39,51,0.45)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
           </div>
           <div class="ps-half ps-half--sol">
             <div class="ps-icon ps-icon--sol">
