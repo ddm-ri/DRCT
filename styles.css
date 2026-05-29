@@ -411,7 +411,7 @@ a.inline-link,
 }
 
 .info__right {
-  border-radius: 5px;
+  border-radius: 8px;
   width: 520px;
 }
 @media (max-width: 1024px) {
@@ -861,7 +861,7 @@ a.inline-link,
 /* Terminal popover */
 .terminal-popover {
   background-color: var(--white);
-  border-radius: 4px;
+  border-radius: 8px;
   box-shadow: var(--shadow-pop);
   font-family: var(--font-sans);
   opacity: 0;
@@ -1048,7 +1048,7 @@ a.inline-link,
 
 .savings__tooltip {
   background-color: var(--white);
-  border-radius: 5px;
+  border-radius: 8px;
   box-shadow: var(--shadow-card);
   margin-bottom: 6px;
   padding: 11px 16px;
@@ -1240,7 +1240,7 @@ a.inline-link,
 }
 
 .one-place__option {
-  border-radius: 4px;
+  border-radius: 8px;
   cursor: pointer;
   margin-bottom: 8px;
   padding: 18px 20px;
