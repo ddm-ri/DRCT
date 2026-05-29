@@ -1,0 +1,164 @@
+/* ================================================================
+   DRCT DESIGN SYSTEM — TYPOGRAPHY
+   Requires: tokens.css
+================================================================ */
+
+/* Google Fonts — load in <head> before this stylesheet */
+/* <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&family=IBM+Plex+Sans:wght@400;500;600;700;900&display=swap" rel="stylesheet"> */
+
+/* ---------------------------------------------------------------
+   BASE
+--------------------------------------------------------------- */
+body {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1;
+  color: var(--dark);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ---------------------------------------------------------------
+   SCALE  (desktop → mobile overrides at breakpoints)
+--------------------------------------------------------------- */
+
+/* H1 — hero / major hero heading */
+.type-h1 {
+  font-family: var(--font-sans);
+  font-size: 31px;
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--dark);
+}
+
+/* H2 — section headings */
+.type-h2,
+.section-h2 {
+  font-family: var(--font-sans);
+  font-size: 31px;
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--dark);
+  text-align: center;
+}
+
+/* H3 — card/feature headings */
+.type-h3 {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--dark);
+}
+
+/* Card heading (inside split cards) */
+.type-card-h {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--dark);
+  margin: 0 0 10px;
+}
+
+/* Body / paragraph */
+.type-body {
+  font-family: var(--font-sans);
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--dark-70);
+}
+
+/* Description / secondary body */
+.type-desc {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--dark-70);
+}
+
+/* Small card body */
+.type-small {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.6;
+  color: rgba(27,39,51,0.65);
+}
+
+/* Eyebrow / overline label */
+.type-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+}
+
+/* Tab / nav label */
+.type-tab {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+}
+
+/* Button label */
+.type-btn {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+}
+
+/* Footer / micro */
+.type-micro {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--dark-40);
+}
+
+/* Field label */
+.type-field-label {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  color: var(--dark-40);
+}
+
+/* Mono / terminal / price */
+.type-mono {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 400;
+}
+
+/* ---------------------------------------------------------------
+   COLOR MODIFIERS (semantic)
+--------------------------------------------------------------- */
+.text-default  { color: var(--dark); }
+.text-muted    { color: var(--dark-70); }
+.text-subtle   { color: var(--dark-40); }
+.text-blue     { color: var(--blue); }
+.text-amber    { color: #c07000; }
+.text-error    { color: var(--error); }
+.text-success  { color: var(--success); }
+.text-warning  { color: var(--warning); }
+
+/* ---------------------------------------------------------------
+   RESPONSIVE OVERRIDES
+--------------------------------------------------------------- */
+@media (max-width: 413px) {
+  .type-h2,
+  .section-h2 { font-size: 27px; }
+  .type-h1    { font-size: 27px; }
+}
