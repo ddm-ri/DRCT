@@ -145,20 +145,25 @@
       font-size: 11px;
       font-weight: 600;
       color: var(--blue);
-      margin-bottom: 12px;
+      margin-bottom: 10px;
       letter-spacing: 0.3px;
     }
+    .step-icon {
+      margin-bottom: 12px;
+      line-height: 1;
+    }
+    .step-icon svg { display: block; }
     .step-col h3 {
       font-size: 16px;
       font-weight: 700;
       color: var(--dark);
-      margin-bottom: 8px;
+      margin-bottom: 10px;
       line-height: 1.3;
     }
     .step-col p {
       font-size: 14px;
       line-height: 1.57;
-      color: rgba(27,39,51,0.9);
+      color: rgba(27,39,51,0.7);
     }
     @media (max-width: 767px) {
       .step-row { flex-direction: column; }
@@ -455,26 +460,65 @@
       <p>Every step from airline inventory to confirmed booking — handled through one unified layer.</p>
 
       <div class="step-row">
+
         <div class="step-col">
           <p class="step-num">01</p>
+          <div class="step-icon">
+            <!-- Inbox tray: ingest / receive -->
+            <svg width="18" height="18" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="2" y="10.5" width="12" height="4" rx="1" stroke="#2a8aea" stroke-width="1.2"/>
+              <path d="M8 2v7M5.5 7l2.5 2.5L10.5 7" stroke="#2a8aea" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
           <h3>Offer ingestion</h3>
           <p>DRCT ingests your offers, normalizing them into a unified structure while preserving full offer logic and attributes across GDS and NDC channels.</p>
         </div>
+
         <div class="step-col">
           <p class="step-num">02</p>
+          <div class="step-icon">
+            <!-- Two inputs merge into one: assemble -->
+            <svg width="18" height="18" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="3" cy="5" r="1.6" stroke="#2a8aea" stroke-width="1.2"/>
+              <circle cx="3" cy="11" r="1.6" stroke="#2a8aea" stroke-width="1.2"/>
+              <circle cx="13" cy="8" r="1.6" stroke="#2a8aea" stroke-width="1.2"/>
+              <path d="M4.6 5.6L11.4 8M4.6 10.4L11.4 8" stroke="#2a8aea" stroke-width="1.2" stroke-linecap="round"/>
+            </svg>
+          </div>
           <h3>Assembly and enrichment</h3>
           <p>DRCT assembles and enriches offers — including virtual interlining, where itineraries are built from multiple airline offers to create routing options not available through a single carrier.</p>
         </div>
+
         <div class="step-col">
           <p class="step-num">03</p>
+          <div class="step-icon">
+            <!-- One source fans out to multiple: distribute -->
+            <svg width="18" height="18" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="3" cy="8" r="1.6" stroke="#2a8aea" stroke-width="1.2"/>
+              <circle cx="13" cy="4" r="1.6" stroke="#2a8aea" stroke-width="1.2"/>
+              <circle cx="13" cy="8" r="1.6" stroke="#2a8aea" stroke-width="1.2"/>
+              <circle cx="13" cy="12" r="1.6" stroke="#2a8aea" stroke-width="1.2"/>
+              <path d="M4.6 8L11.4 4M4.6 8L11.4 8M4.6 8L11.4 12" stroke="#2a8aea" stroke-width="1.2" stroke-linecap="round"/>
+            </svg>
+          </div>
           <h3>Distribution to sellers</h3>
           <p>Enriched offers are delivered to every connected seller — through DRCT Extension, Search, or API — intact and consistent across all channels.</p>
         </div>
+
         <div class="step-col">
           <p class="step-num">04</p>
+          <div class="step-icon">
+            <!-- Document with checkmark: order confirmed -->
+            <svg width="18" height="18" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="3" y="2" width="10" height="12" rx="1.5" stroke="#2a8aea" stroke-width="1.2"/>
+              <path d="M5.5 7.8l2 2 3-3.6" stroke="#2a8aea" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M5.5 11.5h5" stroke="#2a8aea" stroke-width="1.2" stroke-linecap="round" opacity="0.4"/>
+            </svg>
+          </div>
           <h3>Order management</h3>
           <p>All post-booking operations — changes, cancellations, refunds, ancillaries — handled through DRCT's order layer. Airlines retain full visibility while agents service bookings independently.</p>
         </div>
+
       </div>
     </section>
   </div>
