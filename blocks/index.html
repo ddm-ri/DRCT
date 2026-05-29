@@ -258,6 +258,7 @@
       margin-top: 52px;
     }
     .ps-card {
+      position: relative;
       display: flex;
       align-items: stretch;
       border: 1px solid rgba(27,39,51,0.09);
@@ -275,17 +276,18 @@
     }
     .ps-half--prob {
       background: linear-gradient(150deg, rgba(180,80,0,0.05) 0%, rgba(180,80,0,0.014) 100%);
+      border-right: 1px solid rgba(27,39,51,0.07);
     }
     .ps-half--sol {
       background: linear-gradient(150deg, rgba(42,138,234,0.065) 0%, rgba(42,138,234,0.018) 100%);
     }
+    /* Circle floats absolutely on the boundary between the two halves */
     .ps-split {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 48px;
-      flex-shrink: 0;
-      background: rgba(27,39,51,0.018);
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 2;
     }
     .ps-split__circle {
       width: 34px;
@@ -293,11 +295,10 @@
       border-radius: 50%;
       background: var(--white);
       border: 1px solid rgba(27,39,51,0.1);
-      box-shadow: 0 2px 8px rgba(27,39,51,0.1);
+      box-shadow: 0 2px 10px rgba(27,39,51,0.12);
       display: flex;
       align-items: center;
       justify-content: center;
-      flex-shrink: 0;
     }
     .ps-icon {
       width: 40px;
@@ -339,7 +340,7 @@
       .ps-grid { grid-template-columns: 1fr; }
       .ps-card--wide { grid-column: 1; }
       .ps-card { flex-direction: column; }
-      .ps-split { width: auto; height: 44px; background: rgba(27,39,51,0.018); }
+      .ps-half--prob { border-right: none; border-bottom: 1px solid rgba(27,39,51,0.07); }
       .ps-split__circle { transform: rotate(90deg); }
     }
 
