@@ -374,17 +374,173 @@
       .product-card { width: 100%; }
     }
 
-    /* Pipeline ol */
+    /* Pipeline ol — legacy, overridden in split context */
     .pipe-list {
-      list-style: decimal;
-      padding-left: 18px;
+      list-style: none;
+      padding-left: 0;
       margin-top: 36px;
     }
     .pipe-list li {
       font-size: 14px;
-      line-height: 1.7;
-      color: rgba(27,39,51,0.9);
+      line-height: 1.6;
+      color: rgba(27,39,51,0.8);
       margin-bottom: 10px;
+    }
+
+    /* ── Structural enhancements (forhers-inspired composition) ── */
+
+    /* Section eyebrow opener */
+    .sect-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 1.4px;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 14px;
+    }
+    .sect-eyebrow::before {
+      content: '';
+      width: 22px;
+      height: 1px;
+      background: currentColor;
+      flex-shrink: 0;
+    }
+
+    /* Full-width bridge statement between major sections */
+    .bridge {
+      padding: 60px 0;
+      border-top: 1px solid rgba(27,39,51,0.07);
+      border-bottom: 1px solid rgba(27,39,51,0.07);
+      text-align: center;
+    }
+    .bridge__text {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--dark);
+      line-height: 1.25;
+      max-width: 580px;
+      margin: 0 auto;
+      letter-spacing: -0.3px;
+    }
+    .bridge__sub {
+      margin-top: 12px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--dark-40);
+      letter-spacing: 0.3px;
+    }
+    @media (max-width: 767px) {
+      .bridge__text { font-size: 21px; }
+    }
+
+    /* Large display step numbers */
+    .step-num {
+      font-family: var(--font-mono);
+      font-size: 48px;
+      font-weight: 900;
+      color: rgba(27,39,51,0.07);
+      margin-bottom: 16px;
+      letter-spacing: -2px;
+      line-height: 1;
+    }
+
+    /* Numbered product list */
+    .product-list {
+      margin-top: 44px;
+    }
+    .product-entry {
+      display: grid;
+      grid-template-columns: 28px 1fr auto;
+      column-gap: 28px;
+      align-items: start;
+      padding: 28px 0;
+      border-top: 1px solid rgba(27,39,51,0.08);
+    }
+    .product-entry__n {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      color: rgba(27,39,51,0.18);
+      padding-top: 4px;
+    }
+    .product-entry__tag {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--dark-40);
+      letter-spacing: 0.5px;
+      margin-bottom: 5px;
+    }
+    .product-entry__title {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 8px;
+      line-height: 1.2;
+    }
+    .product-entry__desc {
+      font-size: 14px;
+      line-height: 1.57;
+      color: rgba(27,39,51,0.6);
+    }
+    .product-entry__link {
+      padding-top: 4px;
+      white-space: nowrap;
+    }
+    @media (max-width: 767px) {
+      .product-entry {
+        grid-template-columns: 24px 1fr;
+        grid-template-rows: auto auto;
+      }
+      .product-entry__link {
+        grid-column: 2;
+        padding-top: 10px;
+      }
+    }
+
+    /* Block 8: side-split layout */
+    .how-split {
+      display: flex;
+      gap: 56px;
+      align-items: flex-start;
+      margin-top: 44px;
+    }
+    .how-split__text {
+      flex: 0 0 300px;
+    }
+    .how-split__visual {
+      flex: 1;
+      min-width: 0;
+    }
+    .how-split__text .pipe-list {
+      margin-top: 24px;
+      padding-left: 0;
+    }
+    .how-split__text .pipe-list li {
+      position: relative;
+      padding: 14px 0 14px 26px;
+      border-top: 1px solid rgba(27,39,51,0.07);
+      font-size: 13px;
+      line-height: 1.6;
+      color: rgba(27,39,51,0.75);
+      margin-bottom: 0;
+    }
+    .how-split__text .pipe-list li::before {
+      content: attr(data-n);
+      position: absolute;
+      left: 0;
+      top: 16px;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--blue);
+    }
+    @media (max-width: 767px) {
+      .how-split { flex-direction: column; gap: 32px; }
+      .how-split__text { flex: none; width: 100%; }
     }
   </style>
 </head>
@@ -466,12 +622,25 @@
 </div>
 
 <!-- ================================================================
+     BRIDGE STATEMENT
+================================================================ -->
+<div class="landing-new loaded">
+  <div class="landing-new__body">
+    <div class="bridge">
+      <p class="bridge__text">One distribution layer — built for modern airline retailing.</p>
+      <p class="bridge__sub">60+ airlines connected &nbsp;·&nbsp; GDS &amp; NDC unified &nbsp;·&nbsp; Every channel type</p>
+    </div>
+  </div>
+</div>
+
+<!-- ================================================================
      BLOCK 2 — PLATFORM DIAGRAM / HOW IT WORKS
      Components: .how, .how__body, .how__terminal (adapted wide), terminal chrome
 ================================================================ -->
 <div class="landing-new loaded" style="background: rgba(27,39,51,0.025);">
   <div class="landing-new__body">
     <section class="how">
+      <div class="sect-eyebrow">Platform</div>
       <h2>How It Works</h2>
       <p>DRCT connects your inventory to travel sellers through a single distribution layer — preserving offer structure and enabling full control over how your content is delivered and managed.</p>
 
@@ -557,6 +726,7 @@
 <div class="landing-new loaded">
   <div class="landing-new__body">
     <section class="how">
+      <div class="sect-eyebrow">Process</div>
       <h2>From offer to order</h2>
       <p>Every step from airline inventory to confirmed booking — handled through one unified layer.</p>
 
@@ -637,6 +807,7 @@
 ================================================================ -->
 <section class="benefits" style="background: transparent;">
   <div class="benefits__container">
+    <div class="sect-eyebrow">Why DRCT</div>
     <h2>Why Airlines Choose DRCT</h2>
     <p>Full agent coverage, autonomous sales, and consistent offer delivery — across every channel type.</p>
     <div class="benefits__body">
@@ -691,6 +862,7 @@
 <div class="landing-new loaded" style="background: transparent;">
   <div class="landing-new__body">
     <section class="how" style="padding-bottom: 80px;">
+      <div class="sect-eyebrow">Challenges</div>
       <h2 style="max-width: 680px; margin: 0 auto 0; line-height: 1.2;">Challenges in Airline Distribution — and How DRCT Solves Them</h2>
       <p style="color: rgba(27,39,51,0.6);">Airlines lose control of their offers across GDS and indirect channels. DRCT provides a unified layer to distribute, manage, and preserve offers consistently.</p>
 
@@ -817,37 +989,50 @@
 <div class="landing-new loaded">
   <div class="landing-new__body">
     <section class="how">
+      <div class="sect-eyebrow">Products</div>
       <h2>Tools to adapt, enhance, and activate airline offers.</h2>
       <p>One distribution layer, four surfaces — each tuned to a specific audience of travel sellers.</p>
 
-      <div class="product-wrap">
+      <div class="product-list">
 
-        <div class="product-card">
-          <span class="product-tag">DRCT / BT · Agencies · Non-IATA</span>
-          <h3>DRCT BT</h3>
-          <p>A full-featured booking interface for independent travel agents and non-IATA agencies — search, book, issue, and service airline tickets without accreditation or direct airline contracts.</p>
-          <a href="#" class="link-btn">Learn more →</a>
+        <div class="product-entry">
+          <span class="product-entry__n">01</span>
+          <div>
+            <p class="product-entry__tag">Agencies · Non-IATA</p>
+            <h3 class="product-entry__title">DRCT BT</h3>
+            <p class="product-entry__desc">A full-featured booking interface for independent travel agents and non-IATA agencies — search, book, issue, and service airline tickets without accreditation or direct airline contracts.</p>
+          </div>
+          <a href="#" class="link-btn product-entry__link">Learn more →</a>
         </div>
 
-        <div class="product-card">
-          <span class="product-tag">DRCT / BT TMC · Corporate travel</span>
-          <h3>DRCT BT TMC</h3>
-          <p>Built for travel management companies handling corporate accounts — policy controls, multi-traveler management, and NDC access integrated into a single workflow.</p>
-          <a href="#" class="link-btn">Learn more →</a>
+        <div class="product-entry">
+          <span class="product-entry__n">02</span>
+          <div>
+            <p class="product-entry__tag">Corporate travel</p>
+            <h3 class="product-entry__title">DRCT BT TMC</h3>
+            <p class="product-entry__desc">Built for travel management companies handling corporate accounts — policy controls, multi-traveler management, and NDC access integrated into a single workflow.</p>
+          </div>
+          <a href="#" class="link-btn product-entry__link">Learn more →</a>
         </div>
 
-        <div class="product-card">
-          <span class="product-tag">DRCT / API · OTAs · Tech sellers</span>
-          <h3>DRCT API</h3>
-          <p>A direct API integration for OTAs and tech-enabled travel sellers — programmatic access to the full DRCT distribution layer, including NDC fares, GDS content, and order management endpoints.</p>
-          <a href="#" class="link-btn">Learn more →</a>
+        <div class="product-entry">
+          <span class="product-entry__n">03</span>
+          <div>
+            <p class="product-entry__tag">OTAs · Tech sellers</p>
+            <h3 class="product-entry__title">DRCT API</h3>
+            <p class="product-entry__desc">A direct API integration for OTAs and tech-enabled travel sellers — programmatic access to the full DRCT distribution layer, including NDC fares, GDS content, and order management endpoints.</p>
+          </div>
+          <a href="#" class="link-btn product-entry__link">Learn more →</a>
         </div>
 
-        <div class="product-card">
-          <span class="product-tag">DRCT / Extension · GDS users</span>
-          <h3>DRCT Extension</h3>
-          <p>An NDC layer that runs inside the GDS — agents access NDC content, enhanced offers, and direct airline inventory without leaving the GDS interface they already use.</p>
-          <a href="#" class="link-btn">Learn more →</a>
+        <div class="product-entry">
+          <span class="product-entry__n">04</span>
+          <div>
+            <p class="product-entry__tag">GDS users</p>
+            <h3 class="product-entry__title">DRCT Extension</h3>
+            <p class="product-entry__desc">An NDC layer that runs inside the GDS — agents access NDC content, enhanced offers, and direct airline inventory without leaving the GDS interface they already use.</p>
+          </div>
+          <a href="#" class="link-btn product-entry__link">Learn more →</a>
         </div>
 
       </div>
@@ -862,6 +1047,7 @@
 <div class="landing-new loaded" style="background: rgba(27,39,51,0.025);">
   <div class="landing-new__body">
     <section class="certified">
+      <div class="sect-eyebrow">Network</div>
       <h2>Leading carriers. One connection.</h2>
       <p class="certified__description">Access direct, normalized offers from leading airlines through a single integration — full content, consistent terms, no per-carrier contracts.</p>
       <div class="certified__airlines">
@@ -948,53 +1134,60 @@
 <div class="landing-new loaded">
   <div class="landing-new__body">
     <section class="how">
+      <div class="sect-eyebrow">For Sellers</div>
       <h2>How it works for sellers</h2>
       <p>From access and booking to accounting and post-sale support — every step runs through a single DRCT layer.</p>
 
-      <div class="how__body">
-        <div class="drct-mock" style="box-shadow: var(--shadow-image); border: 1px solid var(--dark-15); border-radius: 1px;">
-          <div class="drct-mock__bar">
-            <ul class="drct-mock__tabs">
-              <li class="drct-mock__tab active">Search</li>
-              <li class="drct-mock__tab">Bookings</li>
-              <li class="drct-mock__tab">Reports</li>
-              <li class="drct-mock__tab">Changes</li>
-            </ul>
-          </div>
-          <div class="drct-mock__search">
-            <div class="drct-mock__field"><span>From</span><strong>London LHR</strong></div>
-            <div class="drct-mock__field"><span>To</span><strong>Frankfurt FRA</strong></div>
-            <div class="drct-mock__field"><span>Date</span><strong>15 Feb 2024</strong></div>
-            <div class="drct-mock__field"><span>Channel</span><strong>NDC + GDS</strong></div>
-          </div>
-          <div class="drct-mock__results">
-            <div class="drct-mock__result active-row">
-              <span class="drct-mock__airline">LH</span>
-              <span class="drct-mock__flight">LH 900</span>
-              <span class="drct-mock__time">07:00 – 09:45</span>
-              <span class="drct-mock__price drct-mock__price--ndc">€ 189 <em>NDC</em></span>
+      <div class="how-split">
+
+        <div class="how-split__text">
+          <ol class="pipe-list">
+            <li data-n="01"><strong>Offer enhancement</strong> — Airline content from different sources is normalized and enriched — ancillaries, seat options, and dynamic bundles assembled into complete, comparable offers.</li>
+            <li data-n="02"><strong>Delivery into workflows</strong> — Enhanced offers arrive in the interface agents already use — no format switching, no re-entry, no parallel data streams to reconcile.</li>
+            <li data-n="03"><strong>Booking and post-sale</strong> — Agents book, issue, and report in one system. DRCT centralizes NDC order management so changes, cancellations, and refunds are handled in one place.</li>
+          </ol>
+        </div>
+
+        <div class="how-split__visual">
+          <div class="drct-mock" style="box-shadow: var(--shadow-image); border: 1px solid var(--dark-15); border-radius: 1px;">
+            <div class="drct-mock__bar">
+              <ul class="drct-mock__tabs">
+                <li class="drct-mock__tab active">Search</li>
+                <li class="drct-mock__tab">Bookings</li>
+                <li class="drct-mock__tab">Reports</li>
+                <li class="drct-mock__tab">Changes</li>
+              </ul>
             </div>
-            <div class="drct-mock__result">
-              <span class="drct-mock__airline">LH</span>
-              <span class="drct-mock__flight">LH 924</span>
-              <span class="drct-mock__time">10:15 – 13:00</span>
-              <span class="drct-mock__price">€ 245</span>
+            <div class="drct-mock__search">
+              <div class="drct-mock__field"><span>From</span><strong>London LHR</strong></div>
+              <div class="drct-mock__field"><span>To</span><strong>Frankfurt FRA</strong></div>
+              <div class="drct-mock__field"><span>Date</span><strong>15 Feb 2024</strong></div>
+              <div class="drct-mock__field"><span>Channel</span><strong>NDC + GDS</strong></div>
             </div>
-            <div class="drct-mock__result">
-              <span class="drct-mock__airline">BA</span>
-              <span class="drct-mock__flight">BA 438</span>
-              <span class="drct-mock__time">09:30 – 12:20</span>
-              <span class="drct-mock__price drct-mock__price--ndc">€ 174 <em>NDC</em></span>
+            <div class="drct-mock__results">
+              <div class="drct-mock__result active-row">
+                <span class="drct-mock__airline">LH</span>
+                <span class="drct-mock__flight">LH 900</span>
+                <span class="drct-mock__time">07:00 – 09:45</span>
+                <span class="drct-mock__price drct-mock__price--ndc">€ 189 <em>NDC</em></span>
+              </div>
+              <div class="drct-mock__result">
+                <span class="drct-mock__airline">LH</span>
+                <span class="drct-mock__flight">LH 924</span>
+                <span class="drct-mock__time">10:15 – 13:00</span>
+                <span class="drct-mock__price">€ 245</span>
+              </div>
+              <div class="drct-mock__result">
+                <span class="drct-mock__airline">BA</span>
+                <span class="drct-mock__flight">BA 438</span>
+                <span class="drct-mock__time">09:30 – 12:20</span>
+                <span class="drct-mock__price drct-mock__price--ndc">€ 174 <em>NDC</em></span>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <ol class="pipe-list">
-        <li><strong>Offer enhancement</strong> — Airline content from different sources is normalized and enriched — ancillaries, seat options, and dynamic bundles assembled into complete, comparable offers.</li>
-        <li><strong>Delivery into workflows</strong> — Enhanced offers arrive in the interface agents already use — no format switching, no re-entry, no parallel data streams to reconcile.</li>
-        <li><strong>Booking and post-sale servicing</strong> — Agents book, issue, and report in one system. DRCT centralizes NDC order management so changes, cancellations, and refunds are handled in one place — self-service for routine actions, support for complex cases.</li>
-      </ol>
+      </div>
     </section>
   </div>
 </div>
@@ -1006,6 +1199,7 @@
 <div class="landing-new loaded" style="background: rgba(27,39,51,0.025);">
   <div class="landing-new__body">
     <section class="questions">
+      <div class="sect-eyebrow">FAQ</div>
       <h2>Frequently Asked Questions</h2>
       <div class="questions__body">
         <ul id="faqList">
