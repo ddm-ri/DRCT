@@ -166,7 +166,7 @@
       .step-col:first-child { border-top: none; }
     }
 
-    /* Problem cards (light gradient section) */
+    /* Problem cards */
     .prob-wrap {
       display: flex;
       flex-wrap: wrap;
@@ -178,55 +178,76 @@
       border: 1px solid rgba(27,39,51,0.08);
       border-radius: 4px;
       box-shadow: var(--shadow-card);
-      padding: 28px 28px 24px;
+      padding: 22px 22px 18px;
       flex: 1;
       min-width: calc(50% - 7px);
     }
     .prob-card--full { min-width: 100%; }
+
+    /* Card header: number + title */
+    .prob-card__head {
+      padding-bottom: 14px;
+      margin-bottom: 14px;
+      border-bottom: 1px solid rgba(27,39,51,0.07);
+    }
     .prob-n {
       font-family: var(--font-mono);
       font-size: 10px;
       color: var(--dark-40);
       font-weight: 600;
-      margin-bottom: 12px;
+      margin-bottom: 5px;
     }
     .prob-card h3 {
-      font-size: 16px;
+      font-size: 15px;
       font-weight: 700;
       color: var(--dark);
-      margin-bottom: 14px;
+      margin: 0;
       line-height: 1.3;
     }
-    .prob-badge {
-      display: inline-flex;
+
+    /* Problem / Solution inner blocks */
+    .prob-block {
       border-radius: 3px;
-      padding: 2px 8px;
+      padding: 11px 13px;
+      margin-bottom: 8px;
+    }
+    .prob-block:last-child { margin-bottom: 0; }
+    .prob-block--issue {
+      background: rgba(180,80,0,0.04);
+      border-left: 2px solid rgba(180,80,0,0.22);
+    }
+    .prob-block--fix {
+      background: rgba(42,138,234,0.05);
+      border-left: 2px solid rgba(42,138,234,0.25);
+    }
+    .prob-label {
+      display: flex;
+      align-items: center;
+      gap: 5px;
       font-family: var(--font-mono);
       font-size: 10px;
       font-weight: 600;
       letter-spacing: 0.5px;
       text-transform: uppercase;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
-    .prob-badge--p { background: rgba(180,80,0,0.1); color: #b85000; }
-    .prob-badge--s { background: rgba(42,138,234,0.1); color: var(--blue); }
-    .prob-card p {
-      font-size: 14px;
+    .prob-label--issue { color: #b85000; }
+    .prob-label--fix { color: var(--blue); }
+    .prob-block p {
+      font-size: 13px;
       line-height: 1.57;
       color: rgba(27,39,51,0.65);
-      margin-bottom: 10px;
+      margin: 0;
     }
-    .prob-hr {
-      border: none;
-      border-top: 1px solid rgba(27,39,51,0.07);
-      margin: 12px 0;
-    }
-    .prob-inner { display: flex; gap: 40px; }
-    .prob-inner > div { flex: 1; }
+
+    /* Full-width card inner grid */
+    .prob-inner { display: flex; gap: 14px; }
+    .prob-inner > .prob-block { flex: 1; margin-bottom: 0; }
+
     @media (max-width: 767px) {
       .prob-wrap { flex-direction: column; }
       .prob-card { min-width: 100%; }
-      .prob-inner { flex-direction: column; gap: 20px; }
+      .prob-inner { flex-direction: column; gap: 8px; }
     }
 
     /* Product cards */
@@ -531,55 +552,107 @@
       <div class="prob-wrap">
 
         <div class="prob-card">
-          <p class="prob-n">01</p>
-          <h3>Fragmented distribution channels</h3>
-          <span class="prob-badge prob-badge--p">Problem</span>
-          <p>Managing separate connections for GDS, NDC, and direct channels creates operational overhead. Mixing content without a unified layer leads to reconciliation errors and inconsistent workflows.</p>
-          <hr class="prob-hr">
-          <span class="prob-badge prob-badge--s">Solution</span>
-          <p>DRCT provides a unified distribution layer where all airline offers are normalized and delivered through a single integration. Order management, reporting, and settlement handled in one place.</p>
+          <div class="prob-card__head">
+            <p class="prob-n">01</p>
+            <h3>Fragmented distribution channels</h3>
+          </div>
+          <div class="prob-block prob-block--issue">
+            <div class="prob-label prob-label--issue">
+              <svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="5.5" cy="5.5" r="4.5" stroke="#b85000" stroke-width="1.1"/><path d="M3.8 3.8l3.4 3.4M7.2 3.8L3.8 7.2" stroke="#b85000" stroke-width="1.1" stroke-linecap="round"/></svg>
+              Problem
+            </div>
+            <p>Managing separate connections for GDS, NDC, and direct channels creates operational overhead. Mixing content without a unified layer leads to reconciliation errors and inconsistent workflows.</p>
+          </div>
+          <div class="prob-block prob-block--fix">
+            <div class="prob-label prob-label--fix">
+              <svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="5.5" cy="5.5" r="4.5" stroke="#2a8aea" stroke-width="1.1"/><path d="M3.2 5.8l1.8 1.8 3-3.6" stroke="#2a8aea" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Solution
+            </div>
+            <p>DRCT provides a unified distribution layer where all airline offers are normalized and delivered through a single integration. Order management, reporting, and settlement handled in one place.</p>
+          </div>
         </div>
 
         <div class="prob-card">
-          <p class="prob-n">02</p>
-          <h3>Limited merchandising control</h3>
-          <span class="prob-badge prob-badge--p">Problem</span>
-          <p>GDS channels were not built for modern airline retailing. Bundles, ancillaries, and dynamic offers are either not supported or not displayed correctly, leading to lost revenue.</p>
-          <hr class="prob-hr">
-          <span class="prob-badge prob-badge--s">Solution</span>
-          <p>DRCT preserves the full structure of your offer — including fares, ancillaries, bundles, and pricing logic — and delivers it consistently across all channels.</p>
+          <div class="prob-card__head">
+            <p class="prob-n">02</p>
+            <h3>Limited merchandising control</h3>
+          </div>
+          <div class="prob-block prob-block--issue">
+            <div class="prob-label prob-label--issue">
+              <svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="5.5" cy="5.5" r="4.5" stroke="#b85000" stroke-width="1.1"/><path d="M3.8 3.8l3.4 3.4M7.2 3.8L3.8 7.2" stroke="#b85000" stroke-width="1.1" stroke-linecap="round"/></svg>
+              Problem
+            </div>
+            <p>GDS channels were not built for modern airline retailing. Bundles, ancillaries, and dynamic offers are either not supported or not displayed correctly, leading to lost revenue.</p>
+          </div>
+          <div class="prob-block prob-block--fix">
+            <div class="prob-label prob-label--fix">
+              <svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="5.5" cy="5.5" r="4.5" stroke="#2a8aea" stroke-width="1.1"/><path d="M3.2 5.8l1.8 1.8 3-3.6" stroke="#2a8aea" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Solution
+            </div>
+            <p>DRCT preserves the full structure of your offer — including fares, ancillaries, bundles, and pricing logic — and delivers it consistently across all channels.</p>
+          </div>
         </div>
 
         <div class="prob-card">
-          <p class="prob-n">03</p>
-          <h3>High distribution costs</h3>
-          <span class="prob-badge prob-badge--p">Problem</span>
-          <p>Traditional GDS models introduce multiple intermediaries, increasing cost-per-booking without proportional value. Airlines have limited control over how distribution costs scale.</p>
-          <hr class="prob-hr">
-          <span class="prob-badge prob-badge--s">Solution</span>
-          <p>DRCT enables direct airline-to-seller distribution and supports gradual volume shift from GDS to NDC channels, improving unit economics while maintaining distribution reach.</p>
+          <div class="prob-card__head">
+            <p class="prob-n">03</p>
+            <h3>High distribution costs</h3>
+          </div>
+          <div class="prob-block prob-block--issue">
+            <div class="prob-label prob-label--issue">
+              <svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="5.5" cy="5.5" r="4.5" stroke="#b85000" stroke-width="1.1"/><path d="M3.8 3.8l3.4 3.4M7.2 3.8L3.8 7.2" stroke="#b85000" stroke-width="1.1" stroke-linecap="round"/></svg>
+              Problem
+            </div>
+            <p>Traditional GDS models introduce multiple intermediaries, increasing cost-per-booking without proportional value. Airlines have limited control over how distribution costs scale.</p>
+          </div>
+          <div class="prob-block prob-block--fix">
+            <div class="prob-label prob-label--fix">
+              <svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="5.5" cy="5.5" r="4.5" stroke="#2a8aea" stroke-width="1.1"/><path d="M3.2 5.8l1.8 1.8 3-3.6" stroke="#2a8aea" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Solution
+            </div>
+            <p>DRCT enables direct airline-to-seller distribution and supports gradual volume shift from GDS to NDC channels, improving unit economics while maintaining distribution reach.</p>
+          </div>
         </div>
 
         <div class="prob-card">
-          <p class="prob-n">04</p>
-          <h3>Agent resistance to NDC</h3>
-          <span class="prob-badge prob-badge--p">Problem</span>
-          <p>Agents rely on familiar GDS workflows. NDC adoption is slowed by operational challenges — inconsistent booking flows, NDC ADM risk, and settlement complexity.</p>
-          <hr class="prob-hr">
-          <span class="prob-badge prob-badge--s">Solution</span>
-          <p>DRCT delivers NDC content inside familiar agent workflows — including GDS-adjacent environments — eliminating the need to learn new systems and accelerating natural adoption.</p>
+          <div class="prob-card__head">
+            <p class="prob-n">04</p>
+            <h3>Agent resistance to NDC</h3>
+          </div>
+          <div class="prob-block prob-block--issue">
+            <div class="prob-label prob-label--issue">
+              <svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="5.5" cy="5.5" r="4.5" stroke="#b85000" stroke-width="1.1"/><path d="M3.8 3.8l3.4 3.4M7.2 3.8L3.8 7.2" stroke="#b85000" stroke-width="1.1" stroke-linecap="round"/></svg>
+              Problem
+            </div>
+            <p>Agents rely on familiar GDS workflows. NDC adoption is slowed by operational challenges — inconsistent booking flows, NDC ADM risk, and settlement complexity.</p>
+          </div>
+          <div class="prob-block prob-block--fix">
+            <div class="prob-label prob-label--fix">
+              <svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="5.5" cy="5.5" r="4.5" stroke="#2a8aea" stroke-width="1.1"/><path d="M3.2 5.8l1.8 1.8 3-3.6" stroke="#2a8aea" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Solution
+            </div>
+            <p>DRCT delivers NDC content inside familiar agent workflows — including GDS-adjacent environments — eliminating the need to learn new systems and accelerating natural adoption.</p>
+          </div>
         </div>
 
         <div class="prob-card prob-card--full">
-          <p class="prob-n">05</p>
-          <h3>Inefficient revenue optimization</h3>
+          <div class="prob-card__head">
+            <p class="prob-n">05</p>
+            <h3>Inefficient revenue optimization</h3>
+          </div>
           <div class="prob-inner">
-            <div>
-              <span class="prob-badge prob-badge--p">Problem</span>
+            <div class="prob-block prob-block--issue">
+              <div class="prob-label prob-label--issue">
+                <svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="5.5" cy="5.5" r="4.5" stroke="#b85000" stroke-width="1.1"/><path d="M3.8 3.8l3.4 3.4M7.2 3.8L3.8 7.2" stroke="#b85000" stroke-width="1.1" stroke-linecap="round"/></svg>
+                Problem
+              </div>
               <p>When distribution is fragmented, airlines lose control over pricing signals. Offers are reshaped or degraded across channels, making effective revenue management difficult.</p>
             </div>
-            <div>
-              <span class="prob-badge prob-badge--s">Solution</span>
+            <div class="prob-block prob-block--fix">
+              <div class="prob-label prob-label--fix">
+                <svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="5.5" cy="5.5" r="4.5" stroke="#2a8aea" stroke-width="1.1"/><path d="M3.2 5.8l1.8 1.8 3-3.6" stroke="#2a8aea" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Solution
+              </div>
               <p>DRCT maintains control over how offers are distributed and consumed — enabling consistent pricing, better personalization, and more accurate demand signals across all channels.</p>
             </div>
           </div>
