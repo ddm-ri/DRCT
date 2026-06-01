@@ -1,0 +1,2275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DRCT — Private Jet Integration Concepts</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   DRCT DESIGN TOKENS
+============================================================ */
+:root {
+  --dark:       #1b2733;
+  --dark-90:    rgba(27,39,51,0.9);
+  --dark-70:    rgba(27,39,51,0.7);
+  --dark-40:    rgba(27,39,51,0.4);
+  --dark-26:    rgba(27,39,51,0.26);
+  --dark-20:    rgba(27,39,51,0.20);
+  --dark-15:    rgba(27,39,51,0.15);
+  --dark-10:    rgba(27,39,51,0.10);
+  --dark-05:    rgba(27,39,51,0.05);
+
+  --blue:       #2a8aea;
+  --blue-20:    rgba(42,138,234,0.2);
+  --blue-10:    rgba(42,138,234,0.1);
+
+  --gold:       #b8966e;
+  --gold-light: #f5efe6;
+  --gold-10:    rgba(184,150,110,0.10);
+  --gold-20:    rgba(184,150,110,0.20);
+  --gold-30:    rgba(184,150,110,0.30);
+  --gold-border: rgba(184,150,110,0.35);
+
+  --white:      #ffffff;
+  --gray-light: #f4f4f5;
+  --off-white:  #f8f8f9;
+
+  --success:    #33c100;
+  --error:      #fd5666;
+
+  --font:       'IBM Plex Sans', sans-serif;
+  --mono:       'IBM Plex Mono', monospace;
+
+  --shadow-card:   0 8px 40px rgba(27,39,51,0.12);
+  --shadow-pop:    0 6px 24px rgba(27,39,51,0.16);
+  --shadow-modal:  0 24px 80px rgba(27,39,51,0.22);
+  --shadow-jet:    0 4px 24px rgba(184,150,110,0.15), 0 1px 4px rgba(27,39,51,0.08);
+}
+
+/* ============================================================
+   RESET + BASE
+============================================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: var(--font);
+  color: var(--dark);
+  background: #f0f1f3;
+  -webkit-font-smoothing: antialiased;
+  line-height: 1;
+}
+a { text-decoration: none; color: inherit; }
+button { cursor: pointer; font-family: var(--font); }
+img { display: block; }
+
+/* ============================================================
+   DOC LAYOUT
+============================================================ */
+.doc {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 48px 24px 120px;
+}
+.doc-header {
+  margin-bottom: 72px;
+}
+.doc-header__label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  color: var(--dark-40);
+  margin-bottom: 12px;
+}
+.doc-header__title {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--dark);
+  letter-spacing: -0.3px;
+  margin-bottom: 16px;
+}
+.doc-header__desc {
+  font-size: 14px;
+  color: var(--dark-70);
+  line-height: 1.6;
+  max-width: 640px;
+}
+
+/* concept sections */
+.concept-section {
+  margin-bottom: 96px;
+}
+.concept-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+  margin-bottom: 40px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--dark-10);
+}
+.concept-number {
+  width: 40px;
+  height: 40px;
+  background: var(--dark);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.concept-meta__name {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  color: var(--dark-40);
+  margin-bottom: 6px;
+}
+.concept-meta__title {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--dark);
+  letter-spacing: -0.2px;
+  margin-bottom: 10px;
+}
+.concept-meta__rationale {
+  font-size: 13px;
+  color: var(--dark-70);
+  line-height: 1.65;
+  max-width: 680px;
+}
+
+/* annotation pills */
+.anno {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: var(--blue-10);
+  color: var(--blue);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 3px;
+  margin: 0 0 16px;
+}
+
+/* section labels */
+.section-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--dark-40);
+  margin-bottom: 14px;
+}
+
+/* info blocks */
+.rationale-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px;
+  margin-top: 32px;
+}
+.rationale-item {
+  background: var(--white);
+  border: 1px solid var(--dark-10);
+  border-radius: 8px;
+  padding: 16px 18px;
+}
+.rationale-item__label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--dark-40);
+  margin-bottom: 8px;
+}
+.rationale-item__text {
+  font-size: 12px;
+  color: var(--dark-70);
+  line-height: 1.6;
+}
+
+/* dividers between sub-sections */
+.sub-section {
+  margin-top: 40px;
+}
+.sub-section + .sub-section {
+  margin-top: 56px;
+  padding-top: 40px;
+  border-top: 1px solid var(--dark-10);
+}
+
+/* ============================================================
+   SHARED MOCKUP SHELL — simulates the existing search page
+============================================================ */
+.page-shell {
+  background: var(--white);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+  border: 1px solid var(--dark-10);
+}
+.page-shell__topbar {
+  background: var(--dark);
+  height: 42px;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  gap: 20px;
+}
+.page-shell__dot { width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,0.2); }
+
+/* search bar strip */
+.search-strip {
+  background: var(--white);
+  border-bottom: 1px solid var(--dark-10);
+  padding: 0 20px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+.search-strip__field {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 16px;
+  height: 100%;
+  border-right: 1px solid var(--dark-10);
+}
+.search-strip__field:first-child { padding-left: 0; }
+.search-strip__val {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--dark);
+}
+.search-strip__code {
+  font-size: 11px;
+  color: var(--dark-40);
+  font-family: var(--mono);
+}
+.search-strip__cta {
+  margin-left: auto;
+  background: var(--blue);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  padding: 0 20px;
+  height: 34px;
+  border-radius: 4px;
+  border: none;
+  display: flex;
+  align-items: center;
+}
+
+/* AI filter bar */
+.ai-bar {
+  background: #eef6fd;
+  border-bottom: 1px solid var(--blue-20);
+  padding: 0 20px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.ai-bar__icon {
+  width: 20px; height: 20px;
+  background: var(--blue);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.ai-bar__text { font-size: 12px; color: var(--dark-70); }
+.ai-bar__link { font-size: 12px; color: var(--blue); font-weight: 600; margin-left: auto; }
+
+/* results tabs */
+.results-tabs {
+  border-bottom: 1px solid var(--dark-10);
+  padding: 0 20px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+.results-tab {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--dark-40);
+  padding: 0 12px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+}
+.results-tab.active {
+  color: var(--dark);
+  border-bottom-color: var(--dark);
+}
+.results-tab-spacer { flex: 1; }
+.baggage-tabs { display: flex; gap: 24px; }
+.baggage-tab {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--dark-40);
+}
+.baggage-tab.active { color: var(--dark); border-bottom: 2px solid var(--dark); }
+
+/* existing flight row */
+.flight-row {
+  display: flex;
+  align-items: center;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--dark-05);
+  gap: 16px;
+}
+.flight-row__logo {
+  width: 36px; height: 36px;
+  background: var(--dark-05);
+  border-radius: 6px;
+  flex-shrink: 0;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 8px;
+  color: var(--dark-40);
+  font-weight: 600;
+}
+.flight-row__times { flex: 0 0 150px; }
+.flight-row__time {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--dark);
+  letter-spacing: -0.3px;
+}
+.flight-row__airline {
+  font-size: 11px;
+  color: var(--dark-40);
+  margin-top: 3px;
+}
+.flight-row__duration { flex: 0 0 80px; }
+.flight-row__dur { font-size: 12px; font-weight: 500; color: var(--dark); }
+.flight-row__route { font-size: 11px; color: var(--dark-40); margin-top: 3px; font-family: var(--mono); }
+.flight-row__type { flex: 1; font-size: 12px; color: var(--dark-40); }
+.flight-row__prices { display: flex; gap: 8px; }
+.price-pill {
+  border: 1px solid var(--dark-15);
+  border-radius: 6px;
+  padding: 8px 14px;
+  text-align: center;
+  min-width: 80px;
+}
+.price-pill__label { font-size: 10px; color: var(--dark-40); margin-bottom: 4px; font-weight: 500; }
+.price-pill__val { font-size: 14px; font-weight: 700; color: var(--dark); }
+.price-pill__cur { font-size: 10px; color: var(--dark-40); font-weight: 500; }
+
+/* alt block (existing one in the UI) */
+.alt-block {
+  display: flex;
+  align-items: center;
+  padding: 16px 20px;
+  background: #fafafa;
+  gap: 14px;
+}
+.alt-block__emoji { font-size: 20px; }
+.alt-block__text {}
+.alt-block__title { font-size: 13px; font-weight: 600; color: var(--dark); margin-bottom: 2px; }
+.alt-block__sub { font-size: 11px; color: var(--dark-40); }
+.alt-block__cta { margin-left: auto; display: flex; align-items: center; gap: 8px; }
+.alt-block__price { font-size: 13px; color: var(--dark-40); }
+.alt-block__price strong { color: var(--dark); font-weight: 700; }
+.alt-block__link { font-size: 12px; color: var(--blue); font-weight: 600; letter-spacing: 0.3px; }
+
+/* ============================================================
+   CONCEPT 1 — THE ELEVATED DIVIDER
+   Premium section inserted between results, topographically
+   separated with a ruled header + horizontal jet card rail.
+============================================================ */
+
+/* ---- C1: Section entry ---- */
+.c1-section {
+  padding: 0;
+}
+.c1-header {
+  display: flex;
+  align-items: center;
+  padding: 14px 20px 12px;
+  background: var(--white);
+  border-top: 2px solid var(--gold);
+  border-bottom: 1px solid var(--gold-border);
+  gap: 10px;
+}
+.c1-header__icon {
+  width: 20px; height: 20px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.c1-header__title {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+.c1-header__sub {
+  font-size: 11px;
+  color: var(--dark-40);
+  margin-left: 4px;
+}
+.c1-header__close {
+  margin-left: auto;
+  font-size: 11px;
+  color: var(--dark-40);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* ---- C1: horizontal scroll rail ---- */
+.c1-rail {
+  display: flex;
+  gap: 12px;
+  padding: 16px 20px;
+  overflow-x: auto;
+  background: var(--gold-light);
+  border-bottom: 1px solid var(--gold-border);
+  scrollbar-width: none;
+}
+.c1-rail::-webkit-scrollbar { display: none; }
+
+.c1-card {
+  background: var(--white);
+  border: 1px solid var(--gold-border);
+  border-radius: 10px;
+  overflow: hidden;
+  flex-shrink: 0;
+  width: 240px;
+  box-shadow: var(--shadow-jet);
+  position: relative;
+}
+.c1-card__image {
+  width: 100%;
+  height: 110px;
+  background: linear-gradient(135deg, #e8e0d5 0%, #d4c9b8 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+.c1-card__image svg { opacity: 0.3; }
+.c1-card__image-label {
+  position: absolute;
+  bottom: 8px;
+  left: 10px;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: rgba(27,39,51,0.5);
+}
+.c1-card__badge {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: var(--gold);
+  color: var(--white);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  padding: 3px 7px;
+  border-radius: 3px;
+}
+.c1-card__body {
+  padding: 12px 14px 14px;
+}
+.c1-card__category {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 4px;
+}
+.c1-card__models {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--dark);
+  margin-bottom: 10px;
+  line-height: 1.4;
+}
+.c1-card__specs {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.c1-card__spec {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  color: var(--dark-70);
+}
+.c1-card__spec-icon {
+  width: 14px; height: 14px;
+  background: var(--dark-10);
+  border-radius: 3px;
+  display: flex; align-items: center; justify-content: center;
+}
+.c1-card__price-row {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  margin-bottom: 12px;
+}
+.c1-card__from {
+  font-size: 10px;
+  color: var(--dark-40);
+}
+.c1-card__price {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--dark);
+  letter-spacing: -0.5px;
+}
+.c1-card__cur {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--dark-40);
+}
+.c1-card__price-note {
+  font-size: 10px;
+  color: var(--dark-40);
+  margin-bottom: 12px;
+  margin-top: -8px;
+}
+.c1-card__cta {
+  width: 100%;
+  height: 34px;
+  background: var(--dark);
+  color: var(--white);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  border-radius: 5px;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.c1-card__cta:hover { background: #2c3a47; }
+
+/* attendant dot */
+.attendant-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--success);
+  display: inline-block;
+  margin-right: 3px;
+}
+.attendant-dot.unavail { background: var(--dark-26); }
+.c1-card__attendant {
+  font-size: 10px;
+  color: var(--dark-40);
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+/* ---- C1: footer inside section ---- */
+.c1-footer {
+  padding: 10px 20px;
+  background: var(--gold-light);
+  border-bottom: 1px solid var(--dark-10);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.c1-footer__note {
+  font-size: 11px;
+  color: var(--dark-40);
+}
+.c1-footer__note strong { color: var(--dark-70); }
+
+/* ============================================================
+   CONCEPT 2 — THE AMBIENT TAKEOVER
+   Full-width contextual interstitial with restrained elegance.
+   Appears as a card block between results — feels like a
+   concierge recommendation, not an ad.
+============================================================ */
+.c2-block {
+  background: var(--white);
+  margin: 0;
+  border-top: 1px solid var(--dark-10);
+  border-bottom: 1px solid var(--dark-10);
+  position: relative;
+  overflow: hidden;
+}
+
+/* side accent bar */
+.c2-block::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: var(--gold);
+}
+
+.c2-inner {
+  padding: 24px 28px 24px 32px;
+}
+.c2-eyebrow {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 8px;
+}
+.c2-headline {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--dark);
+  margin-bottom: 4px;
+  letter-spacing: -0.1px;
+}
+.c2-subline {
+  font-size: 12px;
+  color: var(--dark-40);
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+.c2-options {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.c2-option {
+  flex: 1;
+  border: 1px solid var(--dark-15);
+  border-radius: 8px;
+  padding: 14px 16px;
+  cursor: pointer;
+  transition: border-color 0.15s;
+  position: relative;
+}
+.c2-option.selected {
+  border-color: var(--gold);
+  background: var(--gold-light);
+}
+.c2-option__cat {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 4px;
+}
+.c2-option__name {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--dark);
+  margin-bottom: 6px;
+}
+.c2-option__specs {
+  font-size: 11px;
+  color: var(--dark-40);
+  line-height: 1.5;
+}
+.c2-option__price {
+  margin-top: 10px;
+}
+.c2-option__from {
+  font-size: 10px;
+  color: var(--dark-40);
+}
+.c2-option__amount {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--dark);
+  letter-spacing: -0.4px;
+}
+.c2-option__cur { font-size: 11px; color: var(--dark-40); font-weight: 500; }
+.c2-option__check {
+  position: absolute;
+  top: 10px; right: 10px;
+  width: 16px; height: 16px;
+  background: var(--gold);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0;
+}
+.c2-option.selected .c2-option__check { opacity: 1; }
+
+.c2-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.c2-cta-primary {
+  height: 38px;
+  padding: 0 24px;
+  background: var(--dark);
+  color: var(--white);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.7px;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.c2-cta-secondary {
+  height: 38px;
+  padding: 0 16px;
+  border: 1px solid var(--dark-20);
+  background: transparent;
+  color: var(--dark-70);
+  font-size: 12px;
+  font-weight: 500;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+}
+.c2-privacy {
+  margin-left: auto;
+  font-size: 11px;
+  color: var(--dark-26);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.c2-image-aside {
+  position: absolute;
+  right: 0; top: 0; bottom: 0;
+  width: 200px;
+  background: linear-gradient(135deg, #ede4d6 0%, #d9cbb8 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.c2-image-aside svg { opacity: 0.25; }
+.c2-image-aside-label {
+  position: absolute;
+  bottom: 12px;
+  left: 14px;
+  font-size: 8px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: rgba(27,39,51,0.4);
+  text-transform: uppercase;
+}
+.c2-has-aside .c2-inner { padding-right: 220px; }
+
+/* ============================================================
+   CONCEPT 3 — THE CONTEXTUAL THREAD
+   Inline, thread-style rows embedded directly between commercial
+   results. No separate section. Jet rows are visually distinct
+   but structurally parallel to flight rows, maintaining the
+   page's rhythm while clearly signaling "different tier."
+============================================================ */
+.c3-divider {
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  height: 32px;
+  background: var(--off-white);
+  border-top: 1px solid var(--dark-10);
+  border-bottom: 1px solid var(--dark-10);
+  gap: 8px;
+}
+.c3-divider__line {
+  flex: 1;
+  height: 1px;
+  background: var(--gold-border);
+}
+.c3-divider__label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  color: var(--gold);
+  white-space: nowrap;
+}
+.c3-divider__icon { font-size: 12px; }
+
+.c3-row {
+  display: flex;
+  align-items: center;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--dark-05);
+  background: var(--white);
+  gap: 16px;
+  border-left: 3px solid var(--gold);
+  position: relative;
+}
+.c3-row__logo {
+  width: 36px; height: 36px;
+  background: var(--gold-light);
+  border-radius: 6px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--gold-border);
+}
+.c3-row__info { flex: 0 0 150px; }
+.c3-row__category {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 3px;
+}
+.c3-row__models {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--dark);
+  line-height: 1.3;
+}
+.c3-row__capacity { flex: 0 0 80px; font-size: 12px; color: var(--dark-70); }
+.c3-row__route { flex: 1; }
+.c3-row__route-display {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--dark);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 3px;
+}
+.c3-row__route-arrow {
+  font-size: 11px;
+  color: var(--dark-26);
+}
+.c3-row__route-meta {
+  font-size: 11px;
+  color: var(--dark-40);
+  font-family: var(--mono);
+}
+.c3-row__price-zone {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.c3-price-pill {
+  border: 1px solid var(--gold-border);
+  background: var(--gold-light);
+  border-radius: 6px;
+  padding: 8px 14px;
+  text-align: right;
+  min-width: 100px;
+}
+.c3-price-pill__from { font-size: 10px; color: var(--dark-40); margin-bottom: 2px; }
+.c3-price-pill__val { font-size: 16px; font-weight: 700; color: var(--dark); letter-spacing: -0.4px; }
+.c3-price-pill__cur { font-size: 10px; color: var(--dark-40); font-weight: 500; }
+.c3-price-pill__est { font-size: 9px; color: var(--dark-26); margin-top: 1px; }
+.c3-row__cta {
+  height: 34px;
+  padding: 0 16px;
+  background: var(--dark);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.7px;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 5px;
+  white-space: nowrap;
+}
+
+/* ============================================================
+   MODALS
+============================================================ */
+.modal-demo {
+  margin-top: 32px;
+}
+.modal-overlay {
+  background: rgba(27,39,51,0.45);
+  border-radius: 12px;
+  padding: 40px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 480px;
+}
+.modal {
+  background: var(--white);
+  border-radius: 12px;
+  box-shadow: var(--shadow-modal);
+  width: 480px;
+  overflow: hidden;
+}
+.modal__header {
+  padding: 24px 28px 20px;
+  border-bottom: 1px solid var(--dark-10);
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+.modal__eyebrow {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 6px;
+}
+.modal__title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--dark);
+  letter-spacing: -0.2px;
+}
+.modal__close {
+  width: 28px; height: 28px;
+  background: var(--dark-05);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px;
+  color: var(--dark-40);
+  flex-shrink: 0;
+}
+.modal__body {
+  padding: 24px 28px;
+}
+.modal__route-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 18px;
+  background: var(--gold-light);
+  border: 1px solid var(--gold-border);
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+.modal__airport {
+  text-align: center;
+}
+.modal__airport-code {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--dark);
+  letter-spacing: 1px;
+  font-family: var(--mono);
+}
+.modal__airport-name {
+  font-size: 10px;
+  color: var(--dark-40);
+  margin-top: 2px;
+}
+.modal__route-arrow {
+  font-size: 18px;
+  color: var(--gold);
+}
+.modal__meta-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.modal__meta-item {
+  background: var(--off-white);
+  border-radius: 6px;
+  padding: 12px 14px;
+}
+.modal__meta-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: var(--dark-40);
+  margin-bottom: 4px;
+}
+.modal__meta-val {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--dark);
+}
+.modal__price-row {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 16px 0 4px;
+  border-top: 1px solid var(--dark-10);
+  margin-top: 4px;
+  margin-bottom: 20px;
+}
+.modal__price-label { font-size: 12px; color: var(--dark-40); }
+.modal__price-val { font-size: 24px; font-weight: 700; color: var(--dark); letter-spacing: -0.5px; }
+.modal__price-cur { font-size: 13px; color: var(--dark-40); }
+.modal__price-est { font-size: 11px; color: var(--dark-26); }
+
+.modal__actions {
+  display: flex;
+  gap: 10px;
+  padding: 0 28px 24px;
+}
+.modal__btn-primary {
+  flex: 1;
+  height: 42px;
+  background: var(--dark);
+  color: var(--white);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 6px;
+}
+.modal__btn-secondary {
+  height: 42px;
+  padding: 0 20px;
+  border: 1px solid var(--dark-20);
+  background: transparent;
+  color: var(--dark-70);
+  font-size: 12px;
+  font-weight: 500;
+  border-radius: 6px;
+}
+.modal__disclaimer {
+  padding: 0 28px 20px;
+  font-size: 11px;
+  color: var(--dark-26);
+  line-height: 1.5;
+}
+
+/* ============================================================
+   TOAST
+============================================================ */
+.toast-demo {
+  position: relative;
+  height: 72px;
+  background: #f5f5f6;
+  border-radius: 8px;
+  border: 1px solid var(--dark-10);
+  margin-top: 24px;
+}
+.toast {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--dark);
+  color: var(--white);
+  padding: 0 16px;
+  height: 44px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 8px 32px rgba(27,39,51,0.3);
+  white-space: nowrap;
+  font-size: 13px;
+}
+.toast__icon {
+  width: 20px; height: 20px;
+  background: var(--success);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px;
+  flex-shrink: 0;
+}
+.toast__text { font-weight: 500; }
+.toast__undo {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--gold);
+  padding-left: 8px;
+  border-left: 1px solid rgba(255,255,255,0.15);
+}
+.toast__timer {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.1);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px;
+  color: rgba(255,255,255,0.5);
+  font-family: var(--mono);
+}
+
+/* ============================================================
+   FLOW COMPARISON TABLE
+============================================================ */
+.flow-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 16px;
+  font-size: 12px;
+}
+.flow-table th {
+  text-align: left;
+  padding: 10px 14px;
+  background: var(--dark-05);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: var(--dark-40);
+  border-bottom: 1px solid var(--dark-10);
+}
+.flow-table td {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--dark-05);
+  color: var(--dark-70);
+  line-height: 1.5;
+  vertical-align: top;
+}
+.flow-table td:first-child { font-weight: 500; color: var(--dark); width: 130px; }
+.plus { color: var(--success); font-weight: 700; }
+.minus { color: var(--error); font-weight: 700; }
+.neutral { color: var(--dark-40); }
+
+/* ============================================================
+   EDGE CASES
+============================================================ */
+.edge-block {
+  background: var(--white);
+  border: 1px solid var(--dark-10);
+  border-radius: 10px;
+  padding: 20px 24px;
+  margin-top: 16px;
+}
+.edge-block__title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--dark);
+  margin-bottom: 8px;
+}
+.edge-block__rec {
+  font-size: 12px;
+  color: var(--dark-70);
+  line-height: 1.65;
+}
+.edge-block__rec code {
+  font-family: var(--mono);
+  font-size: 11px;
+  background: var(--dark-05);
+  padding: 1px 5px;
+  border-radius: 3px;
+  color: var(--dark-70);
+}
+
+/* ============================================================
+   TELEGRAM PAYLOAD PREVIEW
+============================================================ */
+.telegram-preview {
+  background: #17212b;
+  border-radius: 10px;
+  padding: 20px 24px;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: #d0d4d9;
+  line-height: 1.7;
+  margin-top: 16px;
+}
+.tg-bold { font-weight: 700; color: #fff; }
+.tg-key { color: #6e8fa8; }
+.tg-val { color: #a8d4f5; }
+.tg-emoji { font-style: normal; }
+
+/* ============================================================
+   MOTION SPEC
+============================================================ */
+.motion-spec {
+  background: var(--white);
+  border: 1px solid var(--dark-10);
+  border-radius: 8px;
+  overflow: hidden;
+  margin-top: 16px;
+}
+.motion-row {
+  display: flex;
+  align-items: flex-start;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--dark-05);
+  gap: 16px;
+  font-size: 12px;
+}
+.motion-row:last-child { border-bottom: none; }
+.motion-row__event { flex: 0 0 180px; font-weight: 500; color: var(--dark); }
+.motion-row__spec { flex: 0 0 160px; font-family: var(--mono); font-size: 11px; color: var(--dark-40); }
+.motion-row__note { flex: 1; color: var(--dark-70); line-height: 1.5; }
+
+/* ============================================================
+   MOBILE NOTE
+============================================================ */
+.mobile-note {
+  background: var(--off-white);
+  border: 1px solid var(--dark-10);
+  border-radius: 8px;
+  padding: 16px 20px;
+  font-size: 12px;
+  color: var(--dark-70);
+  line-height: 1.65;
+  margin-top: 16px;
+}
+.mobile-note strong { color: var(--dark); }
+
+/* ============================================================
+   UTILITIES
+============================================================ */
+.mt8 { margin-top: 8px; }
+.mt12 { margin-top: 12px; }
+.mt16 { margin-top: 16px; }
+.mt24 { margin-top: 24px; }
+.mt32 { margin-top: 32px; }
+.mt40 { margin-top: 40px; }
+.flex { display: flex; }
+.flex-col { display: flex; flex-direction: column; }
+.items-center { align-items: center; }
+.gap8 { gap: 8px; }
+.gap16 { gap: 16px; }
+.text-muted { font-size: 11px; color: var(--dark-40); line-height: 1.5; }
+.tag {
+  display: inline-flex;
+  align-items: center;
+  background: var(--dark-05);
+  color: var(--dark-40);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 3px;
+}
+.tag.gold {
+  background: var(--gold-10);
+  color: var(--gold);
+}
+
+/* Concept separator */
+.concept-sep {
+  height: 1px;
+  background: var(--dark-10);
+  margin: 64px 0;
+}
+</style>
+</head>
+<body>
+
+<div class="doc">
+
+  <!-- ============================================================
+       HEADER
+  ============================================================ -->
+  <div class="doc-header">
+    <div class="doc-header__label">DRCT Search · Design Exploration · 2025</div>
+    <div class="doc-header__title">Private Jet Integration — 3 UX Concepts</div>
+    <div class="doc-header__desc">
+      Concept explorations for embedding private jet alternatives inside the commercial flight search results page.
+      Each concept takes a different stance on hierarchy, emotional tone, and interaction complexity.
+      All concepts stay within the DRCT design language and do not redesign the surrounding UI.
+    </div>
+  </div>
+
+
+  <!-- ============================================================
+       CONCEPT 1
+  ============================================================ -->
+  <div class="concept-section">
+
+    <div class="concept-header">
+      <div class="concept-number">1</div>
+      <div class="concept-meta">
+        <div class="concept-meta__name">Concept</div>
+        <div class="concept-meta__title">The Elevated Divider</div>
+        <div class="concept-meta__rationale">
+          A dedicated premium section inserted between commercial results, separated by a gold-ruled header bar. Jets appear on a horizontal scroll rail — visually a tier above regular results, but spatially embedded in the page flow. The framing is quiet and editorial: no banners, no gradients — just a thin gold accent line and restrained type saying "Private alternatives available." The rail format lets agents scan multiple jet categories at once without losing their place in the regular results above.
+        </div>
+      </div>
+    </div>
+
+    <!-- Rationale grid -->
+    <div class="rationale-grid">
+      <div class="rationale-item">
+        <div class="rationale-item__label">Hierarchy</div>
+        <div class="rationale-item__text">Gold top-border signals tier change. PRIVATE ALTERNATIVES label in uppercase gold reads as a section heading, not an ad. Regular flight rows continue below — hierarchy is spatial, not modal.</div>
+      </div>
+      <div class="rationale-item">
+        <div class="rationale-item__label">Emotional position</div>
+        <div class="rationale-item__text">Feels like a concierge note tucked inside a dossier. The warm sand background of the rail creates thermal contrast from the white page — premium without being loud. Think Amex Centurion insert, not an upsell banner.</div>
+      </div>
+      <div class="rationale-item">
+        <div class="rationale-item__label">Interaction</div>
+        <div class="rationale-item__text">Rail scrolls horizontally. Click on a card expands it slightly (scale 1.01, shadow lift). Request CTA is always visible at card bottom — no hover reveal. Works on desktop + mobile via touch scroll.</div>
+      </div>
+    </div>
+
+    <!-- Mockup -->
+    <div class="sub-section">
+      <div class="section-label">Mockup — In-context placement</div>
+
+      <div class="page-shell">
+        <!-- topbar chrome -->
+        <div class="page-shell__topbar">
+          <div class="page-shell__dot"></div>
+          <div class="page-shell__dot"></div>
+          <div class="page-shell__dot"></div>
+        </div>
+
+        <!-- search strip -->
+        <div class="search-strip">
+          <div class="search-strip__field">
+            <span class="search-strip__val">Modlin Airport</span>
+            <span class="search-strip__code">WMI</span>
+          </div>
+          <div style="padding: 0 12px; color: var(--dark-26); font-size: 14px;">⇄</div>
+          <div class="search-strip__field">
+            <span class="search-strip__val">El Prat Airport</span>
+            <span class="search-strip__code">BCN</span>
+          </div>
+          <div class="search-strip__field">
+            <span class="search-strip__val">24 jun, wed</span>
+          </div>
+          <div class="search-strip__field" style="border-right: none;">
+            <span class="search-strip__val">1 passenger</span>
+          </div>
+          <button class="search-strip__cta">SEARCH</button>
+        </div>
+
+        <!-- AI bar -->
+        <div class="ai-bar">
+          <div class="ai-bar__icon">
+            <svg width="10" height="10" viewBox="0 0 10 10"><path d="M5 1l1.2 2.4L9 4.5 6.8 6.6 7.4 9 5 7.8 2.6 9l.6-2.4L1 4.5l2.8-1.1z" fill="white"/></svg>
+          </div>
+          <span class="ai-bar__text"><strong>AI Filters</strong> · Only evening arrival in Paris without baggage</span>
+          <span class="ai-bar__link">FILTER FLIGHTS</span>
+        </div>
+
+        <!-- tabs -->
+        <div class="results-tabs">
+          <div class="results-tab active">All flights</div>
+          <div class="results-tab">Direct</div>
+          <div class="results-tab">Up to 1 connection</div>
+          <div class="results-tab-spacer"></div>
+          <div class="results-tab">Cheapest</div>
+          <div class="results-tab">Fastest</div>
+          <div class="results-tab active" style="font-weight:700;color:var(--dark);border-bottom:2px solid var(--dark);">Optimal</div>
+          <div class="results-tab-spacer"></div>
+          <div class="baggage-tabs">
+            <div class="baggage-tab active">Without baggage</div>
+            <div class="baggage-tab">With baggage</div>
+          </div>
+        </div>
+
+        <!-- existing flight rows -->
+        <div class="flight-row">
+          <div class="flight-row__logo" style="background:#ffe8e8;">
+            <svg width="20" height="10" viewBox="0 0 20 10"><text x="0" y="8" font-size="6" fill="#cc6666" font-family="sans-serif" font-weight="bold">WZZ</text></svg>
+          </div>
+          <div class="flight-row__times">
+            <div class="flight-row__time">11:40 — 14:35</div>
+            <div class="flight-row__airline">Wizz Air</div>
+          </div>
+          <div class="flight-row__duration">
+            <div class="flight-row__dur">2h 55m</div>
+            <div class="flight-row__route">WMI — BCN</div>
+          </div>
+          <div class="flight-row__type">Direct flight</div>
+          <div class="flight-row__prices">
+            <div class="price-pill">
+              <div class="price-pill__label">Basic</div>
+              <div class="price-pill__val">53 <span class="price-pill__cur">EUR</span></div>
+            </div>
+            <div class="price-pill">
+              <div class="price-pill__label">Wizz Go</div>
+              <div class="price-pill__val">85 <span class="price-pill__cur">EUR</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="flight-row">
+          <div class="flight-row__logo" style="background:#e8efff;">
+            <svg width="20" height="10" viewBox="0 0 20 10"><text x="0" y="8" font-size="6" fill="#3355cc" font-family="sans-serif" font-weight="bold">BZZ</text></svg>
+          </div>
+          <div class="flight-row__times">
+            <div class="flight-row__time">06:15 — 09:20</div>
+            <div class="flight-row__airline">Operated by Buzz, R…</div>
+          </div>
+          <div class="flight-row__duration">
+            <div class="flight-row__dur">3h 5m</div>
+            <div class="flight-row__route">WMI — BCN</div>
+          </div>
+          <div class="flight-row__type">Direct flight</div>
+          <div class="flight-row__prices">
+            <div class="price-pill">
+              <div class="price-pill__label">Basic</div>
+              <div class="price-pill__val">59 <span class="price-pill__cur">EUR</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ▸▸▸ CONCEPT 1: Private Jet section inserted here ▸▸▸ -->
+        <div class="c1-section">
+          <div class="c1-header">
+            <!-- thin plane glyph -->
+            <div class="c1-header__icon">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M14 6.5L9 4V1.5C9 1.22 8.78 1 8.5 1S8 1.22 8 1.5V4L3 6.5 2 6v1l1 .5V11l-1 .5V13l2-1 4.5 2.5 4.5-2.5 2 1v-1.5L14 11V7.5l1-.5V6l-1 .5z" fill="var(--gold)"/>
+              </svg>
+            </div>
+            <div class="c1-header__title">Private alternatives</div>
+            <div class="c1-header__sub">· WMI → BCN · 24 Jun</div>
+            <div class="c1-header__close">
+              <svg width="12" height="12" viewBox="0 0 12 12"><path d="M9 3L3 9M3 3l6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+              dismiss
+            </div>
+          </div>
+
+          <div class="c1-rail">
+            <!-- Card 1 -->
+            <div class="c1-card">
+              <div class="c1-card__image">
+                <svg width="80" height="40" viewBox="0 0 80 40" fill="none">
+                  <path d="M70 20L50 14V8C50 7.4 49.6 7 49 7S48 7.4 48 8V14L28 20 24 18v4l4 2V32l-4 2V38l8-4 18 10 18-10 8 4V34l-4-2V24l4-2V18l-4 2z" fill="rgba(27,39,51,0.25)"/>
+                </svg>
+                <div class="c1-card__image-label">Light Jet</div>
+                <div class="c1-card__badge">Estimated</div>
+              </div>
+              <div class="c1-card__body">
+                <div class="c1-card__category">Light Jet</div>
+                <div class="c1-card__models">Citation CJ2+, CJ3,<br>CJ4 Gen2</div>
+                <div class="c1-card__specs">
+                  <div class="c1-card__spec">
+                    <div class="c1-card__spec-icon">
+                      <svg width="8" height="8" viewBox="0 0 8 8"><circle cx="4" cy="3" r="1.5" fill="var(--dark-40)"/><path d="M1 7c0-1.66 1.34-3 3-3s3 1.34 3 3" stroke="var(--dark-40)" stroke-width="1" fill="none"/></svg>
+                    </div>
+                    4–5 pax
+                  </div>
+                  <div class="c1-card__spec">
+                    <div class="c1-card__spec-icon">
+                      <svg width="8" height="8" viewBox="0 0 8 8"><rect x="1" y="2" width="6" height="5" rx="0.5" stroke="var(--dark-40)" stroke-width="1" fill="none"/><path d="M3 2V1h2v1" stroke="var(--dark-40)" stroke-width="1" fill="none"/></svg>
+                    </div>
+                    6 bags
+                  </div>
+                </div>
+                <div class="c1-card__attendant">
+                  <span class="attendant-dot"></span>
+                  Flight attendant available
+                </div>
+                <div class="c1-card__price-row">
+                  <span class="c1-card__from">from</span>
+                  <span class="c1-card__price">4 200</span>
+                  <span class="c1-card__cur">EUR</span>
+                </div>
+                <div class="c1-card__price-note">one-way · estimated</div>
+                <button class="c1-card__cta">Request jet</button>
+              </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="c1-card">
+              <div class="c1-card__image">
+                <svg width="80" height="40" viewBox="0 0 80 40" fill="none">
+                  <path d="M70 20L50 14V8C50 7.4 49.6 7 49 7S48 7.4 48 8V14L28 20 24 18v4l4 2V32l-4 2V38l8-4 18 10 18-10 8 4V34l-4-2V24l4-2V18l-4 2z" fill="rgba(27,39,51,0.2)"/>
+                </svg>
+                <div class="c1-card__image-label">Super Light Jet</div>
+              </div>
+              <div class="c1-card__body">
+                <div class="c1-card__category">Super Light Jet</div>
+                <div class="c1-card__models">Phenom 300E,<br>Citation XLS+</div>
+                <div class="c1-card__specs">
+                  <div class="c1-card__spec">
+                    <div class="c1-card__spec-icon">
+                      <svg width="8" height="8" viewBox="0 0 8 8"><circle cx="4" cy="3" r="1.5" fill="var(--dark-40)"/><path d="M1 7c0-1.66 1.34-3 3-3s3 1.34 3 3" stroke="var(--dark-40)" stroke-width="1" fill="none"/></svg>
+                    </div>
+                    6–8 pax
+                  </div>
+                  <div class="c1-card__spec">
+                    <div class="c1-card__spec-icon">
+                      <svg width="8" height="8" viewBox="0 0 8 8"><rect x="1" y="2" width="6" height="5" rx="0.5" stroke="var(--dark-40)" stroke-width="1" fill="none"/><path d="M3 2V1h2v1" stroke="var(--dark-40)" stroke-width="1" fill="none"/></svg>
+                    </div>
+                    8 bags
+                  </div>
+                </div>
+                <div class="c1-card__attendant">
+                  <span class="attendant-dot"></span>
+                  Flight attendant available
+                </div>
+                <div class="c1-card__price-row">
+                  <span class="c1-card__from">from</span>
+                  <span class="c1-card__price">6 800</span>
+                  <span class="c1-card__cur">EUR</span>
+                </div>
+                <div class="c1-card__price-note">one-way · estimated</div>
+                <button class="c1-card__cta">Request jet</button>
+              </div>
+            </div>
+
+            <!-- Card 3 — Mid-size -->
+            <div class="c1-card">
+              <div class="c1-card__image">
+                <svg width="80" height="40" viewBox="0 0 80 40" fill="none">
+                  <path d="M70 20L50 14V8C50 7.4 49.6 7 49 7S48 7.4 48 8V14L28 20 24 18v4l4 2V32l-4 2V38l8-4 18 10 18-10 8 4V34l-4-2V24l4-2V18l-4 2z" fill="rgba(27,39,51,0.18)"/>
+                </svg>
+                <div class="c1-card__image-label">Midsize Jet</div>
+              </div>
+              <div class="c1-card__body">
+                <div class="c1-card__category">Midsize Jet</div>
+                <div class="c1-card__models">Hawker 900XP,<br>Learjet 60 XR</div>
+                <div class="c1-card__specs">
+                  <div class="c1-card__spec">
+                    <div class="c1-card__spec-icon">
+                      <svg width="8" height="8" viewBox="0 0 8 8"><circle cx="4" cy="3" r="1.5" fill="var(--dark-40)"/><path d="M1 7c0-1.66 1.34-3 3-3s3 1.34 3 3" stroke="var(--dark-40)" stroke-width="1" fill="none"/></svg>
+                    </div>
+                    8–9 pax
+                  </div>
+                  <div class="c1-card__spec">
+                    <div class="c1-card__spec-icon">
+                      <svg width="8" height="8" viewBox="0 0 8 8"><rect x="1" y="2" width="6" height="5" rx="0.5" stroke="var(--dark-40)" stroke-width="1" fill="none"/><path d="M3 2V1h2v1" stroke="var(--dark-40)" stroke-width="1" fill="none"/></svg>
+                    </div>
+                    10 bags
+                  </div>
+                </div>
+                <div class="c1-card__attendant">
+                  <span class="attendant unavail"></span>
+                  <span class="c1-card__attendant">
+                    <span class="attendant-dot unavail"></span>
+                    No flight attendant
+                  </span>
+                </div>
+                <div class="c1-card__price-row">
+                  <span class="c1-card__from">from</span>
+                  <span class="c1-card__price">9 400</span>
+                  <span class="c1-card__cur">EUR</span>
+                </div>
+                <div class="c1-card__price-note">one-way · estimated</div>
+                <button class="c1-card__cta">Request jet</button>
+              </div>
+            </div>
+          </div><!-- /c1-rail -->
+
+          <div class="c1-footer">
+            <span class="c1-footer__note">Prices are <strong>estimates</strong> — a specialist will confirm availability and final pricing within 2 hours.</span>
+            <span class="tag gold">Private aviation</span>
+          </div>
+        </div>
+        <!-- ◂◂◂ end concept 1 block ◂◂◂ -->
+
+        <!-- continues with alternative block -->
+        <div class="alt-block">
+          <div class="alt-block__emoji">😍</div>
+          <div class="alt-block__text">
+            <div class="alt-block__title">We have found alternative options</div>
+            <div class="alt-block__sub">Check flight options from nearby airports</div>
+          </div>
+          <div class="alt-block__cta">
+            <span class="alt-block__price">from <strong>49 EUR</strong></span>
+            <span class="alt-block__link">CHOOSE</span>
+          </div>
+        </div>
+      </div><!-- /page-shell -->
+    </div><!-- /sub-section -->
+
+    <!-- Modal -->
+    <div class="sub-section">
+      <div class="section-label">User flow — Option A: Confirm modal</div>
+      <div class="modal-demo">
+        <div class="modal-overlay">
+          <div class="modal">
+            <div class="modal__header">
+              <div>
+                <div class="modal__eyebrow">Private jet request</div>
+                <div class="modal__title">Confirm your request</div>
+              </div>
+              <div class="modal__close">✕</div>
+            </div>
+            <div class="modal__body">
+              <div class="modal__route-row">
+                <div class="modal__airport">
+                  <div class="modal__airport-code">WMI</div>
+                  <div class="modal__airport-name">Modlin Airport</div>
+                </div>
+                <div class="modal__route-arrow">→</div>
+                <div class="modal__airport">
+                  <div class="modal__airport-code">BCN</div>
+                  <div class="modal__airport-name">El Prat Airport</div>
+                </div>
+              </div>
+              <div class="modal__meta-grid">
+                <div class="modal__meta-item">
+                  <div class="modal__meta-label">Departure</div>
+                  <div class="modal__meta-val">Wed, 24 June</div>
+                </div>
+                <div class="modal__meta-item">
+                  <div class="modal__meta-label">Trip type</div>
+                  <div class="modal__meta-val">One-way</div>
+                </div>
+                <div class="modal__meta-item">
+                  <div class="modal__meta-label">Passengers</div>
+                  <div class="modal__meta-val">1 adult</div>
+                </div>
+                <div class="modal__meta-item">
+                  <div class="modal__meta-label">Category</div>
+                  <div class="modal__meta-val">Light Jet</div>
+                </div>
+              </div>
+              <div class="modal__price-row">
+                <span class="modal__price-label">Estimated price</span>
+                <span class="modal__price-val">4 200</span>
+                <span class="modal__price-cur">EUR</span>
+                <span class="modal__price-est">· estimate, subject to confirmation</span>
+              </div>
+            </div>
+            <div class="modal__actions">
+              <button class="modal__btn-primary">Send request</button>
+              <button class="modal__btn-secondary">Cancel</button>
+            </div>
+            <div class="modal__disclaimer">
+              By sending this request you agree that a private aviation specialist will contact you to confirm availability and finalize pricing. No payment is taken at this stage.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Toast -->
+      <div class="section-label mt24">Success state — toast + undo (5 sec)</div>
+      <div class="toast-demo">
+        <div class="toast">
+          <div class="toast__icon">✓</div>
+          <span class="toast__text">Private jet request sent</span>
+          <span class="toast__undo">Undo</span>
+          <div class="toast__timer">5s</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Rationale grid for C1 motion -->
+    <div class="sub-section">
+      <div class="section-label">Motion spec — Concept 1</div>
+      <div class="motion-spec">
+        <div class="motion-row">
+          <div class="motion-row__event">Section enters viewport</div>
+          <div class="motion-row__spec">fade-in + translateY(8px) → 0<br>200ms ease-out</div>
+          <div class="motion-row__note">Rail fades in as a unit. No stagger needed — reading it as a section, not a list.</div>
+        </div>
+        <div class="motion-row">
+          <div class="motion-row__event">Card hover</div>
+          <div class="motion-row__spec">scale(1.01) + shadow lift<br>150ms ease</div>
+          <div class="motion-row__note">Subtle lift communicates selectability without being aggressive.</div>
+        </div>
+        <div class="motion-row">
+          <div class="motion-row__event">Request CTA click</div>
+          <div class="motion-row__spec">button scale(0.97) 80ms<br>modal: opacity 0→1 180ms</div>
+          <div class="motion-row__note">Immediate tactile feedback on button; modal slides up 12px and fades in.</div>
+        </div>
+        <div class="motion-row">
+          <div class="motion-row__event">Modal confirm click</div>
+          <div class="motion-row__spec">modal fade out 150ms<br>toast: translateY(20px)→0 200ms</div>
+          <div class="motion-row__note">Toast enters from bottom. Stays for 5s. Timer ring depletes clockwise.</div>
+        </div>
+        <div class="motion-row">
+          <div class="motion-row__event">Toast undo</div>
+          <div class="motion-row__spec">toast fade+scale out 150ms<br>card returns to normal state</div>
+          <div class="motion-row__note">No jarring jump. Section re-appears where it was.</div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /concept 1 -->
+
+  <div class="concept-sep"></div>
+
+
+  <!-- ============================================================
+       CONCEPT 2
+  ============================================================ -->
+  <div class="concept-section">
+
+    <div class="concept-header">
+      <div class="concept-number">2</div>
+      <div class="concept-meta">
+        <div class="concept-meta__name">Concept</div>
+        <div class="concept-meta__title">The Ambient Takeover</div>
+        <div class="concept-meta__rationale">
+          A full-width editorial interstitial block inserted between results — not a rail, not cards on a shelf. It presents jet options as a curated recommendation. The agent sees a quiet gold left-border accent, an eyebrow ("Fly privately"), a short curatorial headline, and then 2–3 option tiles laid side by side. One tile is pre-selected (the most relevant category for the searched route). The block reads as a considered recommendation from the platform, not a marketplace listing. CTA is restrained: "Request selected" — singular, decisive.
+        </div>
+      </div>
+    </div>
+
+    <div class="rationale-grid">
+      <div class="rationale-item">
+        <div class="rationale-item__label">Hierarchy</div>
+        <div class="rationale-item__text">Eyebrow → headline → sub → option tiles → CTA. Linear reading, zero ambiguity. The pre-selected tile collapses decision friction — agent needs one click to proceed.</div>
+      </div>
+      <div class="rationale-item">
+        <div class="rationale-item__label">Emotional position</div>
+        <div class="rationale-item__text">Concierge recommendation. "Here's what we'd suggest for this route." Warm parchment tones on the selected tile. The adjacent image panel reinforces the premium category without needing photography.</div>
+      </div>
+      <div class="rationale-item">
+        <div class="rationale-item__label">Interaction</div>
+        <div class="rationale-item__text">Click a tile to select it (check appears, tile warms). Click "Request selected" → Option A modal or Option B instant send. Tiles don't expand — details are surfaced inline. Dismissible via text link at bottom.</div>
+      </div>
+    </div>
+
+    <div class="sub-section">
+      <div class="section-label">Mockup — Ambient block in context</div>
+
+      <div class="page-shell">
+        <div class="page-shell__topbar">
+          <div class="page-shell__dot"></div>
+          <div class="page-shell__dot"></div>
+          <div class="page-shell__dot"></div>
+        </div>
+        <div class="search-strip">
+          <div class="search-strip__field">
+            <span class="search-strip__val">Modlin Airport</span>
+            <span class="search-strip__code">WMI</span>
+          </div>
+          <div style="padding: 0 12px; color: var(--dark-26); font-size: 14px;">⇄</div>
+          <div class="search-strip__field">
+            <span class="search-strip__val">El Prat Airport</span>
+            <span class="search-strip__code">BCN</span>
+          </div>
+          <div class="search-strip__field">
+            <span class="search-strip__val">24 jun, wed</span>
+          </div>
+          <div class="search-strip__field" style="border-right: none;">
+            <span class="search-strip__val">1 passenger</span>
+          </div>
+          <button class="search-strip__cta">SEARCH</button>
+        </div>
+
+        <div class="flight-row">
+          <div class="flight-row__logo" style="background:#ffe8e8;">
+            <svg width="20" height="10" viewBox="0 0 20 10"><text x="0" y="8" font-size="6" fill="#cc6666" font-family="sans-serif" font-weight="bold">WZZ</text></svg>
+          </div>
+          <div class="flight-row__times">
+            <div class="flight-row__time">11:40 — 14:35</div>
+            <div class="flight-row__airline">Wizz Air</div>
+          </div>
+          <div class="flight-row__duration">
+            <div class="flight-row__dur">2h 55m</div>
+            <div class="flight-row__route">WMI — BCN</div>
+          </div>
+          <div class="flight-row__type">Direct flight</div>
+          <div class="flight-row__prices">
+            <div class="price-pill">
+              <div class="price-pill__label">Basic</div>
+              <div class="price-pill__val">53 <span class="price-pill__cur">EUR</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ▸▸▸ CONCEPT 2 BLOCK ▸▸▸ -->
+        <div class="c2-block c2-has-aside">
+          <div class="c2-inner">
+            <div class="c2-eyebrow">Fly privately · WMI → BCN</div>
+            <div class="c2-headline">The route suits a private charter</div>
+            <div class="c2-subline">2h 55m direct. Four categories available from Warsaw Modlin.<br>Estimated prices — a specialist confirms availability within 2 hours.</div>
+
+            <div class="c2-options">
+              <div class="c2-option selected">
+                <div class="c2-option__check">
+                  <svg width="8" height="8" viewBox="0 0 8 8"><path d="M1.5 4L3.5 6L6.5 2" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>
+                </div>
+                <div class="c2-option__cat">Light Jet</div>
+                <div class="c2-option__name">Citation CJ2+, CJ3</div>
+                <div class="c2-option__specs">4–5 pax · 6 bags<br>Flight attendant ✓</div>
+                <div class="c2-option__price">
+                  <div class="c2-option__from">from</div>
+                  <div><span class="c2-option__amount">4 200</span> <span class="c2-option__cur">EUR</span></div>
+                </div>
+              </div>
+              <div class="c2-option">
+                <div class="c2-option__check">
+                  <svg width="8" height="8" viewBox="0 0 8 8"><path d="M1.5 4L3.5 6L6.5 2" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>
+                </div>
+                <div class="c2-option__cat">Super Light</div>
+                <div class="c2-option__name">Phenom 300E</div>
+                <div class="c2-option__specs">6–8 pax · 8 bags<br>Flight attendant ✓</div>
+                <div class="c2-option__price">
+                  <div class="c2-option__from">from</div>
+                  <div><span class="c2-option__amount">6 800</span> <span class="c2-option__cur">EUR</span></div>
+                </div>
+              </div>
+              <div class="c2-option">
+                <div class="c2-option__check">
+                  <svg width="8" height="8" viewBox="0 0 8 8"><path d="M1.5 4L3.5 6L6.5 2" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>
+                </div>
+                <div class="c2-option__cat">Midsize</div>
+                <div class="c2-option__name">Hawker 900XP</div>
+                <div class="c2-option__specs">8–9 pax · 10 bags<br>No attendant</div>
+                <div class="c2-option__price">
+                  <div class="c2-option__from">from</div>
+                  <div><span class="c2-option__amount">9 400</span> <span class="c2-option__cur">EUR</span></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="c2-actions">
+              <button class="c2-cta-primary">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M6 2l4 4-4 4" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Request selected jet
+              </button>
+              <button class="c2-cta-secondary">See all categories</button>
+              <div class="c2-privacy">
+                <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><rect x="1" y="4" width="8" height="5" rx="1" stroke="currentColor" stroke-width="1"/><path d="M3 4V3a2 2 0 014 0v1" stroke="currentColor" stroke-width="1" fill="none"/></svg>
+                No payment now
+              </div>
+            </div>
+          </div>
+          <!-- image aside -->
+          <div class="c2-image-aside">
+            <svg width="100" height="60" viewBox="0 0 100 60" fill="none">
+              <path d="M90 30L62 20V11C62 10.4 61.6 10 61 10S60 10.4 60 11V20L32 30 26 27v6l6 3V47l-6 3V56l12-6 22 12 22-12 12 6V50l-6-3V36l6-3V27l-6 3z" fill="rgba(27,39,51,0.22)"/>
+            </svg>
+            <div class="c2-image-aside-label">Light Jet · est. render</div>
+          </div>
+        </div>
+        <!-- ◂◂◂ end concept 2 block ◂◂◂ -->
+
+        <div class="flight-row">
+          <div class="flight-row__logo" style="background:#e8efff;">
+            <svg width="20" height="10" viewBox="0 0 20 10"><text x="0" y="8" font-size="6" fill="#3355cc" font-family="sans-serif" font-weight="bold">BZZ</text></svg>
+          </div>
+          <div class="flight-row__times">
+            <div class="flight-row__time">06:15 — 09:20</div>
+            <div class="flight-row__airline">Operated by Buzz, R…</div>
+          </div>
+          <div class="flight-row__duration">
+            <div class="flight-row__dur">3h 5m</div>
+            <div class="flight-row__route">WMI — BCN</div>
+          </div>
+          <div class="flight-row__type">Direct flight</div>
+          <div class="flight-row__prices">
+            <div class="price-pill">
+              <div class="price-pill__label">Basic</div>
+              <div class="price-pill__val">59 <span class="price-pill__cur">EUR</span></div>
+            </div>
+          </div>
+        </div>
+      </div><!-- /page-shell -->
+    </div>
+
+    <!-- User flow Option B demo for C2 -->
+    <div class="sub-section">
+      <div class="section-label">User flow — Option B: Instant send + undo</div>
+      <div class="toast-demo" style="height:80px;">
+        <div class="toast">
+          <div class="toast__icon">✓</div>
+          <span class="toast__text">Light Jet request sent · WMI → BCN · 24 Jun</span>
+          <span class="toast__undo">Undo</span>
+          <div class="toast__timer">5s</div>
+        </div>
+      </div>
+      <div class="text-muted mt12" style="padding: 0 4px;">
+        Option B skips the modal entirely. The CTA label becomes "Sending…" (100ms), then the toast appears. The tile dims slightly (opacity 0.6) indicating "sent state." Undo reverses the request and restores the tile. After 5 seconds without undo, the request is dispatched to Telegram.
+      </div>
+    </div>
+
+    <!-- Flow comparison -->
+    <div class="sub-section">
+      <div class="section-label">Flow A vs Flow B — comparison</div>
+      <table class="flow-table">
+        <thead>
+          <tr>
+            <th>Dimension</th>
+            <th>Option A — Confirm modal</th>
+            <th>Option B — Instant send</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Friction</td>
+            <td><span class="neutral">Medium</span> — one modal interaction required</td>
+            <td><span class="plus">Low</span> — single click, no interruption</td>
+          </tr>
+          <tr>
+            <td>Confidence</td>
+            <td><span class="plus">High</span> — agent reviews all details before sending</td>
+            <td><span class="neutral">Medium</span> — relies on undo window being noticed</td>
+          </tr>
+          <tr>
+            <td>Concierge feel</td>
+            <td><span class="plus">Strong</span> — modal feels deliberate and curated</td>
+            <td><span class="neutral">Moderate</span> — speed reads as efficiency, not premium</td>
+          </tr>
+          <tr>
+            <td>Accidental sends</td>
+            <td><span class="plus">Unlikely</span> — confirmation step prevents it</td>
+            <td><span class="minus">Possible</span> — 5s undo window may be missed</td>
+          </tr>
+          <tr>
+            <td>Best for</td>
+            <td>First-time jet requests; high-value bookings; client-facing agents</td>
+            <td>Power users who know the workflow; repeat requests</td>
+          </tr>
+          <tr>
+            <td>Recommendation</td>
+            <td colspan="2" style="color:var(--dark);">
+              <strong>Use Option A as default.</strong> Optionally let agents set a preference in Profile → "Skip confirmation for private jet requests." This gives power users Option B without reducing safety for new or casual users.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="sub-section">
+      <div class="section-label">Motion spec — Concept 2</div>
+      <div class="motion-spec">
+        <div class="motion-row">
+          <div class="motion-row__event">Block enters viewport</div>
+          <div class="motion-row__spec">opacity 0→1, translateY(6px)→0<br>250ms ease-out</div>
+          <div class="motion-row__note">Slightly slower than Concept 1 — this block is wider and the editorial pause is intentional.</div>
+        </div>
+        <div class="motion-row">
+          <div class="motion-row__event">Tile select</div>
+          <div class="motion-row__spec">background warm transition 180ms<br>check mark scale(0)→1 100ms</div>
+          <div class="motion-row__note">Tile warms (gold-light background) as if illuminated. Check mark pops in with spring feel.</div>
+        </div>
+        <div class="motion-row">
+          <div class="motion-row__event">Image aside (on load)</div>
+          <div class="motion-row__spec">opacity 0→0.25 400ms 200ms delay</div>
+          <div class="motion-row__note">Aside fades in slightly after text content — so content is read first.</div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /concept 2 -->
+
+  <div class="concept-sep"></div>
+
+
+  <!-- ============================================================
+       CONCEPT 3
+  ============================================================ -->
+  <div class="concept-section">
+
+    <div class="concept-header">
+      <div class="concept-number">3</div>
+      <div class="concept-meta">
+        <div class="concept-meta__name">Concept</div>
+        <div class="concept-meta__title">The Contextual Thread</div>
+        <div class="concept-meta__rationale">
+          Jet options appear as rows directly threaded into the results list — structurally parallel to commercial flight rows, but unmistakably different in visual register. A thin golden divider row separates the commercial results above from the jet rows below, reading as "same list, elevated tier." Each jet row follows the same left-to-right data rhythm as flight rows (category, models, capacity, route, price, CTA) — agents who know how to read flight rows instantly know how to read jet rows. No new learning required. Differentiation is achieved through the gold left-border accent, warm price pill, and restrained typographic treatment.
+        </div>
+      </div>
+    </div>
+
+    <div class="rationale-grid">
+      <div class="rationale-item">
+        <div class="rationale-item__label">Hierarchy</div>
+        <div class="rationale-item__text">Minimal hierarchy disruption. Jets sit in the same flow as flights. The gold left-border and divider label are the only premium signals needed. Agents who scan rows quickly won't miss the tier change.</div>
+      </div>
+      <div class="rationale-item">
+        <div class="rationale-item__label">Emotional position</div>
+        <div class="rationale-item__text">Efficiency over aspiration. This concept suits the professional travel agent context — someone scanning results fast, not being seduced. Premium is signaled through restraint, not surface area.</div>
+      </div>
+      <div class="rationale-item">
+        <div class="rationale-item__label">Interaction</div>
+        <div class="rationale-item__text">Row click expands inline (accordion) showing more detail — models list, carousel placeholder, baggage note with tooltip. Collapsed by default for speed. CTA always visible in the row's right column.</div>
+      </div>
+    </div>
+
+    <div class="sub-section">
+      <div class="section-label">Mockup — Threaded rows in results</div>
+
+      <div class="page-shell">
+        <div class="page-shell__topbar">
+          <div class="page-shell__dot"></div>
+          <div class="page-shell__dot"></div>
+          <div class="page-shell__dot"></div>
+        </div>
+        <div class="search-strip">
+          <div class="search-strip__field">
+            <span class="search-strip__val">Modlin Airport</span>
+            <span class="search-strip__code">WMI</span>
+          </div>
+          <div style="padding: 0 12px; color: var(--dark-26); font-size: 14px;">⇄</div>
+          <div class="search-strip__field">
+            <span class="search-strip__val">El Prat Airport</span>
+            <span class="search-strip__code">BCN</span>
+          </div>
+          <div class="search-strip__field"><span class="search-strip__val">24 jun, wed</span></div>
+          <div class="search-strip__field" style="border-right:none;"><span class="search-strip__val">1 passenger</span></div>
+          <button class="search-strip__cta">SEARCH</button>
+        </div>
+
+        <!-- existing flights -->
+        <div class="flight-row">
+          <div class="flight-row__logo" style="background:#ffe8e8;"><svg width="20" height="10" viewBox="0 0 20 10"><text x="0" y="8" font-size="6" fill="#cc6666" font-family="sans-serif" font-weight="bold">WZZ</text></svg></div>
+          <div class="flight-row__times"><div class="flight-row__time">11:40 — 14:35</div><div class="flight-row__airline">Wizz Air</div></div>
+          <div class="flight-row__duration"><div class="flight-row__dur">2h 55m</div><div class="flight-row__route">WMI — BCN</div></div>
+          <div class="flight-row__type">Direct flight</div>
+          <div class="flight-row__prices"><div class="price-pill"><div class="price-pill__label">Basic</div><div class="price-pill__val">53 <span class="price-pill__cur">EUR</span></div></div><div class="price-pill"><div class="price-pill__label">Wizz Go</div><div class="price-pill__val">85 <span class="price-pill__cur">EUR</span></div></div></div>
+        </div>
+        <div class="flight-row">
+          <div class="flight-row__logo" style="background:#e8efff;"><svg width="20" height="10" viewBox="0 0 20 10"><text x="0" y="8" font-size="6" fill="#3355cc" font-family="sans-serif" font-weight="bold">BZZ</text></svg></div>
+          <div class="flight-row__times"><div class="flight-row__time">06:15 — 09:20</div><div class="flight-row__airline">Operated by Buzz, R…</div></div>
+          <div class="flight-row__duration"><div class="flight-row__dur">3h 5m</div><div class="flight-row__route">WMI — BCN</div></div>
+          <div class="flight-row__type">Direct flight</div>
+          <div class="flight-row__prices"><div class="price-pill"><div class="price-pill__label">Basic</div><div class="price-pill__val">59 <span class="price-pill__cur">EUR</span></div></div></div>
+        </div>
+
+        <!-- ▸▸▸ CONCEPT 3: divider + rows ▸▸▸ -->
+        <div class="c3-divider">
+          <div class="c3-divider__line"></div>
+          <div class="c3-divider__label">Private alternatives</div>
+          <div class="c3-divider__line"></div>
+        </div>
+
+        <!-- Jet row 1 -->
+        <div class="c3-row">
+          <div class="c3-row__logo">
+            <svg width="18" height="10" viewBox="0 0 18 10" fill="none">
+              <path d="M16 5L10 3V1C10 0.7 9.8 0.5 9.5 0.5S9 0.7 9 1V3L3 5 1.5 4.4V6L3 6.5V9L1.5 9.6V11L4 10.2 9 13 14 10.2 16.5 11V9.6L15 9V6.5L16.5 6V4.4L16 5z" fill="var(--gold)"/>
+            </svg>
+          </div>
+          <div class="c3-row__info">
+            <div class="c3-row__category">Light Jet</div>
+            <div class="c3-row__models">Citation CJ2+, CJ3, CJ4 Gen2</div>
+          </div>
+          <div class="c3-row__capacity">
+            <div style="font-size:11px;color:var(--dark-40);margin-bottom:2px;">4–5 pax</div>
+            <div style="font-size:11px;color:var(--dark-40);">6 bags</div>
+          </div>
+          <div class="c3-row__route">
+            <div class="c3-row__route-display">
+              <span style="font-family:var(--mono);font-size:13px;font-weight:600;">WMI</span>
+              <span class="c3-row__route-arrow">→</span>
+              <span style="font-family:var(--mono);font-size:13px;font-weight:600;">BCN</span>
+            </div>
+            <div class="c3-row__route-meta">Direct · 24 Jun · One-way</div>
+          </div>
+          <div class="c3-row__price-zone">
+            <div class="c3-price-pill">
+              <div class="c3-price-pill__from">from</div>
+              <div class="c3-price-pill__val">4 200 <span class="c3-price-pill__cur">EUR</span></div>
+              <div class="c3-price-pill__est">estimated</div>
+            </div>
+            <button class="c3-row__cta">Request</button>
+          </div>
+        </div>
+
+        <!-- Jet row 2 — expanded state -->
+        <div class="c3-row" style="flex-direction:column; align-items:flex-start; padding-bottom:20px;">
+          <div style="display:flex;align-items:center;gap:16px;width:100%;">
+            <div class="c3-row__logo">
+              <svg width="18" height="10" viewBox="0 0 18 10" fill="none"><path d="M16 5L10 3V1C10 0.7 9.8 0.5 9.5 0.5S9 0.7 9 1V3L3 5 1.5 4.4V6L3 6.5V9L1.5 9.6V11L4 10.2 9 13 14 10.2 16.5 11V9.6L15 9V6.5L16.5 6V4.4L16 5z" fill="var(--gold)"/></svg>
+            </div>
+            <div class="c3-row__info">
+              <div class="c3-row__category">Super Light Jet</div>
+              <div class="c3-row__models">Phenom 300E, Citation XLS+</div>
+            </div>
+            <div class="c3-row__capacity">
+              <div style="font-size:11px;color:var(--dark-40);margin-bottom:2px;">6–8 pax</div>
+              <div style="font-size:11px;color:var(--dark-40);">8 bags</div>
+            </div>
+            <div class="c3-row__route" style="flex:1;">
+              <div class="c3-row__route-display">
+                <span style="font-family:var(--mono);font-size:13px;font-weight:600;">WMI</span>
+                <span class="c3-row__route-arrow">→</span>
+                <span style="font-family:var(--mono);font-size:13px;font-weight:600;">BCN</span>
+              </div>
+              <div class="c3-row__route-meta">Direct · 24 Jun · One-way</div>
+            </div>
+            <div class="c3-row__price-zone">
+              <div class="c3-price-pill">
+                <div class="c3-price-pill__from">from</div>
+                <div class="c3-price-pill__val">6 800 <span class="c3-price-pill__cur">EUR</span></div>
+                <div class="c3-price-pill__est">estimated</div>
+              </div>
+              <button class="c3-row__cta">Request</button>
+            </div>
+          </div>
+
+          <!-- expanded detail panel -->
+          <div style="margin-top:14px;margin-left:52px;width:calc(100% - 52px);background:var(--gold-light);border:1px solid var(--gold-border);border-radius:8px;padding:14px 16px;display:flex;gap:20px;">
+            <!-- image placeholder -->
+            <div style="width:120px;height:72px;background:linear-gradient(135deg,#e5dcd0,#cfc2ae);border-radius:6px;flex-shrink:0;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;">
+              <svg width="50" height="28" viewBox="0 0 50 28" fill="none"><path d="M44 14L30 9.5V5.5C30 5.2 29.8 5 29.5 5S29 5.2 29 5.5V9.5L15 14 12 12.5v3L15 17V22L12 23.5v3L18 24 25 28 32 24 38 26.5v-3L35 22V17L38 15.5v-3L44 14z" fill="rgba(27,39,51,0.25)"/></svg>
+              <div style="position:absolute;bottom:6px;left:8px;font-size:8px;font-weight:600;letter-spacing:0.8px;color:rgba(27,39,51,0.4);text-transform:uppercase;">1 / 3</div>
+            </div>
+            <div style="flex:1;">
+              <div style="font-size:10px;font-weight:600;letter-spacing:0.8px;text-transform:uppercase;color:var(--gold);margin-bottom:8px;">Super Light Jet · Details</div>
+              <div style="display:flex;gap:24px;font-size:11px;color:var(--dark-70);line-height:1.6;">
+                <div>
+                  <div><strong style="color:var(--dark);">Top models</strong></div>
+                  <div>Phenom 300E</div>
+                  <div>Citation XLS+</div>
+                </div>
+                <div>
+                  <div><strong style="color:var(--dark);">Capacity</strong></div>
+                  <div>6–8 passengers</div>
+                  <div style="display:flex;align-items:center;gap:4px;">8 bags <span style="font-size:9px;background:var(--dark-10);padding:1px 5px;border-radius:2px;color:var(--dark-40);">carry-on + checked</span></div>
+                </div>
+                <div>
+                  <div><strong style="color:var(--dark);">Attendant</strong></div>
+                  <div style="display:flex;align-items:center;gap:4px;"><span class="attendant-dot"></span> Available</div>
+                </div>
+                <div>
+                  <div><strong style="color:var(--dark);">Round trip est.</strong></div>
+                  <div style="font-size:13px;font-weight:700;color:var(--dark);">13 600 EUR</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="c3-row">
+          <div class="c3-row__logo"><svg width="18" height="10" viewBox="0 0 18 10" fill="none"><path d="M16 5L10 3V1C10 0.7 9.8 0.5 9.5 0.5S9 0.7 9 1V3L3 5 1.5 4.4V6L3 6.5V9L1.5 9.6V11L4 10.2 9 13 14 10.2 16.5 11V9.6L15 9V6.5L16.5 6V4.4L16 5z" fill="var(--gold)"/></svg></div>
+          <div class="c3-row__info"><div class="c3-row__category">Midsize Jet</div><div class="c3-row__models">Hawker 900XP, Learjet 60 XR</div></div>
+          <div class="c3-row__capacity"><div style="font-size:11px;color:var(--dark-40);margin-bottom:2px;">8–9 pax</div><div style="font-size:11px;color:var(--dark-40);">10 bags</div></div>
+          <div class="c3-row__route">
+            <div class="c3-row__route-display"><span style="font-family:var(--mono);font-size:13px;font-weight:600;">WMI</span><span class="c3-row__route-arrow">→</span><span style="font-family:var(--mono);font-size:13px;font-weight:600;">BCN</span></div>
+            <div class="c3-row__route-meta">Direct · 24 Jun · One-way</div>
+          </div>
+          <div class="c3-row__price-zone">
+            <div class="c3-price-pill">
+              <div class="c3-price-pill__from">from</div>
+              <div class="c3-price-pill__val">9 400 <span class="c3-price-pill__cur">EUR</span></div>
+              <div class="c3-price-pill__est">estimated</div>
+            </div>
+            <button class="c3-row__cta">Request</button>
+          </div>
+        </div>
+        <!-- ◂◂◂ end concept 3 ◂◂◂ -->
+      </div>
+    </div>
+
+    <div class="sub-section">
+      <div class="section-label">Motion spec — Concept 3</div>
+      <div class="motion-spec">
+        <div class="motion-row">
+          <div class="motion-row__event">Rows load</div>
+          <div class="motion-row__spec">stagger: 60ms per row<br>fade + translateY(4px)→0</div>
+          <div class="motion-row__note">Rows feel like they're being populated in sequence. Very subtle stagger — not a big reveal.</div>
+        </div>
+        <div class="motion-row">
+          <div class="motion-row__event">Row expand</div>
+          <div class="motion-row__spec">max-height 0→auto<br>200ms ease-in-out</div>
+          <div class="motion-row__note">Detail panel slides down inside the row. No page jump. Smooth accordion.</div>
+        </div>
+        <div class="motion-row">
+          <div class="motion-row__event">Image carousel</div>
+          <div class="motion-row__spec">translateX slide<br>200ms ease</div>
+          <div class="motion-row__note">Dot indicators below image. Swipe supported on mobile.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sub-section">
+      <div class="section-label">Mobile responsiveness — all 3 concepts</div>
+      <div class="mobile-note">
+        <strong>Concept 1 (Rail):</strong> Rail becomes a horizontally swipeable strip on mobile. Cards reduce to 200px wide. Section header collapses to icon + label only. Works naturally with touch. <br><br>
+        <strong>Concept 2 (Ambient block):</strong> Image aside hides on mobile (below 768px). Options stack vertically. CTA row becomes full-width stack. Still readable and actionable in one thumb reach. <br><br>
+        <strong>Concept 3 (Threaded rows):</strong> On mobile, rows collapse to a stacked card layout (category + price + CTA visible, rest hidden behind expand). Gold left-border becomes a top-border to signal premium tier in a card-stack layout. The threaded concept requires most adaptation on mobile but retains the speed of scanning.
+      </div>
+    </div>
+
+  </div><!-- /concept 3 -->
+
+  <div class="concept-sep"></div>
+
+
+  <!-- ============================================================
+       EDGE CASES
+  ============================================================ -->
+  <div class="concept-section">
+
+    <div class="concept-header">
+      <div class="concept-number" style="background:var(--dark-26);">!</div>
+      <div class="concept-meta">
+        <div class="concept-meta__name">Edge cases</div>
+        <div class="concept-meta__title">Empty states + API failures</div>
+        <div class="concept-meta__rationale">
+          Two meaningful edge cases require explicit handling. Neither should degrade the commercial results experience.
+        </div>
+      </div>
+    </div>
+
+    <div class="edge-block">
+      <div class="edge-block__title">Case 1 — No jets available for this route</div>
+      <div class="edge-block__rec">
+        <strong>Recommendation: Silent omission.</strong> Do not render the private jet section at all. No "No jets found" placeholder — that creates visual noise and draws attention to a gap. The agent simply sees commercial results as normal. This is the cleanest UX for a B2B tool. Optionally: log the route in analytics as a "jet interest signal" for business development purposes without surfacing it to the user.
+      </div>
+    </div>
+
+    <div class="edge-block mt12">
+      <div class="edge-block__title">Case 2 — JetsBetter API timeout or error</div>
+      <div class="edge-block__rec">
+        <strong>Recommendation: Silent fail + internal logging.</strong> If the API call doesn't resolve within a reasonable timeout (suggested: <code>3 000ms</code>), suppress the jet section entirely. Do not show a spinner that never resolves. Do not show a broken state. Log the failure to Sentry with <code>context: 'jets_api_timeout'</code>, route details, and timestamp. Optionally trigger an internal Slack/Telegram alert if error rate exceeds a threshold (e.g., 5 failures in 10 minutes). The agent experience is unaffected — they see clean commercial results.<br><br>
+        <strong>Optional degrade:</strong> If partial data is available (e.g., categories list loaded but prices failed), show the section with "Prices on request" instead of amounts. Button label changes to "Request for quote." This preserves the discovery moment while being honest about data availability.
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ============================================================
+       TELEGRAM PAYLOAD
+  ============================================================ -->
+  <div class="concept-section">
+
+    <div class="concept-header">
+      <div class="concept-number" style="background:var(--dark-40);">✈</div>
+      <div class="concept-meta">
+        <div class="concept-meta__name">Integration</div>
+        <div class="concept-meta__title">Telegram request payload</div>
+        <div class="concept-meta__rationale">
+          After the 5-second undo window closes, this message is dispatched to the private aviation Telegram channel. Format is readable in Telegram's native monospace rendering.
+        </div>
+      </div>
+    </div>
+
+    <div class="telegram-preview">
+      <div><span class="tg-emoji">✈️</span> <span class="tg-bold">New Private Jet Request</span> <span class="tg-val">#PJR-20250624-001</span></div>
+      <div style="margin-top:8px;border-top:1px solid rgba(255,255,255,0.08);padding-top:8px;">
+        <div><span class="tg-key">Route:</span>           <span class="tg-val">WMI → BCN</span></div>
+        <div><span class="tg-key">Trip type:</span>       <span class="tg-val">One-way</span></div>
+        <div><span class="tg-key">Departure date:</span>  <span class="tg-val">2025-06-24</span></div>
+        <div><span class="tg-key">Return date:</span>     <span class="tg-val">—</span></div>
+      </div>
+      <div style="margin-top:8px;border-top:1px solid rgba(255,255,255,0.08);padding-top:8px;">
+        <div><span class="tg-bold">Passengers:</span></div>
+        <div style="margin-left:16px;"><span class="tg-key">Adults:</span>    <span class="tg-val">1</span></div>
+        <div style="margin-left:16px;"><span class="tg-key">Children:</span>  <span class="tg-val">0</span></div>
+        <div style="margin-left:16px;"><span class="tg-key">Infants:</span>   <span class="tg-val">0</span></div>
+        <div style="margin-left:16px;"><span class="tg-key">Total pax:</span> <span class="tg-val">1</span></div>
+      </div>
+      <div style="margin-top:8px;border-top:1px solid rgba(255,255,255,0.08);padding-top:8px;">
+        <div><span class="tg-key">Selected category:</span>  <span class="tg-val">Light Jet</span></div>
+        <div><span class="tg-key">Top models:</span>         <span class="tg-val">Citation CJ2+, CJ3, CJ4 Gen2</span></div>
+        <div><span class="tg-key">Estimated price:</span>    <span class="tg-val">EUR 4 200</span> <span style="color:rgba(255,255,255,0.3);">(estimate)</span></div>
+      </div>
+      <div style="margin-top:8px;border-top:1px solid rgba(255,255,255,0.08);padding-top:8px;">
+        <div><span class="tg-bold">Requested by:</span></div>
+        <div style="margin-left:16px;"><span class="tg-key">Name:</span>    <span class="tg-val">Anna Kowalski</span></div>
+        <div style="margin-left:16px;"><span class="tg-key">Email:</span>   <span class="tg-val">anna@travelagency.pl</span></div>
+        <div style="margin-left:16px;"><span class="tg-key">Company:</span> <span class="tg-val">SkyTravel Sp. z o.o.</span></div>
+      </div>
+      <div style="margin-top:8px;border-top:1px solid rgba(255,255,255,0.08);padding-top:8px;">
+        <div><span class="tg-key">Request created at:</span> <span class="tg-val">2025-06-24T09:14:32Z</span></div>
+      </div>
+    </div>
+
+    <div class="text-muted mt16" style="padding: 0 4px;">
+      Note: <code style="font-family:var(--mono);font-size:11px;background:var(--dark-10);padding:1px 5px;border-radius:3px;">Country</code> field should be auto-filled from the agent's profile if available. If not, omit the field rather than sending an empty line — keeps the message clean for the operations team reading it.
+    </div>
+
+  </div>
+
+</div><!-- /doc -->
+</body>
+</html>
