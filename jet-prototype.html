@@ -1,0 +1,2712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DRCT — Private Jet Alternatives Prototype</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   DESIGN TOKENS
+   ============================================================ */
+:root {
+  --dark: #1b2733;
+  --dark-70: rgba(27,39,51,0.7);
+  --dark-40: rgba(27,39,51,0.4);
+  --dark-20: rgba(27,39,51,0.2);
+  --dark-10: rgba(27,39,51,0.10);
+  --dark-05: rgba(27,39,51,0.05);
+  --blue: #2a8aea;
+  --blue-10: rgba(42,138,234,0.1);
+  --gold: #b8966e;
+  --gold-light: #f5efe6;
+  --gold-border: rgba(184,150,110,0.30);
+  --gold-10: rgba(184,150,110,0.10);
+  --white: #ffffff;
+  --off-white: #f8f8f9;
+  --success: #33c100;
+  --font: 'IBM Plex Sans', sans-serif;
+  --mono: 'IBM Plex Mono', monospace;
+}
+
+/* ============================================================
+   RESET & BASE
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 14px; }
+body {
+  font-family: var(--font);
+  background: var(--off-white);
+  color: var(--dark);
+  min-height: 100vh;
+}
+button { cursor: pointer; font-family: var(--font); border: none; outline: none; }
+a { text-decoration: none; color: inherit; }
+svg { display: block; flex-shrink: 0; }
+
+/* ============================================================
+   PROTOTYPE CONCEPT TABS (meta navigation)
+   ============================================================ */
+.proto-tabs {
+  background: var(--dark);
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+  gap: 0;
+  border-bottom: 2px solid rgba(255,255,255,0.08);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.proto-tab {
+  color: rgba(255,255,255,0.45);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 12px 16px;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  transition: color 150ms, border-color 150ms;
+  white-space: nowrap;
+}
+.proto-tab:hover { color: rgba(255,255,255,0.75); }
+.proto-tab.active { color: var(--gold); border-bottom-color: var(--gold); }
+.proto-label {
+  color: rgba(255,255,255,0.25);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 12px 12px 12px 0;
+  margin-right: 8px;
+  border-right: 1px solid rgba(255,255,255,0.1);
+}
+
+/* ============================================================
+   CONCEPT PANELS
+   ============================================================ */
+.concept-panel { display: none; }
+.concept-panel.active { display: block; }
+
+/* ============================================================
+   NAV BAR
+   ============================================================ */
+.nav {
+  background: var(--dark);
+  height: 60px;
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+  gap: 32px;
+  position: sticky;
+  top: 40px;
+  z-index: 90;
+}
+.nav-logo {
+  font-family: var(--mono);
+  font-weight: 500;
+  font-size: 18px;
+  color: var(--white);
+  letter-spacing: 0.05em;
+  flex-shrink: 0;
+}
+.nav-logo span { color: var(--gold); }
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-left: auto;
+}
+.nav-link {
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.50);
+  cursor: pointer;
+  transition: color 150ms;
+}
+.nav-link:hover { color: rgba(255,255,255,0.80); }
+.nav-link.active { font-weight: 700; color: var(--white); }
+
+/* ============================================================
+   SEARCH STRIP
+   ============================================================ */
+.search-strip {
+  background: var(--white);
+  height: 56px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--dark-10);
+  padding: 0 24px;
+  gap: 0;
+}
+.search-field {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 16px;
+  height: 100%;
+  border-right: 1px solid var(--dark-10);
+  min-width: 0;
+}
+.search-field:first-child { padding-left: 0; }
+.search-field-label {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--dark-40);
+  margin-bottom: 2px;
+}
+.search-field-value {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--dark);
+}
+.search-field-code {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--dark-40);
+  margin-left: 4px;
+}
+.swap-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--dark-05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin: 0 8px;
+  flex-shrink: 0;
+  border: 1px solid var(--dark-10);
+  transition: background 150ms;
+}
+.swap-btn:hover { background: var(--dark-10); }
+.search-btn {
+  margin-left: auto;
+  background: var(--blue);
+  color: var(--white);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0 20px;
+  height: 36px;
+  border-radius: 4px;
+  flex-shrink: 0;
+  transition: opacity 150ms, transform 150ms;
+}
+.search-btn:hover { opacity: 0.9; transform: scale(1.01); }
+
+/* ============================================================
+   AI FILTER BAR
+   ============================================================ */
+.ai-bar {
+  background: #eef6fd;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+  gap: 10px;
+  border-bottom: 1px solid rgba(42,138,234,0.12);
+}
+.ai-icon {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--blue);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.ai-text {
+  font-size: 12px;
+  color: var(--dark-70);
+  flex: 1;
+}
+.ai-text strong { color: var(--dark); font-weight: 600; }
+.ai-filter-link {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--blue);
+  cursor: pointer;
+}
+
+/* ============================================================
+   RESULTS TABS
+   ============================================================ */
+.results-tabs {
+  background: var(--white);
+  height: 44px;
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+  border-bottom: 1px solid var(--dark-10);
+  gap: 0;
+}
+.tab-group {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+.tab-group + .tab-group { margin-left: auto; }
+.results-tab {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--dark-40);
+  padding: 0 14px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  transition: color 150ms, border-color 150ms;
+  white-space: nowrap;
+}
+.results-tab:hover { color: var(--dark-70); }
+.results-tab.active { color: var(--dark); border-bottom-color: var(--dark); font-weight: 700; }
+.results-tab-divider {
+  width: 1px;
+  height: 20px;
+  background: var(--dark-20);
+  margin: 0 4px;
+}
+
+/* ============================================================
+   RESULTS CONTAINER
+   ============================================================ */
+.results {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 16px 24px 48px;
+}
+
+/* ============================================================
+   FLIGHT ROW
+   ============================================================ */
+.flight-row {
+  height: 68px;
+  background: var(--white);
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  border-radius: 6px;
+  margin-bottom: 4px;
+  border: 1px solid var(--dark-10);
+  transition: background 120ms;
+  cursor: pointer;
+  position: relative;
+}
+.flight-row:hover { background: var(--dark-05); }
+.airline-logo {
+  width: 36px;
+  height: 36px;
+  border-radius: 4px;
+  background: var(--dark-05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--mono);
+  font-size: 9px;
+  font-weight: 500;
+  color: var(--dark-40);
+  flex-shrink: 0;
+  border: 1px solid var(--dark-10);
+  text-align: center;
+  line-height: 1.2;
+}
+.flight-times {
+  width: 150px;
+  padding: 0 16px;
+  flex-shrink: 0;
+}
+.flight-time-main {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--dark);
+  letter-spacing: -0.01em;
+}
+.flight-airline-name {
+  font-size: 11px;
+  color: var(--dark-40);
+  margin-top: 2px;
+}
+.flight-duration {
+  width: 80px;
+  flex-shrink: 0;
+  text-align: center;
+}
+.flight-duration-time {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--dark);
+}
+.flight-duration-route {
+  font-size: 10px;
+  color: var(--dark-40);
+  margin-top: 2px;
+}
+.flight-type {
+  flex: 1;
+  padding: 0 16px;
+}
+.flight-type-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: var(--dark-05);
+  border: 1px solid var(--dark-10);
+  border-radius: 3px;
+  padding: 3px 8px;
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--dark-70);
+  letter-spacing: 0.04em;
+}
+.flight-prices {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-shrink: 0;
+}
+.price-pill {
+  border: 1px solid var(--dark-20);
+  border-radius: 4px;
+  padding: 5px 10px;
+  text-align: center;
+  min-width: 72px;
+  transition: border-color 150ms;
+}
+.price-pill:hover { border-color: var(--dark-40); }
+.price-pill-label {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--dark-40);
+  margin-bottom: 2px;
+}
+.price-pill-amount {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--dark);
+}
+.price-pill-currency {
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--dark-40);
+  margin-left: 2px;
+}
+.price-pill.highlight { background: var(--blue-10); border-color: var(--blue); }
+.price-pill.highlight .price-pill-amount { color: var(--blue); }
+
+/* ============================================================
+   ALTERNATIVE AIRPORTS BLOCK
+   ============================================================ */
+.alt-airports {
+  background: #fafafa;
+  border: 1px solid var(--dark-10);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.alt-airports-icon { font-size: 18px; flex-shrink: 0; }
+.alt-airports-info { flex: 1; }
+.alt-airports-title { font-size: 12px; font-weight: 600; color: var(--dark); }
+.alt-airports-sub { font-size: 11px; color: var(--dark-40); margin-top: 1px; }
+.alt-airports-price { font-size: 13px; font-weight: 700; color: var(--dark); }
+.alt-airports-cta {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--blue);
+  text-transform: uppercase;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+/* ============================================================
+   CONCEPT A — THE SIGNAL
+   ============================================================ */
+.signal-bar {
+  margin-bottom: 4px;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid var(--gold-border);
+  border-left: 3px solid var(--gold);
+  background: linear-gradient(90deg, var(--gold-10) 0%, var(--white) 40%);
+}
+.signal-collapsed {
+  height: 44px;
+  display: flex;
+  align-items: center;
+  padding: 0 14px 0 12px;
+  cursor: pointer;
+  gap: 10px;
+}
+.signal-glyph {
+  font-size: 14px;
+  flex-shrink: 0;
+}
+.signal-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold);
+  flex-shrink: 0;
+}
+.signal-preview {
+  font-size: 12px;
+  color: var(--dark-40);
+  flex: 1;
+}
+.signal-preview strong { color: var(--dark-70); font-weight: 600; }
+.signal-expand-btn {
+  font-size: 12px;
+  color: var(--gold);
+  font-weight: 500;
+  cursor: pointer;
+  flex-shrink: 0;
+  background: none;
+  padding: 4px 8px;
+  border-radius: 3px;
+  transition: background 150ms;
+}
+.signal-expand-btn:hover { background: var(--gold-10); }
+
+.signal-expanded {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 300ms ease;
+}
+.signal-bar.open .signal-expanded { max-height: 220px; }
+
+.signal-expanded-inner {
+  background: var(--gold-light);
+  padding: 12px 14px;
+  border-top: 1px solid var(--gold-border);
+}
+.signal-cards-scroll {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--gold-border) transparent;
+}
+.signal-cards-scroll::-webkit-scrollbar { height: 4px; }
+.signal-cards-scroll::-webkit-scrollbar-track { background: transparent; }
+.signal-cards-scroll::-webkit-scrollbar-thumb { background: var(--gold-border); border-radius: 2px; }
+
+/* ---- Jet Card ---- */
+.jet-card {
+  width: 220px;
+  flex-shrink: 0;
+  background: var(--white);
+  border: 1px solid var(--gold-border);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 150ms, box-shadow 150ms;
+}
+.jet-card:hover { transform: scale(1.005); box-shadow: 0 4px 16px rgba(184,150,110,0.15); }
+
+.jet-card-img {
+  height: 100px;
+  background: linear-gradient(135deg, #b0bec5 0%, #78909c 35%, #546e7a 65%, #37474f 100%);
+  position: relative;
+  overflow: hidden;
+}
+.jet-card-img::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.25) 100%);
+}
+.jet-card-img-label {
+  position: absolute;
+  bottom: 6px;
+  left: 8px;
+  z-index: 1;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.85);
+}
+
+.jet-card-body { padding: 10px; }
+.jet-card-badge {
+  display: inline-block;
+  background: var(--gold-light);
+  border: 1px solid var(--gold-border);
+  border-radius: 3px;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gold);
+  padding: 2px 6px;
+  margin-bottom: 5px;
+}
+.jet-card-name {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--dark);
+  margin-bottom: 6px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.jet-card-specs {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+.jet-spec {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 11px;
+  color: var(--dark-70);
+}
+.jet-spec-icon { font-size: 12px; }
+.jet-card-attendant {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 10px;
+  color: var(--dark-40);
+  margin-bottom: 8px;
+}
+.attendant-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--success);
+  flex-shrink: 0;
+}
+.jet-card-price {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 8px;
+}
+.jet-card-price span {
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--dark-40);
+  margin-left: 2px;
+}
+.jet-card-request {
+  width: 100%;
+  background: var(--dark);
+  color: var(--white);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 7px 0;
+  border-radius: 4px;
+  transition: opacity 150ms;
+}
+.jet-card-request:hover { opacity: 0.85; }
+.signal-footer {
+  font-size: 11px;
+  color: var(--dark-40);
+  margin-top: 10px;
+  font-style: italic;
+}
+
+/* ============================================================
+   CONCEPT B — THE MODULE
+   ============================================================ */
+.module-bar {
+  margin-bottom: 4px;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid var(--gold-border);
+  border-left: 3px solid var(--gold);
+  background: var(--white);
+}
+.module-collapsed {
+  height: 72px;
+  display: flex;
+  align-items: center;
+  padding: 0 16px 0 14px;
+  cursor: pointer;
+  gap: 16px;
+}
+.module-left { flex: 1; min-width: 0; }
+.module-eyebrow {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 4px;
+}
+.module-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--dark);
+  margin-bottom: 2px;
+}
+.module-sub {
+  font-size: 12px;
+  color: var(--dark-40);
+}
+.module-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+  flex-shrink: 0;
+}
+.module-cta-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.module-btn {
+  background: var(--dark);
+  color: var(--white);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0 12px;
+  height: 32px;
+  border-radius: 4px;
+  flex-shrink: 0;
+  transition: opacity 150ms;
+}
+.module-btn:hover { opacity: 0.85; }
+.module-see-all {
+  font-size: 11px;
+  color: var(--dark-40);
+  cursor: pointer;
+  white-space: nowrap;
+}
+.module-see-all:hover { color: var(--dark); }
+.module-lock {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 10px;
+  color: var(--dark-40);
+}
+
+.module-expanded {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 350ms ease;
+}
+.module-bar.open .module-expanded { max-height: 320px; }
+.module-expanded-inner {
+  border-top: 1px solid var(--dark-10);
+  padding: 16px;
+  background: var(--off-white);
+}
+.module-tiles {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.module-tile {
+  flex: 1;
+  border: 1px solid var(--dark-10);
+  border-radius: 6px;
+  padding: 12px;
+  background: var(--white);
+  cursor: pointer;
+  transition: border-color 150ms, background 150ms;
+  position: relative;
+}
+.module-tile:hover { border-color: var(--gold-border); background: var(--gold-light); }
+.module-tile.selected {
+  border-color: var(--gold);
+  background: var(--gold-light);
+}
+.module-tile-checkmark {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--gold);
+  color: white;
+  font-size: 9px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+}
+.module-tile.selected .module-tile-checkmark { display: flex; }
+.module-tile-cat {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 5px;
+}
+.module-tile-models {
+  font-size: 11px;
+  color: var(--dark-70);
+  margin-bottom: 6px;
+  line-height: 1.5;
+}
+.module-tile-specs {
+  font-size: 11px;
+  color: var(--dark-40);
+  margin-bottom: 8px;
+}
+.module-tile-price {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--dark);
+}
+.module-tile-price small {
+  font-size: 10px;
+  font-weight: 400;
+  color: var(--dark-40);
+}
+.module-actions {
+  display: flex;
+  gap: 8px;
+}
+.module-action-primary {
+  flex: 1;
+  background: var(--dark);
+  color: var(--white);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  height: 36px;
+  border-radius: 4px;
+  transition: opacity 150ms;
+}
+.module-action-primary:hover { opacity: 0.85; }
+.module-action-secondary {
+  background: transparent;
+  color: var(--dark-40);
+  font-size: 11px;
+  font-weight: 500;
+  height: 36px;
+  padding: 0 16px;
+  border-radius: 4px;
+  border: 1px solid var(--dark-20);
+  transition: border-color 150ms, color 150ms;
+}
+.module-action-secondary:hover { border-color: var(--dark-40); color: var(--dark-70); }
+
+/* ============================================================
+   CONCEPT C — THREADED ROWS
+   ============================================================ */
+.thread-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 0 4px;
+  margin-bottom: 4px;
+}
+.thread-line {
+  flex: 1;
+  height: 1px;
+  background: var(--gold-border);
+}
+.thread-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold);
+  white-space: nowrap;
+}
+.thread-count {
+  background: var(--gold-light);
+  border: 1px solid var(--gold-border);
+  border-radius: 3px;
+  padding: 1px 6px;
+  font-size: 9px;
+  font-weight: 700;
+  color: var(--gold);
+}
+.thread-toggle {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--dark-40);
+  background: none;
+  padding: 3px 8px;
+  border-radius: 3px;
+  border: 1px solid var(--dark-10);
+  transition: border-color 150ms, color 150ms;
+}
+.thread-toggle:hover { border-color: var(--dark-20); color: var(--dark-70); }
+
+.jet-rows { transition: max-height 300ms ease, opacity 300ms; overflow: hidden; }
+.jet-rows.hidden { max-height: 0 !important; opacity: 0; pointer-events: none; }
+
+.jet-row {
+  height: 68px;
+  background: var(--white);
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  border-radius: 6px;
+  margin-bottom: 4px;
+  border: 1px solid var(--gold-border);
+  border-left: 3px solid var(--gold);
+  background: linear-gradient(90deg, var(--gold-10) 0%, var(--white) 30%);
+  transition: background 120ms, box-shadow 150ms;
+  cursor: pointer;
+  gap: 0;
+}
+.jet-row:hover {
+  box-shadow: 0 2px 8px rgba(184,150,110,0.12);
+  background: linear-gradient(90deg, rgba(184,150,110,0.12) 0%, var(--off-white) 30%);
+}
+
+.jet-row-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 4px;
+  background: var(--gold-light);
+  border: 1px solid var(--gold-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  flex-shrink: 0;
+  margin-right: 0;
+}
+.jet-row-info {
+  width: 150px;
+  padding: 0 16px;
+  flex-shrink: 0;
+}
+.jet-row-cat {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+.jet-row-models {
+  font-size: 11px;
+  color: var(--dark-70);
+  margin-top: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.jet-row-capacity {
+  width: 80px;
+  flex-shrink: 0;
+  text-align: center;
+}
+.jet-row-cap-num {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--dark);
+}
+.jet-row-cap-label {
+  font-size: 10px;
+  color: var(--dark-40);
+  margin-top: 2px;
+}
+.jet-row-route {
+  flex: 1;
+  padding: 0 16px;
+  font-size: 12px;
+  color: var(--dark-40);
+}
+.jet-row-route strong { color: var(--dark-70); }
+.jet-price-pill {
+  border: 1px solid var(--gold-border);
+  border-radius: 4px;
+  padding: 5px 10px;
+  text-align: center;
+  min-width: 72px;
+  background: var(--gold-light);
+  margin-right: 10px;
+  flex-shrink: 0;
+}
+.jet-price-pill-label {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 2px;
+}
+.jet-price-pill-amount {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--dark);
+}
+.jet-row-request {
+  width: 80px;
+  flex-shrink: 0;
+  background: var(--dark);
+  color: var(--white);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  height: 30px;
+  border-radius: 4px;
+  transition: opacity 150ms;
+}
+.jet-row-request:hover { opacity: 0.85; }
+
+/* ============================================================
+   DENSITIES (4th tab)
+   ============================================================ */
+.densities-section { padding: 24px; }
+.densities-title {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--dark-40);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.densities-title::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--dark-10);
+}
+.density-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--dark-40);
+  margin-bottom: 6px;
+}
+.density-item { margin-bottom: 20px; }
+
+/* Compact row — 48px */
+.density-compact {
+  height: 48px;
+  background: var(--white);
+  border: 1px solid var(--gold-border);
+  border-left: 3px solid var(--gold);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  padding: 0 14px 0 12px;
+  gap: 12px;
+}
+.density-compact-cat {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gold);
+  flex: 1;
+}
+.density-compact-price {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--dark);
+}
+.density-compact-btn {
+  background: var(--dark);
+  color: var(--white);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0 10px;
+  height: 26px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+/* Medium card — 88px */
+.density-medium {
+  height: 88px;
+  background: var(--white);
+  border: 1px solid var(--gold-border);
+  border-left: 3px solid var(--gold);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  padding: 0 14px 0 12px;
+  gap: 14px;
+}
+.density-medium-info { flex: 1; }
+.density-medium-cat {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 3px;
+}
+.density-medium-models { font-size: 12px; color: var(--dark-70); margin-bottom: 5px; }
+.density-medium-specs { font-size: 11px; color: var(--dark-40); }
+.density-medium-right { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
+.density-medium-price { font-size: 14px; font-weight: 700; color: var(--dark); }
+.density-medium-btn {
+  background: var(--dark);
+  color: var(--white);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0 12px;
+  height: 28px;
+  border-radius: 3px;
+}
+
+/* Premium card — 160px */
+.density-premium {
+  height: 160px;
+  background: var(--white);
+  border: 1px solid var(--gold-border);
+  border-radius: 8px;
+  display: flex;
+  overflow: hidden;
+}
+.density-premium-img {
+  width: 200px;
+  flex-shrink: 0;
+  background: linear-gradient(135deg, #b0bec5 0%, #78909c 35%, #546e7a 65%, #37474f 100%);
+  position: relative;
+}
+.density-premium-img::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 30%, rgba(0,0,0,0.3) 100%);
+}
+.density-premium-body {
+  flex: 1;
+  padding: 16px;
+  border-left: 3px solid var(--gold);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.density-premium-top {}
+.density-premium-cat {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 4px;
+}
+.density-premium-name { font-size: 15px; font-weight: 600; color: var(--dark); margin-bottom: 6px; }
+.density-premium-specs { font-size: 12px; color: var(--dark-40); margin-bottom: 6px; }
+.density-premium-attendant {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  color: var(--dark-40);
+}
+.density-premium-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.density-premium-price { font-size: 18px; font-weight: 700; color: var(--dark); }
+.density-premium-price small {
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--dark-40);
+  margin-left: 3px;
+}
+.density-premium-btn {
+  background: var(--dark);
+  color: var(--white);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0 18px;
+  height: 34px;
+  border-radius: 4px;
+  transition: opacity 150ms;
+}
+.density-premium-btn:hover { opacity: 0.85; }
+
+/* ============================================================
+   LOADING SKELETON
+   ============================================================ */
+.skeleton-section {
+  margin-bottom: 4px;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid var(--gold-border);
+  border-left: 3px solid var(--gold);
+  background: var(--white);
+  padding: 12px 14px;
+}
+.skeleton-header {
+  height: 14px;
+  width: 160px;
+  background: var(--dark-10);
+  border-radius: 3px;
+  margin-bottom: 12px;
+  position: relative;
+  overflow: hidden;
+}
+.skeleton-cards {
+  display: flex;
+  gap: 10px;
+}
+.skeleton-card {
+  width: 220px;
+  flex-shrink: 0;
+  border: 1px solid var(--dark-10);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.skeleton-img {
+  height: 100px;
+  background: var(--dark-10);
+  position: relative;
+  overflow: hidden;
+}
+.skeleton-body { padding: 10px; }
+.skeleton-line {
+  height: 10px;
+  background: var(--dark-10);
+  border-radius: 3px;
+  margin-bottom: 8px;
+  position: relative;
+  overflow: hidden;
+}
+.skeleton-line.short { width: 60%; }
+.skeleton-line.medium { width: 80%; }
+.skeleton-line.full { width: 100%; }
+.skeleton-line.tall { height: 24px; }
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(200%); }
+}
+.skeleton-img::after,
+.skeleton-line::after,
+.skeleton-header::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.6) 50%, transparent 100%);
+  animation: shimmer 1.5s ease-in-out infinite;
+}
+
+/* ============================================================
+   EMPTY STATE
+   ============================================================ */
+.empty-state-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  color: var(--dark-40);
+  cursor: pointer;
+  margin-bottom: 8px;
+  user-select: none;
+}
+.empty-state-toggle input[type=checkbox] {
+  width: 14px;
+  height: 14px;
+  cursor: pointer;
+}
+.empty-state-toggle label { cursor: pointer; }
+
+/* ============================================================
+   REQUEST MODAL
+   ============================================================ */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(27,39,51,0.45);
+  z-index: 1000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  backdrop-filter: blur(2px);
+  animation: fadeIn 200ms ease;
+}
+.modal-overlay.open { display: flex; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+.modal {
+  width: 480px;
+  max-width: 100%;
+  background: var(--white);
+  border-radius: 12px;
+  box-shadow: 0 20px 60px rgba(27,39,51,0.25), 0 4px 16px rgba(27,39,51,0.10);
+  overflow: hidden;
+  animation: slideUp 250ms ease;
+}
+@keyframes slideUp { from { transform: translateY(16px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+.modal-header {
+  padding: 20px 20px 16px;
+  border-bottom: 1px solid var(--dark-10);
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+.modal-eyebrow {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 4px;
+}
+.modal-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--dark);
+}
+.modal-close {
+  width: 28px;
+  height: 28px;
+  border-radius: 4px;
+  background: var(--dark-05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 16px;
+  color: var(--dark-40);
+  border: 1px solid var(--dark-10);
+  flex-shrink: 0;
+  transition: background 150ms, color 150ms;
+}
+.modal-close:hover { background: var(--dark-10); color: var(--dark); }
+
+.modal-body { padding: 16px 20px; }
+
+.modal-route {
+  background: var(--gold-light);
+  border: 1px solid var(--gold-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.modal-airport {
+  text-align: center;
+}
+.modal-airport-code {
+  font-family: var(--mono);
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--dark);
+}
+.modal-airport-name {
+  font-size: 10px;
+  color: var(--dark-40);
+  margin-top: 2px;
+}
+.modal-route-arrow {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--gold);
+  font-size: 18px;
+}
+.modal-route-arrow::before,
+.modal-route-arrow::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--gold-border);
+}
+
+.modal-meta {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+.modal-meta-item {
+  background: var(--off-white);
+  border-radius: 4px;
+  padding: 10px 12px;
+}
+.modal-meta-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--dark-40);
+  margin-bottom: 3px;
+}
+.modal-meta-value {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--dark);
+}
+
+.modal-price-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  border: 1px solid var(--gold-border);
+  border-radius: 6px;
+  background: linear-gradient(90deg, var(--gold-10) 0%, var(--white) 60%);
+  margin-bottom: 12px;
+}
+.modal-price-label { font-size: 12px; font-weight: 500; color: var(--dark-70); }
+.modal-price-right { text-align: right; }
+.modal-price-amount {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--dark);
+}
+.modal-price-note { font-size: 10px; color: var(--dark-40); margin-top: 1px; }
+
+.modal-disclaimer {
+  font-size: 11px;
+  color: var(--dark-40);
+  line-height: 1.6;
+  margin-bottom: 16px;
+  padding: 10px 12px;
+  background: var(--dark-05);
+  border-radius: 4px;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 8px;
+}
+.modal-primary {
+  flex: 1;
+  background: var(--dark);
+  color: var(--white);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  height: 42px;
+  border-radius: 6px;
+  transition: opacity 150ms, transform 150ms;
+}
+.modal-primary:hover { opacity: 0.9; transform: scale(1.005); }
+.modal-secondary {
+  background: transparent;
+  color: var(--dark-40);
+  font-size: 12px;
+  font-weight: 500;
+  height: 42px;
+  padding: 0 20px;
+  border-radius: 6px;
+  border: 1px solid var(--dark-20);
+  transition: border-color 150ms, color 150ms;
+}
+.modal-secondary:hover { border-color: var(--dark-40); color: var(--dark-70); }
+
+/* ============================================================
+   SUCCESS TOAST
+   ============================================================ */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(80px);
+  background: var(--dark);
+  height: 44px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  gap: 10px;
+  z-index: 2000;
+  box-shadow: 0 4px 20px rgba(27,39,51,0.4);
+  opacity: 0;
+  transition: transform 300ms ease, opacity 300ms ease;
+  white-space: nowrap;
+}
+.toast.visible {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+}
+.toast-check {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--success);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.toast-text {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--white);
+}
+.toast-undo {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--gold);
+  cursor: pointer;
+  margin-left: 4px;
+}
+.toast-undo:hover { text-decoration: underline; }
+.toast-countdown {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: rgba(255,255,255,0.40);
+  margin-left: 4px;
+}
+.toast-cancel {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(80px);
+  background: var(--dark-70);
+  color: rgba(255,255,255,0.7);
+  font-size: 12px;
+  font-weight: 500;
+  height: 36px;
+  border-radius: 6px;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  z-index: 2000;
+  opacity: 0;
+  transition: transform 300ms ease, opacity 300ms ease;
+  pointer-events: none;
+}
+.toast-cancel.visible {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 768px) {
+  .nav-links .nav-link:not(.active) { display: none; }
+  .search-strip { overflow-x: auto; }
+  .results { padding: 12px 12px 32px; }
+  .signal-cards-scroll { flex-direction: column; }
+  .jet-card { width: 100%; }
+  .module-tiles { flex-direction: column; }
+  .modal { width: 100%; border-radius: 12px 12px 0 0; align-self: flex-end; }
+  .modal-overlay { align-items: flex-end; padding: 0; }
+  .flight-type { display: none; }
+  .jet-row-route { display: none; }
+  .densities-section { padding: 12px; }
+  .density-premium-img { width: 120px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     PROTOTYPE META TABS
+     ============================================================ -->
+<nav class="proto-tabs">
+  <span class="proto-label">DRCT Prototype</span>
+  <div class="proto-tab active" data-tab="concept-a">A · The Signal</div>
+  <div class="proto-tab" data-tab="concept-b">B · The Module</div>
+  <div class="proto-tab" data-tab="concept-c">C · Threaded Rows</div>
+  <div class="proto-tab" data-tab="densities">Densities</div>
+</nav>
+
+<!-- ============================================================
+     CONCEPT A — THE SIGNAL
+     ============================================================ -->
+<div class="concept-panel active" id="concept-a">
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="nav-logo">DR<span>CT</span></div>
+    <div class="nav-links">
+      <span class="nav-link active">Search</span>
+      <span class="nav-link">Bookings</span>
+      <span class="nav-link">Management</span>
+      <span class="nav-link">Sales</span>
+      <span class="nav-link">Transactions</span>
+      <span class="nav-link">Profile</span>
+    </div>
+  </nav>
+
+  <!-- SEARCH STRIP -->
+  <div class="search-strip">
+    <div class="search-field">
+      <div class="search-field-label">Origin</div>
+      <div class="search-field-value">Warsaw <span class="search-field-code">WMI</span></div>
+    </div>
+    <button class="swap-btn" aria-label="Swap airports">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+        <path d="M2 5h10M9 2l3 3-3 3M12 9H2M5 6l-3 3 3 3" stroke="#1b2733" stroke-opacity="0.4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+    <div class="search-field">
+      <div class="search-field-label">Destination</div>
+      <div class="search-field-value">Barcelona <span class="search-field-code">BCN</span></div>
+    </div>
+    <div class="search-field">
+      <div class="search-field-label">Departure</div>
+      <div class="search-field-value">12 Jun 2026</div>
+    </div>
+    <div class="search-field">
+      <div class="search-field-label">Return</div>
+      <div class="search-field-value" style="color:var(--dark-40);">One way</div>
+    </div>
+    <div class="search-field">
+      <div class="search-field-label">Passengers</div>
+      <div class="search-field-value">2 Adults</div>
+    </div>
+    <button class="search-btn">Search</button>
+  </div>
+
+  <!-- AI FILTER BAR -->
+  <div class="ai-bar">
+    <div class="ai-icon">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+        <circle cx="6" cy="6" r="4.5" stroke="white" stroke-width="1.2"/>
+        <path d="M6 3.5v2.5l1.5 1.5" stroke="white" stroke-width="1.2" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="ai-text"><strong>AI Filters ·</strong> Morning departures · Non-stop · Under 3h flight time</div>
+    <div class="ai-filter-link">Filter Flights</div>
+  </div>
+
+  <!-- RESULTS TABS -->
+  <div class="results-tabs">
+    <div class="tab-group">
+      <div class="results-tab active">All Flights</div>
+      <div class="results-tab">Direct</div>
+      <div class="results-tab">Up to 1 connection</div>
+    </div>
+    <div class="tab-group">
+      <div class="results-tab">Cheapest</div>
+      <div class="results-tab">Fastest</div>
+      <div class="results-tab active">Optimal</div>
+      <div class="results-tab-divider"></div>
+      <div class="results-tab">Without Baggage</div>
+      <div class="results-tab">With Baggage</div>
+    </div>
+  </div>
+
+  <!-- RESULTS -->
+  <div class="results">
+
+    <!-- Flight 1 -->
+    <div class="flight-row">
+      <div class="airline-logo">LOT<br>PL</div>
+      <div class="flight-times">
+        <div class="flight-time-main">07:10 → 09:25</div>
+        <div class="flight-airline-name">LOT Polish Airlines</div>
+      </div>
+      <div class="flight-duration">
+        <div class="flight-duration-time">2h 15m</div>
+        <div class="flight-duration-route">WMI → BCN</div>
+      </div>
+      <div class="flight-type">
+        <span class="flight-type-badge">
+          <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><circle cx="5" cy="5" r="4" stroke="currentColor" stroke-opacity="0.5" stroke-width="1"/><path d="M5 2v3l2 1" stroke="currentColor" stroke-opacity="0.5" stroke-width="1" stroke-linecap="round"/></svg>
+          Non-stop · Economy
+        </span>
+      </div>
+      <div class="flight-prices">
+        <div class="price-pill">
+          <div class="price-pill-label">Economy</div>
+          <div class="price-pill-amount">312<span class="price-pill-currency">EUR</span></div>
+        </div>
+        <div class="price-pill highlight">
+          <div class="price-pill-label">Business</div>
+          <div class="price-pill-amount">748<span class="price-pill-currency">EUR</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SIGNAL BAR — collapsed by default, simulated load -->
+    <div id="signal-a" class="signal-bar">
+      <!-- Skeleton shown first -->
+      <div id="signal-a-skeleton" class="skeleton-section">
+        <div class="skeleton-header"></div>
+        <div class="skeleton-cards">
+          <div class="skeleton-card">
+            <div class="skeleton-img"></div>
+            <div class="skeleton-body">
+              <div class="skeleton-line short"></div>
+              <div class="skeleton-line medium"></div>
+              <div class="skeleton-line short"></div>
+              <div class="skeleton-line tall full"></div>
+            </div>
+          </div>
+          <div class="skeleton-card">
+            <div class="skeleton-img"></div>
+            <div class="skeleton-body">
+              <div class="skeleton-line short"></div>
+              <div class="skeleton-line medium"></div>
+              <div class="skeleton-line short"></div>
+              <div class="skeleton-line tall full"></div>
+            </div>
+          </div>
+          <div class="skeleton-card">
+            <div class="skeleton-img"></div>
+            <div class="skeleton-body">
+              <div class="skeleton-line short"></div>
+              <div class="skeleton-line medium"></div>
+              <div class="skeleton-line short"></div>
+              <div class="skeleton-line tall full"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Real content (hidden until skeleton resolves) -->
+      <div id="signal-a-content" style="display:none;">
+        <div class="signal-collapsed" id="signal-collapsed-a">
+          <span class="signal-glyph">✈</span>
+          <span class="signal-label">Private Alternatives</span>
+          <span class="signal-preview">· <strong>Light Jet from 4,200 EUR</strong> · Super Light from 6,800 EUR</span>
+          <button class="signal-expand-btn" id="signal-btn-a">Explore options ↓</button>
+        </div>
+        <div class="signal-expanded" id="signal-expanded-a">
+          <div class="signal-expanded-inner">
+            <div class="signal-cards-scroll">
+
+              <!-- Card 1: Light Jet -->
+              <div class="jet-card">
+                <div class="jet-card-img">
+                  <span class="jet-card-img-label">Light Jet</span>
+                </div>
+                <div class="jet-card-body">
+                  <div class="jet-card-badge">Light Jet</div>
+                  <div class="jet-card-name">Citation CJ3+ / Phenom 300</div>
+                  <div class="jet-card-specs">
+                    <div class="jet-spec"><span class="jet-spec-icon">👤</span> 6–8</div>
+                    <div class="jet-spec"><span class="jet-spec-icon">🧳</span> 4 bags</div>
+                  </div>
+                  <div class="jet-card-attendant"><span class="attendant-dot"></span> Crew included</div>
+                  <div class="jet-card-price">4,200 EUR <span>est.</span></div>
+                  <button class="jet-card-request" onclick="openModal('Light Jet','4,200')">Request</button>
+                </div>
+              </div>
+
+              <!-- Card 2: Super Light -->
+              <div class="jet-card">
+                <div class="jet-card-img" style="background: linear-gradient(135deg, #90a4ae 0%, #607d8b 40%, #455a64 70%, #263238 100%);">
+                  <span class="jet-card-img-label">Super Light</span>
+                </div>
+                <div class="jet-card-body">
+                  <div class="jet-card-badge">Super Light</div>
+                  <div class="jet-card-name">Citation XLS+ / Hawker 750</div>
+                  <div class="jet-card-specs">
+                    <div class="jet-spec"><span class="jet-spec-icon">👤</span> 8–9</div>
+                    <div class="jet-spec"><span class="jet-spec-icon">🧳</span> 6 bags</div>
+                  </div>
+                  <div class="jet-card-attendant"><span class="attendant-dot"></span> FA included</div>
+                  <div class="jet-card-price">6,800 EUR <span>est.</span></div>
+                  <button class="jet-card-request" onclick="openModal('Super Light','6,800')">Request</button>
+                </div>
+              </div>
+
+              <!-- Card 3: Midsize -->
+              <div class="jet-card">
+                <div class="jet-card-img" style="background: linear-gradient(135deg, #78909c 0%, #546e7a 40%, #37474f 70%, #1c313a 100%);">
+                  <span class="jet-card-img-label">Midsize</span>
+                </div>
+                <div class="jet-card-body">
+                  <div class="jet-card-badge">Midsize</div>
+                  <div class="jet-card-name">Learjet 75 / Citation Latitude</div>
+                  <div class="jet-card-specs">
+                    <div class="jet-spec"><span class="jet-spec-icon">👤</span> 9–10</div>
+                    <div class="jet-spec"><span class="jet-spec-icon">🧳</span> 8 bags</div>
+                  </div>
+                  <div class="jet-card-attendant"><span class="attendant-dot"></span> Full crew</div>
+                  <div class="jet-card-price">9,400 EUR <span>est.</span></div>
+                  <button class="jet-card-request" onclick="openModal('Midsize','9,400')">Request</button>
+                </div>
+              </div>
+
+            </div>
+            <div class="signal-footer">Prices are estimates — specialist confirms in ~2h</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Flight 2 -->
+    <div class="flight-row">
+      <div class="airline-logo">VY</div>
+      <div class="flight-times">
+        <div class="flight-time-main">09:45 → 12:10</div>
+        <div class="flight-airline-name">Vueling Airlines</div>
+      </div>
+      <div class="flight-duration">
+        <div class="flight-duration-time">2h 25m</div>
+        <div class="flight-duration-route">WMI → BCN</div>
+      </div>
+      <div class="flight-type">
+        <span class="flight-type-badge">Non-stop · Economy</span>
+      </div>
+      <div class="flight-prices">
+        <div class="price-pill">
+          <div class="price-pill-label">Economy</div>
+          <div class="price-pill-amount">289<span class="price-pill-currency">EUR</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Flight 3 -->
+    <div class="flight-row">
+      <div class="airline-logo">FR</div>
+      <div class="flight-times">
+        <div class="flight-time-main">11:20 → 13:55</div>
+        <div class="flight-airline-name">Ryanair</div>
+      </div>
+      <div class="flight-duration">
+        <div class="flight-duration-time">2h 35m</div>
+        <div class="flight-duration-route">WMI → BCN</div>
+      </div>
+      <div class="flight-type">
+        <span class="flight-type-badge">Non-stop · Economy</span>
+      </div>
+      <div class="flight-prices">
+        <div class="price-pill">
+          <div class="price-pill-label">Economy</div>
+          <div class="price-pill-amount">198<span class="price-pill-currency">EUR</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Alternative airports -->
+    <div class="alt-airports">
+      <div class="alt-airports-icon">🛬</div>
+      <div class="alt-airports-info">
+        <div class="alt-airports-title">Alternative airports near Barcelona</div>
+        <div class="alt-airports-sub">Girona (GRO) · Reus (REU) — 1h from city centre</div>
+      </div>
+      <div class="alt-airports-price">from 142 EUR</div>
+      <div class="alt-airports-cta">Choose</div>
+    </div>
+
+    <!-- Flight 4 -->
+    <div class="flight-row">
+      <div class="airline-logo">W6</div>
+      <div class="flight-times">
+        <div class="flight-time-main">14:10 → 16:40</div>
+        <div class="flight-airline-name">Wizz Air</div>
+      </div>
+      <div class="flight-duration">
+        <div class="flight-duration-time">2h 30m</div>
+        <div class="flight-duration-route">WMI → BCN</div>
+      </div>
+      <div class="flight-type">
+        <span class="flight-type-badge">Non-stop · Economy</span>
+      </div>
+      <div class="flight-prices">
+        <div class="price-pill">
+          <div class="price-pill-label">Economy</div>
+          <div class="price-pill-amount">224<span class="price-pill-currency">EUR</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /results -->
+</div><!-- /concept-a -->
+
+<!-- ============================================================
+     CONCEPT B — THE MODULE
+     ============================================================ -->
+<div class="concept-panel" id="concept-b">
+
+  <nav class="nav">
+    <div class="nav-logo">DR<span>CT</span></div>
+    <div class="nav-links">
+      <span class="nav-link active">Search</span>
+      <span class="nav-link">Bookings</span>
+      <span class="nav-link">Management</span>
+      <span class="nav-link">Sales</span>
+      <span class="nav-link">Transactions</span>
+      <span class="nav-link">Profile</span>
+    </div>
+  </nav>
+
+  <div class="search-strip">
+    <div class="search-field">
+      <div class="search-field-label">Origin</div>
+      <div class="search-field-value">Warsaw <span class="search-field-code">WMI</span></div>
+    </div>
+    <button class="swap-btn">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+        <path d="M2 5h10M9 2l3 3-3 3M12 9H2M5 6l-3 3 3 3" stroke="#1b2733" stroke-opacity="0.4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+    <div class="search-field">
+      <div class="search-field-label">Destination</div>
+      <div class="search-field-value">Barcelona <span class="search-field-code">BCN</span></div>
+    </div>
+    <div class="search-field">
+      <div class="search-field-label">Departure</div>
+      <div class="search-field-value">12 Jun 2026</div>
+    </div>
+    <div class="search-field">
+      <div class="search-field-label">Return</div>
+      <div class="search-field-value" style="color:var(--dark-40);">One way</div>
+    </div>
+    <div class="search-field">
+      <div class="search-field-label">Passengers</div>
+      <div class="search-field-value">2 Adults</div>
+    </div>
+    <button class="search-btn">Search</button>
+  </div>
+
+  <div class="ai-bar">
+    <div class="ai-icon">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="4.5" stroke="white" stroke-width="1.2"/><path d="M6 3.5v2.5l1.5 1.5" stroke="white" stroke-width="1.2" stroke-linecap="round"/></svg>
+    </div>
+    <div class="ai-text"><strong>AI Filters ·</strong> Morning departures · Non-stop · Under 3h flight time</div>
+    <div class="ai-filter-link">Filter Flights</div>
+  </div>
+
+  <div class="results-tabs">
+    <div class="tab-group">
+      <div class="results-tab active">All Flights</div>
+      <div class="results-tab">Direct</div>
+      <div class="results-tab">Up to 1 connection</div>
+    </div>
+    <div class="tab-group">
+      <div class="results-tab">Cheapest</div>
+      <div class="results-tab">Fastest</div>
+      <div class="results-tab active">Optimal</div>
+      <div class="results-tab-divider"></div>
+      <div class="results-tab">Without Baggage</div>
+      <div class="results-tab">With Baggage</div>
+    </div>
+  </div>
+
+  <div class="results">
+
+    <!-- Flight 1 -->
+    <div class="flight-row">
+      <div class="airline-logo">LOT<br>PL</div>
+      <div class="flight-times">
+        <div class="flight-time-main">07:10 → 09:25</div>
+        <div class="flight-airline-name">LOT Polish Airlines</div>
+      </div>
+      <div class="flight-duration">
+        <div class="flight-duration-time">2h 15m</div>
+        <div class="flight-duration-route">WMI → BCN</div>
+      </div>
+      <div class="flight-type">
+        <span class="flight-type-badge">Non-stop · Economy</span>
+      </div>
+      <div class="flight-prices">
+        <div class="price-pill">
+          <div class="price-pill-label">Economy</div>
+          <div class="price-pill-amount">312<span class="price-pill-currency">EUR</span></div>
+        </div>
+        <div class="price-pill highlight">
+          <div class="price-pill-label">Business</div>
+          <div class="price-pill-amount">748<span class="price-pill-currency">EUR</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODULE BAR -->
+    <div id="module-b" class="module-bar">
+      <div class="module-collapsed" id="module-collapsed-b">
+        <div class="module-left">
+          <div class="module-eyebrow">Fly Privately</div>
+          <div class="module-title">Private charter available · WMI → BCN</div>
+          <div class="module-sub">4 categories · from 4,200 EUR estimated</div>
+        </div>
+        <div class="module-right" onclick="event.stopPropagation()">
+          <div class="module-cta-row">
+            <button class="module-btn" onclick="openModal('Light Jet','4,200')">Request Light Jet</button>
+            <span class="module-see-all" id="module-see-all-b">See all →</span>
+          </div>
+          <div class="module-lock">
+            <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><rect x="2" y="4.5" width="6" height="5" rx="1" stroke="currentColor" stroke-opacity="0.4" stroke-width="1"/><path d="M3.5 4.5V3a1.5 1.5 0 013 0v1.5" stroke="currentColor" stroke-opacity="0.4" stroke-width="1" stroke-linecap="round"/></svg>
+            No payment now
+          </div>
+        </div>
+      </div>
+
+      <div class="module-expanded" id="module-expanded-b">
+        <div class="module-expanded-inner">
+          <div class="module-tiles" id="module-tiles-b">
+
+            <div class="module-tile selected" data-tile="0" onclick="selectTile(this,'b')">
+              <div class="module-tile-checkmark">✓</div>
+              <div class="module-tile-cat">Light Jet</div>
+              <div class="module-tile-models">Citation CJ3+<br>Phenom 300</div>
+              <div class="module-tile-specs">6–8 pax · 4 bags · ~2h15m</div>
+              <div class="module-tile-price">4,200 EUR <small>est.</small></div>
+            </div>
+
+            <div class="module-tile" data-tile="1" onclick="selectTile(this,'b')">
+              <div class="module-tile-checkmark">✓</div>
+              <div class="module-tile-cat">Super Light</div>
+              <div class="module-tile-models">Citation XLS+<br>Hawker 750</div>
+              <div class="module-tile-specs">8–9 pax · 6 bags · ~2h10m</div>
+              <div class="module-tile-price">6,800 EUR <small>est.</small></div>
+            </div>
+
+            <div class="module-tile" data-tile="2" onclick="selectTile(this,'b')">
+              <div class="module-tile-checkmark">✓</div>
+              <div class="module-tile-cat">Midsize</div>
+              <div class="module-tile-models">Learjet 75<br>Citation Latitude</div>
+              <div class="module-tile-specs">9–10 pax · 8 bags · ~2h05m</div>
+              <div class="module-tile-price">9,400 EUR <small>est.</small></div>
+            </div>
+
+            <div class="module-tile" data-tile="3" onclick="selectTile(this,'b')">
+              <div class="module-tile-checkmark">✓</div>
+              <div class="module-tile-cat">Heavy Jet</div>
+              <div class="module-tile-models">Gulfstream G450<br>Challenger 604</div>
+              <div class="module-tile-specs">12–14 pax · 12 bags · ~2h</div>
+              <div class="module-tile-price">16,500 EUR <small>est.</small></div>
+            </div>
+
+          </div>
+          <div class="module-actions">
+            <button class="module-action-primary" id="module-request-b" onclick="openModalFromModule('b')">Request selected</button>
+            <button class="module-action-secondary" onclick="closeModule('b')">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Flight 2 -->
+    <div class="flight-row">
+      <div class="airline-logo">VY</div>
+      <div class="flight-times">
+        <div class="flight-time-main">09:45 → 12:10</div>
+        <div class="flight-airline-name">Vueling Airlines</div>
+      </div>
+      <div class="flight-duration">
+        <div class="flight-duration-time">2h 25m</div>
+        <div class="flight-duration-route">WMI → BCN</div>
+      </div>
+      <div class="flight-type"><span class="flight-type-badge">Non-stop · Economy</span></div>
+      <div class="flight-prices">
+        <div class="price-pill">
+          <div class="price-pill-label">Economy</div>
+          <div class="price-pill-amount">289<span class="price-pill-currency">EUR</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Flight 3 -->
+    <div class="flight-row">
+      <div class="airline-logo">FR</div>
+      <div class="flight-times">
+        <div class="flight-time-main">11:20 → 13:55</div>
+        <div class="flight-airline-name">Ryanair</div>
+      </div>
+      <div class="flight-duration">
+        <div class="flight-duration-time">2h 35m</div>
+        <div class="flight-duration-route">WMI → BCN</div>
+      </div>
+      <div class="flight-type"><span class="flight-type-badge">Non-stop · Economy</span></div>
+      <div class="flight-prices">
+        <div class="price-pill">
+          <div class="price-pill-label">Economy</div>
+          <div class="price-pill-amount">198<span class="price-pill-currency">EUR</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="alt-airports">
+      <div class="alt-airports-icon">🛬</div>
+      <div class="alt-airports-info">
+        <div class="alt-airports-title">Alternative airports near Barcelona</div>
+        <div class="alt-airports-sub">Girona (GRO) · Reus (REU) — 1h from city centre</div>
+      </div>
+      <div class="alt-airports-price">from 142 EUR</div>
+      <div class="alt-airports-cta">Choose</div>
+    </div>
+
+  </div>
+</div><!-- /concept-b -->
+
+<!-- ============================================================
+     CONCEPT C — THREADED ROWS
+     ============================================================ -->
+<div class="concept-panel" id="concept-c">
+
+  <nav class="nav">
+    <div class="nav-logo">DR<span>CT</span></div>
+    <div class="nav-links">
+      <span class="nav-link active">Search</span>
+      <span class="nav-link">Bookings</span>
+      <span class="nav-link">Management</span>
+      <span class="nav-link">Sales</span>
+      <span class="nav-link">Transactions</span>
+      <span class="nav-link">Profile</span>
+    </div>
+  </nav>
+
+  <div class="search-strip">
+    <div class="search-field">
+      <div class="search-field-label">Origin</div>
+      <div class="search-field-value">Warsaw <span class="search-field-code">WMI</span></div>
+    </div>
+    <button class="swap-btn">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+        <path d="M2 5h10M9 2l3 3-3 3M12 9H2M5 6l-3 3 3 3" stroke="#1b2733" stroke-opacity="0.4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+    <div class="search-field">
+      <div class="search-field-label">Destination</div>
+      <div class="search-field-value">Barcelona <span class="search-field-code">BCN</span></div>
+    </div>
+    <div class="search-field">
+      <div class="search-field-label">Departure</div>
+      <div class="search-field-value">12 Jun 2026</div>
+    </div>
+    <div class="search-field">
+      <div class="search-field-label">Return</div>
+      <div class="search-field-value" style="color:var(--dark-40);">One way</div>
+    </div>
+    <div class="search-field">
+      <div class="search-field-label">Passengers</div>
+      <div class="search-field-value">2 Adults</div>
+    </div>
+    <button class="search-btn">Search</button>
+  </div>
+
+  <div class="ai-bar">
+    <div class="ai-icon">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="4.5" stroke="white" stroke-width="1.2"/><path d="M6 3.5v2.5l1.5 1.5" stroke="white" stroke-width="1.2" stroke-linecap="round"/></svg>
+    </div>
+    <div class="ai-text"><strong>AI Filters ·</strong> Morning departures · Non-stop · Under 3h flight time</div>
+    <div class="ai-filter-link">Filter Flights</div>
+  </div>
+
+  <div class="results-tabs">
+    <div class="tab-group">
+      <div class="results-tab active">All Flights</div>
+      <div class="results-tab">Direct</div>
+      <div class="results-tab">Up to 1 connection</div>
+    </div>
+    <div class="tab-group">
+      <div class="results-tab">Cheapest</div>
+      <div class="results-tab">Fastest</div>
+      <div class="results-tab active">Optimal</div>
+      <div class="results-tab-divider"></div>
+      <div class="results-tab">Without Baggage</div>
+      <div class="results-tab">With Baggage</div>
+    </div>
+  </div>
+
+  <div class="results">
+
+    <!-- Flight 1 -->
+    <div class="flight-row">
+      <div class="airline-logo">LOT<br>PL</div>
+      <div class="flight-times">
+        <div class="flight-time-main">07:10 → 09:25</div>
+        <div class="flight-airline-name">LOT Polish Airlines</div>
+      </div>
+      <div class="flight-duration">
+        <div class="flight-duration-time">2h 15m</div>
+        <div class="flight-duration-route">WMI → BCN</div>
+      </div>
+      <div class="flight-type"><span class="flight-type-badge">Non-stop · Economy</span></div>
+      <div class="flight-prices">
+        <div class="price-pill">
+          <div class="price-pill-label">Economy</div>
+          <div class="price-pill-amount">312<span class="price-pill-currency">EUR</span></div>
+        </div>
+        <div class="price-pill highlight">
+          <div class="price-pill-label">Business</div>
+          <div class="price-pill-amount">748<span class="price-pill-currency">EUR</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- THREAD DIVIDER -->
+    <div class="thread-divider">
+      <div class="thread-line"></div>
+      <div class="thread-label">
+        ✈ Private Alternatives
+        <span class="thread-count">3 options</span>
+      </div>
+      <div class="thread-line"></div>
+      <button class="thread-toggle" id="thread-toggle-c" onclick="toggleJetRows()">Hide</button>
+    </div>
+
+    <!-- EMPTY STATE TOGGLE -->
+    <label class="empty-state-toggle">
+      <input type="checkbox" id="empty-toggle-c" onchange="toggleEmptyState()">
+      <span>Simulate: no private jets available</span>
+    </label>
+
+    <!-- JET ROWS -->
+    <div class="jet-rows" id="jet-rows-c" style="max-height: 300px;">
+
+      <div class="jet-row" onclick="openModal('Light Jet','4,200')">
+        <div class="jet-row-icon">✈</div>
+        <div class="jet-row-info">
+          <div class="jet-row-cat">Light Jet</div>
+          <div class="jet-row-models">CJ3+ / Phenom 300</div>
+        </div>
+        <div class="jet-row-capacity">
+          <div class="jet-row-cap-num">6–8</div>
+          <div class="jet-row-cap-label">passengers</div>
+        </div>
+        <div class="jet-row-route">WMI → BCN · <strong>~2h 15m</strong> · Private terminal</div>
+        <div class="jet-price-pill">
+          <div class="jet-price-pill-label">from</div>
+          <div class="jet-price-pill-amount">4,200 EUR</div>
+        </div>
+        <button class="jet-row-request" onclick="event.stopPropagation(); openModal('Light Jet','4,200')">Request</button>
+      </div>
+
+      <div class="jet-row" onclick="openModal('Super Light','6,800')">
+        <div class="jet-row-icon">✈</div>
+        <div class="jet-row-info">
+          <div class="jet-row-cat">Super Light</div>
+          <div class="jet-row-models">XLS+ / Hawker 750</div>
+        </div>
+        <div class="jet-row-capacity">
+          <div class="jet-row-cap-num">8–9</div>
+          <div class="jet-row-cap-label">passengers</div>
+        </div>
+        <div class="jet-row-route">WMI → BCN · <strong>~2h 10m</strong> · Private terminal</div>
+        <div class="jet-price-pill">
+          <div class="jet-price-pill-label">from</div>
+          <div class="jet-price-pill-amount">6,800 EUR</div>
+        </div>
+        <button class="jet-row-request" onclick="event.stopPropagation(); openModal('Super Light','6,800')">Request</button>
+      </div>
+
+      <div class="jet-row" onclick="openModal('Midsize','9,400')">
+        <div class="jet-row-icon">✈</div>
+        <div class="jet-row-info">
+          <div class="jet-row-cat">Midsize</div>
+          <div class="jet-row-models">Learjet 75 / Latitude</div>
+        </div>
+        <div class="jet-row-capacity">
+          <div class="jet-row-cap-num">9–10</div>
+          <div class="jet-row-cap-label">passengers</div>
+        </div>
+        <div class="jet-row-route">WMI → BCN · <strong>~2h 05m</strong> · Private terminal</div>
+        <div class="jet-price-pill">
+          <div class="jet-price-pill-label">from</div>
+          <div class="jet-price-pill-amount">9,400 EUR</div>
+        </div>
+        <button class="jet-row-request" onclick="event.stopPropagation(); openModal('Midsize','9,400')">Request</button>
+      </div>
+
+    </div>
+
+    <!-- Flight 2 -->
+    <div class="flight-row">
+      <div class="airline-logo">VY</div>
+      <div class="flight-times">
+        <div class="flight-time-main">09:45 → 12:10</div>
+        <div class="flight-airline-name">Vueling Airlines</div>
+      </div>
+      <div class="flight-duration">
+        <div class="flight-duration-time">2h 25m</div>
+        <div class="flight-duration-route">WMI → BCN</div>
+      </div>
+      <div class="flight-type"><span class="flight-type-badge">Non-stop · Economy</span></div>
+      <div class="flight-prices">
+        <div class="price-pill">
+          <div class="price-pill-label">Economy</div>
+          <div class="price-pill-amount">289<span class="price-pill-currency">EUR</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="flight-row">
+      <div class="airline-logo">FR</div>
+      <div class="flight-times">
+        <div class="flight-time-main">11:20 → 13:55</div>
+        <div class="flight-airline-name">Ryanair</div>
+      </div>
+      <div class="flight-duration">
+        <div class="flight-duration-time">2h 35m</div>
+        <div class="flight-duration-route">WMI → BCN</div>
+      </div>
+      <div class="flight-type"><span class="flight-type-badge">Non-stop · Economy</span></div>
+      <div class="flight-prices">
+        <div class="price-pill">
+          <div class="price-pill-label">Economy</div>
+          <div class="price-pill-amount">198<span class="price-pill-currency">EUR</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="alt-airports">
+      <div class="alt-airports-icon">🛬</div>
+      <div class="alt-airports-info">
+        <div class="alt-airports-title">Alternative airports near Barcelona</div>
+        <div class="alt-airports-sub">Girona (GRO) · Reus (REU) — 1h from city centre</div>
+      </div>
+      <div class="alt-airports-price">from 142 EUR</div>
+      <div class="alt-airports-cta">Choose</div>
+    </div>
+
+  </div>
+</div><!-- /concept-c -->
+
+<!-- ============================================================
+     DENSITIES — 4th tab
+     ============================================================ -->
+<div class="concept-panel" id="densities">
+
+  <nav class="nav">
+    <div class="nav-logo">DR<span>CT</span></div>
+    <div class="nav-links">
+      <span class="nav-link active">Search</span>
+      <span class="nav-link">Bookings</span>
+      <span class="nav-link">Management</span>
+      <span class="nav-link">Sales</span>
+      <span class="nav-link">Transactions</span>
+      <span class="nav-link">Profile</span>
+    </div>
+  </nav>
+
+  <div class="densities-section">
+
+    <div style="margin-bottom:24px; padding:14px 16px; background:var(--blue-10); border-radius:6px; border:1px solid rgba(42,138,234,0.2);">
+      <p style="font-size:12px; color:var(--dark-70); line-height:1.7;">
+        <strong style="color:var(--dark);">Card Density Comparison</strong><br>
+        Three display densities for private jet alternatives. Use this panel to compare information hierarchy and space efficiency across all three formats.
+      </p>
+    </div>
+
+    <!-- COMPACT — 48px -->
+    <div class="density-item">
+      <div class="densities-title">Compact Row · 48px</div>
+      <div class="density-label">Light Jet</div>
+      <div class="density-compact">
+        <span style="font-size:14px;">✈</span>
+        <div class="density-compact-cat">Light Jet · CJ3+ / Phenom 300</div>
+        <div class="density-compact-price">4,200 EUR</div>
+        <button class="density-compact-btn" onclick="openModal('Light Jet','4,200')">Request</button>
+      </div>
+      <div style="margin-top:6px;"></div>
+      <div class="density-compact">
+        <span style="font-size:14px;">✈</span>
+        <div class="density-compact-cat">Super Light · XLS+ / Hawker 750</div>
+        <div class="density-compact-price">6,800 EUR</div>
+        <button class="density-compact-btn" onclick="openModal('Super Light','6,800')">Request</button>
+      </div>
+      <div style="margin-top:6px;"></div>
+      <div class="density-compact">
+        <span style="font-size:14px;">✈</span>
+        <div class="density-compact-cat">Midsize · Learjet 75 / Citation Latitude</div>
+        <div class="density-compact-price">9,400 EUR</div>
+        <button class="density-compact-btn" onclick="openModal('Midsize','9,400')">Request</button>
+      </div>
+    </div>
+
+    <!-- MEDIUM — 88px -->
+    <div class="density-item">
+      <div class="densities-title">Medium Card · 88px</div>
+      <div class="density-medium">
+        <span style="font-size:20px; flex-shrink:0;">✈</span>
+        <div class="density-medium-info">
+          <div class="density-medium-cat">Light Jet</div>
+          <div class="density-medium-models">Citation CJ3+ · Phenom 300</div>
+          <div class="density-medium-specs">👤 6–8 pax &nbsp;·&nbsp; 🧳 4 bags &nbsp;·&nbsp; ⏱ ~2h 15m</div>
+        </div>
+        <div class="density-medium-right">
+          <div class="density-medium-price">4,200 EUR</div>
+          <button class="density-medium-btn" onclick="openModal('Light Jet','4,200')">Request</button>
+        </div>
+      </div>
+      <div style="margin-top:8px;"></div>
+      <div class="density-medium">
+        <span style="font-size:20px; flex-shrink:0;">✈</span>
+        <div class="density-medium-info">
+          <div class="density-medium-cat">Super Light</div>
+          <div class="density-medium-models">Citation XLS+ · Hawker 750</div>
+          <div class="density-medium-specs">👤 8–9 pax &nbsp;·&nbsp; 🧳 6 bags &nbsp;·&nbsp; ⏱ ~2h 10m</div>
+        </div>
+        <div class="density-medium-right">
+          <div class="density-medium-price">6,800 EUR</div>
+          <button class="density-medium-btn" onclick="openModal('Super Light','6,800')">Request</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- PREMIUM — 160px -->
+    <div class="density-item">
+      <div class="densities-title">Premium Card · 160px</div>
+      <div class="density-premium" style="margin-bottom:10px;">
+        <div class="density-premium-img"></div>
+        <div class="density-premium-body">
+          <div class="density-premium-top">
+            <div class="density-premium-cat">Light Jet</div>
+            <div class="density-premium-name">Citation CJ3+ · Phenom 300</div>
+            <div class="density-premium-specs">👤 6–8 passengers &nbsp;·&nbsp; 🧳 4 bags &nbsp;·&nbsp; ⏱ ~2h 15m</div>
+            <div class="density-premium-attendant"><span class="attendant-dot"></span> Crew + flight attendant included</div>
+          </div>
+          <div class="density-premium-bottom">
+            <div class="density-premium-price">4,200 EUR <small>estimated</small></div>
+            <button class="density-premium-btn" onclick="openModal('Light Jet','4,200')">Request</button>
+          </div>
+        </div>
+      </div>
+      <div class="density-premium">
+        <div class="density-premium-img" style="background: linear-gradient(135deg, #90a4ae 0%, #607d8b 40%, #455a64 70%, #263238 100%);"></div>
+        <div class="density-premium-body">
+          <div class="density-premium-top">
+            <div class="density-premium-cat">Midsize Jet</div>
+            <div class="density-premium-name">Learjet 75 · Citation Latitude</div>
+            <div class="density-premium-specs">👤 9–10 passengers &nbsp;·&nbsp; 🧳 8 bags &nbsp;·&nbsp; ⏱ ~2h 05m</div>
+            <div class="density-premium-attendant"><span class="attendant-dot"></span> Full crew included</div>
+          </div>
+          <div class="density-premium-bottom">
+            <div class="density-premium-price">9,400 EUR <small>estimated</small></div>
+            <button class="density-premium-btn" onclick="openModal('Midsize','9,400')">Request</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div><!-- /densities -->
+
+<!-- ============================================================
+     REQUEST MODAL
+     ============================================================ -->
+<div class="modal-overlay" id="modal-overlay" onclick="handleOverlayClick(event)">
+  <div class="modal">
+    <div class="modal-header">
+      <div>
+        <div class="modal-eyebrow">Private Jet Request</div>
+        <div class="modal-title">Confirm your request</div>
+      </div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+
+      <div class="modal-route">
+        <div class="modal-airport">
+          <div class="modal-airport-code">WMI</div>
+          <div class="modal-airport-name">Warsaw Modlin</div>
+        </div>
+        <div class="modal-route-arrow">→</div>
+        <div class="modal-airport">
+          <div class="modal-airport-code">BCN</div>
+          <div class="modal-airport-name">Barcelona El Prat</div>
+        </div>
+      </div>
+
+      <div class="modal-meta">
+        <div class="modal-meta-item">
+          <div class="modal-meta-label">Departure</div>
+          <div class="modal-meta-value">12 Jun 2026</div>
+        </div>
+        <div class="modal-meta-item">
+          <div class="modal-meta-label">Trip type</div>
+          <div class="modal-meta-value">One way</div>
+        </div>
+        <div class="modal-meta-item">
+          <div class="modal-meta-label">Passengers</div>
+          <div class="modal-meta-value">2 Adults</div>
+        </div>
+        <div class="modal-meta-item">
+          <div class="modal-meta-label">Category</div>
+          <div class="modal-meta-value" id="modal-category">Light Jet</div>
+        </div>
+      </div>
+
+      <div class="modal-price-row">
+        <div class="modal-price-label">Estimated price</div>
+        <div class="modal-price-right">
+          <div class="modal-price-amount"><span id="modal-price">4,200</span> EUR</div>
+          <div class="modal-price-note">· subject to confirmation</div>
+        </div>
+      </div>
+
+      <div class="modal-disclaimer">
+        No payment taken. A specialist will contact you within approximately 2 hours to confirm availability and finalise pricing.
+      </div>
+
+      <div class="modal-actions">
+        <button class="modal-primary" onclick="sendRequest()">Send request</button>
+        <button class="modal-secondary" onclick="closeModal()">Cancel</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     SUCCESS TOAST
+     ============================================================ -->
+<div class="toast" id="toast">
+  <div class="toast-check">
+    <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+      <path d="M2 5l2.5 2.5L8 3" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </div>
+  <span class="toast-text">Private jet request sent</span>
+  <span class="toast-undo" onclick="undoRequest()">Undo</span>
+  <span class="toast-countdown" id="toast-countdown">5</span>
+</div>
+<div class="toast-cancel" id="toast-cancel">Request cancelled</div>
+
+<!-- ============================================================
+     JAVASCRIPT
+     ============================================================ -->
+<script>
+// ============================================================
+// STATE
+// ============================================================
+const state = {
+  signalOpen: false,
+  moduleBOpen: false,
+  moduleBSelected: { tile: 0, cat: 'Light Jet', price: '4,200' },
+  jetRowsVisible: true,
+  emptyState: false,
+  toastTimer: null,
+  toastCountdown: null,
+};
+
+const MODULE_DATA = [
+  { cat: 'Light Jet', price: '4,200' },
+  { cat: 'Super Light', price: '6,800' },
+  { cat: 'Midsize', price: '9,400' },
+  { cat: 'Heavy Jet', price: '16,500' },
+];
+
+// ============================================================
+// TABS (prototype meta navigation)
+// ============================================================
+document.querySelectorAll('.proto-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    const target = tab.dataset.tab;
+    document.querySelectorAll('.proto-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.concept-panel').forEach(p => p.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById(target).classList.add('active');
+  });
+});
+
+// ============================================================
+// LOADING SKELETON — Concept A
+// ============================================================
+(function initSkeleton() {
+  setTimeout(() => {
+    const skeleton = document.getElementById('signal-a-skeleton');
+    const content = document.getElementById('signal-a-content');
+    if (skeleton && content) {
+      skeleton.style.transition = 'opacity 300ms';
+      skeleton.style.opacity = '0';
+      setTimeout(() => {
+        skeleton.style.display = 'none';
+        content.style.display = 'block';
+      }, 300);
+    }
+  }, 1200);
+})();
+
+// ============================================================
+// ANIMATIONS — Concept A: The Signal
+// ============================================================
+const signalBtn = document.getElementById('signal-btn-a');
+const signalExpanded = document.getElementById('signal-expanded-a');
+const signalBar = document.getElementById('signal-a');
+
+if (signalBtn) {
+  signalBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    state.signalOpen = !state.signalOpen;
+    signalBar.classList.toggle('open', state.signalOpen);
+    signalBtn.textContent = state.signalOpen ? 'Collapse ↑' : 'Explore options ↓';
+  });
+}
+
+// ============================================================
+// CONCEPT B: The Module
+// ============================================================
+const moduleBar = document.getElementById('module-b');
+const moduleCollapsed = document.getElementById('module-collapsed-b');
+const moduleSeeAll = document.getElementById('module-see-all-b');
+
+if (moduleCollapsed) {
+  moduleCollapsed.addEventListener('click', () => {
+    state.moduleBOpen = !state.moduleBOpen;
+    moduleBar.classList.toggle('open', state.moduleBOpen);
+  });
+}
+
+if (moduleSeeAll) {
+  moduleSeeAll.addEventListener('click', (e) => {
+    e.stopPropagation();
+    state.moduleBOpen = true;
+    moduleBar.classList.add('open');
+  });
+}
+
+function selectTile(el, concept) {
+  const tileIdx = parseInt(el.dataset.tile, 10);
+  document.querySelectorAll(`#module-tiles-${concept} .module-tile`).forEach(t => t.classList.remove('selected'));
+  el.classList.add('selected');
+  if (concept === 'b') {
+    state.moduleBSelected = MODULE_DATA[tileIdx];
+  }
+}
+
+function openModalFromModule(concept) {
+  if (concept === 'b') {
+    openModal(state.moduleBSelected.cat, state.moduleBSelected.price);
+  }
+}
+
+function closeModule(concept) {
+  if (concept === 'b') {
+    state.moduleBOpen = false;
+    moduleBar.classList.remove('open');
+  }
+}
+
+// ============================================================
+// CONCEPT C: Threaded Rows
+// ============================================================
+function toggleJetRows() {
+  const rows = document.getElementById('jet-rows-c');
+  const toggle = document.getElementById('thread-toggle-c');
+  if (!rows) return;
+  state.jetRowsVisible = !state.jetRowsVisible;
+  rows.classList.toggle('hidden', !state.jetRowsVisible);
+  toggle.textContent = state.jetRowsVisible ? 'Hide' : 'Show';
+}
+
+function toggleEmptyState() {
+  const cb = document.getElementById('empty-toggle-c');
+  const rows = document.getElementById('jet-rows-c');
+  const divider = document.querySelector('.thread-divider');
+  if (!rows) return;
+  state.emptyState = cb.checked;
+  if (state.emptyState) {
+    rows.style.display = 'none';
+    if (divider) divider.style.display = 'none';
+  } else {
+    rows.style.display = '';
+    if (divider) divider.style.display = '';
+    rows.classList.toggle('hidden', !state.jetRowsVisible);
+  }
+}
+
+// ============================================================
+// MODAL
+// ============================================================
+function openModal(category, price) {
+  document.getElementById('modal-category').textContent = category;
+  document.getElementById('modal-price').textContent = price;
+  const overlay = document.getElementById('modal-overlay');
+  overlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  document.getElementById('modal-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function handleOverlayClick(e) {
+  if (e.target === e.currentTarget) closeModal();
+}
+
+// ESC closes modal
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeModal();
+});
+
+// ============================================================
+// REQUEST + TOAST
+// ============================================================
+function sendRequest() {
+  closeModal();
+  showToast();
+}
+
+function showToast() {
+  clearToastTimers();
+  const toast = document.getElementById('toast');
+  const countdown = document.getElementById('toast-countdown');
+  let seconds = 5;
+  countdown.textContent = seconds;
+  toast.classList.add('visible');
+
+  state.toastCountdown = setInterval(() => {
+    seconds--;
+    countdown.textContent = seconds;
+    if (seconds <= 0) {
+      clearToastTimers();
+      hideToast();
+    }
+  }, 1000);
+}
+
+function hideToast() {
+  const toast = document.getElementById('toast');
+  toast.classList.remove('visible');
+}
+
+function clearToastTimers() {
+  if (state.toastTimer) clearTimeout(state.toastTimer);
+  if (state.toastCountdown) clearInterval(state.toastCountdown);
+  state.toastTimer = null;
+  state.toastCountdown = null;
+}
+
+function undoRequest() {
+  clearToastTimers();
+  hideToast();
+  // Show cancelled feedback
+  const cancelToast = document.getElementById('toast-cancel');
+  cancelToast.classList.add('visible');
+  setTimeout(() => {
+    cancelToast.classList.remove('visible');
+  }, 1500);
+}
+</script>
+
+</body>
+</html>
