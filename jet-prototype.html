@@ -1164,6 +1164,77 @@ svg { display: block; flex-shrink: 0; }
 .density-premium-btn:hover { opacity: 0.85; }
 
 /* ============================================================
+   STATES REFERENCE TAB
+   ============================================================ */
+.states-section { padding: 24px; max-width: 960px; margin: 0 auto; }
+.states-group { margin-bottom: 48px; }
+.states-group-title {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--dark-40);
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--dark-10);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.states-group-title::after { content: ''; flex: 1; height: 1px; background: var(--dark-10); }
+.states-row {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  margin-bottom: 16px;
+}
+.state-item { flex: 1; min-width: 200px; }
+.state-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--dark-40);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.state-note {
+  font-size: 11px;
+  color: var(--dark-40);
+  line-height: 1.5;
+  margin-top: 6px;
+  font-style: italic;
+}
+/* inline btn states for states tab */
+.state-btn-row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-top: 4px; }
+.sb {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background: var(--dark);
+  color: var(--white);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0 14px;
+  height: 32px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+}
+.sb.sending { opacity: 0.7; pointer-events: none; }
+.sb.sent { background: var(--success); }
+.sb.idle { opacity: 1; }
+/* attendant states demo */
+.att-demo { display: flex; flex-direction: column; gap: 8px; }
+.att-row { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--dark-70); }
+
+/* ============================================================
    LOADING SKELETON
    ============================================================ */
 .skeleton-section {
@@ -1228,6 +1299,93 @@ svg { display: block; flex-shrink: 0; }
   background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.6) 50%, transparent 100%);
   animation: shimmer 1.5s ease-in-out infinite;
 }
+
+/* ============================================================
+   ATTENDANT UNAVAILABLE
+   ============================================================ */
+.attendant-dot.unavail { background: var(--dark-20); }
+.attendant-text.unavail { color: var(--dark-26); }
+
+/* ============================================================
+   BAGGAGE TOOLTIP
+   ============================================================ */
+.jet-spec-bag { position: relative; cursor: help; }
+.jet-spec-bag .bag-tip {
+  display: none;
+  position: absolute;
+  bottom: calc(100% + 7px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--dark);
+  color: var(--white);
+  font-size: 10px;
+  line-height: 1.5;
+  padding: 6px 10px;
+  border-radius: 5px;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 20;
+  box-shadow: 0 4px 12px rgba(27,39,51,0.2);
+}
+.jet-spec-bag .bag-tip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-top-color: var(--dark);
+}
+.jet-spec-bag:hover .bag-tip { display: block; }
+
+/* ============================================================
+   SPINNER + BUTTON STATES
+   ============================================================ */
+@keyframes spin { to { transform: rotate(360deg); } }
+.btn-spinner {
+  width: 12px; height: 12px;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 6px;
+}
+.btn-sent {
+  background: var(--success) !important;
+  pointer-events: none;
+}
+.btn-sending {
+  opacity: 0.75;
+  pointer-events: none;
+}
+
+/* ============================================================
+   TOAST CANCEL STATE
+   ============================================================ */
+.toast-cancel {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--dark-70);
+  color: var(--white);
+  font-size: 13px;
+  font-weight: 500;
+  padding: 0 20px;
+  height: 44px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 200ms;
+  z-index: 2000;
+  box-shadow: 0 8px 32px rgba(27,39,51,0.28);
+}
+.toast-cancel.visible { opacity: 1; }
 
 /* ============================================================
    EMPTY STATE
@@ -1426,6 +1584,10 @@ svg { display: block; flex-shrink: 0; }
   height: 42px;
   border-radius: 6px;
   transition: opacity 150ms, transform 150ms;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
 }
 .modal-primary:hover { opacity: 0.9; transform: scale(1.005); }
 .modal-secondary {
@@ -1549,6 +1711,7 @@ svg { display: block; flex-shrink: 0; }
   <div class="proto-tab" data-tab="concept-b">B · The Module</div>
   <div class="proto-tab" data-tab="concept-c">C · Threaded Rows</div>
   <div class="proto-tab" data-tab="densities">Densities</div>
+  <div class="proto-tab" data-tab="states">States</div>
 </nav>
 
 <!-- ============================================================
@@ -1633,29 +1796,24 @@ svg { display: block; flex-shrink: 0; }
 
     <!-- Flight 1 -->
     <div class="flight-row">
-      <div class="airline-logo">LOT<br>PL</div>
+      <div class="airline-logo" style="background:#fff0f4;color:#cc3355;border-color:#ffd0d8;">WZZ</div>
       <div class="flight-times">
-        <div class="flight-time-main">07:10 → 09:25</div>
-        <div class="flight-airline-name">LOT Polish Airlines</div>
+        <div class="flight-time-main">11:40 — 14:35</div>
+        <div class="flight-airline-name">Wizz Air</div>
       </div>
       <div class="flight-duration">
-        <div class="flight-duration-time">2h 15m</div>
-        <div class="flight-duration-route">WMI → BCN</div>
+        <div class="flight-duration-time">2h 55m</div>
+        <div class="flight-duration-route">WMI — BCN</div>
       </div>
-      <div class="flight-type">
-        <span class="flight-type-badge">
-          <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><circle cx="5" cy="5" r="4" stroke="currentColor" stroke-opacity="0.5" stroke-width="1"/><path d="M5 2v3l2 1" stroke="currentColor" stroke-opacity="0.5" stroke-width="1" stroke-linecap="round"/></svg>
-          Non-stop · Economy
-        </span>
-      </div>
+      <div class="flight-type"><span class="flight-type-badge">Direct flight</span></div>
       <div class="flight-prices">
         <div class="price-pill">
-          <div class="price-pill-label">Economy</div>
-          <div class="price-pill-amount">312<span class="price-pill-currency">EUR</span></div>
+          <div class="price-pill-label">Basic</div>
+          <div class="price-pill-amount">53<span class="price-pill-currency">EUR</span></div>
         </div>
-        <div class="price-pill highlight">
-          <div class="price-pill-label">Business</div>
-          <div class="price-pill-amount">748<span class="price-pill-currency">EUR</span></div>
+        <div class="price-pill">
+          <div class="price-pill-label">Wizz Go</div>
+          <div class="price-pill-amount">85<span class="price-pill-currency">EUR</span></div>
         </div>
       </div>
     </div>
@@ -1718,7 +1876,7 @@ svg { display: block; flex-shrink: 0; }
                   <div class="jet-card-name">Citation CJ3+ / Phenom 300</div>
                   <div class="jet-card-specs">
                     <div class="jet-spec"><span class="jet-spec-icon">👤</span> 6–8</div>
-                    <div class="jet-spec"><span class="jet-spec-icon">🧳</span> 4 bags</div>
+                    <div class="jet-spec jet-spec-bag">🧳 6 bags<div class="bag-tip">6 check-in bags (67×44×24 cm)<br>~10 days of luggage</div></div>
                   </div>
                   <div class="jet-card-attendant"><span class="attendant-dot"></span> Crew included</div>
                   <div class="jet-card-price">4,200 EUR <span>est.</span></div>
@@ -1756,7 +1914,7 @@ svg { display: block; flex-shrink: 0; }
                     <div class="jet-spec"><span class="jet-spec-icon">👤</span> 9–10</div>
                     <div class="jet-spec"><span class="jet-spec-icon">🧳</span> 8 bags</div>
                   </div>
-                  <div class="jet-card-attendant"><span class="attendant-dot"></span> Full crew</div>
+                  <div class="jet-card-attendant"><span class="attendant-dot unavail"></span> <span class="attendant-text unavail">No flight attendant</span></div>
                   <div class="jet-card-price">9,400 EUR <span>est.</span></div>
                   <button class="jet-card-request" onclick="openModal('Midsize','9,400')">Request</button>
                 </div>
@@ -1771,79 +1929,33 @@ svg { display: block; flex-shrink: 0; }
 
     <!-- Flight 2 -->
     <div class="flight-row">
-      <div class="airline-logo">VY</div>
+      <div class="airline-logo" style="background:#eef4ff;color:#1a4acc;border-color:#c0d0f0;">BZZ</div>
       <div class="flight-times">
-        <div class="flight-time-main">09:45 → 12:10</div>
-        <div class="flight-airline-name">Vueling Airlines</div>
+        <div class="flight-time-main">06:15 — 09:20</div>
+        <div class="flight-airline-name">Operated by Buzz, R…</div>
       </div>
       <div class="flight-duration">
-        <div class="flight-duration-time">2h 25m</div>
-        <div class="flight-duration-route">WMI → BCN</div>
+        <div class="flight-duration-time">3h 5m</div>
+        <div class="flight-duration-route">WMI — BCN</div>
       </div>
-      <div class="flight-type">
-        <span class="flight-type-badge">Non-stop · Economy</span>
-      </div>
+      <div class="flight-type"><span class="flight-type-badge">Direct flight</span></div>
       <div class="flight-prices">
         <div class="price-pill">
-          <div class="price-pill-label">Economy</div>
-          <div class="price-pill-amount">289<span class="price-pill-currency">EUR</span></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Flight 3 -->
-    <div class="flight-row">
-      <div class="airline-logo">FR</div>
-      <div class="flight-times">
-        <div class="flight-time-main">11:20 → 13:55</div>
-        <div class="flight-airline-name">Ryanair</div>
-      </div>
-      <div class="flight-duration">
-        <div class="flight-duration-time">2h 35m</div>
-        <div class="flight-duration-route">WMI → BCN</div>
-      </div>
-      <div class="flight-type">
-        <span class="flight-type-badge">Non-stop · Economy</span>
-      </div>
-      <div class="flight-prices">
-        <div class="price-pill">
-          <div class="price-pill-label">Economy</div>
-          <div class="price-pill-amount">198<span class="price-pill-currency">EUR</span></div>
+          <div class="price-pill-label">Basic</div>
+          <div class="price-pill-amount">59<span class="price-pill-currency">EUR</span></div>
         </div>
       </div>
     </div>
 
     <!-- Alternative airports -->
     <div class="alt-airports">
-      <div class="alt-airports-icon">🛬</div>
+      <div class="alt-airports-icon">😍</div>
       <div class="alt-airports-info">
-        <div class="alt-airports-title">Alternative airports near Barcelona</div>
-        <div class="alt-airports-sub">Girona (GRO) · Reus (REU) — 1h from city centre</div>
+        <div class="alt-airports-title">We have found alternative options</div>
+        <div class="alt-airports-sub">Check flight options from nearby airports</div>
       </div>
-      <div class="alt-airports-price">from 142 EUR</div>
+      <div class="alt-airports-price">from 49 EUR</div>
       <div class="alt-airports-cta">Choose</div>
-    </div>
-
-    <!-- Flight 4 -->
-    <div class="flight-row">
-      <div class="airline-logo">W6</div>
-      <div class="flight-times">
-        <div class="flight-time-main">14:10 → 16:40</div>
-        <div class="flight-airline-name">Wizz Air</div>
-      </div>
-      <div class="flight-duration">
-        <div class="flight-duration-time">2h 30m</div>
-        <div class="flight-duration-route">WMI → BCN</div>
-      </div>
-      <div class="flight-type">
-        <span class="flight-type-badge">Non-stop · Economy</span>
-      </div>
-      <div class="flight-prices">
-        <div class="price-pill">
-          <div class="price-pill-label">Economy</div>
-          <div class="price-pill-amount">224<span class="price-pill-currency">EUR</span></div>
-        </div>
-      </div>
     </div>
 
   </div><!-- /results -->
@@ -1923,26 +2035,24 @@ svg { display: block; flex-shrink: 0; }
 
     <!-- Flight 1 -->
     <div class="flight-row">
-      <div class="airline-logo">LOT<br>PL</div>
+      <div class="airline-logo" style="background:#fff0f4;color:#cc3355;border-color:#ffd0d8;">WZZ</div>
       <div class="flight-times">
-        <div class="flight-time-main">07:10 → 09:25</div>
-        <div class="flight-airline-name">LOT Polish Airlines</div>
+        <div class="flight-time-main">11:40 — 14:35</div>
+        <div class="flight-airline-name">Wizz Air</div>
       </div>
       <div class="flight-duration">
-        <div class="flight-duration-time">2h 15m</div>
-        <div class="flight-duration-route">WMI → BCN</div>
+        <div class="flight-duration-time">2h 55m</div>
+        <div class="flight-duration-route">WMI — BCN</div>
       </div>
-      <div class="flight-type">
-        <span class="flight-type-badge">Non-stop · Economy</span>
-      </div>
+      <div class="flight-type"><span class="flight-type-badge">Direct flight</span></div>
       <div class="flight-prices">
         <div class="price-pill">
-          <div class="price-pill-label">Economy</div>
-          <div class="price-pill-amount">312<span class="price-pill-currency">EUR</span></div>
+          <div class="price-pill-label">Basic</div>
+          <div class="price-pill-amount">53<span class="price-pill-currency">EUR</span></div>
         </div>
-        <div class="price-pill highlight">
-          <div class="price-pill-label">Business</div>
-          <div class="price-pill-amount">748<span class="price-pill-currency">EUR</span></div>
+        <div class="price-pill">
+          <div class="price-pill-label">Wizz Go</div>
+          <div class="price-pill-amount">85<span class="price-pill-currency">EUR</span></div>
         </div>
       </div>
     </div>
@@ -2014,51 +2124,31 @@ svg { display: block; flex-shrink: 0; }
 
     <!-- Flight 2 -->
     <div class="flight-row">
-      <div class="airline-logo">VY</div>
+      <div class="airline-logo" style="background:#eef4ff;color:#1a4acc;border-color:#c0d0f0;">BZZ</div>
       <div class="flight-times">
-        <div class="flight-time-main">09:45 → 12:10</div>
-        <div class="flight-airline-name">Vueling Airlines</div>
+        <div class="flight-time-main">06:15 — 09:20</div>
+        <div class="flight-airline-name">Operated by Buzz, R…</div>
       </div>
       <div class="flight-duration">
-        <div class="flight-duration-time">2h 25m</div>
-        <div class="flight-duration-route">WMI → BCN</div>
+        <div class="flight-duration-time">3h 5m</div>
+        <div class="flight-duration-route">WMI — BCN</div>
       </div>
-      <div class="flight-type"><span class="flight-type-badge">Non-stop · Economy</span></div>
+      <div class="flight-type"><span class="flight-type-badge">Direct flight</span></div>
       <div class="flight-prices">
         <div class="price-pill">
-          <div class="price-pill-label">Economy</div>
-          <div class="price-pill-amount">289<span class="price-pill-currency">EUR</span></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Flight 3 -->
-    <div class="flight-row">
-      <div class="airline-logo">FR</div>
-      <div class="flight-times">
-        <div class="flight-time-main">11:20 → 13:55</div>
-        <div class="flight-airline-name">Ryanair</div>
-      </div>
-      <div class="flight-duration">
-        <div class="flight-duration-time">2h 35m</div>
-        <div class="flight-duration-route">WMI → BCN</div>
-      </div>
-      <div class="flight-type"><span class="flight-type-badge">Non-stop · Economy</span></div>
-      <div class="flight-prices">
-        <div class="price-pill">
-          <div class="price-pill-label">Economy</div>
-          <div class="price-pill-amount">198<span class="price-pill-currency">EUR</span></div>
+          <div class="price-pill-label">Basic</div>
+          <div class="price-pill-amount">59<span class="price-pill-currency">EUR</span></div>
         </div>
       </div>
     </div>
 
     <div class="alt-airports">
-      <div class="alt-airports-icon">🛬</div>
+      <div class="alt-airports-icon">😍</div>
       <div class="alt-airports-info">
-        <div class="alt-airports-title">Alternative airports near Barcelona</div>
-        <div class="alt-airports-sub">Girona (GRO) · Reus (REU) — 1h from city centre</div>
+        <div class="alt-airports-title">We have found alternative options</div>
+        <div class="alt-airports-sub">Check flight options from nearby airports</div>
       </div>
-      <div class="alt-airports-price">from 142 EUR</div>
+      <div class="alt-airports-price">from 49 EUR</div>
       <div class="alt-airports-cta">Choose</div>
     </div>
 
@@ -2410,6 +2500,214 @@ svg { display: block; flex-shrink: 0; }
 </div><!-- /densities -->
 
 <!-- ============================================================
+     STATES REFERENCE PANEL
+     ============================================================ -->
+<div class="concept-panel" id="states">
+  <div class="states-section">
+
+    <!-- 1. LOADING -->
+    <div class="states-group">
+      <div class="states-group-title">Loading / Skeleton</div>
+      <div class="states-row">
+        <div class="state-item" style="flex:2;min-width:320px;">
+          <div class="state-label">Jet section · API pending (1.5s)</div>
+          <div class="skeleton-section" style="max-width:100%;">
+            <div class="skeleton-header"></div>
+            <div class="skeleton-cards">
+              <div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-body"><div class="skeleton-line short"></div><div class="skeleton-line medium"></div><div class="skeleton-line short"></div><div class="skeleton-line tall full"></div></div></div>
+              <div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-body"><div class="skeleton-line short"></div><div class="skeleton-line medium"></div><div class="skeleton-line short"></div><div class="skeleton-line tall full"></div></div></div>
+              <div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-body"><div class="skeleton-line short"></div><div class="skeleton-line medium"></div><div class="skeleton-line short"></div><div class="skeleton-line tall full"></div></div></div>
+            </div>
+          </div>
+          <div class="state-note">Shimmer animates left→right. Shown for 1.5s before real content appears. No spinner — section simply isn't there yet.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. COLLAPSED -->
+    <div class="states-group">
+      <div class="states-group-title">Collapsed states</div>
+      <div class="states-row">
+        <div class="state-item" style="flex:2;min-width:280px;">
+          <div class="state-label">Concept A — Signal bar (44px)</div>
+          <div class="signal-bar" style="border-radius:6px;overflow:hidden;">
+            <div class="signal-collapsed" style="pointer-events:none;">
+              <span class="signal-glyph">✈</span>
+              <span class="signal-label">Private Alternatives</span>
+              <span class="signal-preview">· <strong>Light Jet from 4,200 EUR</strong> · Super Light from 6,800 EUR</span>
+              <span class="signal-expand-btn" style="cursor:default;">Explore options ↓</span>
+            </div>
+          </div>
+          <div class="state-note">44px. Gold left-border is the only premium signal. Interrupts the list without consuming space.</div>
+        </div>
+        <div class="state-item" style="flex:2;min-width:280px;">
+          <div class="state-label">Concept B — Module (72px)</div>
+          <div class="module-bar" style="border-radius:6px;overflow:hidden;">
+            <div class="module-collapsed" style="pointer-events:none;">
+              <div class="module-left">
+                <div class="module-eyebrow">Fly Privately</div>
+                <div class="module-title">Private charter available · WMI → BCN</div>
+                <div class="module-sub">4 categories · from 4,200 EUR estimated</div>
+              </div>
+              <div class="module-right">
+                <div class="module-cta-row">
+                  <button class="module-btn" style="pointer-events:none;">Request Light Jet</button>
+                  <span class="module-see-all">See all →</span>
+                </div>
+                <div class="module-lock">
+                  <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><rect x="2" y="4.5" width="6" height="5" rx="1" stroke="currentColor" stroke-opacity="0.4" stroke-width="1"/><path d="M3.5 4.5V3a1.5 1.5 0 013 0v1.5" stroke="currentColor" stroke-opacity="0.4" stroke-width="1" stroke-linecap="round"/></svg>
+                  No payment now
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="state-note">72px. Headline + CTA visible without expanding. "No payment now" handles trust objection in collapsed state.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. EMPTY STATE -->
+    <div class="states-group">
+      <div class="states-group-title">Empty state — no jets available</div>
+      <div class="states-row">
+        <div class="state-item" style="flex:2;">
+          <div class="state-label">Section omitted entirely</div>
+          <div style="border:1px dashed var(--dark-15);border-radius:6px;padding:20px 16px;text-align:center;background:var(--off-white);">
+            <div style="font-size:12px;color:var(--dark-40);margin-bottom:4px;">Private jet section not rendered</div>
+            <div style="font-size:11px;color:var(--dark-26);">API returned empty result or timeout — section silently omitted. No "no results" placeholder shown to user.</div>
+          </div>
+          <div class="state-note">Silent omission is the correct UX. Showing "no jets" creates noise and draws attention to a gap. Log timeout to Sentry internally.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. REQUEST BUTTON STATES -->
+    <div class="states-group">
+      <div class="states-group-title">Request CTA — button states</div>
+      <div class="states-row">
+        <div class="state-item">
+          <div class="state-label">1 · Default</div>
+          <div class="state-btn-row">
+            <button class="sb idle">Request jet</button>
+          </div>
+          <div class="state-note">Dark background. Uppercase. Ready to click.</div>
+        </div>
+        <div class="state-item">
+          <div class="state-label">2 · Sending (800ms)</div>
+          <div class="state-btn-row">
+            <button class="sb sending"><span class="btn-spinner"></span>Sending…</button>
+          </div>
+          <div class="state-note">Spinner replaces icon. Button disabled. 800ms then modal closes.</div>
+        </div>
+        <div class="state-item">
+          <div class="state-label">3 · Sent (post-confirm)</div>
+          <div class="state-btn-row">
+            <button class="sb sent">✓ Requested</button>
+          </div>
+          <div class="state-note">Green, non-interactive. Stays in place while toast is visible.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. TOAST STATES -->
+    <div class="states-group">
+      <div class="states-group-title">Toast — all states</div>
+      <div class="states-row">
+        <div class="state-item" style="flex:3;min-width:300px;">
+          <div class="state-label">Default · 5s countdown visible</div>
+          <div style="background:var(--dark);color:var(--white);height:44px;border-radius:8px;display:flex;align-items:center;gap:12px;padding:0 16px;font-size:13px;box-shadow:var(--shadow-toast);max-width:420px;">
+            <div style="width:20px;height:20px;background:var(--success);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <span style="font-weight:500;flex:1;">Private jet request sent</span>
+            <span style="font-size:12px;font-weight:700;color:var(--gold);padding-left:10px;border-left:1px solid rgba(255,255,255,0.15);">Undo</span>
+            <span style="font-size:10px;font-family:var(--mono);background:rgba(255,255,255,0.1);width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;">5</span>
+          </div>
+          <div class="state-note">Enters from bottom (translateY 20px → 0, 200ms). Countdown 5→4→3→2→1→fade.</div>
+        </div>
+        <div class="state-item" style="flex:2;min-width:220px;">
+          <div class="state-label">After Undo</div>
+          <div style="background:rgba(27,39,51,0.65);color:var(--white);height:44px;border-radius:8px;display:flex;align-items:center;gap:8px;padding:0 16px;font-size:13px;font-weight:500;max-width:280px;">
+            <span>—</span>
+            <span>Request cancelled</span>
+          </div>
+          <div class="state-note">Dimmer background. No countdown. Fades after 1.5s.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. MODAL STATES -->
+    <div class="states-group">
+      <div class="states-group-title">Confirmation modal</div>
+      <div class="states-row">
+        <div class="state-item" style="flex:1;min-width:280px;">
+          <div class="state-label">Default — review & confirm</div>
+          <div style="background:var(--white);border:1px solid var(--dark-10);border-radius:12px;overflow:hidden;box-shadow:var(--shadow-card);max-width:400px;">
+            <div style="padding:16px 20px 12px;border-bottom:1px solid var(--dark-10);display:flex;justify-content:space-between;align-items:flex-start;">
+              <div><div style="font-size:9px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);margin-bottom:3px;">Private Jet Request</div><div style="font-size:15px;font-weight:600;color:var(--dark);">Confirm your request</div></div>
+              <div style="width:26px;height:26px;background:var(--dark-05);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--dark-40);border:1px solid var(--dark-10);">✕</div>
+            </div>
+            <div style="padding:16px 20px;">
+              <div style="background:var(--gold-light);border:1px solid var(--gold-border);border-radius:6px;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+                <div style="text-align:center;"><div style="font-family:var(--mono);font-size:17px;font-weight:500;">WMI</div><div style="font-size:9px;color:var(--dark-40);margin-top:1px;">Warsaw Modlin</div></div>
+                <div style="color:var(--gold);font-size:16px;">→</div>
+                <div style="text-align:center;"><div style="font-family:var(--mono);font-size:17px;font-weight:500;">BCN</div><div style="font-size:9px;color:var(--dark-40);margin-top:1px;">Barcelona El Prat</div></div>
+              </div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;">
+                <div style="background:var(--off-white);border-radius:4px;padding:8px 10px;"><div style="font-size:9px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--dark-40);margin-bottom:2px;">Departure</div><div style="font-size:12px;font-weight:600;">24 Jun 2026</div></div>
+                <div style="background:var(--off-white);border-radius:4px;padding:8px 10px;"><div style="font-size:9px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--dark-40);margin-bottom:2px;">Category</div><div style="font-size:12px;font-weight:600;">Light Jet</div></div>
+              </div>
+              <div style="border-top:1px solid var(--dark-10);padding-top:12px;margin-bottom:12px;display:flex;align-items:baseline;gap:8px;">
+                <span style="font-size:11px;color:var(--dark-40);">Estimated price</span>
+                <span style="font-size:20px;font-weight:700;letter-spacing:-0.02em;">4,200 EUR</span>
+                <span style="font-size:10px;color:var(--dark-26);">· estimate</span>
+              </div>
+              <div style="font-size:10px;color:var(--dark-26);line-height:1.5;margin-bottom:12px;">No payment taken. A specialist will contact you within ~2 hours.</div>
+              <div style="display:flex;gap:8px;">
+                <button class="sb idle" style="flex:1;height:36px;font-size:10px;">Send request</button>
+                <button style="height:36px;padding:0 16px;border:1px solid var(--dark-20);background:transparent;color:var(--dark-40);font-size:11px;border-radius:4px;cursor:pointer;">Cancel</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="state-item" style="max-width:240px;">
+          <div class="state-label">Sending… (button state)</div>
+          <div style="display:flex;gap:8px;margin-top:4px;">
+            <button class="sb sending" style="flex:1;height:36px;font-size:10px;"><span class="btn-spinner"></span>Sending…</button>
+            <button style="height:36px;padding:0 16px;border:1px solid var(--dark-20);background:transparent;color:var(--dark-40);font-size:11px;border-radius:4px;opacity:0.5;pointer-events:none;">Cancel</button>
+          </div>
+          <div class="state-note">Primary button goes to sending state for 800ms, then modal closes and toast appears.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 7. ATTENDANT + BAGGAGE -->
+    <div class="states-group">
+      <div class="states-group-title">Attendant & baggage states</div>
+      <div class="states-row">
+        <div class="state-item">
+          <div class="state-label">Crew availability</div>
+          <div class="att-demo">
+            <div class="att-row"><span class="attendant-dot"></span> Crew included</div>
+            <div class="att-row"><span class="attendant-dot unavail"></span> <span class="attendant-text unavail">No flight attendant</span></div>
+          </div>
+          <div class="state-note">Green = available. Grey = not available. Never hidden — always shown.</div>
+        </div>
+        <div class="state-item">
+          <div class="state-label">Baggage tooltip (hover 🧳)</div>
+          <div style="display:flex;align-items:center;gap:6px;font-size:11px;padding:10px 0;">
+            <div class="jet-spec jet-spec-bag">
+              <span class="jet-spec-icon">🧳</span> 6 bags
+              <div class="bag-tip">6 check-in bags (67×44×24 cm) · ~10 days of luggage</div>
+            </div>
+          </div>
+          <div class="state-note">Hover the 🧳 above. Tooltip shows bag size (Rimowa Check-In M reference) + approx trip length.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div><!-- /states -->
+
+<!-- ============================================================
      REQUEST MODAL
      ============================================================ -->
 <div class="modal-overlay" id="modal-overlay" onclick="handleOverlayClick(event)">
@@ -2467,7 +2765,7 @@ svg { display: block; flex-shrink: 0; }
       </div>
 
       <div class="modal-actions">
-        <button class="modal-primary" onclick="sendRequest()">Send request</button>
+        <button class="modal-primary" id="modal-send-btn" onclick="sendRequest(this)">Send request</button>
         <button class="modal-secondary" onclick="closeModal()">Cancel</button>
       </div>
 
@@ -2589,6 +2887,8 @@ function selectTile(el, concept) {
   el.classList.add('selected');
   if (concept === 'b') {
     state.moduleBSelected = MODULE_DATA[tileIdx];
+    const reqBtn = document.getElementById('module-request-b');
+    if (reqBtn) reqBtn.textContent = `Request ${state.moduleBSelected.cat}`;
   }
 }
 
@@ -2661,9 +2961,22 @@ document.addEventListener('keydown', (e) => {
 // ============================================================
 // REQUEST + TOAST
 // ============================================================
-function sendRequest() {
-  closeModal();
-  showToast();
+function sendRequest(btn) {
+  // Spinner state on button
+  if (btn) {
+    btn.classList.add('btn-sending');
+    btn.innerHTML = '<span class="btn-spinner"></span>Sending…';
+    btn.disabled = true;
+  }
+  setTimeout(() => {
+    closeModal();
+    if (btn) {
+      btn.classList.remove('btn-sending');
+      btn.innerHTML = 'Send request';
+      btn.disabled = false;
+    }
+    showToast();
+  }, 800);
 }
 
 function showToast() {
@@ -2698,12 +3011,23 @@ function clearToastTimers() {
 
 function undoRequest() {
   clearToastTimers();
-  hideToast();
-  // Show cancelled feedback
-  const cancelToast = document.getElementById('toast-cancel');
-  cancelToast.classList.add('visible');
+  // Switch to cancelled state inside same toast
+  const toast = document.getElementById('toast');
+  const check = toast.querySelector('.toast-check');
+  const text = toast.querySelector('.toast-text');
+  const undoBtn = toast.querySelector('.toast-undo');
+  const cd = toast.querySelector('.toast-countdown');
+  if (check) { check.style.background = 'var(--dark-40)'; check.innerHTML = '—'; }
+  if (text) text.textContent = 'Request cancelled';
+  if (undoBtn) undoBtn.style.display = 'none';
+  if (cd) cd.style.display = 'none';
   setTimeout(() => {
-    cancelToast.classList.remove('visible');
+    hideToast();
+    // Reset toast for next use
+    if (check) { check.style.background = 'var(--success)'; check.innerHTML = '<svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>'; }
+    if (text) text.textContent = 'Private jet request sent';
+    if (undoBtn) undoBtn.style.display = '';
+    if (cd) cd.style.display = '';
   }, 1500);
 }
 </script>
