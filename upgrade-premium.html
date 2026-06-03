@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Business Upgrade — Premium Travel</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="upgrade-premium.css">
+</head>
+<body>
+
+<!-- AMBIENT BACKGROUND SHAPES -->
+<div class="ambient" aria-hidden="true">
+  <div class="ambient__blob ambient__blob--1"></div>
+  <div class="ambient__blob ambient__blob--2"></div>
+  <div class="ambient__blob ambient__blob--3"></div>
+</div>
+
+<!-- HEADER -->
+<header class="uh">
+  <div class="uh__inner">
+    <a href="#" class="uh__logo">
+      <svg width="88" height="20" viewBox="0 0 88 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <text x="0" y="16" font-family="IBM Plex Sans,sans-serif" font-size="13" font-weight="700" letter-spacing="2" fill="url(#logoGrad)">ALTITUDE</text>
+        <defs>
+          <linearGradient id="logoGrad" x1="0" y1="0" x2="88" y2="0" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#a78bfa"/>
+            <stop offset="100%" stop-color="#f472b6"/>
+          </linearGradient>
+        </defs>
+      </svg>
+    </a>
+    <a href="#" class="uh__signin">ddm@drct.aero</a>
+  </div>
+</header>
+
+<!-- PAGE BODY -->
+<main class="pg">
+  <div class="pg__inner">
+
+    <!-- LEFT COLUMN -->
+    <div class="pg__left">
+
+      <!-- YOUR BOOKING -->
+      <section class="bk glass-card">
+        <h1 class="bk__title">Your booking</h1>
+        <div class="bk__meta">
+          <div class="bk__airline">
+            <div class="bk__airline-logo" aria-label="Turkish Airlines">
+              <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="16" fill="url(#tkGrad)"/><text x="16" y="21" text-anchor="middle" font-family="IBM Plex Sans,sans-serif" font-size="9" font-weight="700" fill="#fff">TK</text><defs><linearGradient id="tkGrad" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#e11d48"/><stop offset="100%" stop-color="#be123c"/></linearGradient></defs></svg>
+            </div>
+            <span class="bk__airline-name">TURKISH AIRLINES</span>
+          </div>
+          <div class="bk__ref">
+            <span class="bk__ref-label">Passenger</span>
+            <strong class="bk__ref-val">SMITH</strong>
+          </div>
+          <div class="bk__ref">
+            <span class="bk__ref-label">Ticket number</span>
+            <strong class="bk__ref-val bk__ref-val--mono">23GXXXXXXXXXX</strong>
+          </div>
+        </div>
+        <div class="bk__route">
+          <span class="bk__city">Warsaw Modlin</span>
+          <svg class="bk__arrow" width="30" height="12" viewBox="0 0 30 12" fill="none"><path d="M0 6h26m0 0-5-5m5 5-5 5" stroke="url(#arrGrad)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><defs><linearGradient id="arrGrad" x1="0" y1="0" x2="30" y2="0" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#818cf8"/><stop offset="100%" stop-color="#e879f9"/></linearGradient></defs></svg>
+          <span class="bk__city">Lisbon</span>
+        </div>
+        <p class="bk__sub">Return · 19 May – 31 May · 1 Passenger</p>
+      </section>
+
+      <!-- MASTERCARD BANNER -->
+      <div class="mc glass-card glass-card--tinted">
+        <div class="mc__logo" aria-label="Mastercard">
+          <svg width="36" height="22" viewBox="0 0 36 22" fill="none"><circle cx="13" cy="11" r="11" fill="#eb001b" opacity=".9"/><circle cx="23" cy="11" r="11" fill="#f79e1b" opacity=".9"/><path d="M18 4.5a11 11 0 0 1 0 13 11 11 0 0 1 0-13Z" fill="#ff5f00" opacity=".85"/></svg>
+        </div>
+        <p class="mc__text"><strong>Mastercard Premium cardholders may save up to €87.</strong> Eligible cards: World Elite, Platinum, Gold, Standard. Discount is verified automatically when you enter your card at checkout.</p>
+        <div class="mc__badge">
+          <span class="mc__amount">€87</span>
+          <span class="mc__label">POTENTIAL</span>
+        </div>
+      </div>
+
+      <!-- SEGMENT SELECTOR -->
+      <section class="seg glass-card">
+        <div class="seg__head">
+          <h2 class="seg__title">Select segments to upgrade</h2>
+          <label class="toggle" aria-label="Available only">
+            <input type="checkbox" checked class="toggle__input">
+            <span class="toggle__track">
+              <span class="toggle__thumb"></span>
+            </span>
+            <span class="toggle__label">Available only</span>
+          </label>
+        </div>
+
+        <!-- Segment 1 -->
+        <div class="seg__item">
+          <div class="seg__flight">
+            <div class="seg__times">
+              <span class="seg__dep">10:25am</span>
+              <span class="seg__dur">1h 45m ·</span>
+              <span class="seg__arr">13:45am</span>
+            </div>
+            <div class="seg__codes">
+              <span>WAW</span>
+              <span class="seg__dot-line" aria-hidden="true"></span>
+              <span>LIS</span>
+            </div>
+            <p class="seg__type">Direct</p>
+          </div>
+          <div class="seg__offer">
+            <span class="seg__class">Business upgrade</span>
+            <span class="seg__price">€ 438</span>
+            <button class="seg__btn">
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M5 1v8M1 5h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+              Select
+            </button>
+          </div>
+        </div>
+
+        <!-- Segment 2 -->
+        <div class="seg__item">
+          <div class="seg__flight">
+            <div class="seg__times">
+              <span class="seg__dep">10:25am</span>
+              <span class="seg__dur">1h 65m ·</span>
+              <span class="seg__arr">13:45am</span>
+            </div>
+            <div class="seg__codes">
+              <span>WAW</span>
+              <span class="seg__dot-line" aria-hidden="true"></span>
+              <span>LIS</span>
+            </div>
+            <p class="seg__type">Direct</p>
+          </div>
+          <div class="seg__offer">
+            <span class="seg__class">Business upgrade</span>
+            <span class="seg__price">€ 438</span>
+            <button class="seg__btn">
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M5 1v8M1 5h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+              Select
+            </button>
+          </div>
+        </div>
+
+        <!-- Segment 3 -->
+        <div class="seg__item">
+          <div class="seg__flight">
+            <div class="seg__times">
+              <span class="seg__dep">10:25am</span>
+              <span class="seg__dur">1h 66m ·</span>
+              <span class="seg__arr">13:45am</span>
+            </div>
+            <div class="seg__codes">
+              <span>WAW</span>
+              <span class="seg__dot-line" aria-hidden="true"></span>
+              <span>LIS</span>
+            </div>
+            <p class="seg__type">Direct</p>
+          </div>
+          <div class="seg__offer">
+            <span class="seg__class">Business upgrade</span>
+            <span class="seg__price">€ 438</span>
+            <button class="seg__btn">
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M5 1v8M1 5h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+              Select
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- WHATS INCLUDED -->
+      <section class="inc glass-card">
+        <h2 class="inc__title">Whats included in Business class</h2>
+        <div class="inc__photo-wrap">
+          <div class="inc__photo-overlay" aria-hidden="true"></div>
+          <img
+            class="inc__photo"
+            src="https://images.unsplash.com/photo-1540339832862-474599807836?w=700&q=80"
+            alt="Business class cabin with lie-flat seats"
+            loading="lazy"
+          >
+        </div>
+        <div class="inc__features">
+          <div class="inc__feat">
+            <svg class="inc__icon" width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M2 12l4-3 3 2 4-5 3 2" stroke="url(#fGrad1)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><defs><linearGradient id="fGrad1" x1="0" y1="0" x2="18" y2="0" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#818cf8"/><stop offset="100%" stop-color="#c084fc"/></linearGradient></defs></svg>
+            <div>
+              <strong>Lie-flat seats</strong>
+              <p>Full flat on long-haul</p>
+            </div>
+          </div>
+          <div class="inc__feat">
+            <svg class="inc__icon" width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="6" stroke="url(#fGrad2)" stroke-width="1.5"/><path d="M9 6v3l2 2" stroke="url(#fGrad2)" stroke-width="1.5" stroke-linecap="round"/><defs><linearGradient id="fGrad2" x1="0" y1="0" x2="18" y2="0" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#818cf8"/><stop offset="100%" stop-color="#c084fc"/></linearGradient></defs></svg>
+            <div>
+              <strong>Premium dining</strong>
+              <p>Multi-course meal service</p>
+            </div>
+          </div>
+          <div class="inc__feat">
+            <svg class="inc__icon" width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="3" y="5" width="12" height="9" rx="2" stroke="url(#fGrad3)" stroke-width="1.5"/><path d="M6 5V4a3 3 0 0 1 6 0v1" stroke="url(#fGrad3)" stroke-width="1.5"/><defs><linearGradient id="fGrad3" x1="0" y1="0" x2="18" y2="0" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#818cf8"/><stop offset="100%" stop-color="#c084fc"/></linearGradient></defs></svg>
+            <div>
+              <strong>Lounge access</strong>
+              <p>All lounges at boarding</p>
+            </div>
+          </div>
+          <div class="inc__feat">
+            <svg class="inc__icon" width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 9a5 5 0 0 1 10 0" stroke="url(#fGrad4)" stroke-width="1.5" stroke-linecap="round"/><circle cx="9" cy="12" r="2" stroke="url(#fGrad4)" stroke-width="1.5"/><defs><linearGradient id="fGrad4" x1="0" y1="0" x2="18" y2="0" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#818cf8"/><stop offset="100%" stop-color="#c084fc"/></linearGradient></defs></svg>
+            <div>
+              <strong>Noise-cancelling</strong>
+              <p>Premium headphones</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div><!-- /left -->
+
+    <!-- RIGHT SIDEBAR -->
+    <aside class="sb">
+      <div class="sb__card glass-card glass-card--sidebar">
+        <h3 class="sb__title">Business upgrade</h3>
+
+        <ul class="sb__legs">
+          <li class="sb__leg">
+            <span class="sb__leg-date">19 May</span>
+            <div class="sb__leg-route">
+              <span>WAW</span>
+              <svg width="24" height="8" viewBox="0 0 24 8" fill="none"><path d="M0 4h20m0 0-4-3m4 3-4 3" stroke="url(#sbArr1)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/><defs><linearGradient id="sbArr1" x1="0" y1="0" x2="24" y2="0"><stop offset="0%" stop-color="#a78bfa"/><stop offset="100%" stop-color="#f472b6"/></linearGradient></defs></svg>
+              <span>LIS</span>
+            </div>
+            <span class="sb__leg-price">€ 219</span>
+          </li>
+          <li class="sb__leg">
+            <span class="sb__leg-date">31 May</span>
+            <div class="sb__leg-route">
+              <span>LIS</span>
+              <svg width="24" height="8" viewBox="0 0 24 8" fill="none"><path d="M0 4h20m0 0-4-3m4 3-4 3" stroke="url(#sbArr2)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/><defs><linearGradient id="sbArr2" x1="0" y1="0" x2="24" y2="0"><stop offset="0%" stop-color="#a78bfa"/><stop offset="100%" stop-color="#f472b6"/></linearGradient></defs></svg>
+              <span>WAW</span>
+            </div>
+            <span class="sb__leg-price">€ 219</span>
+          </li>
+        </ul>
+
+        <div class="sb__pax">
+          <span>Passengers</span>
+          <span class="sb__pax-count">x1</span>
+        </div>
+
+        <div class="sb__divider"></div>
+
+        <div class="sb__total">
+          <span>Total</span>
+          <span class="sb__total-note">Taxes included</span>
+          <strong class="sb__total-amount">€ 438</strong>
+        </div>
+
+        <ul class="sb__perks">
+          <li>
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 8l3 3 7-7" stroke="url(#ck1)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><defs><linearGradient id="ck1" x1="0" y1="0" x2="14" y2="0"><stop offset="0%" stop-color="#a78bfa"/><stop offset="100%" stop-color="#f472b6"/></linearGradient></defs></svg>
+            Lie-flat seats on long-haul
+          </li>
+          <li>
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 8l3 3 7-7" stroke="url(#ck2)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><defs><linearGradient id="ck2" x1="0" y1="0" x2="14" y2="0"><stop offset="0%" stop-color="#a78bfa"/><stop offset="100%" stop-color="#f472b6"/></linearGradient></defs></svg>
+            Priority boarding &amp; lounge access
+          </li>
+          <li>
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 8l3 3 7-7" stroke="url(#ck3)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><defs><linearGradient id="ck3" x1="0" y1="0" x2="14" y2="0"><stop offset="0%" stop-color="#a78bfa"/><stop offset="100%" stop-color="#f472b6"/></linearGradient></defs></svg>
+            Premium dining on both flights
+          </li>
+        </ul>
+
+        <button class="sb__cta">Upgrade your trip</button>
+
+        <p class="sb__note">Annual payment available (at 5%, and 12 Months)</p>
+      </div>
+    </aside>
+
+  </div><!-- /pg__inner -->
+</main>
+
+</body>
+</html>
