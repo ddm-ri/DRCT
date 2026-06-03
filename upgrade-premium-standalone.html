@@ -6,53 +6,51 @@
   <title>Business Upgrade — Altitude</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
 /* ============================================================
    ALTITUDE — Upgrade Flow
-   Style: Clean premium, warm white, minimal depth
+   Visual direction: JetsBetter-inspired
+   Warm gray · White cards · Powder blue · Chartreuse CTA
+   Flat, editorial, large rounded corners, zero gradients
 ============================================================ */
 :root {
-  --bg:           #f4f3ee;
-  --bg-card:      #ffffff;
-  --bg-warm:      #faf8f3;
+  --bg:         #f3f3f1;
+  --bg-card:    #ffffff;
+  --bg-blue:    #ccd6e5;     /* JetsBetter signature powder blue */
+  --bg-blue-lt: #dce6f2;    /* lighter tint for selected rows */
+  --bg-blue-dk: #b8c8dc;    /* border for blue sections */
 
-  --border:       rgba(0,0,0,.08);
-  --border-warm:  rgba(180,150,80,.18);
-  --border-sel:   #4f8ef0;
+  --text-1:     #0f0f0e;
+  --text-2:     #6b6b68;
+  --text-3:     #a0a09e;
+  --text-navy:  #1e2d4a;    /* text on blue sections */
 
-  --text-1:       #1a1714;
-  --text-2:       #6b6258;
-  --text-3:       #a09890;
+  /* Chartreuse CTA — JetsBetter yellow-green */
+  --lime:       #d0de4a;
+  --lime-hover: #c0ce3c;
 
-  /* Amber CTA */
-  --amber:        #b88828;
-  --amber-grad:   linear-gradient(135deg, #c49830 0%, #a87820 100%);
-  --amber-hover:  linear-gradient(135deg, #d0a838 0%, #b88828 100%);
+  /* Selected indicator */
+  --sel-border: #8aaac8;
 
-  /* Accent teal for selected/active */
-  --teal:         #3b8ef0;
-  --teal-bg:      rgba(59,142,240,.07);
+  --border:     rgba(0,0,0,.08);
+  --border-dk:  rgba(0,0,0,.12);
 
-  /* Warm upgrade card */
-  --warm-gold-bg:
-    radial-gradient(ellipse 80% 80% at 100% 0%, rgba(220,185,100,.25) 0%, transparent 60%),
-    linear-gradient(145deg, #f9f2e0 0%, #f4ebd0 100%);
+  /* No shadows — JetsBetter is completely flat */
+  --sh: none;
 
-  --sh-xs:        0 1px 3px rgba(0,0,0,.06);
-  --sh-sm:        0 2px 8px rgba(0,0,0,.07), 0 0 0 1px rgba(0,0,0,.05);
-  --sh-md:        0 4px 20px rgba(0,0,0,.08), 0 0 0 1px rgba(0,0,0,.06);
-  --sh-amber:     0 6px 24px rgba(180,136,40,.32), 0 1px 4px rgba(180,136,40,.20);
+  --r-lg:   24px;
+  --r:      16px;
+  --r-sm:   10px;
+  --r-pill: 100px;
 
-  --r:            12px;
-  --r-sm:         8px;
-  --container:    1010px;
-  --font:         'IBM Plex Sans', -apple-system, sans-serif;
+  --container: 1010px;
+  --font: 'Inter', -apple-system, sans-serif;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { -webkit-font-smoothing: antialiased; }
-img { display: block; max-width: 100%; }
+img  { display: block; max-width: 100%; }
 button { cursor: pointer; border: none; background: none; font: inherit; }
 a { text-decoration: none; color: inherit; }
 
@@ -65,18 +63,16 @@ body {
 }
 
 ::-webkit-scrollbar { width: 5px; }
-::-webkit-scrollbar-track { background: #ece9e2; }
-::-webkit-scrollbar-thumb { background: #c8b898; border-radius: 3px; }
+::-webkit-scrollbar-track { background: #e8e8e6; }
+::-webkit-scrollbar-thumb { background: #c0c0bc; border-radius: 3px; }
 
 /* ============================================================
    HEADER
 ============================================================ */
 .hdr {
   position: sticky; top: 0; z-index: 20;
-  height: 54px;
-  background: rgba(244,243,238,.92);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  height: 56px;
+  background: var(--bg-card);
   border-bottom: 1px solid var(--border);
 }
 .hdr__inner {
@@ -86,237 +82,229 @@ body {
 }
 .hdr__logo {
   display: flex; align-items: center; gap: 8px;
-  font-size: 16px; font-weight: 700; color: var(--text-1); letter-spacing: -.2px;
+  font-size: 15px; font-weight: 800; color: var(--text-1); letter-spacing: -.4px;
 }
-.hdr__logo svg { display: block; }
-.hdr__menu { padding: 6px; }
+.hdr__right {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 13px; color: var(--text-2);
+}
+.hdr__user { font-weight: 500; }
 
 /* ============================================================
    PAGE LAYOUT
 ============================================================ */
-.pg { padding: 20px 24px 60px; }
+.pg { padding: 24px 24px 72px; }
 .pg__inner {
   max-width: var(--container); margin: 0 auto;
-  display: grid; grid-template-columns: 1fr 300px; gap: 20px; align-items: start;
+  display: grid; grid-template-columns: 1fr 296px; gap: 20px; align-items: start;
 }
 @media (max-width: 800px) {
   .pg__inner { grid-template-columns: 1fr; }
   .sb { order: -1; }
 }
-.pg__left { display: flex; flex-direction: column; gap: 12px; }
+.pg__left { display: flex; flex-direction: column; gap: 10px; }
 
 /* ============================================================
-   MASTERCARD BANNER
+   SHARED CARD BASE
+============================================================ */
+.card {
+  background: var(--bg-card);
+  border-radius: var(--r-lg);
+  border: 1px solid var(--border);
+  overflow: hidden;
+}
+.card-inner { padding: 22px 24px; }
+
+/* ============================================================
+   MASTERCARD BANNER — powder blue, JetsBetter style
 ============================================================ */
 .mc-banner {
-  background:
-    radial-gradient(ellipse 60% 100% at 100% 50%, rgba(59,142,240,.08) 0%, transparent 60%),
-    linear-gradient(135deg, #eef4ff 0%, #e8f0ff 100%);
-  border: 1px solid rgba(59,142,240,.15);
-  border-radius: var(--r);
-  padding: 14px 18px;
-  display: flex; align-items: center; gap: 14px;
-  box-shadow: var(--sh-xs);
+  background: var(--bg-blue);
+  border-radius: var(--r-lg);
+  border: none;
+  padding: 20px 24px;
+  display: flex; align-items: center; gap: 16px;
 }
 .mc-banner__logo { flex-shrink: 0; }
-.mc-banner__text { flex: 1; font-size: 12px; line-height: 1.55; color: var(--text-2); }
-.mc-banner__text strong { color: var(--text-1); font-weight: 600; }
-.mc-banner__badge { flex-shrink: 0; text-align: right; }
-.mc-banner__amount { display: block; font-size: 18px; font-weight: 700; color: var(--text-1); }
-.mc-banner__label { display: block; font-size: 9px; font-weight: 700; letter-spacing: .6px; text-transform: uppercase; color: var(--text-3); margin-top: 1px; }
+.mc-banner__text {
+  flex: 1; font-size: 13px; line-height: 1.6;
+  color: var(--text-navy);
+}
+.mc-banner__text strong { font-weight: 700; color: var(--text-navy); }
+.mc-banner__badge {
+  flex-shrink: 0; text-align: right;
+  background: rgba(255,255,255,.55);
+  border-radius: var(--r-sm);
+  padding: 10px 16px;
+}
+.mc-banner__amount { display: block; font-size: 22px; font-weight: 800; color: var(--text-navy); letter-spacing: -.5px; }
+.mc-banner__label { display: block; font-size: 9px; font-weight: 700; letter-spacing: .7px; text-transform: uppercase; color: #4a6080; margin-top: 2px; }
 
 /* ============================================================
    BOOKING SUMMARY
 ============================================================ */
-.bk-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
+.bk-section { }
+.bk-title { font-size: 20px; font-weight: 800; color: var(--text-1); margin-bottom: 4px; letter-spacing: -.4px; }
+.bk-sub { font-size: 13px; color: var(--text-2); margin-bottom: 16px; line-height: 1.5; }
+
+.bk-meta {
+  background: var(--bg);
+  border: 1px solid var(--border-dk);
   border-radius: var(--r);
-  padding: 20px 22px;
-  box-shadow: var(--sh-sm);
+  padding: 16px 18px;
 }
-.bk-card__title { font-size: 16px; font-weight: 700; color: var(--text-1); margin-bottom: 6px; }
-.bk-card__sub { font-size: 12px; color: var(--text-3); line-height: 1.5; margin-bottom: 18px; }
-
-.bk-card__meta {
-  background: var(--bg-warm);
-  border: 1px solid var(--border);
-  border-radius: var(--r-sm);
-  padding: 14px 16px;
-}
-.bk-card__airline-row {
+.bk-airline-row {
   display: flex; align-items: center; justify-content: space-between;
-  margin-bottom: 14px; flex-wrap: wrap; gap: 12px;
+  margin-bottom: 14px; flex-wrap: wrap; gap: 10px;
 }
-.bk-card__airline { display: flex; align-items: center; gap: 8px; }
-.bk-card__airline-name { font-size: 10px; font-weight: 700; letter-spacing: .8px; text-transform: uppercase; color: var(--text-2); }
-.bk-card__refs { display: flex; gap: 24px; }
-.bk-card__ref { display: flex; flex-direction: column; gap: 3px; }
-.bk-card__ref-label { font-size: 10px; text-transform: uppercase; letter-spacing: .4px; color: var(--text-3); font-weight: 500; }
-.bk-card__ref-val { font-size: 12px; font-weight: 700; color: var(--text-1); }
-.bk-card__ref-val--mono { font-family: 'IBM Plex Mono', monospace; font-size: 11px; }
+.bk-airline { display: flex; align-items: center; gap: 9px; }
+.bk-airline-name {
+  font-size: 10px; font-weight: 700; letter-spacing: .8px; text-transform: uppercase; color: var(--text-2);
+}
+.bk-refs { display: flex; gap: 24px; }
+.bk-ref { display: flex; flex-direction: column; gap: 3px; }
+.bk-ref__label { font-size: 10px; text-transform: uppercase; letter-spacing: .4px; color: var(--text-3); font-weight: 600; }
+.bk-ref__val { font-size: 12px; font-weight: 700; color: var(--text-1); }
 
-.bk-card__route { display: flex; align-items: center; gap: 10px; margin-top: 2px; }
-.bk-card__city { font-size: 15px; font-weight: 700; color: var(--text-1); }
-.bk-card__sub2 { font-size: 11px; color: var(--text-3); margin-top: 5px; }
+.bk-route { display: flex; align-items: center; gap: 10px; }
+.bk-city { font-size: 16px; font-weight: 800; color: var(--text-1); letter-spacing: -.3px; }
+.bk-detail { font-size: 11px; color: var(--text-3); margin-top: 6px; }
 
 /* ============================================================
    SEGMENT SELECTOR
 ============================================================ */
-.seg-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--r);
-  padding: 18px 22px;
-  box-shadow: var(--sh-sm);
-}
-.seg-card__head {
+.seg-head {
   display: flex; align-items: center; justify-content: space-between;
-  margin-bottom: 4px; flex-wrap: wrap; gap: 10px;
+  margin-bottom: 4px; flex-wrap: wrap; gap: 8px;
 }
-.seg-card__title { font-size: 15px; font-weight: 700; color: var(--text-1); }
-.seg-card__sub { font-size: 11px; color: var(--text-3); margin-bottom: 18px; }
-.seg-card__controls { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.seg-title { font-size: 20px; font-weight: 800; color: var(--text-1); letter-spacing: -.4px; }
+.seg-sub { font-size: 13px; color: var(--text-2); margin-bottom: 16px; }
+.seg-controls { display: flex; align-items: center; gap: 10px; }
 
 .avail-badge {
   display: inline-flex; align-items: center; gap: 5px;
   font-size: 11px; font-weight: 600; color: var(--text-2);
-  background: #f0f0ec;
-  border: 1px solid var(--border);
-  border-radius: 100px; padding: 4px 10px;
+  background: var(--bg);
+  border: 1px solid var(--border-dk);
+  border-radius: var(--r-pill); padding: 4px 11px;
 }
-.avail-badge__dot { width: 6px; height: 6px; border-radius: 50%; background: #5cb85c; }
+.avail-dot { width: 6px; height: 6px; border-radius: 50%; background: #4aad6a; }
 
 /* Toggle */
 .toggle { display: flex; align-items: center; gap: 7px; cursor: pointer; user-select: none; }
 .toggle__input { display: none; }
 .toggle__track {
   width: 34px; height: 19px; border-radius: 10px;
-  background: #ddd; position: relative; transition: background .2s;
-  border: 1px solid rgba(0,0,0,.08);
+  background: #d4d4d0; position: relative; transition: background .2s;
 }
 .toggle__thumb {
   position: absolute; top: 2px; left: 2px;
-  width: 13px; height: 13px; border-radius: 50%;
-  background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,.2);
-  transition: transform .2s;
+  width: 15px; height: 15px; border-radius: 50%;
+  background: #fff; transition: transform .2s;
 }
-.toggle__input:checked + .toggle__track { background: var(--teal); border-color: transparent; }
-.toggle__input:checked + .toggle__track .toggle__thumb { transform: translateX(15px); }
+.toggle__input:checked ~ .toggle__track { background: var(--lime); }
+.toggle__input:checked ~ .toggle__track .toggle__thumb { transform: translateX(15px); }
 .toggle__label { font-size: 12px; font-weight: 500; color: var(--text-2); }
 
 /* Segment row */
 .seg-row {
-  background: var(--bg-warm);
   border: 1.5px solid var(--border);
-  border-radius: var(--r-sm);
-  padding: 14px 16px;
-  margin-bottom: 10px;
+  border-radius: var(--r);
+  padding: 16px 18px;
+  margin-bottom: 8px;
   cursor: pointer;
   transition: border-color .15s, background .15s;
+  background: var(--bg-card);
 }
 .seg-row:last-child { margin-bottom: 0; }
-.seg-row--selected {
-  background: var(--teal-bg);
-  border-color: var(--border-sel);
+.seg-row--sel {
+  background: var(--bg-blue-lt);
+  border-color: var(--sel-border);
 }
 .seg-row__top {
-  display: flex; align-items: center; gap: 10px; margin-bottom: 10px;
+  display: flex; align-items: center; gap: 10px; margin-bottom: 12px;
 }
-.seg-row__check {
-  width: 16px; height: 16px; border-radius: 3px; flex-shrink: 0;
-  background: var(--teal); display: flex; align-items: center; justify-content: center;
+.seg-chk {
+  width: 18px; height: 18px; border-radius: 5px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--lime); border: none;
 }
-.seg-row__check--empty {
-  background: #fff; border: 1.5px solid #ccc;
+.seg-chk--empty {
+  background: transparent;
+  border: 1.5px solid #c0c0bc;
 }
-.seg-row__date { font-size: 11px; color: var(--text-3); font-weight: 500; }
+.seg-row__date { font-size: 11px; color: var(--text-3); font-weight: 600; letter-spacing: .2px; }
 .seg-row__flight { font-size: 11px; color: var(--text-3); margin-left: auto; }
 
-.seg-row__times {
-  display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 10px;
+.seg-times {
+  display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 12px;
 }
-.seg-row__time { font-size: 26px; font-weight: 700; color: var(--text-1); letter-spacing: -1px; line-height: 1; }
-.seg-row__dur-line { display: flex; flex-direction: column; align-items: center; gap: 4px; }
-.seg-row__dur-text { font-size: 11px; color: var(--text-3); }
-.seg-row__line { width: 100%; height: 1px; background: var(--border); }
-.seg-row__code { font-size: 12px; font-weight: 700; color: var(--text-3); letter-spacing: .4px; margin-top: 2px; text-align: center; }
-.seg-row__code--right { text-align: right; }
+.seg-time {
+  font-size: 32px; font-weight: 800; color: var(--text-1);
+  letter-spacing: -1.5px; line-height: 1;
+}
+.seg-spine { display: flex; flex-direction: column; align-items: center; gap: 5px; }
+.seg-dur { font-size: 11px; color: var(--text-3); font-weight: 500; }
+.seg-line { width: 100%; height: 1px; background: rgba(0,0,0,.12); }
+.seg-iata { font-size: 11px; font-weight: 700; color: var(--text-3); letter-spacing: .5px; margin-top: 3px; }
+.seg-iata--r { text-align: right; }
 
 /* ============================================================
    CABIN COMPARISON
 ============================================================ */
-.cabin-section {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--r);
-  padding: 20px 22px;
-  box-shadow: var(--sh-sm);
-}
-.cabin-section__title { font-size: 15px; font-weight: 700; color: var(--text-1); margin-bottom: 4px; }
-.cabin-section__sub { font-size: 12px; color: var(--text-3); margin-bottom: 18px; }
+.cabin-title { font-size: 20px; font-weight: 800; color: var(--text-1); margin-bottom: 4px; letter-spacing: -.4px; }
+.cabin-sub { font-size: 13px; color: var(--text-2); margin-bottom: 16px; }
 
-.cabin-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.cabin-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 @media (max-width: 500px) { .cabin-grid { grid-template-columns: 1fr; } }
 
 .cabin-card {
-  border-radius: var(--r-sm);
+  border-radius: var(--r);
   overflow: hidden;
   border: 1px solid var(--border);
+  background: var(--bg-card);
 }
-.cabin-card--business {
-  border-color: rgba(180,150,80,.28);
-  background: var(--warm-gold-bg);
+.cabin-card--biz {
+  background: var(--bg-blue);
+  border-color: var(--bg-blue-dk);
 }
-
-.cabin-card__img {
-  height: 150px; overflow: hidden; position: relative;
-}
+.cabin-card__img { height: 150px; overflow: hidden; }
 .cabin-card__img img { width: 100%; height: 100%; object-fit: cover; }
-.cabin-card__img--economy { background: #e8eaf0; }
-
-.cabin-card__body { padding: 12px 14px; }
-.cabin-card__footer {
-  display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap;
-  margin-bottom: 4px;
+.cabin-card__body { padding: 14px 16px; }
+.cabin-card__row {
+  display: flex; align-items: center; justify-content: space-between; gap: 8px;
+  margin-bottom: 6px;
 }
 .cabin-card__name { font-size: 13px; font-weight: 700; color: var(--text-1); }
-.cabin-card__price-tag {
-  font-size: 12px; font-weight: 700;
-  color: #5c5c5c; background: #eeede8;
-  border-radius: 4px; padding: 3px 8px;
+.cabin-card--biz .cabin-card__name { color: var(--text-navy); }
+.cabin-card__tag {
+  font-size: 10px; font-weight: 700; letter-spacing: .3px;
+  color: var(--text-2); background: rgba(0,0,0,.06);
+  border-radius: 5px; padding: 3px 9px;
 }
-.cabin-card__price {
-  font-size: 14px; font-weight: 700; color: var(--text-1);
-}
-.cabin-card__meta { font-size: 11px; color: var(--text-3); margin-bottom: 10px; }
+.cabin-card__price { font-size: 14px; font-weight: 800; color: var(--text-navy); letter-spacing: -.3px; }
+.cabin-card__meta { font-size: 11px; color: var(--text-3); line-height: 1.5; margin-bottom: 12px; }
+.cabin-card--biz .cabin-card__meta { color: #4a6080; }
 
+/* Upgrade button — chartreuse */
 .btn-upgrade {
-  width: 100%; padding: 9px; border-radius: 6px;
-  font-size: 12px; font-weight: 700; letter-spacing: .2px; color: #fff;
-  background: var(--amber-grad);
-  box-shadow: 0 3px 12px rgba(180,136,40,.30);
-  transition: box-shadow .2s, transform .15s;
+  width: 100%; padding: 10px;
+  border-radius: var(--r-sm);
+  font-size: 13px; font-weight: 700; color: var(--text-1);
+  background: var(--lime);
+  border: none;
+  transition: background .15s;
 }
-.btn-upgrade:hover { box-shadow: 0 5px 18px rgba(180,136,40,.42); transform: translateY(-1px); }
+.btn-upgrade:hover { background: var(--lime-hover); }
 
 /* ============================================================
    WHATS INCLUDED
 ============================================================ */
-.inc-section {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--r);
-  overflow: hidden;
-  box-shadow: var(--sh-sm);
-}
-.inc-section__head { padding: 20px 22px 16px; }
-.inc-section__title { font-size: 15px; font-weight: 700; color: var(--text-1); margin-bottom: 4px; }
-.inc-section__sub { font-size: 12px; color: var(--text-3); }
-.inc-section__photo { width: 100%; height: 220px; object-fit: cover; display: block; }
-.inc-section__features {
+.inc-title { font-size: 20px; font-weight: 800; color: var(--text-1); margin-bottom: 4px; letter-spacing: -.4px; }
+.inc-sub { font-size: 13px; color: var(--text-2); margin-bottom: 16px; }
+.inc-photo { width: 100%; height: 220px; object-fit: cover; display: block; border-radius: var(--r); margin-bottom: 0; }
+.inc-features {
   display: grid; grid-template-columns: 1fr 1fr;
-  gap: 0;
   border-top: 1px solid var(--border);
 }
 .inc-feat {
@@ -327,53 +315,60 @@ body {
 }
 .inc-feat:nth-child(2n) { border-right: none; }
 .inc-feat:nth-last-child(-n+2) { border-bottom: none; }
-.inc-feat__icon { flex-shrink: 0; margin-top: 1px; }
-.inc-feat__title { font-size: 13px; font-weight: 600; color: var(--text-1); margin-bottom: 3px; }
-.inc-feat__sub { font-size: 11px; color: var(--text-3); line-height: 1.5; }
+.inc-feat__icon { flex-shrink: 0; margin-top: 1px; color: var(--text-2); }
+.inc-feat__h { font-size: 13px; font-weight: 700; color: var(--text-1); margin-bottom: 3px; }
+.inc-feat__p { font-size: 11px; color: var(--text-3); line-height: 1.5; }
 
 /* ============================================================
-   RIGHT SIDEBAR
+   SIDEBAR
 ============================================================ */
-.sb { }
 .sb-card {
   background: var(--bg-card);
+  border-radius: var(--r-lg);
+  border: 1px solid var(--border);
+  overflow: hidden;
+}
+.sb-inner { padding: 22px 20px; }
+.sb-title { font-size: 18px; font-weight: 800; color: var(--text-1); margin-bottom: 3px; letter-spacing: -.4px; }
+.sb-sub { font-size: 12px; color: var(--text-3); margin-bottom: 18px; }
+
+/* Legs */
+.sb-legs {
   border: 1px solid var(--border);
   border-radius: var(--r);
-  padding: 20px;
-  box-shadow: var(--sh-md);
+  overflow: hidden;
+  margin-bottom: 12px;
 }
-.sb-card__title { font-size: 15px; font-weight: 700; color: var(--text-1); margin-bottom: 3px; }
-.sb-card__sub { font-size: 11px; color: var(--text-3); margin-bottom: 18px; }
-
-.sb-legs { border: 1px solid var(--border); border-radius: var(--r-sm); overflow: hidden; margin-bottom: 14px; }
 .sb-leg {
   display: grid; grid-template-columns: auto 1fr auto;
-  align-items: center; gap: 10px;
+  align-items: center; gap: 8px;
   padding: 12px 14px;
   border-bottom: 1px solid var(--border);
   font-size: 12px;
 }
 .sb-leg:last-child { border-bottom: none; }
-.sb-leg__date { font-size: 11px; color: var(--text-3); white-space: nowrap; }
-.sb-leg__route {
-  display: flex; align-items: center; gap: 6px;
-  font-size: 12px; font-weight: 600; color: var(--text-1);
-}
-.sb-leg__price { font-size: 13px; font-weight: 700; color: var(--text-1); }
-.sb-leg__flight { font-size: 10px; color: var(--text-3); }
+.sb-leg__date { font-size: 11px; color: var(--text-3); white-space: nowrap; font-weight: 500; }
+.sb-leg__route { display: flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 700; color: var(--text-1); }
+.sb-leg__flight { font-size: 10px; color: var(--text-3); font-weight: 500; }
+.sb-leg__price { font-size: 13px; font-weight: 800; color: var(--text-1); }
 
-/* MC offer row */
+/* MC row — blue chip */
 .sb-mc {
-  background: #f0f5ff;
-  border: 1px solid rgba(59,142,240,.14);
+  background: var(--bg-blue);
   border-radius: var(--r-sm);
   padding: 10px 14px;
   display: flex; align-items: center; justify-content: space-between;
   margin-bottom: 14px;
+  gap: 8px;
 }
 .sb-mc__left { display: flex; align-items: center; gap: 8px; }
-.sb-mc__text { font-size: 11px; font-weight: 600; color: var(--text-2); }
-.sb-mc__badge { font-size: 11px; font-weight: 600; color: var(--teal); background: rgba(59,142,240,.10); border-radius: 4px; padding: 2px 8px; }
+.sb-mc__text { font-size: 11px; font-weight: 600; color: var(--text-navy); }
+.sb-mc__chip {
+  font-size: 10px; font-weight: 700; color: var(--text-navy);
+  background: rgba(255,255,255,.5);
+  border-radius: 5px; padding: 2px 8px;
+  white-space: nowrap;
+}
 
 /* Pax */
 .sb-pax {
@@ -382,43 +377,43 @@ body {
   border-bottom: 1px solid var(--border);
   margin-bottom: 14px;
 }
-.sb-pax__count { font-weight: 700; color: var(--text-1); }
+.sb-pax__count { font-weight: 800; color: var(--text-1); }
+
+/* Benefits list */
+.sb-benefits { margin-bottom: 16px; display: flex; flex-direction: column; gap: 6px; }
+.sb-benefit {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 12px; color: var(--text-2);
+}
+.sb-benefit svg { flex-shrink: 0; color: var(--text-3); }
 
 /* Total */
 .sb-total {
   display: flex; justify-content: space-between; align-items: flex-end;
-  margin-bottom: 16px;
+  margin-bottom: 14px; padding-top: 4px;
 }
-.sb-total__left { }
-.sb-total__label { font-size: 14px; font-weight: 600; color: var(--text-1); }
+.sb-total__label { font-size: 13px; font-weight: 600; color: var(--text-1); }
 .sb-total__note { font-size: 10px; color: var(--text-3); margin-top: 2px; }
-.sb-total__amount { font-size: 28px; font-weight: 700; color: var(--text-1); letter-spacing: -1px; }
+.sb-total__amount { font-size: 30px; font-weight: 900; color: var(--text-1); letter-spacing: -1.2px; }
 
-/* CTA */
-.btn-payment {
+/* CTA button — chartreuse, JetsBetter style */
+.btn-pay {
   width: 100%; padding: 14px;
   border-radius: var(--r-sm);
-  font-size: 14px; font-weight: 700; letter-spacing: .2px; color: #fff;
-  background: var(--amber-grad);
-  box-shadow: var(--sh-amber);
-  position: relative; overflow: hidden;
-  transition: box-shadow .22s, transform .18s;
+  font-size: 14px; font-weight: 800; color: var(--text-1);
+  background: var(--lime);
+  border: none;
+  letter-spacing: -.1px;
   margin-bottom: 10px;
+  transition: background .15s;
 }
-.btn-payment::before {
-  content: "";
-  position: absolute; top: 0; left: 0; right: 0; height: 48%;
-  background: linear-gradient(180deg, rgba(255,255,255,.18) 0%, transparent 100%);
-  pointer-events: none;
-}
-.btn-payment:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 10px 32px rgba(180,136,40,.42), 0 2px 8px rgba(180,136,40,.24);
-}
+.btn-pay:hover { background: var(--lime-hover); }
+
 .sb-secure {
   display: flex; align-items: center; justify-content: center; gap: 5px;
   font-size: 11px; color: var(--text-3);
 }
+
   </style>
 </head>
 <body>
@@ -427,16 +422,15 @@ body {
 <header class="hdr">
   <div class="hdr__inner">
     <a href="#" class="hdr__logo">
-      <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-        <path d="M9 2L15.5 13.5H2.5L9 2Z" fill="#1a1714"/>
+      <svg width="18" height="18" viewBox="0 0 22 22" fill="none">
+        <path d="M11 2L3 19h16L11 2z" fill="none" stroke="#0f0f0e" stroke-width="2" stroke-linejoin="round"/>
+        <path d="M7.5 14l3.5-7 3.5 7" fill="none" stroke="#0f0f0e" stroke-width="1.5" stroke-linejoin="round"/>
       </svg>
       Altitude
     </a>
-    <button class="hdr__menu" aria-label="Menu">
-      <svg width="20" height="14" viewBox="0 0 20 14" fill="none">
-        <path d="M0 1h20M0 7h20M0 13h20" stroke="#1a1714" stroke-width="1.5" stroke-linecap="round"/>
-      </svg>
-    </button>
+    <div class="hdr__right">
+      <span class="hdr__user">ddm@drct.aero</span>
+    </div>
   </div>
 </header>
 
@@ -446,7 +440,7 @@ body {
     <!-- LEFT COLUMN -->
     <div class="pg__left">
 
-      <!-- MASTERCARD BANNER -->
+      <!-- MC BANNER -->
       <div class="mc-banner">
         <div class="mc-banner__logo">
           <svg width="38" height="24" viewBox="0 0 38 24" fill="none">
@@ -463,180 +457,200 @@ body {
       </div>
 
       <!-- YOUR BOOKING -->
-      <div class="bk-card">
-        <h2 class="bk-card__title">Your booking</h2>
-        <p class="bk-card__sub">Review your itinerary and select the flights you'd like to upgrade</p>
-        <div class="bk-card__meta">
-          <div class="bk-card__airline-row">
-            <div class="bk-card__airline">
-              <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="14" fill="#e11d3a"/><text x="14" y="18.5" text-anchor="middle" font-family="IBM Plex Sans,sans-serif" font-size="8" font-weight="700" fill="#fff">TK</text></svg>
-              <span class="bk-card__airline-name">Turkish Airlines</span>
-            </div>
-            <div class="bk-card__refs">
-              <div class="bk-card__ref">
-                <span class="bk-card__ref-label">Passenger</span>
-                <strong class="bk-card__ref-val">SMITH</strong>
+      <div class="card">
+        <div class="card-inner">
+          <h2 class="bk-title">Your booking</h2>
+          <p class="bk-sub">Review your itinerary and select the flights you'd like to upgrade</p>
+          <div class="bk-meta">
+            <div class="bk-airline-row">
+              <div class="bk-airline">
+                <svg width="26" height="26" viewBox="0 0 26 26" fill="none"><circle cx="13" cy="13" r="13" fill="#e11d3a"/><text x="13" y="17.5" text-anchor="middle" font-family="Inter,sans-serif" font-size="7.5" font-weight="800" fill="#fff">TK</text></svg>
+                <span class="bk-airline-name">Turkish Airlines</span>
               </div>
-              <div class="bk-card__ref">
-                <span class="bk-card__ref-label">Ticket number</span>
-                <strong class="bk-card__ref-val bk-card__ref-val--mono">23GXXXXXXXXXX</strong>
+              <div class="bk-refs">
+                <div class="bk-ref">
+                  <span class="bk-ref__label">Passenger</span>
+                  <strong class="bk-ref__val">SMITH</strong>
+                </div>
+                <div class="bk-ref">
+                  <span class="bk-ref__label">Ticket number</span>
+                  <strong class="bk-ref__val" style="font-family:monospace;font-size:11px;">235XXXXXXXXXX</strong>
+                </div>
               </div>
             </div>
+            <div class="bk-route">
+              <span class="bk-city">Warsaw Modlin</span>
+              <svg width="22" height="10" viewBox="0 0 22 10" fill="none"><path d="M0 5h18m0 0-5-4m5 4-5 4" stroke="#a0a09e" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span class="bk-city">Lisbon</span>
+            </div>
+            <p class="bk-detail">Return · 19 May – 31 May · 1 Passenger</p>
           </div>
-          <div class="bk-card__route">
-            <span class="bk-card__city">Warsaw Modlin</span>
-            <svg width="20" height="10" viewBox="0 0 20 10" fill="none"><path d="M0 5h16m0 0-4-4m4 4-4 4" stroke="#9e9890" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            <span class="bk-card__city">Lisbon</span>
-          </div>
-          <p class="bk-card__sub2">Return · 19 May – 31 May · 1 Passenger</p>
         </div>
       </div>
 
       <!-- SEGMENT SELECTOR -->
-      <div class="seg-card">
-        <div class="seg-card__head">
-          <h2 class="seg-card__title">Select segments to upgrade</h2>
-          <div class="seg-card__controls">
-            <span class="avail-badge"><span class="avail-badge__dot"></span>2 of 2 available</span>
-            <label class="toggle">
-              <input type="checkbox" checked class="toggle__input">
-              <span class="toggle__track"><span class="toggle__thumb"></span></span>
-              <span class="toggle__label">Available only</span>
-            </label>
+      <div class="card">
+        <div class="card-inner">
+          <div class="seg-head">
+            <h2 class="seg-title">Select segments to upgrade</h2>
+            <div class="seg-controls">
+              <span class="avail-badge"><span class="avail-dot"></span>2 of 2 available</span>
+              <label class="toggle">
+                <input type="checkbox" checked class="toggle__input">
+                <span class="toggle__track"><span class="toggle__thumb"></span></span>
+                <span class="toggle__label">Available only</span>
+              </label>
+            </div>
           </div>
-        </div>
-        <p class="seg-card__sub">Choose which legs you'd like to upgrade · 1 passenger</p>
+          <p class="seg-sub">Choose which legs you'd like to upgrade · 1 passenger</p>
 
-        <!-- Segment 1 -->
-        <div class="seg-row seg-row--selected">
-          <div class="seg-row__top">
-            <div class="seg-row__check">
-              <svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <!-- Segment 1 -->
+          <div class="seg-row seg-row--sel">
+            <div class="seg-row__top">
+              <div class="seg-chk">
+                <svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="#0f0f0e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <span class="seg-row__date">19 May · TK 1765</span>
             </div>
-            <span class="seg-row__date">19 May · TK 1765</span>
-            <span class="seg-row__flight"></span>
+            <div class="seg-times">
+              <div>
+                <div class="seg-time">10:25</div>
+                <div class="seg-iata">WAW</div>
+              </div>
+              <div class="seg-spine">
+                <span class="seg-dur">10h 45m</span>
+                <div class="seg-line"></div>
+              </div>
+              <div>
+                <div class="seg-time" style="text-align:right">13:45</div>
+                <div class="seg-iata seg-iata--r">LIS</div>
+              </div>
+            </div>
           </div>
-          <div class="seg-row__times">
-            <div>
-              <div class="seg-row__time">10:25</div>
-              <div class="seg-row__code">WAW</div>
-            </div>
-            <div class="seg-row__dur-line">
-              <span class="seg-row__dur-text">10h 45m</span>
-              <div class="seg-row__line"></div>
-            </div>
-            <div>
-              <div class="seg-row__time" style="text-align:right">13:45</div>
-              <div class="seg-row__code seg-row__code--right">LIS</div>
-            </div>
-          </div>
-        </div>
 
-        <!-- Segment 2 -->
-        <div class="seg-row seg-row--selected">
-          <div class="seg-row__top">
-            <div class="seg-row__check">
-              <svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <!-- Segment 2 -->
+          <div class="seg-row seg-row--sel">
+            <div class="seg-row__top">
+              <div class="seg-chk">
+                <svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="#0f0f0e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <span class="seg-row__date">31 May · TK 1766</span>
             </div>
-            <span class="seg-row__date">19 May · TK 1765</span>
+            <div class="seg-times">
+              <div>
+                <div class="seg-time">10:25</div>
+                <div class="seg-iata">LIS</div>
+              </div>
+              <div class="seg-spine">
+                <span class="seg-dur">10h 45m</span>
+                <div class="seg-line"></div>
+              </div>
+              <div>
+                <div class="seg-time" style="text-align:right">13:45</div>
+                <div class="seg-iata seg-iata--r">WAW</div>
+              </div>
+            </div>
           </div>
-          <div class="seg-row__times">
-            <div>
-              <div class="seg-row__time">10:25</div>
-              <div class="seg-row__code">LIS</div>
+
+          <!-- Segment 3 — unselected -->
+          <div class="seg-row">
+            <div class="seg-row__top">
+              <div class="seg-chk seg-chk--empty"></div>
+              <span class="seg-row__date">31 May · TK 1766</span>
             </div>
-            <div class="seg-row__dur-line">
-              <span class="seg-row__dur-text">10h 45m</span>
-              <div class="seg-row__line"></div>
-            </div>
-            <div>
-              <div class="seg-row__time" style="text-align:right">13:45</div>
-              <div class="seg-row__code seg-row__code--right">WAW</div>
+            <div class="seg-times">
+              <div>
+                <div class="seg-time" style="color:var(--text-3)">10:25</div>
+                <div class="seg-iata">WAW</div>
+              </div>
+              <div class="seg-spine">
+                <span class="seg-dur">10h 45m</span>
+                <div class="seg-line"></div>
+              </div>
+              <div>
+                <div class="seg-time" style="color:var(--text-3);text-align:right">13:45</div>
+                <div class="seg-iata seg-iata--r">LIS</div>
+              </div>
             </div>
           </div>
+
         </div>
       </div>
 
       <!-- CABIN COMPARISON -->
-      <div class="cabin-section">
-        <h2 class="cabin-section__title">Business class upgrade</h2>
-        <p class="cabin-section__sub">Compare cabin experiences and choose the comfort level that fits your journey</p>
-        <div class="cabin-grid">
+      <div class="card">
+        <div class="card-inner">
+          <h2 class="cabin-title">Business class upgrade</h2>
+          <p class="cabin-sub">Compare cabin experiences and choose the comfort level that fits your journey</p>
+          <div class="cabin-grid">
 
-          <!-- Economy -->
-          <div class="cabin-card">
-            <div class="cabin-card__img cabin-card__img--economy">
-              <img src="https://images.unsplash.com/photo-1556388158-158ea5ccacbd?w=400&q=75" alt="Economy class seats">
-            </div>
-            <div class="cabin-card__body">
-              <div class="cabin-card__footer">
-                <span class="cabin-card__name">Economy Class</span>
-                <span class="cabin-card__price-tag">INCLUDED</span>
+            <!-- Economy -->
+            <div class="cabin-card">
+              <div class="cabin-card__img">
+                <img src="https://images.unsplash.com/photo-1556388158-158ea5ccacbd?w=400&q=75" alt="Economy">
               </div>
-              <p class="cabin-card__meta">3 seats · 2 bags<br>per segment · per passenger</p>
-            </div>
-          </div>
-
-          <!-- Business -->
-          <div class="cabin-card cabin-card--business">
-            <div class="cabin-card__img">
-              <img src="https://images.unsplash.com/photo-1540339832862-474599807836?w=400&q=75" alt="Business class seats">
-            </div>
-            <div class="cabin-card__body">
-              <div class="cabin-card__footer">
-                <span class="cabin-card__name">Business Class</span>
-                <span class="cabin-card__price">€ 672.13</span>
+              <div class="cabin-card__body">
+                <div class="cabin-card__row">
+                  <span class="cabin-card__name">Economy Class</span>
+                  <span class="cabin-card__tag">INCLUDED</span>
+                </div>
+                <p class="cabin-card__meta">3 seats · 2 bags<br>per segment · per passenger</p>
               </div>
-              <p class="cabin-card__meta">3 seats · 2 bags<br>per segment · per passenger</p>
-              <button class="btn-upgrade">Upgrade now</button>
             </div>
-          </div>
 
+            <!-- Business -->
+            <div class="cabin-card cabin-card--biz">
+              <div class="cabin-card__img">
+                <img src="https://images.unsplash.com/photo-1540339832862-474599807836?w=400&q=75" alt="Business">
+              </div>
+              <div class="cabin-card__body">
+                <div class="cabin-card__row">
+                  <span class="cabin-card__name">Business Class</span>
+                  <span class="cabin-card__price">€ 672.13</span>
+                </div>
+                <p class="cabin-card__meta">3 seats · 2 bags<br>per segment · per passenger</p>
+                <button class="btn-upgrade">Upgrade now</button>
+              </div>
+            </div>
+
+          </div>
         </div>
       </div>
 
       <!-- WHATS INCLUDED -->
-      <div class="inc-section">
-        <div class="inc-section__head">
-          <h2 class="inc-section__title">Whats included in Business class</h2>
-          <p class="inc-section__sub">Experience a more comfortable and elevated journey from departure to arrival</p>
+      <div class="card">
+        <div class="card-inner" style="padding-bottom:0">
+          <h2 class="inc-title">Whats included in Business class</h2>
+          <p class="inc-sub">Experience a more comfortable and elevated journey from departure to arrival</p>
         </div>
-        <img class="inc-section__photo" src="https://images.unsplash.com/photo-1540339832862-474599807836?w=700&q=75" alt="Business class cabin">
-        <div class="inc-section__features">
+        <img class="inc-photo" src="https://images.unsplash.com/photo-1540339832862-474599807836?w=700&q=75" alt="Business class cabin" style="border-radius:0; margin-bottom:0;">
+        <div class="inc-features">
           <div class="inc-feat">
-            <div class="inc-feat__icon">
-              <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><rect x="2" y="8" width="18" height="10" rx="3" stroke="#6b6258" stroke-width="1.3"/><path d="M5 8V6a6 6 0 0 1 12 0v2" stroke="#6b6258" stroke-width="1.3" stroke-linecap="round"/></svg>
-            </div>
+            <svg class="inc-feat__icon" width="20" height="20" viewBox="0 0 22 22" fill="none"><rect x="2" y="8" width="18" height="10" rx="3" stroke="currentColor" stroke-width="1.3"/><path d="M5 8V6a6 6 0 0 1 12 0v2" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
             <div>
-              <p class="inc-feat__title">Lie-flat seat</p>
-              <p class="inc-feat__sub">Full bed on long-haul</p>
+              <p class="inc-feat__h">Lie-flat seat</p>
+              <p class="inc-feat__p">Full bed on long-haul</p>
             </div>
           </div>
           <div class="inc-feat">
-            <div class="inc-feat__icon">
-              <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M4 16c0-4 14-4 14 0" stroke="#6b6258" stroke-width="1.3" stroke-linecap="round"/><circle cx="11" cy="8" r="3" stroke="#6b6258" stroke-width="1.3"/></svg>
-            </div>
+            <svg class="inc-feat__icon" width="20" height="20" viewBox="0 0 22 22" fill="none"><path d="M4 16c0-4 14-4 14 0" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><circle cx="11" cy="8" r="3" stroke="currentColor" stroke-width="1.3"/></svg>
             <div>
-              <p class="inc-feat__title">Premium dining</p>
-              <p class="inc-feat__sub">Both segments</p>
+              <p class="inc-feat__h">Premium dining</p>
+              <p class="inc-feat__p">Both segments</p>
             </div>
           </div>
           <div class="inc-feat">
-            <div class="inc-feat__icon">
-              <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><rect x="3" y="6" width="16" height="11" rx="2.5" stroke="#6b6258" stroke-width="1.3"/><path d="M8 6V5a3 3 0 0 1 6 0v1" stroke="#6b6258" stroke-width="1.3" stroke-linecap="round"/></svg>
-            </div>
+            <svg class="inc-feat__icon" width="20" height="20" viewBox="0 0 22 22" fill="none"><rect x="3" y="6" width="16" height="11" rx="2.5" stroke="currentColor" stroke-width="1.3"/><path d="M8 6V5a3 3 0 0 1 6 0v1" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
             <div>
-              <p class="inc-feat__title">Lounge access</p>
-              <p class="inc-feat__sub">Priority boarding</p>
+              <p class="inc-feat__h">Lounge access</p>
+              <p class="inc-feat__p">Priority boarding</p>
             </div>
           </div>
           <div class="inc-feat">
-            <div class="inc-feat__icon">
-              <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M5 11a6 6 0 0 1 12 0" stroke="#6b6258" stroke-width="1.3" stroke-linecap="round"/><circle cx="11" cy="14" r="2.5" stroke="#6b6258" stroke-width="1.3"/></svg>
-            </div>
+            <svg class="inc-feat__icon" width="20" height="20" viewBox="0 0 22 22" fill="none"><path d="M5 11a6 6 0 0 1 12 0" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><circle cx="11" cy="14" r="2.5" stroke="currentColor" stroke-width="1.3"/></svg>
             <div>
-              <p class="inc-feat__title">Noise-cancelling</p>
-              <p class="inc-feat__sub">Premium headphones</p>
+              <p class="inc-feat__h">Noise-cancelling</p>
+              <p class="inc-feat__p">Premium headphones</p>
             </div>
           </div>
         </div>
@@ -647,58 +661,75 @@ body {
     <!-- SIDEBAR -->
     <aside class="sb">
       <div class="sb-card">
-        <h3 class="sb-card__title">Your Business Upgrade</h3>
-        <p class="sb-card__sub">Round-trip upgrade for 1 passenger</p>
+        <div class="sb-inner">
+          <h3 class="sb-title">Business upgrade</h3>
+          <p class="sb-sub">Round-trip upgrade for 1 passenger</p>
 
-        <div class="sb-legs">
-          <div class="sb-leg">
-            <span class="sb-leg__date">19 May</span>
-            <div class="sb-leg__route">
-              <span>WAW</span>
-              <svg width="18" height="7" viewBox="0 0 18 7" fill="none"><path d="M0 3.5h14m0 0-3-3m3 3-3 3" stroke="#9e9890" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              <span>LIS</span>
-              <span class="sb-leg__flight">TK 1765</span>
+          <div class="sb-legs">
+            <div class="sb-leg">
+              <span class="sb-leg__date">19 May</span>
+              <div class="sb-leg__route">
+                WAW
+                <svg width="16" height="7" viewBox="0 0 16 7" fill="none"><path d="M0 3.5h12m0 0-3-3m3 3-3 3" stroke="#a0a09e" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                LIS
+                <span class="sb-leg__flight">TK 1765</span>
+              </div>
+              <span class="sb-leg__price">€ 219</span>
             </div>
-            <span class="sb-leg__price">€ 218</span>
-          </div>
-          <div class="sb-leg">
-            <span class="sb-leg__date">31 May</span>
-            <div class="sb-leg__route">
-              <span>LIS</span>
-              <svg width="18" height="7" viewBox="0 0 18 7" fill="none"><path d="M0 3.5h14m0 0-3-3m3 3-3 3" stroke="#9e9890" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              <span>WAW</span>
-              <span class="sb-leg__flight">TK 1766</span>
+            <div class="sb-leg">
+              <span class="sb-leg__date">31 May</span>
+              <div class="sb-leg__route">
+                LIS
+                <svg width="16" height="7" viewBox="0 0 16 7" fill="none"><path d="M0 3.5h12m0 0-3-3m3 3-3 3" stroke="#a0a09e" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                WAW
+                <span class="sb-leg__flight">TK 1766</span>
+              </div>
+              <span class="sb-leg__price">€ 219</span>
             </div>
-            <span class="sb-leg__price">€ 218</span>
           </div>
-        </div>
 
-        <div class="sb-mc">
-          <div class="sb-mc__left">
-            <svg width="28" height="17" viewBox="0 0 28 17" fill="none"><circle cx="10" cy="8.5" r="8.5" fill="#eb001b" opacity=".88"/><circle cx="18" cy="8.5" r="8.5" fill="#f79e1b" opacity=".88"/><path d="M14 1.5a8.5 8.5 0 0 1 0 14A8.5 8.5 0 0 1 14 1.5Z" fill="#ff5f00" opacity=".82"/></svg>
-            <span class="sb-mc__text">Applied Mastercard offer</span>
+          <div class="sb-mc">
+            <div class="sb-mc__left">
+              <svg width="26" height="16" viewBox="0 0 28 17" fill="none"><circle cx="10" cy="8.5" r="8.5" fill="#eb001b" opacity=".88"/><circle cx="18" cy="8.5" r="8.5" fill="#f79e1b" opacity=".88"/><path d="M14 1.5a8.5 8.5 0 0 1 0 14A8.5 8.5 0 0 1 14 1.5Z" fill="#ff5f00" opacity=".82"/></svg>
+              <span class="sb-mc__text">Applied Mastercard offer</span>
+            </div>
+            <span class="sb-mc__chip">Verified at payment step</span>
           </div>
-          <span class="sb-mc__badge">Verified at payment step</span>
-        </div>
 
-        <div class="sb-pax">
-          <span>Passengers</span>
-          <span class="sb-pax__count">+1</span>
-        </div>
-
-        <div class="sb-total">
-          <div class="sb-total__left">
-            <div class="sb-total__label">Total</div>
-            <div class="sb-total__note">All taxes included</div>
+          <div class="sb-pax">
+            <span>Passengers</span>
+            <span class="sb-pax__count">+1</span>
           </div>
-          <strong class="sb-total__amount">€ 438</strong>
-        </div>
 
-        <button class="btn-payment">Continue to payment</button>
+          <div class="sb-benefits">
+            <div class="sb-benefit">
+              <svg width="15" height="15" viewBox="0 0 15 15" fill="none"><rect x="1" y="5" width="13" height="9" rx="2" stroke="currentColor" stroke-width="1.2"/><path d="M4 5V4a3.5 3.5 0 0 1 7 0v1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+              Lie-flat seats on long-haul
+            </div>
+            <div class="sb-benefit">
+              <svg width="15" height="15" viewBox="0 0 15 15" fill="none"><path d="M1 11c0-3.5 13-3.5 13 0" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><circle cx="7.5" cy="5.5" r="2.5" stroke="currentColor" stroke-width="1.2"/></svg>
+              Priority boarding &amp; lounge access
+            </div>
+            <div class="sb-benefit">
+              <svg width="15" height="15" viewBox="0 0 15 15" fill="none"><path d="M3 7.5l3 3 6-6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Premium dining on both flights
+            </div>
+          </div>
 
-        <div class="sb-secure">
-          <svg width="10" height="12" viewBox="0 0 10 12" fill="none"><rect x="1" y="5" width="8" height="7" rx="1.5" stroke="#a09890" stroke-width="1.2"/><path d="M3 5V3.5a2 2 0 0 1 4 0V5" stroke="#a09890" stroke-width="1.2" stroke-linecap="round"/></svg>
-          Secure payment protected by SSL and 3D Secure
+          <div class="sb-total">
+            <div>
+              <div class="sb-total__label">Total</div>
+              <div class="sb-total__note">All taxes included</div>
+            </div>
+            <strong class="sb-total__amount">€ 438</strong>
+          </div>
+
+          <button class="btn-pay">Upgrade your trip</button>
+
+          <div class="sb-secure">
+            <svg width="10" height="12" viewBox="0 0 10 12" fill="none"><rect x="1" y="5" width="8" height="7" rx="1.5" stroke="#a0a09e" stroke-width="1.2"/><path d="M3 5V3.5a2 2 0 0 1 4 0V5" stroke="#a0a09e" stroke-width="1.2" stroke-linecap="round"/></svg>
+            Secure payment protected by SSL and 3D Secure
+          </div>
         </div>
       </div>
     </aside>
