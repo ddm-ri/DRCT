@@ -6,46 +6,40 @@
   <title>Altitude — Premium Travel Membership</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
 /* ============================================================
    ALTITUDE — Homepage
-   Visual direction: Blacklane-inspired premium light
-   Warm cream · White cards · Blue accent · Serif display
+   Visual direction: JetsBetter-inspired
+   Warm gray · White cards · Powder blue · Chartreuse CTA · Flat
 ============================================================ */
 :root {
-  --bg:           #f0ede6;
-  --bg-white:     #ffffff;
-  --bg-blue:      #dce8f8;
-  --bg-blue-mid:  #c8d8f0;
-  --bg-blue-deep: #b8cceb;
+  --bg:        #f3f3f1;
+  --bg-card:   #ffffff;
+  --bg-blue:   #ccd6e5;
+  --bg-blue-lt:#dce6f2;
+  --bg-blue-dk:#b8c8dc;
 
-  --border:       rgba(0,0,0,.09);
-  --border-blue:  rgba(29,95,232,.18);
+  --border:    rgba(0,0,0,.08);
+  --border-dk: rgba(0,0,0,.12);
 
-  --text-1:       #0d0c0b;
-  --text-2:       #5a5650;
-  --text-3:       #9e9890;
+  --text-1:    #0f0f0e;
+  --text-2:    #6b6b68;
+  --text-3:    #a0a09e;
+  --text-navy: #1e2d4a;
 
-  --blue:         #1d5fe8;
-  --blue-hover:   #1850cc;
-  --blue-light:   rgba(29,95,232,.10);
-  --blue-border:  rgba(29,95,232,.22);
+  --lime:      #d0de4a;
+  --lime-hover:#c0ce3c;
+  --lime-dark: #9ea830;
 
-  --green:        #1a8c5e;
-  --green-bg:     rgba(26,140,94,.08);
+  --sh: none;
 
-  --sh-xs:  0 1px 3px rgba(0,0,0,.05);
-  --sh-sm:  0 2px 10px rgba(0,0,0,.07), 0 0 0 1px rgba(0,0,0,.05);
-  --sh-md:  0 6px 24px rgba(0,0,0,.09), 0 0 0 1px rgba(0,0,0,.06);
-  --sh-blue: 0 6px 24px rgba(29,95,232,.30), 0 1px 4px rgba(29,95,232,.20);
-
-  --r:      16px;
-  --r-sm:   10px;
-  --r-pill: 100px;
+  --r-lg:  24px;
+  --r:     16px;
+  --r-sm:  10px;
+  --r-pill:100px;
   --container: 1040px;
-  --font-sans:  'IBM Plex Sans', -apple-system, sans-serif;
-  --font-serif: 'DM Serif Display', Georgia, serif;
+  --font: 'Inter', -apple-system, sans-serif;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -55,7 +49,7 @@ button { cursor: pointer; border: none; background: none; font: inherit; }
 a { text-decoration: none; color: inherit; }
 
 body {
-  font-family: var(--font-sans);
+  font-family: var(--font);
   background: var(--bg);
   color: var(--text-1);
   line-height: 1;
@@ -78,13 +72,11 @@ body {
   position: fixed; top: 0; left: 0; right: 0; z-index: 30;
   height: 60px;
   background: transparent;
-  transition: background .3s, border-color .3s, backdrop-filter .3s;
+  transition: background .3s, border-color .3s;
   border-bottom: 1px solid transparent;
 }
 .hdr--solid {
-  background: rgba(255,255,255,.96);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  background: #fff;
   border-bottom-color: var(--border);
 }
 .hdr__inner {
@@ -94,19 +86,19 @@ body {
 }
 .hdr__logo {
   display: flex; align-items: center; gap: 9px;
-  font-family: var(--font-sans);
-  font-size: 17px; font-weight: 700; color: #fff; letter-spacing: -.3px;
+  font-family: var(--font);
+  font-size: 17px; font-weight: 800; color: #fff; letter-spacing: -.4px;
   transition: color .3s;
 }
 .hdr--solid .hdr__logo { color: var(--text-1); }
-.hdr--solid .hdr__logo svg path { stroke: #1d5fe8; }
+.hdr--solid .hdr__logo svg path { stroke: var(--text-1); }
 .hdr__logo svg path { stroke: #fff; transition: stroke .3s; }
 
 .hdr__nav {
   display: flex; align-items: center; gap: 32px;
 }
 .hdr__nav a {
-  font-size: 14px; font-weight: 400; color: rgba(255,255,255,.80);
+  font-size: 14px; font-weight: 500; color: rgba(255,255,255,.80);
   transition: color .15s;
 }
 .hdr__nav a:hover { color: #fff; }
@@ -129,14 +121,14 @@ body {
   border-color: var(--border);
   background: var(--bg);
 }
-.hdr--solid .hdr__user:hover { color: var(--text-1); border-color: rgba(0,0,0,.14); }
+.hdr--solid .hdr__user:hover { color: var(--text-1); border-color: var(--border-dk); }
 .hdr__book {
-  font-size: 14px; font-weight: 600; color: #fff;
+  font-size: 14px; font-weight: 700; color: var(--text-1);
   padding: 8px 22px; border-radius: var(--r-pill);
-  background: var(--blue);
-  transition: background .15s, box-shadow .15s;
+  background: var(--lime);
+  transition: background .15s;
 }
-.hdr__book:hover { background: var(--blue-hover); box-shadow: var(--sh-blue); }
+.hdr__book:hover { background: var(--lime-hover); }
 @media (max-width: 700px) { .hdr__nav { display: none; } }
 
 /* ============================================================
@@ -178,15 +170,14 @@ body {
 }
 
 .hero__h1 {
-  font-family: var(--font-serif);
-  font-size: clamp(42px, 5.5vw, 76px);
-  font-weight: 400;
-  line-height: 1.06;
-  color: rgba(255,255,255,.95);
-  letter-spacing: -.5px;
+  font-size: clamp(44px, 6vw, 80px);
+  font-weight: 900;
+  line-height: 1.02;
+  color: rgba(255,255,255,.97);
+  letter-spacing: -1.5px;
   max-width: 720px;
   margin: 0 auto 20px;
-  text-shadow: 0 2px 24px rgba(0,0,0,.18);
+  text-shadow: 0 2px 32px rgba(0,0,0,.22);
 }
 
 .hero__sub {
@@ -204,24 +195,21 @@ body {
 .hero__tabs {
   display: inline-flex;
   background: rgba(255,255,255,.12);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
   border: 1px solid rgba(255,255,255,.20);
   border-radius: var(--r-pill);
   padding: 4px;
   gap: 2px;
 }
 .hero__tab {
-  font-size: 14px; font-weight: 600;
+  font-size: 14px; font-weight: 700;
   padding: 8px 22px; border-radius: var(--r-pill);
   color: rgba(255,255,255,.70);
   cursor: pointer; transition: all .18s;
-  border: none; background: none; font-family: var(--font-sans);
+  border: none; background: none; font-family: var(--font);
 }
 .hero__tab--active {
-  background: var(--blue);
-  color: #fff;
-  box-shadow: 0 2px 10px rgba(29,95,232,.40);
+  background: var(--lime);
+  color: var(--text-1);
 }
 .hero__tab:not(.hero__tab--active):hover { color: #fff; background: rgba(255,255,255,.10); }
 
@@ -232,52 +220,50 @@ body {
 }
 .hero__form {
   max-width: var(--container); margin: 0 auto;
-  background: rgba(18,22,40,.72);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(255,255,255,.14);
-  border-radius: 18px;
+  background: rgba(255,255,255,.14);
+  border: 1px solid rgba(255,255,255,.22);
+  border-radius: var(--r-lg);
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr auto;
   overflow: hidden;
 }
 @media (max-width: 800px) {
-  .hero__form { grid-template-columns: 1fr 1fr; border-radius: 14px; }
-  .hero__form-btn { grid-column: 1/-1; border-radius: 0 0 13px 13px; }
+  .hero__form { grid-template-columns: 1fr 1fr; border-radius: var(--r); }
+  .hero__form-btn { grid-column: 1/-1; border-radius: 0 0 var(--r) var(--r); }
 }
 
 .hero__field {
   padding: 18px 22px;
-  border-right: 1px solid rgba(255,255,255,.08);
+  border-right: 1px solid rgba(255,255,255,.12);
   display: flex; flex-direction: column; gap: 5px;
   min-width: 0;
   cursor: text;
   transition: background .15s;
 }
-.hero__field:hover { background: rgba(255,255,255,.04); }
+.hero__field:hover { background: rgba(255,255,255,.08); }
 .hero__field:last-of-type { border-right: none; }
 .hero__field__label {
-  font-size: 10px; font-weight: 700; letter-spacing: .5px; text-transform: uppercase;
-  color: rgba(255,255,255,.45);
+  font-size: 10px; font-weight: 700; letter-spacing: .6px; text-transform: uppercase;
+  color: rgba(255,255,255,.50);
 }
 .hero__field__val {
-  font-size: 15px; font-weight: 500; color: rgba(255,255,255,.90);
+  font-size: 15px; font-weight: 600; color: rgba(255,255,255,.92);
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
 .hero__field__sub {
-  font-size: 11px; color: rgba(255,255,255,.35);
+  font-size: 11px; color: rgba(255,255,255,.40);
 }
 .hero__form-btn {
   display: flex; align-items: center; justify-content: center;
   padding: 0 28px;
-  font-size: 14px; font-weight: 600; color: #fff;
-  background: var(--blue);
+  font-size: 14px; font-weight: 700; color: var(--text-1);
+  background: var(--lime);
   cursor: pointer; white-space: nowrap;
-  border: none; font-family: var(--font-sans);
+  border: none; font-family: var(--font);
   gap: 8px;
   transition: background .15s;
 }
-.hero__form-btn:hover { background: var(--blue-hover); }
+.hero__form-btn:hover { background: var(--lime-hover); }
 
 /* Proof strip below form */
 .hero__proof-wrap {
@@ -304,22 +290,22 @@ body {
 /* General buttons (used below hero) */
 .btn-primary {
   display: inline-flex; align-items: center; gap: 8px;
-  font-size: 14px; font-weight: 600; color: #fff;
-  padding: 12px 24px; border-radius: var(--r-pill);
-  background: var(--blue);
-  transition: background .15s, box-shadow .15s;
+  font-size: 14px; font-weight: 700; color: var(--text-1);
+  padding: 12px 28px; border-radius: var(--r-pill);
+  background: var(--lime);
+  transition: background .15s;
 }
-.btn-primary:hover { background: var(--blue-hover); box-shadow: var(--sh-blue); }
+.btn-primary:hover { background: var(--lime-hover); }
 
 .btn-ghost {
   display: inline-flex; align-items: center; gap: 8px;
-  font-size: 14px; font-weight: 500; color: var(--text-1);
-  padding: 11px 22px; border-radius: var(--r-pill);
-  border: 1px solid rgba(0,0,0,.15);
+  font-size: 14px; font-weight: 600; color: var(--text-1);
+  padding: 11px 24px; border-radius: var(--r-pill);
+  border: 1.5px solid var(--border-dk);
   background: transparent;
   transition: border-color .15s, background .15s;
 }
-.btn-ghost:hover { border-color: rgba(0,0,0,.25); background: rgba(0,0,0,.02); }
+.btn-ghost:hover { border-color: rgba(0,0,0,.22); background: rgba(0,0,0,.03); }
 
 /* ============================================================
    PRODUCTS
@@ -332,20 +318,17 @@ body {
 @media (max-width: 680px) { .products__grid { grid-template-columns: 1fr; } }
 
 .prd-card {
-  background: var(--bg-white);
+  background: var(--bg-card);
   border: 1px solid var(--border);
-  border-radius: 20px;
+  border-radius: var(--r-lg);
   overflow: hidden;
-  box-shadow: var(--sh-sm);
+  box-shadow: var(--sh);
   display: flex; flex-direction: column;
-  transition: box-shadow .25s, transform .2s;
 }
-.prd-card:hover { box-shadow: var(--sh-md); transform: translateY(-2px); }
 
-/* Upgrade card gets light blue tint like Blacklane's blue feature cards */
 .prd-card--upgrade {
   background: var(--bg-blue);
-  border-color: var(--bg-blue-mid);
+  border-color: var(--bg-blue-dk);
 }
 
 .prd-card__body { padding: 32px 30px 24px; flex: 1; }
@@ -354,60 +337,59 @@ body {
   display: inline-flex; align-items: center; gap: 5px;
   font-size: 10px; font-weight: 700; letter-spacing: .7px; text-transform: uppercase;
   color: var(--text-3);
-  background: rgba(0,0,0,.04);
+  background: rgba(0,0,0,.05);
   border: 1px solid var(--border);
   border-radius: var(--r-pill);
   padding: 4px 11px; margin-bottom: 22px;
 }
 .prd-card--upgrade .prd-card__tag {
-  color: var(--blue);
-  background: rgba(29,95,232,.08);
-  border-color: var(--blue-border);
+  color: var(--text-navy);
+  background: rgba(30,45,74,.08);
+  border-color: rgba(30,45,74,.15);
 }
 
 .prd-card__icon {
   width: 48px; height: 48px; border-radius: 14px;
   display: flex; align-items: center; justify-content: center;
   margin-bottom: 20px;
-  background: rgba(0,0,0,.04);
+  background: rgba(0,0,0,.05);
   border: 1px solid var(--border);
 }
 .prd-card--upgrade .prd-card__icon {
-  background: rgba(29,95,232,.10);
-  border-color: var(--blue-border);
+  background: rgba(30,45,74,.10);
+  border-color: rgba(30,45,74,.15);
 }
 
 .prd-card__h2 {
-  font-family: var(--font-serif);
-  font-size: 24px; font-weight: 400; line-height: 1.2;
-  color: var(--text-1); margin-bottom: 12px;
+  font-size: 22px; font-weight: 800; line-height: 1.2;
+  color: var(--text-1); margin-bottom: 12px; letter-spacing: -.3px;
 }
+.prd-card--upgrade .prd-card__h2 { color: var(--text-navy); }
 
 .prd-card__desc {
   font-size: 13px; line-height: 1.7; color: var(--text-2); margin-bottom: 26px;
 }
+.prd-card--upgrade .prd-card__desc { color: var(--text-navy); opacity: .75; }
 
 .prd-card__img {
   height: 200px; overflow: hidden; flex-shrink: 0;
 }
-.prd-card__img img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s; }
-.prd-card:hover .prd-card__img img { transform: scale(1.04); }
+.prd-card__img img { width: 100%; height: 100%; object-fit: cover; }
 
-/* "Learn more" outlined pill — Blacklane style */
 .btn-learn {
   display: inline-flex; align-items: center; gap: 7px;
-  font-size: 13px; font-weight: 500; color: var(--text-1);
+  font-size: 13px; font-weight: 700; color: var(--text-1);
   padding: 9px 20px; border-radius: var(--r-pill);
-  border: 1px solid rgba(0,0,0,.18);
+  border: 1.5px solid var(--border-dk);
   transition: border-color .15s, background .15s;
 }
-.btn-learn:hover { border-color: rgba(0,0,0,.30); background: rgba(0,0,0,.02); }
+.btn-learn:hover { border-color: rgba(0,0,0,.22); background: rgba(0,0,0,.03); }
 .prd-card--upgrade .btn-learn {
-  color: var(--blue);
-  border-color: var(--blue-border);
-  background: rgba(29,95,232,.06);
+  color: var(--text-navy);
+  border-color: rgba(30,45,74,.25);
+  background: rgba(30,45,74,.06);
 }
-.prd-card--upgrade .btn-learn:hover { background: rgba(29,95,232,.12); }
+.prd-card--upgrade .btn-learn:hover { background: rgba(30,45,74,.12); }
 
 /* ============================================================
    AIRLINES
@@ -417,7 +399,7 @@ body {
 }
 .airlines__label {
   text-align: center;
-  font-size: 11px; font-weight: 600; letter-spacing: .8px; text-transform: uppercase;
+  font-size: 11px; font-weight: 700; letter-spacing: .8px; text-transform: uppercase;
   color: var(--text-3); margin-bottom: 22px;
 }
 .airlines__row {
@@ -427,17 +409,15 @@ body {
 .airline-pill {
   display: flex; align-items: center; gap: 8px;
   padding: 9px 18px; border-radius: var(--r-pill);
-  background: var(--bg-white); border: 1px solid var(--border);
-  box-shadow: var(--sh-xs);
-  transition: box-shadow .15s, transform .15s;
+  background: var(--bg-card); border: 1px solid var(--border);
+  box-shadow: var(--sh);
   cursor: default;
 }
-.airline-pill:hover { transform: translateY(-1px); box-shadow: var(--sh-sm); }
-.airline-pill__name { font-size: 13px; font-weight: 600; color: var(--text-1); }
+.airline-pill__name { font-size: 13px; font-weight: 700; color: var(--text-1); }
 .airline-pill__badge {
   font-size: 10px; font-weight: 700;
-  color: var(--blue);
-  background: var(--blue-light);
+  color: var(--text-navy);
+  background: var(--bg-blue);
   border-radius: 4px; padding: 2px 7px;
 }
 
@@ -453,9 +433,9 @@ body {
 }
 .section-h2 {
   text-align: center;
-  font-family: var(--font-serif);
-  font-size: clamp(28px, 3.5vw, 40px); font-weight: 400;
-  line-height: 1.15; color: var(--text-1); margin-bottom: 12px;
+  font-size: clamp(28px, 3.5vw, 42px); font-weight: 900;
+  line-height: 1.1; color: var(--text-1); margin-bottom: 12px;
+  letter-spacing: -.5px;
 }
 .section-sub {
   text-align: center;
@@ -467,31 +447,30 @@ body {
 @media (max-width: 600px) { .how__steps { grid-template-columns: 1fr; } }
 
 .step {
-  background: var(--bg-white);
+  background: var(--bg-card);
   border: 1px solid var(--border);
-  border-radius: var(--r);
+  border-radius: var(--r-lg);
   padding: 28px 26px;
-  box-shadow: var(--sh-xs);
-  transition: box-shadow .25s, transform .2s;
+  box-shadow: var(--sh);
 }
-.step:hover { box-shadow: var(--sh-sm); transform: translateY(-2px); }
 
 .step__num {
-  font-size: 11px; font-weight: 700; letter-spacing: .5px;
-  color: var(--text-3); margin-bottom: 20px;
+  font-size: 28px; font-weight: 900; letter-spacing: -1px;
+  color: rgba(0,0,0,.08); margin-bottom: 20px; line-height: 1;
 }
 .step__icon {
   width: 42px; height: 42px; border-radius: 12px;
   display: flex; align-items: center; justify-content: center;
   margin-bottom: 18px;
   background: var(--bg-blue);
-  border: 1px solid var(--bg-blue-mid);
+  border: 1px solid var(--bg-blue-dk);
 }
-.step__h3 { font-size: 15px; font-weight: 600; color: var(--text-1); margin-bottom: 9px; }
+.step__icon svg path, .step__icon svg circle, .step__icon svg rect { stroke: var(--text-navy); }
+.step__h3 { font-size: 15px; font-weight: 800; color: var(--text-1); margin-bottom: 9px; }
 .step__p  { font-size: 13px; line-height: 1.7; color: var(--text-2); }
 
 /* ============================================================
-   VALUE PROPS — Blacklane-style light blue feature cards
+   VALUE PROPS — JetsBetter-style powder blue feature cards
 ============================================================ */
 .value { padding: 0 0 80px; }
 
@@ -500,22 +479,22 @@ body {
 
 .val-card {
   background: var(--bg-blue);
-  border: 1px solid var(--bg-blue-mid);
-  border-radius: var(--r);
+  border: 1px solid var(--bg-blue-dk);
+  border-radius: var(--r-lg);
   padding: 26px 28px;
-  transition: box-shadow .25s, transform .2s;
+  box-shadow: var(--sh);
 }
-.val-card:hover { box-shadow: var(--sh-sm); transform: translateY(-2px); }
 
 .val-card__icon {
   width: 40px; height: 40px; border-radius: 11px;
   display: flex; align-items: center; justify-content: center;
-  background: rgba(29,95,232,.12);
-  border: 1px solid var(--blue-border);
+  background: rgba(30,45,74,.10);
+  border: 1px solid rgba(30,45,74,.15);
   margin-bottom: 16px;
 }
-.val-card__h3 { font-size: 15px; font-weight: 600; color: var(--text-1); margin-bottom: 8px; }
-.val-card__p  { font-size: 13px; line-height: 1.7; color: var(--text-2); }
+.val-card__icon svg path, .val-card__icon svg circle, .val-card__icon svg rect { stroke: var(--text-navy); }
+.val-card__h3 { font-size: 15px; font-weight: 800; color: var(--text-navy); margin-bottom: 8px; }
+.val-card__p  { font-size: 13px; line-height: 1.7; color: var(--text-navy); opacity: .7; }
 
 /* ============================================================
    MASTERCARD BANNER
@@ -523,12 +502,12 @@ body {
 .mc-section { padding: 0 0 80px; }
 
 .mc-banner {
-  background: var(--bg-white);
-  border: 1px solid var(--border);
-  border-radius: 20px;
+  background: var(--bg-blue);
+  border: 1px solid var(--bg-blue-dk);
+  border-radius: var(--r-lg);
   padding: 40px 48px;
   display: flex; align-items: center; gap: 48px;
-  box-shadow: var(--sh-sm);
+  box-shadow: var(--sh);
 }
 @media (max-width: 680px) { .mc-banner { flex-direction: column; gap: 24px; padding: 32px 26px; } }
 
@@ -536,29 +515,28 @@ body {
 .mc-banner__body { flex: 1; }
 .mc-banner__eyebrow {
   font-size: 11px; font-weight: 700; letter-spacing: .7px; text-transform: uppercase;
-  color: var(--blue); margin-bottom: 12px;
+  color: var(--text-navy); opacity: .6; margin-bottom: 12px;
 }
 .mc-banner__h2 {
-  font-family: var(--font-serif);
-  font-size: 22px; font-weight: 400; line-height: 1.3;
-  color: var(--text-1); margin-bottom: 10px;
+  font-size: 22px; font-weight: 800; line-height: 1.2; letter-spacing: -.3px;
+  color: var(--text-navy); margin-bottom: 10px;
 }
-.mc-banner__p { font-size: 13px; line-height: 1.7; color: var(--text-2); max-width: 400px; }
+.mc-banner__p { font-size: 13px; line-height: 1.7; color: var(--text-navy); opacity: .7; max-width: 400px; }
 
 .mc-banner__badge {
   flex-shrink: 0; text-align: center;
-  background: var(--bg-blue);
-  border: 1px solid var(--bg-blue-mid);
+  background: rgba(30,45,74,.08);
+  border: 1px solid rgba(30,45,74,.15);
   border-radius: var(--r);
   padding: 20px 28px;
 }
 .mc-banner__amount {
-  display: block; font-size: 34px; font-weight: 700; letter-spacing: -1.2px;
-  color: var(--text-1); line-height: 1;
+  display: block; font-size: 36px; font-weight: 900; letter-spacing: -1.5px;
+  color: var(--text-navy); line-height: 1;
 }
 .mc-banner__sublabel {
-  display: block; font-size: 10px; font-weight: 600; letter-spacing: .5px;
-  text-transform: uppercase; color: var(--text-3); margin-top: 6px;
+  display: block; font-size: 10px; font-weight: 700; letter-spacing: .5px;
+  text-transform: uppercase; color: var(--text-navy); opacity: .5; margin-top: 6px;
 }
 
 /* ============================================================
@@ -567,17 +545,17 @@ body {
 .fcta { padding: 0 0 96px; }
 
 .fcta__card {
-  background: var(--bg-blue);
-  border: 1px solid var(--bg-blue-mid);
-  border-radius: 24px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
   padding: 72px 48px;
   text-align: center;
+  box-shadow: var(--sh);
 }
 
 .fcta__h2 {
-  font-family: var(--font-serif);
-  font-size: clamp(30px, 4vw, 48px); font-weight: 400;
-  letter-spacing: -.3px; line-height: 1.1; color: var(--text-1); margin-bottom: 14px;
+  font-size: clamp(30px, 4vw, 52px); font-weight: 900;
+  letter-spacing: -.8px; line-height: 1.05; color: var(--text-1); margin-bottom: 14px;
 }
 .fcta__sub {
   font-size: 16px; line-height: 1.7; color: var(--text-2);
@@ -591,17 +569,17 @@ body {
 .footer {
   border-top: 1px solid var(--border);
   padding: 36px 0 32px;
-  background: var(--bg-white);
+  background: var(--bg-card);
 }
 .footer__inner {
   display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;
 }
 .footer__logo {
   display: flex; align-items: center; gap: 8px;
-  font-size: 15px; font-weight: 700; color: var(--text-1);
+  font-size: 15px; font-weight: 800; color: var(--text-1);
 }
 .footer__links { display: flex; gap: 24px; }
-.footer__links a { font-size: 12px; font-weight: 500; color: var(--text-3); transition: color .15s; }
+.footer__links a { font-size: 12px; font-weight: 600; color: var(--text-3); transition: color .15s; }
 .footer__links a:hover { color: var(--text-2); }
 .footer__copy { font-size: 12px; color: var(--text-3); }
 
@@ -681,7 +659,7 @@ body {
         <span class="hero__field__sub">1 passenger</span>
       </div>
       <button class="hero__form-btn">
-        <svg width="15" height="15" viewBox="0 0 15 15" fill="none"><circle cx="6.5" cy="6.5" r="5" stroke="white" stroke-width="1.5"/><path d="M10.5 10.5L14 14" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <svg width="15" height="15" viewBox="0 0 15 15" fill="none"><circle cx="6.5" cy="6.5" r="5" stroke="#0f0f0e" stroke-width="1.5"/><path d="M10.5 10.5L14 14" stroke="#0f0f0e" stroke-width="1.5" stroke-linecap="round"/></svg>
         Find offers
       </button>
     </div>
