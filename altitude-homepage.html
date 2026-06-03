@@ -8,775 +8,549 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
-/* ============================================================
-   ALTITUDE — Homepage
-   Visual direction: JetsBetter-inspired
-   Warm gray · White cards · Powder blue · Chartreuse CTA · Flat
-============================================================ */
 :root {
-  --bg:        #f3f3f1;
-  --bg-card:   #ffffff;
-  --bg-blue:   #ccd6e5;
-  --bg-blue-lt:#dce6f2;
-  --bg-blue-dk:#b8c8dc;
+  --bg:      #f3f3f1;
+  --card:    #ffffff;
+  --blue:    #ccd6e5;
+  --blue-dk: #b8c8dc;
+  --navy:    #1e2d4a;
+  --lime:    #d0de4a;
+  --lime-hv: #c0ce3c;
+  --t1:      #0f0f0e;
+  --t2:      #6b6b68;
+  --t3:      #a0a09e;
+  --bd:      rgba(0,0,0,.09);
+  --r:       24px;
+  --r-sm:    14px;
+  --pill:    100px;
+  --w:       1080px;
+  --f:       'Inter', -apple-system, sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-font-smoothing:antialiased;scroll-behavior:smooth}
+img{display:block;max-width:100%}
+button{cursor:pointer;border:none;background:none;font:inherit}
+a{text-decoration:none;color:inherit}
+body{font-family:var(--f);background:var(--bg);color:var(--t1);line-height:1}
 
-  --border:    rgba(0,0,0,.08);
-  --border-dk: rgba(0,0,0,.12);
+/* ─── LAYOUT ─────────────────────────────────────────────── */
+.w{max-width:var(--w);margin:0 auto;padding:0 32px}
 
-  --text-1:    #0f0f0e;
-  --text-2:    #6b6b68;
-  --text-3:    #a0a09e;
-  --text-navy: #1e2d4a;
+/* ─── HEADER ─────────────────────────────────────────────── */
+.hdr{
+  position:sticky;top:0;z-index:20;
+  background:var(--bg);
+  border-bottom:1px solid var(--bd);
+  height:60px;
+}
+.hdr__in{
+  max-width:var(--w);margin:0 auto;
+  height:100%;padding:0 32px;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.hdr__logo{
+  display:flex;align-items:center;gap:8px;
+  font-size:17px;font-weight:800;letter-spacing:-.4px;color:var(--t1);
+}
+.hdr__nav{display:flex;align-items:center;gap:28px}
+.hdr__nav a{font-size:14px;font-weight:500;color:var(--t2);transition:color .14s}
+.hdr__nav a:hover{color:var(--t1)}
+.hdr__cta{display:flex;align-items:center;gap:8px}
+.btn-sign{
+  font-size:14px;font-weight:600;color:var(--t2);
+  padding:8px 16px;border-radius:var(--pill);
+  border:1px solid var(--bd);
+  transition:border-color .14s,color .14s;
+}
+.btn-sign:hover{color:var(--t1);border-color:rgba(0,0,0,.18)}
+.btn-start{
+  font-size:14px;font-weight:700;color:var(--t1);
+  padding:9px 22px;border-radius:var(--pill);
+  background:var(--lime);
+  transition:background .14s;
+}
+.btn-start:hover{background:var(--lime-hv)}
+@media(max-width:700px){.hdr__nav{display:none}}
 
-  --lime:      #d0de4a;
-  --lime-hover:#c0ce3c;
-  --lime-dark: #9ea830;
+/* ─── HERO ───────────────────────────────────────────────── */
+.hero{
+  padding:80px 0 56px;
+  display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:48px;
+  max-width:var(--w);margin:0 auto;padding-left:32px;padding-right:32px;
+}
+@media(max-width:800px){.hero{grid-template-columns:1fr;padding:60px 24px 40px}}
 
-  --sh: none;
+.hero__left{}
+.hero__eyebrow{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:11px;font-weight:700;letter-spacing:.7px;text-transform:uppercase;
+  color:var(--t3);margin-bottom:20px;
+}
+.hero__eyebrow span{
+  display:inline-block;width:20px;height:1px;background:var(--t3);
+}
+.hero__h1{
+  font-size:clamp(44px,5vw,68px);font-weight:900;line-height:1.02;
+  letter-spacing:-2px;color:var(--t1);margin-bottom:22px;
+}
+.hero__h1 em{font-style:normal;color:var(--navy)}
+.hero__sub{
+  font-size:16px;line-height:1.7;color:var(--t2);
+  max-width:400px;margin-bottom:36px;
+}
+.hero__actions{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.btn-hero{
+  font-size:15px;font-weight:700;color:var(--t1);
+  padding:14px 32px;border-radius:var(--pill);
+  background:var(--lime);
+  transition:background .14s;
+}
+.btn-hero:hover{background:var(--lime-hv)}
+.btn-hero-ghost{
+  font-size:15px;font-weight:600;color:var(--t2);
+  padding:13px 24px;border-radius:var(--pill);
+  border:1.5px solid var(--bd);
+  transition:border-color .14s,color .14s;
+}
+.btn-hero-ghost:hover{color:var(--t1);border-color:rgba(0,0,0,.18)}
+.hero__proof{
+  display:flex;align-items:center;gap:10px;margin-top:28px;
+}
+.hero__avatars{display:flex}
+.hero__av{
+  width:28px;height:28px;border-radius:50%;
+  border:2px solid var(--bg);margin-left:-7px;
+  font-size:9px;font-weight:800;color:#fff;
+  display:flex;align-items:center;justify-content:center;
+}
+.hero__av:first-child{margin-left:0}
+.hero__proof-txt{font-size:12px;color:var(--t2);line-height:1.5}
+.hero__proof-txt strong{font-weight:700;color:var(--t1)}
 
-  --r-lg:  24px;
-  --r:     16px;
-  --r-sm:  10px;
-  --r-pill:100px;
-  --container: 1040px;
-  --font: 'Inter', -apple-system, sans-serif;
+/* Right side — search card */
+.hero__right{}
+.search-card{
+  background:var(--card);
+  border:1px solid var(--bd);
+  border-radius:var(--r);
+  overflow:hidden;
 }
+.search-tabs{
+  display:grid;grid-template-columns:1fr 1fr;
+  border-bottom:1px solid var(--bd);
+}
+.s-tab{
+  padding:14px 0;text-align:center;
+  font-size:14px;font-weight:700;color:var(--t3);
+  background:none;border:none;cursor:pointer;
+  border-bottom:2px solid transparent;
+  margin-bottom:-1px;
+  transition:color .14s;
+}
+.s-tab--active{color:var(--t1);border-bottom-color:var(--t1)}
+.search-body{padding:24px 24px 8px}
+.s-field{margin-bottom:16px}
+.s-field label{
+  display:block;font-size:10px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;
+  color:var(--t3);margin-bottom:6px;
+}
+.s-field__inp{
+  width:100%;padding:12px 14px;
+  border:1px solid var(--bd);border-radius:var(--r-sm);
+  font:500 15px/1 var(--f);color:var(--t1);background:var(--bg);
+  outline:none;transition:border-color .14s;
+}
+.s-field__inp:focus{border-color:rgba(0,0,0,.22)}
+.s-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.search-footer{
+  padding:16px 24px 24px;
+  border-top:1px solid var(--bd);margin-top:8px;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:12px;
+}
+.s-meta{font-size:12px;color:var(--t3);line-height:1.5}
+.s-meta strong{color:var(--t2);font-weight:600}
+.btn-search{
+  font-size:14px;font-weight:700;color:var(--t1);
+  padding:12px 28px;border-radius:var(--pill);
+  background:var(--lime);white-space:nowrap;
+  transition:background .14s;
+}
+.btn-search:hover{background:var(--lime-hv)}
 
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { -webkit-font-smoothing: antialiased; scroll-behavior: smooth; }
-img  { display: block; max-width: 100%; }
-button { cursor: pointer; border: none; background: none; font: inherit; }
-a { text-decoration: none; color: inherit; }
-
-body {
-  font-family: var(--font);
-  background: var(--bg);
-  color: var(--text-1);
-  line-height: 1;
+/* ─── PARTNERS STRIP ─────────────────────────────────────── */
+.partners{
+  border-top:1px solid var(--bd);border-bottom:1px solid var(--bd);
+  padding:22px 0;margin:0 0 80px;
 }
-
-::-webkit-scrollbar { width: 5px; }
-::-webkit-scrollbar-track { background: #e4e0d8; }
-::-webkit-scrollbar-thumb { background: #bab4aa; border-radius: 3px; }
-
-.wrap {
-  max-width: var(--container);
-  margin: 0 auto;
-  padding: 0 32px;
+.partners__in{
+  max-width:var(--w);margin:0 auto;padding:0 32px;
+  display:flex;align-items:center;gap:12px;flex-wrap:wrap;
 }
-
-/* ============================================================
-   HEADER — transparent over hero, white after scroll
-============================================================ */
-.hdr {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 30;
-  height: 60px;
-  background: transparent;
-  transition: background .3s, border-color .3s;
-  border-bottom: 1px solid transparent;
+.partners__label{
+  font-size:11px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;
+  color:var(--t3);white-space:nowrap;margin-right:12px;
 }
-.hdr--solid {
-  background: #fff;
-  border-bottom-color: var(--border);
+.ap{
+  display:flex;align-items:center;gap:8px;
+  padding:7px 16px;border-radius:var(--pill);
+  background:var(--card);border:1px solid var(--bd);
+  font-size:13px;font-weight:700;color:var(--t1);
 }
-.hdr__inner {
-  max-width: var(--container); margin: 0 auto;
-  height: 100%; padding: 0 32px;
-  display: flex; align-items: center; justify-content: space-between;
-}
-.hdr__logo {
-  display: flex; align-items: center; gap: 9px;
-  font-family: var(--font);
-  font-size: 17px; font-weight: 800; color: #fff; letter-spacing: -.4px;
-  transition: color .3s;
-}
-.hdr--solid .hdr__logo { color: var(--text-1); }
-.hdr--solid .hdr__logo svg path { stroke: var(--text-1); }
-.hdr__logo svg path { stroke: #fff; transition: stroke .3s; }
-
-.hdr__nav {
-  display: flex; align-items: center; gap: 32px;
-}
-.hdr__nav a {
-  font-size: 14px; font-weight: 500; color: rgba(255,255,255,.80);
-  transition: color .15s;
-}
-.hdr__nav a:hover { color: #fff; }
-.hdr--solid .hdr__nav a { color: var(--text-2); }
-.hdr--solid .hdr__nav a:hover { color: var(--text-1); }
-
-.hdr__actions { display: flex; align-items: center; gap: 10px; }
-.hdr__user {
-  display: flex; align-items: center; gap: 6px;
-  font-size: 14px; font-weight: 500; color: rgba(255,255,255,.85);
-  padding: 6px 14px;
-  border: 1px solid rgba(255,255,255,.30);
-  border-radius: var(--r-pill);
-  background: rgba(255,255,255,.08);
-  transition: all .15s;
-}
-.hdr__user:hover { background: rgba(255,255,255,.14); color: #fff; }
-.hdr--solid .hdr__user {
-  color: var(--text-2);
-  border-color: var(--border);
-  background: var(--bg);
-}
-.hdr--solid .hdr__user:hover { color: var(--text-1); border-color: var(--border-dk); }
-.hdr__book {
-  font-size: 14px; font-weight: 700; color: var(--text-1);
-  padding: 8px 22px; border-radius: var(--r-pill);
-  background: var(--lime);
-  transition: background .15s;
-}
-.hdr__book:hover { background: var(--lime-hover); }
-@media (max-width: 700px) { .hdr__nav { display: none; } }
-
-/* ============================================================
-   HERO — full-bleed photo, Blacklane style
-============================================================ */
-.hero {
-  position: relative;
-  min-height: 100vh;
-  display: flex; flex-direction: column; justify-content: flex-end;
-  overflow: hidden;
-}
-
-/* Background photo */
-.hero__bg {
-  position: absolute; inset: 0; z-index: 0;
-}
-.hero__bg img {
-  width: 100%; height: 100%; object-fit: cover; object-position: center 30%;
-}
-/* Gradient overlay — dark at top for header legibility, darker at bottom for form */
-.hero__bg::after {
-  content: "";
-  position: absolute; inset: 0;
-  background:
-    linear-gradient(180deg,
-      rgba(10,14,28,.50) 0%,
-      rgba(10,14,28,.10) 40%,
-      rgba(10,14,28,.30) 65%,
-      rgba(10,14,28,.72) 100%
-    );
-}
-
-/* Centered headline block */
-.hero__content {
-  position: relative; z-index: 1;
-  text-align: center;
-  padding: 0 32px;
-  margin-bottom: 52px;
-}
-
-.hero__h1 {
-  font-size: clamp(44px, 6vw, 80px);
-  font-weight: 900;
-  line-height: 1.02;
-  color: rgba(255,255,255,.97);
-  letter-spacing: -1.5px;
-  max-width: 720px;
-  margin: 0 auto 20px;
-  text-shadow: 0 2px 32px rgba(0,0,0,.22);
-}
-
-.hero__sub {
-  font-size: 16px; font-weight: 400; line-height: 1.65;
-  color: rgba(255,255,255,.65);
-  max-width: 420px; margin: 0 auto;
-}
-
-/* Tab switcher — "Vouchers" / "Upgrades" */
-.hero__tabs-wrap {
-  position: relative; z-index: 1;
-  display: flex; justify-content: center;
-  margin-bottom: 16px;
-}
-.hero__tabs {
-  display: inline-flex;
-  background: rgba(255,255,255,.12);
-  border: 1px solid rgba(255,255,255,.20);
-  border-radius: var(--r-pill);
-  padding: 4px;
-  gap: 2px;
-}
-.hero__tab {
-  font-size: 14px; font-weight: 700;
-  padding: 8px 22px; border-radius: var(--r-pill);
-  color: rgba(255,255,255,.70);
-  cursor: pointer; transition: all .18s;
-  border: none; background: none; font-family: var(--font);
-}
-.hero__tab--active {
-  background: var(--lime);
-  color: var(--text-1);
-}
-.hero__tab:not(.hero__tab--active):hover { color: #fff; background: rgba(255,255,255,.10); }
-
-/* Search form bar */
-.hero__form-wrap {
-  position: relative; z-index: 1;
-  padding: 0 32px 56px;
-}
-.hero__form {
-  max-width: var(--container); margin: 0 auto;
-  background: rgba(255,255,255,.14);
-  border: 1px solid rgba(255,255,255,.22);
-  border-radius: var(--r-lg);
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr auto;
-  overflow: hidden;
-}
-@media (max-width: 800px) {
-  .hero__form { grid-template-columns: 1fr 1fr; border-radius: var(--r); }
-  .hero__form-btn { grid-column: 1/-1; border-radius: 0 0 var(--r) var(--r); }
+.ap span{
+  font-size:10px;font-weight:700;color:var(--navy);
+  background:var(--blue);border-radius:4px;padding:2px 7px;
 }
 
-.hero__field {
-  padding: 18px 22px;
-  border-right: 1px solid rgba(255,255,255,.12);
-  display: flex; flex-direction: column; gap: 5px;
-  min-width: 0;
-  cursor: text;
-  transition: background .15s;
+/* ─── SECTION HEADER ─────────────────────────────────────── */
+.sh{margin-bottom:40px}
+.sh--center{text-align:center}
+.sh__eye{
+  font-size:11px;font-weight:700;letter-spacing:.7px;text-transform:uppercase;
+  color:var(--t3);margin-bottom:10px;
 }
-.hero__field:hover { background: rgba(255,255,255,.08); }
-.hero__field:last-of-type { border-right: none; }
-.hero__field__label {
-  font-size: 10px; font-weight: 700; letter-spacing: .6px; text-transform: uppercase;
-  color: rgba(255,255,255,.50);
+.sh__h2{
+  font-size:clamp(28px,3vw,42px);font-weight:900;letter-spacing:-1px;
+  line-height:1.06;color:var(--t1);margin-bottom:10px;
 }
-.hero__field__val {
-  font-size: 15px; font-weight: 600; color: rgba(255,255,255,.92);
-  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+.sh__sub{
+  font-size:15px;line-height:1.7;color:var(--t2);max-width:440px;
 }
-.hero__field__sub {
-  font-size: 11px; color: rgba(255,255,255,.40);
-}
-.hero__form-btn {
-  display: flex; align-items: center; justify-content: center;
-  padding: 0 28px;
-  font-size: 14px; font-weight: 700; color: var(--text-1);
-  background: var(--lime);
-  cursor: pointer; white-space: nowrap;
-  border: none; font-family: var(--font);
-  gap: 8px;
-  transition: background .15s;
-}
-.hero__form-btn:hover { background: var(--lime-hover); }
+.sh--center .sh__sub{margin:0 auto}
 
-/* Proof strip below form */
-.hero__proof-wrap {
-  position: relative; z-index: 1;
-  display: flex; justify-content: center;
-  padding-bottom: 48px;
-  margin-top: -20px;
+/* ─── CARDS SECTION (photo cards) ───────────────────────── */
+.cards{padding:0 0 80px}
+.cards__grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:16px;
 }
-.hero__proof {
-  display: flex; align-items: center; gap: 12px;
-}
-.hero__avatars { display: flex; }
-.hero__avatar {
-  width: 26px; height: 26px; border-radius: 50%;
-  border: 2px solid rgba(255,255,255,.3);
-  margin-left: -7px; font-size: 9px; font-weight: 700;
-  display: flex; align-items: center; justify-content: center;
-  color: #fff;
-}
-.hero__avatar:first-child { margin-left: 0; }
-.hero__proof-text { font-size: 12px; color: rgba(255,255,255,.55); line-height: 1.5; }
-.hero__proof-text strong { color: rgba(255,255,255,.80); font-weight: 600; }
+@media(max-width:680px){.cards__grid{grid-template-columns:1fr}}
 
-/* General buttons (used below hero) */
-.btn-primary {
-  display: inline-flex; align-items: center; gap: 8px;
-  font-size: 14px; font-weight: 700; color: var(--text-1);
-  padding: 12px 28px; border-radius: var(--r-pill);
-  background: var(--lime);
-  transition: background .15s;
+.pc{
+  position:relative;border-radius:var(--r);overflow:hidden;
+  aspect-ratio:4/3;display:flex;flex-direction:column;justify-content:flex-end;
+  background:#ddd;
 }
-.btn-primary:hover { background: var(--lime-hover); }
+.pc img{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  transition:transform .6s;
+}
+.pc:hover img{transform:scale(1.04)}
+.pc::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(0deg,rgba(10,14,28,.70) 0%,rgba(10,14,28,.10) 60%,transparent 100%);
+}
+.pc__body{
+  position:relative;z-index:1;padding:28px;
+}
+.pc__tag{
+  display:inline-block;
+  font-size:10px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;
+  color:rgba(255,255,255,.70);
+  background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);
+  border-radius:var(--pill);padding:4px 12px;margin-bottom:12px;
+}
+.pc__h3{
+  font-size:22px;font-weight:800;letter-spacing:-.4px;line-height:1.1;
+  color:#fff;margin-bottom:10px;
+}
+.pc__p{font-size:13px;line-height:1.6;color:rgba(255,255,255,.70);margin-bottom:18px}
+.btn-pc{
+  display:inline-flex;align-items:center;gap:7px;
+  font-size:13px;font-weight:700;color:var(--t1);
+  padding:9px 20px;border-radius:var(--pill);
+  background:var(--lime);
+  transition:background .14s;
+}
+.btn-pc:hover{background:var(--lime-hv)}
 
-.btn-ghost {
-  display: inline-flex; align-items: center; gap: 8px;
-  font-size: 14px; font-weight: 600; color: var(--text-1);
-  padding: 11px 24px; border-radius: var(--r-pill);
-  border: 1.5px solid var(--border-dk);
-  background: transparent;
-  transition: border-color .15s, background .15s;
-}
-.btn-ghost:hover { border-color: rgba(0,0,0,.22); background: rgba(0,0,0,.03); }
+/* ─── HOW IT WORKS ───────────────────────────────────────── */
+.how{padding:0 0 80px}
+.how__grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+@media(max-width:680px){.how__grid{grid-template-columns:1fr}}
 
-/* ============================================================
-   PRODUCTS
-============================================================ */
-.products { padding: 80px 0 80px; }
+.step{
+  background:var(--card);border:1px solid var(--bd);
+  border-radius:var(--r);padding:28px;
+}
+.step__n{
+  font-size:48px;font-weight:900;letter-spacing:-2px;line-height:1;
+  color:rgba(0,0,0,.07);margin-bottom:20px;
+}
+.step__icon{
+  width:44px;height:44px;border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--blue);border:1px solid var(--blue-dk);
+  margin-bottom:16px;
+}
+.step__h3{font-size:15px;font-weight:800;color:var(--t1);margin-bottom:8px}
+.step__p{font-size:13px;line-height:1.7;color:var(--t2)}
 
-.products__grid {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
-}
-@media (max-width: 680px) { .products__grid { grid-template-columns: 1fr; } }
+/* ─── VALUE GRID ─────────────────────────────────────────── */
+.value{padding:0 0 80px}
+.value__grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:580px){.value__grid{grid-template-columns:1fr}}
 
-.prd-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--r-lg);
-  overflow: hidden;
-  box-shadow: var(--sh);
-  display: flex; flex-direction: column;
+.vc{
+  background:var(--blue);border:1px solid var(--blue-dk);
+  border-radius:var(--r);padding:28px 30px;
 }
+.vc__icon{
+  width:42px;height:42px;border-radius:11px;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(30,45,74,.10);border:1px solid rgba(30,45,74,.15);
+  margin-bottom:16px;
+}
+.vc__h3{font-size:15px;font-weight:800;color:var(--navy);margin-bottom:8px}
+.vc__p{font-size:13px;line-height:1.7;color:var(--navy);opacity:.7}
 
-.prd-card--upgrade {
-  background: var(--bg-blue);
-  border-color: var(--bg-blue-dk);
+/* ─── MASTERCARD SECTION ─────────────────────────────────── */
+.mc{padding:0 0 80px}
+.mc__card{
+  background:var(--blue);border:1px solid var(--blue-dk);
+  border-radius:var(--r);
+  display:grid;grid-template-columns:1fr auto;align-items:center;gap:40px;
+  padding:40px 48px;
 }
-
-.prd-card__body { padding: 32px 30px 24px; flex: 1; }
-
-.prd-card__tag {
-  display: inline-flex; align-items: center; gap: 5px;
-  font-size: 10px; font-weight: 700; letter-spacing: .7px; text-transform: uppercase;
-  color: var(--text-3);
-  background: rgba(0,0,0,.05);
-  border: 1px solid var(--border);
-  border-radius: var(--r-pill);
-  padding: 4px 11px; margin-bottom: 22px;
+@media(max-width:680px){.mc__card{grid-template-columns:1fr;gap:24px;padding:32px 28px}}
+.mc__eye{
+  font-size:11px;font-weight:700;letter-spacing:.7px;text-transform:uppercase;
+  color:var(--navy);opacity:.55;margin-bottom:14px;
 }
-.prd-card--upgrade .prd-card__tag {
-  color: var(--text-navy);
-  background: rgba(30,45,74,.08);
-  border-color: rgba(30,45,74,.15);
+.mc__h2{
+  font-size:24px;font-weight:800;letter-spacing:-.4px;line-height:1.2;
+  color:var(--navy);margin-bottom:12px;
 }
-
-.prd-card__icon {
-  width: 48px; height: 48px; border-radius: 14px;
-  display: flex; align-items: center; justify-content: center;
-  margin-bottom: 20px;
-  background: rgba(0,0,0,.05);
-  border: 1px solid var(--border);
+.mc__p{font-size:13px;line-height:1.7;color:var(--navy);opacity:.7;max-width:400px;margin-bottom:24px}
+.mc__actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.btn-mc{
+  font-size:14px;font-weight:700;color:var(--t1);
+  padding:11px 26px;border-radius:var(--pill);
+  background:var(--lime);transition:background .14s;
 }
-.prd-card--upgrade .prd-card__icon {
-  background: rgba(30,45,74,.10);
-  border-color: rgba(30,45,74,.15);
+.btn-mc:hover{background:var(--lime-hv)}
+.btn-mc-out{
+  font-size:14px;font-weight:600;color:var(--navy);
+  padding:10px 22px;border-radius:var(--pill);
+  border:1.5px solid rgba(30,45,74,.25);
+  transition:background .14s;
 }
-
-.prd-card__h2 {
-  font-size: 22px; font-weight: 800; line-height: 1.2;
-  color: var(--text-1); margin-bottom: 12px; letter-spacing: -.3px;
+.btn-mc-out:hover{background:rgba(30,45,74,.06)}
+.mc__logo{flex-shrink:0}
+.mc__stat{text-align:center}
+.mc__amt{
+  display:block;font-size:48px;font-weight:900;letter-spacing:-2px;
+  color:var(--navy);line-height:1;
 }
-.prd-card--upgrade .prd-card__h2 { color: var(--text-navy); }
-
-.prd-card__desc {
-  font-size: 13px; line-height: 1.7; color: var(--text-2); margin-bottom: 26px;
-}
-.prd-card--upgrade .prd-card__desc { color: var(--text-navy); opacity: .75; }
-
-.prd-card__img {
-  height: 200px; overflow: hidden; flex-shrink: 0;
-}
-.prd-card__img img { width: 100%; height: 100%; object-fit: cover; }
-
-.btn-learn {
-  display: inline-flex; align-items: center; gap: 7px;
-  font-size: 13px; font-weight: 700; color: var(--text-1);
-  padding: 9px 20px; border-radius: var(--r-pill);
-  border: 1.5px solid var(--border-dk);
-  transition: border-color .15s, background .15s;
-}
-.btn-learn:hover { border-color: rgba(0,0,0,.22); background: rgba(0,0,0,.03); }
-.prd-card--upgrade .btn-learn {
-  color: var(--text-navy);
-  border-color: rgba(30,45,74,.25);
-  background: rgba(30,45,74,.06);
-}
-.prd-card--upgrade .btn-learn:hover { background: rgba(30,45,74,.12); }
-
-/* ============================================================
-   AIRLINES
-============================================================ */
-.airlines {
-  padding: 0 0 80px;
-}
-.airlines__label {
-  text-align: center;
-  font-size: 11px; font-weight: 700; letter-spacing: .8px; text-transform: uppercase;
-  color: var(--text-3); margin-bottom: 22px;
-}
-.airlines__row {
-  display: flex; align-items: center; justify-content: center;
-  gap: 8px; flex-wrap: wrap;
-}
-.airline-pill {
-  display: flex; align-items: center; gap: 8px;
-  padding: 9px 18px; border-radius: var(--r-pill);
-  background: var(--bg-card); border: 1px solid var(--border);
-  box-shadow: var(--sh);
-  cursor: default;
-}
-.airline-pill__name { font-size: 13px; font-weight: 700; color: var(--text-1); }
-.airline-pill__badge {
-  font-size: 10px; font-weight: 700;
-  color: var(--text-navy);
-  background: var(--bg-blue);
-  border-radius: 4px; padding: 2px 7px;
+.mc__lbl{
+  display:block;font-size:10px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;
+  color:var(--navy);opacity:.45;margin-top:6px;
 }
 
-/* ============================================================
-   HOW IT WORKS
-============================================================ */
-.how { padding: 0 0 80px; }
+/* ─── FOOTER CTA ─────────────────────────────────────────── */
+.fcta{padding:0 0 80px}
+.fcta__card{
+  background:var(--card);border:1px solid var(--bd);
+  border-radius:var(--r);
+  padding:80px 48px;text-align:center;
+}
+@media(max-width:600px){.fcta__card{padding:56px 28px}}
+.fcta__h2{
+  font-size:clamp(32px,4vw,56px);font-weight:900;letter-spacing:-1.5px;
+  line-height:1.02;color:var(--t1);margin-bottom:14px;
+}
+.fcta__sub{
+  font-size:16px;line-height:1.7;color:var(--t2);
+  max-width:380px;margin:0 auto 36px;
+}
+.fcta__btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.btn-fcta{
+  font-size:15px;font-weight:700;color:var(--t1);
+  padding:14px 34px;border-radius:var(--pill);
+  background:var(--lime);transition:background .14s;
+}
+.btn-fcta:hover{background:var(--lime-hv)}
+.btn-fcta-g{
+  font-size:15px;font-weight:600;color:var(--t2);
+  padding:13px 26px;border-radius:var(--pill);
+  border:1.5px solid var(--bd);transition:border-color .14s,color .14s;
+}
+.btn-fcta-g:hover{color:var(--t1);border-color:rgba(0,0,0,.2)}
 
-.section-eyebrow {
-  text-align: center;
-  font-size: 11px; font-weight: 700; letter-spacing: .8px; text-transform: uppercase;
-  color: var(--text-3); margin-bottom: 12px;
+/* ─── FOOTER ─────────────────────────────────────────────── */
+.footer{background:var(--card);border-top:1px solid var(--bd);padding:36px 0 32px}
+.footer__in{
+  max-width:var(--w);margin:0 auto;padding:0 32px;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;
 }
-.section-h2 {
-  text-align: center;
-  font-size: clamp(28px, 3.5vw, 42px); font-weight: 900;
-  line-height: 1.1; color: var(--text-1); margin-bottom: 12px;
-  letter-spacing: -.5px;
+.footer__logo{
+  display:flex;align-items:center;gap:8px;
+  font-size:15px;font-weight:800;color:var(--t1);
 }
-.section-sub {
-  text-align: center;
-  font-size: 15px; line-height: 1.7; color: var(--text-2);
-  max-width: 420px; margin: 0 auto 48px;
-}
-
-.how__steps { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
-@media (max-width: 600px) { .how__steps { grid-template-columns: 1fr; } }
-
-.step {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--r-lg);
-  padding: 28px 26px;
-  box-shadow: var(--sh);
-}
-
-.step__num {
-  font-size: 28px; font-weight: 900; letter-spacing: -1px;
-  color: rgba(0,0,0,.08); margin-bottom: 20px; line-height: 1;
-}
-.step__icon {
-  width: 42px; height: 42px; border-radius: 12px;
-  display: flex; align-items: center; justify-content: center;
-  margin-bottom: 18px;
-  background: var(--bg-blue);
-  border: 1px solid var(--bg-blue-dk);
-}
-.step__icon svg path, .step__icon svg circle, .step__icon svg rect { stroke: var(--text-navy); }
-.step__h3 { font-size: 15px; font-weight: 800; color: var(--text-1); margin-bottom: 9px; }
-.step__p  { font-size: 13px; line-height: 1.7; color: var(--text-2); }
-
-/* ============================================================
-   VALUE PROPS — JetsBetter-style powder blue feature cards
-============================================================ */
-.value { padding: 0 0 80px; }
-
-.value__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-@media (max-width: 580px) { .value__grid { grid-template-columns: 1fr; } }
-
-.val-card {
-  background: var(--bg-blue);
-  border: 1px solid var(--bg-blue-dk);
-  border-radius: var(--r-lg);
-  padding: 26px 28px;
-  box-shadow: var(--sh);
-}
-
-.val-card__icon {
-  width: 40px; height: 40px; border-radius: 11px;
-  display: flex; align-items: center; justify-content: center;
-  background: rgba(30,45,74,.10);
-  border: 1px solid rgba(30,45,74,.15);
-  margin-bottom: 16px;
-}
-.val-card__icon svg path, .val-card__icon svg circle, .val-card__icon svg rect { stroke: var(--text-navy); }
-.val-card__h3 { font-size: 15px; font-weight: 800; color: var(--text-navy); margin-bottom: 8px; }
-.val-card__p  { font-size: 13px; line-height: 1.7; color: var(--text-navy); opacity: .7; }
-
-/* ============================================================
-   MASTERCARD BANNER
-============================================================ */
-.mc-section { padding: 0 0 80px; }
-
-.mc-banner {
-  background: var(--bg-blue);
-  border: 1px solid var(--bg-blue-dk);
-  border-radius: var(--r-lg);
-  padding: 40px 48px;
-  display: flex; align-items: center; gap: 48px;
-  box-shadow: var(--sh);
-}
-@media (max-width: 680px) { .mc-banner { flex-direction: column; gap: 24px; padding: 32px 26px; } }
-
-.mc-banner__logo { flex-shrink: 0; }
-.mc-banner__body { flex: 1; }
-.mc-banner__eyebrow {
-  font-size: 11px; font-weight: 700; letter-spacing: .7px; text-transform: uppercase;
-  color: var(--text-navy); opacity: .6; margin-bottom: 12px;
-}
-.mc-banner__h2 {
-  font-size: 22px; font-weight: 800; line-height: 1.2; letter-spacing: -.3px;
-  color: var(--text-navy); margin-bottom: 10px;
-}
-.mc-banner__p { font-size: 13px; line-height: 1.7; color: var(--text-navy); opacity: .7; max-width: 400px; }
-
-.mc-banner__badge {
-  flex-shrink: 0; text-align: center;
-  background: rgba(30,45,74,.08);
-  border: 1px solid rgba(30,45,74,.15);
-  border-radius: var(--r);
-  padding: 20px 28px;
-}
-.mc-banner__amount {
-  display: block; font-size: 36px; font-weight: 900; letter-spacing: -1.5px;
-  color: var(--text-navy); line-height: 1;
-}
-.mc-banner__sublabel {
-  display: block; font-size: 10px; font-weight: 700; letter-spacing: .5px;
-  text-transform: uppercase; color: var(--text-navy); opacity: .5; margin-top: 6px;
-}
-
-/* ============================================================
-   FOOTER CTA
-============================================================ */
-.fcta { padding: 0 0 96px; }
-
-.fcta__card {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--r-lg);
-  padding: 72px 48px;
-  text-align: center;
-  box-shadow: var(--sh);
-}
-
-.fcta__h2 {
-  font-size: clamp(30px, 4vw, 52px); font-weight: 900;
-  letter-spacing: -.8px; line-height: 1.05; color: var(--text-1); margin-bottom: 14px;
-}
-.fcta__sub {
-  font-size: 16px; line-height: 1.7; color: var(--text-2);
-  max-width: 380px; margin: 0 auto 36px;
-}
-.fcta__btns { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
-
-/* ============================================================
-   FOOTER
-============================================================ */
-.footer {
-  border-top: 1px solid var(--border);
-  padding: 36px 0 32px;
-  background: var(--bg-card);
-}
-.footer__inner {
-  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;
-}
-.footer__logo {
-  display: flex; align-items: center; gap: 8px;
-  font-size: 15px; font-weight: 800; color: var(--text-1);
-}
-.footer__links { display: flex; gap: 24px; }
-.footer__links a { font-size: 12px; font-weight: 600; color: var(--text-3); transition: color .15s; }
-.footer__links a:hover { color: var(--text-2); }
-.footer__copy { font-size: 12px; color: var(--text-3); }
-
+.footer__links{display:flex;gap:24px}
+.footer__links a{font-size:12px;font-weight:600;color:var(--t3);transition:color .14s}
+.footer__links a:hover{color:var(--t2)}
+.footer__copy{font-size:12px;color:var(--t3)}
   </style>
 </head>
 <body>
 
 <!-- HEADER -->
 <header class="hdr">
-  <div class="hdr__inner">
+  <div class="hdr__in">
     <a href="#" class="hdr__logo">
-      <svg width="20" height="20" viewBox="0 0 22 22" fill="none">
-        <path d="M11 2L3 19h16L11 2z" fill="none" stroke="#1d5fe8" stroke-width="1.6" stroke-linejoin="round"/>
-        <path d="M7.5 14l3.5-7 3.5 7" fill="none" stroke="#1d5fe8" stroke-width="1.3" stroke-linejoin="round"/>
+      <svg width="18" height="18" viewBox="0 0 22 22" fill="none">
+        <path d="M11 2L3 19h16L11 2z" fill="none" stroke="#0f0f0e" stroke-width="1.8" stroke-linejoin="round"/>
+        <path d="M7.5 14l3.5-7 3.5 7" fill="none" stroke="#0f0f0e" stroke-width="1.4" stroke-linejoin="round"/>
       </svg>
       Altitude
     </a>
     <nav class="hdr__nav">
-      <a href="#">Our services</a>
+      <a href="#">Services</a>
       <a href="#">For business</a>
       <a href="#">Benefits</a>
       <a href="#">Help</a>
     </nav>
-    <div class="hdr__actions">
-      <a href="#" class="hdr__user">
-        <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="4.5" r="2.5" stroke="currentColor" stroke-width="1.3"/><path d="M1.5 11.5c0-2.76 2.24-5 5-5s5 2.24 5 5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
-        Sign in
-      </a>
-      <a href="#" class="hdr__book">Get started</a>
+    <div class="hdr__cta">
+      <a href="#" class="btn-sign">Sign in</a>
+      <a href="#" class="btn-start">Get started</a>
     </div>
   </div>
 </header>
 
 <!-- HERO -->
-<section class="hero">
-
-  <!-- Background photo -->
-  <div class="hero__bg">
-    <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=1600&q=85" alt="Premium travel">
-  </div>
-
-  <!-- Headline -->
-  <div class="hero__content">
-    <h1 class="hero__h1">Your upgrade awaits.</h1>
-    <p class="hero__sub">Exclusive airline vouchers and business class upgrades for Mastercard Premium cardholders.</p>
-  </div>
-
-  <!-- Tab switcher -->
-  <div class="hero__tabs-wrap">
-    <div class="hero__tabs">
-      <button class="hero__tab hero__tab--active">Vouchers</button>
-      <button class="hero__tab">Upgrades</button>
+<section style="background:var(--bg);padding-top:0">
+  <div class="hero">
+    <div class="hero__left">
+      <p class="hero__eyebrow"><span></span>Mastercard Premium</p>
+      <h1 class="hero__h1">Travel<br><em>elevated.</em></h1>
+      <p class="hero__sub">Exclusive airline vouchers and business class upgrades — automatically activated for Mastercard Premium cardholders.</p>
+      <div class="hero__actions">
+        <a href="#" class="btn-hero">Get your offer</a>
+        <a href="#" class="btn-hero-ghost">How it works</a>
+      </div>
+      <div class="hero__proof">
+        <div class="hero__avatars">
+          <div class="hero__av" style="background:#4a7ab8">A</div>
+          <div class="hero__av" style="background:#5a8aac">M</div>
+          <div class="hero__av" style="background:#6a90b8">J</div>
+          <div class="hero__av" style="background:#7898c0">S</div>
+        </div>
+        <p class="hero__proof-txt"><strong>12,000+ travellers</strong><br>upgraded this month</p>
+      </div>
     </div>
-  </div>
-
-  <!-- Search form -->
-  <div class="hero__form-wrap">
-    <div class="hero__form">
-      <div class="hero__field">
-        <span class="hero__field__label">From</span>
-        <span class="hero__field__val">Warsaw</span>
-        <span class="hero__field__sub">WAW · Chopin Airport</span>
-      </div>
-      <div class="hero__field">
-        <span class="hero__field__label">To</span>
-        <span class="hero__field__val">Any destination</span>
-        <span class="hero__field__sub">City, airport or country</span>
-      </div>
-      <div class="hero__field">
-        <span class="hero__field__label">Depart</span>
-        <span class="hero__field__val">Select a date</span>
-        <span class="hero__field__sub">One way or return</span>
-      </div>
-      <div class="hero__field">
-        <span class="hero__field__label">Cabin</span>
-        <span class="hero__field__val">Business class</span>
-        <span class="hero__field__sub">1 passenger</span>
-      </div>
-      <button class="hero__form-btn">
-        <svg width="15" height="15" viewBox="0 0 15 15" fill="none"><circle cx="6.5" cy="6.5" r="5" stroke="#0f0f0e" stroke-width="1.5"/><path d="M10.5 10.5L14 14" stroke="#0f0f0e" stroke-width="1.5" stroke-linecap="round"/></svg>
-        Find offers
-      </button>
-    </div>
-  </div>
-
-  <!-- Social proof -->
-  <div class="hero__proof-wrap">
-    <div class="hero__proof">
-      <div class="hero__avatars">
-        <div class="hero__avatar" style="background:#4a7ab8">A</div>
-        <div class="hero__avatar" style="background:#5a8aac">M</div>
-        <div class="hero__avatar" style="background:#6890b8">J</div>
-        <div class="hero__avatar" style="background:#7898c0">S</div>
-      </div>
-      <p class="hero__proof-text"><strong>12,000+ travellers</strong> upgraded their journey this month</p>
-    </div>
-  </div>
-
-</section>
-
-<!-- PRODUCT CARDS -->
-<section class="products">
-  <div class="wrap">
-    <div class="products__grid">
-
-      <!-- Vouchers -->
-      <div class="prd-card">
-        <div class="prd-card__body">
-          <span class="prd-card__tag">Altitude Essential</span>
-          <div class="prd-card__icon">
-            <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
-              <rect x="2" y="7" width="18" height="11" rx="2.5" stroke="#5a5650" stroke-width="1.4"/>
-              <path d="M7 7V6a4 4 0 0 1 8 0v1" stroke="#5a5650" stroke-width="1.4" stroke-linecap="round"/>
-              <circle cx="11" cy="12.5" r="1.5" fill="#5a5650"/>
-            </svg>
+    <div class="hero__right">
+      <div class="search-card">
+        <div class="search-tabs">
+          <button class="s-tab s-tab--active">Vouchers</button>
+          <button class="s-tab">Upgrades</button>
+        </div>
+        <div class="search-body">
+          <div class="s-row">
+            <div class="s-field">
+              <label>From</label>
+              <input class="s-field__inp" type="text" placeholder="Warsaw (WAW)">
+            </div>
+            <div class="s-field">
+              <label>To</label>
+              <input class="s-field__inp" type="text" placeholder="Any destination">
+            </div>
           </div>
-          <h2 class="prd-card__h2">Airline vouchers &amp; exclusive deals</h2>
-          <p class="prd-card__desc">Generate €30 vouchers for Wizz Air, Pegasus, SkyUp and more. Available for Mastercard Premium cardholders — verified automatically at checkout.</p>
-          <a href="#" class="btn-learn">
-            Learn more
-            <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M2.5 7h9M8 3.5 11.5 7 8 10.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </a>
-        </div>
-        <div class="prd-card__img">
-          <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=600&q=75" alt="Airport departure">
-        </div>
-      </div>
-
-      <!-- Upgrades -->
-      <div class="prd-card prd-card--upgrade">
-        <div class="prd-card__body">
-          <span class="prd-card__tag">Altitude Upgrade</span>
-          <div class="prd-card__icon">
-            <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
-              <path d="M3 15 7.5 10.5l3 3 4.5-5.5 4 3" stroke="#1d5fe8" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
-              <path d="M17 7h-4V3" stroke="#1d5fe8" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
+          <div class="s-row">
+            <div class="s-field">
+              <label>Depart</label>
+              <input class="s-field__inp" type="text" placeholder="Select date">
+            </div>
+            <div class="s-field">
+              <label>Cabin</label>
+              <input class="s-field__inp" type="text" placeholder="Business class">
+            </div>
           </div>
-          <h2 class="prd-card__h2">Business class upgrade experience</h2>
-          <p class="prd-card__desc">Select the flights you'd like to upgrade, compare cabin experiences, and access the best business class rates — available for Turkish Airlines, Lufthansa, British Airways and more.</p>
-          <a href="#" class="btn-learn">
-            Learn more
-            <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M2.5 7h9M8 3.5 11.5 7 8 10.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </a>
         </div>
-        <div class="prd-card__img">
-          <img src="https://images.unsplash.com/photo-1540339832862-474599807836?w=600&q=75" alt="Business class cabin">
+        <div class="search-footer">
+          <p class="s-meta"><strong>Verified</strong> at checkout<br>No codes needed</p>
+          <button class="btn-search">
+            <svg width="13" height="13" viewBox="0 0 14 14" fill="none" style="display:inline-block;vertical-align:middle;margin-right:5px"><circle cx="6" cy="6" r="4.5" stroke="#0f0f0e" stroke-width="1.4"/><path d="M9.5 9.5L13 13" stroke="#0f0f0e" stroke-width="1.4" stroke-linecap="round"/></svg>
+            Find offers
+          </button>
         </div>
       </div>
-
     </div>
   </div>
 </section>
 
-<!-- AIRLINES -->
-<section class="airlines">
-  <div class="wrap">
-    <p class="airlines__label">Available for flights with</p>
-    <div class="airlines__row">
-      <div class="airline-pill"><span class="airline-pill__name">Wizz Air</span><span class="airline-pill__badge">€30 voucher</span></div>
-      <div class="airline-pill"><span class="airline-pill__name">Pegasus</span><span class="airline-pill__badge">€30 voucher</span></div>
-      <div class="airline-pill"><span class="airline-pill__name">SkyUp</span><span class="airline-pill__badge">€30 voucher</span></div>
-      <div class="airline-pill"><span class="airline-pill__name">Turkish Airlines</span><span class="airline-pill__badge">Upgrade</span></div>
-      <div class="airline-pill"><span class="airline-pill__name">Lufthansa</span><span class="airline-pill__badge">Upgrade</span></div>
-      <div class="airline-pill"><span class="airline-pill__name">British Airways</span><span class="airline-pill__badge">Upgrade</span></div>
-      <div class="airline-pill"><span class="airline-pill__name">Emirates</span><span class="airline-pill__badge">Upgrade</span></div>
+<!-- PARTNERS STRIP -->
+<div class="partners">
+  <div class="partners__in">
+    <p class="partners__label">Available with</p>
+    <div class="ap">Wizz Air <span>€30 voucher</span></div>
+    <div class="ap">Pegasus <span>€30 voucher</span></div>
+    <div class="ap">SkyUp <span>€30 voucher</span></div>
+    <div class="ap">Turkish Airlines <span>Upgrade</span></div>
+    <div class="ap">Lufthansa <span>Upgrade</span></div>
+    <div class="ap">British Airways <span>Upgrade</span></div>
+    <div class="ap">Emirates <span>Upgrade</span></div>
+  </div>
+</div>
+
+<!-- PHOTO CARDS -->
+<section class="cards">
+  <div class="w">
+    <div class="sh" style="margin-bottom:32px">
+      <p class="sh__eye">Our services</p>
+      <h2 class="sh__h2">What you get<br>with Altitude.</h2>
+    </div>
+    <div class="cards__grid">
+      <div class="pc">
+        <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=800&q=80" alt="Departure lounge">
+        <div class="pc__body">
+          <span class="pc__tag">Altitude Essential</span>
+          <h3 class="pc__h3">Airline vouchers &amp; exclusive deals</h3>
+          <p class="pc__p">Generate €30 vouchers for Wizz Air, Pegasus, SkyUp and more. Verified automatically at checkout.</p>
+          <a href="#" class="btn-pc">Learn more →</a>
+        </div>
+      </div>
+      <div class="pc">
+        <img src="https://images.unsplash.com/photo-1540339832862-474599807836?w=800&q=80" alt="Business class">
+        <div class="pc__body">
+          <span class="pc__tag">Altitude Upgrade</span>
+          <h3 class="pc__h3">Business class upgrade experience</h3>
+          <p class="pc__p">Select flights, compare cabin experiences and access best business class rates across top airlines.</p>
+          <a href="#" class="btn-pc">Learn more →</a>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- HOW IT WORKS -->
 <section class="how">
-  <div class="wrap">
-    <p class="section-eyebrow">Simple process</p>
-    <h2 class="section-h2">Three steps to your offer.</h2>
-    <p class="section-sub">From selection to confirmation — the entire process takes under two minutes.</p>
-    <div class="how__steps">
+  <div class="w">
+    <div class="sh sh--center">
+      <p class="sh__eye">Simple process</p>
+      <h2 class="sh__h2">Three steps<br>to your offer.</h2>
+      <p class="sh__sub">From selection to confirmation — the entire process takes under two minutes.</p>
+    </div>
+    <div class="how__grid">
       <div class="step">
-        <p class="step__num">01</p>
+        <div class="step__n">01</div>
         <div class="step__icon">
-          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="2" y="3" width="14" height="12" rx="2" stroke="#1d5fe8" stroke-width="1.3"/><path d="M6 3V2m6 1V2M2.5 7.5h13" stroke="#1d5fe8" stroke-width="1.3" stroke-linecap="round"/></svg>
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="2.5" y="3.5" width="15" height="13" rx="2.5" stroke="#1e2d4a" stroke-width="1.4"/><path d="M7 3.5V2.5m6 1V2.5M3 8h14" stroke="#1e2d4a" stroke-width="1.4" stroke-linecap="round"/></svg>
         </div>
         <h3 class="step__h3">Select your offer</h3>
         <p class="step__p">Browse available vouchers and upgrade options. Choose the flights and cabin class that fits your journey.</p>
       </div>
       <div class="step">
-        <p class="step__num">02</p>
+        <div class="step__n">02</div>
         <div class="step__icon">
-          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="3" y="6" width="12" height="9" rx="2" stroke="#1d5fe8" stroke-width="1.3"/><path d="M6 6V5a3 3 0 0 1 6 0v1" stroke="#1d5fe8" stroke-width="1.3" stroke-linecap="round"/><circle cx="9" cy="10.5" r="1.2" fill="#1d5fe8"/></svg>
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="3.5" y="7" width="13" height="10" rx="2" stroke="#1e2d4a" stroke-width="1.4"/><path d="M7 7V6a3 3 0 0 1 6 0v1" stroke="#1e2d4a" stroke-width="1.4" stroke-linecap="round"/><circle cx="10" cy="11.5" r="1.3" fill="#1e2d4a"/></svg>
         </div>
         <h3 class="step__h3">Verify your card</h3>
         <p class="step__p">Mastercard Premium eligibility verified automatically. No manual checks — instant access to your offer.</p>
       </div>
       <div class="step">
-        <p class="step__num">03</p>
+        <div class="step__n">03</div>
         <div class="step__icon">
-          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 9.5 6.5 13 15 5" stroke="#1d5fe8" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M3.5 10.5 7.5 14.5 16.5 5.5" stroke="#1e2d4a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </div>
         <h3 class="step__h3">Receive &amp; use</h3>
         <p class="step__p">Your voucher code is sent to your email. Apply at checkout and enjoy an elevated travel experience.</p>
@@ -787,62 +561,68 @@ body {
 
 <!-- VALUE PROPS -->
 <section class="value">
-  <div class="wrap">
-    <p class="section-eyebrow">Why Altitude</p>
-    <h2 class="section-h2">Expect excellence.</h2>
-    <p class="section-sub">Every feature is designed to make travel more elevated, effortless, and exclusive.</p>
+  <div class="w">
+    <div class="sh sh--center">
+      <p class="sh__eye">Why Altitude</p>
+      <h2 class="sh__h2">Expect excellence.</h2>
+      <p class="sh__sub">Every feature is designed to make travel more elevated, effortless and exclusive.</p>
+    </div>
     <div class="value__grid">
-      <div class="val-card">
-        <div class="val-card__icon">
-          <svg width="17" height="17" viewBox="0 0 17 17" fill="none"><path d="M8.5 1.5 10.3 5l3.9.6-2.8 2.7.7 3.9-3.6-1.8-3.6 1.8.7-3.9L2.8 5.6l3.9-.6z" stroke="#1d5fe8" stroke-width="1.3" stroke-linejoin="round"/></svg>
+      <div class="vc">
+        <div class="vc__icon">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 1.5 10.8 5.4l4.2.6-3 2.9.7 4.2L9 11l-3.7 2.1.7-4.2-3-2.9 4.2-.6z" stroke="#1e2d4a" stroke-width="1.3" stroke-linejoin="round"/></svg>
         </div>
-        <h3 class="val-card__h3">Exclusive airline access</h3>
-        <p class="val-card__p">Fares and upgrade offers unavailable through standard OTA channels. Direct airline integrations, better rates.</p>
+        <h3 class="vc__h3">Exclusive airline access</h3>
+        <p class="vc__p">Fares and upgrade offers unavailable through standard OTA channels. Direct airline integrations, better rates.</p>
       </div>
-      <div class="val-card">
-        <div class="val-card__icon">
-          <svg width="17" height="17" viewBox="0 0 17 17" fill="none"><circle cx="8.5" cy="8.5" r="5.5" stroke="#1d5fe8" stroke-width="1.3"/><path d="M8.5 5.5v3.5l2 1.2" stroke="#1d5fe8" stroke-width="1.3" stroke-linecap="round"/></svg>
+      <div class="vc">
+        <div class="vc__icon">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="6" stroke="#1e2d4a" stroke-width="1.3"/><path d="M9 6v4l2.5 1.5" stroke="#1e2d4a" stroke-width="1.3" stroke-linecap="round"/></svg>
         </div>
-        <h3 class="val-card__h3">Instant verification</h3>
-        <p class="val-card__p">Card eligibility verified in seconds. No waiting, no manual review — just instant access to your benefits.</p>
+        <h3 class="vc__h3">Instant verification</h3>
+        <p class="vc__p">Card eligibility verified in seconds. No waiting, no manual review — just instant access to your benefits.</p>
       </div>
-      <div class="val-card">
-        <div class="val-card__icon">
-          <svg width="17" height="17" viewBox="0 0 17 17" fill="none"><rect x="2" y="5" width="13" height="9" rx="2" stroke="#1d5fe8" stroke-width="1.3"/><path d="M5 5V4a3.5 3.5 0 0 1 7 0v1" stroke="#1d5fe8" stroke-width="1.3" stroke-linecap="round"/></svg>
+      <div class="vc">
+        <div class="vc__icon">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="2" y="5.5" width="14" height="10" rx="2" stroke="#1e2d4a" stroke-width="1.3"/><path d="M5.5 5.5V4.5A3.5 3.5 0 0 1 14 4.5v1" stroke="#1e2d4a" stroke-width="1.3" stroke-linecap="round"/></svg>
         </div>
-        <h3 class="val-card__h3">BSP settlement</h3>
-        <p class="val-card__p">All payments through your existing BSP agreements. Nothing changes in your workflow — just better fares.</p>
+        <h3 class="vc__h3">BSP settlement</h3>
+        <p class="vc__p">All payments through your existing BSP agreements. Nothing changes in your workflow — just better fares.</p>
       </div>
-      <div class="val-card">
-        <div class="val-card__icon">
-          <svg width="17" height="17" viewBox="0 0 17 17" fill="none"><rect x="2" y="2" width="13" height="13" rx="2" stroke="#1d5fe8" stroke-width="1.3"/><path d="M5.5 8.5h6M5.5 5.5h6M5.5 11.5h4" stroke="#1d5fe8" stroke-width="1.3" stroke-linecap="round"/></svg>
+      <div class="vc">
+        <div class="vc__icon">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="2" y="2" width="14" height="14" rx="2.5" stroke="#1e2d4a" stroke-width="1.3"/><path d="M5.5 9h7M5.5 5.5h7M5.5 12.5h4.5" stroke="#1e2d4a" stroke-width="1.3" stroke-linecap="round"/></svg>
         </div>
-        <h3 class="val-card__h3">All in one place</h3>
-        <p class="val-card__p">Trips, vouchers and upgrades in one account. Track status, manage changes and stay informed in real time.</p>
+        <h3 class="vc__h3">All in one place</h3>
+        <p class="vc__p">Trips, vouchers and upgrades in one account. Track status, manage changes and stay informed in real time.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- MASTERCARD BANNER -->
-<section class="mc-section">
-  <div class="wrap">
-    <div class="mc-banner">
-      <div class="mc-banner__logo">
-        <svg width="68" height="42" viewBox="0 0 68 42" fill="none">
-          <circle cx="25" cy="21" r="21" fill="#eb001b" opacity=".88"/>
-          <circle cx="43" cy="21" r="21" fill="#f79e1b" opacity=".88"/>
-          <path d="M34 4a21 21 0 0 1 0 34A21 21 0 0 1 34 4Z" fill="#ff5f00" opacity=".82"/>
-        </svg>
+<!-- MASTERCARD SECTION -->
+<section class="mc">
+  <div class="w">
+    <div class="mc__card">
+      <div>
+        <p class="mc__eye">Mastercard Partnership</p>
+        <h2 class="mc__h2">Premium cardholder<br>benefits, activated<br>automatically.</h2>
+        <p class="mc__p">If you hold a Mastercard World Elite, Platinum, Gold or Standard card — your discounts and vouchers are verified at the point of offer. No codes to enter, no forms to fill.</p>
+        <div class="mc__actions">
+          <a href="#" class="btn-mc">Check eligibility</a>
+          <a href="#" class="btn-mc-out">Learn more</a>
+        </div>
       </div>
-      <div class="mc-banner__body">
-        <p class="mc-banner__eyebrow">Mastercard Partnership</p>
-        <h2 class="mc-banner__h2">Premium cardholder benefits, activated automatically.</h2>
-        <p class="mc-banner__p">If you hold a Mastercard World Elite, Platinum, Gold or Standard card — your discounts and vouchers are verified at the point of offer. No codes to enter, no forms to fill.</p>
-      </div>
-      <div class="mc-banner__badge">
-        <span class="mc-banner__amount">€87</span>
-        <span class="mc-banner__sublabel">avg. savings</span>
+      <div class="mc__logo">
+        <div class="mc__stat">
+          <svg width="72" height="44" viewBox="0 0 68 42" fill="none" style="margin:0 auto 16px">
+            <circle cx="25" cy="21" r="21" fill="#eb001b" opacity=".88"/>
+            <circle cx="43" cy="21" r="21" fill="#f79e1b" opacity=".88"/>
+            <path d="M34 4a21 21 0 0 1 0 34A21 21 0 0 1 34 4Z" fill="#ff5f00" opacity=".82"/>
+          </svg>
+          <span class="mc__amt">€87</span>
+          <span class="mc__lbl">avg. savings</span>
+        </div>
       </div>
     </div>
   </div>
@@ -850,13 +630,13 @@ body {
 
 <!-- FOOTER CTA -->
 <section class="fcta">
-  <div class="wrap">
+  <div class="w">
     <div class="fcta__card">
-      <h2 class="fcta__h2">Your next trip deserves<br>to be elevated.</h2>
+      <h2 class="fcta__h2">Your next trip<br>deserves better.</h2>
       <p class="fcta__sub">Join thousands of premium travellers accessing exclusive airline offers through Altitude.</p>
       <div class="fcta__btns">
-        <a href="#" class="btn-primary" style="font-size:15px; padding:13px 28px;">Get started — it's free</a>
-        <a href="#" class="btn-ghost" style="font-size:15px; padding:12px 24px;">Learn more</a>
+        <a href="#" class="btn-fcta">Get started — it's free</a>
+        <a href="#" class="btn-fcta-g">Learn more</a>
       </div>
     </div>
   </div>
@@ -864,43 +644,28 @@ body {
 
 <!-- FOOTER -->
 <footer class="footer">
-  <div class="wrap">
-    <div class="footer__inner">
-      <div class="footer__logo">
-        <svg width="16" height="16" viewBox="0 0 22 22" fill="none">
-          <path d="M11 2L3 19h16L11 2z" fill="none" stroke="#1d5fe8" stroke-width="1.6" stroke-linejoin="round"/>
-        </svg>
-        Altitude
-      </div>
-      <nav class="footer__links">
-        <a href="#">Privacy</a>
-        <a href="#">Terms</a>
-        <a href="#">Support</a>
-        <a href="#">Partners</a>
-      </nav>
-      <span class="footer__copy">© 2025 Altitude</span>
+  <div class="footer__in">
+    <div class="footer__logo">
+      <svg width="16" height="16" viewBox="0 0 22 22" fill="none">
+        <path d="M11 2L3 19h16L11 2z" fill="none" stroke="#0f0f0e" stroke-width="1.8" stroke-linejoin="round"/>
+      </svg>
+      Altitude
     </div>
+    <nav class="footer__links">
+      <a href="#">Privacy</a>
+      <a href="#">Terms</a>
+      <a href="#">Support</a>
+      <a href="#">Partners</a>
+    </nav>
+    <span class="footer__copy">© 2025 Altitude</span>
   </div>
 </footer>
 
 <script>
-  // Header: transparent over hero, solid after scroll
-  const hdr = document.querySelector('.hdr');
-  function updateHeader() {
-    if (window.scrollY > 60) {
-      hdr.classList.add('hdr--solid');
-    } else {
-      hdr.classList.remove('hdr--solid');
-    }
-  }
-  window.addEventListener('scroll', updateHeader, { passive: true });
-  updateHeader();
-
-  // Tab switcher
-  document.querySelectorAll('.hero__tab').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.hero__tab').forEach(b => b.classList.remove('hero__tab--active'));
-      btn.classList.add('hero__tab--active');
+  document.querySelectorAll('.s-tab').forEach(t => {
+    t.addEventListener('click', () => {
+      document.querySelectorAll('.s-tab').forEach(x => x.classList.remove('s-tab--active'));
+      t.classList.add('s-tab--active');
     });
   });
 </script>
