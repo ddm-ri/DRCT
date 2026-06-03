@@ -6,211 +6,731 @@
   <title>Business Upgrade — Premium Travel</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap" rel="stylesheet">
   <style>
+/* ============================================================
+   GRADIENT PREMIUM TRAVEL — Light Editorial Direction
+   Inspired by: forhers.com, Apple editorial, luxury concierge
+============================================================ */
+
 :root {
-  --prem-bg-from:      #0d0a1a;
-  --prem-bg-mid:       #150d2e;
-  --prem-bg-to:        #1a0e28;
-  --grad-main:         linear-gradient(135deg, #6d28d9 0%, #9333ea 35%, #c026d3 65%, #e11d48 100%);
-  --grad-soft:         linear-gradient(135deg, #4f46e5 0%, #7c3aed 40%, #a21caf 75%, #be185d 100%);
-  --grad-pearl:        linear-gradient(135deg, rgba(255,255,255,.12) 0%, rgba(167,139,250,.08) 30%, rgba(244,114,182,.08) 70%, rgba(255,255,255,.04) 100%);
-  --glass-bg:          rgba(255,255,255,.055);
-  --glass-border:      rgba(255,255,255,.12);
-  --glass-tinted-bg:   rgba(109,40,217,.12);
-  --glass-tinted-border: rgba(167,139,250,.25);
-  --text-primary:      #f5f3ff;
-  --text-secondary:    rgba(245,243,255,.6);
-  --text-muted:        rgba(245,243,255,.4);
-  --accent:            #c084fc;
-  --shadow-card:       0 8px 32px rgba(0,0,0,.35), 0 1px 0 rgba(255,255,255,.06) inset;
-  --shadow-cta:        0 12px 40px rgba(168,85,247,.5), 0 2px 8px rgba(232,29,72,.3);
-  --container:         1010px;
-  --radius-card:       16px;
-  --radius-btn:        10px;
-  --font:              'IBM Plex Sans', 'Roboto', sans-serif;
+  /* Page background — warm off-white, breathes */
+  --bg-page:          #faf9f7;
+  --bg-page-warm:     #f7f4f0;
+
+  /* Card surfaces — soft pastel gradient per card type */
+  --card-booking:     linear-gradient(150deg, #ffffff 0%, #f3f0ff 60%, #fce7f3 100%);
+  --card-mc:          linear-gradient(135deg, #fff8f0 0%, #fef3e8 100%);
+  --card-seg:         linear-gradient(160deg, #ffffff 0%, #f0f4ff 50%, #fdf2fb 100%);
+  --card-inc:         linear-gradient(145deg, #ffffff 0%, #f5f0ff 100%);
+  --card-sidebar:     linear-gradient(160deg, #ffffff 0%, #f0efff 40%, #fce8f4 100%);
+
+  /* Borders — barely visible, warm */
+  --border-soft:      rgba(180, 160, 200, 0.18);
+  --border-warm:      rgba(220, 180, 160, 0.22);
+
+  /* Gradient accent — sunset, muted & sophisticated */
+  --grad-accent:      linear-gradient(135deg, #7c6fcd 0%, #a855b5 45%, #c2507a 80%, #d4705a 100%);
+  --grad-accent-soft: linear-gradient(135deg, #9d8fda 0%, #b87cc0 50%, #d4768e 100%);
+  --grad-text:        linear-gradient(120deg, #6d5fc4 0%, #a44fa0 50%, #c25070 100%);
+  --grad-cta:         linear-gradient(135deg, #7b6bcb 0%, #a44fa0 50%, #c2507a 100%);
+
+  /* Text */
+  --text-primary:     #1a1523;
+  --text-secondary:   #6b6478;
+  --text-muted:       #a099b0;
+  --text-accent:      #7c6fcd;
+
+  /* Shadows — soft, warm, layered */
+  --shadow-sm:        0 2px 8px rgba(100, 80, 140, 0.08);
+  --shadow-card:      0 4px 24px rgba(100, 80, 140, 0.10), 0 1px 4px rgba(100, 80, 140, 0.06);
+  --shadow-card-hover:0 8px 40px rgba(100, 80, 140, 0.14), 0 2px 8px rgba(100, 80, 140, 0.08);
+  --shadow-cta:       0 8px 32px rgba(124, 111, 205, 0.38), 0 2px 8px rgba(194, 80, 122, 0.2);
+
+  /* Layout */
+  --container:        1010px;
+  --radius-card:      18px;
+  --radius-btn:       10px;
+  --font:             'IBM Plex Sans', -apple-system, sans-serif;
 }
 
+/* ---- Reset ---- */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { -webkit-font-smoothing: antialiased; }
+html { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
 img { display: block; max-width: 100%; }
 button { cursor: pointer; border: none; background: none; font: inherit; }
 a { text-decoration: none; }
 
+/* ---- Base ---- */
 body {
   font-family: var(--font);
-  background-color: var(--prem-bg-from);
+  background-color: var(--bg-page);
+  /* Very subtle warm pearl wash across the page */
   background-image:
-    radial-gradient(ellipse 80% 60% at 20% -10%, rgba(109,40,217,.35) 0%, transparent 60%),
-    radial-gradient(ellipse 60% 50% at 85% 5%,  rgba(232,29,72,.2)  0%, transparent 55%),
-    radial-gradient(ellipse 100% 80% at 50% 100%, rgba(76,29,149,.25) 0%, transparent 60%),
-    linear-gradient(160deg, var(--prem-bg-from) 0%, var(--prem-bg-mid) 50%, var(--prem-bg-to) 100%);
+    radial-gradient(ellipse 70% 40% at 15% 0%,   rgba(180, 160, 240, 0.10) 0%, transparent 65%),
+    radial-gradient(ellipse 50% 35% at 90% 10%,  rgba(220, 160, 190, 0.08) 0%, transparent 60%),
+    radial-gradient(ellipse 80% 50% at 50% 100%, rgba(200, 180, 240, 0.07) 0%, transparent 60%);
   background-attachment: fixed;
   min-height: 100vh;
   color: var(--text-primary);
   line-height: 1;
 }
 
-.ambient { position: fixed; inset: 0; pointer-events: none; overflow: hidden; z-index: 0; }
-.ambient__blob { position: absolute; border-radius: 50%; filter: blur(80px); opacity: .18; }
-.ambient__blob--1 { width: 600px; height: 600px; top: -200px; left: -100px; background: radial-gradient(circle, #7c3aed, transparent 70%); animation: blobDrift 18s ease-in-out infinite alternate; }
-.ambient__blob--2 { width: 500px; height: 500px; top: 30%; right: -150px; background: radial-gradient(circle, #db2777, transparent 70%); animation: blobDrift 22s ease-in-out 4s infinite alternate-reverse; }
-.ambient__blob--3 { width: 700px; height: 400px; bottom: -100px; left: 20%; background: radial-gradient(circle, #4f46e5, transparent 70%); animation: blobDrift 26s ease-in-out 8s infinite alternate; }
-@keyframes blobDrift { from { transform: translate(0,0) scale(1); } to { transform: translate(40px,30px) scale(1.08); } }
+/* ---- Scrollbar ---- */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: #f0edf8; }
+::-webkit-scrollbar-thumb { background: linear-gradient(180deg, #b8aee8, #d4899e); border-radius: 3px; }
 
-.glass-card {
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
-  border-radius: var(--radius-card);
-  backdrop-filter: blur(20px) saturate(160%);
-  -webkit-backdrop-filter: blur(20px) saturate(160%);
-  box-shadow: var(--shadow-card);
-  position: relative;
-  overflow: hidden;
+/* ============================================================
+   HEADER
+============================================================ */
+.uh {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  height: 56px;
+  background: rgba(250, 249, 247, 0.88);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid rgba(180, 160, 210, 0.15);
 }
-.glass-card::before { content: ""; position: absolute; inset: 0; background: var(--grad-pearl); border-radius: inherit; pointer-events: none; z-index: 0; }
-.glass-card > * { position: relative; z-index: 1; }
-.glass-card--tinted { background: var(--glass-tinted-bg); border-color: var(--glass-tinted-border); }
-.glass-card--sidebar { position: sticky; top: 80px; }
 
-.uh { position: sticky; top: 0; z-index: 10; height: 58px; background: rgba(13,10,26,.75); backdrop-filter: blur(24px) saturate(150%); -webkit-backdrop-filter: blur(24px) saturate(150%); border-bottom: 1px solid rgba(255,255,255,.08); }
-.uh__inner { max-width: var(--container); margin: 0 auto; height: 100%; display: flex; align-items: center; justify-content: space-between; padding: 0 24px; }
+.uh__inner {
+  max-width: var(--container);
+  margin: 0 auto;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+}
+
 .uh__logo { display: flex; align-items: center; }
-.uh__signin { font-size: 12px; font-weight: 600; color: var(--text-secondary); letter-spacing: .4px; transition: color .2s; }
-.uh__signin:hover { color: var(--accent); }
 
-.pg { position: relative; z-index: 1; padding: 32px 24px 64px; }
-.pg__inner { max-width: var(--container); margin: 0 auto; display: grid; grid-template-columns: 1fr 320px; gap: 24px; align-items: start; }
-@media (max-width: 820px) { .pg__inner { grid-template-columns: 1fr; } .sb { order: -1; } .glass-card--sidebar { position: static; } }
+.uh__signin {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  letter-spacing: .3px;
+  transition: color .2s;
+}
+.uh__signin:hover { color: var(--text-accent); }
 
-.pg__left { display: flex; flex-direction: column; gap: 16px; }
+/* ============================================================
+   PAGE GRID
+============================================================ */
+.pg {
+  padding: 32px 24px 72px;
+}
 
-.bk { padding: 24px 28px; }
-.bk__title { font-size: 22px; font-weight: 700; color: var(--text-primary); letter-spacing: -.3px; margin-bottom: 20px; }
-.bk__meta { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
-.bk__airline { display: flex; align-items: center; gap: 10px; flex: 1; }
-.bk__airline-logo { flex-shrink: 0; }
-.bk__airline-name { font-size: 11px; font-weight: 700; letter-spacing: .8px; text-transform: uppercase; color: var(--text-secondary); }
-.bk__ref { display: flex; flex-direction: column; gap: 3px; }
-.bk__ref-label { font-size: 10px; text-transform: uppercase; letter-spacing: .5px; color: var(--text-muted); }
-.bk__ref-val { font-size: 13px; font-weight: 700; color: var(--text-primary); }
-.bk__ref-val--mono { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--accent); }
-.bk__route { display: flex; align-items: center; gap: 12px; margin-top: 20px; }
-.bk__city { font-size: 18px; font-weight: 700; color: var(--text-primary); }
+.pg__inner {
+  max-width: var(--container);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 308px;
+  gap: 20px;
+  align-items: start;
+}
+
+@media (max-width: 820px) {
+  .pg__inner { grid-template-columns: 1fr; }
+  .sb { order: -1; }
+  .glass-card--sidebar { position: static; }
+}
+
+.pg__left { display: flex; flex-direction: column; gap: 14px; }
+
+/* ============================================================
+   CARD BASE — pastel gradient surfaces
+============================================================ */
+.pcard {
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  transition: box-shadow .3s ease;
+  overflow: hidden;
+  position: relative;
+}
+.pcard:hover { box-shadow: var(--shadow-card-hover); }
+
+/* Subtle inner highlight on top edge */
+.pcard::after {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,.9) 40%, rgba(255,255,255,.9) 60%, transparent 100%);
+  pointer-events: none;
+}
+
+/* ============================================================
+   YOUR BOOKING CARD
+============================================================ */
+.bk {
+  background: var(--card-booking);
+  border: 1px solid var(--border-soft);
+  padding: 28px 30px 26px;
+}
+
+.bk__title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -.4px;
+  margin-bottom: 22px;
+}
+
+.bk__meta {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.bk__airline {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+}
+
+.bk__airline-name {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .9px;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.bk__ref { display: flex; flex-direction: column; gap: 4px; }
+
+.bk__ref-label {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.bk__ref-val {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.bk__ref-val--mono {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  background: var(--grad-text);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.bk__route {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 22px;
+}
+
+.bk__city {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
 .bk__arrow { flex-shrink: 0; }
-.bk__sub { margin-top: 6px; font-size: 12px; color: var(--text-muted); }
 
-.mc { padding: 18px 24px; display: flex; align-items: center; gap: 16px; }
+.bk__sub {
+  margin-top: 7px;
+  font-size: 12px;
+  color: var(--text-muted);
+  font-weight: 400;
+}
+
+/* ============================================================
+   MASTERCARD BANNER
+============================================================ */
+.mc {
+  background: var(--card-mc);
+  border: 1px solid var(--border-warm);
+  padding: 18px 22px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
 .mc__logo { flex-shrink: 0; }
-.mc__text { flex: 1; font-size: 12px; line-height: 1.6; color: var(--text-secondary); }
+
+.mc__text {
+  flex: 1;
+  font-size: 12px;
+  line-height: 1.65;
+  color: var(--text-secondary);
+}
 .mc__text strong { color: var(--text-primary); font-weight: 600; }
+
 .mc__badge { flex-shrink: 0; text-align: center; }
-.mc__amount { display: block; font-size: 22px; font-weight: 700; background: var(--grad-main); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-.mc__label { display: block; font-size: 9px; font-weight: 700; letter-spacing: .8px; text-transform: uppercase; color: var(--accent); margin-top: 2px; }
 
-.seg { padding: 24px 28px; }
-.seg__head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; }
-.seg__title { font-size: 17px; font-weight: 700; color: var(--text-primary); }
+.mc__amount {
+  display: block;
+  font-size: 22px;
+  font-weight: 700;
+  background: var(--grad-text);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
 
+.mc__label {
+  display: block;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .8px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-top: 3px;
+}
+
+/* ============================================================
+   SEGMENT SELECTOR
+============================================================ */
+.seg {
+  background: var(--card-seg);
+  border: 1px solid var(--border-soft);
+  padding: 26px 30px;
+}
+
+.seg__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 22px;
+}
+
+.seg__title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -.2px;
+}
+
+/* Toggle */
 .toggle { display: flex; align-items: center; gap: 8px; cursor: pointer; user-select: none; }
 .toggle__input { display: none; }
-.toggle__track { width: 38px; height: 22px; border-radius: 11px; background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.15); position: relative; transition: background .25s, border-color .25s; }
-.toggle__thumb { position: absolute; top: 3px; left: 3px; width: 14px; height: 14px; border-radius: 50%; background: var(--text-muted); transition: transform .25s, background .25s; }
-.toggle__input:checked + .toggle__track { background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 40%, #a21caf 75%, #be185d 100%); border-color: transparent; }
-.toggle__input:checked + .toggle__track .toggle__thumb { transform: translateX(16px); background: #fff; box-shadow: 0 0 8px rgba(167,139,250,.7); }
-.toggle__label { font-size: 12px; color: var(--text-secondary); }
 
-.seg__item { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 18px 0; border-bottom: 1px solid rgba(255,255,255,.07); }
+.toggle__track {
+  width: 36px;
+  height: 20px;
+  border-radius: 10px;
+  background: #e2ddf0;
+  border: 1px solid rgba(160,140,200,.25);
+  position: relative;
+  transition: background .25s;
+}
+
+.toggle__thumb {
+  position: absolute;
+  top: 3px; left: 3px;
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 1px 4px rgba(100,80,160,.2);
+  transition: transform .25s;
+}
+
+.toggle__input:checked + .toggle__track {
+  background: linear-gradient(135deg, #9d8fda, #c47ab8);
+  border-color: transparent;
+}
+.toggle__input:checked + .toggle__track .toggle__thumb {
+  transform: translateX(16px);
+}
+
+.toggle__label {
+  font-size: 12px;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+/* Segment row */
+.seg__item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 0;
+  border-bottom: 1px solid rgba(180, 160, 210, 0.12);
+}
 .seg__item:last-child { border-bottom: none; padding-bottom: 0; }
 .seg__item:first-of-type { padding-top: 0; }
+
 .seg__flight { flex: 1; }
+
 .seg__times { display: flex; align-items: baseline; gap: 8px; }
-.seg__dep, .seg__arr { font-size: 14px; font-weight: 600; color: var(--text-primary); }
-.seg__dur { font-size: 11px; color: var(--text-muted); }
-.seg__codes { display: flex; align-items: center; gap: 8px; margin-top: 4px; font-size: 11px; font-weight: 700; letter-spacing: .5px; color: var(--text-muted); text-transform: uppercase; }
-.seg__dot-line { flex: 1; height: 1px; max-width: 60px; background: linear-gradient(90deg, rgba(167,139,250,.4), rgba(244,114,182,.4)); border-radius: 1px; }
-.seg__type { font-size: 11px; color: var(--text-muted); margin-top: 4px; }
-.seg__offer { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; flex-shrink: 0; }
-.seg__class { font-size: 10px; font-weight: 600; letter-spacing: .5px; text-transform: uppercase; color: var(--text-muted); }
-.seg__price { font-size: 16px; font-weight: 700; color: var(--text-primary); }
-.seg__btn { display: flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 8px; font-size: 12px; font-weight: 700; letter-spacing: .4px; color: var(--text-primary); background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.15); transition: background .2s, border-color .2s, box-shadow .2s; }
-.seg__btn:hover { background: rgba(167,139,250,.2); border-color: rgba(167,139,250,.4); box-shadow: 0 0 16px rgba(167,139,250,.3); }
 
-.inc { padding: 24px 28px; }
-.inc__title { font-size: 17px; font-weight: 700; color: var(--text-primary); margin-bottom: 20px; }
-.inc__photo-wrap { position: relative; border-radius: 10px; overflow: hidden; margin-bottom: 24px; }
-.inc__photo { width: 100%; height: 230px; object-fit: cover; display: block; transition: transform .6s ease; }
+.seg__dep, .seg__arr {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.seg__dur {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.seg__codes {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 5px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .6px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.seg__dot-line {
+  flex: 1;
+  height: 1px;
+  max-width: 52px;
+  background: linear-gradient(90deg, rgba(160,140,210,.35), rgba(200,140,170,.35));
+  border-radius: 1px;
+}
+
+.seg__type {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+.seg__offer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 7px;
+  flex-shrink: 0;
+}
+
+.seg__class {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .5px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.seg__price {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.seg__btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .3px;
+  color: var(--text-accent);
+  background: rgba(124, 111, 205, 0.08);
+  border: 1px solid rgba(124, 111, 205, 0.2);
+  transition: background .2s, border-color .2s, color .2s, box-shadow .2s;
+}
+.seg__btn:hover {
+  background: rgba(124, 111, 205, 0.14);
+  border-color: rgba(124, 111, 205, 0.35);
+  box-shadow: 0 4px 16px rgba(124, 111, 205, 0.15);
+  color: #5d4faa;
+}
+
+/* ============================================================
+   WHATS INCLUDED
+============================================================ */
+.inc {
+  background: var(--card-inc);
+  border: 1px solid var(--border-soft);
+  padding: 26px 30px;
+}
+
+.inc__title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -.2px;
+  margin-bottom: 20px;
+}
+
+.inc__photo-wrap {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 24px;
+  box-shadow: 0 4px 20px rgba(100, 80, 140, 0.12);
+}
+
+.inc__photo {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  display: block;
+  transition: transform .7s ease;
+}
 .inc__photo-wrap:hover .inc__photo { transform: scale(1.03); }
-.inc__photo-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, transparent 40%, rgba(13,10,26,.6) 100%); z-index: 1; pointer-events: none; }
-.inc__photo-wrap::after { content: ""; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(109,40,217,.15) 0%, transparent 50%, rgba(190,24,93,.1) 100%); z-index: 2; pointer-events: none; }
-.inc__features { display: grid; grid-template-columns: 1fr 1fr; gap: 18px 24px; }
+
+.inc__photo-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 35%, rgba(30,20,50,.4) 100%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Soft violet-rose wash over photo */
+.inc__photo-wrap::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(124,111,205,.12) 0%, transparent 55%, rgba(194,80,122,.08) 100%);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.inc__features {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px 28px;
+}
 @media (max-width: 500px) { .inc__features { grid-template-columns: 1fr; } }
-.inc__feat { display: flex; align-items: flex-start; gap: 10px; }
+
+.inc__feat { display: flex; align-items: flex-start; gap: 11px; }
 .inc__icon { flex-shrink: 0; margin-top: 2px; }
-.inc__feat strong { display: block; font-size: 13px; font-weight: 600; color: var(--text-primary); margin-bottom: 2px; }
-.inc__feat p { font-size: 11px; color: var(--text-muted); line-height: 1.5; }
 
-.sb__card { padding: 24px; }
-.sb__title { font-size: 16px; font-weight: 700; color: var(--text-primary); margin-bottom: 20px; }
+.inc__feat strong {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 3px;
+}
+.inc__feat p {
+  font-size: 11px;
+  color: var(--text-muted);
+  line-height: 1.55;
+}
+
+/* ============================================================
+   SIDEBAR
+============================================================ */
+.sb__card {
+  background: var(--card-sidebar);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  padding: 26px;
+  position: sticky;
+  top: 76px;
+  overflow: hidden;
+}
+
+/* Top pearl sheen line */
+.sb__card::after {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.9) 40%, rgba(255,255,255,.9) 60%, transparent);
+  pointer-events: none;
+}
+
+.sb__title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 20px;
+  letter-spacing: -.1px;
+}
+
+/* Legs */
 .sb__legs { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px; }
-.sb__leg { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
-.sb__leg-date { font-size: 11px; color: var(--text-muted); width: 42px; flex-shrink: 0; }
-.sb__leg-route { display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; color: var(--text-secondary); flex: 1; }
-.sb__leg-price { font-size: 13px; font-weight: 700; color: var(--text-primary); }
-.sb__pax { display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: var(--text-secondary); margin-bottom: 16px; }
-.sb__pax-count { font-weight: 700; color: var(--text-primary); }
-.sb__divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(255,255,255,.12) 30%, rgba(255,255,255,.12) 70%, transparent); margin-bottom: 16px; }
-.sb__total { display: grid; grid-template-columns: 1fr auto; grid-template-rows: auto auto; gap: 2px 8px; margin-bottom: 20px; }
-.sb__total > span:first-child { font-size: 14px; font-weight: 600; color: var(--text-primary); grid-row: 1; grid-column: 1; }
-.sb__total-note { font-size: 10px; color: var(--text-muted); grid-row: 2; grid-column: 1; }
-.sb__total-amount { font-size: 26px; font-weight: 700; background: var(--grad-main); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; grid-row: 1 / 3; grid-column: 2; align-self: center; line-height: 1; }
-.sb__perks { list-style: none; display: flex; flex-direction: column; gap: 9px; margin-bottom: 22px; }
-.sb__perks li { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--text-secondary); line-height: 1.4; }
-.sb__cta { width: 100%; padding: 13px; border-radius: var(--radius-btn); font-size: 14px; font-weight: 700; letter-spacing: .4px; color: #fff; background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 40%, #a21caf 75%, #be185d 100%); box-shadow: var(--shadow-cta); transition: opacity .2s, transform .15s, box-shadow .2s; position: relative; overflow: hidden; margin-bottom: 12px; }
-.sb__cta::after { content: ""; position: absolute; top: 0; left: -100%; width: 60%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,.2), transparent); transition: left .5s ease; }
-.sb__cta:hover::after { left: 160%; }
-.sb__cta:hover { opacity: .92; transform: translateY(-1px); box-shadow: 0 16px 48px rgba(168,85,247,.65), 0 2px 10px rgba(232,29,72,.4); }
-.sb__cta:active { transform: translateY(0); }
-.sb__note { font-size: 10px; color: var(--text-muted); text-align: center; line-height: 1.5; }
 
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: rgba(255,255,255,.03); }
-::-webkit-scrollbar-thumb { background: linear-gradient(180deg, #7c3aed, #be185d); border-radius: 3px; }
+.sb__leg { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+
+.sb__leg-date {
+  font-size: 11px;
+  color: var(--text-muted);
+  width: 40px;
+  flex-shrink: 0;
+}
+
+.sb__leg-route {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  flex: 1;
+}
+
+.sb__leg-price {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+/* Pax */
+.sb__pax {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-bottom: 16px;
+}
+.sb__pax-count { font-weight: 700; color: var(--text-primary); }
+
+/* Divider */
+.sb__divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(160,140,200,.2) 30%, rgba(160,140,200,.2) 70%, transparent);
+  margin-bottom: 16px;
+}
+
+/* Total */
+.sb__total {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-rows: auto auto;
+  gap: 2px 8px;
+  margin-bottom: 20px;
+}
+
+.sb__total > span:first-child {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+  grid-row: 1; grid-column: 1;
+}
+.sb__total-note {
+  font-size: 10px;
+  color: var(--text-muted);
+  grid-row: 2; grid-column: 1;
+}
+.sb__total-amount {
+  font-size: 26px;
+  font-weight: 700;
+  background: var(--grad-text);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  grid-row: 1 / 3; grid-column: 2;
+  align-self: center;
+  line-height: 1;
+}
+
+/* Perks */
+.sb__perks {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  margin-bottom: 24px;
+}
+.sb__perks li {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.45;
+}
+
+/* CTA */
+.sb__cta {
+  width: 100%;
+  padding: 13px;
+  border-radius: var(--radius-btn);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: .3px;
+  color: #fff;
+  background: var(--grad-cta);
+  box-shadow: var(--shadow-cta);
+  transition: opacity .2s, transform .15s, box-shadow .2s;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+
+/* Shine sweep */
+.sb__cta::before {
+  content: "";
+  position: absolute;
+  top: 0; left: -120%;
+  width: 55%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.22), transparent);
+  transition: left .55s ease;
+}
+.sb__cta:hover::before { left: 170%; }
+
+.sb__cta:hover {
+  opacity: .93;
+  transform: translateY(-1px);
+  box-shadow: 0 12px 36px rgba(124,111,205,.45), 0 2px 8px rgba(194,80,122,.25);
+}
+.sb__cta:active { transform: translateY(0); }
+
+.sb__note {
+  font-size: 10px;
+  color: var(--text-muted);
+  text-align: center;
+  line-height: 1.55;
+}
   </style>
 </head>
 <body>
 
-<div class="ambient" aria-hidden="true">
-  <div class="ambient__blob ambient__blob--1"></div>
-  <div class="ambient__blob ambient__blob--2"></div>
-  <div class="ambient__blob ambient__blob--3"></div>
-</div>
-
+<!-- HEADER -->
 <header class="uh">
   <div class="uh__inner">
     <a href="#" class="uh__logo">
-      <svg width="88" height="20" viewBox="0 0 88 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <text x="0" y="16" font-family="IBM Plex Sans,sans-serif" font-size="13" font-weight="700" letter-spacing="2" fill="url(#logoGrad)">ALTITUDE</text>
-        <defs><linearGradient id="logoGrad" x1="0" y1="0" x2="88" y2="0" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#a78bfa"/><stop offset="100%" stop-color="#f472b6"/></linearGradient></defs>
+      <svg width="82" height="18" viewBox="0 0 82 18" fill="none">
+        <text x="0" y="14" font-family="IBM Plex Sans,sans-serif" font-size="12" font-weight="700" letter-spacing="2.5" fill="url(#logoG)">ALTITUDE</text>
+        <defs>
+          <linearGradient id="logoG" x1="0" y1="0" x2="82" y2="0" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#8b7ed4"/>
+            <stop offset="100%" stop-color="#c25880"/>
+          </linearGradient>
+        </defs>
       </svg>
     </a>
     <a href="#" class="uh__signin">ddm@drct.aero</a>
   </div>
 </header>
 
+<!-- PAGE -->
 <main class="pg">
   <div class="pg__inner">
 
+    <!-- LEFT COLUMN -->
     <div class="pg__left">
 
-      <section class="bk glass-card">
+      <!-- YOUR BOOKING -->
+      <section class="bk pcard">
         <h1 class="bk__title">Your booking</h1>
         <div class="bk__meta">
           <div class="bk__airline">
             <div class="bk__airline-logo">
-              <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="16" fill="url(#tkGrad)"/><text x="16" y="21" text-anchor="middle" font-family="IBM Plex Sans,sans-serif" font-size="9" font-weight="700" fill="#fff">TK</text><defs><linearGradient id="tkGrad" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#e11d48"/><stop offset="100%" stop-color="#be123c"/></linearGradient></defs></svg>
+              <svg width="30" height="30" viewBox="0 0 30 30" fill="none"><circle cx="15" cy="15" r="15" fill="url(#tkG)"/><text x="15" y="20" text-anchor="middle" font-family="IBM Plex Sans,sans-serif" font-size="8.5" font-weight="700" fill="#fff">TK</text><defs><linearGradient id="tkG" x1="0" y1="0" x2="30" y2="30" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#e11d48"/><stop offset="100%" stop-color="#9f1239"/></linearGradient></defs></svg>
             </div>
-            <span class="bk__airline-name">TURKISH AIRLINES</span>
+            <span class="bk__airline-name">Turkish Airlines</span>
           </div>
           <div class="bk__ref">
             <span class="bk__ref-label">Passenger</span>
@@ -223,15 +743,23 @@ body {
         </div>
         <div class="bk__route">
           <span class="bk__city">Warsaw Modlin</span>
-          <svg class="bk__arrow" width="30" height="12" viewBox="0 0 30 12" fill="none"><path d="M0 6h26m0 0-5-5m5 5-5 5" stroke="url(#arrGrad)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><defs><linearGradient id="arrGrad" x1="0" y1="0" x2="30" y2="0" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#818cf8"/><stop offset="100%" stop-color="#e879f9"/></linearGradient></defs></svg>
+          <svg class="bk__arrow" width="28" height="11" viewBox="0 0 28 11" fill="none">
+            <path d="M0 5.5h24m0 0-4.5-4.5M24 5.5l-4.5 4.5" stroke="url(#arrG)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+            <defs><linearGradient id="arrG" x1="0" y1="0" x2="28" y2="0" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#9d8fda"/><stop offset="100%" stop-color="#d4788e"/></linearGradient></defs>
+          </svg>
           <span class="bk__city">Lisbon</span>
         </div>
         <p class="bk__sub">Return · 19 May – 31 May · 1 Passenger</p>
       </section>
 
-      <div class="mc glass-card glass-card--tinted">
+      <!-- MASTERCARD BANNER -->
+      <div class="mc pcard">
         <div class="mc__logo">
-          <svg width="36" height="22" viewBox="0 0 36 22" fill="none"><circle cx="13" cy="11" r="11" fill="#eb001b" opacity=".9"/><circle cx="23" cy="11" r="11" fill="#f79e1b" opacity=".9"/><path d="M18 4.5a11 11 0 0 1 0 13 11 11 0 0 1 0-13Z" fill="#ff5f00" opacity=".85"/></svg>
+          <svg width="36" height="22" viewBox="0 0 36 22" fill="none">
+            <circle cx="13" cy="11" r="11" fill="#eb001b" opacity=".85"/>
+            <circle cx="23" cy="11" r="11" fill="#f79e1b" opacity=".85"/>
+            <path d="M18 4a11 11 0 0 1 0 14A11 11 0 0 1 18 4Z" fill="#ff5f00" opacity=".8"/>
+          </svg>
         </div>
         <p class="mc__text"><strong>Mastercard Premium cardholders may save up to €87.</strong> Eligible cards: World Elite, Platinum, Gold, Standard. Discount is verified automatically when you enter your card at checkout.</p>
         <div class="mc__badge">
@@ -240,7 +768,8 @@ body {
         </div>
       </div>
 
-      <section class="seg glass-card">
+      <!-- SEGMENTS -->
+      <section class="seg pcard">
         <div class="seg__head">
           <h2 class="seg__title">Select segments to upgrade</h2>
           <label class="toggle">
@@ -317,7 +846,8 @@ body {
         </div>
       </section>
 
-      <section class="inc glass-card">
+      <!-- WHATS INCLUDED -->
+      <section class="inc pcard">
         <h2 class="inc__title">Whats included in Business class</h2>
         <div class="inc__photo-wrap">
           <div class="inc__photo-overlay"></div>
@@ -325,35 +855,37 @@ body {
         </div>
         <div class="inc__features">
           <div class="inc__feat">
-            <svg class="inc__icon" width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M2 12l4-3 3 2 4-5 3 2" stroke="url(#fGrad1)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><defs><linearGradient id="fGrad1" x1="0" y1="0" x2="18" y2="0" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#818cf8"/><stop offset="100%" stop-color="#c084fc"/></linearGradient></defs></svg>
+            <svg class="inc__icon" width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M2 12l4-3 3 2 4-5 3 2" stroke="url(#iG1)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><defs><linearGradient id="iG1" x1="0" y1="0" x2="18" y2="0" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#9d8fda"/><stop offset="100%" stop-color="#c07ab0"/></linearGradient></defs></svg>
             <div><strong>Lie-flat seats</strong><p>Full flat on long-haul</p></div>
           </div>
           <div class="inc__feat">
-            <svg class="inc__icon" width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="6" stroke="url(#fGrad2)" stroke-width="1.5"/><path d="M9 6v3l2 2" stroke="url(#fGrad2)" stroke-width="1.5" stroke-linecap="round"/><defs><linearGradient id="fGrad2" x1="0" y1="0" x2="18" y2="0" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#818cf8"/><stop offset="100%" stop-color="#c084fc"/></linearGradient></defs></svg>
+            <svg class="inc__icon" width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="6" stroke="url(#iG2)" stroke-width="1.5"/><path d="M9 6v3l2 2" stroke="url(#iG2)" stroke-width="1.5" stroke-linecap="round"/><defs><linearGradient id="iG2" x1="0" y1="0" x2="18" y2="0" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#9d8fda"/><stop offset="100%" stop-color="#c07ab0"/></linearGradient></defs></svg>
             <div><strong>Premium dining</strong><p>Multi-course meal service</p></div>
           </div>
           <div class="inc__feat">
-            <svg class="inc__icon" width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="3" y="5" width="12" height="9" rx="2" stroke="url(#fGrad3)" stroke-width="1.5"/><path d="M6 5V4a3 3 0 0 1 6 0v1" stroke="url(#fGrad3)" stroke-width="1.5"/><defs><linearGradient id="fGrad3" x1="0" y1="0" x2="18" y2="0" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#818cf8"/><stop offset="100%" stop-color="#c084fc"/></linearGradient></defs></svg>
+            <svg class="inc__icon" width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="3" y="5" width="12" height="9" rx="2" stroke="url(#iG3)" stroke-width="1.5"/><path d="M6 5V4a3 3 0 0 1 6 0v1" stroke="url(#iG3)" stroke-width="1.5"/><defs><linearGradient id="iG3" x1="0" y1="0" x2="18" y2="0" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#9d8fda"/><stop offset="100%" stop-color="#c07ab0"/></linearGradient></defs></svg>
             <div><strong>Lounge access</strong><p>All lounges at boarding</p></div>
           </div>
           <div class="inc__feat">
-            <svg class="inc__icon" width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 9a5 5 0 0 1 10 0" stroke="url(#fGrad4)" stroke-width="1.5" stroke-linecap="round"/><circle cx="9" cy="12" r="2" stroke="url(#fGrad4)" stroke-width="1.5"/><defs><linearGradient id="fGrad4" x1="0" y1="0" x2="18" y2="0" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#818cf8"/><stop offset="100%" stop-color="#c084fc"/></linearGradient></defs></svg>
+            <svg class="inc__icon" width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 9a5 5 0 0 1 10 0" stroke="url(#iG4)" stroke-width="1.5" stroke-linecap="round"/><circle cx="9" cy="12" r="2" stroke="url(#iG4)" stroke-width="1.5"/><defs><linearGradient id="iG4" x1="0" y1="0" x2="18" y2="0" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#9d8fda"/><stop offset="100%" stop-color="#c07ab0"/></linearGradient></defs></svg>
             <div><strong>Noise-cancelling</strong><p>Premium headphones</p></div>
           </div>
         </div>
       </section>
 
-    </div>
+    </div><!-- /left -->
 
+    <!-- SIDEBAR -->
     <aside class="sb">
-      <div class="sb__card glass-card glass-card--sidebar">
+      <div class="sb__card">
         <h3 class="sb__title">Business upgrade</h3>
+
         <ul class="sb__legs">
           <li class="sb__leg">
             <span class="sb__leg-date">19 May</span>
             <div class="sb__leg-route">
               <span>WAW</span>
-              <svg width="24" height="8" viewBox="0 0 24 8" fill="none"><path d="M0 4h20m0 0-4-3m4 3-4 3" stroke="url(#sbArr1)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/><defs><linearGradient id="sbArr1" x1="0" y1="0" x2="24" y2="0"><stop offset="0%" stop-color="#a78bfa"/><stop offset="100%" stop-color="#f472b6"/></linearGradient></defs></svg>
+              <svg width="22" height="8" viewBox="0 0 22 8" fill="none"><path d="M0 4h18m0 0-3.5-3M18 4l-3.5 3" stroke="url(#sbA1)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/><defs><linearGradient id="sbA1" x1="0" y1="0" x2="22" y2="0"><stop offset="0%" stop-color="#a898e0"/><stop offset="100%" stop-color="#d489a6"/></linearGradient></defs></svg>
               <span>LIS</span>
             </div>
             <span class="sb__leg-price">€ 219</span>
@@ -362,36 +894,41 @@ body {
             <span class="sb__leg-date">31 May</span>
             <div class="sb__leg-route">
               <span>LIS</span>
-              <svg width="24" height="8" viewBox="0 0 24 8" fill="none"><path d="M0 4h20m0 0-4-3m4 3-4 3" stroke="url(#sbArr2)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/><defs><linearGradient id="sbArr2" x1="0" y1="0" x2="24" y2="0"><stop offset="0%" stop-color="#a78bfa"/><stop offset="100%" stop-color="#f472b6"/></linearGradient></defs></svg>
+              <svg width="22" height="8" viewBox="0 0 22 8" fill="none"><path d="M0 4h18m0 0-3.5-3M18 4l-3.5 3" stroke="url(#sbA2)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/><defs><linearGradient id="sbA2" x1="0" y1="0" x2="22" y2="0"><stop offset="0%" stop-color="#a898e0"/><stop offset="100%" stop-color="#d489a6"/></linearGradient></defs></svg>
               <span>WAW</span>
             </div>
             <span class="sb__leg-price">€ 219</span>
           </li>
         </ul>
+
         <div class="sb__pax">
           <span>Passengers</span>
           <span class="sb__pax-count">x1</span>
         </div>
+
         <div class="sb__divider"></div>
+
         <div class="sb__total">
           <span>Total</span>
           <span class="sb__total-note">Taxes included</span>
           <strong class="sb__total-amount">€ 438</strong>
         </div>
+
         <ul class="sb__perks">
           <li>
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 8l3 3 7-7" stroke="url(#ck1)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><defs><linearGradient id="ck1" x1="0" y1="0" x2="14" y2="0"><stop offset="0%" stop-color="#a78bfa"/><stop offset="100%" stop-color="#f472b6"/></linearGradient></defs></svg>
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 8l3 3 7-7" stroke="url(#ck1)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><defs><linearGradient id="ck1" x1="0" y1="0" x2="14" y2="0"><stop offset="0%" stop-color="#a898e0"/><stop offset="100%" stop-color="#d489a6"/></linearGradient></defs></svg>
             Lie-flat seats on long-haul
           </li>
           <li>
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 8l3 3 7-7" stroke="url(#ck2)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><defs><linearGradient id="ck2" x1="0" y1="0" x2="14" y2="0"><stop offset="0%" stop-color="#a78bfa"/><stop offset="100%" stop-color="#f472b6"/></linearGradient></defs></svg>
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 8l3 3 7-7" stroke="url(#ck2)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><defs><linearGradient id="ck2" x1="0" y1="0" x2="14" y2="0"><stop offset="0%" stop-color="#a898e0"/><stop offset="100%" stop-color="#d489a6"/></linearGradient></defs></svg>
             Priority boarding &amp; lounge access
           </li>
           <li>
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 8l3 3 7-7" stroke="url(#ck3)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><defs><linearGradient id="ck3" x1="0" y1="0" x2="14" y2="0"><stop offset="0%" stop-color="#a78bfa"/><stop offset="100%" stop-color="#f472b6"/></linearGradient></defs></svg>
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 8l3 3 7-7" stroke="url(#ck3)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><defs><linearGradient id="ck3" x1="0" y1="0" x2="14" y2="0"><stop offset="0%" stop-color="#a898e0"/><stop offset="100%" stop-color="#d489a6"/></linearGradient></defs></svg>
             Premium dining on both flights
           </li>
         </ul>
+
         <button class="sb__cta">Upgrade your trip</button>
         <p class="sb__note">Annual payment available (at 5%, and 12 Months)</p>
       </div>
