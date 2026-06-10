@@ -71,6 +71,7 @@
     .hv2 {
       position: relative;
       padding: 116px 0 96px;
+      min-height: 580px;
       overflow: hidden;
       background: linear-gradient(148deg,
         rgba(42,138,234,0.16) 0%,
@@ -218,15 +219,15 @@
     }
     .hv2-fc__confirm-title { font-size: 12px; font-weight: 600; color: var(--dark); }
     .hv2-fc__iata-row { display: flex; gap: 4px; margin-top: 7px; }
-    /* Float positions — 4 per side */
-    .hv2-float--a { left: 11%; top: 5%; }
-    .hv2-float--f { left: 11%; top: 28%; }
-    .hv2-float--c { left: 11%; top: 54%; }
-    .hv2-float--h { left: 11%; bottom: 5%; }
-    .hv2-float--b { right: 11%; top: 5%; }
-    .hv2-float--g { right: 11%; top: 28%; }
-    .hv2-float--d { right: 11%; top: 54%; }
-    .hv2-float--e { right: 11%; bottom: 5%; }
+    /* Float positions — scattered 4 per side */
+    .hv2-float--a { left: 7%;  top: 7%;  }
+    .hv2-float--f { left: 16%; top: 35%; }
+    .hv2-float--c { left: 6%;  top: 63%; }
+    .hv2-float--h { left: 13%; bottom: 8%; }
+    .hv2-float--b { right: 7%;  top: 8%;  }
+    .hv2-float--g { right: 15%; top: 37%; }
+    .hv2-float--d { right: 6%;  top: 63%; }
+    .hv2-float--e { right: 12%; bottom: 8%; }
     /* Airline logo tiles */
     .hv2-al-tile {
       width: 62px; height: 62px;
@@ -814,24 +815,32 @@
     </div>
   </div>
 
-  <!-- Network dashed lines — 8 tiles 62px, viewBox 1280×560 -->
-  <!-- Left:  LH(172,59) BA(172,188) LOT(172,331) UA(172,469)  -->
-  <!-- Right: EK(1077,59) FZ(1077,188) SWISS(1077,331) TAP(1077,469) -->
-  <svg class="hv2-net" viewBox="0 0 1280 560" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-    <g stroke="rgba(42,138,234,0.16)" stroke-width="1" stroke-dasharray="4 8" fill="none">
-      <!-- Left column -->
-      <line x1="172" y1="59"  x2="172" y2="188"/>
-      <line x1="172" y1="188" x2="172" y2="331"/>
-      <line x1="172" y1="331" x2="172" y2="469"/>
-      <!-- Right column -->
-      <line x1="1077" y1="59"  x2="1077" y2="188"/>
-      <line x1="1077" y1="188" x2="1077" y2="331"/>
-      <line x1="1077" y1="331" x2="1077" y2="469"/>
-      <!-- Horizontals: top, upper-mid, lower-mid, bottom -->
-      <line x1="172" y1="59"  x2="1077" y2="59"/>
-      <line x1="172" y1="188" x2="1077" y2="188"/>
-      <line x1="172" y1="331" x2="1077" y2="331"/>
-      <line x1="172" y1="469" x2="1077" y2="469"/>
+  <!-- Network: curved flight route + animated plane -->
+  <!-- Tile centers (62px) in 1280×580: LH(121,72) BA(236,234) LOT(108,397) UA(197,503) EK(1148,77) FZ(1057,246) SWISS(1159,397) TAP(1095,503) -->
+  <svg class="hv2-net" viewBox="0 0 1280 580" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <!-- Closed flight loop connecting all 8 tiles -->
+      <path id="flight-loop" d="
+        M 121 72
+        C 500 44 820 54 1148 77
+        C 1158 142 1098 198 1057 246
+        C 740 238 430 230 236 234
+        C 195 288 138 344 108 397
+        C 450 390 808 390 1159 397
+        C 1162 446 1118 476 1095 503
+        C 790 512 448 512 197 503
+        C 148 434 116 304 121 72
+        Z
+      "/>
+    </defs>
+    <!-- Dashed route line -->
+    <use href="#flight-loop" fill="none" stroke="rgba(42,138,234,0.17)" stroke-width="1.1" stroke-dasharray="5 9"/>
+    <!-- Animated airplane -->
+    <g opacity="0.75">
+      <path d="M-7 0 L2 -2.5 L8 0 L2 2.5 Z M-2 -2.5 L0 -5.5 L2 -2.5 Z M-2 2.5 L0 5.5 L2 2.5 Z" fill="#2a8aea"/>
+      <animateMotion dur="18s" repeatCount="indefinite" rotate="auto">
+        <mpath href="#flight-loop"/>
+      </animateMotion>
     </g>
   </svg>
 
