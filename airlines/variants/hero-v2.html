@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hero — Variant 2 | DRCT</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;0,900;1,400&family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+  <style>
+
+    body { margin: 0; background: #fff; }
+
+    /* ─── Hero V2 wrapper ────────────────────────────────────── */
+    .hv2 {
+      position: relative;
+      padding: 116px 0 96px;
+      overflow: hidden;
+      background: linear-gradient(148deg,
+        rgba(42,138,234,0.16) 0%,
+        rgba(42,138,234,0.07) 42%,
+        rgba(42,138,234,0.02) 68%,
+        #fff 100%);
+    }
+
+    /* Dot grid overlay */
+    .hv2::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(rgba(27,39,51,0.065) 1px, transparent 1px);
+      background-size: 24px 24px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ─── Center content ─────────────────────────────────────── */
+    .hv2__content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .hv2__eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 26px;
+      padding: 5px 12px 5px 10px;
+      border-radius: 4px;
+      background: rgba(42,138,234,0.09);
+      border: 1px solid rgba(42,138,234,0.2);
+    }
+    .hv2__eyebrow::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--blue);
+      flex-shrink: 0;
+    }
+
+    .hv2__h1 {
+      font-size: 58px;
+      font-weight: 900;
+      color: var(--dark);
+      line-height: 1.05;
+      margin: 0 0 22px;
+      letter-spacing: -1.4px;
+    }
+
+    .hv2__sub {
+      font-size: 17px;
+      line-height: 1.62;
+      color: rgba(27,39,51,0.56);
+      margin: 0 auto 44px;
+      max-width: 520px;
+    }
+
+    .hv2__cta {
+      margin-bottom: 56px;
+    }
+    .hv2__cta .btn-primary {
+      height: 46px;
+      padding: 0 28px;
+      font-size: 13px;
+    }
+
+    /* ─── Airline social proof ───────────────────────────────── */
+    .hv2__logos {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+    }
+    .hv2__logos-label {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      color: rgba(27,39,51,0.3);
+      margin: 0;
+    }
+    .hv2__logos-row {
+      display: flex;
+      gap: 9px;
+      align-items: center;
+    }
+    .hv2__al {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 8.5px;
+      font-weight: 700;
+      flex-shrink: 0;
+      box-shadow: 0 1px 4px rgba(27,39,51,0.12);
+    }
+    .hv2__al--more {
+      background: rgba(27,39,51,0.06);
+      color: rgba(27,39,51,0.38);
+      font-size: 9px;
+      border: 1px solid rgba(27,39,51,0.1);
+      box-shadow: none;
+    }
+
+    /* ─── Floating cards base ────────────────────────────────── */
+    .hv2-float {
+      position: absolute;
+      z-index: 1;
+    }
+    .hv2-fc {
+      background: #fff;
+      border-radius: 12px;
+      border: 1px solid rgba(27,39,51,0.08);
+      box-shadow:
+        0 8px 32px rgba(27,39,51,0.1),
+        0 2px 8px rgba(27,39,51,0.05),
+        0 0 0 0.5px rgba(27,39,51,0.04);
+      padding: 13px 15px;
+    }
+    .hv2-fc__label {
+      font-family: var(--font-mono);
+      font-size: 8px;
+      font-weight: 600;
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+      color: rgba(27,39,51,0.35);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      margin-bottom: 9px;
+    }
+    .hv2-fc__dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .hv2-fc__dot--green  { background: #33c100; }
+    .hv2-fc__dot--blue   { background: #2a8aea; }
+    .hv2-fc__dot--pulse  {
+      background: #33c100;
+      box-shadow: 0 0 0 2.5px rgba(51,193,0,0.18);
+    }
+
+    .hv2-fc__name {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--dark);
+      line-height: 1.2;
+      margin-bottom: 3px;
+    }
+    .hv2-fc__meta {
+      font-family: var(--font-mono);
+      font-size: 8.5px;
+      color: rgba(27,39,51,0.38);
+    }
+
+    /* IATA circle */
+    .hv2-iata {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 8px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .hv2-iata--sm {
+      width: 22px;
+      height: 22px;
+      font-size: 7px;
+    }
+
+    /* Row layout inside cards */
+    .hv2-fc__row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .hv2-fc__info { flex: 1; min-width: 0; }
+
+    /* NDC badge */
+    .hv2-fc__ndc {
+      font-family: var(--font-mono);
+      font-size: 7px;
+      font-weight: 700;
+      color: #2a8aea;
+      background: rgba(42,138,234,0.1);
+      padding: 2.5px 6px;
+      border-radius: 3px;
+      flex-shrink: 0;
+    }
+    .hv2-fc__gds {
+      font-family: var(--font-mono);
+      font-size: 7px;
+      font-weight: 600;
+      color: rgba(27,39,51,0.42);
+      background: rgba(27,39,51,0.06);
+      padding: 2.5px 6px;
+      border-radius: 3px;
+      flex-shrink: 0;
+    }
+
+    /* Channel chips */
+    .hv2-fc__chips {
+      display: flex;
+      gap: 4px;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+    .hv2-fc__chip {
+      font-family: var(--font-mono);
+      font-size: 7.5px;
+      font-weight: 600;
+      padding: 3px 7px;
+      border-radius: 3px;
+      background: rgba(27,39,51,0.05);
+      color: rgba(27,39,51,0.44);
+    }
+    .hv2-fc__chip--on {
+      background: rgba(42,138,234,0.1);
+      color: #2a8aea;
+    }
+
+    /* Confirm card */
+    .hv2-fc__confirm {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+    .hv2-fc__check {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: rgba(51,193,0,0.1);
+      border: 1px solid rgba(51,193,0,0.28);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .hv2-fc__check svg { display: block; }
+    .hv2-fc__confirm-title {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--dark);
+    }
+
+    /* Iata xs row */
+    .hv2-fc__iata-row {
+      display: flex;
+      gap: 4px;
+      margin-top: 7px;
+    }
+
+    /* ─── Float positions ────────────────────────────────────── */
+    .hv2-float--a { left: 4%;   top: 11%; }
+    .hv2-float--b { right: 3%;  top: 7%;  }
+    .hv2-float--c { left: 2.5%; top: 54%; }
+    .hv2-float--d { right: 2.5%; top: 50%; }
+    .hv2-float--e { right: 3.5%; bottom: 9%; }
+
+    /* Card widths */
+    .hv2-float--a .hv2-fc { width: 208px; }
+    .hv2-float--b .hv2-fc { width: 238px; }
+    .hv2-float--c .hv2-fc { width: 206px; }
+    .hv2-float--d .hv2-fc { width: 220px; }
+    .hv2-float--e .hv2-fc { width: 222px; }
+
+    /* ─── Float animations ───────────────────────────────────── */
+    .hv2-float--a { animation: hv2-up   5.2s ease-in-out infinite; }
+    .hv2-float--b { animation: hv2-down 4.8s ease-in-out infinite 0.9s; }
+    .hv2-float--c { animation: hv2-up   6.0s ease-in-out infinite 1.4s; }
+    .hv2-float--d { animation: hv2-down 5.6s ease-in-out infinite 0.4s; }
+    .hv2-float--e { animation: hv2-up   5.0s ease-in-out infinite 1.8s; }
+
+    @keyframes hv2-up {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(-8px); }
+    }
+    @keyframes hv2-down {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(7px); }
+    }
+
+    /* ─── Hide floats on narrow viewports ────────────────────── */
+    @media (max-width: 1080px) {
+      .hv2-float { display: none; }
+    }
+    @media (max-width: 767px) {
+      .hv2 { padding: 72px 0 64px; }
+      .hv2__h1 { font-size: 38px; letter-spacing: -0.8px; }
+      .hv2__sub { font-size: 15px; }
+      .hv2__cta .btn-primary { height: 42px; }
+    }
+    @media (max-width: 413px) {
+      .hv2__h1 { font-size: 30px; }
+    }
+
+  </style>
+</head>
+<body>
+
+<div class="hv2">
+
+  <!-- ── Float A: Partner connected (top-left) ──────────────── -->
+  <div class="hv2-float hv2-float--a">
+    <div class="hv2-fc">
+      <div class="hv2-fc__label">
+        <span class="hv2-fc__dot hv2-fc__dot--green"></span>
+        Partner connected
+      </div>
+      <div class="hv2-fc__row">
+        <span class="hv2-iata" style="background:#05164d;color:#f7c200">LH</span>
+        <div class="hv2-fc__info">
+          <div class="hv2-fc__name">Lufthansa Group</div>
+          <div class="hv2-fc__iata-row">
+            <span class="hv2-iata hv2-iata--sm" style="background:#05164d;color:#f7c200">LH</span>
+            <span class="hv2-iata hv2-iata--sm" style="background:#c8102e;color:#fff">OS</span>
+            <span class="hv2-iata hv2-iata--sm" style="background:#cc0000;color:#fff">LX</span>
+            <span class="hv2-iata hv2-iata--sm" style="background:#1c4b9c;color:#fff">SN</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Float B: Offer distributed (top-right) ────────────── -->
+  <div class="hv2-float hv2-float--b">
+    <div class="hv2-fc">
+      <div class="hv2-fc__label">
+        <span class="hv2-fc__dot hv2-fc__dot--blue"></span>
+        Offer distributed
+      </div>
+      <div class="hv2-fc__row">
+        <span class="hv2-iata" style="background:#012169;color:#fff">BA</span>
+        <div class="hv2-fc__info">
+          <div class="hv2-fc__name">BA 956 &middot; LHR &#x2192; JFK</div>
+          <div class="hv2-fc__meta">Economy &middot; &#xA3;442 &middot; 15 MAR</div>
+        </div>
+        <span class="hv2-fc__ndc">NDC</span>
+      </div>
+      <div class="hv2-fc__chips">
+        <span class="hv2-fc__chip hv2-fc__chip--on">IATA</span>
+        <span class="hv2-fc__chip hv2-fc__chip--on">TMC</span>
+        <span class="hv2-fc__chip">OTA</span>
+        <span class="hv2-fc__chip">Direct</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Float C: Airlines on NDC (left-middle) ─────────────── -->
+  <div class="hv2-float hv2-float--c">
+    <div class="hv2-fc">
+      <div class="hv2-fc__label">
+        <span class="hv2-fc__dot hv2-fc__dot--pulse"></span>
+        NDC enabled
+      </div>
+      <div class="hv2-fc__row" style="flex-wrap:wrap;gap:5px;">
+        <span class="hv2-iata hv2-iata--sm" style="background:#05164d;color:#f7c200">LH</span>
+        <span class="hv2-iata hv2-iata--sm" style="background:#012169;color:#fff">BA</span>
+        <span class="hv2-iata hv2-iata--sm" style="background:#cc0000;color:#fff">LX</span>
+        <span class="hv2-iata hv2-iata--sm" style="background:#007b40;color:#fff">EI</span>
+        <span class="hv2-iata hv2-iata--sm" style="background:#c8102e;color:#fff">OS</span>
+        <span class="hv2-iata hv2-iata--sm" style="background:#0075be;color:#fff">SK</span>
+        <span class="hv2-iata hv2-iata--sm" style="background:#00843d;color:#fff">TP</span>
+        <span class="hv2-iata hv2-iata--sm" style="background:#073590;color:#fff">FR</span>
+      </div>
+      <div class="hv2-fc__meta" style="margin-top:8px;">and more airlines</div>
+    </div>
+  </div>
+
+  <!-- ── Float D: Seller channels (right-middle) ───────────── -->
+  <div class="hv2-float hv2-float--d">
+    <div class="hv2-fc">
+      <div class="hv2-fc__label">Distribution coverage</div>
+      <div style="display:flex;flex-direction:column;gap:7px;">
+        <div class="hv2-fc__row">
+          <span class="hv2-fc__ndc" style="width:38px;text-align:center;">IATA</span>
+          <div class="hv2-fc__info">
+            <div style="font-size:11px;font-weight:600;color:var(--dark);">IATA agencies</div>
+          </div>
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5.5" fill="rgba(51,193,0,0.12)" stroke="rgba(51,193,0,0.35)" stroke-width="0.8"/><path d="M3.5 6l1.8 1.8 3.2-3.2" stroke="#2aab00" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="hv2-fc__row">
+          <span class="hv2-fc__chip hv2-fc__chip--on" style="width:38px;text-align:center;">NDC</span>
+          <div class="hv2-fc__info">
+            <div style="font-size:11px;font-weight:600;color:var(--dark);">NDC content</div>
+          </div>
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5.5" fill="rgba(51,193,0,0.12)" stroke="rgba(51,193,0,0.35)" stroke-width="0.8"/><path d="M3.5 6l1.8 1.8 3.2-3.2" stroke="#2aab00" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="hv2-fc__row">
+          <span class="hv2-fc__chip" style="width:38px;text-align:center;">TMC</span>
+          <div class="hv2-fc__info">
+            <div style="font-size:11px;font-weight:600;color:var(--dark);">Corporate TMCs</div>
+          </div>
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5.5" fill="rgba(51,193,0,0.12)" stroke="rgba(51,193,0,0.35)" stroke-width="0.8"/><path d="M3.5 6l1.8 1.8 3.2-3.2" stroke="#2aab00" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Float E: Order confirmed (bottom-right) ───────────── -->
+  <div class="hv2-float hv2-float--e">
+    <div class="hv2-fc">
+      <div class="hv2-fc__confirm">
+        <div class="hv2-fc__check">
+          <svg width="9" height="9" viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2.5 2.5 4-4" stroke="#2aab00" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <span class="hv2-fc__confirm-title">Order confirmed</span>
+      </div>
+      <div class="hv2-fc__row">
+        <span class="hv2-iata hv2-iata--sm" style="background:#c8102e;color:#fff">OS</span>
+        <div class="hv2-fc__info">
+          <div style="font-size:11px;font-weight:600;color:var(--dark);">OS 451 &middot; VIE &#x2192; LHR</div>
+          <div class="hv2-fc__meta">16:40 &middot; Economy &middot; via NDC</div>
+        </div>
+        <span class="hv2-fc__ndc">NDC</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Center content ────────────────────────────────────── -->
+  <div class="landing-new__body" style="position:relative;z-index:2;">
+    <div class="hv2__content">
+
+      <span class="hv2__eyebrow">Airline Offer Orchestrator</span>
+
+      <h1 class="hv2__h1">The operating layer for<br>airline distribution.</h1>
+
+      <p class="hv2__sub">Control, distribute, and scale your offers across every indirect channel — agencies, TMCs, OTAs, and super apps — from a single integration.</p>
+
+      <div class="hv2__cta">
+        <a href="#contact" class="btn-primary">Partner as an Airline &#8599;</a>
+      </div>
+
+      <!-- Airline social proof -->
+      <div class="hv2__logos">
+        <p class="hv2__logos-label">Trusted by airlines including</p>
+        <div class="hv2__logos-row">
+          <span class="hv2__al" style="background:#05164d;color:#f7c200;">LH</span>
+          <span class="hv2__al" style="background:#012169;color:#fff;">BA</span>
+          <span class="hv2__al" style="background:#cc0000;color:#fff;">LX</span>
+          <span class="hv2__al" style="background:#007b40;color:#fff;">EI</span>
+          <span class="hv2__al" style="background:#c8102e;color:#fff;">OS</span>
+          <span class="hv2__al" style="background:#0075be;color:#fff;">SK</span>
+          <span class="hv2__al hv2__al--more">+more</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

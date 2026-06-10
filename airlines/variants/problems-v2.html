@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Solutions — Variant 2 | DRCT</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+  <style>
+    body { background: #fff; }
+
+    /* ── Section wrapper ─────────────────────────────────── */
+    .sol-section {
+      padding: 88px 0 100px;
+    }
+
+    /* ── Head block ──────────────────────────────────────── */
+    .sol-section__head {
+      text-align: center;
+      max-width: 620px;
+      margin: 0 auto 52px;
+    }
+    .sol-eyebrow {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 18px;
+    }
+    .sol-section__head h2 {
+      font-size: 31px;
+      font-weight: 700;
+      color: var(--dark);
+      margin: 0 0 14px;
+      letter-spacing: -0.4px;
+      line-height: 1.18;
+    }
+    .sol-section__head p {
+      font-size: 15px;
+      color: rgba(27,39,51,0.56);
+      line-height: 1.65;
+      margin: 0;
+    }
+
+    /* ── Grid ────────────────────────────────────────────── */
+    .sol-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 14px;
+      align-items: stretch;
+    }
+
+    /* ── Card ────────────────────────────────────────────── */
+    .sol-card {
+      border-radius: 12px;
+      border: 1px solid rgba(27,39,51,0.09);
+      background: #ffffff;
+      box-shadow: 0 2px 14px rgba(27,39,51,0.055), 0 1px 3px rgba(27,39,51,0.03);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      transition: box-shadow 0.2s ease, transform 0.2s ease;
+    }
+    .sol-card:hover {
+      box-shadow: 0 6px 24px rgba(27,39,51,0.1), 0 2px 6px rgba(27,39,51,0.05);
+      transform: translateY(-2px);
+    }
+
+    /* Visual area */
+    .sol-card__visual {
+      height: 152px;
+      background: #f4f6fb;
+      flex-shrink: 0;
+      overflow: hidden;
+      border-bottom: 1px solid rgba(27,39,51,0.06);
+      display: flex;
+      align-items: stretch;
+    }
+    .sol-card__visual svg {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Body */
+    .sol-card__body {
+      padding: 18px 18px 22px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+    .sol-card__icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: rgba(42,138,234,0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 13px;
+      flex-shrink: 0;
+    }
+    .sol-card__icon svg {
+      display: block;
+    }
+    .sol-card__title {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: var(--dark);
+      margin: 0 0 8px;
+      line-height: 1.3;
+    }
+    .sol-card__desc {
+      font-size: 12px;
+      line-height: 1.65;
+      color: rgba(27,39,51,0.54);
+      margin: 0;
+      flex: 1;
+    }
+
+    /* ── Responsive ──────────────────────────────────────── */
+    @media (max-width: 1024px) {
+      .sol-grid { grid-template-columns: repeat(3, 1fr); }
+      .sol-section { padding: 68px 0 80px; }
+    }
+    @media (max-width: 767px) {
+      .sol-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+      .sol-section { padding: 52px 0 60px; }
+      .sol-section__head h2 { font-size: 27px; }
+    }
+    @media (max-width: 413px) {
+      .sol-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="landing-new loaded">
+  <div class="landing-new__body">
+    <section class="sol-section" id="solutions">
+
+      <!-- Head -->
+      <div class="sol-section__head">
+        <span class="sol-eyebrow">DRCT for airlines</span>
+        <h2>Solutions that move airline<br>distribution forward.</h2>
+        <p>End-to-end tools that help airlines control offers, reduce booking costs, and scale direct distribution.</p>
+      </div>
+
+      <!-- 5-card grid -->
+      <div class="sol-grid">
+
+        <!-- ─── Card 1: Offer distribution & control ─────────────── -->
+        <div class="sol-card">
+          <div class="sol-card__visual">
+            <svg viewBox="0 0 200 152" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+              <!-- Nav bar -->
+              <rect x="0" y="0" width="200" height="30" fill="#1b2733"/>
+              <text x="10" y="20" fill="rgba(255,255,255,0.38)" font-size="9" font-family="IBM Plex Sans,sans-serif" font-weight="500">Offers</text>
+              <text x="46" y="20" fill="#ffffff" font-size="9" font-family="IBM Plex Sans,sans-serif" font-weight="600">MUC &#x2192; LHR</text>
+              <rect x="46" y="27" width="52" height="2" rx="1" fill="#2a8aea"/>
+              <!-- Offer row -->
+              <rect x="0" y="30" width="200" height="46" fill="rgba(42,138,234,0.03)"/>
+              <rect x="0" y="30" width="3" height="46" fill="#f7c200"/>
+              <circle cx="18" cy="53" r="12" fill="#05164d"/>
+              <text x="18" y="57" text-anchor="middle" fill="#f7c200" font-size="6.5" font-family="IBM Plex Mono,monospace" font-weight="700">LH</text>
+              <text x="36" y="48" fill="#1b2733" font-size="10" font-family="IBM Plex Sans,sans-serif" font-weight="600">Lufthansa</text>
+              <text x="36" y="62" fill="rgba(27,39,51,0.44)" font-size="8" font-family="IBM Plex Mono,monospace">LH 2456 &#xB7; 09:20 &#x2192; 10:55</text>
+              <text x="190" y="48" text-anchor="end" fill="#1b2733" font-size="11" font-family="IBM Plex Mono,monospace" font-weight="700">&#xA3;162</text>
+              <rect x="163" y="54" width="24" height="11" rx="2.5" fill="rgba(42,138,234,0.12)"/>
+              <text x="175" y="62.5" text-anchor="middle" fill="#2a8aea" font-size="6.5" font-family="IBM Plex Mono,monospace" font-weight="700">NDC</text>
+              <!-- Divider -->
+              <line x1="0" y1="76" x2="200" y2="76" stroke="rgba(27,39,51,0.07)" stroke-width="1"/>
+              <!-- "Distributed to" label -->
+              <text x="10" y="91" fill="rgba(27,39,51,0.3)" font-size="7" font-family="IBM Plex Mono,monospace" font-weight="600" letter-spacing="0.5">DISTRIBUTED TO</text>
+              <!-- Channel chips — 2×2 grid -->
+              <rect x="10" y="97" width="84" height="17" rx="3" fill="rgba(42,138,234,0.07)" stroke="rgba(42,138,234,0.18)" stroke-width="0.8"/>
+              <text x="52" y="108.5" text-anchor="middle" fill="#2a8aea" font-size="7.5" font-family="IBM Plex Mono,monospace" font-weight="600">IATA agencies</text>
+              <rect x="106" y="97" width="84" height="17" rx="3" fill="rgba(27,39,51,0.04)" stroke="rgba(27,39,51,0.09)" stroke-width="0.8"/>
+              <text x="148" y="108.5" text-anchor="middle" fill="rgba(27,39,51,0.48)" font-size="7.5" font-family="IBM Plex Mono,monospace" font-weight="600">TMCs</text>
+              <rect x="10" y="120" width="84" height="17" rx="3" fill="rgba(27,39,51,0.04)" stroke="rgba(27,39,51,0.09)" stroke-width="0.8"/>
+              <text x="52" y="131.5" text-anchor="middle" fill="rgba(27,39,51,0.48)" font-size="7.5" font-family="IBM Plex Mono,monospace" font-weight="600">OTAs</text>
+              <rect x="106" y="120" width="84" height="17" rx="3" fill="rgba(27,39,51,0.04)" stroke="rgba(27,39,51,0.09)" stroke-width="0.8"/>
+              <text x="148" y="131.5" text-anchor="middle" fill="rgba(27,39,51,0.48)" font-size="7.5" font-family="IBM Plex Mono,monospace" font-weight="600">API / Direct</text>
+            </svg>
+          </div>
+          <div class="sol-card__body">
+            <p class="sol-card__title">Offer distribution &amp; control</p>
+            <p class="sol-card__desc">Distribute airline offers across IATA agencies, TMCs, OTAs, and super apps through one orchestration layer — with full visibility and control.</p>
+          </div>
+        </div>
+
+        <!-- ─── Card 2: Cost-efficient booking ───────────────────── -->
+        <div class="sol-card">
+          <div class="sol-card__visual">
+            <svg viewBox="0 0 200 152" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+              <rect x="0" y="0" width="200" height="152" fill="#f8f9fb"/>
+              <!-- Header label -->
+              <text x="100" y="22" text-anchor="middle" fill="rgba(27,39,51,0.3)" font-size="7.5" font-family="IBM Plex Mono,monospace" font-weight="600" letter-spacing="0.5">COST PER BOOKING</text>
+              <!-- Baseline -->
+              <line x1="28" y1="118" x2="172" y2="118" stroke="rgba(27,39,51,0.1)" stroke-width="1"/>
+              <!-- Indirect bar (tall, muted) -->
+              <rect x="40" y="32" width="48" height="86" rx="4" fill="rgba(27,39,51,0.1)"/>
+              <!-- NDC bar (shorter, blue) -->
+              <rect x="112" y="64" width="48" height="54" rx="4" fill="rgba(42,138,234,0.18)"/>
+              <!-- Bar labels -->
+              <text x="64" y="128" text-anchor="middle" fill="rgba(27,39,51,0.4)" font-size="8.5" font-family="IBM Plex Sans,sans-serif">Indirect</text>
+              <text x="136" y="128" text-anchor="middle" fill="#2a8aea" font-size="8.5" font-family="IBM Plex Sans,sans-serif" font-weight="600">NDC</text>
+              <!-- Cost labels inside bars -->
+              <text x="64" y="79" text-anchor="middle" fill="rgba(27,39,51,0.35)" font-size="10" font-family="IBM Plex Mono,monospace" font-weight="600">high</text>
+              <text x="136" y="94" text-anchor="middle" fill="rgba(42,138,234,0.75)" font-size="10" font-family="IBM Plex Mono,monospace" font-weight="600">lower</text>
+              <!-- Savings chip, floating top-right -->
+              <rect x="134" y="28" width="44" height="18" rx="9" fill="rgba(51,193,0,0.1)" stroke="rgba(51,193,0,0.25)" stroke-width="0.8"/>
+              <text x="156" y="40.5" text-anchor="middle" fill="#2aab00" font-size="9" font-family="IBM Plex Mono,monospace" font-weight="700">−38%</text>
+              <!-- Arrow from top of indirect to top of NDC -->
+              <path d="M91 32 L109 64" stroke="rgba(27,39,51,0.12)" stroke-width="1" stroke-dasharray="3 2" fill="none"/>
+              <path d="M106 61 L109 64 L113 60" fill="none" stroke="rgba(27,39,51,0.2)" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="sol-card__body">
+            <p class="sol-card__title">Cost-efficient booking</p>
+            <p class="sol-card__desc">Reduce cost-per-booking by routing volume through NDC and direct channels, without sacrificing distribution reach or agent coverage.</p>
+          </div>
+        </div>
+
+        <!-- ─── Card 3: Faster NDC adoption ──────────────────────── -->
+        <div class="sol-card">
+          <div class="sol-card__visual">
+            <svg viewBox="0 0 200 152" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+              <!-- Booking tool background -->
+              <rect x="0" y="0" width="200" height="152" fill="#fff"/>
+              <!-- Search bar row -->
+              <rect x="10" y="12" width="180" height="26" rx="5" fill="#f4f6fb" stroke="rgba(27,39,51,0.1)" stroke-width="0.8"/>
+              <text x="20" y="29.5" fill="rgba(27,39,51,0.35)" font-size="8.5" font-family="IBM Plex Mono,monospace">MUC → LHR &#xB7; 15 MAR &#xB7; ECO</text>
+              <rect x="163" y="17" width="20" height="16" rx="3" fill="#2a8aea"/>
+              <text x="173" y="28" text-anchor="middle" fill="#fff" font-size="7" font-family="IBM Plex Mono,monospace" font-weight="700">GO</text>
+              <!-- NDC chip prominent -->
+              <rect x="10" y="46" width="44" height="16" rx="3" fill="rgba(42,138,234,0.12)" stroke="rgba(42,138,234,0.25)" stroke-width="0.8"/>
+              <circle cx="20" cy="54" r="3" fill="#2a8aea"/>
+              <text x="35" y="57.5" text-anchor="middle" fill="#2a8aea" font-size="8" font-family="IBM Plex Mono,monospace" font-weight="700">NDC</text>
+              <text x="60" y="57" fill="rgba(27,39,51,0.32)" font-size="8" font-family="IBM Plex Sans,sans-serif">content enabled</text>
+              <!-- Result 1 (NDC, highlighted) -->
+              <rect x="0" y="70" width="200" height="38" fill="rgba(42,138,234,0.035)"/>
+              <rect x="0" y="70" width="3" height="38" fill="#012169"/>
+              <circle cx="18" cy="89" r="11" fill="#012169"/>
+              <text x="18" y="93" text-anchor="middle" fill="#fff" font-size="6" font-family="IBM Plex Mono,monospace" font-weight="700">BA</text>
+              <text x="35" y="85" fill="#1b2733" font-size="9.5" font-family="IBM Plex Sans,sans-serif" font-weight="600">British Airways</text>
+              <text x="35" y="97" fill="rgba(27,39,51,0.42)" font-size="8" font-family="IBM Plex Mono,monospace">11:15 &#x2192; 12:55 &#xB7; 2h 40m</text>
+              <text x="190" y="85" text-anchor="end" fill="#1b2733" font-size="11" font-family="IBM Plex Mono,monospace" font-weight="700">&#xA3;196</text>
+              <rect x="162" y="91" width="24" height="11" rx="2.5" fill="rgba(42,138,234,0.12)"/>
+              <text x="174" y="99.5" text-anchor="middle" fill="#2a8aea" font-size="6.5" font-family="IBM Plex Mono,monospace" font-weight="700">NDC</text>
+              <!-- Result 2 (GDS, muted) -->
+              <line x1="0" y1="108" x2="200" y2="108" stroke="rgba(27,39,51,0.06)" stroke-width="1"/>
+              <rect x="0" y="108" width="200" height="36" fill="#fff"/>
+              <rect x="0" y="108" width="3" height="36" fill="rgba(27,39,51,0.15)"/>
+              <circle cx="18" cy="126" r="11" fill="rgba(27,39,51,0.1)"/>
+              <text x="18" y="130" text-anchor="middle" fill="rgba(27,39,51,0.4)" font-size="6" font-family="IBM Plex Mono,monospace" font-weight="700">EI</text>
+              <text x="35" y="122" fill="rgba(27,39,51,0.5)" font-size="9.5" font-family="IBM Plex Sans,sans-serif" font-weight="600">Aer Lingus</text>
+              <text x="35" y="134" fill="rgba(27,39,51,0.32)" font-size="8" font-family="IBM Plex Mono,monospace">14:30 &#x2192; 16:15 &#xB7; 2h 45m</text>
+              <text x="190" y="122" text-anchor="end" fill="rgba(27,39,51,0.5)" font-size="11" font-family="IBM Plex Mono,monospace" font-weight="700">&#xA3;174</text>
+              <rect x="163" y="128" width="22" height="11" rx="2.5" fill="rgba(27,39,51,0.06)"/>
+              <text x="174" y="136.5" text-anchor="middle" fill="rgba(27,39,51,0.38)" font-size="6.5" font-family="IBM Plex Mono,monospace" font-weight="600">GDS</text>
+            </svg>
+          </div>
+          <div class="sol-card__body">
+            <p class="sol-card__title">Faster NDC adoption</p>
+            <p class="sol-card__desc">Deliver NDC content inside the booking tools agents already use — no retraining required. Adoption happens within familiar workflows.</p>
+          </div>
+        </div>
+
+        <!-- ─── Card 4: Unified distribution layer ───────────────── -->
+        <div class="sol-card">
+          <div class="sol-card__visual">
+            <svg viewBox="0 0 200 152" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+              <rect x="0" y="0" width="200" height="152" fill="#f8f9fb"/>
+              <!-- Center DRCT node -->
+              <rect x="68" y="56" width="64" height="38" rx="6" fill="#1b2733"/>
+              <text x="100" y="72" text-anchor="middle" fill="#ffffff" font-size="11" font-family="IBM Plex Sans,sans-serif" font-weight="700">DRCT</text>
+              <text x="100" y="85" text-anchor="middle" fill="rgba(255,255,255,0.38)" font-size="7" font-family="IBM Plex Mono,monospace">single layer</text>
+              <!-- Input nodes (left side) -->
+              <!-- GDS -->
+              <rect x="12" y="20" width="38" height="20" rx="4" fill="rgba(27,39,51,0.07)" stroke="rgba(27,39,51,0.12)" stroke-width="0.8"/>
+              <text x="31" y="33.5" text-anchor="middle" fill="rgba(27,39,51,0.55)" font-size="8" font-family="IBM Plex Mono,monospace" font-weight="600">GDS</text>
+              <!-- NDC -->
+              <rect x="12" y="50" width="38" height="20" rx="4" fill="rgba(42,138,234,0.1)" stroke="rgba(42,138,234,0.2)" stroke-width="0.8"/>
+              <text x="31" y="63.5" text-anchor="middle" fill="#2a8aea" font-size="8" font-family="IBM Plex Mono,monospace" font-weight="700">NDC</text>
+              <!-- API -->
+              <rect x="12" y="80" width="38" height="20" rx="4" fill="rgba(27,39,51,0.07)" stroke="rgba(27,39,51,0.12)" stroke-width="0.8"/>
+              <text x="31" y="93.5" text-anchor="middle" fill="rgba(27,39,51,0.55)" font-size="8" font-family="IBM Plex Mono,monospace" font-weight="600">API</text>
+              <!-- Direct -->
+              <rect x="12" y="110" width="38" height="20" rx="4" fill="rgba(27,39,51,0.07)" stroke="rgba(27,39,51,0.12)" stroke-width="0.8"/>
+              <text x="31" y="123.5" text-anchor="middle" fill="rgba(27,39,51,0.55)" font-size="8" font-family="IBM Plex Mono,monospace" font-weight="600">Direct</text>
+              <!-- Connector lines input → DRCT -->
+              <path d="M50 30 Q58 30 64 60" stroke="rgba(27,39,51,0.15)" stroke-width="1" fill="none"/>
+              <line x1="50" y1="60" x2="68" y2="68" stroke="rgba(42,138,234,0.3)" stroke-width="1.2" fill="none"/>
+              <path d="M50 90 Q58 90 64 82" stroke="rgba(27,39,51,0.15)" stroke-width="1" fill="none"/>
+              <path d="M50 120 Q58 120 64 88" stroke="rgba(27,39,51,0.12)" stroke-width="1" fill="none"/>
+              <!-- Output nodes (right side) -->
+              <!-- Agencies -->
+              <rect x="150" y="20" width="40" height="20" rx="4" fill="rgba(27,39,51,0.07)" stroke="rgba(27,39,51,0.12)" stroke-width="0.8"/>
+              <text x="170" y="33.5" text-anchor="middle" fill="rgba(27,39,51,0.52)" font-size="7.5" font-family="IBM Plex Mono,monospace" font-weight="600">Agencies</text>
+              <!-- TMCs -->
+              <rect x="150" y="50" width="40" height="20" rx="4" fill="rgba(27,39,51,0.07)" stroke="rgba(27,39,51,0.12)" stroke-width="0.8"/>
+              <text x="170" y="63.5" text-anchor="middle" fill="rgba(27,39,51,0.52)" font-size="7.5" font-family="IBM Plex Mono,monospace" font-weight="600">TMCs</text>
+              <!-- OTAs -->
+              <rect x="150" y="80" width="40" height="20" rx="4" fill="rgba(27,39,51,0.07)" stroke="rgba(27,39,51,0.12)" stroke-width="0.8"/>
+              <text x="170" y="93.5" text-anchor="middle" fill="rgba(27,39,51,0.52)" font-size="7.5" font-family="IBM Plex Mono,monospace" font-weight="600">OTAs</text>
+              <!-- Apps -->
+              <rect x="150" y="110" width="40" height="20" rx="4" fill="rgba(27,39,51,0.07)" stroke="rgba(27,39,51,0.12)" stroke-width="0.8"/>
+              <text x="170" y="123.5" text-anchor="middle" fill="rgba(27,39,51,0.52)" font-size="7.5" font-family="IBM Plex Mono,monospace" font-weight="600">Apps</text>
+              <!-- Connector lines DRCT → output -->
+              <path d="M132 66 Q140 66 150 30" stroke="rgba(27,39,51,0.15)" stroke-width="1" fill="none"/>
+              <line x1="132" y1="72" x2="150" y2="60" stroke="rgba(27,39,51,0.18)" stroke-width="1" fill="none"/>
+              <line x1="132" y1="78" x2="150" y2="90" stroke="rgba(27,39,51,0.18)" stroke-width="1" fill="none"/>
+              <path d="M132 82 Q140 82 150 120" stroke="rgba(27,39,51,0.15)" stroke-width="1" fill="none"/>
+            </svg>
+          </div>
+          <div class="sol-card__body">
+            <p class="sol-card__title">Unified distribution layer</p>
+            <p class="sol-card__desc">One integration to manage GDS, NDC, API, and direct channels. Orders, settlement, and reporting — all in one control plane.</p>
+          </div>
+        </div>
+
+        <!-- ─── Card 5: End-to-end infrastructure ────────────────── -->
+        <div class="sol-card">
+          <div class="sol-card__visual">
+            <svg viewBox="0 0 200 152" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+              <rect x="0" y="0" width="200" height="152" fill="#fff"/>
+              <!-- Pipeline header -->
+              <text x="100" y="24" text-anchor="middle" fill="rgba(27,39,51,0.28)" font-size="7.5" font-family="IBM Plex Mono,monospace" font-weight="600" letter-spacing="0.5">BOOKING LIFECYCLE</text>
+              <!-- Step 1: Offer -->
+              <rect x="8" y="34" width="40" height="36" rx="6" fill="rgba(42,138,234,0.08)" stroke="rgba(42,138,234,0.18)" stroke-width="0.8"/>
+              <text x="28" y="49" text-anchor="middle" fill="#2a8aea" font-size="8" font-family="IBM Plex Mono,monospace" font-weight="700">Offer</text>
+              <text x="28" y="61" text-anchor="middle" fill="rgba(42,138,234,0.6)" font-size="7" font-family="IBM Plex Sans,sans-serif">Created</text>
+              <!-- Arrow -->
+              <path d="M49 52 L56 52" stroke="rgba(27,39,51,0.2)" stroke-width="1.2" stroke-linecap="round"/>
+              <path d="M54 49.5 L57 52 L54 54.5" fill="none" stroke="rgba(27,39,51,0.2)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+              <!-- Step 2: Distribute -->
+              <rect x="58" y="34" width="40" height="36" rx="6" fill="rgba(42,138,234,0.08)" stroke="rgba(42,138,234,0.18)" stroke-width="0.8"/>
+              <text x="78" y="49" text-anchor="middle" fill="#2a8aea" font-size="8" font-family="IBM Plex Mono,monospace" font-weight="700">Route</text>
+              <text x="78" y="61" text-anchor="middle" fill="rgba(42,138,234,0.6)" font-size="7" font-family="IBM Plex Sans,sans-serif">Channels</text>
+              <!-- Arrow -->
+              <path d="M99 52 L106 52" stroke="rgba(27,39,51,0.2)" stroke-width="1.2" stroke-linecap="round"/>
+              <path d="M104 49.5 L107 52 L104 54.5" fill="none" stroke="rgba(27,39,51,0.2)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+              <!-- Step 3: Order -->
+              <rect x="108" y="34" width="40" height="36" rx="6" fill="rgba(42,138,234,0.08)" stroke="rgba(42,138,234,0.18)" stroke-width="0.8"/>
+              <text x="128" y="49" text-anchor="middle" fill="#2a8aea" font-size="8" font-family="IBM Plex Mono,monospace" font-weight="700">Order</text>
+              <text x="128" y="61" text-anchor="middle" fill="rgba(42,138,234,0.6)" font-size="7" font-family="IBM Plex Sans,sans-serif">Managed</text>
+              <!-- Arrow -->
+              <path d="M149 52 L156 52" stroke="rgba(27,39,51,0.2)" stroke-width="1.2" stroke-linecap="round"/>
+              <path d="M154 49.5 L157 52 L154 54.5" fill="none" stroke="rgba(27,39,51,0.2)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+              <!-- Step 4: Settle -->
+              <rect x="158" y="34" width="40" height="36" rx="6" fill="#1b2733"/>
+              <text x="178" y="49" text-anchor="middle" fill="#ffffff" font-size="8" font-family="IBM Plex Mono,monospace" font-weight="700">Settle</text>
+              <text x="178" y="61" text-anchor="middle" fill="rgba(255,255,255,0.42)" font-size="7" font-family="IBM Plex Sans,sans-serif">Complete</text>
+              <!-- Status rows below pipeline -->
+              <line x1="8" y1="86" x2="192" y2="86" stroke="rgba(27,39,51,0.06)" stroke-width="1"/>
+              <!-- Row 1 -->
+              <circle cx="18" cy="98" r="3.5" fill="rgba(51,193,0,0.2)" stroke="rgba(51,193,0,0.4)" stroke-width="0.8"/>
+              <circle cx="18" cy="98" r="1.5" fill="#33c100"/>
+              <text x="28" y="101.5" fill="rgba(27,39,51,0.55)" font-size="8.5" font-family="IBM Plex Sans,sans-serif">GDS &amp; NDC offers handled</text>
+              <!-- Row 2 -->
+              <circle cx="18" cy="114" r="3.5" fill="rgba(51,193,0,0.2)" stroke="rgba(51,193,0,0.4)" stroke-width="0.8"/>
+              <circle cx="18" cy="114" r="1.5" fill="#33c100"/>
+              <text x="28" y="117.5" fill="rgba(27,39,51,0.55)" font-size="8.5" font-family="IBM Plex Sans,sans-serif">Unified order management</text>
+              <!-- Row 3 -->
+              <circle cx="18" cy="130" r="3.5" fill="rgba(51,193,0,0.2)" stroke="rgba(51,193,0,0.4)" stroke-width="0.8"/>
+              <circle cx="18" cy="130" r="1.5" fill="#33c100"/>
+              <text x="28" y="133.5" fill="rgba(27,39,51,0.55)" font-size="8.5" font-family="IBM Plex Sans,sans-serif">Automated settlement &amp; reporting</text>
+            </svg>
+          </div>
+          <div class="sol-card__body">
+            <p class="sol-card__title">End-to-end infrastructure</p>
+            <p class="sol-card__desc">From offer creation through order management to settlement — DRCT handles the full booking lifecycle across every channel and seller type.</p>
+          </div>
+        </div>
+
+      </div><!-- /.sol-grid -->
+    </section>
+  </div>
+</div>
+
+</body>
+</html>
