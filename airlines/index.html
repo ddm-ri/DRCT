@@ -218,15 +218,13 @@
     }
     .hv2-fc__confirm-title { font-size: 12px; font-weight: 600; color: var(--dark); }
     .hv2-fc__iata-row { display: flex; gap: 4px; margin-top: 7px; }
-    /* Float positions */
-    .hv2-float--a { left: 15%;  top: 10%; }
-    .hv2-float--b { right: 15%; top: 10%; }
-    .hv2-float--c { left: 13%;  top: 50%; }
-    .hv2-float--d { right: 13%; top: 50%; }
-    .hv2-float--e { right: 15%; bottom: 8%; }
-    .hv2-float--f { left: 27%;  top: 4%; }
-    .hv2-float--g { right: 27%; top: 4%; }
-    .hv2-float--h { left: 15%;  bottom: 8%; }
+    /* Float positions — 3 per side */
+    .hv2-float--a { left: 11%; top: 8%; }
+    .hv2-float--b { right: 11%; top: 8%; }
+    .hv2-float--c { left: 11%; top: 44%; }
+    .hv2-float--d { right: 11%; top: 44%; }
+    .hv2-float--e { right: 11%; bottom: 6%; }
+    .hv2-float--h { left: 11%; bottom: 6%; }
     /* Airline logo tiles */
     .hv2-al-tile {
       width: 72px; height: 72px;
@@ -247,8 +245,6 @@
     .hv2-float--c { animation: hv2-up   6.0s ease-in-out infinite 1.4s; }
     .hv2-float--d { animation: hv2-down 5.6s ease-in-out infinite 0.4s; }
     .hv2-float--e { animation: hv2-up   5.0s ease-in-out infinite 1.8s; }
-    .hv2-float--f { animation: hv2-down 5.4s ease-in-out infinite 0.6s; }
-    .hv2-float--g { animation: hv2-up   4.6s ease-in-out infinite 1.2s; }
     .hv2-float--h { animation: hv2-down 5.8s ease-in-out infinite 2.1s; }
     @keyframes hv2-up   { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
     @keyframes hv2-down { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(7px); } }
@@ -780,28 +776,6 @@
     </div>
   </div>
 
-  <!-- Float F: British Airways -->
-  <div class="hv2-float hv2-float--f">
-    <div class="hv2-al-tile" style="background:#fff;">
-      <svg width="60" height="36" viewBox="0 0 60 36" xmlns="http://www.w3.org/2000/svg">
-        <!-- BA speedbird: red upper sweep + blue lower stripe -->
-        <path d="M4 28 Q18 6 50 12 Q44 15 32 17 Q18 19 8 26Z" fill="#eb2226"/>
-        <path d="M8 26 Q18 22 32 20 Q44 18 50 14 Q47 19 40 23 Q26 29 10 30Z" fill="#1c4b9c"/>
-      </svg>
-    </div>
-  </div>
-
-  <!-- Float G: flydubai -->
-  <div class="hv2-float hv2-float--g">
-    <div class="hv2-al-tile" style="background:#f7f7f7;">
-      <svg width="58" height="22" viewBox="0 0 58 22" xmlns="http://www.w3.org/2000/svg">
-        <text x="0"  y="17" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#f16822">fly</text>
-        <text x="21" y="17" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#333333">dubai</text>
-        <circle cx="55" cy="5" r="2.2" fill="#f16822"/>
-      </svg>
-    </div>
-  </div>
-
   <!-- Float H: United Airlines -->
   <div class="hv2-float hv2-float--h">
     <div class="hv2-al-tile" style="background:#fff;">
@@ -816,24 +790,19 @@
   </div>
 
   <!-- Network dashed lines (decorative, desktop only) -->
-  <!-- Tile centers at 1280×560: LH(236,100) BA(390,66) FZ(890,66) EK(1044,100) LOT(211,324) SWISS(1069,324) UA(236,471) TAP(1044,471) -->
+  <!-- Tile centers 72px at 1280×560: LH(177,81) EK(1103,81) LOT(177,316) SWISS(1103,316) UA(177,490) TAP(1103,490) -->
   <svg class="hv2-net" viewBox="0 0 1280 560" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
     <g stroke="rgba(42,138,234,0.18)" stroke-width="1" stroke-dasharray="5 8" fill="none">
-      <!-- Top row: LH → BA → FZ → EK -->
-      <line x1="236" y1="100" x2="390" y2="66"/>
-      <line x1="390" y1="66"  x2="890" y2="66"/>
-      <line x1="890" y1="66"  x2="1044" y2="100"/>
-      <!-- Left column: LH → LOT → UA -->
-      <line x1="236" y1="100" x2="211"  y2="324"/>
-      <line x1="211" y1="324" x2="236"  y2="471"/>
-      <!-- Right column: EK → SWISS → TAP -->
-      <line x1="1044" y1="100" x2="1069" y2="324"/>
-      <line x1="1069" y1="324" x2="1044" y2="471"/>
-      <!-- Diagonals: BA → LOT, FZ → SWISS -->
-      <line x1="390" y1="66"  x2="211"  y2="324"/>
-      <line x1="890" y1="66"  x2="1069" y2="324"/>
-      <!-- Bottom: UA → TAP -->
-      <line x1="236" y1="471" x2="1044" y2="471"/>
+      <!-- Left column -->
+      <line x1="177" y1="81"  x2="177" y2="316"/>
+      <line x1="177" y1="316" x2="177" y2="490"/>
+      <!-- Right column -->
+      <line x1="1103" y1="81"  x2="1103" y2="316"/>
+      <line x1="1103" y1="316" x2="1103" y2="490"/>
+      <!-- Horizontals -->
+      <line x1="177" y1="81"  x2="1103" y2="81"/>
+      <line x1="177" y1="316" x2="1103" y2="316"/>
+      <line x1="177" y1="490" x2="1103" y2="490"/>
     </g>
   </svg>
 
