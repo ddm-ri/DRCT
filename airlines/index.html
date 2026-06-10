@@ -67,15 +67,35 @@
       .prod-grid { grid-template-columns: 1fr; }
     }
 
-    /* ── Airline Hero ─────────────────────────────────────────────── */
-    .al-hero {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 56px;
-      align-items: center;
-      padding: 68px 0 76px;
+    /* ── Hero V2 (centered, floating cards) ─────────────────────── */
+    .hv2 {
+      position: relative;
+      padding: 116px 0 96px;
+      overflow: hidden;
+      background: linear-gradient(148deg,
+        rgba(42,138,234,0.16) 0%,
+        rgba(42,138,234,0.07) 42%,
+        rgba(42,138,234,0.02) 68%,
+        #fff 100%);
     }
-    .al-hero__badge {
+    .hv2::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(rgba(27,39,51,0.065) 1px, transparent 1px);
+      background-size: 24px 24px;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .hv2__content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    .hv2__eyebrow {
       display: inline-flex;
       align-items: center;
       gap: 7px;
@@ -85,54 +105,145 @@
       letter-spacing: 0.8px;
       text-transform: uppercase;
       color: var(--blue);
-      margin-bottom: 24px;
+      margin-bottom: 26px;
       padding: 5px 12px 5px 10px;
       border-radius: 4px;
       background: rgba(42,138,234,0.09);
       border: 1px solid rgba(42,138,234,0.2);
     }
-    .al-hero__badge::before {
+    .hv2__eyebrow::before {
       content: '';
       width: 6px; height: 6px;
       border-radius: 50%;
       background: var(--blue);
       flex-shrink: 0;
     }
-    .al-hero__h1 {
-      font-size: 42px;
+    .hv2__h1 {
+      font-size: 58px;
       font-weight: 900;
       color: var(--dark);
-      line-height: 1.08;
-      margin: 0 0 20px;
-      letter-spacing: -0.8px;
+      line-height: 1.05;
+      margin: 0 0 22px;
+      letter-spacing: -1.4px;
     }
-    .al-hero__sub {
-      font-size: 16px;
-      line-height: 1.6;
-      color: rgba(27,39,51,0.62);
-      margin: 0 0 36px;
+    .hv2__sub {
+      font-size: 17px;
+      line-height: 1.62;
+      color: rgba(27,39,51,0.56);
+      margin: 0 auto 44px;
+      max-width: 520px;
     }
-    .al-hero__ctas {
+    .hv2__cta { margin-bottom: 56px; }
+    .hv2__cta .btn-primary { height: 46px; padding: 0 28px; font-size: 13px; }
+    .hv2__logos {
       display: flex;
-      gap: 24px;
+      flex-direction: column;
       align-items: center;
-      flex-wrap: wrap;
+      gap: 14px;
     }
-    .al-hero__panel {
-      border-radius: 14px;
-      overflow: hidden;
+    .hv2__logos-label {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      color: rgba(27,39,51,0.3);
+      margin: 0;
+    }
+    .hv2__logos-row { display: flex; gap: 9px; align-items: center; }
+    .hv2__al {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 8.5px; font-weight: 700;
+      flex-shrink: 0;
+      box-shadow: 0 1px 4px rgba(27,39,51,0.12);
+    }
+    .hv2__al--more {
+      background: rgba(27,39,51,0.06);
+      color: rgba(27,39,51,0.38);
+      font-size: 9px;
+      border: 1px solid rgba(27,39,51,0.1);
+      box-shadow: none;
+    }
+    /* Floating cards */
+    .hv2-float { position: absolute; z-index: 1; }
+    .hv2-fc {
       background: #fff;
-      box-shadow: 0 24px 52px rgba(27,39,51,0.13), 0 0 0 1px rgba(27,39,51,0.08);
+      border-radius: 12px;
+      border: 1px solid rgba(27,39,51,0.08);
+      box-shadow: 0 8px 32px rgba(27,39,51,0.1), 0 2px 8px rgba(27,39,51,0.05);
+      padding: 13px 15px;
     }
-    @media (max-width: 1024px) {
-      .al-hero { gap: 36px; }
-      .al-hero__h1 { font-size: 36px; }
+    .hv2-fc__label {
+      font-family: var(--font-mono);
+      font-size: 8px; font-weight: 600;
+      letter-spacing: 0.4px; text-transform: uppercase;
+      color: rgba(27,39,51,0.35);
+      display: flex; align-items: center; gap: 5px;
+      margin-bottom: 9px;
     }
+    .hv2-fc__dot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; }
+    .hv2-fc__dot--green  { background: #33c100; }
+    .hv2-fc__dot--blue   { background: #2a8aea; }
+    .hv2-fc__dot--pulse  { background: #33c100; box-shadow: 0 0 0 2.5px rgba(51,193,0,0.18); }
+    .hv2-fc__name { font-size: 12px; font-weight: 600; color: var(--dark); line-height: 1.2; margin-bottom: 3px; }
+    .hv2-fc__meta { font-family: var(--font-mono); font-size: 8.5px; color: rgba(27,39,51,0.38); }
+    .hv2-iata {
+      width: 32px; height: 32px; border-radius: 50%;
+      display: inline-flex; align-items: center; justify-content: center;
+      font-family: var(--font-mono); font-size: 8px; font-weight: 700; flex-shrink: 0;
+    }
+    .hv2-iata--sm { width: 22px; height: 22px; font-size: 7px; }
+    .hv2-fc__row { display: flex; align-items: center; gap: 10px; }
+    .hv2-fc__info { flex: 1; min-width: 0; }
+    .hv2-fc__ndc {
+      font-family: var(--font-mono); font-size: 7px; font-weight: 700;
+      color: #2a8aea; background: rgba(42,138,234,0.1);
+      padding: 2.5px 6px; border-radius: 3px; flex-shrink: 0;
+    }
+    .hv2-fc__chip {
+      font-family: var(--font-mono); font-size: 7.5px; font-weight: 600;
+      padding: 3px 7px; border-radius: 3px;
+      background: rgba(27,39,51,0.05); color: rgba(27,39,51,0.44);
+    }
+    .hv2-fc__chip--on { background: rgba(42,138,234,0.1); color: #2a8aea; }
+    .hv2-fc__chips { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 8px; }
+    .hv2-fc__confirm { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+    .hv2-fc__check {
+      width: 18px; height: 18px; border-radius: 50%;
+      background: rgba(51,193,0,0.1); border: 1px solid rgba(51,193,0,0.28);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .hv2-fc__confirm-title { font-size: 12px; font-weight: 600; color: var(--dark); }
+    .hv2-fc__iata-row { display: flex; gap: 4px; margin-top: 7px; }
+    /* Float positions */
+    .hv2-float--a { left: 4%;   top: 11%; }
+    .hv2-float--b { right: 3%;  top: 7%; }
+    .hv2-float--c { left: 2.5%; top: 54%; }
+    .hv2-float--d { right: 2.5%; top: 50%; }
+    .hv2-float--e { right: 3.5%; bottom: 9%; }
+    .hv2-float--a .hv2-fc { width: 208px; }
+    .hv2-float--b .hv2-fc { width: 238px; }
+    .hv2-float--c .hv2-fc { width: 206px; }
+    .hv2-float--d .hv2-fc { width: 220px; }
+    .hv2-float--e .hv2-fc { width: 222px; }
+    /* Animations */
+    .hv2-float--a { animation: hv2-up   5.2s ease-in-out infinite; }
+    .hv2-float--b { animation: hv2-down 4.8s ease-in-out infinite 0.9s; }
+    .hv2-float--c { animation: hv2-up   6.0s ease-in-out infinite 1.4s; }
+    .hv2-float--d { animation: hv2-down 5.6s ease-in-out infinite 0.4s; }
+    .hv2-float--e { animation: hv2-up   5.0s ease-in-out infinite 1.8s; }
+    @keyframes hv2-up   { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+    @keyframes hv2-down { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(7px); } }
+    @media (max-width: 1080px) { .hv2-float { display: none; } }
     @media (max-width: 767px) {
-      .al-hero { grid-template-columns: 1fr; padding: 48px 0 36px; gap: 32px; }
-      .al-hero__panel { display: none; }
-      .al-hero__h1 { font-size: 32px; letter-spacing: -0.5px; }
+      .hv2 { padding: 72px 0 64px; }
+      .hv2__h1 { font-size: 38px; letter-spacing: -0.8px; }
+      .hv2__sub { font-size: 15px; }
     }
+    @media (max-width: 413px) { .hv2__h1 { font-size: 30px; } }
 
     /* ── Testimonials ─────────────────────────────────────────── */
     .testi {
@@ -434,125 +545,132 @@
 <!-- ================================================================
      HERO
 ================================================================ -->
-<div class="landing-new loaded" style="background-image: linear-gradient(180deg, rgba(42,138,234,0.2) 0%, rgba(42,138,234,0.06) 50%, rgba(42,138,234,0) 100%); overflow: hidden;">
-  <div class="landing-new__body">
-    <section class="al-hero">
+<div class="hv2">
 
-      <div class="al-hero__left">
-        <span class="al-hero__badge">Airline Offer Orchestrator</span>
-        <h1 class="al-hero__h1">For airlines ready to<br>scale distribution.</h1>
-        <p class="al-hero__sub">Distribute, enhance, and control your offers across agencies, OTAs, TMCs, and super apps &#8212; from one orchestration layer.</p>
-        <div class="al-hero__ctas">
-          <a href="#contact" class="btn-primary">Partner as an airline &#8599;</a>
-          <a href="../supply-network/index.html" class="link-btn">Explore distribution network &#8594;</a>
+  <!-- Float A: Partner connected (top-left) -->
+  <div class="hv2-float hv2-float--a">
+    <div class="hv2-fc">
+      <div class="hv2-fc__label"><span class="hv2-fc__dot hv2-fc__dot--green"></span>Partner connected</div>
+      <div class="hv2-fc__row">
+        <span class="hv2-iata" style="background:#05164d;color:#f7c200">LH</span>
+        <div class="hv2-fc__info">
+          <div class="hv2-fc__name">Lufthansa Group</div>
+          <div class="hv2-fc__iata-row">
+            <span class="hv2-iata hv2-iata--sm" style="background:#05164d;color:#f7c200">LH</span>
+            <span class="hv2-iata hv2-iata--sm" style="background:#c8102e;color:#fff">OS</span>
+            <span class="hv2-iata hv2-iata--sm" style="background:#cc0000;color:#fff">LX</span>
+            <span class="hv2-iata hv2-iata--sm" style="background:#1c4b9c;color:#fff">SN</span>
+          </div>
         </div>
       </div>
-
-      <div class="al-hero__right">
-        <div class="al-hero__panel">
-          <svg viewBox="0 0 460 392" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;">
-
-  <!-- Nav bar -->
-  <rect x="0" y="0" width="460" height="42" fill="#1b2733"/>
-  <text x="16" y="27" fill="#ffffff" font-size="15" font-family="IBM Plex Sans,sans-serif" font-weight="700" letter-spacing="-0.3">DRCT</text>
-  <text x="84" y="27" fill="rgba(255,255,255,0.32)" font-size="11" font-family="IBM Plex Sans,sans-serif" font-weight="500">Search</text>
-  <text x="128" y="27" fill="#ffffff" font-size="11" font-family="IBM Plex Sans,sans-serif" font-weight="600">Offers</text>
-  <rect x="128" y="38" width="34" height="2.5" rx="1" fill="#2a8aea"/>
-  <text x="176" y="27" fill="rgba(255,255,255,0.32)" font-size="11" font-family="IBM Plex Sans,sans-serif" font-weight="500">Reports</text>
-  <circle cx="438" cy="21" r="13" fill="rgba(255,255,255,0.08)"/>
-  <text x="438" y="25.5" text-anchor="middle" fill="rgba(255,255,255,0.42)" font-size="10.5" font-family="IBM Plex Sans,sans-serif" font-weight="600">DD</text>
-
-  <!-- Search header -->
-  <rect x="0" y="42" width="460" height="50" fill="#f4f6fb"/>
-  <line x1="0" y1="92" x2="460" y2="92" stroke="rgba(27,39,51,0.08)" stroke-width="1"/>
-  <text x="16" y="63" fill="#1b2733" font-size="14" font-family="IBM Plex Sans,sans-serif" font-weight="700">MUC &#x2192; LHR</text>
-  <text x="16" y="81" fill="rgba(27,39,51,0.44)" font-size="9.5" font-family="IBM Plex Mono,monospace">15 MAR &#xB7; ECONOMY &#xB7; 1 PAX</text>
-  <rect x="356" y="54" width="30" height="15" rx="3" fill="rgba(42,138,234,0.12)"/>
-  <text x="371" y="65.5" text-anchor="middle" fill="#2a8aea" font-size="8" font-family="IBM Plex Mono,monospace" font-weight="700">NDC</text>
-  <text x="444" y="81" text-anchor="end" fill="rgba(27,39,51,0.32)" font-size="9" font-family="IBM Plex Mono,monospace">5 results</text>
-
-  <!-- Column headers -->
-  <rect x="0" y="92" width="460" height="20" fill="rgba(27,39,51,0.02)"/>
-  <line x1="0" y1="112" x2="460" y2="112" stroke="rgba(27,39,51,0.06)" stroke-width="1"/>
-  <text x="56" y="105" fill="rgba(27,39,51,0.3)" font-size="8" font-family="IBM Plex Mono,monospace" font-weight="600" letter-spacing="0.5">AIRLINE</text>
-  <text x="206" y="105" fill="rgba(27,39,51,0.3)" font-size="8" font-family="IBM Plex Mono,monospace" font-weight="600" letter-spacing="0.5">SCHEDULE</text>
-  <text x="444" y="105" text-anchor="end" fill="rgba(27,39,51,0.3)" font-size="8" font-family="IBM Plex Mono,monospace" font-weight="600" letter-spacing="0.5">PRICE</text>
-
-  <!-- ROW 1: Lufthansa (highlighted) -->
-  <rect x="0" y="112" width="460" height="56" fill="rgba(42,138,234,0.04)"/>
-  <rect x="0" y="112" width="4" height="56" fill="#f7c200"/>
-  <circle cx="30" cy="140" r="15" fill="#05164d"/>
-  <text x="30" y="144.5" text-anchor="middle" fill="#f7c200" font-size="8" font-family="IBM Plex Mono,monospace" font-weight="700">LH</text>
-  <text x="56" y="134" fill="#1b2733" font-size="11" font-family="IBM Plex Sans,sans-serif" font-weight="600">Lufthansa</text>
-  <text x="56" y="150" fill="rgba(27,39,51,0.44)" font-size="9" font-family="IBM Plex Mono,monospace">LH 2456 &#xB7; A321</text>
-  <text x="206" y="134" fill="#1b2733" font-size="11" font-family="IBM Plex Sans,sans-serif" font-weight="500">09:20 &#x2192; 10:55</text>
-  <text x="206" y="150" fill="rgba(27,39,51,0.38)" font-size="9" font-family="IBM Plex Mono,monospace">2h 35m &#xB7; Direct</text>
-  <text x="444" y="134" text-anchor="end" fill="#1b2733" font-size="14" font-family="IBM Plex Mono,monospace" font-weight="700">&#xA3;162</text>
-  <rect x="414" y="141" width="30" height="13" rx="3" fill="rgba(42,138,234,0.12)"/>
-  <text x="429" y="151" text-anchor="middle" fill="#2a8aea" font-size="7.5" font-family="IBM Plex Mono,monospace" font-weight="700">NDC</text>
-  <line x1="4" y1="168" x2="460" y2="168" stroke="rgba(27,39,51,0.07)" stroke-width="1"/>
-
-  <!-- ROW 2: British Airways -->
-  <rect x="0" y="168" width="460" height="56" fill="#ffffff"/>
-  <rect x="0" y="168" width="4" height="56" fill="#012169"/>
-  <circle cx="30" cy="196" r="15" fill="#012169"/>
-  <text x="30" y="200.5" text-anchor="middle" fill="#ffffff" font-size="8" font-family="IBM Plex Mono,monospace" font-weight="700">BA</text>
-  <text x="56" y="190" fill="#1b2733" font-size="11" font-family="IBM Plex Sans,sans-serif" font-weight="600">British Airways</text>
-  <text x="56" y="206" fill="rgba(27,39,51,0.44)" font-size="9" font-family="IBM Plex Mono,monospace">BA 956 &#xB7; A320</text>
-  <text x="206" y="190" fill="#1b2733" font-size="11" font-family="IBM Plex Sans,sans-serif" font-weight="500">11:15 &#x2192; 12:55</text>
-  <text x="206" y="206" fill="rgba(27,39,51,0.38)" font-size="9" font-family="IBM Plex Mono,monospace">2h 40m &#xB7; Direct</text>
-  <text x="444" y="190" text-anchor="end" fill="#1b2733" font-size="14" font-family="IBM Plex Mono,monospace" font-weight="700">&#xA3;196</text>
-  <rect x="414" y="197" width="30" height="13" rx="3" fill="rgba(42,138,234,0.12)"/>
-  <text x="429" y="207" text-anchor="middle" fill="#2a8aea" font-size="7.5" font-family="IBM Plex Mono,monospace" font-weight="700">NDC</text>
-  <line x1="4" y1="224" x2="460" y2="224" stroke="rgba(27,39,51,0.07)" stroke-width="1"/>
-
-  <!-- ROW 3: SWISS -->
-  <rect x="0" y="224" width="460" height="56" fill="#ffffff"/>
-  <rect x="0" y="224" width="4" height="56" fill="#cc0000"/>
-  <circle cx="30" cy="252" r="15" fill="#cc0000"/>
-  <text x="30" y="256.5" text-anchor="middle" fill="#ffffff" font-size="8" font-family="IBM Plex Mono,monospace" font-weight="700">LX</text>
-  <text x="56" y="246" fill="#1b2733" font-size="11" font-family="IBM Plex Sans,sans-serif" font-weight="600">SWISS</text>
-  <text x="56" y="262" fill="rgba(27,39,51,0.44)" font-size="9" font-family="IBM Plex Mono,monospace">LX 318 &#xB7; A320</text>
-  <text x="206" y="246" fill="#1b2733" font-size="11" font-family="IBM Plex Sans,sans-serif" font-weight="500">07:00 &#x2192; 08:40</text>
-  <text x="206" y="262" fill="rgba(27,39,51,0.38)" font-size="9" font-family="IBM Plex Mono,monospace">2h 40m &#xB7; Direct</text>
-  <text x="444" y="246" text-anchor="end" fill="#1b2733" font-size="14" font-family="IBM Plex Mono,monospace" font-weight="700">&#xA3;640</text>
-  <rect x="392" y="253" width="52" height="13" rx="3" fill="rgba(27,39,51,0.06)"/>
-  <text x="418" y="263" text-anchor="middle" fill="rgba(27,39,51,0.45)" font-size="7.5" font-family="IBM Plex Mono,monospace" font-weight="600">BUSINESS</text>
-  <line x1="4" y1="280" x2="460" y2="280" stroke="rgba(27,39,51,0.07)" stroke-width="1"/>
-
-  <!-- ROW 4: Aer Lingus -->
-  <rect x="0" y="280" width="460" height="56" fill="#ffffff"/>
-  <rect x="0" y="280" width="4" height="56" fill="#007b40"/>
-  <circle cx="30" cy="308" r="15" fill="#007b40"/>
-  <text x="30" y="312.5" text-anchor="middle" fill="#ffffff" font-size="8" font-family="IBM Plex Mono,monospace" font-weight="700">EI</text>
-  <text x="56" y="302" fill="#1b2733" font-size="11" font-family="IBM Plex Sans,sans-serif" font-weight="600">Aer Lingus</text>
-  <text x="56" y="318" fill="rgba(27,39,51,0.44)" font-size="9" font-family="IBM Plex Mono,monospace">EI 163 &#xB7; A320</text>
-  <text x="206" y="302" fill="#1b2733" font-size="11" font-family="IBM Plex Sans,sans-serif" font-weight="500">14:30 &#x2192; 16:15</text>
-  <text x="206" y="318" fill="rgba(27,39,51,0.38)" font-size="9" font-family="IBM Plex Mono,monospace">2h 45m &#xB7; Direct</text>
-  <text x="444" y="302" text-anchor="end" fill="#1b2733" font-size="14" font-family="IBM Plex Mono,monospace" font-weight="700">&#xA3;174</text>
-  <rect x="408" y="309" width="36" height="13" rx="3" fill="rgba(27,39,51,0.06)"/>
-  <text x="426" y="319" text-anchor="middle" fill="rgba(27,39,51,0.45)" font-size="7.5" font-family="IBM Plex Mono,monospace" font-weight="600">GDS</text>
-  <line x1="4" y1="336" x2="460" y2="336" stroke="rgba(27,39,51,0.07)" stroke-width="1"/>
-
-  <!-- ROW 5: Austrian -->
-  <rect x="0" y="336" width="460" height="56" fill="#ffffff"/>
-  <rect x="0" y="336" width="4" height="56" fill="#c8102e"/>
-  <circle cx="30" cy="364" r="15" fill="#c8102e"/>
-  <text x="30" y="368.5" text-anchor="middle" fill="#ffffff" font-size="8" font-family="IBM Plex Mono,monospace" font-weight="700">OS</text>
-  <text x="56" y="358" fill="#1b2733" font-size="11" font-family="IBM Plex Sans,sans-serif" font-weight="600">Austrian</text>
-  <text x="56" y="374" fill="rgba(27,39,51,0.44)" font-size="9" font-family="IBM Plex Mono,monospace">OS 451 &#xB7; A320</text>
-  <text x="206" y="358" fill="#1b2733" font-size="11" font-family="IBM Plex Sans,sans-serif" font-weight="500">16:40 &#x2192; 18:25</text>
-  <text x="206" y="374" fill="rgba(27,39,51,0.38)" font-size="9" font-family="IBM Plex Mono,monospace">2h 45m &#xB7; Direct</text>
-  <text x="444" y="358" text-anchor="end" fill="#1b2733" font-size="14" font-family="IBM Plex Mono,monospace" font-weight="700">&#xA3;198</text>
-  <rect x="414" y="365" width="30" height="13" rx="3" fill="rgba(42,138,234,0.12)"/>
-  <text x="429" y="375" text-anchor="middle" fill="#2a8aea" font-size="7.5" font-family="IBM Plex Mono,monospace" font-weight="700">NDC</text>
-
-</svg>
-        </div>
-      </div>
-
-    </section>
+    </div>
   </div>
+
+  <!-- Float B: Offer distributed (top-right) -->
+  <div class="hv2-float hv2-float--b">
+    <div class="hv2-fc">
+      <div class="hv2-fc__label"><span class="hv2-fc__dot hv2-fc__dot--blue"></span>Offer distributed</div>
+      <div class="hv2-fc__row">
+        <span class="hv2-iata" style="background:#012169;color:#fff">BA</span>
+        <div class="hv2-fc__info">
+          <div class="hv2-fc__name">BA 956 &middot; LHR &#x2192; JFK</div>
+          <div class="hv2-fc__meta">Economy &middot; &#xA3;442 &middot; 15 MAR</div>
+        </div>
+        <span class="hv2-fc__ndc">NDC</span>
+      </div>
+      <div class="hv2-fc__chips">
+        <span class="hv2-fc__chip hv2-fc__chip--on">IATA</span>
+        <span class="hv2-fc__chip hv2-fc__chip--on">TMC</span>
+        <span class="hv2-fc__chip">OTA</span>
+        <span class="hv2-fc__chip">Direct</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Float C: NDC enabled (left-middle) -->
+  <div class="hv2-float hv2-float--c">
+    <div class="hv2-fc">
+      <div class="hv2-fc__label"><span class="hv2-fc__dot hv2-fc__dot--pulse"></span>NDC enabled</div>
+      <div class="hv2-fc__row" style="flex-wrap:wrap;gap:5px;">
+        <span class="hv2-iata hv2-iata--sm" style="background:#05164d;color:#f7c200">LH</span>
+        <span class="hv2-iata hv2-iata--sm" style="background:#012169;color:#fff">BA</span>
+        <span class="hv2-iata hv2-iata--sm" style="background:#cc0000;color:#fff">LX</span>
+        <span class="hv2-iata hv2-iata--sm" style="background:#007b40;color:#fff">EI</span>
+        <span class="hv2-iata hv2-iata--sm" style="background:#c8102e;color:#fff">OS</span>
+        <span class="hv2-iata hv2-iata--sm" style="background:#0075be;color:#fff">SK</span>
+        <span class="hv2-iata hv2-iata--sm" style="background:#00843d;color:#fff">TP</span>
+        <span class="hv2-iata hv2-iata--sm" style="background:#073590;color:#fff">FR</span>
+      </div>
+      <div class="hv2-fc__meta" style="margin-top:8px;">and more airlines</div>
+    </div>
+  </div>
+
+  <!-- Float D: Distribution coverage (right-middle) -->
+  <div class="hv2-float hv2-float--d">
+    <div class="hv2-fc">
+      <div class="hv2-fc__label">Distribution coverage</div>
+      <div style="display:flex;flex-direction:column;gap:7px;">
+        <div class="hv2-fc__row">
+          <span class="hv2-fc__ndc" style="width:38px;text-align:center;">IATA</span>
+          <div class="hv2-fc__info"><div style="font-size:11px;font-weight:600;color:var(--dark);">IATA agencies</div></div>
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5.5" fill="rgba(51,193,0,0.12)" stroke="rgba(51,193,0,0.35)" stroke-width="0.8"/><path d="M3.5 6l1.8 1.8 3.2-3.2" stroke="#2aab00" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="hv2-fc__row">
+          <span class="hv2-fc__chip hv2-fc__chip--on" style="width:38px;text-align:center;">NDC</span>
+          <div class="hv2-fc__info"><div style="font-size:11px;font-weight:600;color:var(--dark);">NDC content</div></div>
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5.5" fill="rgba(51,193,0,0.12)" stroke="rgba(51,193,0,0.35)" stroke-width="0.8"/><path d="M3.5 6l1.8 1.8 3.2-3.2" stroke="#2aab00" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="hv2-fc__row">
+          <span class="hv2-fc__chip" style="width:38px;text-align:center;">TMC</span>
+          <div class="hv2-fc__info"><div style="font-size:11px;font-weight:600;color:var(--dark);">Corporate TMCs</div></div>
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5.5" fill="rgba(51,193,0,0.12)" stroke="rgba(51,193,0,0.35)" stroke-width="0.8"/><path d="M3.5 6l1.8 1.8 3.2-3.2" stroke="#2aab00" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Float E: Order confirmed (bottom-right) -->
+  <div class="hv2-float hv2-float--e">
+    <div class="hv2-fc">
+      <div class="hv2-fc__confirm">
+        <div class="hv2-fc__check"><svg width="9" height="9" viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2.5 2.5 4-4" stroke="#2aab00" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="hv2-fc__confirm-title">Order confirmed</span>
+      </div>
+      <div class="hv2-fc__row">
+        <span class="hv2-iata hv2-iata--sm" style="background:#c8102e;color:#fff">OS</span>
+        <div class="hv2-fc__info">
+          <div style="font-size:11px;font-weight:600;color:var(--dark);">OS 451 &middot; VIE &#x2192; LHR</div>
+          <div class="hv2-fc__meta">16:40 &middot; Economy &middot; via NDC</div>
+        </div>
+        <span class="hv2-fc__ndc">NDC</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Center content -->
+  <div class="landing-new__body" style="position:relative;z-index:2;">
+    <div class="hv2__content">
+      <span class="hv2__eyebrow">Airline Offer Orchestrator</span>
+      <h1 class="hv2__h1">The operating layer for<br>airline distribution.</h1>
+      <p class="hv2__sub">Control, distribute, and scale your offers across every indirect channel — agencies, TMCs, OTAs, and super apps — from a single integration.</p>
+      <div class="hv2__cta">
+        <a href="#contact" class="btn-primary">Partner as an Airline &#8599;</a>
+      </div>
+      <div class="hv2__logos">
+        <p class="hv2__logos-label">Trusted by airlines including</p>
+        <div class="hv2__logos-row">
+          <span class="hv2__al" style="background:#05164d;color:#f7c200;">LH</span>
+          <span class="hv2__al" style="background:#012169;color:#fff;">BA</span>
+          <span class="hv2__al" style="background:#cc0000;color:#fff;">LX</span>
+          <span class="hv2__al" style="background:#007b40;color:#fff;">EI</span>
+          <span class="hv2__al" style="background:#c8102e;color:#fff;">OS</span>
+          <span class="hv2__al" style="background:#0075be;color:#fff;">SK</span>
+          <span class="hv2__al hv2__al--more">+more</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </div>
 
 <!-- ================================================================
