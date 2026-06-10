@@ -305,47 +305,35 @@
 
     /* ── Impact metrics ──────────────────────────────────────────── */
     .metrics {
-      padding: 104px 0 116px;
+      padding: 108px 0 120px;
     }
     .metrics__grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
     }
     .metrics__col {
-      padding: 0 72px;
+      padding: 0 60px;
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      justify-content: flex-start;
     }
     .metrics__col:first-child { padding-left: 0; }
     .metrics__col:last-child  { padding-right: 0; }
     .metrics__col + .metrics__col {
       border-left: 1px solid rgba(27,39,51,0.08);
     }
-    /* Small authority label above ARM value */
-    .metrics__badge-pre {
-      display: block;
-      font-family: var(--font-mono);
-      font-size: 9px;
-      font-weight: 700;
-      letter-spacing: 1.6px;
-      text-transform: uppercase;
-      color: var(--blue);
-      opacity: 0.7;
-      margin-bottom: 0;
-      line-height: 1;
-    }
     .metrics__value {
       display: block;
-      font-size: 116px;
+      font-size: 92px;
       font-weight: 900;
       color: var(--blue);
       line-height: 1;
-      letter-spacing: -4px;
-      margin-bottom: 12px;
+      letter-spacing: -3px;
+      margin-bottom: 14px;
+      white-space: nowrap;
     }
     .metrics__value sup {
-      font-size: 54px;
+      font-size: 42px;
       letter-spacing: 0;
       vertical-align: super;
     }
@@ -353,7 +341,7 @@
       font-size: 12px;
       font-weight: 600;
       color: rgba(27,39,51,0.65);
-      margin: 0 0 5px;
+      margin: 0 0 6px;
       line-height: 1.3;
       letter-spacing: 0.1px;
     }
@@ -365,9 +353,9 @@
     }
     /* ── Responsive ─────────────────────────────────────────────── */
     @media (max-width: 1024px) {
-      .metrics__col { padding: 0 44px; }
-      .metrics__value { font-size: 92px; letter-spacing: -3px; }
-      .metrics__value sup { font-size: 44px; }
+      .metrics__col { padding: 0 40px; }
+      .metrics__value { font-size: 72px; letter-spacing: -2.5px; }
+      .metrics__value sup { font-size: 34px; }
     }
     @media (max-width: 767px) {
       .metrics { padding: 72px 0 80px; }
@@ -378,8 +366,7 @@
         border-top: 1px solid rgba(27,39,51,0.08);
       }
       .metrics__col:first-child { border-top: none; padding-top: 0; }
-      .metrics__value { font-size: 80px; letter-spacing: -2.5px; }
-      .metrics__value sup { font-size: 38px; }
+      .metrics__value { font-size: 72px; letter-spacing: -2.5px; }
     }
   </style>
 </head>
@@ -840,22 +827,21 @@
         <div class="metrics__col">
           <span class="metrics__value">40<sup>+</sup></span>
           <h3 class="metrics__label">Connected Airlines</h3>
-          <p class="metrics__desc">Trusted by full-service and low-cost carriers.</p>
+          <p class="metrics__desc">Full-service and low-cost carriers live on the network.</p>
         </div>
 
-        <!-- ─── Hundreds of sellers ───────────────────────────── -->
+        <!-- ─── 1,100+ Travel Sellers ─────────────────────────── -->
         <div class="metrics__col">
-          <span class="metrics__value">100s</span>
+          <span class="metrics__value">1,100<sup>+</sup></span>
           <h3 class="metrics__label">Travel Sellers</h3>
-          <p class="metrics__desc">Agencies, OTAs, TMCs, and API partners globally.</p>
+          <p class="metrics__desc">Individual agents across TMCs, OTAs, and API partners globally.</p>
         </div>
 
-        <!-- ─── IATA ARM Certification ────────────────────────── -->
+        <!-- ─── 200+ Agency Partners ──────────────────────────── -->
         <div class="metrics__col">
-          <span class="metrics__badge-pre">IATA</span>
-          <span class="metrics__value">ARM</span>
-          <h3 class="metrics__label">Certified System Provider</h3>
-          <p class="metrics__desc">Official registry status.</p>
+          <span class="metrics__value">200<sup>+</sup></span>
+          <h3 class="metrics__label">Agency Partners</h3>
+          <p class="metrics__desc">TMCs, OTAs, and travel agencies across Europe, the U.K., and the U.S.</p>
         </div>
 
       </div>
