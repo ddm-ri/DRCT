@@ -224,11 +224,15 @@
     .hv2-float--c { left: 2.5%; top: 54%; }
     .hv2-float--d { right: 2.5%; top: 50%; }
     .hv2-float--e { right: 3.5%; bottom: 9%; }
-    .hv2-float--a .hv2-fc { width: 208px; }
-    .hv2-float--b .hv2-fc { width: 238px; }
-    .hv2-float--c .hv2-fc { width: 206px; }
-    .hv2-float--d .hv2-fc { width: 220px; }
-    .hv2-float--e .hv2-fc { width: 222px; }
+    /* Airline logo tiles (replace cards) */
+    .hv2-al-tile {
+      width: 88px; height: 88px;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 10px 28px rgba(27,39,51,0.18), 0 2px 8px rgba(27,39,51,0.09);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .hv2-al-tile img { width: 70%; height: 70%; object-fit: contain; }
     /* Animations */
     .hv2-float--a { animation: hv2-up   5.2s ease-in-out infinite; }
     .hv2-float--b { animation: hv2-down 4.8s ease-in-out infinite 0.9s; }
@@ -706,103 +710,38 @@
 ================================================================ -->
 <div class="hv2">
 
-  <!-- Float A: Partner connected (top-left) -->
+  <!-- Float A: Lufthansa -->
   <div class="hv2-float hv2-float--a">
-    <div class="hv2-fc">
-      <div class="hv2-fc__label"><span class="hv2-fc__dot hv2-fc__dot--green"></span>Partner connected</div>
-      <div class="hv2-fc__row">
-        <span class="hv2-iata" style="background:#05164d;color:#f7c200">LH</span>
-        <div class="hv2-fc__info">
-          <div class="hv2-fc__name">Lufthansa Group</div>
-          <div class="hv2-fc__iata-row">
-            <span class="hv2-iata hv2-iata--sm" style="background:#05164d;color:#f7c200">LH</span>
-            <span class="hv2-iata hv2-iata--sm" style="background:#c8102e;color:#fff">OS</span>
-            <span class="hv2-iata hv2-iata--sm" style="background:#cc0000;color:#fff">LX</span>
-            <span class="hv2-iata hv2-iata--sm" style="background:#1c4b9c;color:#fff">SN</span>
-          </div>
-        </div>
-      </div>
+    <div class="hv2-al-tile" style="background:linear-gradient(145deg,#d4d9ef,#c6cde8);">
+      <img src="https://www.gstatic.com/flights/airline_logos/70px/LH.png" alt="Lufthansa">
     </div>
   </div>
 
-  <!-- Float B: Offer distributed (top-right) -->
+  <!-- Float B: Emirates -->
   <div class="hv2-float hv2-float--b">
-    <div class="hv2-fc">
-      <div class="hv2-fc__label"><span class="hv2-fc__dot hv2-fc__dot--blue"></span>Offer distributed</div>
-      <div class="hv2-fc__row">
-        <span class="hv2-iata" style="background:#012169;color:#fff">BA</span>
-        <div class="hv2-fc__info">
-          <div class="hv2-fc__name">BA 956 &middot; LHR &#x2192; JFK</div>
-          <div class="hv2-fc__meta">Economy &middot; &#xA3;442 &middot; 15 MAR</div>
-        </div>
-        <span class="hv2-fc__ndc">NDC</span>
-      </div>
-      <div class="hv2-fc__chips">
-        <span class="hv2-fc__chip hv2-fc__chip--on">IATA</span>
-        <span class="hv2-fc__chip hv2-fc__chip--on">TMC</span>
-        <span class="hv2-fc__chip">OTA</span>
-        <span class="hv2-fc__chip">Direct</span>
-      </div>
+    <div class="hv2-al-tile" style="background:#e3251d;">
+      <img src="https://www.gstatic.com/flights/airline_logos/70px/EK.png" alt="Emirates">
     </div>
   </div>
 
-  <!-- Float C: NDC enabled (left-middle) -->
+  <!-- Float C: LOT -->
   <div class="hv2-float hv2-float--c">
-    <div class="hv2-fc">
-      <div class="hv2-fc__label"><span class="hv2-fc__dot hv2-fc__dot--pulse"></span>NDC enabled</div>
-      <div class="hv2-fc__row" style="flex-wrap:wrap;gap:5px;">
-        <span class="hv2-iata hv2-iata--sm" style="background:#05164d;color:#f7c200">LH</span>
-        <span class="hv2-iata hv2-iata--sm" style="background:#012169;color:#fff">BA</span>
-        <span class="hv2-iata hv2-iata--sm" style="background:#cc0000;color:#fff">LX</span>
-        <span class="hv2-iata hv2-iata--sm" style="background:#007b40;color:#fff">EI</span>
-        <span class="hv2-iata hv2-iata--sm" style="background:#c8102e;color:#fff">OS</span>
-        <span class="hv2-iata hv2-iata--sm" style="background:#0075be;color:#fff">SK</span>
-        <span class="hv2-iata hv2-iata--sm" style="background:#00843d;color:#fff">TP</span>
-        <span class="hv2-iata hv2-iata--sm" style="background:#073590;color:#fff">FR</span>
-      </div>
-      <div class="hv2-fc__meta" style="margin-top:8px;">and more airlines</div>
+    <div class="hv2-al-tile" style="background:linear-gradient(145deg,#dde9f8,#c9d9f4);">
+      <img src="https://www.gstatic.com/flights/airline_logos/70px/LO.png" alt="LOT">
     </div>
   </div>
 
-  <!-- Float D: Distribution coverage (right-middle) -->
+  <!-- Float D: SWISS -->
   <div class="hv2-float hv2-float--d">
-    <div class="hv2-fc">
-      <div class="hv2-fc__label">Distribution coverage</div>
-      <div style="display:flex;flex-direction:column;gap:7px;">
-        <div class="hv2-fc__row">
-          <span class="hv2-fc__ndc" style="width:38px;text-align:center;">IATA</span>
-          <div class="hv2-fc__info"><div style="font-size:11px;font-weight:600;color:var(--dark);">IATA agencies</div></div>
-          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5.5" fill="rgba(51,193,0,0.12)" stroke="rgba(51,193,0,0.35)" stroke-width="0.8"/><path d="M3.5 6l1.8 1.8 3.2-3.2" stroke="#2aab00" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div>
-        <div class="hv2-fc__row">
-          <span class="hv2-fc__chip hv2-fc__chip--on" style="width:38px;text-align:center;">NDC</span>
-          <div class="hv2-fc__info"><div style="font-size:11px;font-weight:600;color:var(--dark);">NDC content</div></div>
-          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5.5" fill="rgba(51,193,0,0.12)" stroke="rgba(51,193,0,0.35)" stroke-width="0.8"/><path d="M3.5 6l1.8 1.8 3.2-3.2" stroke="#2aab00" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div>
-        <div class="hv2-fc__row">
-          <span class="hv2-fc__chip" style="width:38px;text-align:center;">TMC</span>
-          <div class="hv2-fc__info"><div style="font-size:11px;font-weight:600;color:var(--dark);">Corporate TMCs</div></div>
-          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5.5" fill="rgba(51,193,0,0.12)" stroke="rgba(51,193,0,0.35)" stroke-width="0.8"/><path d="M3.5 6l1.8 1.8 3.2-3.2" stroke="#2aab00" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div>
-      </div>
+    <div class="hv2-al-tile" style="background:#f0f0f0;">
+      <img src="https://www.gstatic.com/flights/airline_logos/70px/LX.png" alt="SWISS">
     </div>
   </div>
 
-  <!-- Float E: Order confirmed (bottom-right) -->
+  <!-- Float E: TAP -->
   <div class="hv2-float hv2-float--e">
-    <div class="hv2-fc">
-      <div class="hv2-fc__confirm">
-        <div class="hv2-fc__check"><svg width="9" height="9" viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2.5 2.5 4-4" stroke="#2aab00" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        <span class="hv2-fc__confirm-title">Order confirmed</span>
-      </div>
-      <div class="hv2-fc__row">
-        <span class="hv2-iata hv2-iata--sm" style="background:#c8102e;color:#fff">OS</span>
-        <div class="hv2-fc__info">
-          <div style="font-size:11px;font-weight:600;color:var(--dark);">OS 451 &middot; VIE &#x2192; LHR</div>
-          <div class="hv2-fc__meta">16:40 &middot; Economy &middot; via NDC</div>
-        </div>
-        <span class="hv2-fc__ndc">NDC</span>
-      </div>
+    <div class="hv2-al-tile" style="background:#f0f0f0;">
+      <img src="https://www.gstatic.com/flights/airline_logos/70px/TP.png" alt="TAP Air Portugal">
     </div>
   </div>
 
