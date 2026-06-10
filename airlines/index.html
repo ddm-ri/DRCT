@@ -219,29 +219,40 @@
     .hv2-fc__confirm-title { font-size: 12px; font-weight: 600; color: var(--dark); }
     .hv2-fc__iata-row { display: flex; gap: 4px; margin-top: 7px; }
     /* Float positions */
-    .hv2-float--a { left: 9%;   top: 11%; }
-    .hv2-float--b { right: 9%;  top: 7%; }
-    .hv2-float--c { left: 8%;   top: 56%; }
-    .hv2-float--d { right: 8%;  top: 50%; }
-    .hv2-float--e { right: 9%;  bottom: 9%; }
-    /* Airline logo tiles (replace cards) */
+    .hv2-float--a { left: 9%;  top: 12%; }
+    .hv2-float--b { right: 9%; top: 12%; }
+    .hv2-float--c { left: 8%;  top: 56%; }
+    .hv2-float--d { right: 8%; top: 50%; }
+    .hv2-float--e { right: 9%; bottom: 10%; }
+    .hv2-float--f { left: 23%; top: 5%; }
+    .hv2-float--g { right: 23%; top: 5%; }
+    .hv2-float--h { left: 9%;  bottom: 10%; }
+    /* Airline logo tiles */
     .hv2-al-tile {
       width: 88px; height: 88px;
       border-radius: 24px;
       overflow: hidden;
-      box-shadow: 0 10px 28px rgba(27,39,51,0.18), 0 2px 8px rgba(27,39,51,0.09);
+      box-shadow: 0 10px 28px rgba(42,138,234,0.22), 0 2px 8px rgba(42,138,234,0.10);
       display: flex; align-items: center; justify-content: center;
     }
     .hv2-al-tile img { width: 70%; height: 70%; object-fit: contain; }
+    /* Network lines SVG overlay */
+    .hv2-net {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      pointer-events: none; z-index: 0;
+    }
     /* Animations */
     .hv2-float--a { animation: hv2-up   5.2s ease-in-out infinite; }
     .hv2-float--b { animation: hv2-down 4.8s ease-in-out infinite 0.9s; }
     .hv2-float--c { animation: hv2-up   6.0s ease-in-out infinite 1.4s; }
     .hv2-float--d { animation: hv2-down 5.6s ease-in-out infinite 0.4s; }
     .hv2-float--e { animation: hv2-up   5.0s ease-in-out infinite 1.8s; }
+    .hv2-float--f { animation: hv2-down 5.4s ease-in-out infinite 0.6s; }
+    .hv2-float--g { animation: hv2-up   4.6s ease-in-out infinite 1.2s; }
+    .hv2-float--h { animation: hv2-down 5.8s ease-in-out infinite 2.1s; }
     @keyframes hv2-up   { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
     @keyframes hv2-down { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(7px); } }
-    @media (max-width: 1080px) { .hv2-float { display: none; } }
+    @media (max-width: 1080px) { .hv2-float, .hv2-net { display: none; } }
     @media (max-width: 767px) {
       .hv2 { padding: 72px 0 64px; }
       .hv2__h1 { font-size: 38px; letter-spacing: -0.8px; }
@@ -768,6 +779,63 @@
       </svg>
     </div>
   </div>
+
+  <!-- Float F: British Airways -->
+  <div class="hv2-float hv2-float--f">
+    <div class="hv2-al-tile" style="background:#fff;">
+      <svg width="60" height="36" viewBox="0 0 60 36" xmlns="http://www.w3.org/2000/svg">
+        <!-- BA speedbird: red upper sweep + blue lower stripe -->
+        <path d="M4 28 Q18 6 50 12 Q44 15 32 17 Q18 19 8 26Z" fill="#eb2226"/>
+        <path d="M8 26 Q18 22 32 20 Q44 18 50 14 Q47 19 40 23 Q26 29 10 30Z" fill="#1c4b9c"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- Float G: flydubai -->
+  <div class="hv2-float hv2-float--g">
+    <div class="hv2-al-tile" style="background:#f7f7f7;">
+      <svg width="58" height="22" viewBox="0 0 58 22" xmlns="http://www.w3.org/2000/svg">
+        <text x="0"  y="17" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#f16822">fly</text>
+        <text x="21" y="17" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#333333">dubai</text>
+        <circle cx="55" cy="5" r="2.2" fill="#f16822"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- Float H: United Airlines -->
+  <div class="hv2-float hv2-float--h">
+    <div class="hv2-al-tile" style="background:#fff;">
+      <svg width="64" height="26" viewBox="0 0 64 26" xmlns="http://www.w3.org/2000/svg">
+        <text x="0" y="18" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#0052a5" letter-spacing="0.4">UNITED</text>
+        <!-- Globe icon -->
+        <circle cx="55" cy="13" r="9" fill="none" stroke="#0052a5" stroke-width="1.6"/>
+        <ellipse cx="55" cy="13" rx="4.5" ry="9" fill="none" stroke="#0052a5" stroke-width="1.2"/>
+        <line x1="46" y1="13" x2="64" y2="13" stroke="#0052a5" stroke-width="1.2"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- Network dashed lines (decorative, desktop only) -->
+  <!-- Tile centers at 1280×560 hero: LH(159,111) BA(338,72) FZ(942,72) EK(1121,111) LOT(146,357) SWISS(1133,324) UA(159,460) TAP(1121,460) -->
+  <svg class="hv2-net" viewBox="0 0 1280 560" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <g stroke="rgba(42,138,234,0.22)" stroke-width="1.2" stroke-dasharray="5 8" fill="none">
+      <!-- Top row: LH → BA → FZ → EK -->
+      <line x1="159" y1="111" x2="338" y2="72"/>
+      <line x1="338" y1="72"  x2="942" y2="72"/>
+      <line x1="942" y1="72"  x2="1121" y2="111"/>
+      <!-- Left column: LH → LOT → UA -->
+      <line x1="159" y1="111" x2="146" y2="357"/>
+      <line x1="146" y1="357" x2="159" y2="460"/>
+      <!-- Right column: EK → SWISS → TAP -->
+      <line x1="1121" y1="111" x2="1133" y2="324"/>
+      <line x1="1133" y1="324" x2="1121" y2="460"/>
+      <!-- Diagonals: BA → LOT, FZ → SWISS -->
+      <line x1="338" y1="72"  x2="146" y2="357"/>
+      <line x1="942" y1="72"  x2="1133" y2="324"/>
+      <!-- Bottom: UA → TAP -->
+      <line x1="159" y1="460" x2="1121" y2="460"/>
+    </g>
+  </svg>
 
   <!-- Center content -->
   <div class="landing-new__body" style="position:relative;z-index:2;">
