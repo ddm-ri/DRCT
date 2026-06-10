@@ -139,6 +139,7 @@ body {
   opacity: 0.9;
   padding: 10px 20px;
   text-transform: uppercase;
+  white-space: nowrap;
 }
 .btn-primary:hover,
 .btn-primary:active {
@@ -356,7 +357,7 @@ a.inline-link,
    HERO (info)
 ---------------------------------------------------------------- */
 .info {
-  align-items: center;
+  align-items: flex-start;
   display: flex;
   justify-content: space-between;
   margin-top: 60px;
@@ -370,10 +371,10 @@ a.inline-link,
 }
 
 .info__left {
-  width: 420px;
+  width: 460px;
 }
 @media (max-width: 1024px) {
-  .info__left { width: calc(45% - 40px); }
+  .info__left { width: calc(46% - 20px); }
 }
 @media (max-width: 767px) {
   .info__left { text-align: center; width: 100%; }
@@ -411,22 +412,24 @@ a.inline-link,
 }
 
 .info__right {
+  background: var(--blue-10);
   border-radius: 8px;
-  width: 520px;
+  overflow: hidden;
+  width: 500px;
 }
 @media (max-width: 1024px) {
-  .info__right { width: calc(55% - 40px); }
+  .info__right { width: calc(54% - 20px); }
 }
 @media (max-width: 767px) {
   .info__right { width: 100%; }
 }
 
 .info__video {
-  background: var(--white);
-  border-radius: 1px;
+  aspect-ratio: 16 / 9;
+  border-radius: 6px;
   box-shadow: var(--shadow-image);
   display: block;
-  margin-top: 26px;
+  margin-top: 0;
   width: 100%;
 }
 @media (max-width: 767px) {
@@ -497,8 +500,17 @@ a.inline-link,
 
 .info__ctas {
   display: flex;
-  gap: 12px;
+  flex-direction: column;
+  gap: 10px;
   margin-top: 28px;
+  max-width: 340px;
+}
+.info__ctas .btn-primary,
+.info__ctas .btn-outline {
+  display: block;
+  margin: 0;
+  text-align: center;
+  width: 100%;
 }
 @media (max-width: 767px) {
   .info__ctas { display: none; }
