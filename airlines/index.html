@@ -133,8 +133,8 @@
       margin: 0 auto 44px;
       max-width: 520px;
     }
-    .hv2__cta { margin-bottom: 56px; }
-    .hv2__cta .btn-primary { height: 46px; padding: 0 28px; font-size: 13px; }
+    .hv2__cta { margin-bottom: 56px; display: flex; justify-content: center; }
+    .hv2__cta .btn-primary { height: 46px; padding: 0 32px; font-size: 13px; width: auto; display: inline-flex; align-items: center; }
     .hv2__logos {
       display: flex;
       flex-direction: column;
@@ -480,6 +480,54 @@
       .metrics__value { font-size: 72px; letter-spacing: -2.5px; }
     }
 
+    /* ── Airline logo grid ──────────────────────────────────────── */
+    .certified__airlines {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 16px;
+      margin-top: 44px;
+    }
+    .certified__airline {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+    .certified__airline p {
+      font-size: 11px;
+      color: rgba(27,39,51,0.45);
+      font-weight: 500;
+      text-align: center;
+      margin: 0;
+    }
+    .al-logo {
+      width: 100%;
+      aspect-ratio: 1;
+      border-radius: 26px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .al-logo img { width: 72%; height: 72%; object-fit: contain; }
+    .al-logo--live { background: linear-gradient(145deg, #5fba2e, #3d9c1a); }
+    .al-badge-live {
+      display: flex; flex-direction: column; align-items: center;
+      font-family: var(--font-mono); color: #fff; line-height: 1; gap: 2px;
+    }
+    .al-badge-live sup { font-size: 10px; font-weight: 600; letter-spacing: 1px; opacity: 0.8; }
+    .al-badge-live strong { font-size: 28px; font-weight: 700; letter-spacing: -1px; }
+    .al-logo--impl { background: #fff; border: 1.5px solid rgba(27,39,51,0.12); }
+    .al-badge-impl {
+      display: flex; flex-direction: column; align-items: center;
+      font-family: var(--font-mono); line-height: 1; gap: 2px;
+      font-size: 9px; letter-spacing: 0.8px; font-weight: 600; color: rgba(27,39,51,0.5);
+    }
+    .al-badge-impl strong { font-size: 28px; font-weight: 700; letter-spacing: -1px; color: var(--dark); display: block; }
+    @media (max-width: 1024px) { .certified__airlines { grid-template-columns: repeat(4, 1fr); } }
+    @media (max-width: 767px)  { .certified__airlines { grid-template-columns: repeat(3, 1fr); gap: 12px; } }
+    @media (max-width: 413px)  { .certified__airlines { grid-template-columns: repeat(2, 1fr); } }
+
     /* ── Metrics heading ────────────────────────────────────────── */
     .metrics__head {
       margin-bottom: 52px;
@@ -761,7 +809,6 @@
   <!-- Center content -->
   <div class="landing-new__body" style="position:relative;z-index:2;">
     <div class="hv2__content">
-      <span class="hv2__eyebrow">Airline Offer Orchestrator</span>
       <h1 class="hv2__h1">The operating layer for<br>airline distribution.</h1>
       <p class="hv2__sub">Control, distribute, and scale your offers across every indirect channel — agencies, TMCs, OTAs, and super apps — from a single integration.</p>
       <div class="hv2__cta">
@@ -1104,42 +1151,24 @@
       <h2>Leading carriers. One connection.</h2>
       <p class="certified__description">Access direct, normalized offers from leading airlines through a single integration. Full content, consistent terms, no per-carrier contracts.</p>
       <div class="certified__airlines">
-        <div class="certified__airline" title="Lufthansa">
-          <svg xmlns="http://www.w3.org/2000/svg" width="85" height="85" viewBox="0 0 85 85"><rect width="85" height="85" rx="14" fill="#f0f4f8"/><text x="42.5" y="49" font-family="IBM Plex Sans,sans-serif" font-size="13" font-weight="700" fill="#1b2733" text-anchor="middle">LH</text></svg>
-          <p>Lufthansa</p>
-        </div>
-        <div class="certified__airline" title="British Airways">
-          <svg xmlns="http://www.w3.org/2000/svg" width="85" height="85" viewBox="0 0 85 85"><rect width="85" height="85" rx="14" fill="#f0f4f8"/><text x="42.5" y="49" font-family="IBM Plex Sans,sans-serif" font-size="13" font-weight="700" fill="#1b2733" text-anchor="middle">BA</text></svg>
-          <p>British Airways</p>
-        </div>
-        <div class="certified__airline" title="Air France">
-          <svg xmlns="http://www.w3.org/2000/svg" width="85" height="85" viewBox="0 0 85 85"><rect width="85" height="85" rx="14" fill="#f0f4f8"/><text x="42.5" y="49" font-family="IBM Plex Sans,sans-serif" font-size="13" font-weight="700" fill="#1b2733" text-anchor="middle">AF</text></svg>
-          <p>Air France</p>
-        </div>
-        <div class="certified__airline" title="KLM">
-          <svg xmlns="http://www.w3.org/2000/svg" width="85" height="85" viewBox="0 0 85 85"><rect width="85" height="85" rx="14" fill="#f0f4f8"/><text x="42.5" y="49" font-family="IBM Plex Sans,sans-serif" font-size="13" font-weight="700" fill="#1b2733" text-anchor="middle">KL</text></svg>
-          <p>KLM</p>
-        </div>
-        <div class="certified__airline" title="SWISS">
-          <svg xmlns="http://www.w3.org/2000/svg" width="85" height="85" viewBox="0 0 85 85"><rect width="85" height="85" rx="14" fill="#f0f4f8"/><text x="42.5" y="49" font-family="IBM Plex Sans,sans-serif" font-size="13" font-weight="700" fill="#1b2733" text-anchor="middle">LX</text></svg>
-          <p>SWISS</p>
-        </div>
-        <div class="certified__airline" title="Austrian">
-          <svg xmlns="http://www.w3.org/2000/svg" width="85" height="85" viewBox="0 0 85 85"><rect width="85" height="85" rx="14" fill="#f0f4f8"/><text x="42.5" y="49" font-family="IBM Plex Sans,sans-serif" font-size="13" font-weight="700" fill="#1b2733" text-anchor="middle">OS</text></svg>
-          <p>Austrian</p>
-        </div>
-        <div class="certified__airline" title="Brussels">
-          <svg xmlns="http://www.w3.org/2000/svg" width="85" height="85" viewBox="0 0 85 85"><rect width="85" height="85" rx="14" fill="#f0f4f8"/><text x="42.5" y="49" font-family="IBM Plex Sans,sans-serif" font-size="13" font-weight="700" fill="#1b2733" text-anchor="middle">SN</text></svg>
-          <p>Brussels</p>
-        </div>
-        <div class="certified__airline" title="Iberia">
-          <svg xmlns="http://www.w3.org/2000/svg" width="85" height="85" viewBox="0 0 85 85"><rect width="85" height="85" rx="14" fill="#f0f4f8"/><text x="42.5" y="49" font-family="IBM Plex Sans,sans-serif" font-size="13" font-weight="700" fill="#1b2733" text-anchor="middle">IB</text></svg>
-          <p>Iberia</p>
-        </div>
-        <div class="certified__airline certified__airline--badge" title="— and 50+ more carriers">
-          <svg xmlns="http://www.w3.org/2000/svg" width="85" height="85" viewBox="0 0 85 85"><rect width="85" height="85" rx="14" fill="#2a8aea" fill-opacity=".12"/><text x="42.5" y="45" font-family="IBM Plex Sans,sans-serif" font-size="11" font-weight="700" fill="#2a8aea" text-anchor="middle">+50</text><text x="42.5" y="58" font-family="IBM Plex Sans,sans-serif" font-size="8" font-weight="500" fill="#2a8aea" text-anchor="middle">more</text></svg>
-          <p>— and 50+ more carriers</p>
-        </div>
+
+        <div class="certified__airline"><div class="al-logo" style="background:#e8ecf8;"><img src="https://www.gstatic.com/flights/airline_logos/70px/BT.png" alt="airBaltic"></div><p>airBaltic</p></div>
+        <div class="certified__airline"><div class="al-logo" style="background:#f0f2f5;"><img src="https://www.gstatic.com/flights/airline_logos/70px/OS.png" alt="Austrian"></div><p>Austrian</p></div>
+        <div class="certified__airline"><div class="al-logo" style="background:#f0f2f5;"><img src="https://www.gstatic.com/flights/airline_logos/70px/AA.png" alt="American Airlines"></div><p>American Airlines</p></div>
+        <div class="certified__airline"><div class="al-logo" style="background:#f0f2f5;"><img src="https://www.gstatic.com/flights/airline_logos/70px/BA.png" alt="British Airways"></div><p>British Airways</p></div>
+        <div class="certified__airline"><div class="al-logo" style="background:#f0f2f5;"><img src="https://www.gstatic.com/flights/airline_logos/70px/AF.png" alt="Air France"></div><p>Air France</p></div>
+
+        <div class="certified__airline"><div class="al-logo" style="background:#ec1b24;"><img src="https://www.gstatic.com/flights/airline_logos/70px/EK.png" alt="Emirates"></div><p>Emirates</p></div>
+        <div class="certified__airline"><div class="al-logo" style="background:#f0f2f5;"><img src="https://www.gstatic.com/flights/airline_logos/70px/FZ.png" alt="flydubai"></div><p>flydubai</p></div>
+        <div class="certified__airline"><div class="al-logo" style="background:#f0f2f5;"><img src="https://www.gstatic.com/flights/airline_logos/70px/IB.png" alt="Iberia"></div><p>Iberia</p></div>
+        <div class="certified__airline"><div class="al-logo" style="background:#dde9f7;"><img src="https://www.gstatic.com/flights/airline_logos/70px/LO.png" alt="LOT"></div><p>LOT</p></div>
+        <div class="certified__airline"><div class="al-logo" style="background:#e4e8f5;"><img src="https://www.gstatic.com/flights/airline_logos/70px/LH.png" alt="Lufthansa"></div><p>Lufthansa</p></div>
+
+        <div class="certified__airline"><div class="al-logo" style="background:#f0f2f5;"><img src="https://www.gstatic.com/flights/airline_logos/70px/LX.png" alt="SWISS"></div><p>SWISS</p></div>
+        <div class="certified__airline"><div class="al-logo" style="background:#f0f2f5;"><img src="https://www.gstatic.com/flights/airline_logos/70px/TP.png" alt="TAP"></div><p>TAP</p></div>
+        <div class="certified__airline"><div class="al-logo" style="background:#f0f2f5;"><img src="https://www.gstatic.com/flights/airline_logos/70px/UA.png" alt="United Airlines"></div><p>United Airlines</p></div>
+        <div class="certified__airline certified__airline--badge"><div class="al-logo al-logo--live"><span class="al-badge-live">LIVE<sup>·</sup><strong>+30</strong></span></div><p>Live on network</p></div>
+        <div class="certified__airline certified__airline--badge"><div class="al-logo al-logo--impl"><span class="al-badge-impl">IMPL<strong>10</strong></span></div><p>Implementing</p></div>
       </div>
       <div style="text-align:center; margin-top:40px;">
         <a href="../supply-network/index.html" class="btn-secondary">See full network ↗</a>
@@ -1462,225 +1491,6 @@
   </div>
 </section>
 
-
-<!-- ================================================================
-     TESTIMONIALS
-================================================================ -->
-<div class="landing-new loaded" style="background: #f7f8fa;">
-  <div class="landing-new__body">
-    <section class="testi" id="testimonials">
-
-      <div class="testi__head">
-        <span class="testi__eyebrow">Airline partners</span>
-        <h2 class="testi__h2">What distribution leaders say</h2>
-        <p class="testi__sub">Airlines using DRCT to distribute offers, adopt NDC, and scale indirect channels without operational overhead.</p>
-      </div>
-
-      <!-- Tabs -->
-      <div class="testi__tabs" role="tablist">
-        <button class="testi__tab active" onclick="testiSwitch(0)" role="tab">Lufthansa Group</button>
-        <button class="testi__tab"        onclick="testiSwitch(1)" role="tab">British Airways</button>
-        <button class="testi__tab"        onclick="testiSwitch(2)" role="tab">SWISS</button>
-      </div>
-
-      <!-- ─── Card 1: Lufthansa Group ─────────────────────────── -->
-      <div class="testi__card active" data-testi="0">
-        <div class="testi__visual">
-          <svg viewBox="0 0 480 480" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
-            <defs>
-              <radialGradient id="lh-bg" cx="55%" cy="40%" r="65%">
-                <stop offset="0%" stop-color="#0c2a5c"/>
-                <stop offset="100%" stop-color="#04111f"/>
-              </radialGradient>
-            </defs>
-            <!-- Background -->
-            <rect width="480" height="480" fill="url(#lh-bg)"/>
-            <!-- Subtle grid lines -->
-            <line x1="0" y1="120" x2="480" y2="120" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
-            <line x1="0" y1="240" x2="480" y2="240" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
-            <line x1="0" y1="360" x2="480" y2="360" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
-            <line x1="120" y1="0" x2="120" y2="480" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
-            <line x1="240" y1="0" x2="240" y2="480" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
-            <line x1="360" y1="0" x2="360" y2="480" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
-            <!-- Aircraft silhouette top-down view -->
-            <!-- Fuselage -->
-            <rect x="226" y="60" width="28" height="290" rx="14" fill="rgba(255,255,255,0.055)"/>
-            <!-- Left wing -->
-            <path d="M 226 170 L 30 230 L 28 218 L 224 162 Z" fill="rgba(255,255,255,0.045)"/>
-            <!-- Right wing -->
-            <path d="M 254 170 L 450 230 L 452 218 L 256 162 Z" fill="rgba(255,255,255,0.045)"/>
-            <!-- Left engine -->
-            <rect x="58" y="218" width="50" height="22" rx="11" fill="rgba(255,255,255,0.065)"/>
-            <!-- Right engine -->
-            <rect x="372" y="218" width="50" height="22" rx="11" fill="rgba(255,255,255,0.065)"/>
-            <!-- Tail horizontal stab -->
-            <path d="M 228 305 L 138 342 L 137 333 L 226 312 Z" fill="rgba(255,255,255,0.045)"/>
-            <path d="M 252 305 L 342 342 L 343 333 L 254 312 Z" fill="rgba(255,255,255,0.045)"/>
-            <!-- LH brand ring -->
-            <circle cx="240" cy="228" r="78" fill="rgba(247,194,0,0.07)" stroke="#f7c200" stroke-width="1" stroke-opacity="0.25"/>
-            <!-- LH badge circle -->
-            <circle cx="240" cy="228" r="58" fill="#f7c200"/>
-            <text x="240" y="243" text-anchor="middle" fill="#05164d" font-size="30" font-family="IBM Plex Sans,sans-serif" font-weight="900" letter-spacing="-0.5">LH</text>
-            <!-- Label top -->
-            <text x="28" y="30" fill="rgba(247,194,0,0.55)" font-size="9.5" font-family="IBM Plex Mono,monospace" font-weight="700" letter-spacing="1.2">LUFTHANSA GROUP</text>
-            <line x1="28" y1="38" x2="220" y2="38" stroke="rgba(247,194,0,0.18)" stroke-width="0.8"/>
-            <!-- Sub-airline badges bottom-left -->
-            <g transform="translate(28,400)">
-              <rect width="28" height="16" rx="4" fill="#f7c200" opacity="0.9"/>
-              <text x="14" y="11.5" text-anchor="middle" fill="#05164d" font-size="7" font-family="IBM Plex Mono,monospace" font-weight="700">LH</text>
-              <rect x="34" width="28" height="16" rx="4" fill="rgba(255,255,255,0.12)"/>
-              <text x="48" y="11.5" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-size="7" font-family="IBM Plex Mono,monospace" font-weight="700">OS</text>
-              <rect x="68" width="28" height="16" rx="4" fill="rgba(255,255,255,0.12)"/>
-              <text x="82" y="11.5" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-size="7" font-family="IBM Plex Mono,monospace" font-weight="700">LX</text>
-              <rect x="102" width="28" height="16" rx="4" fill="rgba(255,255,255,0.12)"/>
-              <text x="116" y="11.5" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-size="7" font-family="IBM Plex Mono,monospace" font-weight="700">SN</text>
-            </g>
-            <!-- Route bar -->
-            <rect x="0" y="440" width="480" height="40" fill="rgba(0,0,0,0.3)"/>
-            <text x="28" y="455" fill="rgba(247,194,0,0.45)" font-size="7.5" font-family="IBM Plex Mono,monospace" font-weight="600" letter-spacing="0.6">KEY ROUTES</text>
-            <text x="28" y="471" fill="rgba(255,255,255,0.65)" font-size="10.5" font-family="IBM Plex Mono,monospace">FRA &#xB7; MUC &#xB7; ZRH &#xB7; VIE &#xB7; BRU &#xB7; JFK &#xB7; SFO</text>
-          </svg>
-        </div>
-        <div class="testi__body">
-          <div class="testi__logo">
-            <span class="testi__logo-iata" style="background:#05164d;color:#f7c200;">LH</span>
-            <div>
-              <div class="testi__logo-name">Lufthansa Group</div>
-              <div class="testi__logo-sub">LH &middot; OS &middot; LX &middot; SN</div>
-            </div>
-          </div>
-          <p class="testi__quote">DRCT gave us a single layer to distribute NDC offers across indirect channels without losing control of pricing or ancillary content. It&rsquo;s the cleanest distribution integration we&rsquo;ve run.</p>
-          <p class="testi__attr"><strong>Head of Digital Distribution</strong><br>Lufthansa Group</p>
-          <a href="#contact" class="testi__cta-link">Partner with DRCT as an airline &#x2192;</a>
-        </div>
-      </div>
-
-      <!-- ─── Card 2: British Airways ─────────────────────────── -->
-      <div class="testi__card" data-testi="1">
-        <div class="testi__visual">
-          <svg viewBox="0 0 480 480" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
-            <defs>
-              <radialGradient id="ba-bg" cx="40%" cy="45%" r="70%">
-                <stop offset="0%" stop-color="#042080"/>
-                <stop offset="100%" stop-color="#010d2e"/>
-              </radialGradient>
-            </defs>
-            <rect width="480" height="480" fill="url(#ba-bg)"/>
-            <!-- Speed stripes suggestion (BA tailfin identity) -->
-            <path d="M 360 0 L 480 0 L 480 200 Z" fill="rgba(236,0,0,0.12)"/>
-            <path d="M 400 0 L 480 0 L 480 130 Z" fill="rgba(255,255,255,0.06)"/>
-            <!-- Grid lines -->
-            <line x1="0" y1="120" x2="480" y2="120" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
-            <line x1="0" y1="240" x2="480" y2="240" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
-            <line x1="0" y1="360" x2="480" y2="360" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
-            <!-- Aircraft silhouette top-down -->
-            <rect x="226" y="60" width="28" height="290" rx="14" fill="rgba(255,255,255,0.05)"/>
-            <path d="M 226 170 L 30 230 L 28 218 L 224 162 Z" fill="rgba(255,255,255,0.04)"/>
-            <path d="M 254 170 L 450 230 L 452 218 L 256 162 Z" fill="rgba(255,255,255,0.04)"/>
-            <rect x="58" y="218" width="50" height="22" rx="11" fill="rgba(255,255,255,0.055)"/>
-            <rect x="372" y="218" width="50" height="22" rx="11" fill="rgba(255,255,255,0.055)"/>
-            <path d="M 228 305 L 138 342 L 137 333 L 226 312 Z" fill="rgba(255,255,255,0.04)"/>
-            <path d="M 252 305 L 342 342 L 343 333 L 254 312 Z" fill="rgba(255,255,255,0.04)"/>
-            <!-- BA badge -->
-            <circle cx="240" cy="228" r="78" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
-            <circle cx="240" cy="228" r="58" fill="#ffffff"/>
-            <text x="240" y="243" text-anchor="middle" fill="#012169" font-size="30" font-family="IBM Plex Sans,sans-serif" font-weight="900" letter-spacing="-0.5">BA</text>
-            <!-- Label top -->
-            <text x="28" y="30" fill="rgba(255,255,255,0.45)" font-size="9.5" font-family="IBM Plex Mono,monospace" font-weight="700" letter-spacing="1.2">BRITISH AIRWAYS</text>
-            <line x1="28" y1="38" x2="210" y2="38" stroke="rgba(255,255,255,0.14)" stroke-width="0.8"/>
-            <!-- Heathrow hub badge -->
-            <rect x="28" y="396" width="80" height="20" rx="4" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.12)" stroke-width="0.8"/>
-            <text x="68" y="409.5" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-size="8" font-family="IBM Plex Mono,monospace" font-weight="600">LHR HUB</text>
-            <!-- Route bar -->
-            <rect x="0" y="440" width="480" height="40" fill="rgba(0,0,0,0.35)"/>
-            <text x="28" y="455" fill="rgba(255,255,255,0.35)" font-size="7.5" font-family="IBM Plex Mono,monospace" font-weight="600" letter-spacing="0.6">KEY ROUTES</text>
-            <text x="28" y="471" fill="rgba(255,255,255,0.65)" font-size="10.5" font-family="IBM Plex Mono,monospace">LHR &#xB7; JFK &#xB7; DXB &#xB7; HKG &#xB7; SIN &#xB7; SYD</text>
-          </svg>
-        </div>
-        <div class="testi__body">
-          <div class="testi__logo">
-            <span class="testi__logo-iata" style="background:#012169;color:#ffffff;">BA</span>
-            <div>
-              <div class="testi__logo-name">British Airways</div>
-              <div class="testi__logo-sub">International Airlines Group</div>
-            </div>
-          </div>
-          <p class="testi__quote">We needed NDC content flowing through the tools our agency partners already use. DRCT made that possible without requiring agents to change their workflow &mdash; which was the deciding factor.</p>
-          <p class="testi__attr"><strong>VP Indirect Distribution</strong><br>British Airways</p>
-          <a href="#contact" class="testi__cta-link">Partner with DRCT as an airline &#x2192;</a>
-        </div>
-      </div>
-
-      <!-- ─── Card 3: SWISS ────────────────────────────────────── -->
-      <div class="testi__card" data-testi="2">
-        <div class="testi__visual">
-          <svg viewBox="0 0 480 480" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
-            <defs>
-              <radialGradient id="lx-bg" cx="45%" cy="40%" r="65%">
-                <stop offset="0%" stop-color="#cc0000"/>
-                <stop offset="100%" stop-color="#700000"/>
-              </radialGradient>
-            </defs>
-            <rect width="480" height="480" fill="url(#lx-bg)"/>
-            <!-- Swiss cross (subtle) -->
-            <rect x="206" y="95" width="68" height="200" rx="6" fill="rgba(255,255,255,0.07)"/>
-            <rect x="155" y="148" width="170" height="68" rx="6" fill="rgba(255,255,255,0.07)"/>
-            <!-- Grid lines -->
-            <line x1="0" y1="120" x2="480" y2="120" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
-            <line x1="0" y1="240" x2="480" y2="240" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
-            <line x1="0" y1="360" x2="480" y2="360" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
-            <!-- Aircraft silhouette -->
-            <rect x="226" y="60" width="28" height="290" rx="14" fill="rgba(255,255,255,0.07)"/>
-            <path d="M 226 170 L 30 230 L 28 218 L 224 162 Z" fill="rgba(255,255,255,0.055)"/>
-            <path d="M 254 170 L 450 230 L 452 218 L 256 162 Z" fill="rgba(255,255,255,0.055)"/>
-            <rect x="58" y="218" width="50" height="22" rx="11" fill="rgba(255,255,255,0.07)"/>
-            <rect x="372" y="218" width="50" height="22" rx="11" fill="rgba(255,255,255,0.07)"/>
-            <path d="M 228 305 L 138 342 L 137 333 L 226 312 Z" fill="rgba(255,255,255,0.055)"/>
-            <path d="M 252 305 L 342 342 L 343 333 L 254 312 Z" fill="rgba(255,255,255,0.055)"/>
-            <!-- LX badge -->
-            <circle cx="240" cy="228" r="78" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
-            <circle cx="240" cy="228" r="58" fill="#ffffff"/>
-            <text x="240" y="243" text-anchor="middle" fill="#cc0000" font-size="30" font-family="IBM Plex Sans,sans-serif" font-weight="900" letter-spacing="-0.5">LX</text>
-            <!-- Label top -->
-            <text x="28" y="30" fill="rgba(255,255,255,0.55)" font-size="9.5" font-family="IBM Plex Mono,monospace" font-weight="700" letter-spacing="1.2">SWISS</text>
-            <line x1="28" y1="38" x2="110" y2="38" stroke="rgba(255,255,255,0.2)" stroke-width="0.8"/>
-            <!-- Zurich hub badge -->
-            <rect x="28" y="396" width="76" height="20" rx="4" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.18)" stroke-width="0.8"/>
-            <text x="66" y="409.5" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-size="8" font-family="IBM Plex Mono,monospace" font-weight="600">ZRH HUB</text>
-            <!-- Route bar -->
-            <rect x="0" y="440" width="480" height="40" fill="rgba(0,0,0,0.3)"/>
-            <text x="28" y="455" fill="rgba(255,255,255,0.38)" font-size="7.5" font-family="IBM Plex Mono,monospace" font-weight="600" letter-spacing="0.6">KEY ROUTES</text>
-            <text x="28" y="471" fill="rgba(255,255,255,0.7)" font-size="10.5" font-family="IBM Plex Mono,monospace">ZRH &#xB7; LHR &#xB7; JFK &#xB7; SIN &#xB7; HKG &#xB7; NRT</text>
-          </svg>
-        </div>
-        <div class="testi__body">
-          <div class="testi__logo">
-            <span class="testi__logo-iata" style="background:#cc0000;color:#ffffff;">LX</span>
-            <div>
-              <div class="testi__logo-name">SWISS</div>
-              <div class="testi__logo-sub">Lufthansa Group &middot; ZRH</div>
-            </div>
-          </div>
-          <p class="testi__quote">Cost control was the primary driver. DRCT gave us a direct path to reduce per-booking distribution costs while maintaining the channel coverage our revenue targets depend on.</p>
-          <p class="testi__attr"><strong>Director of Distribution Strategy</strong><br>SWISS International Air Lines</p>
-          <a href="#contact" class="testi__cta-link">Partner with DRCT as an airline &#x2192;</a>
-        </div>
-      </div>
-
-    </section>
-  </div>
-</div>
-
-<script>
-function testiSwitch(idx) {
-  document.querySelectorAll('.testi__tab').forEach(function(t,i){
-    t.classList.toggle('active', i===idx);
-  });
-  document.querySelectorAll('.testi__card').forEach(function(c,i){
-    c.classList.toggle('active', i===idx);
-  });
-}
-</script>
 
 <!-- ================================================================
      FREQUENTLY ASKED QUESTIONS
