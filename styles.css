@@ -466,6 +466,63 @@ a.inline-link,
   .info__try-mobile { display: block; }
 }
 
+/* Hero updated elements */
+.info__eyebrow {
+  color: var(--blue);
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.8px;
+  margin-bottom: 14px;
+  text-transform: uppercase;
+}
+
+.info__h1 {
+  color: var(--dark);
+  font-size: 31px;
+  font-weight: 700;
+  line-height: 1.23;
+}
+@media (max-width: 413px) {
+  .info__h1 { font-size: 27px; }
+}
+
+.info__bold {
+  color: var(--dark);
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.5;
+  margin-top: 16px;
+}
+
+.info__ctas {
+  display: flex;
+  gap: 12px;
+  margin-top: 28px;
+}
+@media (max-width: 767px) {
+  .info__ctas { display: none; }
+}
+
+.btn-outline {
+  align-items: center;
+  border: 1.5px solid var(--blue);
+  border-radius: 4px;
+  color: var(--blue);
+  cursor: pointer;
+  display: inline-flex;
+  font-size: 13px;
+  font-weight: 700;
+  height: 38px;
+  justify-content: center;
+  letter-spacing: 0.6px;
+  padding: 0 20px;
+  text-transform: uppercase;
+  transition: background 0.2s, color 0.2s;
+  white-space: nowrap;
+}
+.btn-outline:hover { background: var(--blue-10); }
+
 /* ----------------------------------------------------------------
    TERMINAL MOCK (hero fallback)
 ---------------------------------------------------------------- */
