@@ -305,120 +305,62 @@
 
     /* ── Impact metrics ──────────────────────────────────────────── */
     .metrics {
-      padding: 84px 0 92px;
-    }
-    .metrics__head {
-      text-align: center;
-      margin-bottom: 58px;
-    }
-    .metrics__eyebrow {
-      font-family: var(--font-mono);
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.8px;
-      text-transform: uppercase;
-      color: var(--blue);
-      display: block;
-      margin-bottom: 14px;
-    }
-    .metrics__h2 {
-      font-size: 31px;
-      font-weight: 700;
-      color: var(--dark);
-      margin: 0;
-      letter-spacing: -0.3px;
-      line-height: 1.15;
+      padding: 80px 0 88px;
     }
     .metrics__grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      border-top: 1px solid rgba(27,39,51,0.09);
-      padding-top: 54px;
     }
     .metrics__col {
-      padding: 0 52px;
+      padding: 0 56px;
     }
     .metrics__col:first-child { padding-left: 0; }
     .metrics__col:last-child  { padding-right: 0; }
     .metrics__col + .metrics__col {
       border-left: 1px solid rgba(27,39,51,0.09);
     }
-    /* Large display value */
     .metrics__value {
       display: block;
-      font-size: 56px;
+      font-size: 92px;
       font-weight: 900;
-      color: var(--dark);
+      color: var(--blue);
       line-height: 1;
-      letter-spacing: -1.8px;
-      margin-bottom: 18px;
+      letter-spacing: -3px;
+      margin-bottom: 16px;
     }
     .metrics__value sup {
-      font-size: 26px;
+      font-size: 44px;
       letter-spacing: 0;
       vertical-align: super;
-      color: var(--blue);
     }
-    /* IATA eyebrow above ARM */
-    .metrics__mini-label {
-      font-family: var(--font-mono);
-      font-size: 9px;
-      font-weight: 700;
-      letter-spacing: 0.9px;
-      text-transform: uppercase;
-      color: var(--blue);
-      display: block;
-      margin-bottom: 6px;
-    }
-    .metrics__value--cert {
-      color: var(--dark);
-      letter-spacing: -1px;
-    }
-    .metrics__title {
-      font-size: 16px;
+    .metrics__label {
+      font-size: 15px;
       font-weight: 700;
       color: var(--dark);
-      margin: 0 0 10px;
+      margin: 0 0 8px;
       line-height: 1.3;
     }
     .metrics__desc {
-      font-size: 14px;
-      line-height: 1.68;
-      color: rgba(27,39,51,0.52);
+      font-size: 13px;
+      line-height: 1.6;
+      color: rgba(27,39,51,0.48);
       margin: 0;
     }
-    .metrics__source {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      margin-top: 14px;
-      font-family: var(--font-mono);
-      font-size: 9px;
-      font-weight: 600;
-      color: rgba(27,39,51,0.3);
-      text-decoration: none;
-      letter-spacing: 0.3px;
-    }
-    .metrics__source:hover { color: var(--blue); }
     /* ── Responsive ─────────────────────────────────────────────── */
     @media (max-width: 1024px) {
       .metrics__col { padding: 0 36px; }
+      .metrics__value { font-size: 76px; letter-spacing: -2px; }
     }
     @media (max-width: 767px) {
-      .metrics { padding: 60px 0 68px; }
-      .metrics__grid {
-        grid-template-columns: 1fr;
-        border-top: none;
-        padding-top: 0;
-      }
+      .metrics { padding: 56px 0 64px; }
+      .metrics__grid { grid-template-columns: 1fr; }
       .metrics__col {
-        padding: 36px 0;
+        padding: 32px 0;
         border-left: none !important;
         border-top: 1px solid rgba(27,39,51,0.09);
       }
-      .metrics__col:first-child { border-top: none; padding-top: 32px; }
-      .metrics__value { font-size: 44px; }
-      .metrics__h2 { font-size: 27px; }
+      .metrics__col:first-child { border-top: none; padding-top: 0; }
+      .metrics__value { font-size: 68px; letter-spacing: -2px; }
     }
   </style>
 </head>
@@ -873,37 +815,27 @@
   <div class="landing-new__body">
     <section class="metrics" id="metrics">
 
-      <div class="metrics__head">
-        <span class="metrics__eyebrow">Network &amp; scale</span>
-        <h2 class="metrics__h2">Built for scale.</h2>
-      </div>
-
       <div class="metrics__grid">
 
         <!-- ─── 40+ Airlines ──────────────────────────────────── -->
         <div class="metrics__col">
           <span class="metrics__value">40<sup>+</sup></span>
-          <h3 class="metrics__title">Airlines live on the network</h3>
-          <p class="metrics__desc">Over 40 full-service and low-cost carriers have chosen DRCT as a distribution partner, with additional airlines actively in implementation.</p>
+          <h3 class="metrics__label">Connected Airlines</h3>
+          <p class="metrics__desc">Trusted by full-service and low-cost carriers.</p>
         </div>
 
-        <!-- ─── Hundreds of agencies ──────────────────────────── -->
+        <!-- ─── Hundreds of sellers ───────────────────────────── -->
         <div class="metrics__col">
-          <span class="metrics__value">Hundreds</span>
-          <h3 class="metrics__title">Travel agencies &amp; sellers globally</h3>
-          <p class="metrics__desc">IATA agencies, non-IATA sellers, TMCs, OTAs, and direct API partners accessing airline offers across the DRCT distribution network.</p>
+          <span class="metrics__value">100s</span>
+          <h3 class="metrics__label">Travel Sellers</h3>
+          <p class="metrics__desc">Agencies, OTAs, TMCs, and API partners globally.</p>
         </div>
 
         <!-- ─── IATA ARM Certification ────────────────────────── -->
         <div class="metrics__col">
-          <span class="metrics__mini-label">IATA</span>
-          <span class="metrics__value metrics__value--cert">ARM</span>
-          <h3 class="metrics__title">Certified system provider</h3>
-          <p class="metrics__desc">Recognized by IATA as an Airline Retailing Maturity (ARM) System Provider &mdash; independently verified and listed in the official IATA ARM registry.</p>
-          <a href="https://retailing.iata.org/armi/registry/drct/" target="_blank" rel="noopener" class="metrics__source">
-            <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1.5 8.5l7-7M5 1.5h3v3" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            IATA ARM registry &#x2197;
-          </a>
+          <span class="metrics__value">ARM</span>
+          <h3 class="metrics__label">IATA Certified</h3>
+          <p class="metrics__desc">Officially recognized Airline Retailing Maturity provider.</p>
         </div>
 
       </div>
