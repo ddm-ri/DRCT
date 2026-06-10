@@ -480,6 +480,23 @@
       .metrics__value { font-size: 72px; letter-spacing: -2.5px; }
     }
 
+    /* ── Metrics heading ────────────────────────────────────────── */
+    .metrics__head {
+      margin-bottom: 52px;
+    }
+    .metrics__title {
+      font-size: 31px;
+      font-weight: 700;
+      color: var(--dark);
+      letter-spacing: -0.4px;
+      line-height: 1.15;
+      margin: 0;
+    }
+    @media (max-width: 767px) {
+      .metrics__title { font-size: 27px; }
+      .metrics__head { margin-bottom: 36px; }
+    }
+
     /* ── Solutions section ──────────────────────────────────────── */
     .sol-section { padding: 88px 0 100px; }
     .sol-section__head {
@@ -1137,6 +1154,10 @@
 <div class="landing-new loaded">
   <div class="landing-new__body">
     <section class="metrics" id="metrics">
+
+      <div class="metrics__head">
+        <h2 class="metrics__title">DRCT by the numbers</h2>
+      </div>
 
       <div class="metrics__grid">
 
