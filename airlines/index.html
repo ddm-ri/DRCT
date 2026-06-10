@@ -1513,10 +1513,15 @@
         </div>
 
       </div>
-      <a href="#" class="link-btn" id="benefitsToggle">View more</a>
     </div>
   </div>
 </section>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.benefit__item').forEach(function(el) { el.classList.remove('hidden'); });
+    var t = document.getElementById('benefitsToggle'); if (t) t.remove();
+  });
+</script>
 
 
 <!-- ================================================================
