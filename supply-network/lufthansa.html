@@ -11,6 +11,37 @@
   <link rel="stylesheet" href="../css/blocks.css">
   <link rel="stylesheet" href="../css/legacy.css">
   <style>
+    /* ── Animated hero gradient ──────────────────────────────────── */
+    .lh-hero-outer { position: relative; }
+    .lh-hero-outer::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+      background: linear-gradient(180deg, rgba(5,22,77,0.22) 0%, rgba(5,22,77,0.04) 65%, transparent 100%);
+      animation: gradBreath 7s ease-in-out infinite;
+      pointer-events: none;
+    }
+    .lh-hero-outer .landing-new__body { position: relative; }
+
+    /* ── Animated aurora gradient ────────────────────────────────── */
+    .aurora-animated { position: relative; }
+    .aurora-animated::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+      background: linear-gradient(135deg, rgba(100,210,140,0.18) 0%, rgba(255,255,255,0) 45%, rgba(42,138,234,0.15) 100%);
+      animation: auroraDrift 9s ease-in-out infinite;
+      pointer-events: none;
+    }
+    .aurora-animated .landing-new__body { position: relative; }
+
+    @keyframes gradBreath {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.42; }
+    }
+    @keyframes auroraDrift {
+      0%, 100% { opacity: 0.65; }
+      50%       { opacity: 1; }
+    }
+
     /* ── Airline hero ────────────────────────────────────────────── */
     .airline-hero { padding: 90px 0 80px; text-align: center; }
     .airline-logo-tile { width: 76px; height: 76px; border-radius: 18px; display: flex; align-items: center; justify-content: center; margin: 20px auto 26px; overflow: hidden; }
@@ -144,12 +175,25 @@
 <!-- ================================================================
      HERO — Lufthansa soft navy gradient
 ================================================================ -->
-<div class="landing-new loaded" style="background-image: linear-gradient(180deg, rgba(5,22,77,0.09) 0%, rgba(5,22,77,0) 70%);">
+<div class="landing-new loaded lh-hero-outer">
   <div class="landing-new__body">
     <section class="airline-hero">
       <span class="hero__badge">Supply Network</span>
-      <div class="airline-logo-tile" style="background:#e4e8f5;">
-        <img src="https://www.gstatic.com/flights/airline_logos/70px/LH.png" alt="Lufthansa">
+      <div class="airline-logo-tile" style="background:#05164d;">
+        <svg width="54" height="54" viewBox="0 0 54 54" xmlns="http://www.w3.org/2000/svg">
+          <!-- Lufthansa yellow circle + crane -->
+          <circle cx="27" cy="27" r="22" fill="#f7c200"/>
+          <!-- Stylised crane body (diagonal oval) -->
+          <ellipse cx="28" cy="27" rx="3.8" ry="9.5" fill="#05164d" transform="rotate(-38 28 27)"/>
+          <!-- Upper-right wing -->
+          <path d="M32 18 Q37 13 40 11 Q36 14 32 20Z" fill="#05164d"/>
+          <!-- Secondary upper wing feather -->
+          <path d="M33 21 Q38 18 41 17 Q36 19 33 23Z" fill="#05164d"/>
+          <!-- Lower-left tail -->
+          <path d="M22 33 Q16 39 14 43 Q18 38 24 35Z" fill="#05164d"/>
+          <!-- Head/beak extending right -->
+          <path d="M32 17 Q35 14 37 12 Q34 15 32 19Z" fill="#05164d"/>
+        </svg>
       </div>
       <h1>Lufthansa expands distribution via DRCT</h1>
       <p class="hero__subtitle">NDC + GDS access through a single platform — full content, branded fares, and ancillaries available across every seller channel.</p>
@@ -195,7 +239,7 @@
 <!-- ================================================================
      WHAT THIS PARTNERSHIP ENABLES — soft aurora gradient
 ================================================================ -->
-<div class="landing-new loaded" style="background-image: linear-gradient(135deg, rgba(100,210,140,0.09) 0%, rgba(255,255,255,0) 45%, rgba(42,138,234,0.07) 100%);">
+<div class="landing-new loaded aurora-animated">
   <div class="landing-new__body">
     <section class="section-block">
       <div class="section-block__head">

@@ -11,6 +11,37 @@
   <link rel="stylesheet" href="../css/blocks.css">
   <link rel="stylesheet" href="../css/legacy.css">
   <style>
+    /* ── Animated hero gradient ──────────────────────────────────── */
+    .ek-hero-outer { position: relative; }
+    .ek-hero-outer::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+      background: linear-gradient(180deg, rgba(236,27,36,0.22) 0%, rgba(236,27,36,0.04) 65%, transparent 100%);
+      animation: gradBreath 7s ease-in-out infinite;
+      pointer-events: none;
+    }
+    .ek-hero-outer .landing-new__body { position: relative; }
+
+    /* ── Animated aurora gradient ────────────────────────────────── */
+    .aurora-animated { position: relative; }
+    .aurora-animated::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+      background: linear-gradient(135deg, rgba(100,210,140,0.18) 0%, rgba(255,255,255,0) 45%, rgba(42,138,234,0.15) 100%);
+      animation: auroraDrift 9s ease-in-out infinite;
+      pointer-events: none;
+    }
+    .aurora-animated .landing-new__body { position: relative; }
+
+    @keyframes gradBreath {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.42; }
+    }
+    @keyframes auroraDrift {
+      0%, 100% { opacity: 0.65; }
+      50%       { opacity: 1; }
+    }
+
     /* ── Airline hero ────────────────────────────────────────────── */
     .airline-hero {
       padding: 90px 0 80px;
@@ -257,12 +288,21 @@
 <!-- ================================================================
      HERO — Emirates soft red gradient
 ================================================================ -->
-<div class="landing-new loaded" style="background-image: linear-gradient(180deg, rgba(236,27,36,0.10) 0%, rgba(236,27,36,0) 70%);">
+<div class="landing-new loaded ek-hero-outer">
   <div class="landing-new__body">
     <section class="airline-hero">
       <span class="hero__badge">Supply Network</span>
       <div class="airline-logo-tile" style="background:#ec1b24;">
-        <img src="https://www.gstatic.com/flights/airline_logos/70px/EK.png" alt="Emirates">
+        <svg width="54" height="54" viewBox="0 0 54 54" xmlns="http://www.w3.org/2000/svg">
+          <!-- Emirates stylised mark: stylised "E" with wave flourish -->
+          <path d="M16 11 Q27 7 38 11" stroke="rgba(255,255,255,0.6)" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+          <path d="M13 19 H41" stroke="white" stroke-width="3" stroke-linecap="round"/>
+          <path d="M13 19 V37" stroke="white" stroke-width="3" stroke-linecap="round"/>
+          <path d="M13 28 H37" stroke="white" stroke-width="3" stroke-linecap="round"/>
+          <path d="M13 37 H41" stroke="white" stroke-width="3" stroke-linecap="round"/>
+          <!-- Stylised wing-like detail -->
+          <path d="M18 43 Q27 47 36 43" stroke="rgba(255,255,255,0.45)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        </svg>
       </div>
       <h1>Emirates expands distribution via DRCT</h1>
       <p class="hero__subtitle">NDC + GDS access through a single platform — premium content, ancillaries, and full long-haul coverage available across every seller channel.</p>
@@ -338,7 +378,7 @@
 <!-- ================================================================
      WHAT THIS PARTNERSHIP ENABLES — soft gradient
 ================================================================ -->
-<div class="landing-new loaded" style="background-image: linear-gradient(135deg, rgba(100,210,140,0.09) 0%, rgba(255,255,255,0) 45%, rgba(42,138,234,0.07) 100%);">
+<div class="landing-new loaded aurora-animated">
   <div class="landing-new__body">
     <section class="section-block">
       <div class="section-block__head">
