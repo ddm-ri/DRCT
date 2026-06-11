@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About DRCT — Airline Distribution Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/blocks.css">
+  <link rel="stylesheet" href="css/legacy.css">
+</head>
+<body>
+
+<!-- ================================================================
+     HEADER
+================================================================ -->
+<header class="header" id="header">
+  <div class="header__links">
+    <div class="header__links-left">
+      <a href="index.html" class="header__logo">DRCT</a>
+      <div class="header__dropdown">
+        <button type="button" class="header__nav-link" aria-haspopup="true" aria-expanded="false">Solutions</button>
+        <div class="header__dropdown-menu">
+          <a href="solutions/for-airlines.html">For Airlines</a>
+          <a href="solutions/iata-agencies.html">For IATA Agencies</a>
+          <a href="solutions/non-iata-agencies.html">For Non-IATA Agencies</a>
+          <a href="solutions/tms.html">For TMS</a>
+          <a href="solutions/ota.html">For OTA</a>
+        </div>
+      </div>
+      <div class="header__dropdown">
+        <button type="button" class="header__nav-link" aria-haspopup="true" aria-expanded="false">Products</button>
+        <div class="header__dropdown-menu">
+          <a href="products/bt.html">BT</a>
+          <a href="products/bt-for-tms.html">BT for TMS</a>
+          <a href="products/api.html">API</a>
+          <a href="products/extension.html">Extension</a>
+        </div>
+      </div>
+      <a href="supply-network/index.html" class="header__nav-link">Supply Network</a>
+      <a href="about.html" class="header__nav-link active">About</a>
+    </div>
+    <div class="header__links-right">
+      <a href="#contact" class="header__try">Get in touch</a>
+    </div>
+    <button class="header__menu-cross" id="menuToggle" aria-label="Toggle navigation">
+      <div class="line-1"></div>
+      <div class="line-2"></div>
+    </button>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+  <ul class="menu__links">
+    <li class="menu__group-label">Solutions</li>
+    <li><a href="solutions/for-airlines.html">For Airlines</a></li>
+    <li><a href="solutions/iata-agencies.html">For IATA Agencies</a></li>
+    <li><a href="solutions/non-iata-agencies.html">For Non-IATA Agencies</a></li>
+    <li><a href="solutions/tms.html">For TMS</a></li>
+    <li><a href="solutions/ota.html">For OTA</a></li>
+    <li class="menu__group-label">Products</li>
+    <li><a href="products/bt.html">BT</a></li>
+    <li><a href="products/bt-for-tms.html">BT for TMS</a></li>
+    <li><a href="products/api.html">API</a></li>
+    <li><a href="products/extension.html">Extension</a></li>
+    <li class="menu__group-label">More</li>
+    <li><a href="supply-network/index.html">Supply Network</a></li>
+    <li><a href="about.html" class="active">About</a></li>
+    <li><a href="#contact">Get in touch</a></li>
+  </ul>
+</div>
+
+<!-- ================================================================
+     HERO
+================================================================ -->
+<div class="landing-new loaded" style="background-image: linear-gradient(180deg, rgba(42,138,234,0.22) 0%, rgba(42,138,234,0) 70%); overflow: hidden;">
+  <div class="landing-new__body">
+    <section class="hero">
+      <span class="hero__badge">About</span>
+      <h1 class="hero__title">About DRCT</h1>
+      <h2 class="hero__subtitle">Airline distribution today is split between GDS and a fragmented set of direct channels — and these systems don't work together cleanly.</h2>
+      <p class="hero__description">DRCT sits between airlines and travel sellers, bringing direct airline content — delivered via NDC and other custom distribution schemes, including low-cost and charter carriers — into one consistent, usable flow. Airlines distribute once. Travel sellers access everything through a single integration — alongside the GDS connections they already use.</p>
+      <div class="dual-cta">
+        <div class="dual-cta__item">
+          <span class="dual-cta__label">For airlines</span>
+          <p class="dual-cta__text">Expand your distribution across all travel sellers.</p>
+          <a href="solutions/for-airlines.html" class="btn-primary">Partner with DRCT ↗</a>
+        </div>
+        <div class="dual-cta__item">
+          <span class="dual-cta__label">For travel sellers</span>
+          <p class="dual-cta__text">Access full airline content with better pricing and L2B.</p>
+          <a href="#contact" class="btn-secondary">Get access ↗</a>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- ================================================================
+     WE UNIFY AIRLINE DISTRIBUTION
+================================================================ -->
+<div class="landing-new loaded">
+  <div class="landing-new__body">
+    <section class="section-block">
+      <div class="section-block__head">
+        <h2>We unify airline distribution</h2>
+        <p>Direct airline content is fragmented across multiple distribution schemes — NDC, custom airline APIs, low-cost, and charters — each with different formats, booking logic, and servicing workflows.</p>
+        <p>DRCT aggregates these sources and normalizes them into a single schema. Travel sellers access full airline inventory without managing multiple integrations — and continue using their existing GDS alongside. Airlines reach every type of seller through one distribution layer.</p>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- ================================================================
+     HOW IT WORKS IN PRACTICE
+================================================================ -->
+<div class="landing-new loaded" style="background: rgba(27,39,51,0.025);">
+  <div class="landing-new__body">
+    <section class="section-block">
+      <div class="section-block__head">
+        <h2>How it works in practice</h2>
+      </div>
+      <div class="flow-diagram">
+        <div class="flow-col flow-col--source">
+          <p class="flow-eyebrow">Airlines</p>
+          <h3 class="flow-heading">Direct content</h3>
+          <p class="flow-caption">NDC · Custom APIs · LCC · Charters</p>
+          <div class="flow-items">
+            <div class="flow-item"><span class="flow-dot" style="background:var(--blue)"></span>NDC</div>
+            <div class="flow-item"><span class="flow-dot" style="background:var(--blue)"></span>Custom APIs</div>
+            <div class="flow-item"><span class="flow-dot" style="background:rgba(42,138,234,0.4)"></span>Low-cost carriers</div>
+            <div class="flow-item"><span class="flow-dot" style="background:rgba(42,138,234,0.4)"></span>Charters</div>
+          </div>
+        </div>
+        <div class="flow-arrow">
+          <svg width="40" height="28" viewBox="0 0 40 28" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 14h30" stroke="rgba(42,138,234,0.3)" stroke-width="1.5" stroke-dasharray="4 3"/><path d="M26 8l8 6-8 6" stroke="rgba(42,138,234,0.4)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+        </div>
+        <div class="flow-col flow-col--core">
+          <div class="flow-core__badge">DRCT</div>
+          <p class="flow-eyebrow">Distribution layer</p>
+          <h3 class="flow-heading">One unified layer</h3>
+          <p class="flow-caption">Aggregation · Normalization · Distribution</p>
+          <div class="flow-pipeline">
+            <div class="flow-pipe__step"><span class="flow-pipe__n">01</span><span class="flow-pipe__text">Aggregation — every direct source</span></div>
+            <div class="flow-pipe__step"><span class="flow-pipe__n">02</span><span class="flow-pipe__text">Normalization — one schema</span></div>
+            <div class="flow-pipe__step"><span class="flow-pipe__n">03</span><span class="flow-pipe__text">Distribution — to every seller</span></div>
+          </div>
+          <p class="flow-core__note">Runs alongside the GDS connections sellers already use</p>
+        </div>
+        <div class="flow-arrow">
+          <svg width="40" height="28" viewBox="0 0 40 28" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 14h30" stroke="rgba(42,138,234,0.3)" stroke-width="1.5" stroke-dasharray="4 3"/><path d="M26 8l8 6-8 6" stroke="rgba(42,138,234,0.4)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+        </div>
+        <div class="flow-col flow-col--dest">
+          <p class="flow-eyebrow">Travel sellers</p>
+          <h3 class="flow-heading">One integration</h3>
+          <p class="flow-caption">Agencies · OTAs · TMS</p>
+          <div class="flow-items">
+            <div class="flow-item"><span class="flow-dot" style="background:#9370db"></span>Agencies</div>
+            <div class="flow-item"><span class="flow-dot" style="background:#33c100"></span>OTAs</div>
+            <div class="flow-item"><span class="flow-dot" style="background:var(--blue)"></span>TMS</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- ================================================================
+     AIRLINES AVAILABLE VIA DRCT
+================================================================ -->
+<div class="landing-new loaded">
+  <div class="landing-new__body">
+    <section class="certified">
+      <h2>Airlines available via DRCT</h2>
+      <div class="certified__airlines">
+        <div class="certified__airline" title="Lufthansa">
+          <svg xmlns="http://www.w3.org/2000/svg" width="85" height="85" viewBox="0 0 85 85"><rect width="85" height="85" rx="14" fill="#f0f4f8"/><text x="42.5" y="49" font-family="IBM Plex Sans,sans-serif" font-size="13" font-weight="700" fill="#1b2733" text-anchor="middle">LH</text></svg>
+          <p>Lufthansa</p>
+        </div>
+        <div class="certified__airline" title="Emirates">
+          <svg xmlns="http://www.w3.org/2000/svg" width="85" height="85" viewBox="0 0 85 85"><rect width="85" height="85" rx="14" fill="#f0f4f8"/><text x="42.5" y="49" font-family="IBM Plex Sans,sans-serif" font-size="13" font-weight="700" fill="#1b2733" text-anchor="middle">EK</text></svg>
+          <p>Emirates</p>
+        </div>
+        <div class="certified__airline" title="Airline 3">
+          <svg xmlns="http://www.w3.org/2000/svg" width="85" height="85" viewBox="0 0 85 85"><rect width="85" height="85" rx="14" fill="#f0f4f8"/><text x="42.5" y="49" font-family="IBM Plex Sans,sans-serif" font-size="13" font-weight="700" fill="#1b2733" text-anchor="middle">A3</text></svg>
+          <p>Airline 3</p>
+        </div>
+        <div class="certified__airline" title="Airline 4">
+          <svg xmlns="http://www.w3.org/2000/svg" width="85" height="85" viewBox="0 0 85 85"><rect width="85" height="85" rx="14" fill="#f0f4f8"/><text x="42.5" y="49" font-family="IBM Plex Sans,sans-serif" font-size="13" font-weight="700" fill="#1b2733" text-anchor="middle">A4</text></svg>
+          <p>Airline 4</p>
+        </div>
+        <div class="certified__airline" title="Airline 5">
+          <svg xmlns="http://www.w3.org/2000/svg" width="85" height="85" viewBox="0 0 85 85"><rect width="85" height="85" rx="14" fill="#f0f4f8"/><text x="42.5" y="49" font-family="IBM Plex Sans,sans-serif" font-size="13" font-weight="700" fill="#1b2733" text-anchor="middle">A5</text></svg>
+          <p>Airline 5</p>
+        </div>
+        <div class="certified__airline" title="Airline 6">
+          <svg xmlns="http://www.w3.org/2000/svg" width="85" height="85" viewBox="0 0 85 85"><rect width="85" height="85" rx="14" fill="#f0f4f8"/><text x="42.5" y="49" font-family="IBM Plex Sans,sans-serif" font-size="13" font-weight="700" fill="#1b2733" text-anchor="middle">A6</text></svg>
+          <p>Airline 6</p>
+        </div>
+      </div>
+      <div style="text-align:center; margin-top:40px;">
+        <a href="supply-network/index.html" class="btn-secondary">Explore all airlines →</a>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- ================================================================
+     BUILT FOR AIRLINES AND TRAVEL SELLERS
+================================================================ -->
+<div class="landing-new loaded" style="background: rgba(27,39,51,0.025);">
+  <div class="landing-new__body">
+    <section class="section-block">
+      <div class="section-block__head">
+        <h2>Built for airlines and travel sellers</h2>
+      </div>
+      <div class="feature-grid">
+        <div class="feature-card">
+          <h3>Airlines</h3>
+          <p>Distributing content across all seller types.</p>
+        </div>
+        <div class="feature-card">
+          <h3>OTAs</h3>
+          <p>Improving pricing, coverage, and L2B.</p>
+        </div>
+        <div class="feature-card">
+          <h3>IATA agencies</h3>
+          <p>Adding NDC without disrupting workflows.</p>
+        </div>
+        <div class="feature-card">
+          <h3>Non-IATA agencies</h3>
+          <p>Accessing airline content without accreditation.</p>
+        </div>
+        <div class="feature-card">
+          <h3>TMS platforms</h3>
+          <p>Integrating airline content via a single API.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- ================================================================
+     WHAT MAKES THIS WORK
+================================================================ -->
+<section class="benefits">
+  <div class="benefits__container">
+    <h2>What makes this work</h2>
+    <div class="benefits__body">
+      <div class="benefits__list" id="benefitsList">
+
+        <div class="benefit__item benefit__item--0">
+          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='42' height='42' viewBox='0 0 42 42'%3E%3Crect width='42' height='42' rx='8' fill='%232a8aea' fill-opacity='.12'/%3E%3Cpath d='M9 17l12-5 12 5-12 5-12-5z' fill='none' stroke='%232a8aea' stroke-width='1.5' stroke-linejoin='round'/%3E%3Cpath d='M9 22l12 5 12-5' fill='none' stroke='%232a8aea' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round' opacity='.5'/%3E%3C/svg%3E" alt="">
+          <h3>One integration, all sources</h3>
+          <p>Direct airline content via NDC, custom distribution schemes, low-cost, and charters — in one connection, running alongside your existing GDS.</p>
+        </div>
+
+        <div class="benefit__item benefit__item--1">
+          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='42' height='42' viewBox='0 0 42 42'%3E%3Crect width='42' height='42' rx='8' fill='%232a8aea' fill-opacity='.12'/%3E%3Cpath d='M11 16h20M11 21h20M11 26h13' stroke='%232a8aea' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E" alt="">
+          <h3>Normalized data across channels</h3>
+          <p>One structure for fares, ancillaries, and rules.</p>
+        </div>
+
+        <div class="benefit__item benefit__item--2">
+          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='42' height='42' viewBox='0 0 42 42'%3E%3Crect width='42' height='42' rx='8' fill='%232a8aea' fill-opacity='.12'/%3E%3Crect x='11' y='13' width='20' height='16' rx='2' fill='none' stroke='%232a8aea' stroke-width='1.5'/%3E%3Cpath stroke='%232a8aea' stroke-width='1.5' stroke-linecap='round' d='M21 13v16'/%3E%3C/svg%3E" alt="">
+          <h3>Hybrid distribution without disruption</h3>
+          <p>Direct airline content layered on top of the GDS workflows agents already use — no replacement required.</p>
+        </div>
+
+        <div class="benefit__item benefit__item--3">
+          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='42' height='42' viewBox='0 0 42 42'%3E%3Crect width='42' height='42' rx='8' fill='%232a8aea' fill-opacity='.12'/%3E%3Cpath d='M14 21l4.5 4.5L29 15' fill='none' stroke='%232a8aea' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" alt="">
+          <h3>Full airline content</h3>
+          <p>No loss of NDC or direct offers.</p>
+        </div>
+
+        <div class="benefit__item benefit__item--4">
+          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='42' height='42' viewBox='0 0 42 42'%3E%3Crect width='42' height='42' rx='8' fill='%232a8aea' fill-opacity='.12'/%3E%3Crect x='12' y='12' width='18' height='18' rx='2' fill='none' stroke='%232a8aea' stroke-width='1.5'/%3E%3Cpath stroke='%232a8aea' stroke-width='1.5' stroke-linecap='round' d='M16 18h10M16 22h10M16 26h6'/%3E%3C/svg%3E" alt="">
+          <h3>Built-in order management</h3>
+          <p>Booking and servicing in one system.</p>
+        </div>
+
+        <div class="benefit__item benefit__item--5">
+          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='42' height='42' viewBox='0 0 42 42'%3E%3Crect width='42' height='42' rx='8' fill='%232a8aea' fill-opacity='.12'/%3E%3Cpath d='M21 11a9 9 0 1 1 0 18 9 9 0 0 1 0-18zm0 4v6l4 2' fill='none' stroke='%232a8aea' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" alt="">
+          <h3>24/7 operational support</h3>
+          <p>Issues handled without airline escalation delays.</p>
+        </div>
+
+      </div>
+      <a href="#" class="link-btn" id="benefitsToggle">View more</a>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================
+     FROM FRAGMENTED SYSTEMS TO ONE LAYER
+================================================================ -->
+<div class="landing-new loaded">
+  <div class="landing-new__body">
+    <section class="section-block">
+      <div class="section-block__head">
+        <h2>From fragmented systems to one layer</h2>
+        <p>Airline distribution is fragmented by design. DRCT resolves that at the infrastructure level.</p>
+        <p>Airlines connect once and reach every seller. Travel sellers connect once and access direct airline content across every distribution scheme — NDC, custom APIs, low-cost, and charters — alongside their existing GDS.</p>
+        <p>Everything in between — normalization, enrichment, booking, and servicing — is handled in one consistent layer.</p>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- ================================================================
+     FINAL CTA
+================================================================ -->
+<div class="landing-new loaded cta-final" id="contact">
+  <div class="landing-new__body">
+    <section class="section-block">
+      <div class="section-block__head">
+        <h2>Ready to grow your distribution?</h2>
+        <p>Partner as an airline or get access as a travel seller.</p>
+      </div>
+      <div class="hero__ctas">
+        <a href="solutions/for-airlines.html" class="btn-secondary">Partner as an Airline ↗</a>
+        <a href="#" class="btn-primary">Get Access as Travel Seller ↗</a>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- ================================================================
+     FOOTER
+================================================================ -->
+<footer class="footer">
+  <div class="footer__top">
+    <div class="footer__left">
+      <div class="footer__links">
+        <span>Solutions</span>
+        <ul>
+          <li><a href="solutions/for-airlines.html">For Airlines</a></li>
+          <li><a href="solutions/iata-agencies.html">IATA Agencies</a></li>
+          <li><a href="solutions/non-iata-agencies.html">Non-IATA</a></li>
+          <li><a href="solutions/ota.html">OTA</a></li>
+          <li><a href="solutions/tms.html">TMS</a></li>
+        </ul>
+      </div>
+      <div class="footer__links">
+        <span>More</span>
+        <ul>
+          <li><a href="products/bt.html">Products</a></li>
+          <li><a href="supply-network/index.html">Supply Network</a></li>
+          <li><a href="about.html">About</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="footer__bottom">
+    <div>
+      <i>© DRCT</i>
+    </div>
+  </div>
+</footer>
+
+<script src="js/app.js"></script>
+</body>
+</html>

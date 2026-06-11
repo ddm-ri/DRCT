@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>DRCT</title>
-  <meta name="description" content="Sell flights and ancillaries directly with airlines without leaving your GDS. Increase your markups thanks to the agent-oriented software and 0 ticketing fee.">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Airline Offer Orchestrator — DRCT</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/blocks.css">
 </head>
 <body>
 
@@ -18,15 +18,37 @@
 <header class="header" id="header">
   <div class="header__links">
     <div class="header__links-left">
-      <a href="./index.html" class="header__logo">DRCT</a>
-      <a href="./index.html" class="header__nav-link active">For agencies</a>
-      <a href="./airlines/index.html" class="header__nav-link">For airlines</a>
-      <a href="./developers/index.html" class="header__nav-link">For developers</a>
+      <a href="index.html" class="header__logo">DRCT</a>
+
+      <div class="header__dropdown">
+        <button type="button" class="header__nav-link" aria-haspopup="true" aria-expanded="false">Solutions</button>
+        <div class="header__dropdown-menu">
+          <a href="solutions/for-airlines.html">For Airlines</a>
+          <a href="solutions/iata-agencies.html">For IATA Agencies</a>
+          <a href="solutions/non-iata-agencies.html">For Non-IATA Agencies</a>
+          <a href="solutions/tms.html">For TMS</a>
+          <a href="solutions/ota.html">For OTA</a>
+        </div>
+      </div>
+
+      <div class="header__dropdown">
+        <button type="button" class="header__nav-link" aria-haspopup="true" aria-expanded="false">Products</button>
+        <div class="header__dropdown-menu">
+          <a href="products/bt.html">BT</a>
+          <a href="products/bt-for-tms.html">BT for TMS</a>
+          <a href="products/api.html">API</a>
+          <a href="products/extension.html">Extension</a>
+        </div>
+      </div>
+
+      <a href="supply-network/index.html" class="header__nav-link">Supply Network</a>
     </div>
+
     <div class="header__links-right">
-      <a href="#" class="header__signin">Sign in</a>
-      <a href="#" class="header__try">Request Demo</a>
+      <a href="#contact" class="header__cta-ghost">Partner as an Airline</a>
+      <a href="#contact" class="header__try">Get Access as Travel Seller</a>
     </div>
+
     <button class="header__menu-cross" id="menuToggle" aria-label="Toggle navigation">
       <div class="line-1"></div>
       <div class="line-2"></div>
@@ -37,307 +59,321 @@
 <!-- Mobile menu -->
 <div class="mobile-menu" id="mobileMenu">
   <ul class="menu__links">
-    <li><a href="./index.html" class="active">For agencies</a></li>
-    <li><a href="./airlines/index.html">For airlines</a></li>
-    <li><a href="./developers/index.html">For developers</a></li>
+    <li class="menu__group-label">Solutions</li>
+    <li><a href="solutions/for-airlines.html">For Airlines</a></li>
+    <li><a href="solutions/iata-agencies.html">For IATA Agencies</a></li>
+    <li><a href="solutions/non-iata-agencies.html">For Non-IATA Agencies</a></li>
+    <li><a href="solutions/tms.html">For TMS</a></li>
+    <li><a href="solutions/ota.html">For OTA</a></li>
+    <li class="menu__group-label">Products</li>
+    <li><a href="products/bt.html">BT</a></li>
+    <li><a href="products/bt-for-tms.html">BT for TMS</a></li>
+    <li><a href="products/api.html">API</a></li>
+    <li><a href="products/extension.html">Extension</a></li>
+    <li class="menu__group-label">More</li>
+    <li><a href="supply-network/index.html">Supply Network</a></li>
+    <li><a href="#contact">Get Access as Travel Seller</a></li>
   </ul>
 </div>
 
 <!-- ================================================================
-     LANDING — ABOVE THE FOLD
+     HERO
 ================================================================ -->
-<div class="landing-new loaded">
+<div class="landing-new loaded" style="background-image: linear-gradient(180deg, rgba(42,138,234,0.22) 0%, rgba(42,138,234,0) 70%); overflow: hidden;">
   <div class="landing-new__body">
-
-    <!-- HERO -->
-    <section class="info">
-      <div class="info__left">
-        <span class="info__eyebrow">Airline Offer Orchestrator</span>
-        <h1 class="info__h1">We adapt and activate airline offers across diverse travel audiences</h1>
-        <p class="info__bold">DRCT — one orchestration layer for your distribution, from IATA agencies to OTAs and Super Apps.</p>
-        <p>Airlines gain full control over how their offers reach the market. Travel sellers get seamless access to direct airline inventory — delivered via NDC and other custom distribution schemes — without needing separate integrations for each source.</p>
-        <div class="info__ctas">
-          <a href="./airlines/index.html" class="btn-primary">Partner as an Airline ↗</a>
-          <a href="#" class="btn-outline" data-demo>Get access as Travel Seller</a>
-        </div>
+    <section class="hero">
+      <span class="hero__badge">Airline Offer Orchestrator</span>
+      <h1 class="hero__title">We adapt and activate airline offers across diverse travel audiences</h1>
+      <h2 class="hero__subtitle">DRCT — one orchestration layer for your distribution, from IATA agencies to OTAs and Super Apps.</h2>
+      <p class="hero__description">Airlines gain full control over how their offers reach the market. Travel sellers get seamless access to direct airline inventory — delivered via NDC and other custom distribution schemes — without needing separate integrations for each source. Agencies can continue working within their existing GDS workflows and interfaces. One platform connecting both sides, without fragmentation.</p>
+      <div class="hero__ctas">
+        <a href="#contact" class="btn-primary">Partner as an Airline</a>
+        <a href="#contact" class="btn-secondary">Get Access as Travel Seller</a>
       </div>
-      <div class="info__right">
-        <video
-          class="info__video"
-          preload="metadata"
-          muted
-          autoplay
-          playsinline
-          loop
-          aria-label="DRCT interface demo"
-        >
-          <source src="https://drct-board-storage.s3.eu-central-1.amazonaws.com/DRCT_en_v2.mp4" type="video/mp4">
-        </video>
-      </div>
-      <a href="#" class="info__try-mobile" data-demo>Request Demo</a>
     </section>
-
-    <!-- ADVANTAGES -->
-    <div class="advantages">
-      <ul>
-        <li>Installation within 10 minutes</li>
-        <li>30 days free trial</li>
-        <li>24/7 support</li>
-      </ul>
-    </div>
-
-    <!-- ONE PLACE -->
-    <section class="one-place">
-      <div class="one-place__mobile-gradient"></div>
-      <h2>All NDC features in familiar interface</h2>
-      <p>DRCT has everything you need to work with bookings.</p>
-      <div class="one-place__body">
-
-        <!-- Desktop options accordion -->
-        <div class="one-place__options" id="onePlaceOptions">
-          <div class="one-place__option active" data-index="0">
-            <h3>Book without leaving GDS <span class="active"></span></h3>
-            <p>Search for flights and create bookings through NDC without leaving the GDS. Available now: Aegean Airlines, airBaltic, American Airlines, British Airways, Brussels Airlines, Emirates, flydubai, Iberia, LOT, Lufthansa, SWISS, TAP, United Airlines and more than 30 other airlines.</p>
-          </div>
-          <div class="one-place__option" data-index="1">
-            <h3>Manage <span></span></h3>
-            <p>Full access to your reservation. View booking details, passenger information, seat maps, and fare conditions in one place.</p>
-          </div>
-          <div class="one-place__option" data-index="2">
-            <h3>Control <span></span></h3>
-            <p>Set up roles and booking visibility for your agency and subagents. Manage user access and track all transactions.</p>
-          </div>
-          <div class="one-place__option" data-index="3">
-            <h3>Make changes <span></span></h3>
-            <p>Exchanges, refunds, and voids — manage the full post-sales lifecycle directly from your GDS workflow without switching tools.</p>
-          </div>
-        </div>
-
-        <!-- Desktop screenshot -->
-        <div class="one-place__details" id="onePlaceDetails">
-          <div class="one-place__screenshot-wrap" id="onePlaceScreenshot">
-            <div class="drct-mock" data-index="0">
-              <div class="drct-mock__bar">
-                <ul class="drct-mock__tabs">
-                  <li class="drct-mock__tab active">Search</li>
-                  <li class="drct-mock__tab">Bookings</li>
-                  <li class="drct-mock__tab">Reports</li>
-                </ul>
-              </div>
-              <div class="drct-mock__search">
-                <div class="drct-mock__field"><span>From</span><strong>London LHR</strong></div>
-                <div class="drct-mock__field"><span>To</span><strong>Frankfurt FRA</strong></div>
-                <div class="drct-mock__field"><span>Date</span><strong>15 Feb 2024</strong></div>
-              </div>
-              <div class="drct-mock__results">
-                <div class="drct-mock__result active-row">
-                  <span class="drct-mock__airline">LH</span>
-                  <span class="drct-mock__flight">LH 900</span>
-                  <span class="drct-mock__time">07:00 – 09:45</span>
-                  <span class="drct-mock__price drct-mock__price--ndc">€ 189 <em>NDC</em></span>
-                </div>
-                <div class="drct-mock__result">
-                  <span class="drct-mock__airline">LH</span>
-                  <span class="drct-mock__flight">LH 924</span>
-                  <span class="drct-mock__time">10:15 – 13:00</span>
-                  <span class="drct-mock__price">€ 245</span>
-                </div>
-                <div class="drct-mock__result">
-                  <span class="drct-mock__airline">LH</span>
-                  <span class="drct-mock__flight">LH 938</span>
-                  <span class="drct-mock__time">14:30 – 17:10</span>
-                  <span class="drct-mock__price">€ 164</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- Mobile carousel -->
-      <div class="one-place__carousel" id="onePlaceCarousel">
-        <div class="one-place__carousel-track" id="carouselTrack">
-          <div class="one-place__carousel-slide">
-            <div class="drct-mock drct-mock--sm">
-              <div class="drct-mock__bar"><ul class="drct-mock__tabs"><li class="drct-mock__tab active">Search</li><li class="drct-mock__tab">Bookings</li></ul></div>
-              <div class="drct-mock__results drct-mock__results--sm">
-                <div class="drct-mock__result active-row"><span class="drct-mock__airline">LH</span><span class="drct-mock__flight">LH 900</span><span class="drct-mock__price drct-mock__price--ndc">€189 <em>NDC</em></span></div>
-                <div class="drct-mock__result"><span class="drct-mock__airline">BA</span><span class="drct-mock__flight">BA 924</span><span class="drct-mock__price">€245</span></div>
-              </div>
-            </div>
-            <h3>Book without leaving GDS</h3>
-            <p>Search for flights and create bookings through NDC without leaving the GDS.</p>
-          </div>
-          <div class="one-place__carousel-slide">
-            <div class="drct-mock drct-mock--sm">
-              <div class="drct-mock__bar"><ul class="drct-mock__tabs"><li class="drct-mock__tab">Search</li><li class="drct-mock__tab active">Bookings</li></ul></div>
-              <div class="drct-mock__results drct-mock__results--sm">
-                <div class="drct-mock__result active-row"><span class="drct-mock__airline">LH</span><span class="drct-mock__flight">WRSXYZ</span><span class="drct-mock__price drct-mock__price--ndc">Confirmed <em>NDC</em></span></div>
-              </div>
-            </div>
-            <h3>Manage</h3>
-            <p>Full access to your reservation in one place.</p>
-          </div>
-          <div class="one-place__carousel-slide">
-            <div class="drct-mock drct-mock--sm">
-              <div class="drct-mock__bar"><ul class="drct-mock__tabs"><li class="drct-mock__tab">Search</li><li class="drct-mock__tab active">Reports</li></ul></div>
-              <div class="drct-mock__results drct-mock__results--sm">
-                <div class="drct-mock__result active-row"><span>Users</span><span class="drct-mock__price">3 active</span></div>
-                <div class="drct-mock__result"><span>Balance</span><span class="drct-mock__price drct-mock__price--ndc">$2,400</span></div>
-              </div>
-            </div>
-            <h3>Control</h3>
-            <p>Set up roles and booking visibility.</p>
-          </div>
-          <div class="one-place__carousel-slide">
-            <div class="drct-mock drct-mock--sm">
-              <div class="drct-mock__bar"><ul class="drct-mock__tabs"><li class="drct-mock__tab active">Changes</li><li class="drct-mock__tab">Refunds</li></ul></div>
-              <div class="drct-mock__results drct-mock__results--sm">
-                <div class="drct-mock__result active-row"><span>Exchange</span><span class="drct-mock__price drct-mock__price--ndc">Available</span></div>
-                <div class="drct-mock__result"><span>Void</span><span class="drct-mock__price">24h window</span></div>
-              </div>
-            </div>
-            <h3>Make changes</h3>
-            <p>Exchanges, refunds, voids from your GDS workflow.</p>
-          </div>
-        </div>
-        <div class="one-place__carousel-nav" id="carouselNav">
-          <span class="active" data-slide="0"></span>
-          <span data-slide="1"></span>
-          <span data-slide="2"></span>
-          <span data-slide="3"></span>
-        </div>
-      </div>
-
-    </section>
-
-  </div><!-- /landing-new__body -->
-</div><!-- /landing-new (above-fold block) -->
-
-<!-- ================================================================
-     BENEFITS  —  full-width gradient section
-================================================================ -->
-<section class="benefits">
-  <div class="benefits__container">
-    <h2>Work on the same platform</h2>
-    <p>Keep working in the GDS the way you are used to.</p>
-    <div class="benefits__body">
-      <div class="benefits__list" id="benefitsList">
-
-        <div class="benefit__item benefit__item--0">
-          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='42' height='42' viewBox='0 0 42 42'%3E%3Crect width='42' height='42' rx='8' fill='%232a8aea' fill-opacity='.12'/%3E%3Cpath fill='%232a8aea' d='M9 14h24v3H9zm0 5h24v2H9zm0 4h14v2H9z'/%3E%3Crect x='9' y='11' width='24' height='20' rx='3' fill='none' stroke='%232a8aea' stroke-width='1.5'/%3E%3C/svg%3E" alt="">
-          <h3>Pay via BSP</h3>
-          <p>Use your current agreements with airlines you work with now. Nothing changes. Settle your payments via BSP.</p>
-        </div>
-
-        <div class="benefit__item benefit__item--1">
-          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='42' height='42' viewBox='0 0 42 42'%3E%3Crect width='42' height='42' rx='8' fill='%232a8aea' fill-opacity='.12'/%3E%3Ccircle cx='17' cy='17' r='4.5' fill='none' stroke='%232a8aea' stroke-width='1.5'/%3E%3Ccircle cx='27' cy='17' r='4.5' fill='none' stroke='%232a8aea' stroke-width='1.5'/%3E%3Cpath stroke='%232a8aea' stroke-width='1.5' fill='none' d='M10 30c0-3.866 3.134-7 7-7h8c3.866 0 7 3.134 7 7'/%3E%3C/svg%3E" alt="">
-          <h3>Add users</h3>
-          <p>Manage your balance, open and close DRCT access, and expand your subagent's network by yourself. No bureaucracy, just easy.</p>
-        </div>
-
-        <div class="benefit__item benefit__item--2">
-          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='42' height='42' viewBox='0 0 42 42'%3E%3Crect width='42' height='42' rx='8' fill='%232a8aea' fill-opacity='.12'/%3E%3Crect x='13' y='19' width='16' height='12' rx='2' fill='none' stroke='%232a8aea' stroke-width='1.5'/%3E%3Cpath stroke='%232a8aea' stroke-width='1.5' fill='none' d='M16 19v-4a5 5 0 0 1 10 0v4'/%3E%3Ccircle cx='21' cy='25' r='1.5' fill='%232a8aea'/%3E%3C/svg%3E" alt="">
-          <h3>Control personal data</h3>
-          <p>Set up the roles and bookings visibility up to your preferences.</p>
-        </div>
-
-        <div class="benefit__item benefit__item--3">
-          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='42' height='42' viewBox='0 0 42 42'%3E%3Crect width='42' height='42' rx='8' fill='%232a8aea' fill-opacity='.12'/%3E%3Cpath stroke='%232a8aea' stroke-width='1.5' fill='none' d='M21 10a9 9 0 1 1 0 18 9 9 0 0 1 0-18zm0 3v5.5l3.5 2'/%3E%3Cpath fill='%232a8aea' d='M17 9.5l4-2 4 2-1 1.5-3-1.5-3 1.5z'/%3E%3C/svg%3E" alt="">
-          <h3>Stay informed</h3>
-          <p>Receive change notifications and stay updated.</p>
-        </div>
-
-        <div class="benefit__item benefit__item--4">
-          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='42' height='42' viewBox='0 0 42 42'%3E%3Crect width='42' height='42' rx='8' fill='%232a8aea' fill-opacity='.12'/%3E%3Crect x='12' y='10' width='18' height='22' rx='2' fill='none' stroke='%232a8aea' stroke-width='1.5'/%3E%3Cpath stroke='%232a8aea' stroke-width='1.5' d='M16 16h10M16 20h10M16 24h6'/%3E%3C/svg%3E" alt="">
-          <h3>Keep record</h3>
-          <p>Upload sales from DRCT to your back and mid-offices.</p>
-        </div>
-
-        <div class="benefit__item benefit__item--5">
-          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='42' height='42' viewBox='0 0 42 42'%3E%3Crect width='42' height='42' rx='8' fill='%232a8aea' fill-opacity='.12'/%3E%3Cpath fill='%232a8aea' d='M21 10l2.7 5.5 6.1.9-4.4 4.3 1 6-5.4-2.9-5.4 2.9 1-6-4.4-4.3 6.1-.9z'/%3E%3C/svg%3E" alt="">
-          <h3>Earn more</h3>
-          <p>Use the search for the cheapest class. DRCT checks every booking for the cheapest class available. If a better price is found, DRCT will send you a notification.</p>
-        </div>
-
-      </div>
-      <a href="#" class="link-btn" id="benefitsToggle">View more</a>
-    </div>
   </div>
-</section>
+</div>
 
 <!-- ================================================================
-     BELOW-FOLD SECTIONS
+     PROBLEMS WE SOLVE
 ================================================================ -->
 <div class="landing-new loaded">
   <div class="landing-new__body">
+    <section class="section-block" id="problems">
+      <div class="section-block__head">
+        <h2>Problems we solve</h2>
+        <p>DRCT addresses structural inefficiencies on both sides of airline distribution.</p>
+      </div>
+      <h3 class="ps-group-title">For airlines</h3>
+      <div class="ps-grid">
 
-    <!-- WORKING WITH -->
+        <div class="ps-card">
+          <div class="ps-half ps-half--prob">
+            <div class="ps-icon ps-icon--prob"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="4.5" y="10" width="13" height="9" rx="2" stroke="#c07000" stroke-width="1.4"/><path d="M8 10V7.5a3 3 0 016 0V10" stroke="#c07000" stroke-width="1.4" stroke-linecap="round"/><circle cx="11" cy="15" r="1.4" fill="#c07000" fill-opacity="0.5"/></svg></div>
+            <div class="ps-label ps-label--prob">Problem</div>
+            <h3>Limited offer control</h3>
+            <p>Limited control over how offers are presented to agents and OTAs.</p>
+          </div>
+          <div class="ps-split"><div class="ps-split__circle"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 6h8M7 3l3 3-3 3" stroke="rgba(27,39,51,0.45)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+          <div class="ps-half ps-half--sol">
+            <div class="ps-icon ps-icon--sol"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 7h16M3 11h16M3 15h16" stroke="#2a8aea" stroke-width="1.4" stroke-linecap="round"/><circle cx="7.5" cy="7" r="2.2" fill="white" stroke="#2a8aea" stroke-width="1.4"/><circle cx="13.5" cy="11" r="2.2" fill="white" stroke="#2a8aea" stroke-width="1.4"/><circle cx="9" cy="15" r="2.2" fill="white" stroke="#2a8aea" stroke-width="1.4"/></svg></div>
+            <div class="ps-label ps-label--sol">Solution</div>
+            <h3>Full control over presentation.</h3>
+            <p>DRCT preserves your offer structure and controls how fares, bundles, and ancillaries appear to every agent and OTA — consistently across channels.</p>
+          </div>
+        </div>
+
+        <div class="ps-card">
+          <div class="ps-half ps-half--prob">
+            <div class="ps-icon ps-icon--prob"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="11" cy="11" r="8" stroke="#c07000" stroke-width="1.4"/><path d="M11 5.5v11M8.5 8c0-.9.8-1.7 2.5-1.7s2.5.8 2.5 1.7-1 1.6-2.5 1.6-2.5.8-2.5 1.7.8 2.2 2.5 2.2 2.5-.9 2.5-1.8" stroke="#c07000" stroke-width="1.4" stroke-linecap="round"/></svg></div>
+            <div class="ps-label ps-label--prob">Problem</div>
+            <h3>High cost per booking</h3>
+            <p>High cost per booking through traditional GDS system and GDS booking flows.</p>
+          </div>
+          <div class="ps-split"><div class="ps-split__circle"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 6h8M7 3l3 3-3 3" stroke="rgba(27,39,51,0.45)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+          <div class="ps-half ps-half--sol">
+            <div class="ps-icon ps-icon--sol"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 16l4.5-5.5 4 2.5 5.5-8" stroke="#2a8aea" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M14.5 5h4v4" stroke="#2a8aea" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <div class="ps-label ps-label--sol">Solution</div>
+            <h3>Better economics at scale.</h3>
+            <p>Direct airline-to-seller distribution and a gradual shift of volume from GDS toward NDC improve cost-per-booking while keeping full distribution reach.</p>
+          </div>
+        </div>
+
+        <div class="ps-card">
+          <div class="ps-half ps-half--prob">
+            <div class="ps-icon ps-icon--prob"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="9" cy="7" r="3" stroke="#c07000" stroke-width="1.4"/><path d="M3.5 19c0-3.5 2.5-6 5.5-6" stroke="#c07000" stroke-width="1.4" stroke-linecap="round"/><path d="M15.5 11v8M13 13.5l2.5-2.5 2.5 2.5" stroke="#c07000" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <div class="ps-label ps-label--prob">Problem</div>
+            <h3>Slow NDC adoption</h3>
+            <p>Slow NDC adoption — agents resist unfamiliar workflows.</p>
+          </div>
+          <div class="ps-split"><div class="ps-split__circle"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 6h8M7 3l3 3-3 3" stroke="rgba(27,39,51,0.45)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+          <div class="ps-half ps-half--sol">
+            <div class="ps-icon ps-icon--sol"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12.5 3L7 12.5h6L10 19l9.5-10H14l2.5-6z" fill="rgba(42,138,234,0.12)" stroke="#2a8aea" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <div class="ps-label ps-label--sol">Solution</div>
+            <h3>Adoption inside familiar tools.</h3>
+            <p>NDC content is delivered inside the GDS and the interfaces agents already use, so adoption happens naturally — no new systems to learn.</p>
+          </div>
+        </div>
+
+        <div class="ps-card">
+          <div class="ps-half ps-half--prob">
+            <div class="ps-icon ps-icon--prob"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="4" cy="11" r="2.2" stroke="#c07000" stroke-width="1.4"/><circle cx="18" cy="5.5" r="2.2" stroke="#c07000" stroke-width="1.4"/><circle cx="18" cy="16.5" r="2.2" stroke="#c07000" stroke-width="1.4"/><path d="M6 10.3l9.8-3.6M6 11.7l9.8 3.6" stroke="#c07000" stroke-width="1.3" stroke-linecap="round" stroke-dasharray="2.5 2"/></svg></div>
+            <div class="ps-label ps-label--prob">Problem</div>
+            <h3>Fragmented channel management</h3>
+            <p>Fragmented management of GDS and NDC channels simultaneously.</p>
+          </div>
+          <div class="ps-split"><div class="ps-split__circle"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 6h8M7 3l3 3-3 3" stroke="rgba(27,39,51,0.45)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+          <div class="ps-half ps-half--sol">
+            <div class="ps-icon ps-icon--sol"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 11l8-4 8 4-8 4-8-4z" stroke="#2a8aea" stroke-width="1.4" stroke-linejoin="round"/><path d="M3 15l8 4 8-4" stroke="#2a8aea" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" opacity="0.45"/><path d="M3 7l8-4 8 4" stroke="#2a8aea" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" opacity="0.25"/></svg></div>
+            <div class="ps-label ps-label--sol">Solution</div>
+            <h3>One layer for both channels.</h3>
+            <p>GDS and NDC content coexist in a single distribution layer — managed, reported, and settled in one place instead of two parallel systems.</p>
+          </div>
+        </div>
+
+      </div>
+
+      <h3 class="ps-group-title">For travel sellers</h3>
+      <div class="ps-grid">
+
+        <div class="ps-card">
+          <div class="ps-half ps-half--prob">
+            <div class="ps-icon ps-icon--prob"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="4" cy="11" r="2.2" stroke="#c07000" stroke-width="1.4"/><circle cx="18" cy="5.5" r="2.2" stroke="#c07000" stroke-width="1.4"/><circle cx="18" cy="16.5" r="2.2" stroke="#c07000" stroke-width="1.4"/><path d="M6 10.3l9.8-3.6M6 11.7l9.8 3.6" stroke="#c07000" stroke-width="1.3" stroke-linecap="round" stroke-dasharray="2.5 2"/></svg></div>
+            <div class="ps-label ps-label--prob">Problem</div>
+            <h3>Scattered airline content</h3>
+            <p>Airline content scattered across GDS, NDC APIs, and direct portals.</p>
+          </div>
+          <div class="ps-split"><div class="ps-split__circle"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 6h8M7 3l3 3-3 3" stroke="rgba(27,39,51,0.45)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+          <div class="ps-half ps-half--sol">
+            <div class="ps-icon ps-icon--sol"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 11l8-4 8 4-8 4-8-4z" stroke="#2a8aea" stroke-width="1.4" stroke-linejoin="round"/><path d="M3 15l8 4 8-4" stroke="#2a8aea" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" opacity="0.45"/><path d="M3 7l8-4 8 4" stroke="#2a8aea" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" opacity="0.25"/></svg></div>
+            <div class="ps-label ps-label--sol">Solution</div>
+            <h3>All content, one connection.</h3>
+            <p>DRCT unifies GDS, NDC, and direct airline content into a single normalized layer reached through one integration.</p>
+          </div>
+        </div>
+
+        <div class="ps-card">
+          <div class="ps-half ps-half--prob">
+            <div class="ps-icon ps-icon--prob"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="4.5" y="10" width="13" height="9" rx="2" stroke="#c07000" stroke-width="1.4"/><path d="M8 10V7.5a3 3 0 016 0V10" stroke="#c07000" stroke-width="1.4" stroke-linecap="round"/><circle cx="11" cy="15" r="1.4" fill="#c07000" fill-opacity="0.5"/></svg></div>
+            <div class="ps-label ps-label--prob">Problem</div>
+            <h3>Separate logins and workflows</h3>
+            <p>Separate logins, formats, and workflows for each content source.</p>
+          </div>
+          <div class="ps-split"><div class="ps-split__circle"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 6h8M7 3l3 3-3 3" stroke="rgba(27,39,51,0.45)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+          <div class="ps-half ps-half--sol">
+            <div class="ps-icon ps-icon--sol"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 7h16M3 11h16M3 15h16" stroke="#2a8aea" stroke-width="1.4" stroke-linecap="round"/><circle cx="7.5" cy="7" r="2.2" fill="white" stroke="#2a8aea" stroke-width="1.4"/><circle cx="13.5" cy="11" r="2.2" fill="white" stroke="#2a8aea" stroke-width="1.4"/><circle cx="9" cy="15" r="2.2" fill="white" stroke="#2a8aea" stroke-width="1.4"/></svg></div>
+            <div class="ps-label ps-label--sol">Solution</div>
+            <h3>One workflow, one interface.</h3>
+            <p>Search, book, issue, and service every source from a single interface — no separate logins or formats to reconcile.</p>
+          </div>
+        </div>
+
+        <div class="ps-card">
+          <div class="ps-half ps-half--prob">
+            <div class="ps-icon ps-icon--prob"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="4.5" y="10" width="13" height="9" rx="2" stroke="#c07000" stroke-width="1.4"/><path d="M8 10V7.5a3 3 0 016 0V10" stroke="#c07000" stroke-width="1.4" stroke-linecap="round"/><circle cx="11" cy="15" r="1.4" fill="#c07000" fill-opacity="0.5"/></svg></div>
+            <div class="ps-label ps-label--prob">Problem</div>
+            <h3>Limited NDC access</h3>
+            <p>Limited access to NDC fares and direct airline offers without contracts.</p>
+          </div>
+          <div class="ps-split"><div class="ps-split__circle"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 6h8M7 3l3 3-3 3" stroke="rgba(27,39,51,0.45)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+          <div class="ps-half ps-half--sol">
+            <div class="ps-icon ps-icon--sol"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12.5 3L7 12.5h6L10 19l9.5-10H14l2.5-6z" fill="rgba(42,138,234,0.12)" stroke="#2a8aea" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <div class="ps-label ps-label--sol">Solution</div>
+            <h3>NDC access without the friction.</h3>
+            <p>Get NDC fares and direct airline offers without per-airline accreditation or contracts — through familiar workflows.</p>
+          </div>
+        </div>
+
+        <div class="ps-card">
+          <div class="ps-half ps-half--prob">
+            <div class="ps-icon ps-icon--prob"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 7l4.5 5 4-2 6 7" stroke="#c07000" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M14 14.5l3.5 4.5h-4l.5-4.5z" fill="#c07000" fill-opacity="0.5"/></svg></div>
+            <div class="ps-label ps-label--prob">Problem</div>
+            <h3>Per-channel post-booking changes</h3>
+            <p>Post-booking changes require different processes per channel.</p>
+          </div>
+          <div class="ps-split"><div class="ps-split__circle"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 6h8M7 3l3 3-3 3" stroke="rgba(27,39,51,0.45)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+          <div class="ps-half ps-half--sol">
+            <div class="ps-icon ps-icon--sol"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="11" cy="11" r="8" stroke="#2a8aea" stroke-width="1.4"/><circle cx="11" cy="11" r="4.5" stroke="#2a8aea" stroke-width="1.4" opacity="0.55"/><circle cx="11" cy="11" r="1.8" fill="#2a8aea"/></svg></div>
+            <div class="ps-label ps-label--sol">Solution</div>
+            <h3>Unified post-booking servicing.</h3>
+            <p>Changes, exchanges, refunds, and voids are handled through one order layer, normalized across all connected airlines.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- ================================================================
+     HOW THE ECOSYSTEM WORKS
+================================================================ -->
+<div class="landing-new loaded" style="background: rgba(27,39,51,0.025);">
+  <div class="landing-new__body">
+    <section class="section-block">
+      <div class="section-block__head">
+        <h2>How the ecosystem works</h2>
+        <p>A structured distribution flow — from raw offers to seller-ready solutions, powered by DRCT.</p>
+      </div>
+
+      <div class="flow-diagram">
+
+        <!-- Source: Airline offer -->
+        <div class="flow-col flow-col--source">
+          <p class="flow-eyebrow">Airline offer</p>
+          <h3 class="flow-heading">Original form</h3>
+          <p class="flow-caption">As issued by the airline</p>
+          <div class="flow-items">
+            <div class="flow-item"><span class="flow-dot" style="background:var(--blue)"></span>GDS</div>
+            <div class="flow-item"><span class="flow-dot" style="background:var(--blue)"></span>NDC</div>
+            <div class="flow-item"><span class="flow-dot" style="background:rgba(42,138,234,0.4)"></span>Custom distribution schemes</div>
+          </div>
+        </div>
+
+        <!-- Arrow → -->
+        <div class="flow-arrow">
+          <svg width="40" height="28" viewBox="0 0 40 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 14h30" stroke="rgba(42,138,234,0.3)" stroke-width="1.5" stroke-dasharray="4 3"/>
+            <path d="M26 8l8 6-8 6" stroke="rgba(42,138,234,0.4)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          </svg>
+        </div>
+
+        <!-- Core: DRCT orchestration -->
+        <div class="flow-col flow-col--core">
+          <div class="flow-core__badge">DRCT</div>
+          <p class="flow-eyebrow">Orchestration layer</p>
+          <h3 class="flow-heading">Adapt · Enhance · Activate</h3>
+          <p class="flow-caption">Normalized · Enriched · Audience-fit</p>
+          <div class="flow-pipeline">
+            <div class="flow-pipe__step">
+              <span class="flow-pipe__n">01</span>
+              <span class="flow-pipe__text">Normalization — unified format</span>
+            </div>
+            <div class="flow-pipe__step">
+              <span class="flow-pipe__n">02</span>
+              <span class="flow-pipe__text">Enhancement — bundles, upsell, context-aware recommendations</span>
+            </div>
+            <div class="flow-pipe__step">
+              <span class="flow-pipe__n">03</span>
+              <span class="flow-pipe__text">Fulfillment — end-to-end lifecycle across NDC, custom APIs, GDS</span>
+            </div>
+          </div>
+          <p class="flow-core__note">One unified experience across all sources</p>
+        </div>
+
+        <!-- Arrow → -->
+        <div class="flow-arrow">
+          <svg width="40" height="28" viewBox="0 0 40 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 14h30" stroke="rgba(42,138,234,0.3)" stroke-width="1.5" stroke-dasharray="4 3"/>
+            <path d="M26 8l8 6-8 6" stroke="rgba(42,138,234,0.4)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          </svg>
+        </div>
+
+        <!-- Destination: Seller -->
+        <div class="flow-col flow-col--dest">
+          <p class="flow-eyebrow">Seller</p>
+          <h3 class="flow-heading">Seller-ready</h3>
+          <p class="flow-caption">Agency · OTA · TMC · Super App</p>
+          <div class="flow-items">
+            <div class="flow-item"><span class="flow-dot" style="background:#9370db"></span>Agency</div>
+            <div class="flow-item"><span class="flow-dot" style="background:#ff9f00"></span>OTA</div>
+            <div class="flow-item"><span class="flow-dot" style="background:#33c100"></span>TMC</div>
+            <div class="flow-item"><span class="flow-dot" style="background:var(--blue)"></span>Super App</div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="step-row">
+        <div class="step-col">
+          <div class="step-icon"><svg width="18" height="18" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 2l6 3-6 3-6-3 6-3z" stroke="#2a8aea" stroke-width="1.2" stroke-linejoin="round"/><path d="M2 8l6 3 6-3" stroke="#2a8aea" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" opacity=".5"/><path d="M2 11l6 3 6-3" stroke="#2a8aea" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" opacity=".3"/></svg></div>
+          <h3>Full content access</h3>
+          <p>Complete airline content from multiple sources, unified into a single distribution layer.</p>
+        </div>
+        <div class="step-col">
+          <div class="step-icon"><svg width="18" height="18" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 2.5l1.4 3.1 3.1 1.4-3.1 1.4L8 11.5 6.6 8.4 3.5 7l3.1-1.4z" stroke="#2a8aea" stroke-width="1.2" stroke-linejoin="round"/></svg></div>
+          <h3>Enhancement</h3>
+          <p>The offer is enriched with additional capabilities: virtual interlining, branded fares and ancillaries, pricing and tariff logic, back-office and mid-office integrations.</p>
+        </div>
+        <div class="step-col">
+          <div class="step-icon"><svg width="18" height="18" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="8" r="5.5" stroke="#2a8aea" stroke-width="1.2"/><circle cx="8" cy="8" r="2.4" stroke="#2a8aea" stroke-width="1.2"/></svg></div>
+          <h3>Audience fit</h3>
+          <p>Offers adapted for each distribution channel and audience, ensuring relevance and usability across different travel sellers.</p>
+        </div>
+        <div class="step-col">
+          <div class="step-icon"><svg width="18" height="18" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="8" r="6" stroke="#2a8aea" stroke-width="1.2"/><circle cx="8" cy="8" r="2.4" stroke="#2a8aea" stroke-width="1.2"/><path d="M3.8 3.8l2.5 2.5M9.7 9.7l2.5 2.5M12.2 3.8L9.7 6.3M6.3 9.7l-2.5 2.5" stroke="#2a8aea" stroke-width="1.2" stroke-linecap="round"/></svg></div>
+          <h3>Training and support 24/7</h3>
+          <p>Continuous enablement for partners — onboarding, training, and operational support across all distribution workflows.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- ================================================================
+     AIRLINE NETWORK
+================================================================ -->
+<div class="landing-new loaded">
+  <div class="landing-new__body">
     <section class="certified">
-      <h2>Working with</h2>
-      <p class="certified__description">Over 40 leading airlines that have already chosen DRCT as a partner.</p>
+      <h2>Leading carriers. One connection.</h2>
+      <p class="certified__description">Access direct, normalized offers from leading airlines through a single integration — full content, consistent terms, no per-carrier contracts.</p>
       <div class="certified__airlines">
-        <div class="certified__airline" title="Aegean Airlines">
-          <svg xmlns="http://www.w3.org/2000/svg" width="85" height="85" viewBox="0 0 85 85"><rect width="85" height="85" rx="14" fill="#f0f4f8"/><text x="42.5" y="49" font-family="IBM Plex Sans,sans-serif" font-size="11" font-weight="700" fill="#1b2733" text-anchor="middle">A3</text></svg>
-          <p>Aegean Airlines</p>
-        </div>
-        <div class="certified__airline" title="airBaltic">
-          <svg xmlns="http://www.w3.org/2000/svg" width="85" height="85" viewBox="0 0 85 85"><rect width="85" height="85" rx="14" fill="#f0f4f8"/><text x="42.5" y="49" font-family="IBM Plex Sans,sans-serif" font-size="11" font-weight="700" fill="#1b2733" text-anchor="middle">BT</text></svg>
-          <p>airBaltic</p>
-        </div>
-        <div class="certified__airline" title="American Airlines">
-          <svg xmlns="http://www.w3.org/2000/svg" width="85" height="85" viewBox="0 0 85 85"><rect width="85" height="85" rx="14" fill="#f0f4f8"/><text x="42.5" y="49" font-family="IBM Plex Sans,sans-serif" font-size="11" font-weight="700" fill="#1b2733" text-anchor="middle">AA</text></svg>
-          <p>American Airlines</p>
-        </div>
-        <div class="certified__airline" title="Austrian Airlines">
-          <svg xmlns="http://www.w3.org/2000/svg" width="85" height="85" viewBox="0 0 85 85"><rect width="85" height="85" rx="14" fill="#f0f4f8"/><text x="42.5" y="49" font-family="IBM Plex Sans,sans-serif" font-size="11" font-weight="700" fill="#1b2733" text-anchor="middle">OS</text></svg>
-          <p>Austrian Airlines</p>
-        </div>
-        <div class="certified__airline" title="British Airways">
-          <svg xmlns="http://www.w3.org/2000/svg" width="85" height="85" viewBox="0 0 85 85"><rect width="85" height="85" rx="14" fill="#f0f4f8"/><text x="42.5" y="49" font-family="IBM Plex Sans,sans-serif" font-size="11" font-weight="700" fill="#1b2733" text-anchor="middle">BA</text></svg>
-          <p>British Airways</p>
-        </div>
-        <div class="certified__airline" title="Emirates">
-          <svg xmlns="http://www.w3.org/2000/svg" width="85" height="85" viewBox="0 0 85 85"><rect width="85" height="85" rx="14" fill="#f0f4f8"/><text x="42.5" y="49" font-family="IBM Plex Sans,sans-serif" font-size="11" font-weight="700" fill="#1b2733" text-anchor="middle">EK</text></svg>
-          <p>Emirates</p>
-        </div>
-        <div class="certified__airline" title="flydubai">
-          <svg xmlns="http://www.w3.org/2000/svg" width="85" height="85" viewBox="0 0 85 85"><rect width="85" height="85" rx="14" fill="#f0f4f8"/><text x="42.5" y="49" font-family="IBM Plex Sans,sans-serif" font-size="11" font-weight="700" fill="#1b2733" text-anchor="middle">FZ</text></svg>
-          <p>flydubai</p>
-        </div>
-        <div class="certified__airline" title="Iberia">
-          <svg xmlns="http://www.w3.org/2000/svg" width="85" height="85" viewBox="0 0 85 85"><rect width="85" height="85" rx="14" fill="#f0f4f8"/><text x="42.5" y="49" font-family="IBM Plex Sans,sans-serif" font-size="11" font-weight="700" fill="#1b2733" text-anchor="middle">IB</text></svg>
-          <p>Iberia</p>
-        </div>
-        <div class="certified__airline" title="LOT">
-          <svg xmlns="http://www.w3.org/2000/svg" width="85" height="85" viewBox="0 0 85 85"><rect width="85" height="85" rx="14" fill="#f0f4f8"/><text x="42.5" y="49" font-family="IBM Plex Sans,sans-serif" font-size="11" font-weight="700" fill="#1b2733" text-anchor="middle">LO</text></svg>
-          <p>LOT</p>
-        </div>
-        <div class="certified__airline" title="Lufthansa">
-          <svg xmlns="http://www.w3.org/2000/svg" width="85" height="85" viewBox="0 0 85 85"><rect width="85" height="85" rx="14" fill="#f0f4f8"/><text x="42.5" y="49" font-family="IBM Plex Sans,sans-serif" font-size="11" font-weight="700" fill="#1b2733" text-anchor="middle">LH</text></svg>
-          <p>Lufthansa</p>
-        </div>
-        <div class="certified__airline" title="SWISS">
-          <svg xmlns="http://www.w3.org/2000/svg" width="85" height="85" viewBox="0 0 85 85"><rect width="85" height="85" rx="14" fill="#f0f4f8"/><text x="42.5" y="49" font-family="IBM Plex Sans,sans-serif" font-size="11" font-weight="700" fill="#1b2733" text-anchor="middle">LX</text></svg>
-          <p>SWISS</p>
-        </div>
-        <div class="certified__airline" title="TAP">
-          <svg xmlns="http://www.w3.org/2000/svg" width="85" height="85" viewBox="0 0 85 85"><rect width="85" height="85" rx="14" fill="#f0f4f8"/><text x="42.5" y="49" font-family="IBM Plex Sans,sans-serif" font-size="11" font-weight="700" fill="#1b2733" text-anchor="middle">TP</text></svg>
-          <p>TAP</p>
-        </div>
-        <div class="certified__airline" title="United Airlines">
-          <svg xmlns="http://www.w3.org/2000/svg" width="85" height="85" viewBox="0 0 85 85"><rect width="85" height="85" rx="14" fill="#f0f4f8"/><text x="42.5" y="49" font-family="IBM Plex Sans,sans-serif" font-size="11" font-weight="700" fill="#1b2733" text-anchor="middle">UA</text></svg>
-          <p>United Airlines</p>
-        </div>
-        <div class="certified__airline certified__airline--badge" title="+30 airlines in LIVE">
-          <svg xmlns="http://www.w3.org/2000/svg" width="85" height="85" viewBox="0 0 85 85"><rect width="85" height="85" rx="14" fill="#2a8aea" fill-opacity=".12"/><text x="42.5" y="45" font-family="IBM Plex Sans,sans-serif" font-size="10" font-weight="700" fill="#2a8aea" text-anchor="middle">+30</text><text x="42.5" y="58" font-family="IBM Plex Sans,sans-serif" font-size="8" font-weight="500" fill="#2a8aea" text-anchor="middle">LIVE</text></svg>
-          <p>+30 airlines<br>in LIVE</p>
-        </div>
-        <div class="certified__airline certified__airline--badge" title="In implementation">
-          <svg xmlns="http://www.w3.org/2000/svg" width="85" height="85" viewBox="0 0 85 85"><rect width="85" height="85" rx="14" fill="#2a8aea" fill-opacity='.08'/><text x="42.5" y="45" font-family="IBM Plex Sans,sans-serif" font-size="9" font-weight="700" fill="#1b2733" text-anchor="middle">+10</text><text x="42.5" y="57" font-family="IBM Plex Sans,sans-serif" font-size="7.5" font-weight="500" fill="#1b273399" text-anchor="middle">implementing</text></svg>
-          <p>We are currently implementing +10 airlines</p>
-        </div>
+        <div class="certified__airline" title="Lufthansa"><div class="al-logo" style="background:#e4e8f5;"><img src="https://www.gstatic.com/flights/airline_logos/70px/LH.png" alt="Lufthansa"></div><p>Lufthansa</p></div>
+        <div class="certified__airline" title="British Airways"><div class="al-logo" style="background:#f0f2f5;"><img src="https://www.gstatic.com/flights/airline_logos/70px/BA.png" alt="British Airways"></div><p>British Airways</p></div>
+        <div class="certified__airline" title="Air France"><div class="al-logo" style="background:#f0f2f5;"><img src="https://www.gstatic.com/flights/airline_logos/70px/AF.png" alt="Air France"></div><p>Air France</p></div>
+        <div class="certified__airline" title="KLM"><div class="al-logo" style="background:#e8f0f7;"><img src="https://www.gstatic.com/flights/airline_logos/70px/KL.png" alt="KLM"></div><p>KLM</p></div>
+        <div class="certified__airline" title="SWISS"><div class="al-logo" style="background:#f0f2f5;"><img src="https://www.gstatic.com/flights/airline_logos/70px/LX.png" alt="SWISS"></div><p>SWISS</p></div>
+        <div class="certified__airline" title="Emirates"><div class="al-logo" style="background:#ec1b24;"><img src="https://www.gstatic.com/flights/airline_logos/70px/EK.png" alt="Emirates"></div><p>Emirates</p></div>
+        <div class="certified__airline" title="American Airlines"><div class="al-logo" style="background:#f0f2f5;"><img src="https://www.gstatic.com/flights/airline_logos/70px/AA.png" alt="American Airlines"></div><p>American Airlines</p></div>
+        <div class="certified__airline" title="Iberia"><div class="al-logo" style="background:#f0f2f5;"><img src="https://www.gstatic.com/flights/airline_logos/70px/IB.png" alt="Iberia"></div><p>Iberia</p></div>
+        <div class="certified__airline" title="Austrian"><div class="al-logo" style="background:#f0f2f5;"><img src="https://www.gstatic.com/flights/airline_logos/70px/OS.png" alt="Austrian"></div><p>Austrian</p></div>
+        <div class="certified__airline" title="TAP"><div class="al-logo" style="background:#f0f2f5;"><img src="https://www.gstatic.com/flights/airline_logos/70px/TP.png" alt="TAP"></div><p>TAP</p></div>
+        <div class="certified__airline" title="LOT"><div class="al-logo" style="background:#dde9f7;"><img src="https://www.gstatic.com/flights/airline_logos/70px/LO.png" alt="LOT"></div><p>LOT</p></div>
+        <div class="certified__airline" title="United Airlines"><div class="al-logo" style="background:#f0f2f5;"><img src="https://www.gstatic.com/flights/airline_logos/70px/UA.png" alt="United Airlines"></div><p>United Airlines</p></div>
+        <div class="certified__airline" title="flydubai"><div class="al-logo" style="background:#f0f2f5;"><img src="https://www.gstatic.com/flights/airline_logos/70px/FZ.png" alt="flydubai"></div><p>flydubai</p></div>
+        <div class="certified__airline certified__airline--badge" title="+40 airlines in LIVE"><div class="al-logo al-logo--live"><span class="al-badge-live">LIVE<sup>·</sup><strong>+40</strong></span></div><p>Live on network</p></div>
+        <div class="certified__airline certified__airline--badge" title="In implementation"><div class="al-logo al-logo--impl"><span class="al-badge-impl">IMPL<strong>10</strong></span></div><p>Implementing</p></div>
       </div>
 
       <div class="certified__iata">
@@ -349,153 +385,308 @@
         <p>More information at <a href="https://retailing.iata.org/armi/registry/drct/" target="_blank" rel="noopener">IATA ARM index registry</a></p>
       </div>
     </section>
+  </div>
+</div>
 
-    <!-- HOW IT WORKS -->
-    <section class="how">
-      <div class="how__mobile-gradient"></div>
-      <h2>Try it yourself</h2>
-      <p>Enter the fare calculation command from the GDS to get the price from the airline's direct channel.</p>
-      <div class="how__body">
+<!-- ================================================================
+     IMPACT METRICS
+================================================================ -->
+<div class="landing-new loaded">
+  <div class="landing-new__body">
+    <section class="metrics" id="metrics">
+      <div class="metrics__head">
+        <h2 class="metrics__title">DRCT by the numbers</h2>
+      </div>
+      <div class="metrics__grid">
+        <div class="metrics__col">
+          <span class="metrics__value">40<sup>+</sup></span>
+          <h3 class="metrics__label">Connected Airlines</h3>
+          <p class="metrics__desc">Full-service and low-cost carriers live on the network.</p>
+        </div>
+        <div class="metrics__col">
+          <span class="metrics__value">1,100<sup>+</sup></span>
+          <h3 class="metrics__label">Travel Sellers</h3>
+          <p class="metrics__desc">Individual agents across TMCs, OTAs, and API partners globally.</p>
+        </div>
+        <div class="metrics__col">
+          <span class="metrics__value">200<sup>+</sup></span>
+          <h3 class="metrics__label">Agency Partners</h3>
+          <p class="metrics__desc">TMCs, OTAs, and travel agencies across Europe, the U.K., and the U.S.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
 
-        <div class="how__terminal">
-          <div class="terminal__header">
-            <ul class="terminal__controls">
-              <li></li><li></li><li></li>
-            </ul>
-            <span>DRCT</span>
-            <span class="terminal__drct-icon">
-              <svg width="17" height="17" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="8" cy="8" r="8" fill="#2a8aea"/>
-                <path fill="#fff" d="M5.78 12V4h2.415q1.035 0 1.852.475.817.476 1.275 1.352t.458 1.992v.368q0 1.115-.45 1.983a3.26 3.26 0 0 1-1.27 1.346A3.64 3.64 0 0 1 8.211 12zm1.617-6.665v5.34h.782q.948 0 1.45-.631.501-.632.512-1.808v-.423q0-1.22-.496-1.849-.495-.63-1.45-.629z"/>
-              </svg>
-            </span>
+<!-- ================================================================
+     PRODUCT OVERVIEW
+================================================================ -->
+<div class="landing-new loaded" style="background: rgba(27,39,51,0.025);">
+  <div class="landing-new__body">
+    <section class="section-block">
+      <div class="section-block__head">
+        <h2>Product overview</h2>
+        <p>DRCT — tools to adapt, enhance, and activate airline offers across NDC and distribution channels, for agencies, OTAs, TMS, and Super Apps.</p>
+      </div>
+
+      <div class="prod-grid">
+
+        <!-- DRCT BT -->
+        <div class="prod-card">
+          <div class="prod-card__visual">
+            <svg viewBox="0 0 480 248" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+              <rect width="480" height="248" fill="#f4f6fb"/>
+              <rect x="22" y="14" width="436" height="220" rx="9" fill="#fff" stroke="rgba(27,39,51,0.07)" stroke-width="1"/>
+              <rect x="22" y="14" width="436" height="47" rx="9" fill="#f6f7f8"/>
+              <rect x="22" y="43" width="436" height="18" fill="#f6f7f8"/>
+              <rect x="30" y="18" width="116" height="37" rx="5" fill="#fff" stroke="rgba(27,39,51,0.1)" stroke-width="1"/>
+              <text x="38" y="29" fill="rgba(27,39,51,0.35)" font-size="7" font-family="IBM Plex Mono,monospace" letter-spacing="0.4">FROM</text>
+              <text x="38" y="47" fill="#1b2733" font-size="14" font-family="IBM Plex Sans,sans-serif" font-weight="700">MUC</text>
+              <circle cx="157" cy="37" r="10" fill="#fff" stroke="rgba(27,39,51,0.1)" stroke-width="1"/>
+              <path d="M152 37h10M153 34.5l-2.5 2.5 2.5 2.5M161 39.5l2.5-2.5-2.5-2.5" stroke="#2a8aea" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+              <rect x="169" y="18" width="116" height="37" rx="5" fill="#fff" stroke="#2a8aea" stroke-width="1.3"/>
+              <text x="177" y="29" fill="rgba(27,39,51,0.35)" font-size="7" font-family="IBM Plex Mono,monospace" letter-spacing="0.4">TO</text>
+              <text x="177" y="47" fill="#1b2733" font-size="14" font-family="IBM Plex Sans,sans-serif" font-weight="700">LHR</text>
+              <rect x="293" y="18" width="90" height="37" rx="5" fill="#fff" stroke="rgba(27,39,51,0.1)" stroke-width="1"/>
+              <text x="301" y="29" fill="rgba(27,39,51,0.35)" font-size="7" font-family="IBM Plex Mono,monospace" letter-spacing="0.4">DATE</text>
+              <text x="301" y="47" fill="#1b2733" font-size="11" font-family="IBM Plex Sans,sans-serif" font-weight="500">Mar 15</text>
+              <rect x="391" y="18" width="59" height="37" rx="5" fill="#2a8aea"/>
+              <text x="420" y="40" text-anchor="middle" fill="#fff" font-size="10.5" font-family="IBM Plex Sans,sans-serif" font-weight="700">Search</text>
+              <line x1="22" y1="61" x2="458" y2="61" stroke="rgba(27,39,51,0.07)" stroke-width="1"/>
+              <rect x="30" y="69" width="420" height="46" rx="6" fill="rgba(42,138,234,0.05)" stroke="rgba(42,138,234,0.22)" stroke-width="1"/>
+              <rect x="38" y="79" width="24" height="24" rx="4" fill="#003087"/>
+              <text x="50" y="95" text-anchor="middle" fill="#fff" font-size="8.5" font-family="IBM Plex Mono,monospace" font-weight="700">BA</text>
+              <text x="70" y="87" fill="#1b2733" font-size="10.5" font-family="IBM Plex Sans,sans-serif" font-weight="600">British Airways</text>
+              <text x="70" y="101" fill="rgba(27,39,51,0.45)" font-size="9" font-family="IBM Plex Mono,monospace">09:20 &#8594; 10:55 &#183; 1h 35m &#183; Direct</text>
+              <text x="442" y="88" text-anchor="end" fill="#2a8aea" font-size="13.5" font-family="IBM Plex Mono,monospace" font-weight="700">&#163; 184</text>
+              <text x="442" y="101" text-anchor="end" fill="rgba(27,39,51,0.33)" font-size="8.5" font-family="IBM Plex Mono,monospace">per pax</text>
+              <rect x="30" y="123" width="420" height="46" rx="6" fill="#fff" stroke="rgba(27,39,51,0.07)" stroke-width="1"/>
+              <rect x="38" y="133" width="24" height="24" rx="4" fill="#00428f"/>
+              <text x="50" y="149" text-anchor="middle" fill="#fff" font-size="8.5" font-family="IBM Plex Mono,monospace" font-weight="700">LH</text>
+              <text x="70" y="141" fill="#1b2733" font-size="10.5" font-family="IBM Plex Sans,sans-serif" font-weight="600">Lufthansa</text>
+              <text x="70" y="155" fill="rgba(27,39,51,0.45)" font-size="9" font-family="IBM Plex Mono,monospace">11:40 &#8594; 13:15 &#183; 1h 35m &#183; Direct</text>
+              <text x="442" y="142" text-anchor="end" fill="rgba(27,39,51,0.55)" font-size="13.5" font-family="IBM Plex Mono,monospace" font-weight="700">&#163; 211</text>
+              <text x="442" y="155" text-anchor="end" fill="rgba(27,39,51,0.33)" font-size="8.5" font-family="IBM Plex Mono,monospace">per pax</text>
+              <rect x="30" y="177" width="420" height="40" rx="6" fill="rgba(27,39,51,0.02)" stroke="rgba(27,39,51,0.05)" stroke-width="1"/>
+              <rect x="38" y="188" width="18" height="18" rx="3" fill="rgba(27,39,51,0.06)"/>
+              <rect x="64" y="191" width="76" height="5" rx="2.5" fill="rgba(27,39,51,0.05)"/>
+              <rect x="64" y="201" width="52" height="4" rx="2" fill="rgba(27,39,51,0.04)"/>
+              <rect x="386" y="191" width="44" height="5" rx="2.5" fill="rgba(27,39,51,0.05)"/>
+            </svg>
           </div>
-          <div class="terminal__body">
-            <div class="terminal-input__main">
-              <i>&gt;</i>
-              <input
-                type="text"
-                id="terminalCommand"
-                class="terminal__input"
-                placeholder="FQD LON/LH/D15FEB"
-                autocomplete="off"
-                spellcheck="false"
-              >
-            </div>
-            <div class="terminal-input__commands">
-              <div class="terminal-commands" id="terminalCommandsWide">
-                <p>Put the fare calculation entry as in GDS</p>
-                <ul>
-                  <li data-cmd="FQD LON/LH/D15FEB">FQD LON/LH/D15FEB</li>
-                  <li data-cmd="FQD JFK/BA/D20MAR">FQD JFK/BA/D20MAR</li>
-                  <li data-cmd="FQD CDG/AF/D08APR">FQD CDG/AF/D08APR</li>
-                  <li data-cmd="FQD DXB/EK/D12MAR">FQD DXB/EK/D12MAR</li>
-                </ul>
-              </div>
-              <div id="terminalResultArea" class="terminal-result-area"></div>
-            </div>
-
-            <!-- Mobile commands label -->
-            <div class="terminal-input__commands--mobile">
-              <h3>Put the fare calculation entry as in GDS</h3>
-              <div class="terminal-commands terminal-commands--mobile">
-                <ul>
-                  <li data-cmd="FQD LON/LH/D15FEB">FQD LON/LH/D15FEB</li>
-                  <li data-cmd="FQD JFK/BA/D20MAR">FQD JFK/BA/D20MAR</li>
-                  <li data-cmd="FQD CDG/AF/D08APR">FQD CDG/AF/D08APR</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <!-- Popover result -->
-          <div class="terminal-popover" id="terminalPopover">
-            <div class="terminal-popover__header">
-              <p>DRCT</p>
-              <span>Book to fix your price</span>
-            </div>
-            <div class="terminal-popover__body">
-              <div class="terminal-popover__command" id="popoverCommand">&gt; FQD LON/LH/D15FEB</div>
-              <pre class="terminal-popover__result" id="popoverResult">01 Y EUR 245.00 NDC
-02 M EUR 189.00 NDC
-03 B EUR 164.00 NDC</pre>
-              <button class="terminal-popover__btn" onclick="document.getElementById('terminalPopover').classList.remove('active')">
-                <span>Use your free version to finish the booking</span>
-                <p>BOOK</p>
-              </button>
-            </div>
+          <div class="prod-card__body">
+            <p class="prod-card__tag">Agencies &#183; Non-IATA</p>
+            <h3 class="prod-card__name">DRCT BT</h3>
+            <p class="prod-card__desc">A full-featured booking interface for independent travel agents and non-IATA agencies &#8212; search, book, issue, and service airline tickets without accreditation or direct airline contracts.</p>
+            <a href="products/bt.html" class="link-btn">Learn more &#8594;</a>
           </div>
         </div>
 
-        <a href="#" class="link-btn" id="changePnr">Try another itinerary</a>
+        <!-- DRCT BT for TMC -->
+        <div class="prod-card">
+          <div class="prod-card__visual">
+            <svg viewBox="0 0 480 248" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+              <rect width="480" height="248" fill="#f4f6fb"/>
+              <rect x="22" y="14" width="436" height="220" rx="9" fill="#fff" stroke="rgba(27,39,51,0.07)" stroke-width="1"/>
+              <text x="38" y="36" fill="#1b2733" font-size="12" font-family="IBM Plex Sans,sans-serif" font-weight="600">London &#183; Apr 12&#8211;15</text>
+              <text x="38" y="50" fill="rgba(27,39,51,0.38)" font-size="9" font-family="IBM Plex Sans,sans-serif">3 travelers</text>
+              <line x1="22" y1="62" x2="458" y2="62" stroke="rgba(27,39,51,0.07)" stroke-width="1"/>
+              <text x="38" y="79" fill="rgba(27,39,51,0.32)" font-size="7.5" font-family="IBM Plex Sans,sans-serif" font-weight="600" letter-spacing="0.3">TRAVELER</text>
+              <text x="340" y="79" fill="rgba(27,39,51,0.32)" font-size="7.5" font-family="IBM Plex Sans,sans-serif" font-weight="600" letter-spacing="0.3">CLASS</text>
+              <circle cx="48" cy="106" r="14" fill="rgba(42,138,234,0.1)"/>
+              <text x="48" y="110" text-anchor="middle" fill="#2a8aea" font-size="8.5" font-family="IBM Plex Sans,sans-serif" font-weight="700">AC</text>
+              <text x="70" y="102" fill="#1b2733" font-size="10.5" font-family="IBM Plex Sans,sans-serif" font-weight="600">Alice Chen</text>
+              <text x="70" y="115" fill="rgba(27,39,51,0.4)" font-size="8.5" font-family="IBM Plex Mono,monospace">alice@corp.com</text>
+              <text x="346" y="107" fill="rgba(27,39,51,0.5)" font-size="9.5" font-family="IBM Plex Sans,sans-serif">Economy</text>
+              <line x1="36" y1="130" x2="444" y2="130" stroke="rgba(27,39,51,0.06)" stroke-width="1"/>
+              <circle cx="48" cy="156" r="14" fill="rgba(27,39,51,0.05)"/>
+              <text x="48" y="160" text-anchor="middle" fill="rgba(27,39,51,0.4)" font-size="8.5" font-family="IBM Plex Sans,sans-serif" font-weight="700">BM</text>
+              <text x="70" y="152" fill="#1b2733" font-size="10.5" font-family="IBM Plex Sans,sans-serif" font-weight="600">Bob Martin</text>
+              <text x="70" y="165" fill="rgba(27,39,51,0.4)" font-size="8.5" font-family="IBM Plex Mono,monospace">bob@corp.com</text>
+              <text x="346" y="157" fill="rgba(27,39,51,0.5)" font-size="9.5" font-family="IBM Plex Sans,sans-serif">Business</text>
+              <line x1="36" y1="180" x2="444" y2="180" stroke="rgba(27,39,51,0.06)" stroke-width="1"/>
+              <circle cx="48" cy="206" r="14" fill="rgba(42,138,234,0.1)"/>
+              <text x="48" y="210" text-anchor="middle" fill="#2a8aea" font-size="8.5" font-family="IBM Plex Sans,sans-serif" font-weight="700">SK</text>
+              <text x="70" y="202" fill="#1b2733" font-size="10.5" font-family="IBM Plex Sans,sans-serif" font-weight="600">Sarah Kim</text>
+              <text x="70" y="215" fill="rgba(27,39,51,0.4)" font-size="8.5" font-family="IBM Plex Mono,monospace">sarah@corp.com</text>
+              <text x="346" y="207" fill="rgba(27,39,51,0.5)" font-size="9.5" font-family="IBM Plex Sans,sans-serif">Economy</text>
+            </svg>
+          </div>
+          <div class="prod-card__body">
+            <p class="prod-card__tag">Corporate travel</p>
+            <h3 class="prod-card__name">DRCT BT for TMC</h3>
+            <p class="prod-card__desc">Built for travel management companies handling corporate accounts &#8212; policy controls, multi-traveler management, and NDC access integrated into a single workflow.</p>
+            <a href="products/bt-for-tms.html" class="link-btn">Learn more &#8594;</a>
+          </div>
+        </div>
+
+        <!-- DRCT API -->
+        <div class="prod-card">
+          <div class="prod-card__visual">
+            <svg viewBox="0 0 480 248" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+              <rect width="480" height="248" fill="#f4f6fb"/>
+              <rect x="22" y="14" width="436" height="220" rx="9" fill="#fff" stroke="rgba(27,39,51,0.07)" stroke-width="1"/>
+              <rect x="22" y="14" width="436" height="48" rx="9" fill="#f8f9fa"/>
+              <rect x="22" y="44" width="436" height="18" fill="#f8f9fa"/>
+              <text x="38" y="31" fill="rgba(27,39,51,0.38)" font-size="8.5" font-family="IBM Plex Mono,monospace">GET /v2/offers/search</text>
+              <text x="38" y="52" fill="#1b2733" font-size="11" font-family="IBM Plex Sans,sans-serif" font-weight="600">MUC &#8594; LHR &#183; Mar 15, 2025</text>
+              <line x1="22" y1="62" x2="458" y2="62" stroke="rgba(27,39,51,0.07)" stroke-width="1"/>
+              <rect x="30" y="70" width="420" height="46" rx="6" fill="rgba(42,138,234,0.05)" stroke="rgba(42,138,234,0.22)" stroke-width="1"/>
+              <rect x="38" y="80" width="24" height="24" rx="4" fill="#003087"/>
+              <text x="50" y="96" text-anchor="middle" fill="#fff" font-size="8.5" font-family="IBM Plex Mono,monospace" font-weight="700">BA</text>
+              <text x="70" y="88" fill="#1b2733" font-size="10.5" font-family="IBM Plex Sans,sans-serif" font-weight="600">British Airways</text>
+              <text x="70" y="102" fill="rgba(27,39,51,0.45)" font-size="9" font-family="IBM Plex Mono,monospace">09:20 &#8594; 10:55 &#183; 1h 35m &#183; Direct</text>
+              <text x="442" y="89" text-anchor="end" fill="#2a8aea" font-size="13.5" font-family="IBM Plex Mono,monospace" font-weight="700">&#163; 184</text>
+              <text x="442" y="102" text-anchor="end" fill="rgba(27,39,51,0.33)" font-size="8.5" font-family="IBM Plex Mono,monospace">per pax</text>
+              <rect x="30" y="124" width="420" height="46" rx="6" fill="#fff" stroke="rgba(27,39,51,0.07)" stroke-width="1"/>
+              <rect x="38" y="134" width="24" height="24" rx="4" fill="#00428f"/>
+              <text x="50" y="150" text-anchor="middle" fill="#fff" font-size="8.5" font-family="IBM Plex Mono,monospace" font-weight="700">LH</text>
+              <text x="70" y="142" fill="#1b2733" font-size="10.5" font-family="IBM Plex Sans,sans-serif" font-weight="600">Lufthansa</text>
+              <text x="70" y="156" fill="rgba(27,39,51,0.45)" font-size="9" font-family="IBM Plex Mono,monospace">11:40 &#8594; 13:15 &#183; 1h 35m &#183; Direct</text>
+              <text x="442" y="143" text-anchor="end" fill="rgba(27,39,51,0.55)" font-size="13.5" font-family="IBM Plex Mono,monospace" font-weight="700">&#163; 211</text>
+              <text x="442" y="156" text-anchor="end" fill="rgba(27,39,51,0.33)" font-size="8.5" font-family="IBM Plex Mono,monospace">per pax</text>
+              <rect x="30" y="178" width="420" height="40" rx="6" fill="rgba(27,39,51,0.02)" stroke="rgba(27,39,51,0.05)" stroke-width="1"/>
+              <rect x="38" y="189" width="18" height="18" rx="3" fill="rgba(27,39,51,0.06)"/>
+              <rect x="64" y="192" width="76" height="5" rx="2.5" fill="rgba(27,39,51,0.05)"/>
+              <rect x="64" y="202" width="52" height="4" rx="2" fill="rgba(27,39,51,0.04)"/>
+              <rect x="386" y="192" width="44" height="5" rx="2.5" fill="rgba(27,39,51,0.05)"/>
+              <text x="38" y="228" fill="rgba(27,39,51,0.3)" font-size="8" font-family="IBM Plex Mono,monospace">12 offers returned &#183; 124ms</text>
+            </svg>
+          </div>
+          <div class="prod-card__body">
+            <p class="prod-card__tag">OTAs &#183; Tech sellers</p>
+            <h3 class="prod-card__name">DRCT API</h3>
+            <p class="prod-card__desc">A direct API integration for OTAs and tech-enabled travel sellers &#8212; programmatic access to the full DRCT distribution layer.</p>
+            <a href="products/api.html" class="link-btn">Learn more &#8594;</a>
+          </div>
+        </div>
+
+        <!-- DRCT Extension -->
+        <div class="prod-card">
+          <div class="prod-card__visual">
+            <svg viewBox="0 0 480 248" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+              <rect width="480" height="248" fill="#eaecf4"/>
+              <rect x="14" y="22" width="188" height="7" rx="3" fill="rgba(27,39,51,0.07)"/>
+              <rect x="14" y="37" width="156" height="6" rx="3" fill="rgba(27,39,51,0.05)"/>
+              <rect x="14" y="52" width="172" height="6" rx="3" fill="rgba(27,39,51,0.05)"/>
+              <rect x="14" y="67" width="140" height="6" rx="3" fill="rgba(27,39,51,0.04)"/>
+              <rect x="14" y="82" width="164" height="6" rx="3" fill="rgba(27,39,51,0.04)"/>
+              <rect x="14" y="97" width="130" height="6" rx="3" fill="rgba(27,39,51,0.03)"/>
+              <rect x="14" y="112" width="150" height="6" rx="3" fill="rgba(27,39,51,0.03)"/>
+              <rect x="14" y="127" width="120" height="6" rx="3" fill="rgba(27,39,51,0.02)"/>
+              <rect x="220" y="10" width="248" height="228" rx="10" fill="rgba(27,39,51,0.1)" transform="translate(2,3)"/>
+              <rect x="220" y="10" width="248" height="228" rx="10" fill="#fff"/>
+              <rect x="220" y="10" width="248" height="48" rx="10" fill="#1b2733"/>
+              <rect x="220" y="38" width="248" height="20" fill="#1b2733"/>
+              <text x="234" y="29" fill="#fff" font-size="12" font-family="IBM Plex Sans,sans-serif" font-weight="700">DRCT</text>
+              <text x="460" y="27" text-anchor="end" fill="rgba(255,255,255,0.4)" font-size="8" font-family="IBM Plex Sans,sans-serif">2 NDC offers</text>
+              <text x="234" y="47" fill="rgba(255,255,255,0.4)" font-size="8.5" font-family="IBM Plex Sans,sans-serif">MUC &#8594; LHR &#183; Mar 15</text>
+              <rect x="230" y="66" width="228" height="52" rx="6" fill="rgba(42,138,234,0.05)" stroke="rgba(42,138,234,0.22)" stroke-width="1"/>
+              <rect x="238" y="76" width="22" height="22" rx="4" fill="#003087"/>
+              <text x="249" y="91" text-anchor="middle" fill="#fff" font-size="8.5" font-family="IBM Plex Mono,monospace" font-weight="700">BA</text>
+              <text x="267" y="82" fill="#1b2733" font-size="10" font-family="IBM Plex Sans,sans-serif" font-weight="600">British Airways</text>
+              <text x="267" y="95" fill="rgba(27,39,51,0.45)" font-size="8.5" font-family="IBM Plex Mono,monospace">09:20&#8211;10:55 &#183; Direct</text>
+              <text x="450" y="84" text-anchor="end" fill="#2a8aea" font-size="13" font-family="IBM Plex Mono,monospace" font-weight="700">&#163;184</text>
+              <text x="450" y="97" text-anchor="end" fill="rgba(27,39,51,0.33)" font-size="7.5" font-family="IBM Plex Mono,monospace">per pax</text>
+              <rect x="230" y="126" width="228" height="52" rx="6" fill="#fff" stroke="rgba(27,39,51,0.08)" stroke-width="1"/>
+              <rect x="238" y="136" width="22" height="22" rx="4" fill="#00428f"/>
+              <text x="249" y="151" text-anchor="middle" fill="#fff" font-size="8.5" font-family="IBM Plex Mono,monospace" font-weight="700">LH</text>
+              <text x="267" y="142" fill="#1b2733" font-size="10" font-family="IBM Plex Sans,sans-serif" font-weight="600">Lufthansa</text>
+              <text x="267" y="155" fill="rgba(27,39,51,0.45)" font-size="8.5" font-family="IBM Plex Mono,monospace">11:40&#8211;13:15 &#183; Direct</text>
+              <text x="450" y="144" text-anchor="end" fill="rgba(27,39,51,0.55)" font-size="13" font-family="IBM Plex Mono,monospace" font-weight="700">&#163;211</text>
+              <text x="450" y="157" text-anchor="end" fill="rgba(27,39,51,0.33)" font-size="7.5" font-family="IBM Plex Mono,monospace">per pax</text>
+              <rect x="230" y="188" width="228" height="32" rx="6" fill="#2a8aea"/>
+              <text x="344" y="208" text-anchor="middle" fill="#fff" font-size="11" font-family="IBM Plex Sans,sans-serif" font-weight="700">Book NDC fare</text>
+            </svg>
+          </div>
+          <div class="prod-card__body">
+            <p class="prod-card__tag">GDS users</p>
+            <h3 class="prod-card__name">DRCT Extension</h3>
+            <p class="prod-card__desc">An NDC layer that runs inside the GDS &#8212; agents access NDC content, enhanced offers, and direct airline inventory without leaving the GDS interface they already use, via a lightweight browser extension.</p>
+            <a href="products/extension.html" class="link-btn">Learn more &#8594;</a>
+          </div>
+        </div>
+
       </div>
     </section>
+  </div>
+</div>
 
-    <!-- FAQ -->
-    <section class="questions">
-      <h2>FAQ</h2>
-      <p>If you didn't find an answer to your question, please ask our support.</p>
-      <div class="questions__body">
-        <ul id="faqList">
-          <li>
-            <h3>Which airlines already work with DRCT? <span></span></h3>
-            <p>Aegean Airlines, airBaltic, American Airlines, British Airways, Brussels Airlines, Emirates, flydubai, Iberia, LOT, Lufthansa, SWISS, TAP, United Airlines and more than 30 other airlines. <a href="#" data-demo>Request a DEMO</a> to get an updated list of integrations.</p>
-          </li>
-          <li>
-            <h3>Is DRCT a ticketing agency? <span></span></h3>
-            <p>No, DRCT is a technology provider and airline aggregator. We do not sell air tickets but provide agencies and other ticket sellers with the tech solution for ticketing.</p>
-          </li>
-          <li>
-            <h3>Will I lose my incentive agreement with the airline? <span></span></h3>
-            <p>No, all sales via DRCT will be done under your own airline agreements. If it includes incentives, you keep it.</p>
-          </li>
-          <li>
-            <h3>What is NDC? <span></span></h3>
-            <p>New Distribution Capabilities (NDC) is an XML-based data transmission standard. NDC enables data transmission directly from air carriers to agents bypassing outdated intermediates such as GDS. It provides access to complete airline content including exclusive fares, ancillaries, and personalised offers.</p>
-          </li>
-          <li>
-            <h3>How to get credentials from an airline? <span></span></h3>
-            <p>DRCT's team assists with the application process for airline NDC credentials. Contact us and we will help you get started with all the major airlines in our network.</p>
-          </li>
-          <li>
-            <h3>How to start working? <span></span></h3>
-            <p>Installation takes only 10 minutes. Request a demo and our team will guide you through the setup process and 30-day free trial.</p>
-          </li>
-          <li>
-            <h3>Which IATA office is used for ticketing? <span></span></h3>
-            <p>Ticketing is done via your own IATA office number. DRCT does not issue tickets — your agency does, using your own credentials and BSP settlement.</p>
-          </li>
-          <li>
-            <h3>Can I trust DRCT? <span></span></h3>
-            <p>DRCT is certified by IATA as an Airline Retailing Maturity (ARM) System Provider. We work with over 40 airlines and hundreds of agencies globally.</p>
-          </li>
-          <li>
-            <h3>How to make a refund or exchange? <span></span></h3>
-            <p>Refunds and exchanges can be processed directly within the DRCT interface or through your GDS workflow, depending on the airline's NDC capabilities.</p>
-          </li>
-          <li>
-            <h3>What should I do if my airline's NDC lacks functionality? <span></span></h3>
-            <p>Our support team provides 24/7 assistance and can escalate directly to the airline's NDC team. We also proactively monitor NDC quality and flag issues before they affect your workflow.</p>
-          </li>
-          <li>
-            <h3>Is it possible to get an ADM using DRCT? <span></span></h3>
-            <p>DRCT specifically protects against ADMs. Our workflows are designed to comply with airline requirements and avoid debit memos. We own the migration risk so you don't have to.</p>
-          </li>
-          <li>
-            <h3>How is the search for cheaper booking classes working? <span></span></h3>
-            <p>DRCT automatically checks every booking for lower NDC fare classes post-purchase. If a better price is found before ticketing, you receive a notification with the option to reprice.</p>
-          </li>
-          <li>
-            <h3>Are the queues available in DRCT? <span></span></h3>
-            <p>Yes, DRCT integrates with your GDS queues. You can monitor NDC bookings alongside your regular GDS queue workflow without switching interfaces.</p>
-          </li>
-        </ul>
+<!-- ================================================================
+     WHY DRCT
+================================================================ -->
+<section class="benefits">
+  <div class="benefits__container">
+    <h2>Why DRCT</h2>
+    <p>The case for a unified airline distribution platform — in plain terms.</p>
+    <div class="benefits__body">
+      <div class="benefits__list" id="benefitsList">
+
+        <div class="benefit__item benefit__item--0">
+          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='42' height='42' viewBox='0 0 42 42'%3E%3Crect width='42' height='42' rx='8' fill='%232a8aea' fill-opacity='.12'/%3E%3Cpath d='M9 17l12-5 12 5-12 5-12-5z' fill='none' stroke='%232a8aea' stroke-width='1.5' stroke-linejoin='round'/%3E%3Cpath d='M9 22l12 5 12-5' fill='none' stroke='%232a8aea' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round' opacity='.5'/%3E%3C/svg%3E" alt="">
+          <h3>One platform for GDS and NDC together</h3>
+          <p>Hybrid distribution without managing two parallel systems. NDC and GDS content coexist, consistently delivered to every seller.</p>
+        </div>
+
+        <div class="benefit__item benefit__item--1">
+          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='42' height='42' viewBox='0 0 42 42'%3E%3Crect width='42' height='42' rx='8' fill='%232a8aea' fill-opacity='.12'/%3E%3Crect x='11' y='13' width='20' height='16' rx='2' fill='none' stroke='%232a8aea' stroke-width='1.5'/%3E%3Cpath stroke='%232a8aea' stroke-width='1.5' stroke-linecap='round' d='M21 13v16'/%3E%3C/svg%3E" alt="">
+          <h3>No system switching</h3>
+          <p>Airlines manage distribution in one place. Sellers book, change, and service in one place. The full workflow lives inside DRCT platform.</p>
+        </div>
+
+        <div class="benefit__item benefit__item--2">
+          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='42' height='42' viewBox='0 0 42 42'%3E%3Crect width='42' height='42' rx='8' fill='%232a8aea' fill-opacity='.12'/%3E%3Cpath fill='%232a8aea' d='M21 10l2.7 5.5 6.1.9-4.4 4.3 1 6-5.4-2.9-5.4 2.9 1-6-4.4-4.3 6.1-.9z'/%3E%3C/svg%3E" alt="">
+          <h3>Beyond a traditional airline aggregator</h3>
+          <p>DRCT enhances offers — adding ancillaries, building bundles, and assembling multi-airline itineraries. Content arrives at the seller better than it left the airline.</p>
+        </div>
+
+        <div class="benefit__item benefit__item--3">
+          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='42' height='42' viewBox='0 0 42 42'%3E%3Crect width='42' height='42' rx='8' fill='%232a8aea' fill-opacity='.12'/%3E%3Cpath d='M14 21l4.5 4.5L29 15' fill='none' stroke='%232a8aea' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" alt="">
+          <h3>NDC access without the friction</h3>
+          <p>Sellers get NDC fares and airline content through familiar interfaces. No new accreditation, no separate NDC onboarding per airline.</p>
+        </div>
+
+        <div class="benefit__item benefit__item--4">
+          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='42' height='42' viewBox='0 0 42 42'%3E%3Crect width='42' height='42' rx='8' fill='%232a8aea' fill-opacity='.12'/%3E%3Cpath d='M11 27l7-7 4 4 9-9' fill='none' stroke='%232a8aea' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M27 15h4v4' fill='none' stroke='%232a8aea' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" alt="">
+          <h3>A transition layer, not a disruption</h3>
+          <p>Airlines moving from GDS toward NDC use DRCT to manage the shift gradually — maintaining full coverage while growing direct channel volume.</p>
+        </div>
+
+        <div class="benefit__item benefit__item--5">
+          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='42' height='42' viewBox='0 0 42 42'%3E%3Crect width='42' height='42' rx='8' fill='%232a8aea' fill-opacity='.12'/%3E%3Ccircle cx='15' cy='17' r='3.2' fill='none' stroke='%232a8aea' stroke-width='1.5'/%3E%3Ccircle cx='27' cy='17' r='3.2' fill='none' stroke='%232a8aea' stroke-width='1.5'/%3E%3Cpath stroke='%232a8aea' stroke-width='1.5' fill='none' stroke-linecap='round' d='M9 30c0-3.3 2.7-6 6-6s6 2.7 6 6M21 30c0-3.3 2.7-6 6-6s6 2.7 6 6'/%3E%3C/svg%3E" alt="">
+          <h3>Every seller type covered</h3>
+          <p>IATA agencies, non-IATA agents, OTAs, TMCs, and Super Apps — all reached through the same distribution platform.</p>
+        </div>
+
+        <div class="benefit__item benefit__item--6">
+          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='42' height='42' viewBox='0 0 42 42'%3E%3Crect width='42' height='42' rx='8' fill='%232a8aea' fill-opacity='.12'/%3E%3Cpath d='M21 11a9 9 0 1 1 0 18 9 9 0 0 1 0-18zm0 4v6l4 2' fill='none' stroke='%232a8aea' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" alt="">
+          <h3>24/7 operational support</h3>
+          <p>Distribution issues, booking failures, and escalations handled by DRCT's own team — for airlines and sellers alike.</p>
+        </div>
+
       </div>
-      <a href="#" class="link-btn" data-demo>Ask a question</a>
-    </section>
+      <a href="#" class="link-btn" id="benefitsToggle">View more</a>
+    </div>
+  </div>
+</section>
 
-  </div><!-- /landing-new__body -->
-</div><!-- /landing-new (below-fold) -->
+<!-- ================================================================
+     FINAL CTA
+================================================================ -->
+<div class="landing-new loaded cta-final" id="contact">
+  <div class="landing-new__body">
+    <section class="section-block">
+      <div class="section-block__head">
+        <h2>Ready to grow your distribution?</h2>
+        <p>Partner as an airline or get access as a travel seller.</p>
+      </div>
+      <div class="hero__ctas">
+        <a href="#" class="btn-primary">Partner as an Airline ↗</a>
+        <a href="#" class="btn-secondary">Get Access as Travel Seller ↗</a>
+      </div>
+    </section>
+  </div>
+</div>
 
 <!-- ================================================================
      FOOTER
@@ -504,49 +695,31 @@
   <div class="footer__top">
     <div class="footer__left">
       <div class="footer__links">
-        <span>Products</span>
+        <span>Solutions</span>
         <ul>
-          <li><a href="./index.html">For agencies</a></li>
-          <li><a href="./airlines/index.html">For airlines</a></li>
-          <li><a href="./developers/index.html">For developers</a></li>
+          <li><a href="solutions/for-airlines.html">For Airlines</a></li>
+          <li><a href="solutions/iata-agencies.html">IATA Agencies</a></li>
+          <li><a href="solutions/non-iata-agencies.html">Non-IATA</a></li>
+          <li><a href="solutions/ota.html">OTA</a></li>
+          <li><a href="solutions/tms.html">TMS</a></li>
         </ul>
       </div>
-      <div class="footer__links footer__policy">
-        <span>Privacy policy</span>
+      <div class="footer__links">
+        <span>More</span>
         <ul>
-          <li><a href="#">Privacy policy</a></li>
-          <li><a href="#">Website terms of use</a></li>
-          <li><a href="#">Extension terms of use</a></li>
+          <li><a href="products/bt.html">Products</a></li>
+          <li><a href="supply-network/index.html">Supply Network</a></li>
         </ul>
       </div>
-    </div>
-    <div class="footer__right">
-      <span>Follow us</span>
-      <ul>
-        <li>
-          <a href="https://www.linkedin.com/company/drct/" target="_blank" rel="noopener" class="footer__l" aria-label="LinkedIn"></a>
-        </li>
-        <li>
-          <a href="https://www.facebook.com/drct.aero/" target="_blank" rel="noopener" class="footer__f" aria-label="Facebook"></a>
-        </li>
-      </ul>
     </div>
   </div>
   <div class="footer__bottom">
     <div>
-      <i>Copyright © 2017-2026 DRCT Ltd, Ewropa Business Centre, Level 3-701, Dun Karm Street, Birkirkara, BKR9034, Malta</i>
+      <i>© DRCT</i>
     </div>
   </div>
 </footer>
 
-<!-- Cookie banner -->
-<div class="cookie" id="cookieBanner" style="display:none">
-  <div class="cookie__wrapper">
-    <p>By continuing to use this website, you consent to the use of cookies in accordance with our <a href="#">Privacy policy</a>.</p>
-    <button id="cookieAccept">OK</button>
-  </div>
-</div>
-
-<script src="main.js"></script>
+<script src="js/app.js"></script>
 </body>
 </html>

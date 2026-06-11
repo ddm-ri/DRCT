@@ -1,0 +1,891 @@
+/* ================================================================
+   DRCT HOME — page composition layer
+   Builds on css/styles.css (the design system). Holds the block
+   patterns and the bridging styles needed to render the existing
+   home-page content in the new design language.
+================================================================ */
+
+/* ----------------------------------------------------------------
+   HEADER — navigation dropdowns (Solutions / Products)
+   The site IA (Solutions, Products, Supply Network + 2 CTAs) is
+   preserved; only the styling is new.
+---------------------------------------------------------------- */
+.header__dropdown {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  margin-left: 20px;
+}
+.header__dropdown .header__nav-link {
+  margin-left: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.header__dropdown .header__nav-link::after {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: translateY(-2px) rotate(45deg);
+  transition: transform 0.2s;
+}
+.header__dropdown-menu {
+  position: absolute;
+  top: calc(100% - 6px);
+  left: 50%;
+  transform: translateX(-50%) translateY(6px);
+  min-width: 220px;
+  background: var(--white);
+  border: 1px solid var(--dark-10);
+  border-radius: 8px;
+  box-shadow: var(--shadow-card);
+  padding: 8px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s, transform 0.2s, visibility 0.2s;
+  z-index: 8;
+}
+.header__dropdown:hover .header__nav-link,
+.header__dropdown:focus-within .header__nav-link { opacity: 1; }
+.header__dropdown:hover .header__nav-link::after,
+.header__dropdown:focus-within .header__nav-link::after {
+  transform: translateY(1px) rotate(-135deg);
+}
+.header__dropdown:hover .header__dropdown-menu,
+.header__dropdown:focus-within .header__dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+.header__dropdown-menu a {
+  display: block;
+  padding: 9px 12px;
+  border-radius: 5px;
+  color: var(--dark);
+  font-size: 13px;
+  font-weight: 600;
+  text-align: left;
+  white-space: nowrap;
+  opacity: 0.75;
+  transition: background-color 0.15s, opacity 0.15s;
+}
+.header__dropdown-menu a:hover {
+  background: var(--blue-10);
+  color: var(--blue);
+  opacity: 1;
+}
+@media (max-width: 767px) {
+  .header__dropdown { display: none; }
+}
+
+/* Header CTAs — keep both, restyle to new system */
+.header__cta-ghost {
+  color: var(--blue);
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  margin: 0 20px 0 auto;
+  opacity: 0.85;
+  text-transform: uppercase;
+}
+.header__cta-ghost:hover { opacity: 1; }
+@media (max-width: 767px) {
+  .header__cta-ghost { display: none; }
+}
+
+/* Mobile menu — grouped section labels */
+.menu__group-label {
+  color: var(--dark-40);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  margin: 18px 0 4px;
+}
+
+/* ----------------------------------------------------------------
+   SECONDARY BUTTON — outlined companion to .btn-primary
+---------------------------------------------------------------- */
+.btn-secondary {
+  background-color: var(--white);
+  border: 1px solid var(--blue-20);
+  border-radius: 4px;
+  color: var(--blue);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 700;
+  height: 38px;
+  letter-spacing: 0.6px;
+  line-height: 1;
+  padding: 0 20px;
+  text-transform: uppercase;
+  transition: border-color 0.2s, background-color 0.2s, color 0.2s;
+}
+.btn-secondary:hover {
+  border-color: var(--blue);
+  background-color: var(--blue-10);
+}
+
+/* ----------------------------------------------------------------
+   HERO — centered, badge + title + subtitle + description + CTAs
+---------------------------------------------------------------- */
+.hero {
+  margin: 0 auto;
+  max-width: 760px;
+  padding: 72px 0 60px;
+  text-align: center;
+}
+@media (max-width: 767px) {
+  .hero { padding: 48px 0 40px; }
+}
+
+.hero__badge {
+  background: var(--blue-10);
+  border-radius: 4px;
+  color: var(--blue);
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  padding: 5px 12px;
+  text-transform: uppercase;
+}
+
+.hero__title {
+  color: var(--dark);
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 1.18;
+  letter-spacing: -0.4px;
+  margin-top: 20px;
+}
+@media (max-width: 767px) { .hero__title { font-size: 31px; } }
+@media (max-width: 413px) { .hero__title { font-size: 27px; } }
+
+.hero__subtitle {
+  color: var(--dark);
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.5;
+  margin-top: 18px;
+}
+@media (max-width: 413px) { .hero__subtitle { font-size: 16px; } }
+
+.hero__description {
+  color: var(--dark-70);
+  font-size: 16px;
+  line-height: 1.65;
+  margin: 18px auto 0;
+  max-width: 680px;
+}
+@media (max-width: 413px) { .hero__description { font-size: 14px; } }
+
+.hero__ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 34px;
+}
+
+/* ----------------------------------------------------------------
+   SHARED SECTION HEADING (reuses .how spacing rhythm)
+---------------------------------------------------------------- */
+.section-block { padding: 80px 0; }
+@media (max-width: 767px) { .section-block { padding: 60px 0; } }
+
+.section-block__head { text-align: center; }
+.section-block__head h2 {
+  color: var(--dark);
+  font-size: 31px;
+  font-weight: 700;
+  line-height: 1.25;
+}
+@media (max-width: 413px) { .section-block__head h2 { font-size: 27px; } }
+.section-block__head p {
+  color: var(--dark-70);
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 12px auto 0;
+  max-width: 680px;
+}
+
+/* ----------------------------------------------------------------
+   PROBLEMS WE SOLVE — problem → solution split cards
+   Adapted from the design block library ("Challenges" block).
+   The original problem statements are preserved verbatim; each is
+   paired with a concise DRCT solution.
+---------------------------------------------------------------- */
+.ps-group-title {
+  color: var(--dark);
+  font-size: 18px;
+  font-weight: 700;
+  margin-top: 48px;
+  text-align: center;
+}
+.ps-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-top: 24px;
+}
+.ps-card {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  border: 1px solid rgba(27,39,51,0.09);
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--white);
+  box-shadow: 0 2px 12px rgba(27,39,51,0.06), 0 6px 32px rgba(27,39,51,0.04);
+}
+.ps-card--wide { grid-column: 1 / -1; }
+.ps-half {
+  flex: 1;
+  padding: 32px 28px;
+  display: flex;
+  flex-direction: column;
+}
+.ps-half--prob {
+  background: linear-gradient(150deg, rgba(180,80,0,0.05) 0%, rgba(180,80,0,0.014) 100%);
+  border-right: 1px solid rgba(27,39,51,0.07);
+}
+.ps-half--sol {
+  background: linear-gradient(150deg, rgba(42,138,234,0.065) 0%, rgba(42,138,234,0.018) 100%);
+}
+.ps-split {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+}
+.ps-split__circle {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--white);
+  border: 1px solid rgba(27,39,51,0.1);
+  box-shadow: 0 2px 10px rgba(27,39,51,0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ps-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 14px;
+  flex-shrink: 0;
+}
+.ps-icon--prob { background: rgba(255,159,0,0.12); }
+.ps-icon--sol  { background: rgba(42,138,234,0.10); }
+.ps-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.ps-label--prob { color: #c07000; }
+.ps-label--sol  { color: var(--blue); }
+.ps-half h3 {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--dark);
+  margin: 0 0 10px;
+  line-height: 1.35;
+}
+.ps-half p {
+  font-size: 13px;
+  line-height: 1.6;
+  color: rgba(27,39,51,0.65);
+  margin: 0;
+  flex: 1;
+}
+@media (max-width: 767px) {
+  .ps-grid { grid-template-columns: 1fr; }
+  .ps-card--wide { grid-column: 1; }
+  .ps-card { flex-direction: column; }
+  .ps-half--prob { border-right: none; border-bottom: 1px solid rgba(27,39,51,0.07); }
+  .ps-split__circle { transform: rotate(90deg); }
+}
+
+/* ----------------------------------------------------------------
+   FLOW DIAGRAM — source → DRCT core → destination
+   Adapted from the design block library (the "How It Works" block).
+---------------------------------------------------------------- */
+.flow-diagram {
+  display: flex;
+  align-items: stretch;
+  margin-top: 48px;
+  gap: 0;
+}
+.flow-col {
+  flex: 1;
+  padding: 24px 22px;
+  border-radius: 8px;
+}
+.flow-col--source,
+.flow-col--dest {
+  background: rgba(27,39,51,0.025);
+  border: 1px solid rgba(27,39,51,0.08);
+}
+.flow-col--core {
+  background: linear-gradient(160deg, rgba(42,138,234,0.10) 0%, rgba(42,138,234,0.18) 50%, rgba(42,138,234,0.10) 100%);
+  border: 1px solid rgba(42,138,234,0.22);
+  border-radius: 8px;
+  box-shadow: 0 12px 40px rgba(42,138,234,0.12), 0 0 0 1px rgba(42,138,234,0.08);
+  flex: 1.35;
+  margin: -12px 0;
+  z-index: 1;
+  position: relative;
+}
+.flow-arrow {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 2px;
+  z-index: 2;
+}
+.flow-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.7px;
+  text-transform: uppercase;
+  color: var(--dark-40);
+  margin-bottom: 8px;
+}
+.flow-heading {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 2px;
+  line-height: 1.3;
+}
+.flow-caption {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--dark-40);
+  margin-bottom: 20px;
+}
+.flow-items {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.flow-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--dark);
+  padding: 8px 10px;
+  border: 1px solid rgba(27,39,51,0.08);
+  border-radius: 3px;
+  background: var(--white);
+}
+.flow-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* Core column internals */
+.flow-core__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(42,138,234,0.12);
+  border: 1px solid rgba(42,138,234,0.2);
+  border-radius: 20px;
+  padding: 3px 10px 3px 7px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--blue);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+.flow-core__badge::before {
+  content: '';
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #33c100;
+  flex-shrink: 0;
+}
+.flow-pipeline {
+  position: relative;
+  padding-left: 22px;
+  margin-bottom: 16px;
+}
+.flow-pipeline::before {
+  content: '';
+  position: absolute;
+  left: 4px;
+  top: 10px;
+  bottom: 10px;
+  width: 1px;
+  background: linear-gradient(180deg, rgba(42,138,234,0.45) 0%, rgba(42,138,234,0.12) 100%);
+}
+.flow-pipe__step {
+  position: relative;
+  display: flex;
+  align-items: baseline;
+  gap: 9px;
+  padding: 7px 0;
+}
+.flow-pipe__step::before {
+  content: '';
+  position: absolute;
+  left: -22px;
+  top: 12px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--blue);
+  box-shadow: 0 0 0 3px rgba(42,138,234,0.15);
+}
+.flow-pipe__n {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--dark-40);
+  flex-shrink: 0;
+  min-width: 16px;
+}
+.flow-pipe__text {
+  font-size: 13px;
+  color: var(--dark);
+  line-height: 1.5;
+}
+.flow-core__note {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--dark-40);
+  padding-top: 4px;
+  border-top: 1px solid rgba(42,138,234,0.12);
+  line-height: 1.6;
+}
+@media (max-width: 767px) {
+  .flow-diagram { flex-direction: column; }
+  .flow-arrow { width: 100%; justify-content: center; padding: 6px 0; }
+  .flow-arrow svg { transform: rotate(90deg); }
+  .flow-col--core { margin: 0; }
+}
+
+/* ----------------------------------------------------------------
+   STEP ROW — numbered steps (the "follow-up" list)
+   Adapted from the design block library.
+---------------------------------------------------------------- */
+.step-row {
+  display: flex;
+  border-top: 1px solid var(--dark-10);
+  margin-top: 44px;
+}
+@media (max-width: 767px) { .step-row { flex-direction: column; } }
+
+.step-col {
+  flex: 1;
+  padding: 28px 24px 0;
+  border-left: 1px solid var(--dark-10);
+}
+.step-col:first-child { border-left: none; padding-left: 0; }
+@media (max-width: 767px) {
+  .step-col {
+    border-left: none;
+    border-top: 1px solid var(--dark-10);
+    padding: 24px 0 0;
+  }
+  .step-col:first-child { border-top: none; }
+}
+.step-icon {
+  margin-bottom: 12px;
+  line-height: 1;
+}
+.step-icon svg { display: block; }
+.step-col h3 {
+  color: var(--dark);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.3;
+  margin-bottom: 10px;
+}
+.step-col p {
+  color: var(--dark-70);
+  font-size: 14px;
+  line-height: 1.57;
+}
+
+/* ----------------------------------------------------------------
+   PRODUCT GRID — 2×2 visual card grid
+---------------------------------------------------------------- */
+.prod-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-top: 44px;
+}
+.prod-card {
+  border-radius: 12px;
+  border: 1px solid var(--dark-10);
+  overflow: hidden;
+  background: var(--white);
+  box-shadow: 0 2px 12px rgba(27,39,51,0.06), 0 6px 32px rgba(27,39,51,0.04);
+  display: flex;
+  flex-direction: column;
+}
+.prod-card__visual {
+  height: 210px;
+  overflow: hidden;
+  flex-shrink: 0;
+  position: relative;
+}
+.prod-card__visual svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.prod-card__body {
+  padding: 20px 22px 18px;
+  border-top: 1px solid var(--dark-10);
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.prod-card__tag {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--dark-40);
+  letter-spacing: 0.5px;
+  margin-bottom: 5px;
+  text-transform: uppercase;
+}
+.prod-card__title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--dark);
+  margin: 0 0 8px;
+  line-height: 1.2;
+}
+.prod-card__desc {
+  font-size: 13px;
+  line-height: 1.57;
+  color: var(--dark-70);
+  flex: 1;
+  margin: 0 0 14px;
+}
+@media (max-width: 767px) {
+  .prod-grid { grid-template-columns: 1fr; }
+  .prod-card__visual { height: 190px; }
+}
+
+/* ----------------------------------------------------------------
+   WHY DRCT — reuse .benefits, but keep all items on every breakpoint
+   (the design system hides the block on mobile / hides every 3rd item
+   on tablet; here the content must stay visible).
+---------------------------------------------------------------- */
+@media (max-width: 1024px) {
+  .benefit__item { width: 48%; }
+  .benefit__item:nth-child(3n) { display: block; }
+}
+@media (max-width: 767px) {
+  .benefits { display: block; }
+  .benefits__container { padding: 0 24px; width: 100%; }
+  .benefit__item { width: 100%; }
+}
+@media (max-width: 413px) {
+  .benefits__container { padding: 0 8px; }
+}
+/* "View more" still hides items 4+ until toggled (handled in app.js) */
+.benefit__item.hidden { display: none; }
+
+/* ----------------------------------------------------------------
+   FINAL CTA
+---------------------------------------------------------------- */
+.cta-final {
+  background-image: linear-gradient(0deg, rgba(42,138,234,0), rgba(42,138,234,0.1));
+  text-align: center;
+}
+.cta-final h2 {
+  color: var(--dark);
+  font-size: 31px;
+  font-weight: 700;
+  line-height: 1.25;
+}
+@media (max-width: 413px) { .cta-final h2 { font-size: 27px; } }
+.cta-final p {
+  color: var(--dark-70);
+  font-size: 14px;
+  line-height: 1.6;
+  margin-top: 12px;
+}
+
+/* ----------------------------------------------------------------
+   DUAL CTA — two side-by-side audience cards (e.g. airlines / sellers)
+---------------------------------------------------------------- */
+.dual-cta {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  max-width: 680px;
+  margin: 32px auto 0;
+}
+.dual-cta__item {
+  background: var(--white);
+  border: 1px solid var(--dark-10);
+  border-radius: 8px;
+  box-shadow: 0 2px 12px rgba(27,39,51,0.05);
+  padding: 22px 24px;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-start;
+}
+.dual-cta__label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--dark-40);
+}
+.dual-cta__text {
+  font-size: 14px;
+  color: var(--dark-70);
+  line-height: 1.5;
+  flex: 1;
+}
+@media (max-width: 600px) { .dual-cta { grid-template-columns: 1fr; } }
+
+/* ----------------------------------------------------------------
+   FEATURE GRID — capability / audience cards (title + text)
+---------------------------------------------------------------- */
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin-top: 44px;
+}
+.feature-card {
+  background: var(--white);
+  border: 1px solid var(--dark-10);
+  border-radius: 8px;
+  box-shadow: 0 2px 12px rgba(27,39,51,0.05);
+  padding: 22px 24px;
+}
+.feature-card h3 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 8px;
+}
+.feature-card p {
+  font-size: 14px;
+  color: var(--dark-70);
+  line-height: 1.55;
+}
+
+/* ----------------------------------------------------------------
+   PROBLEM→SOLUTION: a lone last card fills the whole row
+   (e.g. the 5th of 5 challenge cards spans both columns)
+---------------------------------------------------------------- */
+.ps-grid > .ps-card:last-child:nth-child(odd) { grid-column: 1 / -1; }
+
+/* ----------------------------------------------------------------
+   FAQ spacing — align with the design block library
+   (heading-to-list rhythm + row padding)
+---------------------------------------------------------------- */
+.questions { padding-top: 80px; }
+.questions > h2 {
+  line-height: 1.2;
+  margin-bottom: 36px;
+}
+.questions__body ul li { padding: 20px 10px; }
+@media (max-width: 767px) {
+  .questions { padding-top: 56px; }
+  .questions > h2 { margin-bottom: 28px; }
+}
+
+/* ----------------------------------------------------------------
+   PROD CARD — name alias (HTML uses prod-card__name)
+---------------------------------------------------------------- */
+.prod-card__name {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--dark);
+  margin: 0 0 8px;
+  line-height: 1.2;
+}
+
+/* ----------------------------------------------------------------
+   METRICS SECTION
+---------------------------------------------------------------- */
+.metrics {
+  padding: 108px 0 120px;
+}
+.metrics__head {
+  margin-bottom: 52px;
+  text-align: center;
+}
+.metrics__title {
+  font-size: 31px;
+  font-weight: 700;
+  color: var(--dark);
+  letter-spacing: -0.4px;
+  line-height: 1.15;
+  margin: 0;
+  text-align: center;
+}
+.metrics__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+.metrics__col {
+  padding: 0 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.metrics__col:first-child { padding-left: 0; }
+.metrics__col:last-child  { padding-right: 0; }
+.metrics__col + .metrics__col {
+  border-left: 1px solid rgba(27,39,51,0.08);
+}
+.metrics__value {
+  display: block;
+  font-size: 92px;
+  font-weight: 900;
+  color: var(--blue);
+  line-height: 1;
+  letter-spacing: -3px;
+  margin-bottom: 14px;
+  white-space: nowrap;
+}
+.metrics__value sup {
+  font-size: 42px;
+  letter-spacing: 0;
+  vertical-align: super;
+}
+.metrics__label {
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(27,39,51,0.65);
+  margin: 0 0 6px;
+  line-height: 1.3;
+  letter-spacing: 0.1px;
+}
+.metrics__desc {
+  font-size: 11px;
+  line-height: 1.55;
+  color: rgba(27,39,51,0.33);
+  margin: 0;
+}
+@media (max-width: 1024px) {
+  .metrics__col { padding: 0 40px; }
+  .metrics__value { font-size: 72px; letter-spacing: -2.5px; }
+  .metrics__value sup { font-size: 34px; }
+}
+@media (max-width: 767px) {
+  .metrics { padding: 72px 0 80px; }
+  .metrics__grid { grid-template-columns: 1fr; }
+  .metrics__col {
+    padding: 36px 0;
+    border-left: none !important;
+    border-top: 1px solid rgba(27,39,51,0.08);
+  }
+  .metrics__col:first-child { border-top: none; padding-top: 0; }
+  .metrics__value { font-size: 72px; letter-spacing: -2.5px; }
+}
+
+/* ----------------------------------------------------------------
+   AIRLINE LOGO GRID — overrides legacy SVG-based certified styles
+---------------------------------------------------------------- */
+.certified__airlines {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+  margin-top: 44px;
+  column-gap: 16px;
+}
+.certified__airline {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  height: auto;
+  width: auto;
+  cursor: pointer;
+}
+.certified__airline p {
+  font-size: 11px;
+  color: rgba(27,39,51,0.45);
+  font-weight: 500;
+  text-align: center;
+  margin: 0;
+  display: block;
+  opacity: 0.7;
+}
+.certified__airline:hover p { opacity: 1; transition: opacity 0.2s; }
+.al-logo {
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.al-logo img { width: 72%; height: 72%; object-fit: contain; }
+.al-logo--live { background: linear-gradient(145deg, #5fba2e, #3d9c1a); }
+.al-badge-live {
+  display: flex; flex-direction: column; align-items: center;
+  font-family: var(--font-mono); color: #fff; line-height: 1; gap: 2px;
+}
+.al-badge-live sup { font-size: 10px; font-weight: 600; letter-spacing: 1px; opacity: 0.8; }
+.al-badge-live strong { font-size: 28px; font-weight: 700; letter-spacing: -1px; }
+.al-logo--impl { background: #fff; border: 1.5px solid rgba(27,39,51,0.12); }
+.al-badge-impl {
+  display: flex; flex-direction: column; align-items: center;
+  font-family: var(--font-mono); line-height: 1; gap: 2px;
+  font-size: 9px; letter-spacing: 0.8px; font-weight: 600; color: rgba(27,39,51,0.5);
+}
+.al-badge-impl strong { font-size: 28px; font-weight: 700; letter-spacing: -1px; color: var(--dark); display: block; }
+@media (max-width: 1024px) { .certified__airlines { grid-template-columns: repeat(4, 1fr); } }
+@media (max-width: 767px) {
+  .certified__airlines { grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .certified__airline { height: auto; width: auto; }
+  .certified__airline p { display: block; font-size: 10px; }
+  .certified__airline svg { height: unset; width: unset; }
+}
+@media (max-width: 413px) { .certified__airlines { grid-template-columns: repeat(2, 1fr); } }
+
+/* ── Airline page — in-practice metric card ────────────────────── */
+.outcome-metric {
+  display: block;
+  font-size: 56px;
+  font-weight: 900;
+  color: var(--blue);
+  line-height: 1;
+  letter-spacing: -2px;
+  margin-bottom: 4px;
+  font-family: var(--font-mono);
+}

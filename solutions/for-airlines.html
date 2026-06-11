@@ -1,0 +1,1610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>For Airlines — One orchestration layer for airline distribution | DRCT</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/blocks.css">
+  <link rel="stylesheet" href="../css/legacy.css">
+  <style>
+    .prod-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-top: 44px;
+    }
+    .prod-card {
+      border-radius: 12px;
+      border: 1px solid rgba(27,39,51,0.09);
+      overflow: hidden;
+      background: #fff;
+      box-shadow: 0 2px 16px rgba(27,39,51,0.07), 0 1px 4px rgba(27,39,51,0.04);
+      display: flex;
+      flex-direction: column;
+    }
+    .prod-card__visual {
+      height: 248px;
+      overflow: hidden;
+      flex-shrink: 0;
+      background: #f4f6fb;
+    }
+    .prod-card__visual svg { display: block; width: 100%; height: 100%; }
+    .prod-card__body {
+      padding: 24px 26px 22px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      border-top: 1px solid rgba(27,39,51,0.07);
+    }
+    .prod-card__tag {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      color: rgba(27,39,51,0.38);
+      margin: 0 0 7px;
+    }
+    .prod-card__name {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--dark);
+      margin: 0 0 9px;
+      line-height: 1.2;
+    }
+    .prod-card__desc {
+      font-size: 13px;
+      line-height: 1.62;
+      color: rgba(27,39,51,0.58);
+      flex: 1;
+      margin: 0 0 18px;
+    }
+    @media (max-width: 767px) {
+      .prod-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ── Hero V2 (centered, floating cards) ─────────────────────── */
+    .hv2 {
+      position: relative;
+      padding: 116px 0 96px;
+      min-height: 580px;
+      overflow: hidden;
+      background: linear-gradient(148deg,
+        rgba(42,138,234,0.16) 0%,
+        rgba(42,138,234,0.07) 42%,
+        rgba(42,138,234,0.02) 68%,
+        #fff 100%);
+    }
+    .hv2::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(rgba(27,39,51,0.065) 1px, transparent 1px);
+      background-size: 24px 24px;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .hv2__content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    .hv2__eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 26px;
+      padding: 5px 12px 5px 10px;
+      border-radius: 4px;
+      background: rgba(42,138,234,0.09);
+      border: 1px solid rgba(42,138,234,0.2);
+    }
+    .hv2__eyebrow::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--blue);
+      flex-shrink: 0;
+    }
+    .hv2__h1 {
+      font-size: 58px;
+      font-weight: 900;
+      color: var(--dark);
+      line-height: 1.05;
+      margin: 0 0 22px;
+      letter-spacing: -1.4px;
+    }
+    .hv2__sub {
+      font-size: 17px;
+      line-height: 1.62;
+      color: rgba(27,39,51,0.56);
+      margin: 0 auto 44px;
+      max-width: 520px;
+    }
+    .hv2__cta { margin-bottom: 56px; display: flex; justify-content: center; }
+    .hv2__cta .btn-primary { height: 46px; padding: 0 32px; font-size: 13px; width: auto; display: inline-flex; align-items: center; }
+    .hv2__logos {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+    }
+    .hv2__logos-label {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      color: rgba(27,39,51,0.3);
+      margin: 0;
+    }
+    .hv2__logos-row { display: flex; gap: 9px; align-items: center; }
+    .hv2__al {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 8.5px; font-weight: 700;
+      flex-shrink: 0;
+      box-shadow: 0 1px 4px rgba(27,39,51,0.12);
+    }
+    .hv2__al--more {
+      background: rgba(27,39,51,0.06);
+      color: rgba(27,39,51,0.38);
+      font-size: 9px;
+      border: 1px solid rgba(27,39,51,0.1);
+      box-shadow: none;
+    }
+    /* Floating cards */
+    .hv2-float { position: absolute; z-index: 1; }
+    .hv2-fc {
+      background: #fff;
+      border-radius: 12px;
+      border: 1px solid rgba(27,39,51,0.08);
+      box-shadow: 0 8px 32px rgba(27,39,51,0.1), 0 2px 8px rgba(27,39,51,0.05);
+      padding: 13px 15px;
+    }
+    .hv2-fc__label {
+      font-family: var(--font-mono);
+      font-size: 8px; font-weight: 600;
+      letter-spacing: 0.4px; text-transform: uppercase;
+      color: rgba(27,39,51,0.35);
+      display: flex; align-items: center; gap: 5px;
+      margin-bottom: 9px;
+    }
+    .hv2-fc__dot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; }
+    .hv2-fc__dot--green  { background: #33c100; }
+    .hv2-fc__dot--blue   { background: #2a8aea; }
+    .hv2-fc__dot--pulse  { background: #33c100; box-shadow: 0 0 0 2.5px rgba(51,193,0,0.18); }
+    .hv2-fc__name { font-size: 12px; font-weight: 600; color: var(--dark); line-height: 1.2; margin-bottom: 3px; }
+    .hv2-fc__meta { font-family: var(--font-mono); font-size: 8.5px; color: rgba(27,39,51,0.38); }
+    .hv2-iata {
+      width: 32px; height: 32px; border-radius: 50%;
+      display: inline-flex; align-items: center; justify-content: center;
+      font-family: var(--font-mono); font-size: 8px; font-weight: 700; flex-shrink: 0;
+    }
+    .hv2-iata--sm { width: 22px; height: 22px; font-size: 7px; }
+    .hv2-fc__row { display: flex; align-items: center; gap: 10px; }
+    .hv2-fc__info { flex: 1; min-width: 0; }
+    .hv2-fc__ndc {
+      font-family: var(--font-mono); font-size: 7px; font-weight: 700;
+      color: #2a8aea; background: rgba(42,138,234,0.1);
+      padding: 2.5px 6px; border-radius: 3px; flex-shrink: 0;
+    }
+    .hv2-fc__chip {
+      font-family: var(--font-mono); font-size: 7.5px; font-weight: 600;
+      padding: 3px 7px; border-radius: 3px;
+      background: rgba(27,39,51,0.05); color: rgba(27,39,51,0.44);
+    }
+    .hv2-fc__chip--on { background: rgba(42,138,234,0.1); color: #2a8aea; }
+    .hv2-fc__chips { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 8px; }
+    .hv2-fc__confirm { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+    .hv2-fc__check {
+      width: 18px; height: 18px; border-radius: 50%;
+      background: rgba(51,193,0,0.1); border: 1px solid rgba(51,193,0,0.28);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .hv2-fc__confirm-title { font-size: 12px; font-weight: 600; color: var(--dark); }
+    .hv2-fc__iata-row { display: flex; gap: 4px; margin-top: 7px; }
+    /* Float positions — scattered 4 per side */
+    .hv2-float--a { left: 7%;  top: 7%;  }
+    .hv2-float--f { left: 16%; top: 35%; }
+    .hv2-float--c { left: 6%;  top: 63%; }
+    .hv2-float--h { left: 13%; bottom: 8%; }
+    .hv2-float--b { right: 7%;  top: 8%;  }
+    .hv2-float--g { right: 15%; top: 37%; }
+    .hv2-float--d { right: 6%;  top: 63%; }
+    .hv2-float--e { right: 12%; bottom: 8%; }
+    /* Airline logo tiles */
+    .hv2-al-tile {
+      width: 62px; height: 62px;
+      border-radius: 17px;
+      overflow: hidden;
+      box-shadow: 0 6px 18px rgba(42,138,234,0.12), 0 1px 5px rgba(42,138,234,0.07);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .hv2-al-tile img { width: 70%; height: 70%; object-fit: contain; }
+    /* Network lines SVG overlay */
+    .hv2-net {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      pointer-events: none; z-index: 0;
+    }
+    /* Animations */
+    .hv2-float--a { animation: hv2-up   5.2s ease-in-out infinite; }
+    .hv2-float--b { animation: hv2-down 4.8s ease-in-out infinite 0.9s; }
+    .hv2-float--c { animation: hv2-up   6.0s ease-in-out infinite 1.4s; }
+    .hv2-float--d { animation: hv2-down 5.6s ease-in-out infinite 0.4s; }
+    .hv2-float--e { animation: hv2-up   5.0s ease-in-out infinite 1.8s; }
+    .hv2-float--f { animation: hv2-down 5.4s ease-in-out infinite 0.6s; }
+    .hv2-float--g { animation: hv2-up   4.6s ease-in-out infinite 1.2s; }
+    .hv2-float--h { animation: hv2-down 5.8s ease-in-out infinite 2.1s; }
+    @keyframes hv2-up   { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+    @keyframes hv2-down { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(7px); } }
+    @media (max-width: 1080px) { .hv2-float, .hv2-net { display: none; } }
+    @media (max-width: 767px) {
+      .hv2 { padding: 72px 0 64px; }
+      .hv2__h1 { font-size: 38px; letter-spacing: -0.8px; }
+      .hv2__sub { font-size: 15px; }
+    }
+    @media (max-width: 413px) { .hv2__h1 { font-size: 30px; } }
+
+    /* ── Testimonials ─────────────────────────────────────────── */
+    .testi {
+      padding: 88px 0 96px;
+    }
+    .testi__head {
+      text-align: center;
+      max-width: 560px;
+      margin: 0 auto 48px;
+    }
+    .testi__eyebrow {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      color: var(--blue);
+      display: block;
+      margin-bottom: 14px;
+    }
+    .testi__h2 {
+      font-size: 31px;
+      font-weight: 700;
+      color: var(--dark);
+      margin: 0 0 12px;
+      letter-spacing: -0.3px;
+      line-height: 1.2;
+    }
+    .testi__sub {
+      font-size: 15px;
+      color: rgba(27,39,51,0.56);
+      line-height: 1.6;
+      margin: 0;
+    }
+    /* ── Tabs ──────────────────────────────────────────────────── */
+    .testi__tabs {
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      margin-bottom: 36px;
+      border-bottom: 1px solid rgba(27,39,51,0.1);
+    }
+    .testi__tab {
+      font-family: var(--font-sans);
+      font-size: 13px;
+      font-weight: 600;
+      color: rgba(27,39,51,0.4);
+      padding: 10px 22px 12px;
+      border: none;
+      background: none;
+      cursor: pointer;
+      position: relative;
+      bottom: -1px;
+      border-bottom: 2px solid transparent;
+      transition: color 0.18s, border-color 0.18s;
+    }
+    .testi__tab:hover { color: rgba(27,39,51,0.7); }
+    .testi__tab.active {
+      color: var(--dark);
+      border-bottom-color: var(--dark);
+    }
+    /* ── Cards ─────────────────────────────────────────────────── */
+    .testi__card {
+      display: none;
+      flex-direction: row;
+      border-radius: 16px;
+      overflow: hidden;
+      background: #fff;
+      border: 1px solid rgba(27,39,51,0.08);
+      box-shadow: 0 4px 28px rgba(27,39,51,0.09), 0 1px 4px rgba(27,39,51,0.05);
+    }
+    .testi__card.active { display: flex; }
+    .testi__visual {
+      flex: 0 0 46%;
+      max-width: 46%;
+      overflow: hidden;
+      display: flex;
+    }
+    .testi__visual svg {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .testi__body {
+      flex: 1;
+      padding: 52px 52px 52px 56px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    /* ── Logo badge ────────────────────────────────────────────── */
+    .testi__logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 7px 16px 7px 8px;
+      border-radius: 8px;
+      border: 1px solid rgba(27,39,51,0.08);
+      background: #f7f8fa;
+      margin-bottom: 30px;
+      align-self: flex-start;
+    }
+    .testi__logo-iata {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 8px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .testi__logo-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--dark);
+      line-height: 1.2;
+    }
+    .testi__logo-sub {
+      font-family: var(--font-mono);
+      font-size: 8.5px;
+      color: rgba(27,39,51,0.38);
+      margin-top: 1px;
+    }
+    /* ── Quote ─────────────────────────────────────────────────── */
+    .testi__quote {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--dark);
+      line-height: 1.42;
+      margin: 0 0 28px;
+      letter-spacing: -0.15px;
+    }
+    .testi__quote::before { content: '\201C'; }
+    .testi__quote::after  { content: '\201D'; }
+    /* ── Attribution ───────────────────────────────────────────── */
+    .testi__attr {
+      font-size: 13px;
+      color: rgba(27,39,51,0.48);
+      margin: 0 0 28px;
+      line-height: 1.5;
+    }
+    .testi__attr strong {
+      font-weight: 600;
+      color: rgba(27,39,51,0.68);
+    }
+    /* ── CTA link ──────────────────────────────────────────────── */
+    .testi__cta-link {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--blue);
+      text-decoration: none;
+      letter-spacing: 0.1px;
+    }
+    .testi__cta-link:hover { text-decoration: underline; }
+    /* ── Responsive ────────────────────────────────────────────── */
+    @media (max-width: 1024px) {
+      .testi__body { padding: 40px 40px 40px 44px; }
+    }
+    @media (max-width: 767px) {
+      .testi__card.active { flex-direction: column; }
+      .testi__visual { flex: 0 0 220px; max-width: 100%; height: 220px; }
+      .testi__body { padding: 30px 26px 36px; }
+      .testi__quote { font-size: 18px; }
+      .testi__tab { font-size: 12px; padding: 8px 14px 10px; }
+    }
+
+    /* ── Impact metrics ──────────────────────────────────────────── */
+    .metrics {
+      padding: 108px 0 120px;
+    }
+    .metrics__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+    }
+    .metrics__col {
+      padding: 0 60px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+    .metrics__col:first-child { padding-left: 0; }
+    .metrics__col:last-child  { padding-right: 0; }
+    .metrics__col + .metrics__col {
+      border-left: 1px solid rgba(27,39,51,0.08);
+    }
+    .metrics__value {
+      display: block;
+      font-size: 92px;
+      font-weight: 900;
+      color: var(--blue);
+      line-height: 1;
+      letter-spacing: -3px;
+      margin-bottom: 14px;
+      white-space: nowrap;
+    }
+    .metrics__value sup {
+      font-size: 42px;
+      letter-spacing: 0;
+      vertical-align: super;
+    }
+    .metrics__label {
+      font-size: 12px;
+      font-weight: 600;
+      color: rgba(27,39,51,0.65);
+      margin: 0 0 6px;
+      line-height: 1.3;
+      letter-spacing: 0.1px;
+    }
+    .metrics__desc {
+      font-size: 11px;
+      line-height: 1.55;
+      color: rgba(27,39,51,0.33);
+      margin: 0;
+    }
+    /* ── Responsive ─────────────────────────────────────────────── */
+    @media (max-width: 1024px) {
+      .metrics__col { padding: 0 40px; }
+      .metrics__value { font-size: 72px; letter-spacing: -2.5px; }
+      .metrics__value sup { font-size: 34px; }
+    }
+    @media (max-width: 767px) {
+      .metrics { padding: 72px 0 80px; }
+      .metrics__grid { grid-template-columns: 1fr; }
+      .metrics__col {
+        padding: 36px 0;
+        border-left: none !important;
+        border-top: 1px solid rgba(27,39,51,0.08);
+      }
+      .metrics__col:first-child { border-top: none; padding-top: 0; }
+      .metrics__value { font-size: 72px; letter-spacing: -2.5px; }
+    }
+
+    /* ── Airline logo grid ──────────────────────────────────────── */
+    .certified__airlines {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 16px;
+      margin-top: 44px;
+    }
+    .certified__airline {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+    .certified__airline p {
+      font-size: 11px;
+      color: rgba(27,39,51,0.45);
+      font-weight: 500;
+      text-align: center;
+      margin: 0;
+    }
+    .al-logo {
+      width: 100%;
+      aspect-ratio: 1;
+      border-radius: 26px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .al-logo img { width: 72%; height: 72%; object-fit: contain; }
+    .al-logo--live { background: linear-gradient(145deg, #5fba2e, #3d9c1a); }
+    .al-badge-live {
+      display: flex; flex-direction: column; align-items: center;
+      font-family: var(--font-mono); color: #fff; line-height: 1; gap: 2px;
+    }
+    .al-badge-live sup { font-size: 10px; font-weight: 600; letter-spacing: 1px; opacity: 0.8; }
+    .al-badge-live strong { font-size: 28px; font-weight: 700; letter-spacing: -1px; }
+    .al-logo--impl { background: #fff; border: 1.5px solid rgba(27,39,51,0.12); }
+    .al-badge-impl {
+      display: flex; flex-direction: column; align-items: center;
+      font-family: var(--font-mono); line-height: 1; gap: 2px;
+      font-size: 9px; letter-spacing: 0.8px; font-weight: 600; color: rgba(27,39,51,0.5);
+    }
+    .al-badge-impl strong { font-size: 28px; font-weight: 700; letter-spacing: -1px; color: var(--dark); display: block; }
+    @media (max-width: 1024px) { .certified__airlines { grid-template-columns: repeat(4, 1fr); } }
+    @media (max-width: 767px)  { .certified__airlines { grid-template-columns: repeat(3, 1fr); gap: 12px; } }
+    @media (max-width: 413px)  { .certified__airlines { grid-template-columns: repeat(2, 1fr); } }
+
+    /* ── Metrics heading ────────────────────────────────────────── */
+    .metrics__head {
+      margin-bottom: 52px;
+      text-align: center;
+    }
+    .metrics__title {
+      font-size: 31px;
+      font-weight: 700;
+      color: var(--dark);
+      letter-spacing: -0.4px;
+      line-height: 1.15;
+      margin: 0;
+      text-align: center;
+    }
+    @media (max-width: 767px) {
+      .metrics__title { font-size: 27px; }
+      .metrics__head { margin-bottom: 36px; }
+    }
+
+    /* ── Solutions section ──────────────────────────────────────── */
+    .sol-section { padding: 88px 0 100px; }
+    .sol-section__head {
+      text-align: center;
+      max-width: 620px;
+      margin: 0 auto 52px;
+    }
+    .sol-eyebrow {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 18px;
+    }
+    .sol-section__head h2 {
+      font-size: 31px;
+      font-weight: 700;
+      color: var(--dark);
+      margin: 0 0 14px;
+      letter-spacing: -0.4px;
+      line-height: 1.18;
+    }
+    .sol-section__head p {
+      font-size: 15px;
+      color: rgba(27,39,51,0.56);
+      line-height: 1.65;
+      margin: 0;
+    }
+    .sol-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 14px;
+      align-items: stretch;
+    }
+    .sol-card {
+      border-radius: 12px;
+      border: 1px solid rgba(27,39,51,0.09);
+      background: #ffffff;
+      box-shadow: 0 2px 14px rgba(27,39,51,0.055), 0 1px 3px rgba(27,39,51,0.03);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      transition: box-shadow 0.2s ease, transform 0.2s ease;
+    }
+    .sol-card:hover {
+      box-shadow: 0 6px 24px rgba(27,39,51,0.1), 0 2px 6px rgba(27,39,51,0.05);
+      transform: translateY(-2px);
+    }
+    .sol-card__visual {
+      height: 152px;
+      background: #f4f6fb;
+      flex-shrink: 0;
+      overflow: hidden;
+      border-bottom: 1px solid rgba(27,39,51,0.06);
+      display: flex;
+      align-items: stretch;
+    }
+    .sol-card__visual svg { display: block; width: 100%; height: 100%; }
+    .sol-card__body {
+      padding: 18px 18px 22px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+    .sol-card__title {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: var(--dark);
+      margin: 0 0 8px;
+      line-height: 1.3;
+    }
+    .sol-card__desc {
+      font-size: 12px;
+      line-height: 1.65;
+      color: rgba(27,39,51,0.54);
+      margin: 0;
+      flex: 1;
+    }
+    @media (max-width: 1024px) {
+      .sol-grid { grid-template-columns: repeat(3, 1fr); }
+      .sol-section { padding: 68px 0 80px; }
+    }
+    @media (max-width: 767px) {
+      .sol-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+      .sol-section { padding: 52px 0 60px; }
+      .sol-section__head h2 { font-size: 27px; }
+    }
+    @media (max-width: 413px) {
+      .sol-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ================================================================
+     HEADER
+================================================================ -->
+<header class="header" id="header">
+  <div class="header__links">
+    <div class="header__links-left">
+      <a href="../index.html" class="header__logo">DRCT</a>
+      <div class="header__dropdown">
+        <button type="button" class="header__nav-link" aria-haspopup="true" aria-expanded="false">Solutions</button>
+        <div class="header__dropdown-menu">
+          <a href="for-airlines.html">For Airlines</a>
+          <a href="iata-agencies.html">For IATA Agencies</a>
+          <a href="non-iata-agencies.html">For Non-IATA Agencies</a>
+          <a href="tms.html">For TMS</a>
+          <a href="ota.html">For OTA</a>
+        </div>
+      </div>
+      <div class="header__dropdown">
+        <button type="button" class="header__nav-link" aria-haspopup="true" aria-expanded="false">Products</button>
+        <div class="header__dropdown-menu">
+          <a href="../products/bt.html">BT</a>
+          <a href="../products/bt-for-tms.html">BT for TMS</a>
+          <a href="../products/api.html">API</a>
+          <a href="../products/extension.html">Extension</a>
+        </div>
+      </div>
+      <a href="../supply-network/index.html" class="header__nav-link">Supply Network</a>
+      <a href="../about.html" class="header__nav-link">About</a>
+    </div>
+    <div class="header__links-right">
+      <a href="#contact" class="header__try">Get in touch</a>
+    </div>
+    <button class="header__menu-cross" id="menuToggle" aria-label="Toggle navigation">
+      <div class="line-1"></div>
+      <div class="line-2"></div>
+    </button>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+  <ul class="menu__links">
+    <li class="menu__group-label">Solutions</li>
+    <li><a href="for-airlines.html">For Airlines</a></li>
+    <li><a href="iata-agencies.html">For IATA Agencies</a></li>
+    <li><a href="non-iata-agencies.html">For Non-IATA Agencies</a></li>
+    <li><a href="tms.html">For TMS</a></li>
+    <li><a href="ota.html">For OTA</a></li>
+    <li class="menu__group-label">Products</li>
+    <li><a href="../products/bt.html">BT</a></li>
+    <li><a href="../products/bt-for-tms.html">BT for TMS</a></li>
+    <li><a href="../products/api.html">API</a></li>
+    <li><a href="../products/extension.html">Extension</a></li>
+    <li class="menu__group-label">More</li>
+    <li><a href="../supply-network/index.html">Supply Network</a></li>
+    <li><a href="../about.html">About</a></li>
+    <li><a href="#contact">Get in touch</a></li>
+  </ul>
+</div>
+
+<!-- ================================================================
+     HERO
+================================================================ -->
+<div class="hv2">
+
+  <!-- Float A: Lufthansa -->
+  <div class="hv2-float hv2-float--a">
+    <div class="hv2-al-tile" style="background:linear-gradient(145deg,#d4d9ef,#c6cde8);">
+      <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="30" cy="30" r="25" stroke="#003264" stroke-width="2.2"/>
+        <path d="M22 32 Q30 27 42 32 Q42 38 34 39 Q24 39 22 32Z" fill="#003264"/>
+        <path d="M24 32 Q17 28 12 30 Q14 34 20 34 Q22 33 24 32Z" fill="#003264"/>
+        <path d="M28 30 Q27 23 30 16 Q32 12 36 10 Q33 14 31 19 Q29 24 28 30Z" fill="#003264"/>
+        <path d="M42 32 Q48 35 50 39 Q46 38 43 36Z" fill="#003264"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- Float B: Emirates -->
+  <div class="hv2-float hv2-float--b">
+    <div class="hv2-al-tile" style="background:#e3251d;">
+      <svg width="64" height="38" viewBox="0 0 64 38" xmlns="http://www.w3.org/2000/svg">
+        <path d="M11 13 Q18 8 28 10 Q36 11 40 13 Q35 14 28 13 Q22 12 16 15" stroke="white" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+        <path d="M34 10 Q42 8 46 12 Q48 15 46 17" stroke="white" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+        <path d="M16 15 Q26 19 42 17" stroke="white" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+        <text x="32" y="34" text-anchor="middle" fill="white" font-family="Georgia, Times New Roman, serif" font-size="12" letter-spacing="1.2">Emirates</text>
+      </svg>
+    </div>
+  </div>
+
+  <!-- Float C: LOT -->
+  <div class="hv2-float hv2-float--c">
+    <div class="hv2-al-tile" style="background:linear-gradient(145deg,#dde9f8,#c9d9f4);">
+      <svg width="58" height="26" viewBox="0 0 58 26" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="8" cy="13" r="7" fill="none" stroke="#1a237e" stroke-width="1.8"/>
+        <path d="M8 6 Q11 9 11 13 Q11 17 8 20" stroke="#1a237e" stroke-width="1.3" fill="none"/>
+        <path d="M2 11 Q5 9 8 9 Q11 9 14 11" stroke="#1a237e" stroke-width="1.3" fill="none"/>
+        <text x="18" y="20" font-family="Arial Black, Helvetica Neue, sans-serif" font-size="18" font-weight="900" fill="#1a237e">LOT</text>
+      </svg>
+    </div>
+  </div>
+
+  <!-- Float D: SWISS -->
+  <div class="hv2-float hv2-float--d">
+    <div class="hv2-al-tile" style="background:#f0f0f0;">
+      <svg width="38" height="52" viewBox="0 0 38 52" xmlns="http://www.w3.org/2000/svg">
+        <path d="M4 50 L10 9 Q13 1 24 4 L30 9 L20 50Z" fill="#e30613"/>
+        <rect x="11" y="20" width="7" height="19" rx="1.5" fill="white"/>
+        <rect x="7" y="26" width="15" height="7" rx="1.5" fill="white"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- Float E: TAP -->
+  <div class="hv2-float hv2-float--e">
+    <div class="hv2-al-tile" style="background:#f0f0f0;">
+      <svg width="52" height="28" viewBox="0 0 52 28" xmlns="http://www.w3.org/2000/svg">
+        <text x="0"  y="23" font-family="Arial Black, sans-serif" font-size="24" font-weight="900" fill="#7ab800">T</text>
+        <text x="13" y="23" font-family="Arial Black, sans-serif" font-size="24" font-weight="900" fill="#007e3a">A</text>
+        <text x="29" y="23" font-family="Arial Black, sans-serif" font-size="24" font-weight="900" fill="#e5322d">P</text>
+      </svg>
+    </div>
+  </div>
+
+  <!-- Float F: British Airways -->
+  <div class="hv2-float hv2-float--f">
+    <div class="hv2-al-tile" style="background:#fff;">
+      <svg width="52" height="32" viewBox="0 0 60 36" xmlns="http://www.w3.org/2000/svg">
+        <path d="M4 28 Q18 6 50 12 Q44 15 32 17 Q18 19 8 26Z" fill="#eb2226"/>
+        <path d="M8 26 Q18 22 32 20 Q44 18 50 14 Q47 19 40 23 Q26 29 10 30Z" fill="#1c4b9c"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- Float G: flydubai -->
+  <div class="hv2-float hv2-float--g">
+    <div class="hv2-al-tile" style="background:#f7f7f7;">
+      <svg width="50" height="19" viewBox="0 0 58 22" xmlns="http://www.w3.org/2000/svg">
+        <text x="0"  y="17" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#f16822">fly</text>
+        <text x="21" y="17" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#333">dubai</text>
+        <circle cx="55" cy="5" r="2.2" fill="#f16822"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- Float H: United Airlines -->
+  <div class="hv2-float hv2-float--h">
+    <div class="hv2-al-tile" style="background:#fff;">
+      <svg width="64" height="26" viewBox="0 0 64 26" xmlns="http://www.w3.org/2000/svg">
+        <text x="0" y="18" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#0052a5" letter-spacing="0.4">UNITED</text>
+        <!-- Globe icon -->
+        <circle cx="55" cy="13" r="9" fill="none" stroke="#0052a5" stroke-width="1.6"/>
+        <ellipse cx="55" cy="13" rx="4.5" ry="9" fill="none" stroke="#0052a5" stroke-width="1.2"/>
+        <line x1="46" y1="13" x2="64" y2="13" stroke="#0052a5" stroke-width="1.2"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- Network: curved flight route + animated plane -->
+  <!-- Tile centers (62px) in 1280×580: LH(121,72) BA(236,234) LOT(108,397) UA(197,503) EK(1148,77) FZ(1057,246) SWISS(1159,397) TAP(1095,503) -->
+  <svg class="hv2-net" viewBox="0 0 1280 580" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <!-- Closed flight loop connecting all 8 tiles -->
+      <path id="flight-loop" d="
+        M 121 72
+        C 500 44 820 54 1148 77
+        C 1158 142 1098 198 1057 246
+        C 740 238 430 230 236 234
+        C 195 288 138 344 108 397
+        C 450 390 808 390 1159 397
+        C 1162 446 1118 476 1095 503
+        C 790 512 448 512 197 503
+        C 148 434 116 304 121 72
+        Z
+      "/>
+    </defs>
+    <!-- Dashed route line -->
+    <use href="#flight-loop" fill="none" stroke="rgba(42,138,234,0.17)" stroke-width="1.1" stroke-dasharray="5 9"/>
+    <!-- Animated airplane -->
+    <g opacity="0.75">
+      <path d="M-7 0 L2 -2.5 L8 0 L2 2.5 Z M-2 -2.5 L0 -5.5 L2 -2.5 Z M-2 2.5 L0 5.5 L2 2.5 Z" fill="#2a8aea"/>
+      <animateMotion dur="18s" repeatCount="indefinite" rotate="auto">
+        <mpath href="#flight-loop"/>
+      </animateMotion>
+    </g>
+  </svg>
+
+  <!-- Center content -->
+  <div class="landing-new__body" style="position:relative;z-index:2;">
+    <div class="hv2__content">
+      <h1 class="hv2__h1">The operating layer for<br>airline distribution.</h1>
+      <p class="hv2__sub">Control, distribute, and scale your offers across every indirect channel — agencies, TMCs, OTAs, and super apps — from a single integration.</p>
+      <div class="hv2__cta">
+        <a href="#contact" class="btn-primary">Partner as an Airline &#8599;</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ================================================================
+     SOLUTIONS / PROBLEMS WE SOLVE
+================================================================ -->
+<div class="landing-new loaded">
+  <div class="landing-new__body">
+    <section class="sol-section" id="solutions">
+
+      <div class="sol-section__head">
+        <span class="sol-eyebrow">DRCT for airlines</span>
+        <h2>Solutions that move airline<br>distribution forward.</h2>
+        <p>End-to-end tools that help airlines control offers, reduce booking costs, and scale direct distribution.</p>
+      </div>
+
+      <div class="sol-grid">
+
+        <!-- Card 1: Offer distribution & control -->
+        <div class="sol-card">
+          <div class="sol-card__visual">
+            <svg viewBox="0 0 200 152" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+              <rect x="0" y="0" width="200" height="30" fill="#1b2733"/>
+              <text x="10" y="20" fill="rgba(255,255,255,0.38)" font-size="9" font-family="IBM Plex Sans,sans-serif" font-weight="500">Offers</text>
+              <text x="46" y="20" fill="#ffffff" font-size="9" font-family="IBM Plex Sans,sans-serif" font-weight="600">MUC &#x2192; LHR</text>
+              <rect x="46" y="27" width="52" height="2" rx="1" fill="#2a8aea"/>
+              <rect x="0" y="30" width="200" height="46" fill="rgba(42,138,234,0.03)"/>
+              <rect x="0" y="30" width="3" height="46" fill="#f7c200"/>
+              <circle cx="18" cy="53" r="12" fill="#05164d"/>
+              <text x="18" y="57" text-anchor="middle" fill="#f7c200" font-size="6.5" font-family="IBM Plex Mono,monospace" font-weight="700">LH</text>
+              <text x="36" y="48" fill="#1b2733" font-size="10" font-family="IBM Plex Sans,sans-serif" font-weight="600">Lufthansa</text>
+              <text x="36" y="62" fill="rgba(27,39,51,0.44)" font-size="8" font-family="IBM Plex Mono,monospace">LH 2456 &#xB7; 09:20 &#x2192; 10:55</text>
+              <text x="190" y="48" text-anchor="end" fill="#1b2733" font-size="11" font-family="IBM Plex Mono,monospace" font-weight="700">&#xA3;162</text>
+              <rect x="163" y="54" width="24" height="11" rx="2.5" fill="rgba(42,138,234,0.12)"/>
+              <text x="175" y="62.5" text-anchor="middle" fill="#2a8aea" font-size="6.5" font-family="IBM Plex Mono,monospace" font-weight="700">NDC</text>
+              <line x1="0" y1="76" x2="200" y2="76" stroke="rgba(27,39,51,0.07)" stroke-width="1"/>
+              <text x="10" y="91" fill="rgba(27,39,51,0.3)" font-size="7" font-family="IBM Plex Mono,monospace" font-weight="600" letter-spacing="0.5">DISTRIBUTED TO</text>
+              <rect x="10" y="97" width="84" height="17" rx="3" fill="rgba(42,138,234,0.07)" stroke="rgba(42,138,234,0.18)" stroke-width="0.8"/>
+              <text x="52" y="108.5" text-anchor="middle" fill="#2a8aea" font-size="7.5" font-family="IBM Plex Mono,monospace" font-weight="600">IATA agencies</text>
+              <rect x="106" y="97" width="84" height="17" rx="3" fill="rgba(27,39,51,0.04)" stroke="rgba(27,39,51,0.09)" stroke-width="0.8"/>
+              <text x="148" y="108.5" text-anchor="middle" fill="rgba(27,39,51,0.48)" font-size="7.5" font-family="IBM Plex Mono,monospace" font-weight="600">TMCs</text>
+              <rect x="10" y="120" width="84" height="17" rx="3" fill="rgba(27,39,51,0.04)" stroke="rgba(27,39,51,0.09)" stroke-width="0.8"/>
+              <text x="52" y="131.5" text-anchor="middle" fill="rgba(27,39,51,0.48)" font-size="7.5" font-family="IBM Plex Mono,monospace" font-weight="600">OTAs</text>
+              <rect x="106" y="120" width="84" height="17" rx="3" fill="rgba(27,39,51,0.04)" stroke="rgba(27,39,51,0.09)" stroke-width="0.8"/>
+              <text x="148" y="131.5" text-anchor="middle" fill="rgba(27,39,51,0.48)" font-size="7.5" font-family="IBM Plex Mono,monospace" font-weight="600">API / Direct</text>
+            </svg>
+          </div>
+          <div class="sol-card__body">
+            <p class="sol-card__title">Offer distribution &amp; control</p>
+            <p class="sol-card__desc">Distribute airline offers across IATA agencies, TMCs, OTAs, and super apps through one orchestration layer — with full visibility and control.</p>
+          </div>
+        </div>
+
+        <!-- Card 2: Cost-efficient booking -->
+        <div class="sol-card">
+          <div class="sol-card__visual">
+            <svg viewBox="0 0 200 152" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+              <rect x="0" y="0" width="200" height="152" fill="#f8f9fb"/>
+              <text x="100" y="22" text-anchor="middle" fill="rgba(27,39,51,0.3)" font-size="7.5" font-family="IBM Plex Mono,monospace" font-weight="600" letter-spacing="0.5">COST PER BOOKING</text>
+              <line x1="28" y1="118" x2="172" y2="118" stroke="rgba(27,39,51,0.1)" stroke-width="1"/>
+              <rect x="40" y="32" width="48" height="86" rx="4" fill="rgba(27,39,51,0.1)"/>
+              <rect x="112" y="64" width="48" height="54" rx="4" fill="rgba(42,138,234,0.18)"/>
+              <text x="64" y="128" text-anchor="middle" fill="rgba(27,39,51,0.4)" font-size="8.5" font-family="IBM Plex Sans,sans-serif">Indirect</text>
+              <text x="136" y="128" text-anchor="middle" fill="#2a8aea" font-size="8.5" font-family="IBM Plex Sans,sans-serif" font-weight="600">NDC</text>
+              <text x="64" y="79" text-anchor="middle" fill="rgba(27,39,51,0.35)" font-size="10" font-family="IBM Plex Mono,monospace" font-weight="600">high</text>
+              <text x="136" y="94" text-anchor="middle" fill="rgba(42,138,234,0.75)" font-size="10" font-family="IBM Plex Mono,monospace" font-weight="600">lower</text>
+              <rect x="134" y="28" width="44" height="18" rx="9" fill="rgba(51,193,0,0.1)" stroke="rgba(51,193,0,0.25)" stroke-width="0.8"/>
+              <text x="156" y="40.5" text-anchor="middle" fill="#2aab00" font-size="9" font-family="IBM Plex Mono,monospace" font-weight="700">&#x2212;38%</text>
+              <path d="M91 32 L109 64" stroke="rgba(27,39,51,0.12)" stroke-width="1" stroke-dasharray="3 2" fill="none"/>
+              <path d="M106 61 L109 64 L113 60" fill="none" stroke="rgba(27,39,51,0.2)" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="sol-card__body">
+            <p class="sol-card__title">Cost-efficient booking</p>
+            <p class="sol-card__desc">Reduce cost-per-booking by routing volume through NDC and direct channels, without sacrificing distribution reach or agent coverage.</p>
+          </div>
+        </div>
+
+        <!-- Card 3: Faster NDC adoption -->
+        <div class="sol-card">
+          <div class="sol-card__visual">
+            <svg viewBox="0 0 200 152" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+              <rect x="0" y="0" width="200" height="152" fill="#fff"/>
+              <rect x="10" y="12" width="180" height="26" rx="5" fill="#f4f6fb" stroke="rgba(27,39,51,0.1)" stroke-width="0.8"/>
+              <text x="20" y="29.5" fill="rgba(27,39,51,0.35)" font-size="8.5" font-family="IBM Plex Mono,monospace">MUC &#x2192; LHR &#xB7; 15 MAR &#xB7; ECO</text>
+              <rect x="163" y="17" width="20" height="16" rx="3" fill="#2a8aea"/>
+              <text x="173" y="28" text-anchor="middle" fill="#fff" font-size="7" font-family="IBM Plex Mono,monospace" font-weight="700">GO</text>
+              <rect x="10" y="46" width="44" height="16" rx="3" fill="rgba(42,138,234,0.12)" stroke="rgba(42,138,234,0.25)" stroke-width="0.8"/>
+              <circle cx="20" cy="54" r="3" fill="#2a8aea"/>
+              <text x="35" y="57.5" text-anchor="middle" fill="#2a8aea" font-size="8" font-family="IBM Plex Mono,monospace" font-weight="700">NDC</text>
+              <text x="60" y="57" fill="rgba(27,39,51,0.32)" font-size="8" font-family="IBM Plex Sans,sans-serif">content enabled</text>
+              <rect x="0" y="70" width="200" height="38" fill="rgba(42,138,234,0.035)"/>
+              <rect x="0" y="70" width="3" height="38" fill="#012169"/>
+              <circle cx="18" cy="89" r="11" fill="#012169"/>
+              <text x="18" y="93" text-anchor="middle" fill="#fff" font-size="6" font-family="IBM Plex Mono,monospace" font-weight="700">BA</text>
+              <text x="35" y="85" fill="#1b2733" font-size="9.5" font-family="IBM Plex Sans,sans-serif" font-weight="600">British Airways</text>
+              <text x="35" y="97" fill="rgba(27,39,51,0.42)" font-size="8" font-family="IBM Plex Mono,monospace">11:15 &#x2192; 12:55 &#xB7; 2h 40m</text>
+              <text x="190" y="85" text-anchor="end" fill="#1b2733" font-size="11" font-family="IBM Plex Mono,monospace" font-weight="700">&#xA3;196</text>
+              <rect x="162" y="91" width="24" height="11" rx="2.5" fill="rgba(42,138,234,0.12)"/>
+              <text x="174" y="99.5" text-anchor="middle" fill="#2a8aea" font-size="6.5" font-family="IBM Plex Mono,monospace" font-weight="700">NDC</text>
+              <line x1="0" y1="108" x2="200" y2="108" stroke="rgba(27,39,51,0.06)" stroke-width="1"/>
+              <rect x="0" y="108" width="200" height="36" fill="#fff"/>
+              <rect x="0" y="108" width="3" height="36" fill="rgba(27,39,51,0.15)"/>
+              <circle cx="18" cy="126" r="11" fill="rgba(27,39,51,0.1)"/>
+              <text x="18" y="130" text-anchor="middle" fill="rgba(27,39,51,0.4)" font-size="6" font-family="IBM Plex Mono,monospace" font-weight="700">EI</text>
+              <text x="35" y="122" fill="rgba(27,39,51,0.5)" font-size="9.5" font-family="IBM Plex Sans,sans-serif" font-weight="600">Aer Lingus</text>
+              <text x="35" y="134" fill="rgba(27,39,51,0.32)" font-size="8" font-family="IBM Plex Mono,monospace">14:30 &#x2192; 16:15 &#xB7; 2h 45m</text>
+              <text x="190" y="122" text-anchor="end" fill="rgba(27,39,51,0.5)" font-size="11" font-family="IBM Plex Mono,monospace" font-weight="700">&#xA3;174</text>
+              <rect x="163" y="128" width="22" height="11" rx="2.5" fill="rgba(27,39,51,0.06)"/>
+              <text x="174" y="136.5" text-anchor="middle" fill="rgba(27,39,51,0.38)" font-size="6.5" font-family="IBM Plex Mono,monospace" font-weight="600">GDS</text>
+            </svg>
+          </div>
+          <div class="sol-card__body">
+            <p class="sol-card__title">Faster NDC adoption</p>
+            <p class="sol-card__desc">Deliver NDC content inside the booking tools agents already use — no retraining required. Adoption happens within familiar workflows.</p>
+          </div>
+        </div>
+
+        <!-- Card 4: Unified distribution layer -->
+        <div class="sol-card">
+          <div class="sol-card__visual">
+            <svg viewBox="0 0 200 152" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+              <rect x="0" y="0" width="200" height="152" fill="#f8f9fb"/>
+              <rect x="68" y="56" width="64" height="38" rx="6" fill="#1b2733"/>
+              <text x="100" y="72" text-anchor="middle" fill="#ffffff" font-size="11" font-family="IBM Plex Sans,sans-serif" font-weight="700">DRCT</text>
+              <text x="100" y="85" text-anchor="middle" fill="rgba(255,255,255,0.38)" font-size="7" font-family="IBM Plex Mono,monospace">single layer</text>
+              <rect x="12" y="20" width="38" height="20" rx="4" fill="rgba(27,39,51,0.07)" stroke="rgba(27,39,51,0.12)" stroke-width="0.8"/>
+              <text x="31" y="33.5" text-anchor="middle" fill="rgba(27,39,51,0.55)" font-size="8" font-family="IBM Plex Mono,monospace" font-weight="600">GDS</text>
+              <rect x="12" y="50" width="38" height="20" rx="4" fill="rgba(42,138,234,0.1)" stroke="rgba(42,138,234,0.2)" stroke-width="0.8"/>
+              <text x="31" y="63.5" text-anchor="middle" fill="#2a8aea" font-size="8" font-family="IBM Plex Mono,monospace" font-weight="700">NDC</text>
+              <rect x="12" y="80" width="38" height="20" rx="4" fill="rgba(27,39,51,0.07)" stroke="rgba(27,39,51,0.12)" stroke-width="0.8"/>
+              <text x="31" y="93.5" text-anchor="middle" fill="rgba(27,39,51,0.55)" font-size="8" font-family="IBM Plex Mono,monospace" font-weight="600">API</text>
+              <rect x="12" y="110" width="38" height="20" rx="4" fill="rgba(27,39,51,0.07)" stroke="rgba(27,39,51,0.12)" stroke-width="0.8"/>
+              <text x="31" y="123.5" text-anchor="middle" fill="rgba(27,39,51,0.55)" font-size="8" font-family="IBM Plex Mono,monospace" font-weight="600">Direct</text>
+              <path d="M50 30 Q58 30 64 60" stroke="rgba(27,39,51,0.15)" stroke-width="1" fill="none"/>
+              <line x1="50" y1="60" x2="68" y2="68" stroke="rgba(42,138,234,0.3)" stroke-width="1.2" fill="none"/>
+              <path d="M50 90 Q58 90 64 82" stroke="rgba(27,39,51,0.15)" stroke-width="1" fill="none"/>
+              <path d="M50 120 Q58 120 64 88" stroke="rgba(27,39,51,0.12)" stroke-width="1" fill="none"/>
+              <rect x="150" y="20" width="40" height="20" rx="4" fill="rgba(27,39,51,0.07)" stroke="rgba(27,39,51,0.12)" stroke-width="0.8"/>
+              <text x="170" y="33.5" text-anchor="middle" fill="rgba(27,39,51,0.52)" font-size="7.5" font-family="IBM Plex Mono,monospace" font-weight="600">Agencies</text>
+              <rect x="150" y="50" width="40" height="20" rx="4" fill="rgba(27,39,51,0.07)" stroke="rgba(27,39,51,0.12)" stroke-width="0.8"/>
+              <text x="170" y="63.5" text-anchor="middle" fill="rgba(27,39,51,0.52)" font-size="7.5" font-family="IBM Plex Mono,monospace" font-weight="600">TMCs</text>
+              <rect x="150" y="80" width="40" height="20" rx="4" fill="rgba(27,39,51,0.07)" stroke="rgba(27,39,51,0.12)" stroke-width="0.8"/>
+              <text x="170" y="93.5" text-anchor="middle" fill="rgba(27,39,51,0.52)" font-size="7.5" font-family="IBM Plex Mono,monospace" font-weight="600">OTAs</text>
+              <rect x="150" y="110" width="40" height="20" rx="4" fill="rgba(27,39,51,0.07)" stroke="rgba(27,39,51,0.12)" stroke-width="0.8"/>
+              <text x="170" y="123.5" text-anchor="middle" fill="rgba(27,39,51,0.52)" font-size="7.5" font-family="IBM Plex Mono,monospace" font-weight="600">Apps</text>
+              <path d="M132 66 Q140 66 150 30" stroke="rgba(27,39,51,0.15)" stroke-width="1" fill="none"/>
+              <line x1="132" y1="72" x2="150" y2="60" stroke="rgba(27,39,51,0.18)" stroke-width="1" fill="none"/>
+              <line x1="132" y1="78" x2="150" y2="90" stroke="rgba(27,39,51,0.18)" stroke-width="1" fill="none"/>
+              <path d="M132 82 Q140 82 150 120" stroke="rgba(27,39,51,0.15)" stroke-width="1" fill="none"/>
+            </svg>
+          </div>
+          <div class="sol-card__body">
+            <p class="sol-card__title">Unified distribution layer</p>
+            <p class="sol-card__desc">One integration to manage GDS, NDC, API, and direct channels. Orders, settlement, and reporting — all in one control plane.</p>
+          </div>
+        </div>
+
+        <!-- Card 5: End-to-end infrastructure -->
+        <div class="sol-card">
+          <div class="sol-card__visual">
+            <svg viewBox="0 0 200 152" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+              <rect x="0" y="0" width="200" height="152" fill="#fff"/>
+              <text x="100" y="24" text-anchor="middle" fill="rgba(27,39,51,0.28)" font-size="7.5" font-family="IBM Plex Mono,monospace" font-weight="600" letter-spacing="0.5">BOOKING LIFECYCLE</text>
+              <rect x="8" y="34" width="40" height="36" rx="6" fill="rgba(42,138,234,0.08)" stroke="rgba(42,138,234,0.18)" stroke-width="0.8"/>
+              <text x="28" y="49" text-anchor="middle" fill="#2a8aea" font-size="8" font-family="IBM Plex Mono,monospace" font-weight="700">Offer</text>
+              <text x="28" y="61" text-anchor="middle" fill="rgba(42,138,234,0.6)" font-size="7" font-family="IBM Plex Sans,sans-serif">Created</text>
+              <path d="M49 52 L56 52" stroke="rgba(27,39,51,0.2)" stroke-width="1.2" stroke-linecap="round"/>
+              <path d="M54 49.5 L57 52 L54 54.5" fill="none" stroke="rgba(27,39,51,0.2)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+              <rect x="58" y="34" width="40" height="36" rx="6" fill="rgba(42,138,234,0.08)" stroke="rgba(42,138,234,0.18)" stroke-width="0.8"/>
+              <text x="78" y="49" text-anchor="middle" fill="#2a8aea" font-size="8" font-family="IBM Plex Mono,monospace" font-weight="700">Route</text>
+              <text x="78" y="61" text-anchor="middle" fill="rgba(42,138,234,0.6)" font-size="7" font-family="IBM Plex Sans,sans-serif">Channels</text>
+              <path d="M99 52 L106 52" stroke="rgba(27,39,51,0.2)" stroke-width="1.2" stroke-linecap="round"/>
+              <path d="M104 49.5 L107 52 L104 54.5" fill="none" stroke="rgba(27,39,51,0.2)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+              <rect x="108" y="34" width="40" height="36" rx="6" fill="rgba(42,138,234,0.08)" stroke="rgba(42,138,234,0.18)" stroke-width="0.8"/>
+              <text x="128" y="49" text-anchor="middle" fill="#2a8aea" font-size="8" font-family="IBM Plex Mono,monospace" font-weight="700">Order</text>
+              <text x="128" y="61" text-anchor="middle" fill="rgba(42,138,234,0.6)" font-size="7" font-family="IBM Plex Sans,sans-serif">Managed</text>
+              <path d="M149 52 L156 52" stroke="rgba(27,39,51,0.2)" stroke-width="1.2" stroke-linecap="round"/>
+              <path d="M154 49.5 L157 52 L154 54.5" fill="none" stroke="rgba(27,39,51,0.2)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+              <rect x="158" y="34" width="40" height="36" rx="6" fill="#1b2733"/>
+              <text x="178" y="49" text-anchor="middle" fill="#ffffff" font-size="8" font-family="IBM Plex Mono,monospace" font-weight="700">Settle</text>
+              <text x="178" y="61" text-anchor="middle" fill="rgba(255,255,255,0.42)" font-size="7" font-family="IBM Plex Sans,sans-serif">Complete</text>
+              <line x1="8" y1="86" x2="192" y2="86" stroke="rgba(27,39,51,0.06)" stroke-width="1"/>
+              <circle cx="18" cy="98" r="3.5" fill="rgba(51,193,0,0.2)" stroke="rgba(51,193,0,0.4)" stroke-width="0.8"/>
+              <circle cx="18" cy="98" r="1.5" fill="#33c100"/>
+              <text x="28" y="101.5" fill="rgba(27,39,51,0.55)" font-size="8.5" font-family="IBM Plex Sans,sans-serif">GDS &amp; NDC offers handled</text>
+              <circle cx="18" cy="114" r="3.5" fill="rgba(51,193,0,0.2)" stroke="rgba(51,193,0,0.4)" stroke-width="0.8"/>
+              <circle cx="18" cy="114" r="1.5" fill="#33c100"/>
+              <text x="28" y="117.5" fill="rgba(27,39,51,0.55)" font-size="8.5" font-family="IBM Plex Sans,sans-serif">Unified order management</text>
+              <circle cx="18" cy="130" r="3.5" fill="rgba(51,193,0,0.2)" stroke="rgba(51,193,0,0.4)" stroke-width="0.8"/>
+              <circle cx="18" cy="130" r="1.5" fill="#33c100"/>
+              <text x="28" y="133.5" fill="rgba(27,39,51,0.55)" font-size="8.5" font-family="IBM Plex Sans,sans-serif">Automated settlement &amp; reporting</text>
+            </svg>
+          </div>
+          <div class="sol-card__body">
+            <p class="sol-card__title">End-to-end infrastructure</p>
+            <p class="sol-card__desc">From offer creation through order management to settlement — DRCT handles the full booking lifecycle across every channel and seller type.</p>
+          </div>
+        </div>
+
+      </div><!-- /.sol-grid -->
+    </section>
+  </div>
+</div>
+
+<!-- ================================================================
+     HOW IT WORKS
+================================================================ -->
+<div class="landing-new loaded" style="background: rgba(27,39,51,0.025);">
+  <div class="landing-new__body">
+    <section class="section-block" id="how">
+      <div class="section-block__head">
+        <h2>How It Works</h2>
+        <p>DRCT connects your inventory to travel sellers through a single distribution layer — preserving offer structure and enabling full control over how your content is delivered and managed.</p>
+      </div>
+
+      <div class="flow-diagram">
+
+        <!-- Source: Airline inventory -->
+        <div class="flow-col flow-col--source">
+          <p class="flow-eyebrow">Airline inventory</p>
+          <h3 class="flow-heading">Your offers</h3>
+          <p class="flow-caption">GDS · NDC · Direct</p>
+          <div class="flow-items">
+            <div class="flow-item"><span class="flow-dot" style="background:var(--blue)"></span>GDS content</div>
+            <div class="flow-item"><span class="flow-dot" style="background:var(--blue)"></span>NDC offers</div>
+            <div class="flow-item"><span class="flow-dot" style="background:rgba(42,138,234,0.4)"></span>Custom Scheme</div>
+          </div>
+        </div>
+
+        <!-- Arrow → -->
+        <div class="flow-arrow">
+          <svg width="40" height="28" viewBox="0 0 40 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 14h30" stroke="rgba(42,138,234,0.3)" stroke-width="1.5" stroke-dasharray="4 3"/>
+            <path d="M26 8l8 6-8 6" stroke="rgba(42,138,234,0.4)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          </svg>
+        </div>
+
+        <!-- Core: DRCT platform -->
+        <div class="flow-col flow-col--core">
+          <div class="flow-core__badge">DRCT</div>
+          <p class="flow-eyebrow">DRCT platform</p>
+          <h3 class="flow-heading">One unified layer</h3>
+          <p class="flow-caption">Full control · Unified structure · Preserved offer logic</p>
+          <div class="flow-pipeline">
+            <div class="flow-pipe__step">
+              <span class="flow-pipe__n">01</span>
+              <span class="flow-pipe__text">Ingestion &amp; normalization</span>
+            </div>
+            <div class="flow-pipe__step">
+              <span class="flow-pipe__n">02</span>
+              <span class="flow-pipe__text">Offer assembly &amp; enrichment</span>
+            </div>
+            <div class="flow-pipe__step">
+              <span class="flow-pipe__n">03</span>
+              <span class="flow-pipe__text">Merchandising &amp; pricing</span>
+            </div>
+            <div class="flow-pipe__step">
+              <span class="flow-pipe__n">04</span>
+              <span class="flow-pipe__text">Order &amp; servicing layer</span>
+            </div>
+          </div>
+          <p class="flow-core__note">Full control · Unified structure · Preserved offer logic</p>
+        </div>
+
+        <!-- Arrow → -->
+        <div class="flow-arrow">
+          <svg width="40" height="28" viewBox="0 0 40 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 14h30" stroke="rgba(42,138,234,0.3)" stroke-width="1.5" stroke-dasharray="4 3"/>
+            <path d="M26 8l8 6-8 6" stroke="rgba(42,138,234,0.4)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          </svg>
+        </div>
+
+        <!-- Destination: Travel sellers -->
+        <div class="flow-col flow-col--dest">
+          <p class="flow-eyebrow">Travel sellers</p>
+          <h3 class="flow-heading">Every channel</h3>
+          <p class="flow-caption">Agencies · OTAs · TMCs · Super Apps</p>
+          <div class="flow-items">
+            <div class="flow-item"><span class="flow-dot" style="background:#9370db"></span>IATA agencies</div>
+            <div class="flow-item"><span class="flow-dot" style="background:#ff9f00"></span>Non-IATA agents</div>
+            <div class="flow-item"><span class="flow-dot" style="background:#33c100"></span>OTAs · Tech sellers</div>
+            <div class="flow-item"><span class="flow-dot" style="background:var(--blue)"></span>TMCs · Super Apps</div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="step-row">
+        <div class="step-col">
+          <div class="step-icon"><svg width="18" height="18" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 2l6 3-6 3-6-3 6-3z" stroke="#2a8aea" stroke-width="1.2" stroke-linejoin="round"/><path d="M2 8l6 3 6-3" stroke="#2a8aea" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" opacity=".5"/><path d="M2 11l6 3 6-3" stroke="#2a8aea" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" opacity=".3"/></svg></div>
+          <h3>Offer ingestion</h3>
+          <p>DRCT ingests your offers, normalizing them into a unified structure while preserving full offer logic and attributes.</p>
+        </div>
+        <div class="step-col">
+          <div class="step-icon"><svg width="18" height="18" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 2.5l1.4 3.1 3.1 1.4-3.1 1.4L8 11.5 6.6 8.4 3.5 7l3.1-1.4z" stroke="#2a8aea" stroke-width="1.2" stroke-linejoin="round"/></svg></div>
+          <h3>Offer assembly and enrichment</h3>
+          <p>DRCT assembles and enriches offers — including virtual interlining, where itineraries are built from multiple airline offers to create routing options not available through a single carrier.</p>
+        </div>
+        <div class="step-col">
+          <div class="step-icon"><svg width="18" height="18" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="8" r="5.5" stroke="#2a8aea" stroke-width="1.2"/><circle cx="8" cy="8" r="2.4" stroke="#2a8aea" stroke-width="1.2"/></svg></div>
+          <h3>Distribution to sellers</h3>
+          <p>Enriched offers are delivered to every connected seller — through DRCT Extension, Search, or API — intact and consistent across channels.</p>
+        </div>
+        <div class="step-col">
+          <div class="step-icon"><svg width="18" height="18" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="8" r="6" stroke="#2a8aea" stroke-width="1.2"/><circle cx="8" cy="8" r="2.4" stroke="#2a8aea" stroke-width="1.2"/><path d="M3.8 3.8l2.5 2.5M9.7 9.7l2.5 2.5M12.2 3.8L9.7 6.3M6.3 9.7l-2.5 2.5" stroke="#2a8aea" stroke-width="1.2" stroke-linecap="round"/></svg></div>
+          <h3>Order management</h3>
+          <p>All post-booking operations — changes, cancellations, refunds, ancillaries — are handled through DRCT's order management layer. Airlines retain full visibility and control, while agents can service bookings without additional airline involvement.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- ================================================================
+     AIRLINE NETWORK
+================================================================ -->
+<div class="landing-new loaded">
+  <div class="landing-new__body">
+    <section class="certified" id="network">
+      <h2>Leading carriers. One connection.</h2>
+      <p class="certified__description">Access direct, normalized offers from leading airlines through a single integration. Full content, consistent terms, no per-carrier contracts.</p>
+      <div class="certified__airlines">
+
+        <div class="certified__airline"><div class="al-logo" style="background:#e8ecf8;"><img src="https://www.gstatic.com/flights/airline_logos/70px/BT.png" alt="airBaltic"></div><p>airBaltic</p></div>
+        <div class="certified__airline"><div class="al-logo" style="background:#f0f2f5;"><img src="https://www.gstatic.com/flights/airline_logos/70px/OS.png" alt="Austrian"></div><p>Austrian</p></div>
+        <div class="certified__airline"><div class="al-logo" style="background:#f0f2f5;"><img src="https://www.gstatic.com/flights/airline_logos/70px/AA.png" alt="American Airlines"></div><p>American Airlines</p></div>
+        <div class="certified__airline"><div class="al-logo" style="background:#f0f2f5;"><img src="https://www.gstatic.com/flights/airline_logos/70px/BA.png" alt="British Airways"></div><p>British Airways</p></div>
+        <div class="certified__airline"><div class="al-logo" style="background:#f0f2f5;"><img src="https://www.gstatic.com/flights/airline_logos/70px/AF.png" alt="Air France"></div><p>Air France</p></div>
+
+        <div class="certified__airline"><div class="al-logo" style="background:#ec1b24;"><img src="https://www.gstatic.com/flights/airline_logos/70px/EK.png" alt="Emirates"></div><p>Emirates</p></div>
+        <div class="certified__airline"><div class="al-logo" style="background:#f0f2f5;"><img src="https://www.gstatic.com/flights/airline_logos/70px/FZ.png" alt="flydubai"></div><p>flydubai</p></div>
+        <div class="certified__airline"><div class="al-logo" style="background:#f0f2f5;"><img src="https://www.gstatic.com/flights/airline_logos/70px/IB.png" alt="Iberia"></div><p>Iberia</p></div>
+        <div class="certified__airline"><div class="al-logo" style="background:#dde9f7;"><img src="https://www.gstatic.com/flights/airline_logos/70px/LO.png" alt="LOT"></div><p>LOT</p></div>
+        <div class="certified__airline"><div class="al-logo" style="background:#e4e8f5;"><img src="https://www.gstatic.com/flights/airline_logos/70px/LH.png" alt="Lufthansa"></div><p>Lufthansa</p></div>
+
+        <div class="certified__airline"><div class="al-logo" style="background:#f0f2f5;"><img src="https://www.gstatic.com/flights/airline_logos/70px/LX.png" alt="SWISS"></div><p>SWISS</p></div>
+        <div class="certified__airline"><div class="al-logo" style="background:#f0f2f5;"><img src="https://www.gstatic.com/flights/airline_logos/70px/TP.png" alt="TAP"></div><p>TAP</p></div>
+        <div class="certified__airline"><div class="al-logo" style="background:#f0f2f5;"><img src="https://www.gstatic.com/flights/airline_logos/70px/UA.png" alt="United Airlines"></div><p>United Airlines</p></div>
+        <div class="certified__airline certified__airline--badge"><div class="al-logo al-logo--live"><span class="al-badge-live">LIVE<sup>·</sup><strong>+30</strong></span></div><p>Live on network</p></div>
+        <div class="certified__airline certified__airline--badge"><div class="al-logo al-logo--impl"><span class="al-badge-impl">IMPL<strong>10</strong></span></div><p>Implementing</p></div>
+      </div>
+      <div style="text-align:center; margin-top:40px;">
+        <a href="../supply-network/index.html" class="btn-secondary">See full network ↗</a>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- ================================================================
+     IMPACT METRICS
+================================================================ -->
+<div class="landing-new loaded">
+  <div class="landing-new__body">
+    <section class="metrics" id="metrics">
+
+      <div class="metrics__head">
+        <h2 class="metrics__title">DRCT by the numbers</h2>
+      </div>
+
+      <div class="metrics__grid">
+
+        <!-- ─── 40+ Airlines ──────────────────────────────────── -->
+        <div class="metrics__col">
+          <span class="metrics__value">40<sup>+</sup></span>
+          <h3 class="metrics__label">Connected Airlines</h3>
+          <p class="metrics__desc">Full-service and low-cost carriers live on the network.</p>
+        </div>
+
+        <!-- ─── 1,100+ Travel Sellers ─────────────────────────── -->
+        <div class="metrics__col">
+          <span class="metrics__value">1,100<sup>+</sup></span>
+          <h3 class="metrics__label">Travel Sellers</h3>
+          <p class="metrics__desc">Individual agents across TMCs, OTAs, and API partners globally.</p>
+        </div>
+
+        <!-- ─── 200+ Agency Partners ──────────────────────────── -->
+        <div class="metrics__col">
+          <span class="metrics__value">200<sup>+</sup></span>
+          <h3 class="metrics__label">Agency Partners</h3>
+          <p class="metrics__desc">TMCs, OTAs, and travel agencies across Europe, the U.K., and the U.S.</p>
+        </div>
+
+      </div>
+
+    </section>
+  </div>
+</div>
+
+
+<!-- ================================================================
+     PRODUCT OVERVIEW
+================================================================ -->
+<div class="landing-new loaded" style="background: rgba(27,39,51,0.025);">
+  <div class="landing-new__body">
+    <section class="section-block" id="products">
+      <div class="section-block__head">
+        <h2>Tools to adapt, enhance, and activate airline offers across every channel.</h2>
+        <p>One distribution layer, four surfaces — each tuned to a specific audience of travel sellers.</p>
+      </div>
+
+      <div class="prod-grid">
+
+        <!-- DRCT BT -->
+        <div class="prod-card">
+          <div class="prod-card__visual">
+            <svg viewBox="0 0 480 248" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+              <rect width="480" height="248" fill="#f4f6fb"/>
+              <!-- White card panel -->
+              <rect x="22" y="14" width="436" height="220" rx="9" fill="#fff" stroke="rgba(27,39,51,0.07)" stroke-width="1"/>
+              <!-- Search bar bg -->
+              <rect x="22" y="14" width="436" height="47" rx="9" fill="#f6f7f8"/>
+              <rect x="22" y="43" width="436" height="18" fill="#f6f7f8"/>
+              <!-- FROM -->
+              <rect x="30" y="18" width="116" height="37" rx="5" fill="#fff" stroke="rgba(27,39,51,0.1)" stroke-width="1"/>
+              <text x="38" y="29" fill="rgba(27,39,51,0.35)" font-size="7" font-family="IBM Plex Mono,monospace" letter-spacing="0.4">FROM</text>
+              <text x="38" y="47" fill="#1b2733" font-size="14" font-family="IBM Plex Sans,sans-serif" font-weight="700">MUC</text>
+              <!-- Swap -->
+              <circle cx="157" cy="37" r="10" fill="#fff" stroke="rgba(27,39,51,0.1)" stroke-width="1"/>
+              <path d="M152 37h10M153 34.5l-2.5 2.5 2.5 2.5M161 39.5l2.5-2.5-2.5-2.5" stroke="#2a8aea" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+              <!-- TO -->
+              <rect x="169" y="18" width="116" height="37" rx="5" fill="#fff" stroke="#2a8aea" stroke-width="1.3"/>
+              <text x="177" y="29" fill="rgba(27,39,51,0.35)" font-size="7" font-family="IBM Plex Mono,monospace" letter-spacing="0.4">TO</text>
+              <text x="177" y="47" fill="#1b2733" font-size="14" font-family="IBM Plex Sans,sans-serif" font-weight="700">LHR</text>
+              <!-- DATE -->
+              <rect x="293" y="18" width="90" height="37" rx="5" fill="#fff" stroke="rgba(27,39,51,0.1)" stroke-width="1"/>
+              <text x="301" y="29" fill="rgba(27,39,51,0.35)" font-size="7" font-family="IBM Plex Mono,monospace" letter-spacing="0.4">DATE</text>
+              <text x="301" y="47" fill="#1b2733" font-size="11" font-family="IBM Plex Sans,sans-serif" font-weight="500">Mar 15</text>
+              <!-- Search btn -->
+              <rect x="391" y="18" width="59" height="37" rx="5" fill="#2a8aea"/>
+              <text x="420" y="40" text-anchor="middle" fill="#fff" font-size="10.5" font-family="IBM Plex Sans,sans-serif" font-weight="700">Search</text>
+              <!-- Divider -->
+              <line x1="22" y1="61" x2="458" y2="61" stroke="rgba(27,39,51,0.07)" stroke-width="1"/>
+              <!-- Row 1 selected -->
+              <rect x="30" y="69" width="420" height="46" rx="6" fill="rgba(42,138,234,0.05)" stroke="rgba(42,138,234,0.22)" stroke-width="1"/>
+              <rect x="38" y="79" width="24" height="24" rx="4" fill="#003087"/>
+              <text x="50" y="95" text-anchor="middle" fill="#fff" font-size="8.5" font-family="IBM Plex Mono,monospace" font-weight="700">BA</text>
+              <text x="70" y="87" fill="#1b2733" font-size="10.5" font-family="IBM Plex Sans,sans-serif" font-weight="600">British Airways</text>
+              <text x="70" y="101" fill="rgba(27,39,51,0.45)" font-size="9" font-family="IBM Plex Mono,monospace">09:20 &#8594; 10:55 &#183; 1h 35m &#183; Direct</text>
+              <text x="442" y="88" text-anchor="end" fill="#2a8aea" font-size="13.5" font-family="IBM Plex Mono,monospace" font-weight="700">&#163; 184</text>
+              <text x="442" y="101" text-anchor="end" fill="rgba(27,39,51,0.33)" font-size="8.5" font-family="IBM Plex Mono,monospace">per pax</text>
+              <!-- Row 2 -->
+              <rect x="30" y="123" width="420" height="46" rx="6" fill="#fff" stroke="rgba(27,39,51,0.07)" stroke-width="1"/>
+              <rect x="38" y="133" width="24" height="24" rx="4" fill="#00428f"/>
+              <text x="50" y="149" text-anchor="middle" fill="#fff" font-size="8.5" font-family="IBM Plex Mono,monospace" font-weight="700">LH</text>
+              <text x="70" y="141" fill="#1b2733" font-size="10.5" font-family="IBM Plex Sans,sans-serif" font-weight="600">Lufthansa</text>
+              <text x="70" y="155" fill="rgba(27,39,51,0.45)" font-size="9" font-family="IBM Plex Mono,monospace">11:40 &#8594; 13:15 &#183; 1h 35m &#183; Direct</text>
+              <text x="442" y="142" text-anchor="end" fill="rgba(27,39,51,0.55)" font-size="13.5" font-family="IBM Plex Mono,monospace" font-weight="700">&#163; 211</text>
+              <text x="442" y="155" text-anchor="end" fill="rgba(27,39,51,0.33)" font-size="8.5" font-family="IBM Plex Mono,monospace">per pax</text>
+              <!-- Row 3 skeleton -->
+              <rect x="30" y="177" width="420" height="40" rx="6" fill="rgba(27,39,51,0.02)" stroke="rgba(27,39,51,0.05)" stroke-width="1"/>
+              <rect x="38" y="188" width="18" height="18" rx="3" fill="rgba(27,39,51,0.06)"/>
+              <rect x="64" y="191" width="76" height="5" rx="2.5" fill="rgba(27,39,51,0.05)"/>
+              <rect x="64" y="201" width="52" height="4" rx="2" fill="rgba(27,39,51,0.04)"/>
+              <rect x="386" y="191" width="44" height="5" rx="2.5" fill="rgba(27,39,51,0.05)"/>
+            </svg>
+          </div>
+          <div class="prod-card__body">
+            <p class="prod-card__tag">Agencies &#183; Non-IATA</p>
+            <h3 class="prod-card__name">DRCT BT</h3>
+            <p class="prod-card__desc">A full-featured booking interface for independent agents and non-IATA agencies &#8212; search, compare, and book NDC content without GDS accreditation.</p>
+            <a href="../products/bt.html" class="link-btn">Learn more &#8594;</a>
+          </div>
+        </div>
+
+        <!-- DRCT BT for TMC -->
+        <div class="prod-card">
+          <div class="prod-card__visual">
+            <svg viewBox="0 0 480 248" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+              <rect width="480" height="248" fill="#f4f6fb"/>
+              <rect x="22" y="14" width="436" height="220" rx="9" fill="#fff" stroke="rgba(27,39,51,0.07)" stroke-width="1"/>
+              <!-- Header -->
+              <text x="38" y="36" fill="#1b2733" font-size="12" font-family="IBM Plex Sans,sans-serif" font-weight="600">London &#183; Apr 12&#8211;15</text>
+              <text x="38" y="50" fill="rgba(27,39,51,0.38)" font-size="9" font-family="IBM Plex Sans,sans-serif">3 travelers</text>
+              <line x1="22" y1="62" x2="458" y2="62" stroke="rgba(27,39,51,0.07)" stroke-width="1"/>
+              <!-- Col labels -->
+              <text x="38" y="79" fill="rgba(27,39,51,0.32)" font-size="7.5" font-family="IBM Plex Sans,sans-serif" font-weight="600" letter-spacing="0.3">TRAVELER</text>
+              <text x="340" y="79" fill="rgba(27,39,51,0.32)" font-size="7.5" font-family="IBM Plex Sans,sans-serif" font-weight="600" letter-spacing="0.3">CLASS</text>
+              <!-- Row 1 -->
+              <circle cx="48" cy="106" r="14" fill="rgba(42,138,234,0.1)"/>
+              <text x="48" y="110" text-anchor="middle" fill="#2a8aea" font-size="8.5" font-family="IBM Plex Sans,sans-serif" font-weight="700">AC</text>
+              <text x="70" y="102" fill="#1b2733" font-size="10.5" font-family="IBM Plex Sans,sans-serif" font-weight="600">Alice Chen</text>
+              <text x="70" y="115" fill="rgba(27,39,51,0.4)" font-size="8.5" font-family="IBM Plex Mono,monospace">alice@corp.com</text>
+              <text x="346" y="107" fill="rgba(27,39,51,0.5)" font-size="9.5" font-family="IBM Plex Sans,sans-serif">Economy</text>
+              <line x1="36" y1="130" x2="444" y2="130" stroke="rgba(27,39,51,0.06)" stroke-width="1"/>
+              <!-- Row 2 -->
+              <circle cx="48" cy="156" r="14" fill="rgba(27,39,51,0.05)"/>
+              <text x="48" y="160" text-anchor="middle" fill="rgba(27,39,51,0.4)" font-size="8.5" font-family="IBM Plex Sans,sans-serif" font-weight="700">BM</text>
+              <text x="70" y="152" fill="#1b2733" font-size="10.5" font-family="IBM Plex Sans,sans-serif" font-weight="600">Bob Martin</text>
+              <text x="70" y="165" fill="rgba(27,39,51,0.4)" font-size="8.5" font-family="IBM Plex Mono,monospace">bob@corp.com</text>
+              <text x="346" y="157" fill="rgba(27,39,51,0.5)" font-size="9.5" font-family="IBM Plex Sans,sans-serif">Business</text>
+              <line x1="36" y1="180" x2="444" y2="180" stroke="rgba(27,39,51,0.06)" stroke-width="1"/>
+              <!-- Row 3 -->
+              <circle cx="48" cy="206" r="14" fill="rgba(42,138,234,0.1)"/>
+              <text x="48" y="210" text-anchor="middle" fill="#2a8aea" font-size="8.5" font-family="IBM Plex Sans,sans-serif" font-weight="700">SK</text>
+              <text x="70" y="202" fill="#1b2733" font-size="10.5" font-family="IBM Plex Sans,sans-serif" font-weight="600">Sarah Kim</text>
+              <text x="70" y="215" fill="rgba(27,39,51,0.4)" font-size="8.5" font-family="IBM Plex Mono,monospace">sarah@corp.com</text>
+              <text x="346" y="207" fill="rgba(27,39,51,0.5)" font-size="9.5" font-family="IBM Plex Sans,sans-serif">Economy</text>
+            </svg>
+          </div>
+          <div class="prod-card__body">
+            <p class="prod-card__tag">Corporate travel</p>
+            <h3 class="prod-card__name">DRCT BT for TMC</h3>
+            <p class="prod-card__desc">Built for travel management companies &#8212; policy controls, multi-traveler management, and NDC access integrated into a single workflow.</p>
+            <a href="../products/bt-for-tms.html" class="link-btn">Learn more &#8594;</a>
+          </div>
+        </div>
+
+        <!-- DRCT API -->
+        <div class="prod-card">
+          <div class="prod-card__visual">
+            <svg viewBox="0 0 480 248" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+              <rect width="480" height="248" fill="#f4f6fb"/>
+              <rect x="22" y="14" width="436" height="220" rx="9" fill="#fff" stroke="rgba(27,39,51,0.07)" stroke-width="1"/>
+              <!-- Header bar (light) -->
+              <rect x="22" y="14" width="436" height="48" rx="9" fill="#f8f9fa"/>
+              <rect x="22" y="44" width="436" height="18" fill="#f8f9fa"/>
+              <text x="38" y="31" fill="rgba(27,39,51,0.38)" font-size="8.5" font-family="IBM Plex Mono,monospace">GET /v2/offers/search</text>
+              <text x="38" y="52" fill="#1b2733" font-size="11" font-family="IBM Plex Sans,sans-serif" font-weight="600">MUC &#8594; LHR &#183; Mar 15, 2025</text>
+              <line x1="22" y1="62" x2="458" y2="62" stroke="rgba(27,39,51,0.07)" stroke-width="1"/>
+              <!-- Row 1 -->
+              <rect x="30" y="70" width="420" height="46" rx="6" fill="rgba(42,138,234,0.05)" stroke="rgba(42,138,234,0.22)" stroke-width="1"/>
+              <rect x="38" y="80" width="24" height="24" rx="4" fill="#003087"/>
+              <text x="50" y="96" text-anchor="middle" fill="#fff" font-size="8.5" font-family="IBM Plex Mono,monospace" font-weight="700">BA</text>
+              <text x="70" y="88" fill="#1b2733" font-size="10.5" font-family="IBM Plex Sans,sans-serif" font-weight="600">British Airways</text>
+              <text x="70" y="102" fill="rgba(27,39,51,0.45)" font-size="9" font-family="IBM Plex Mono,monospace">09:20 &#8594; 10:55 &#183; 1h 35m &#183; Direct</text>
+              <text x="442" y="89" text-anchor="end" fill="#2a8aea" font-size="13.5" font-family="IBM Plex Mono,monospace" font-weight="700">&#163; 184</text>
+              <text x="442" y="102" text-anchor="end" fill="rgba(27,39,51,0.33)" font-size="8.5" font-family="IBM Plex Mono,monospace">per pax</text>
+              <!-- Row 2 -->
+              <rect x="30" y="124" width="420" height="46" rx="6" fill="#fff" stroke="rgba(27,39,51,0.07)" stroke-width="1"/>
+              <rect x="38" y="134" width="24" height="24" rx="4" fill="#00428f"/>
+              <text x="50" y="150" text-anchor="middle" fill="#fff" font-size="8.5" font-family="IBM Plex Mono,monospace" font-weight="700">LH</text>
+              <text x="70" y="142" fill="#1b2733" font-size="10.5" font-family="IBM Plex Sans,sans-serif" font-weight="600">Lufthansa</text>
+              <text x="70" y="156" fill="rgba(27,39,51,0.45)" font-size="9" font-family="IBM Plex Mono,monospace">11:40 &#8594; 13:15 &#183; 1h 35m &#183; Direct</text>
+              <text x="442" y="143" text-anchor="end" fill="rgba(27,39,51,0.55)" font-size="13.5" font-family="IBM Plex Mono,monospace" font-weight="700">&#163; 211</text>
+              <text x="442" y="156" text-anchor="end" fill="rgba(27,39,51,0.33)" font-size="8.5" font-family="IBM Plex Mono,monospace">per pax</text>
+              <!-- Row 3 skeleton -->
+              <rect x="30" y="178" width="420" height="40" rx="6" fill="rgba(27,39,51,0.02)" stroke="rgba(27,39,51,0.05)" stroke-width="1"/>
+              <rect x="38" y="189" width="18" height="18" rx="3" fill="rgba(27,39,51,0.06)"/>
+              <rect x="64" y="192" width="76" height="5" rx="2.5" fill="rgba(27,39,51,0.05)"/>
+              <rect x="64" y="202" width="52" height="4" rx="2" fill="rgba(27,39,51,0.04)"/>
+              <rect x="386" y="192" width="44" height="5" rx="2.5" fill="rgba(27,39,51,0.05)"/>
+              <!-- Footer meta -->
+              <text x="38" y="228" fill="rgba(27,39,51,0.3)" font-size="8" font-family="IBM Plex Mono,monospace">12 offers returned &#183; 124ms</text>
+            </svg>
+          </div>
+          <div class="prod-card__body">
+            <p class="prod-card__tag">OTAs &#183; Tech sellers</p>
+            <h3 class="prod-card__name">DRCT API</h3>
+            <p class="prod-card__desc">Programmatic access to the full DRCT distribution layer &#8212; NDC fares, GDS content, and order management endpoints for OTAs and tech-enabled sellers.</p>
+            <a href="../products/api.html" class="link-btn">Learn more &#8594;</a>
+          </div>
+        </div>
+
+        <!-- DRCT Extension -->
+        <div class="prod-card">
+          <div class="prod-card__visual">
+            <svg viewBox="0 0 480 248" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+              <rect width="480" height="248" fill="#eaecf4"/>
+              <!-- Subtle background lines (abstract GDS context) -->
+              <rect x="14" y="22" width="188" height="7" rx="3" fill="rgba(27,39,51,0.07)"/>
+              <rect x="14" y="37" width="156" height="6" rx="3" fill="rgba(27,39,51,0.05)"/>
+              <rect x="14" y="52" width="172" height="6" rx="3" fill="rgba(27,39,51,0.05)"/>
+              <rect x="14" y="67" width="140" height="6" rx="3" fill="rgba(27,39,51,0.04)"/>
+              <rect x="14" y="82" width="164" height="6" rx="3" fill="rgba(27,39,51,0.04)"/>
+              <rect x="14" y="97" width="130" height="6" rx="3" fill="rgba(27,39,51,0.03)"/>
+              <rect x="14" y="112" width="150" height="6" rx="3" fill="rgba(27,39,51,0.03)"/>
+              <rect x="14" y="127" width="120" height="6" rx="3" fill="rgba(27,39,51,0.02)"/>
+              <!-- DRCT Extension popup card -->
+              <rect x="220" y="10" width="248" height="228" rx="10" fill="rgba(27,39,51,0.1)" transform="translate(2,3)"/>
+              <rect x="220" y="10" width="248" height="228" rx="10" fill="#fff"/>
+              <!-- Popup header -->
+              <rect x="220" y="10" width="248" height="48" rx="10" fill="#1b2733"/>
+              <rect x="220" y="38" width="248" height="20" fill="#1b2733"/>
+              <text x="234" y="29" fill="#fff" font-size="12" font-family="IBM Plex Sans,sans-serif" font-weight="700">DRCT</text>
+              <text x="460" y="27" text-anchor="end" fill="rgba(255,255,255,0.4)" font-size="8" font-family="IBM Plex Sans,sans-serif">2 NDC offers</text>
+              <text x="234" y="47" fill="rgba(255,255,255,0.4)" font-size="8.5" font-family="IBM Plex Sans,sans-serif">MUC &#8594; LHR &#183; Mar 15</text>
+              <!-- Offer 1 -->
+              <rect x="230" y="66" width="228" height="52" rx="6" fill="rgba(42,138,234,0.05)" stroke="rgba(42,138,234,0.22)" stroke-width="1"/>
+              <rect x="238" y="76" width="22" height="22" rx="4" fill="#003087"/>
+              <text x="249" y="91" text-anchor="middle" fill="#fff" font-size="8.5" font-family="IBM Plex Mono,monospace" font-weight="700">BA</text>
+              <text x="267" y="82" fill="#1b2733" font-size="10" font-family="IBM Plex Sans,sans-serif" font-weight="600">British Airways</text>
+              <text x="267" y="95" fill="rgba(27,39,51,0.45)" font-size="8.5" font-family="IBM Plex Mono,monospace">09:20&#8211;10:55 &#183; Direct</text>
+              <text x="450" y="84" text-anchor="end" fill="#2a8aea" font-size="13" font-family="IBM Plex Mono,monospace" font-weight="700">&#163;184</text>
+              <text x="450" y="97" text-anchor="end" fill="rgba(27,39,51,0.33)" font-size="7.5" font-family="IBM Plex Mono,monospace">per pax</text>
+              <!-- Offer 2 -->
+              <rect x="230" y="126" width="228" height="52" rx="6" fill="#fff" stroke="rgba(27,39,51,0.08)" stroke-width="1"/>
+              <rect x="238" y="136" width="22" height="22" rx="4" fill="#00428f"/>
+              <text x="249" y="151" text-anchor="middle" fill="#fff" font-size="8.5" font-family="IBM Plex Mono,monospace" font-weight="700">LH</text>
+              <text x="267" y="142" fill="#1b2733" font-size="10" font-family="IBM Plex Sans,sans-serif" font-weight="600">Lufthansa</text>
+              <text x="267" y="155" fill="rgba(27,39,51,0.45)" font-size="8.5" font-family="IBM Plex Mono,monospace">11:40&#8211;13:15 &#183; Direct</text>
+              <text x="450" y="144" text-anchor="end" fill="rgba(27,39,51,0.55)" font-size="13" font-family="IBM Plex Mono,monospace" font-weight="700">&#163;211</text>
+              <text x="450" y="157" text-anchor="end" fill="rgba(27,39,51,0.33)" font-size="7.5" font-family="IBM Plex Mono,monospace">per pax</text>
+              <!-- Book button -->
+              <rect x="230" y="188" width="228" height="32" rx="6" fill="#2a8aea"/>
+              <text x="344" y="208" text-anchor="middle" fill="#fff" font-size="11" font-family="IBM Plex Sans,sans-serif" font-weight="700">Book NDC fare</text>
+            </svg>
+          </div>
+          <div class="prod-card__body">
+            <p class="prod-card__tag">GDS users</p>
+            <h3 class="prod-card__name">DRCT Extension</h3>
+            <p class="prod-card__desc">An NDC layer that runs inside the GDS &#8212; agents access NDC content and enhanced offers without leaving the interface they already use.</p>
+            <a href="../products/extension.html" class="link-btn">Learn more &#8594;</a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- ================================================================
+     WHY AIRLINES CHOOSE DRCT
+================================================================ -->
+<section class="benefits">
+  <div class="benefits__container">
+    <h2>Why Airlines Choose DRCT</h2>
+    <p>DRCT gives airlines something most airline distribution platforms can't: genuine coverage of every agent type, with the tools those agents actually need to sell and service NDC content confidently.</p>
+    <div class="benefits__body">
+      <div class="benefits__list" id="benefitsList">
+
+        <div class="benefit__item benefit__item--0">
+          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='42' height='42' viewBox='0 0 42 42'%3E%3Crect width='42' height='42' rx='8' fill='%232a8aea' fill-opacity='.12'/%3E%3Ccircle cx='15' cy='17' r='3.2' fill='none' stroke='%232a8aea' stroke-width='1.5'/%3E%3Ccircle cx='27' cy='17' r='3.2' fill='none' stroke='%232a8aea' stroke-width='1.5'/%3E%3Cpath stroke='%232a8aea' stroke-width='1.5' fill='none' stroke-linecap='round' d='M9 30c0-3.3 2.7-6 6-6s6 2.7 6 6M21 30c0-3.3 2.7-6 6-6s6 2.7 6 6'/%3E%3C/svg%3E" alt="">
+          <h3>Full agent coverage across all workflows</h3>
+          <p>Reach IATA and non-IATA agencies, OTAs, and TMCs: DRCT offers Extension (inside GDS), Search (UI), and API, allowing all three to work together and giving agents instant access to NDC content in the environment they already use.</p>
+        </div>
+
+        <div class="benefit__item benefit__item--1">
+          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='42' height='42' viewBox='0 0 42 42'%3E%3Crect width='42' height='42' rx='8' fill='%232a8aea' fill-opacity='.12'/%3E%3Cpath d='M14 21l4.5 4.5L29 15' fill='none' stroke='%232a8aea' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" alt="">
+          <h3>Autonomous sales for agents</h3>
+          <p>Agents search, compare, and book your NDC content without needing to call your airline. Full self-service from fare selection to ticketing.</p>
+        </div>
+
+        <div class="benefit__item benefit__item--2">
+          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='42' height='42' viewBox='0 0 42 42'%3E%3Crect width='42' height='42' rx='8' fill='%232a8aea' fill-opacity='.12'/%3E%3Cpath d='M11 27l7-7 4 4 9-9' fill='none' stroke='%232a8aea' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M27 15h4v4' fill='none' stroke='%232a8aea' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" alt="">
+          <h3>Post-booking self-service</h3>
+          <p>Changes, cancellations, refunds, and ancillary additions handled by agents directly. No manual queues. No airline intervention required.</p>
+        </div>
+
+        <div class="benefit__item benefit__item--3">
+          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='42' height='42' viewBox='0 0 42 42'%3E%3Crect width='42' height='42' rx='8' fill='%232a8aea' fill-opacity='.12'/%3E%3Cpath fill='%232a8aea' d='M21 10l2.7 5.5 6.1.9-4.4 4.3 1 6-5.4-2.9-5.4 2.9 1-6-4.4-4.3 6.1-.9z'/%3E%3C/svg%3E" alt="">
+          <h3>Ancillaries and add-ons</h3>
+          <p>Agents can attach seats, baggage, and other services at the point of sale — increasing average booking value without extra effort on your side.</p>
+        </div>
+
+        <div class="benefit__item benefit__item--4">
+          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='42' height='42' viewBox='0 0 42 42'%3E%3Crect width='42' height='42' rx='8' fill='%232a8aea' fill-opacity='.12'/%3E%3Cpath d='M12.5 11L9 21.5h6L12 31l11.5-12H17l2.5-8z' fill='rgba(42,138,234,0.12)' stroke='%232a8aea' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" alt="">
+          <h3>Faster NDC adoption</h3>
+          <p>Agents join NDC on their own terms — through the tool that fits their workflow. No forced migration.</p>
+        </div>
+
+        <div class="benefit__item benefit__item--5">
+          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='42' height='42' viewBox='0 0 42 42'%3E%3Crect width='42' height='42' rx='8' fill='%232a8aea' fill-opacity='.12'/%3E%3Cpath d='M21 11a9 9 0 1 1 0 18 9 9 0 0 1 0-18zm0 4v6l4 2' fill='none' stroke='%232a8aea' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" alt="">
+          <h3>24/7 operational support</h3>
+          <p>Distribution issues, booking failures, and escalations — resolved by people who built the platform.</p>
+        </div>
+
+      </div>
+      <a href="#" class="link-btn" id="benefitsToggle">View more</a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ================================================================
+     FREQUENTLY ASKED QUESTIONS
+================================================================ -->
+<div class="landing-new loaded">
+  <div class="landing-new__body">
+    <section class="questions">
+      <h2>Frequently Asked Questions</h2>
+      <div class="questions__body">
+        <ul id="faqList">
+          <li>
+            <h3>Can airlines fully replace GDS with NDC?<span></span></h3>
+            <p>Most airlines cannot fully replace GDS overnight. A gradual GDS to NDC migration is more realistic, allowing airlines to maintain agent coverage while increasing NDC volume. A hybrid approach ensures operational stability and avoids disruptions during replacing GDS with NDC.</p>
+          </li>
+          <li>
+            <h3>How does hybrid airline distribution (GDS + NDC) work in practice?<span></span></h3>
+            <p>In hybrid airline distribution, GDS and NDC content coexist in one platform. DRCT enables mixing GDS and NDC content, providing a unified view for agents while simplifying operations. This approach ensures consistent content distribution across all sales channels.</p>
+          </li>
+          <li>
+            <h3>How can airlines transition from GDS to NDC without losing agent coverage?<span></span></h3>
+            <p>Airlines can transition using a phased approach with NDC integration layered on top of existing GDS workflows. DRCT ensures agents continue working in familiar environments while airlines scale NDC adoption without losing distribution reach.</p>
+          </li>
+          <li>
+            <h3>How does DRCT help reduce airline distribution costs?<span></span></h3>
+            <p>DRCT reduces costs by acting as an airline aggregator and shifting bookings from GDS to NDC and direct channels. This lowers reliance on intermediaries and optimizes ticket distribution, helping airlines decrease per-booking costs as NDC volume grows.</p>
+          </li>
+          <li>
+            <h3>How does DRCT support ancillary sales, bundles, and personalized offers?<span></span></h3>
+            <p>DRCT enhances NDC aggregator capabilities by enabling real-time bundles, ancillary upsells, and personalized pricing. We ensure these offers are consistently delivered across all channels, improving conversion and revenue per booking.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- ================================================================
+     FINAL CTA
+================================================================ -->
+<div class="landing-new loaded cta-final" id="contact">
+  <div class="landing-new__body">
+    <section class="section-block">
+      <div class="section-block__head">
+        <h2>Ready to modernize your distribution?</h2>
+        <p>Talk to the DRCT team about your current distribution setup and where you want to go.</p>
+      </div>
+      <div class="hero__ctas">
+        <a href="#" class="btn-primary">Request access ↗</a>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- ================================================================
+     FOOTER
+================================================================ -->
+<footer class="footer">
+  <div class="footer__top">
+    <div class="footer__left">
+      <div class="footer__links">
+        <span>Solutions</span>
+        <ul>
+          <li><a href="for-airlines.html">For Airlines</a></li>
+          <li><a href="iata-agencies.html">IATA Agencies</a></li>
+          <li><a href="non-iata-agencies.html">Non-IATA</a></li>
+          <li><a href="ota.html">OTA</a></li>
+          <li><a href="tms.html">TMS</a></li>
+        </ul>
+      </div>
+      <div class="footer__links">
+        <span>More</span>
+        <ul>
+          <li><a href="../products/bt.html">Products</a></li>
+          <li><a href="../supply-network/index.html">Supply Network</a></li>
+          <li><a href="../about.html">About</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="footer__bottom">
+    <div>
+      <i>© DRCT</i>
+    </div>
+  </div>
+</footer>
+
+<script src="../js/app.js"></script>
+</body>
+</html>
