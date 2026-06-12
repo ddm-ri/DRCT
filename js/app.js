@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function () {
   /* ---------------------------------------------------------------
      FAQ ACCORDION
   --------------------------------------------------------------- */
-  var faqItems = document.querySelectorAll('#faqList li');
+  var faqItems = document.querySelectorAll('#faqList li, .questions__body li');
 
   faqItems.forEach(function (item) {
     var heading = item.querySelector('h3');
@@ -29,8 +29,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     heading.addEventListener('click', function () {
       var isActive = item.classList.contains('active');
-      // Close all
-      faqItems.forEach(function (el) { el.classList.remove('active'); });
+      // Close all items in the same list
+      var siblings = item.closest('ul').querySelectorAll('li');
+      siblings.forEach(function (el) { el.classList.remove('active'); });
       // Open clicked (unless it was already open)
       if (!isActive) item.classList.add('active');
     });
