@@ -10,6 +10,122 @@
   <link rel="stylesheet" href="../css/styles.css">
   <link rel="stylesheet" href="../css/blocks.css">
   <link rel="stylesheet" href="../css/legacy.css">
+  <style>
+    /* ── Animated hero gradient ──────────────────────────────────── */
+    .sn-hero-outer { position: relative; }
+    .sn-hero-outer::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+      background: linear-gradient(180deg, rgba(42,138,234,0.18) 0%, rgba(42,138,234,0.04) 65%, transparent 100%);
+      animation: gradBreath 7s ease-in-out infinite;
+      pointer-events: none;
+    }
+    .sn-hero-outer .landing-new__body { position: relative; }
+    @keyframes gradBreath {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.45; }
+    }
+
+    /* ── Aurora animated ─────────────────────────────────────────── */
+    .aurora-animated { position: relative; }
+    .aurora-animated::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+      background: linear-gradient(135deg, rgba(100,210,140,0.18) 0%, rgba(255,255,255,0) 45%, rgba(42,138,234,0.15) 100%);
+      animation: auroraDrift 9s ease-in-out infinite;
+      pointer-events: none;
+    }
+    .aurora-animated .landing-new__body { position: relative; }
+    @keyframes auroraDrift {
+      0%, 100% { opacity: 0.65; }
+      50%       { opacity: 1; }
+    }
+
+    /* ── Hero ────────────────────────────────────────────────────── */
+    .sn-hero { padding: 90px 0 80px; text-align: center; }
+    .sn-hero h1 {
+      font-size: 44px; font-weight: 700; color: var(--dark);
+      letter-spacing: -0.6px; line-height: 1.15; margin: 20px auto 0; max-width: 700px;
+    }
+    .sn-hero p {
+      font-size: 17px; color: var(--dark-70); line-height: 1.65;
+      margin: 18px auto 0; max-width: 600px;
+    }
+    .sn-hero .hero__ctas { margin-top: 36px; }
+    @media (max-width: 767px) { .sn-hero h1 { font-size: 32px; } }
+    @media (max-width: 413px) { .sn-hero h1 { font-size: 27px; } .sn-hero p { font-size: 15px; } }
+
+    /* ── Airline grid ────────────────────────────────────────────── */
+    .airline-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-top: 48px;
+    }
+    @media (max-width: 1024px) { .airline-grid { grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 767px)  { .airline-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 413px)  { .airline-grid { grid-template-columns: 1fr; } }
+
+    .airline-card {
+      border-radius: 12px;
+      border: 1px solid var(--dark-10);
+      background: var(--white);
+      padding: 22px 20px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      text-decoration: none;
+      transition: box-shadow 0.2s, border-color 0.2s;
+    }
+    a.airline-card:hover {
+      box-shadow: var(--shadow-card);
+      border-color: rgba(42,138,234,0.25);
+    }
+    .airline-card--soon {
+      opacity: 0.6;
+      cursor: default;
+    }
+
+    .airline-card__logo {
+      width: 52px; height: 52px;
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+      margin-bottom: 14px;
+      flex-shrink: 0;
+    }
+    .airline-card__logo img { width: 72%; height: 72%; object-fit: contain; }
+
+    .airline-card__name {
+      font-size: 14px; font-weight: 700; color: var(--dark);
+      margin: 0 0 2px; line-height: 1.3;
+    }
+    .airline-card__iata {
+      font-size: 11px; font-weight: 600;
+      color: var(--dark-40); font-family: var(--font-mono);
+      letter-spacing: 0.5px; margin: 0 0 14px;
+    }
+    .airline-card__footer {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-top: auto; padding-top: 14px;
+      border-top: 1px solid var(--dark-05);
+    }
+    .airline-card__status {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.8px;
+      text-transform: uppercase; padding: 3px 8px; border-radius: 4px;
+    }
+    .airline-card__status--live {
+      background: rgba(51,193,0,0.10); color: var(--success);
+    }
+    .airline-card__status--soon {
+      background: rgba(27,39,51,0.06); color: var(--dark-40);
+    }
+    .airline-card__link {
+      font-size: 12px; font-weight: 600; color: var(--blue);
+      font-family: var(--font-mono);
+    }
+    .airline-card--soon .airline-card__link { display: none; }
+  </style>
 </head>
 <body>
 <header class="header" id="header">
@@ -35,7 +151,7 @@
           <a href="../products/extension.html">Extension</a>
         </div>
       </div>
-      <a href="../supply-network/index.html" class="header__nav-link">Supply Network</a>
+      <a href="index.html" class="header__nav-link active">Supply Network</a>
       <a href="../about.html" class="header__nav-link">About</a>
     </div>
     <div class="header__links-right">
@@ -61,33 +177,282 @@
     <li><a href="../products/api.html">API</a></li>
     <li><a href="../products/extension.html">Extension</a></li>
     <li class="menu__group-label">More</li>
-    <li><a href="../supply-network/index.html">Supply Network</a></li>
+    <li><a href="index.html">Supply Network</a></li>
     <li><a href="../about.html">About</a></li>
     <li><a href="#contact">Get in touch</a></li>
   </ul>
 </div>
-<div class="landing-new loaded" style="background-image: linear-gradient(180deg, rgba(42,138,234,0.12) 0%, rgba(42,138,234,0) 70%);">
+
+<!-- ================================================================
+     HERO
+================================================================ -->
+<div class="landing-new loaded sn-hero-outer">
   <div class="landing-new__body">
-    <section class="hero">
+    <section class="sn-hero">
       <span class="hero__badge">Supply Network</span>
-      <h1 class="hero__title">Supply Network</h1>
-      <h2 class="hero__subtitle">Coming soon — this page is under construction.</h2>
+      <h1>Every major airline. One connection.</h1>
+      <p>Access NDC and GDS content from 40+ carriers through a single DRCT integration — no per-airline contracts, no fragmented workflows.</p>
+      <div class="hero__ctas">
+        <a href="../solutions/for-airlines.html" class="btn-primary">For Airlines &#8599;</a>
+        <a href="#contact" class="btn-secondary">Get in touch &#8599;</a>
+      </div>
     </section>
   </div>
 </div>
-<div class="landing-new loaded cta-final" id="contact">
+
+<!-- ================================================================
+     NETWORK METRICS
+================================================================ -->
+<div class="landing-new loaded aurora-animated">
+  <div class="landing-new__body">
+    <section class="metrics">
+      <div class="metrics__head">
+        <h2 class="metrics__title">DRCT Supply Network</h2>
+      </div>
+      <div class="metrics__grid">
+        <div class="metrics__col">
+          <span class="metrics__value">40<sup>+</sup></span>
+          <h3 class="metrics__label">Connected airlines</h3>
+          <p class="metrics__desc">Full-content carriers live on the network across NDC and GDS channels.</p>
+        </div>
+        <div class="metrics__col">
+          <span class="metrics__value" style="font-size:72px;letter-spacing:-2px;">1,100<sup style="font-size:32px;">+</sup></span>
+          <h3 class="metrics__label">Travel sellers</h3>
+          <p class="metrics__desc">Agencies, TMCs, OTAs, and API partners globally booking through DRCT.</p>
+        </div>
+        <div class="metrics__col">
+          <span class="metrics__value">200<sup>+</sup></span>
+          <h3 class="metrics__label">Agency partners</h3>
+          <p class="metrics__desc">TMCs, OTAs, and travel agencies across Europe, the U.K., and the U.S.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- ================================================================
+     AIRLINE GRID
+================================================================ -->
+<div class="landing-new loaded" style="background: rgba(27,39,51,0.025);">
   <div class="landing-new__body">
     <section class="section-block">
       <div class="section-block__head">
-        <h2>Get in touch</h2>
-        <p>Contact the DRCT team to learn more.</p>
+        <h2>Airlines on DRCT</h2>
+        <p>Carriers with dedicated pages have full content profiles — fares, ancillaries, and booking detail available through every DRCT product.</p>
       </div>
-      <div class="hero__ctas">
-        <a href="mailto:hello@drct.aero" class="btn-primary">Contact DRCT ↗</a>
+      <div class="airline-grid">
+
+        <!-- LUFTHANSA — live page -->
+        <a href="lufthansa.html" class="airline-card">
+          <div class="airline-card__logo" style="background:#05164d;">
+            <svg width="36" height="36" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="18" cy="18" r="15" fill="#f7c200"/>
+              <ellipse cx="19" cy="18" rx="2.6" ry="6.5" fill="#05164d" transform="rotate(-38 19 18)"/>
+              <path d="M22 12 Q25 9 27 7 Q24 10 22 14Z" fill="#05164d"/>
+              <path d="M22 14 Q26 12 28 11 Q24 13 22 16Z" fill="#05164d"/>
+              <path d="M14 22 Q10 26 9 29 Q12 26 16 24Z" fill="#05164d"/>
+              <path d="M22 12 Q24 10 25.5 9 Q23 11 22 14Z" fill="#05164d"/>
+            </svg>
+          </div>
+          <p class="airline-card__name">Lufthansa</p>
+          <p class="airline-card__iata">LH · LX · OS · SN</p>
+          <div class="airline-card__footer">
+            <span class="airline-card__status airline-card__status--live">Live</span>
+            <span class="airline-card__link">View &#8594;</span>
+          </div>
+        </a>
+
+        <!-- EMIRATES — live page -->
+        <a href="emirates.html" class="airline-card">
+          <div class="airline-card__logo" style="background:#ec1b24;">
+            <svg width="36" height="36" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
+              <path d="M10 29 Q18 32 26 29" stroke="rgba(255,255,255,0.4)" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+              <g fill="none" stroke="white" stroke-width="2" stroke-linecap="round">
+                <path d="M8 12 H28"/>
+                <path d="M8 12 V24"/>
+                <path d="M8 18 H25"/>
+                <path d="M8 24 H28"/>
+              </g>
+              <path d="M10 7 Q18 4 26 7" stroke="rgba(255,255,255,0.5)" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <p class="airline-card__name">Emirates</p>
+          <p class="airline-card__iata">EK</p>
+          <div class="airline-card__footer">
+            <span class="airline-card__status airline-card__status--live">Live</span>
+            <span class="airline-card__link">View &#8594;</span>
+          </div>
+        </a>
+
+        <!-- BRITISH AIRWAYS -->
+        <div class="airline-card airline-card--soon">
+          <div class="airline-card__logo" style="background:#075aaa;">
+            <svg width="36" height="36" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
+              <rect width="36" height="12" fill="#c8102e"/>
+              <rect y="12" width="36" height="12" fill="#ffffff"/>
+              <rect y="24" width="36" height="12" fill="#c8102e"/>
+              <path d="M18 4 L18 32 M4 18 L32 18" stroke="white" stroke-width="3" opacity="0.3"/>
+            </svg>
+          </div>
+          <p class="airline-card__name">British Airways</p>
+          <p class="airline-card__iata">BA</p>
+          <div class="airline-card__footer">
+            <span class="airline-card__status airline-card__status--soon">Soon</span>
+          </div>
+        </div>
+
+        <!-- AIR FRANCE -->
+        <div class="airline-card airline-card--soon">
+          <div class="airline-card__logo" style="background:#002157;">
+            <svg width="36" height="36" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
+              <rect width="12" height="36" fill="#002157"/>
+              <rect x="12" width="12" height="36" fill="#fff"/>
+              <rect x="24" width="12" height="36" fill="#ed2939"/>
+            </svg>
+          </div>
+          <p class="airline-card__name">Air France</p>
+          <p class="airline-card__iata">AF</p>
+          <div class="airline-card__footer">
+            <span class="airline-card__status airline-card__status--soon">Soon</span>
+          </div>
+        </div>
+
+        <!-- KLM -->
+        <div class="airline-card airline-card--soon">
+          <div class="airline-card__logo" style="background:#009fda;">
+            <svg width="36" height="36" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
+              <text x="18" y="23" text-anchor="middle" fill="white" font-family="IBM Plex Sans,sans-serif" font-weight="900" font-size="12" letter-spacing="0.5">KLM</text>
+            </svg>
+          </div>
+          <p class="airline-card__name">KLM</p>
+          <p class="airline-card__iata">KL</p>
+          <div class="airline-card__footer">
+            <span class="airline-card__status airline-card__status--soon">Soon</span>
+          </div>
+        </div>
+
+        <!-- IBERIA -->
+        <div class="airline-card airline-card--soon">
+          <div class="airline-card__logo" style="background:#d91f2a;">
+            <svg width="36" height="36" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
+              <text x="18" y="24" text-anchor="middle" fill="white" font-family="IBM Plex Sans,sans-serif" font-weight="900" font-size="13" letter-spacing="0.5">IB</text>
+            </svg>
+          </div>
+          <p class="airline-card__name">Iberia</p>
+          <p class="airline-card__iata">IB</p>
+          <div class="airline-card__footer">
+            <span class="airline-card__status airline-card__status--soon">Soon</span>
+          </div>
+        </div>
+
+        <!-- LOT -->
+        <div class="airline-card airline-card--soon">
+          <div class="airline-card__logo" style="background:#002f6c;">
+            <svg width="36" height="36" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
+              <text x="18" y="24" text-anchor="middle" fill="white" font-family="IBM Plex Mono,monospace" font-weight="700" font-size="12" letter-spacing="1">LOT</text>
+            </svg>
+          </div>
+          <p class="airline-card__name">LOT Polish Airlines</p>
+          <p class="airline-card__iata">LO</p>
+          <div class="airline-card__footer">
+            <span class="airline-card__status airline-card__status--soon">Soon</span>
+          </div>
+        </div>
+
+        <!-- TAP -->
+        <div class="airline-card airline-card--soon">
+          <div class="airline-card__logo" style="background:#c8001d;">
+            <svg width="36" height="36" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
+              <text x="18" y="24" text-anchor="middle" fill="white" font-family="IBM Plex Mono,monospace" font-weight="700" font-size="12" letter-spacing="1">TAP</text>
+            </svg>
+          </div>
+          <p class="airline-card__name">TAP Air Portugal</p>
+          <p class="airline-card__iata">TP</p>
+          <div class="airline-card__footer">
+            <span class="airline-card__status airline-card__status--soon">Soon</span>
+          </div>
+        </div>
+
+        <!-- UNITED -->
+        <div class="airline-card airline-card--soon">
+          <div class="airline-card__logo" style="background:#003580;">
+            <svg width="36" height="36" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
+              <text x="18" y="24" text-anchor="middle" fill="white" font-family="IBM Plex Mono,monospace" font-weight="700" font-size="12" letter-spacing="0.5">UA</text>
+            </svg>
+          </div>
+          <p class="airline-card__name">United Airlines</p>
+          <p class="airline-card__iata">UA</p>
+          <div class="airline-card__footer">
+            <span class="airline-card__status airline-card__status--soon">Soon</span>
+          </div>
+        </div>
+
+        <!-- FLYDUBAI -->
+        <div class="airline-card airline-card--soon">
+          <div class="airline-card__logo" style="background:#e2231a;">
+            <svg width="36" height="36" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
+              <text x="18" y="21" text-anchor="middle" fill="white" font-family="IBM Plex Sans,sans-serif" font-weight="700" font-size="8.5" letter-spacing="0.3">fly</text>
+              <text x="18" y="29" text-anchor="middle" fill="white" font-family="IBM Plex Sans,sans-serif" font-weight="900" font-size="9" letter-spacing="0.3">dubai</text>
+            </svg>
+          </div>
+          <p class="airline-card__name">flydubai</p>
+          <p class="airline-card__iata">FZ</p>
+          <div class="airline-card__footer">
+            <span class="airline-card__status airline-card__status--soon">Soon</span>
+          </div>
+        </div>
+
+        <!-- AUSTRIAN -->
+        <div class="airline-card airline-card--soon">
+          <div class="airline-card__logo" style="background:#e2001a;">
+            <svg width="36" height="36" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
+              <text x="18" y="24" text-anchor="middle" fill="white" font-family="IBM Plex Mono,monospace" font-weight="700" font-size="12" letter-spacing="0.5">OS</text>
+            </svg>
+          </div>
+          <p class="airline-card__name">Austrian Airlines</p>
+          <p class="airline-card__iata">OS</p>
+          <div class="airline-card__footer">
+            <span class="airline-card__status airline-card__status--soon">Soon</span>
+          </div>
+        </div>
+
+        <!-- AMERICAN AIRLINES -->
+        <div class="airline-card airline-card--soon">
+          <div class="airline-card__logo" style="background:#0078d2;">
+            <svg width="36" height="36" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
+              <text x="18" y="24" text-anchor="middle" fill="white" font-family="IBM Plex Mono,monospace" font-weight="700" font-size="12" letter-spacing="0.5">AA</text>
+            </svg>
+          </div>
+          <p class="airline-card__name">American Airlines</p>
+          <p class="airline-card__iata">AA</p>
+          <div class="airline-card__footer">
+            <span class="airline-card__status airline-card__status--soon">Soon</span>
+          </div>
+        </div>
+
       </div>
     </section>
   </div>
 </div>
+
+<!-- ================================================================
+     FOR AIRLINES CTA
+================================================================ -->
+<div class="landing-new loaded aurora-animated" id="contact">
+  <div class="landing-new__body">
+    <section class="section-block">
+      <div class="section-block__head">
+        <h2>List your airline on DRCT</h2>
+        <p>Connect your NDC content to a growing network of IATA agencies, non-IATA sellers, OTAs, TMCs, and Super Apps — through a single integration.</p>
+      </div>
+      <div class="hero__ctas">
+        <a href="../solutions/for-airlines.html" class="btn-primary">For Airlines &#8599;</a>
+        <a href="mailto:hello@drct.aero" class="btn-secondary">Contact Us &#8599;</a>
+      </div>
+    </section>
+  </div>
+</div>
+
 <footer class="footer">
   <div class="footer__top">
     <div class="footer__left">
@@ -105,13 +470,13 @@
         <span>More</span>
         <ul>
           <li><a href="../products/bt.html">Products</a></li>
-          <li><a href="../supply-network/index.html">Supply Network</a></li>
+          <li><a href="index.html">Supply Network</a></li>
           <li><a href="../about.html">About</a></li>
         </ul>
       </div>
     </div>
   </div>
-  <div class="footer__bottom"><div><i>© DRCT</i></div></div>
+  <div class="footer__bottom"><div><i>&#169; DRCT</i></div></div>
 </footer>
 <script src="../js/app.js"></script>
 </body>
