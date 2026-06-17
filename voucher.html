@@ -143,6 +143,20 @@
       font-weight: 700;
       margin-bottom: 4px;
     }
+    .vc-checkout__subtitle {
+      color: var(--dark-40);
+      font-size: 12px;
+      line-height: 1.5;
+      margin-bottom: 14px;
+      margin-top: 4px;
+    }
+    .vc-checkout__cta-hint {
+      color: var(--dark-40);
+      font-size: 11px;
+      line-height: 1.5;
+      margin-bottom: 8px;
+      text-align: center;
+    }
     .vc-checkout__free-banner {
       align-items: center;
       background: #edf7ed;
@@ -502,7 +516,7 @@
             </div>
             <div class="vc-card__action">
               <a href="#" class="vc-card__btn">Select this voucher &rarr;</a>
-              <span class="vc-card__hint">Takes you to verification</span>
+              <span class="vc-card__hint">Selects this airline for your voucher</span>
             </div>
           </div>
 
@@ -529,7 +543,7 @@
             </div>
             <div class="vc-card__action">
               <a href="#" class="vc-card__btn">Select this voucher &rarr;</a>
-              <span class="vc-card__hint">Takes you to verification</span>
+              <span class="vc-card__hint">Selects this airline for your voucher</span>
             </div>
           </div>
 
@@ -556,7 +570,7 @@
             </div>
             <div class="vc-card__action">
               <a href="#" class="vc-card__btn">Select this voucher &rarr;</a>
-              <span class="vc-card__hint">Takes you to verification</span>
+              <span class="vc-card__hint">Selects this airline for your voucher</span>
             </div>
           </div>
 
@@ -573,6 +587,7 @@
       <!-- Checkout panel -->
       <div class="vc-checkout">
         <h2 class="vc-checkout__title">Voucher activation</h2>
+        <p class="vc-checkout__subtitle">Select an airline voucher on the left, then complete verification here.</p>
 
         <!-- Free benefit banner — immediately resolves the "am I paying?" question -->
         <div class="vc-checkout__free-banner">
@@ -584,7 +599,7 @@
         </div>
 
         <!-- Eligible booking context -->
-        <p class="vc-checkout__section-label">Eligible booking</p>
+        <p class="vc-checkout__section-label">Your booking context</p>
         <div class="vc-checkout__routes">
           <div class="vc-checkout__route">
             <div>
@@ -612,7 +627,7 @@
             </svg>
             <span class="vc-checkout__offer-label">Mastercard benefit</span>
           </div>
-          <span class="vc-checkout__offer-badge">Confirmed at next step</span>
+          <span class="vc-checkout__offer-badge">Confirmed when you verify below</span>
         </div>
 
         <!-- Voucher benefit line -->
@@ -633,14 +648,15 @@
             <span class="vc-checkout__total-amount">&euro; 438</span>
           </div>
         </div>
-        <p class="vc-checkout__total-note">Flight cost only. Voucher is activated separately and sent by email — no additional charge.</p>
+        <p class="vc-checkout__total-note">Flight cost only. Your 30 EUR voucher reduces this amount when redeemed on the airline's website — no charge for activation.</p>
 
         <!-- Delivery expectation box -->
         <div class="vc-checkout__delivery">
           <strong>Where does my voucher code go?</strong>
-          After successful card verification, your 30 EUR voucher code is generated and sent to your registered email address. It is not shown on screen.
+          After successful card verification, your 30 EUR voucher code is generated and sent to your registered email address within a few minutes. It is not shown on screen.
         </div>
 
+        <p class="vc-checkout__cta-hint">A secure Mastercard widget will open to confirm eligibility.</p>
         <a href="#" class="vc-checkout__cta">Verify card eligibility</a>
 
         <p class="vc-checkout__failure-note">
