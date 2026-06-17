@@ -172,41 +172,41 @@
     }
     .vc-checkout__free-banner svg { flex-shrink: 0; }
 
-    /* Section label inside panel */
-    .vc-checkout__section-label {
-      color: var(--dark-40);
-      font-size: 10px;
-      font-weight: 600;
-      letter-spacing: 0.6px;
-      margin-bottom: 6px;
-      text-transform: uppercase;
-    }
-
-    /* Route rows */
-    .vc-checkout__routes {
+    /* Voucher summary row */
+    .vc-checkout__voucher-summary {
+      border-bottom: 1px solid var(--dark-10);
       margin-bottom: 12px;
+      padding-bottom: 12px;
     }
-    .vc-checkout__route {
-      border-bottom: 1px solid #f0f2f5;
+    .vc-checkout__voucher-row {
+      align-items: center;
       display: flex;
       justify-content: space-between;
-      padding: 8px 0;
     }
-    .vc-checkout__route:last-child { border-bottom: none; }
-    .vc-checkout__route-label {
+    .vc-checkout__voucher-info {
+      align-items: center;
+      display: flex;
+      gap: 12px;
+    }
+    .vc-checkout__voucher-icon {
+      flex-shrink: 0;
+      height: 36px;
+      width: 36px;
+    }
+    .vc-checkout__voucher-label {
       color: var(--dark);
       font-size: 13px;
-      font-weight: 500;
+      font-weight: 600;
       margin-bottom: 2px;
     }
-    .vc-checkout__route-meta {
+    .vc-checkout__voucher-meta {
       color: var(--dark-40);
       font-size: 11px;
     }
-    .vc-checkout__route-price {
-      color: var(--dark);
-      font-size: 13px;
-      font-weight: 600;
+    .vc-checkout__voucher-value {
+      color: var(--success);
+      font-size: 14px;
+      font-weight: 700;
     }
 
     /* Mastercard offer row */
@@ -233,43 +233,6 @@
     .vc-checkout__offer-badge {
       color: var(--dark-40);
       font-size: 11px;
-    }
-
-    /* Voucher benefit row */
-    .vc-checkout__benefit {
-      align-items: center;
-      border-bottom: 1px solid #f0f2f5;
-      border-top: 1px solid #f0f2f5;
-      display: flex;
-      justify-content: space-between;
-      padding: 8px 0;
-      margin-bottom: 8px;
-    }
-    .vc-checkout__benefit-label {
-      color: var(--dark);
-      font-size: 13px;
-    }
-    .vc-checkout__benefit-value {
-      color: var(--success);
-      font-size: 13px;
-      font-weight: 600;
-    }
-
-    /* Passengers row */
-    .vc-checkout__passengers {
-      align-items: center;
-      display: flex;
-      justify-content: space-between;
-      padding: 4px 0 8px;
-    }
-    .vc-checkout__passengers-label {
-      color: var(--dark-40);
-      font-size: 12px;
-    }
-    .vc-checkout__passengers-value {
-      color: var(--dark);
-      font-size: 12px;
-      font-weight: 500;
     }
 
     /* Total */
@@ -589,35 +552,26 @@
         <h2 class="vc-checkout__title">Voucher activation</h2>
         <p class="vc-checkout__subtitle">Select an airline voucher on the left, then complete verification here.</p>
 
-        <!-- Free benefit banner — immediately resolves the "am I paying?" question -->
-        <div class="vc-checkout__free-banner">
-          <svg width="14" height="14" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg" fill="none">
-            <circle cx="7" cy="7" r="6" stroke="#276227" stroke-width="1.3"/>
-            <path d="M4.5 7l1.8 1.8L9.5 5" stroke="#276227" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          The voucher is free. No charge for activation.
-        </div>
-
-        <!-- Eligible booking context -->
-        <p class="vc-checkout__section-label">Your booking context</p>
-        <div class="vc-checkout__routes">
-          <div class="vc-checkout__route">
-            <div>
-              <p class="vc-checkout__route-label">WAW &rarr; LIS</p>
-              <p class="vc-checkout__route-meta">19 May &middot; TK 1785</p>
+        <!-- Voucher summary -->
+        <div class="vc-checkout__voucher-summary">
+          <div class="vc-checkout__voucher-row">
+            <div class="vc-checkout__voucher-info">
+              <svg class="vc-checkout__voucher-icon" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+                <rect width="40" height="40" rx="8" fill="#fff5e6"/>
+                <rect x="7" y="14" width="26" height="14" rx="3" fill="none" stroke="#f0a030" stroke-width="1.5"/>
+                <path d="M7 19h26" stroke="#f0a030" stroke-width="1.5"/>
+                <circle cx="12" cy="22.5" r="1.5" fill="#f0a030"/>
+              </svg>
+              <div>
+                <p class="vc-checkout__voucher-label">30 EUR travel voucher</p>
+                <p class="vc-checkout__voucher-meta">Select an airline on the left</p>
+              </div>
             </div>
-            <span class="vc-checkout__route-price">&euro; 218</span>
-          </div>
-          <div class="vc-checkout__route">
-            <div>
-              <p class="vc-checkout__route-label">LIS &rarr; WAW</p>
-              <p class="vc-checkout__route-meta">31 May &middot; TK 1786</p>
-            </div>
-            <span class="vc-checkout__route-price">&euro; 218</span>
+            <span class="vc-checkout__voucher-value">FREE</span>
           </div>
         </div>
 
-        <!-- Mastercard offer status -->
+        <!-- Mastercard benefit -->
         <div class="vc-checkout__offer">
           <div class="vc-checkout__offer-left">
             <svg width="32" height="20" viewBox="0 0 32 20" xmlns="http://www.w3.org/2000/svg">
@@ -630,30 +584,19 @@
           <span class="vc-checkout__offer-badge">Confirmed when you verify below</span>
         </div>
 
-        <!-- Voucher benefit line -->
-        <div class="vc-checkout__benefit">
-          <span class="vc-checkout__benefit-label">30 EUR voucher</span>
-          <span class="vc-checkout__benefit-value">FREE</span>
-        </div>
-
-        <div class="vc-checkout__passengers">
-          <span class="vc-checkout__passengers-label">Passengers</span>
-          <span class="vc-checkout__passengers-value">1 passenger</span>
-        </div>
-
-        <!-- Flight total — clearly labelled as the flight cost, not voucher cost -->
+        <!-- Total -->
         <div class="vc-checkout__total">
           <div class="vc-checkout__total-row">
-            <span class="vc-checkout__total-label">Flight total</span>
-            <span class="vc-checkout__total-amount">&euro; 438</span>
+            <span class="vc-checkout__total-label">Voucher cost</span>
+            <span class="vc-checkout__total-amount">FREE</span>
           </div>
         </div>
-        <p class="vc-checkout__total-note">Flight cost only. Your 30 EUR voucher reduces this amount when redeemed on the airline's website — no charge for activation.</p>
+        <p class="vc-checkout__total-note">No charge for voucher activation. Eligibility is verified via Mastercard.</p>
 
-        <!-- Delivery expectation box -->
+        <!-- Delivery expectation -->
         <div class="vc-checkout__delivery">
           <strong>Where does my voucher code go?</strong>
-          After successful card verification, your 30 EUR voucher code is generated and sent to your registered email address within a few minutes. It is not shown on screen.
+          After successful verification, your 30 EUR voucher code is generated and sent to your registered email address within a few minutes. It is not shown on screen.
         </div>
 
         <p class="vc-checkout__cta-hint">A secure Mastercard widget will open to confirm eligibility.</p>
