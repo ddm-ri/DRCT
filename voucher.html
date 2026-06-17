@@ -4,612 +4,589 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Altitude — Choose your voucher</title>
+  <meta name="description" content="Unlock a 30 EUR airline travel voucher with your eligible Mastercard premium card.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <!-- Shared design system: tokens, reset, header, footer -->
+  <link rel="stylesheet" href="styles.css">
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      font-family: 'IBM Plex Sans', sans-serif;
+    /* ── Voucher page layout ── */
+    .vc-page {
       background: #f0f2f5;
-      color: #1b2733;
-      min-height: 100vh;
+      min-height: calc(100vh - var(--header-h));
+      padding: 40px 20px 80px;
     }
-
-    /* ── Header ── */
-    .alt-header {
-      background: #fff;
-      border-bottom: 1px solid #e4e7eb;
-      padding: 0 32px;
-      height: 56px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .alt-header__logo {
-      font-size: 15px;
-      font-weight: 700;
-      color: #1b2733;
-      text-decoration: none;
-      letter-spacing: -0.3px;
-    }
-    .alt-header__menu {
-      background: none;
-      border: none;
-      cursor: pointer;
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-      padding: 4px;
-    }
-    .alt-header__menu span {
-      display: block;
-      width: 20px;
-      height: 2px;
-      background: #1b2733;
-      border-radius: 2px;
-    }
-
-    /* ── Page body ── */
-    .alt-page {
-      max-width: 960px;
+    .vc-container {
       margin: 0 auto;
-      padding: 40px 24px 80px;
+      max-width: var(--container);
     }
 
     /* ── Page heading ── */
-    .alt-page__heading {
+    .vc-heading {
       margin-bottom: 28px;
     }
-    .alt-page__title {
+    .vc-heading h1 {
+      color: var(--dark);
       font-size: 20px;
       font-weight: 700;
-      color: #1b2733;
       margin-bottom: 6px;
     }
-    .alt-page__subtitle {
+    .vc-heading p {
+      color: var(--dark-40);
       font-size: 14px;
-      color: #6b7785;
       line-height: 1.5;
     }
 
     /* ── Two-column layout ── */
-    .alt-layout {
+    .vc-layout {
       display: grid;
       grid-template-columns: 1fr 300px;
       gap: 24px;
       align-items: start;
     }
+    @media (max-width: 767px) {
+      .vc-layout {
+        grid-template-columns: 1fr;
+      }
+    }
 
     /* ── Voucher cards ── */
-    .alt-cards {
+    .vc-cards {
       display: flex;
       flex-direction: column;
       gap: 16px;
     }
-
-    .alt-card {
-      background: #fff;
+    .vc-card {
+      background: var(--white);
       border-radius: 12px;
+      box-shadow: 0 1px 4px var(--dark-10);
       padding: 24px;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
     }
-    .alt-card__logo {
+    .vc-card__logo {
+      align-items: center;
+      display: flex;
       height: 36px;
       margin-bottom: 20px;
-      display: flex;
-      align-items: center;
     }
-    .alt-card__logo img {
-      max-height: 36px;
-      max-width: 120px;
-      object-fit: contain;
-    }
-    .alt-card__divider {
+    .vc-card__divider {
       border: none;
-      border-top: 1px dashed #d8dce2;
+      border-top: 1px dashed var(--dark-20);
       margin-bottom: 20px;
     }
-    .alt-card__body {
-      display: flex;
+    .vc-card__body {
       align-items: flex-start;
+      display: flex;
       gap: 14px;
     }
-    .alt-card__icon {
-      width: 40px;
-      height: 40px;
+    .vc-card__icon {
       flex-shrink: 0;
+      height: 40px;
+      width: 40px;
     }
-    .alt-card__content {
-      flex: 1;
-    }
-    .alt-card__title {
+    .vc-card__title {
+      color: var(--dark);
       font-size: 15px;
       font-weight: 700;
-      color: #1b2733;
       margin-bottom: 6px;
     }
-    .alt-card__desc {
+    .vc-card__desc {
+      color: var(--dark-40);
       font-size: 13px;
-      color: #6b7785;
       line-height: 1.5;
     }
-    .alt-card__action {
+    .vc-card__action {
       margin-top: 20px;
     }
-    .alt-card__btn {
-      display: inline-flex;
+    .vc-card__btn {
       align-items: center;
-      gap: 6px;
-      border: 1px solid #d8dce2;
-      background: #fff;
+      border: 1px solid var(--dark-20);
       border-radius: 8px;
-      padding: 8px 16px;
+      color: var(--dark);
+      cursor: pointer;
+      display: inline-flex;
       font-size: 13px;
       font-weight: 500;
-      color: #1b2733;
-      cursor: pointer;
-      text-decoration: none;
+      gap: 6px;
+      padding: 8px 16px;
       transition: border-color 0.15s, background 0.15s;
     }
-    .alt-card__btn:hover {
-      border-color: #1b2733;
+    .vc-card__btn:hover {
       background: #f8f9fa;
-    }
-    .alt-card__btn-arrow {
-      font-size: 14px;
-      line-height: 1;
+      border-color: var(--dark);
     }
 
     /* ── Checkout panel ── */
-    .alt-checkout {
-      background: #fff;
+    .vc-checkout {
+      background: var(--white);
       border-radius: 12px;
+      box-shadow: 0 1px 4px var(--dark-10);
       padding: 24px;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
     }
-    .alt-checkout__title {
+    .vc-checkout__title {
+      color: var(--dark);
       font-size: 16px;
       font-weight: 700;
-      color: #1b2733;
       margin-bottom: 6px;
     }
-    .alt-checkout__subtitle {
+    .vc-checkout__subtitle {
+      color: var(--dark-40);
       font-size: 12px;
-      color: #6b7785;
+      line-height: 1.55;
       margin-bottom: 20px;
-      line-height: 1.5;
     }
 
-    .alt-checkout__routes {
-      display: flex;
-      flex-direction: column;
-      gap: 0;
+    /* Route rows */
+    .vc-checkout__routes {
       margin-bottom: 16px;
     }
-    .alt-checkout__route {
+    .vc-checkout__route {
+      border-bottom: 1px solid #f0f2f5;
       display: flex;
       justify-content: space-between;
-      align-items: flex-start;
       padding: 10px 0;
-      border-bottom: 1px solid #f0f2f5;
     }
-    .alt-checkout__route:last-child {
+    .vc-checkout__route:last-child {
       border-bottom: none;
     }
-    .alt-checkout__route-info {}
-    .alt-checkout__route-label {
+    .vc-checkout__route-label {
+      color: var(--dark);
       font-size: 13px;
       font-weight: 500;
-      color: #1b2733;
       margin-bottom: 2px;
     }
-    .alt-checkout__route-meta {
+    .vc-checkout__route-meta {
+      color: var(--dark-40);
       font-size: 11px;
-      color: #6b7785;
     }
-    .alt-checkout__route-price {
+    .vc-checkout__route-price {
+      color: var(--dark);
       font-size: 13px;
       font-weight: 600;
-      color: #1b2733;
     }
 
-    .alt-checkout__offer {
+    /* Mastercard offer row */
+    .vc-checkout__offer {
+      align-items: center;
+      background: var(--off-white);
+      border-radius: 8px;
       display: flex;
       justify-content: space-between;
-      align-items: center;
-      background: #f8f9fa;
-      border-radius: 8px;
+      margin-bottom: 4px;
       padding: 10px 12px;
-      margin-bottom: 12px;
     }
-    .alt-checkout__offer-left {
-      display: flex;
+    .vc-checkout__offer-left {
       align-items: center;
+      display: flex;
       gap: 8px;
     }
-    .alt-checkout__mc-icon {
-      display: flex;
-      align-items: center;
-    }
-    .alt-checkout__offer-label {
+    .vc-checkout__offer-label {
+      color: var(--dark);
       font-size: 12px;
       font-weight: 500;
-      color: #1b2733;
     }
-    .alt-checkout__offer-badge {
+    .vc-checkout__offer-badge {
+      color: var(--dark-40);
       font-size: 11px;
-      color: #6b7785;
     }
 
-    .alt-checkout__passengers {
+    /* Passengers row */
+    .vc-checkout__passengers {
+      align-items: center;
+      border-top: 1px solid var(--dark-10);
       display: flex;
       justify-content: space-between;
-      align-items: center;
+      margin-top: 8px;
       padding: 10px 0;
-      border-top: 1px solid #f0f2f5;
-      margin-bottom: 4px;
     }
-    .alt-checkout__passengers-label {
+    .vc-checkout__passengers-label {
+      color: var(--dark-40);
       font-size: 13px;
-      color: #6b7785;
     }
-    .alt-checkout__passengers-value {
+    .vc-checkout__passengers-value {
+      color: var(--dark);
       font-size: 13px;
-      color: #1b2733;
       font-weight: 500;
     }
 
-    .alt-checkout__total {
-      border-top: 1px solid #e4e7eb;
+    /* Total */
+    .vc-checkout__total {
+      border-top: 1px solid var(--dark-15);
       padding-top: 14px;
-      margin-bottom: 4px;
     }
-    .alt-checkout__total-row {
+    .vc-checkout__total-row {
+      align-items: baseline;
       display: flex;
       justify-content: space-between;
-      align-items: baseline;
       margin-bottom: 4px;
     }
-    .alt-checkout__total-label {
+    .vc-checkout__total-label {
+      color: var(--dark);
       font-size: 14px;
       font-weight: 700;
-      color: #1b2733;
     }
-    .alt-checkout__total-amount {
+    .vc-checkout__total-amount {
+      color: var(--dark);
       font-size: 20px;
       font-weight: 700;
-      color: #1b2733;
     }
-    .alt-checkout__total-note {
+    .vc-checkout__total-note {
+      color: var(--dark-40);
       font-size: 11px;
-      color: #6b7785;
+      margin-bottom: 10px;
+    }
+
+    /* Voucher delivery note */
+    .vc-checkout__voucher-note {
+      color: var(--dark-40);
+      font-size: 11px;
+      line-height: 1.55;
       margin-bottom: 16px;
     }
 
-    .alt-checkout__voucher-note {
-      font-size: 11px;
-      color: #6b7785;
-      margin-bottom: 16px;
-      line-height: 1.5;
-    }
-
-    .alt-checkout__cta {
-      display: block;
-      width: 100%;
-      background: #1b2733;
-      color: #fff;
-      border: none;
+    /* CTA */
+    .vc-checkout__cta {
+      background: var(--dark);
       border-radius: 8px;
-      padding: 13px 20px;
+      color: var(--white);
+      cursor: pointer;
+      display: block;
       font-size: 14px;
       font-weight: 600;
-      cursor: pointer;
-      text-align: center;
-      text-decoration: none;
-      transition: background 0.15s;
       margin-bottom: 12px;
+      padding: 13px 20px;
+      text-align: center;
+      transition: background 0.15s;
+      width: 100%;
     }
-    .alt-checkout__cta:hover {
+    .vc-checkout__cta:hover {
       background: #2a3a4a;
     }
 
-    .alt-checkout__security {
-      display: flex;
+    /* Security note */
+    .vc-checkout__security {
       align-items: center;
-      justify-content: center;
-      gap: 5px;
+      color: var(--dark-40);
+      display: flex;
       font-size: 11px;
-      color: #6b7785;
+      gap: 5px;
+      justify-content: center;
       text-align: center;
     }
-    .alt-checkout__security svg {
-      flex-shrink: 0;
-    }
+    .vc-checkout__security svg { flex-shrink: 0; }
 
-    /* ── Steps section ── */
-    .alt-steps {
-      margin-top: 48px;
-      background: #dde4ef;
+    /* ── Three-step section ── */
+    .vc-steps {
       border-radius: 16px;
-      padding: 48px 32px;
+      margin-top: 48px;
+      padding: 48px 32px 40px;
+      /* matches the blue-gray background in the screenshot */
+      background: #d8e1ef;
     }
-    .alt-steps__title {
+    @media (max-width: 767px) {
+      .vc-steps { padding: 36px 20px 32px; }
+    }
+    .vc-steps__title {
+      color: var(--dark);
       font-size: 28px;
       font-weight: 800;
-      color: #1b2733;
-      text-align: center;
       margin-bottom: 32px;
+      text-align: center;
     }
-    .alt-steps__grid {
+    @media (max-width: 767px) {
+      .vc-steps__title { font-size: 22px; }
+    }
+    .vc-steps__grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
       gap: 16px;
+      grid-template-columns: repeat(3, 1fr);
     }
-    .alt-step {
+    @media (max-width: 767px) {
+      .vc-steps__grid { grid-template-columns: 1fr; }
+    }
+    .vc-step {
       background: #f0f2f5;
       border-radius: 12px;
       padding: 20px;
     }
-    .alt-step__label {
+    .vc-step__label {
+      color: var(--dark-40);
       font-size: 11px;
-      color: #6b7785;
       font-weight: 500;
+      letter-spacing: 0.3px;
       margin-bottom: 14px;
       text-transform: uppercase;
-      letter-spacing: 0.3px;
     }
-    .alt-step__icon {
+    .vc-step__icon {
+      color: var(--blue);
       margin-bottom: 12px;
-      color: #2a6ae0;
     }
-    .alt-step__heading {
+    .vc-step__heading {
+      color: var(--dark);
       font-size: 15px;
       font-weight: 700;
-      color: #1b2733;
       margin-bottom: 8px;
     }
-    .alt-step__desc {
+    .vc-step__desc {
+      color: var(--dark-40);
       font-size: 13px;
-      color: #6b7785;
       line-height: 1.55;
     }
 
-    /* ── Trust note ── */
-    .alt-trust {
-      margin-top: 16px;
+    /* Trust footnote */
+    .vc-trust {
+      color: var(--dark-40);
       font-size: 12px;
-      color: #8c95a0;
+      line-height: 1.65;
+      margin-top: 20px;
       text-align: center;
-      line-height: 1.6;
     }
-
-    /* Airline logo SVG placeholders */
-    .logo-wizz { font-family: 'IBM Plex Sans', sans-serif; }
-    .logo-pegasus { font-family: 'IBM Plex Sans', sans-serif; }
-    .logo-skyup { font-family: 'IBM Plex Sans', sans-serif; }
   </style>
 </head>
 <body>
 
-<!-- Header -->
-<header class="alt-header">
-  <a href="#" class="alt-header__logo">Altitude</a>
-  <button class="alt-header__menu" aria-label="Menu">
-    <span></span><span></span><span></span>
-  </button>
+<!-- ================================================================
+     HEADER — shared component from index.html
+================================================================ -->
+<header class="header" id="header">
+  <div class="header__links">
+    <div class="header__links-left">
+      <a href="index.html" class="header__logo">Altitude</a>
+    </div>
+    <div class="header__links-right">
+      <a href="index.html" class="header__signin">Back to DRCT</a>
+    </div>
+    <button class="header__menu-cross" id="menuToggle" aria-label="Toggle navigation">
+      <div class="line-1"></div>
+      <div class="line-2"></div>
+    </button>
+  </div>
 </header>
 
-<!-- Page -->
-<main class="alt-page">
+<!-- ================================================================
+     VOUCHER CHECKOUT PAGE
+================================================================ -->
+<div class="vc-page">
+  <div class="vc-container">
 
-  <!-- Heading -->
-  <div class="alt-page__heading">
-    <h1 class="alt-page__title">Choose your voucher</h1>
-    <p class="alt-page__subtitle">Select an airline voucher and verify your eligible Mastercard to unlock the offer.</p>
-  </div>
+    <!-- Page heading -->
+    <div class="vc-heading">
+      <h1>Choose your voucher</h1>
+      <p>Select an airline voucher and verify your eligible Mastercard to unlock the offer.</p>
+    </div>
 
-  <div class="alt-layout">
+    <!-- Two-column layout: cards + checkout panel -->
+    <div class="vc-layout">
 
-    <!-- Voucher cards -->
-    <div class="alt-cards">
+      <!-- Voucher cards -->
+      <div class="vc-cards">
 
-      <!-- Wizz Air -->
-      <div class="alt-card">
-        <div class="alt-card__logo">
-          <svg width="80" height="28" viewBox="0 0 80 28" xmlns="http://www.w3.org/2000/svg">
-            <text x="0" y="22" font-family="IBM Plex Sans,sans-serif" font-size="20" font-weight="800" fill="#c6007e">wizz</text>
-          </svg>
-        </div>
-        <hr class="alt-card__divider">
-        <div class="alt-card__body">
-          <svg class="alt-card__icon" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-            <rect width="40" height="40" rx="8" fill="#fff5e6"/>
-            <rect x="7" y="14" width="26" height="14" rx="3" fill="none" stroke="#f0a030" stroke-width="1.5"/>
-            <path d="M7 19h26" stroke="#f0a030" stroke-width="1.5"/>
-            <circle cx="12" cy="22.5" r="1.5" fill="#f0a030"/>
-          </svg>
-          <div class="alt-card__content">
-            <p class="alt-card__title">30 EUR travel voucher</p>
-            <p class="alt-card__desc">Unlock this voucher with an eligible Mastercard premium card.</p>
+        <!-- Wizz Air -->
+        <div class="vc-card">
+          <div class="vc-card__logo">
+            <svg width="76" height="28" viewBox="0 0 76 28" xmlns="http://www.w3.org/2000/svg">
+              <text x="0" y="24" font-family="IBM Plex Sans,sans-serif" font-size="26" font-weight="800" fill="#c6007e">wizz</text>
+            </svg>
+          </div>
+          <hr class="vc-card__divider">
+          <div class="vc-card__body">
+            <svg class="vc-card__icon" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+              <rect width="40" height="40" rx="8" fill="#fff5e6"/>
+              <rect x="7" y="14" width="26" height="14" rx="3" fill="none" stroke="#f0a030" stroke-width="1.5"/>
+              <path d="M7 19h26" stroke="#f0a030" stroke-width="1.5"/>
+              <circle cx="12" cy="22.5" r="1.5" fill="#f0a030"/>
+            </svg>
+            <div>
+              <p class="vc-card__title">30 EUR travel voucher</p>
+              <p class="vc-card__desc">Unlock this voucher with an eligible Mastercard premium card.</p>
+            </div>
+          </div>
+          <div class="vc-card__action">
+            <a href="#" class="vc-card__btn">Get voucher &rarr;</a>
           </div>
         </div>
-        <div class="alt-card__action">
-          <a href="#" class="alt-card__btn">Get voucher <span class="alt-card__btn-arrow">→</span></a>
-        </div>
-      </div>
 
-      <!-- Pegasus -->
-      <div class="alt-card">
-        <div class="alt-card__logo">
-          <svg width="100" height="28" viewBox="0 0 100 28" xmlns="http://www.w3.org/2000/svg">
-            <text x="0" y="22" font-family="IBM Plex Sans,sans-serif" font-size="18" font-weight="800" fill="#ff6600">PEGASUS</text>
-          </svg>
-        </div>
-        <hr class="alt-card__divider">
-        <div class="alt-card__body">
-          <svg class="alt-card__icon" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-            <rect width="40" height="40" rx="8" fill="#fff5e6"/>
-            <rect x="7" y="14" width="26" height="14" rx="3" fill="none" stroke="#f0a030" stroke-width="1.5"/>
-            <path d="M7 19h26" stroke="#f0a030" stroke-width="1.5"/>
-            <circle cx="12" cy="22.5" r="1.5" fill="#f0a030"/>
-          </svg>
-          <div class="alt-card__content">
-            <p class="alt-card__title">30 EUR travel voucher</p>
-            <p class="alt-card__desc">Unlock this voucher with an eligible Mastercard premium card.</p>
+        <!-- Pegasus -->
+        <div class="vc-card">
+          <div class="vc-card__logo">
+            <svg width="108" height="28" viewBox="0 0 108 28" xmlns="http://www.w3.org/2000/svg">
+              <text x="0" y="22" font-family="IBM Plex Sans,sans-serif" font-size="19" font-weight="800" fill="#ff6600">PEGASUS</text>
+            </svg>
+          </div>
+          <hr class="vc-card__divider">
+          <div class="vc-card__body">
+            <svg class="vc-card__icon" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+              <rect width="40" height="40" rx="8" fill="#fff5e6"/>
+              <rect x="7" y="14" width="26" height="14" rx="3" fill="none" stroke="#f0a030" stroke-width="1.5"/>
+              <path d="M7 19h26" stroke="#f0a030" stroke-width="1.5"/>
+              <circle cx="12" cy="22.5" r="1.5" fill="#f0a030"/>
+            </svg>
+            <div>
+              <p class="vc-card__title">30 EUR travel voucher</p>
+              <p class="vc-card__desc">Unlock this voucher with an eligible Mastercard premium card.</p>
+            </div>
+          </div>
+          <div class="vc-card__action">
+            <a href="#" class="vc-card__btn">Get voucher &rarr;</a>
           </div>
         </div>
-        <div class="alt-card__action">
-          <a href="#" class="alt-card__btn">Get voucher <span class="alt-card__btn-arrow">→</span></a>
-        </div>
-      </div>
 
-      <!-- SkyUp -->
-      <div class="alt-card">
-        <div class="alt-card__logo">
-          <svg width="110" height="28" viewBox="0 0 110 28" xmlns="http://www.w3.org/2000/svg">
-            <text x="0" y="22" font-family="IBM Plex Sans,sans-serif" font-size="16" font-weight="700" fill="#1b2733">✈ SkyUp Airlines</text>
-          </svg>
-        </div>
-        <hr class="alt-card__divider">
-        <div class="alt-card__body">
-          <svg class="alt-card__icon" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-            <rect width="40" height="40" rx="8" fill="#fff5e6"/>
-            <rect x="7" y="14" width="26" height="14" rx="3" fill="none" stroke="#f0a030" stroke-width="1.5"/>
-            <path d="M7 19h26" stroke="#f0a030" stroke-width="1.5"/>
-            <circle cx="12" cy="22.5" r="1.5" fill="#f0a030"/>
-          </svg>
-          <div class="alt-card__content">
-            <p class="alt-card__title">30 EUR travel voucher</p>
-            <p class="alt-card__desc">Unlock this voucher with an eligible Mastercard premium card.</p>
+        <!-- SkyUp Airlines -->
+        <div class="vc-card">
+          <div class="vc-card__logo">
+            <svg width="150" height="28" viewBox="0 0 150 28" xmlns="http://www.w3.org/2000/svg">
+              <text x="0" y="21" font-family="IBM Plex Sans,sans-serif" font-size="15" font-weight="700" fill="#1b2733">✈ SkyUp Airlines</text>
+            </svg>
+          </div>
+          <hr class="vc-card__divider">
+          <div class="vc-card__body">
+            <svg class="vc-card__icon" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+              <rect width="40" height="40" rx="8" fill="#fff5e6"/>
+              <rect x="7" y="14" width="26" height="14" rx="3" fill="none" stroke="#f0a030" stroke-width="1.5"/>
+              <path d="M7 19h26" stroke="#f0a030" stroke-width="1.5"/>
+              <circle cx="12" cy="22.5" r="1.5" fill="#f0a030"/>
+            </svg>
+            <div>
+              <p class="vc-card__title">30 EUR travel voucher</p>
+              <p class="vc-card__desc">Unlock this voucher with an eligible Mastercard premium card.</p>
+            </div>
+          </div>
+          <div class="vc-card__action">
+            <a href="#" class="vc-card__btn">Get voucher &rarr;</a>
           </div>
         </div>
-        <div class="alt-card__action">
-          <a href="#" class="alt-card__btn">Get voucher <span class="alt-card__btn-arrow">→</span></a>
-        </div>
-      </div>
 
-    </div><!-- /alt-cards -->
+      </div><!-- /vc-cards -->
 
-    <!-- Checkout panel -->
-    <div class="alt-checkout">
-      <h2 class="alt-checkout__title">Unlock your voucher in minutes</h2>
-      <p class="alt-checkout__subtitle">Verify your Mastercard and receive your voucher code by email.</p>
+      <!-- Checkout panel -->
+      <div class="vc-checkout">
+        <h2 class="vc-checkout__title">Unlock your voucher in minutes</h2>
+        <p class="vc-checkout__subtitle">Verify your Mastercard and receive your voucher code by email.</p>
 
-      <div class="alt-checkout__routes">
-        <div class="alt-checkout__route">
-          <div class="alt-checkout__route-info">
-            <p class="alt-checkout__route-label">WAW → LIS</p>
-            <p class="alt-checkout__route-meta">19 May · TK 1785</p>
+        <!-- Route context rows -->
+        <div class="vc-checkout__routes">
+          <div class="vc-checkout__route">
+            <div>
+              <p class="vc-checkout__route-label">WAW &rarr; LIS</p>
+              <p class="vc-checkout__route-meta">19 May &middot; TK 1785</p>
+            </div>
+            <span class="vc-checkout__route-price">&euro; 218</span>
           </div>
-          <span class="alt-checkout__route-price">€ 218</span>
-        </div>
-        <div class="alt-checkout__route">
-          <div class="alt-checkout__route-info">
-            <p class="alt-checkout__route-label">LIS → WAW</p>
-            <p class="alt-checkout__route-meta">31 May · TK 1786</p>
+          <div class="vc-checkout__route">
+            <div>
+              <p class="vc-checkout__route-label">LIS &rarr; WAW</p>
+              <p class="vc-checkout__route-meta">31 May &middot; TK 1786</p>
+            </div>
+            <span class="vc-checkout__route-price">&euro; 218</span>
           </div>
-          <span class="alt-checkout__route-price">€ 218</span>
         </div>
-      </div>
 
-      <div class="alt-checkout__offer">
-        <div class="alt-checkout__offer-left">
-          <!-- Mastercard logo -->
-          <span class="alt-checkout__mc-icon">
+        <!-- Mastercard offer indicator -->
+        <div class="vc-checkout__offer">
+          <div class="vc-checkout__offer-left">
             <svg width="32" height="20" viewBox="0 0 32 20" xmlns="http://www.w3.org/2000/svg">
               <circle cx="12" cy="10" r="9" fill="#eb001b"/>
               <circle cx="20" cy="10" r="9" fill="#f79e1b"/>
               <path d="M16 3.8a9 9 0 0 1 0 12.4A9 9 0 0 1 16 3.8z" fill="#ff5f00"/>
             </svg>
-          </span>
-          <span class="alt-checkout__offer-label">Applied Mastercard offer</span>
+            <span class="vc-checkout__offer-label">Applied Mastercard offer</span>
+          </div>
+          <span class="vc-checkout__offer-badge">Verified at payment step</span>
         </div>
-        <span class="alt-checkout__offer-badge">Verified at payment step</span>
-      </div>
 
-      <div class="alt-checkout__passengers">
-        <span class="alt-checkout__passengers-label">Passengers</span>
-        <span class="alt-checkout__passengers-value">+1</span>
-      </div>
-
-      <div class="alt-checkout__total">
-        <div class="alt-checkout__total-row">
-          <span class="alt-checkout__total-label">Amount due today</span>
-          <span class="alt-checkout__total-amount">€ 438</span>
+        <div class="vc-checkout__passengers">
+          <span class="vc-checkout__passengers-label">Passengers</span>
+          <span class="vc-checkout__passengers-value">+1</span>
         </div>
-      </div>
-      <p class="alt-checkout__total-note">All taxes and fees included.</p>
 
-      <p class="alt-checkout__voucher-note">Voucher code will be sent after successful Mastercard verification.</p>
+        <div class="vc-checkout__total">
+          <div class="vc-checkout__total-row">
+            <span class="vc-checkout__total-label">Amount due today</span>
+            <span class="vc-checkout__total-amount">&euro; 438</span>
+          </div>
+        </div>
+        <p class="vc-checkout__total-note">All taxes and fees included.</p>
 
-      <a href="#" class="alt-checkout__cta">Continue to secure verification</a>
+        <p class="vc-checkout__voucher-note">
+          Your voucher code will be sent to your registered email after successful Mastercard verification.
+        </p>
 
-      <div class="alt-checkout__security">
-        <svg width="12" height="14" viewBox="0 0 12 14" xmlns="http://www.w3.org/2000/svg">
-          <rect x="1" y="6" width="10" height="8" rx="2" fill="none" stroke="#6b7785" stroke-width="1.2"/>
-          <path d="M3.5 6V4a2.5 2.5 0 0 1 5 0v2" stroke="#6b7785" stroke-width="1.2" fill="none"/>
-          <circle cx="6" cy="10" r="1" fill="#6b7785"/>
-        </svg>
-        Secure verification protected by SSL and 3D Secure
-      </div>
-    </div>
+        <a href="#" class="vc-checkout__cta">Continue to secure verification</a>
 
-  </div><!-- /alt-layout -->
-
-  <!-- Steps section -->
-  <section class="alt-steps">
-    <h2 class="alt-steps__title">Unlock Your Voucher in Minutes</h2>
-    <div class="alt-steps__grid">
-
-      <div class="alt-step">
-        <p class="alt-step__label">Step 1</p>
-        <div class="alt-step__icon">
-          <svg width="28" height="28" viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg" fill="none">
-            <circle cx="14" cy="14" r="5" stroke="#2a6ae0" stroke-width="1.8"/>
-            <path d="M14 4v2M14 22v2M4 14h2M22 14h2M6.34 6.34l1.42 1.42M20.24 20.24l1.42 1.42M6.34 21.66l1.42-1.42M20.24 7.76l1.42-1.42" stroke="#2a6ae0" stroke-width="1.6" stroke-linecap="round"/>
+        <div class="vc-checkout__security">
+          <svg width="12" height="14" viewBox="0 0 12 14" xmlns="http://www.w3.org/2000/svg" fill="none">
+            <rect x="1" y="6" width="10" height="8" rx="2" stroke="currentColor" stroke-width="1.2"/>
+            <path d="M3.5 6V4a2.5 2.5 0 0 1 5 0v2" stroke="currentColor" stroke-width="1.2"/>
+            <circle cx="6" cy="10" r="1" fill="currentColor"/>
           </svg>
+          Secure verification protected by SSL and 3D Secure
         </div>
-        <h3 class="alt-step__heading">Choose your voucher</h3>
-        <p class="alt-step__desc">Select an available airline voucher from the offers shown above.</p>
+      </div><!-- /vc-checkout -->
+
+    </div><!-- /vc-layout -->
+
+    <!-- Three-step section -->
+    <section class="vc-steps">
+      <h2 class="vc-steps__title">Unlock Your Voucher in Minutes</h2>
+      <div class="vc-steps__grid">
+
+        <div class="vc-step">
+          <p class="vc-step__label">Step 1</p>
+          <div class="vc-step__icon">
+            <svg width="28" height="28" viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg" fill="none">
+              <circle cx="14" cy="14" r="5" stroke="currentColor" stroke-width="1.8"/>
+              <path d="M14 4v2M14 22v2M4 14h2M22 14h2M6.34 6.34l1.42 1.42M20.24 20.24l1.42 1.42M6.34 21.66l1.42-1.42M20.24 7.76l1.42-1.42" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <h3 class="vc-step__heading">Choose your voucher</h3>
+          <p class="vc-step__desc">Select an available airline voucher from the offers shown above.</p>
+        </div>
+
+        <div class="vc-step">
+          <p class="vc-step__label">Step 2</p>
+          <div class="vc-step__icon">
+            <svg width="28" height="28" viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg" fill="none">
+              <rect x="4" y="8" width="20" height="14" rx="3" stroke="currentColor" stroke-width="1.8"/>
+              <path d="M4 13h20" stroke="currentColor" stroke-width="1.6"/>
+              <circle cx="9" cy="18" r="1.5" fill="currentColor"/>
+            </svg>
+          </div>
+          <h3 class="vc-step__heading">Verify your Mastercard</h3>
+          <p class="vc-step__desc">Confirm your eligible Mastercard premium card through the secure verification widget. Eligibility is checked at this step.</p>
+        </div>
+
+        <div class="vc-step">
+          <p class="vc-step__label">Step 3</p>
+          <div class="vc-step__icon">
+            <svg width="28" height="28" viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg" fill="none">
+              <rect x="4" y="6" width="20" height="16" rx="3" stroke="currentColor" stroke-width="1.8"/>
+              <path d="M4 11l10 7 10-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <h3 class="vc-step__heading">Receive your code</h3>
+          <p class="vc-step__desc">After successful verification, your voucher code will be sent to your registered email. Use the code according to the selected airline's voucher rules.</p>
+        </div>
+
       </div>
 
-      <div class="alt-step">
-        <p class="alt-step__label">Step 2</p>
-        <div class="alt-step__icon">
-          <svg width="28" height="28" viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg" fill="none">
-            <rect x="4" y="8" width="20" height="14" rx="3" stroke="#2a6ae0" stroke-width="1.8"/>
-            <path d="M4 13h20" stroke="#2a6ae0" stroke-width="1.6"/>
-            <circle cx="9" cy="18" r="1.5" fill="#2a6ae0"/>
-          </svg>
-        </div>
-        <h3 class="alt-step__heading">Verify your Mastercard</h3>
-        <p class="alt-step__desc">Confirm your eligible Mastercard premium card through the secure verification widget.</p>
-      </div>
+      <p class="vc-trust">
+        No voucher code is generated before successful Mastercard verification.&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+        Eligibility is checked securely during the verification step.&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+        Voucher codes are valid according to the selected airline's terms.
+      </p>
+    </section>
 
-      <div class="alt-step">
-        <p class="alt-step__label">Step 3</p>
-        <div class="alt-step__icon">
-          <svg width="28" height="28" viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg" fill="none">
-            <path d="M4 8l10 8 10-8" stroke="#2a6ae0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-            <rect x="4" y="6" width="20" height="16" rx="3" stroke="#2a6ae0" stroke-width="1.8"/>
-          </svg>
-        </div>
-        <h3 class="alt-step__heading">Receive your code</h3>
-        <p class="alt-step__desc">After successful verification, your voucher code will be sent to your registered email.</p>
-      </div>
+  </div><!-- /vc-container -->
+</div><!-- /vc-page -->
 
-    </div>
-
-    <p class="alt-trust">
-      Eligibility is checked securely during verification.&nbsp;&nbsp;·&nbsp;&nbsp;
-      No voucher code is generated before successful Mastercard verification.&nbsp;&nbsp;·&nbsp;&nbsp;
-      Use the code according to the selected airline's voucher rules.
-    </p>
-  </section>
-
-</main>
-
+<script>
+  // Reuse the same mobile menu toggle from main.js
+  const menuToggle = document.getElementById('menuToggle');
+  if (menuToggle) {
+    menuToggle.addEventListener('click', function () {
+      this.classList.toggle('active');
+    });
+  }
+</script>
 </body>
 </html>
