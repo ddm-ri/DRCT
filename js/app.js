@@ -362,14 +362,12 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   /* ---------------------------------------------------------------
-     DEMO LINKS (Typeform placeholder)
+     DEMO LINKS
   --------------------------------------------------------------- */
   document.querySelectorAll('[data-demo]').forEach(function (el) {
     el.addEventListener('click', function (e) {
       e.preventDefault();
-      // In production this opens the Typeform popup
-      // Here we just prevent navigation
-      alert('Demo request form would open here.');
+      window.location.href = 'mailto:hello@drct.aero';
     });
   });
 
