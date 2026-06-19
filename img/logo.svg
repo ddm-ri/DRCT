@@ -1,18 +1,22 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 26" fill="none">
-  <!-- D: thick geometric with rectangular inner void -->
-  <path fill-rule="evenodd" clip-rule="evenodd" fill="#17202e" d="
-    M 0 0 H 12 C 20.8 0 26 5.2 26 13 C 26 20.8 20.8 26 12 26 H 0 Z
-    M 5.5 5.5 H 11.5 C 17 5.5 20 8.8 20 13 C 20 17.2 17 20.5 11.5 20.5 H 5.5 Z
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 50" fill="none">
+  <!-- D: bold geometric bowl, rectangular inner void via evenodd -->
+  <path fill-rule="evenodd" clip-rule="evenodd" fill="#1b2733" d="
+    M 0 0 H 36 C 52 0 60 11 60 25 C 60 39 52 50 36 50 H 0 Z
+    M 13 13 H 34 C 42 13 47 18.5 47 25 C 47 31.5 42 37 34 37 H 13 Z
   "/>
-  <!-- R: geometric with flat-bottomed leg -->
-  <path fill="#17202e" fill-rule="evenodd" d="
-    M 31 0 H 43 C 48.5 0 52 3 52 7.5 C 52 11 49.8 13.5 46.5 14.5 L 53 26 H 46.5 L 40.5 15 H 37 V 26 H 31 Z
-    M 37 5 V 10.5 H 42 C 44.2 10.5 46 9.5 46 7.5 C 46 5.5 44.2 5 42 5 Z
+  <!-- R: bold bowl + diagonal leg, evenodd for bowl hollow -->
+  <path fill-rule="evenodd" clip-rule="evenodd" fill="#1b2733" d="
+    M 68 0 H 97 C 107 0 114 7 114 16 C 114 23.5 109.5 29.5 102 31.5 L 115 50 H 100 L 88 32 H 81 V 50 H 68 Z
+    M 81 12 H 93 C 98 12 101 14 101 16.5 C 101 19 98 20.5 93 20.5 H 81 Z
   "/>
-  <!-- C: clean arc, slightly open -->
-  <path fill="#17202e" d="
-    M 57 13 C 57 5.8 61.8 0 68.5 0 C 72.3 0 75.5 1.8 77.5 5 L 73 8.2 C 71.9 6.5 70.3 5.5 68.5 5.5 C 64.8 5.5 63 8.7 63 13 C 63 17.3 64.8 20.5 68.5 20.5 C 70.3 20.5 71.9 19.5 73 17.8 L 77.5 21 C 75.5 24.2 72.3 26 68.5 26 C 61.8 26 57 20.2 57 13 Z
+  <!-- C: clean open arc -->
+  <path fill="#1b2733" d="
+    M 175 13 C 171 6.5 163.5 1 153.5 1 C 139 1 127 12 127 25
+    C 127 38 139 49 153.5 49 C 163.5 49 171 43.5 175 37
+    L 164.5 31 C 162 35.5 158.5 37.5 153.5 37.5
+    C 147 37.5 140 32 140 25 C 140 18 147 12.5 153.5 12.5
+    C 158.5 12.5 162 14.5 164.5 19 Z
   "/>
-  <!-- T: balanced cap and stem -->
-  <path fill="#17202e" d="M 81 0 H 96 V 5.5 H 91.5 V 26 H 85.5 V 5.5 H 81 Z"/>
+  <!-- T: wide crossbar, centered stem -->
+  <path fill="#1b2733" d="M 183 0 H 260 V 13 H 230 V 50 H 213 V 13 H 183 Z"/>
 </svg>
