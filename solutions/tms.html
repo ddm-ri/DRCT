@@ -3,30 +3,207 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>For TMS — DRCT</title>
+  <title>For TMS — NDC and airline content integrated into your platform | DRCT</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/styles.css">
   <link rel="stylesheet" href="../css/blocks.css">
   <link rel="stylesheet" href="../css/legacy.css">
+  <style>
+    /* ── Hero ─────────────────────────────────────────────────────── */
+    .ia-hero {
+      background: linear-gradient(180deg, rgba(42,138,234,0.13) 0%, rgba(42,138,234,0.03) 65%, #fff 100%);
+      padding: 96px 0 88px;
+    }
+    .ia-hero__inner { text-align: center; max-width: 760px; margin: 0 auto; padding: 0 20px; }
+    .ia-hero__badge {
+      display: inline-block; font-family: var(--font-mono);
+      font-size: 9px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase;
+      color: rgba(27,39,51,0.5); background: rgba(27,39,51,0.07);
+      border-radius: 4px; padding: 4px 10px; margin-bottom: 28px;
+    }
+    .ia-hero h1 { font-size: 62px; font-weight: 900; color: var(--dark); line-height: 1.03; margin: 0 0 26px; letter-spacing: -1.8px; }
+    .ia-hero__lead { font-size: 18px; font-weight: 700; color: var(--dark); line-height: 1.5; margin: 0 auto 20px; max-width: 680px; }
+    .ia-hero__sub { font-size: 15px; line-height: 1.68; color: rgba(27,39,51,0.54); margin: 0 auto 40px; max-width: 600px; }
+    .ia-hero__ctas { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .ia-hero__ctas .btn-primary { height: 44px; padding: 0 28px; display: inline-flex; align-items: center; font-size: 13px; }
+    .btn-outline {
+      height: 44px; padding: 0 28px; display: inline-flex; align-items: center;
+      font-size: 13px; font-weight: 700; letter-spacing: 0.6px; text-transform: uppercase;
+      color: var(--blue); border: 1.5px solid rgba(42,138,234,0.35); border-radius: 4px; text-decoration: none;
+    }
+    .btn-outline:hover { background: rgba(42,138,234,0.05); }
+    @media (max-width: 1024px) { .ia-hero { padding: 72px 0 64px; } }
+    @media (max-width: 767px) {
+      .ia-hero { padding: 60px 0 52px; }
+      .ia-hero h1 { font-size: 38px; letter-spacing: -0.8px; }
+      .ia-hero__lead { font-size: 16px; }
+      .ia-hero__sub { font-size: 14px; }
+    }
+    @media (max-width: 413px) { .ia-hero h1 { font-size: 32px; } }
+
+    /* ── Section heading ──────────────────────────────────────────── */
+    .ps-section { padding: 88px 0 100px; }
+    .ps-section__head { text-align: center; max-width: 700px; margin: 0 auto 52px; }
+    .ps-eyebrow { display: inline-block; font-family: var(--font-mono); font-size: 10px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; color: var(--blue); margin-bottom: 18px; }
+    .ps-section__head h2 { font-size: 31px; font-weight: 700; color: var(--dark); margin: 0 0 14px; letter-spacing: -0.4px; line-height: 1.18; }
+    .ps-section__head p { font-size: 15px; color: rgba(27,39,51,0.56); line-height: 1.65; margin: 0; }
+    @media (max-width: 1024px) { .ps-section { padding: 68px 0 80px; } }
+    @media (max-width: 767px) { .ps-section { padding: 52px 0 60px; } .ps-section__head h2 { font-size: 27px; } }
+
+    /* ── How it works ─────────────────────────────────────────────── */
+    .ia-how { padding: 88px 0 100px; background: rgba(27,39,51,0.025); }
+    .ia-how__head { text-align: center; max-width: 680px; margin: 0 auto 52px; }
+    .ia-how__head h2 { font-size: 31px; font-weight: 700; color: var(--dark); margin: 0 0 12px; letter-spacing: -0.4px; }
+    .ia-how__head p { font-size: 15px; color: rgba(27,39,51,0.56); line-height: 1.65; margin: 0; }
+    .ia-flow { display: grid; grid-template-columns: 1fr 52px 1.3fr 52px 1fr; align-items: center; gap: 0; margin-bottom: 52px; }
+    .ia-flow__col { background: #fff; border: 1px solid rgba(27,39,51,0.1); border-radius: 14px; padding: 24px 22px; display: flex; flex-direction: column; align-self: stretch; }
+    .ia-flow__col--core { background: linear-gradient(145deg, rgba(42,138,234,0.11) 0%, rgba(42,138,234,0.04) 100%); border-color: rgba(42,138,234,0.2); }
+    .ia-flow__badge { display: inline-flex; align-items: center; gap: 5px; font-family: var(--font-mono); font-size: 9px; font-weight: 700; letter-spacing: 0.5px; color: var(--blue); background: rgba(42,138,234,0.12); border-radius: 5px; padding: 3px 8px; margin-bottom: 10px; align-self: flex-start; }
+    .ia-flow__badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #33c100; display: block; }
+    .ia-flow__label { font-family: var(--font-mono); font-size: 9px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; color: rgba(27,39,51,0.38); margin-bottom: 5px; }
+    .ia-flow__title { font-size: 15px; font-weight: 700; color: var(--dark); margin: 0 0 3px; }
+    .ia-flow__sub { font-family: var(--font-mono); font-size: 9px; color: rgba(27,39,51,0.38); margin: 0 0 16px; }
+    .ia-flow__items { display: flex; flex-direction: column; gap: 8px; }
+    .ia-flow__item { display: flex; align-items: center; gap: 9px; font-size: 12px; color: rgba(27,39,51,0.7); }
+    .ia-flow__dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+    .ia-flow__steps { display: flex; flex-direction: column; gap: 10px; }
+    .ia-flow__step { display: flex; align-items: flex-start; gap: 9px; font-size: 12px; color: rgba(27,39,51,0.72); line-height: 1.42; }
+    .ia-flow__n { font-family: var(--font-mono); font-size: 9px; font-weight: 700; color: var(--blue); background: rgba(42,138,234,0.12); border-radius: 4px; padding: 2px 6px; flex-shrink: 0; margin-top: 1px; }
+    .ia-flow__note { font-family: var(--font-mono); font-size: 9px; color: rgba(27,39,51,0.36); margin-top: auto; padding-top: 14px; line-height: 1.55; }
+    .ia-flow__arrow { display: flex; justify-content: center; align-items: center; }
+    /* 4-col feature row */
+    .ia-feat-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border-top: 1px solid rgba(27,39,51,0.08); padding-top: 44px; }
+    .ia-feat-col { padding-right: 32px; }
+    .ia-feat-col + .ia-feat-col { padding-left: 32px; padding-right: 32px; border-left: 1px solid rgba(27,39,51,0.08); }
+    .ia-feat-col:last-child { padding-right: 0; }
+    .ia-feat-icon { color: var(--blue); margin-bottom: 14px; }
+    .ia-feat-title { font-size: 16px; font-weight: 700; color: var(--dark); margin: 0 0 10px; }
+    .ia-feat-desc { font-size: 14px; line-height: 1.65; color: rgba(27,39,51,0.56); margin: 0; }
+    @media (max-width: 1024px) {
+      .ia-how { padding: 68px 0 80px; }
+      .ia-flow { grid-template-columns: 1fr 36px 1fr 36px 1fr; }
+      .ia-feat-row { grid-template-columns: repeat(2, 1fr); }
+      .ia-feat-col:nth-child(3) { border-left: none; padding-left: 0; border-top: 1px solid rgba(27,39,51,0.08); padding-top: 28px; margin-top: 28px; }
+      .ia-feat-col:nth-child(4) { border-top: 1px solid rgba(27,39,51,0.08); padding-top: 28px; margin-top: 28px; }
+    }
+    @media (max-width: 767px) {
+      .ia-how { padding: 52px 0 60px; }
+      .ia-how__head h2 { font-size: 27px; }
+      .ia-flow { grid-template-columns: 1fr; }
+      .ia-flow__arrow { padding: 4px 0; }
+      .ia-feat-row { grid-template-columns: 1fr; }
+      .ia-feat-col, .ia-feat-col + .ia-feat-col { padding: 28px 0 0; border-left: none; border-top: 1px solid rgba(27,39,51,0.08); }
+      .ia-feat-col:nth-child(3), .ia-feat-col:nth-child(4) { border-left: none; padding-left: 0; margin-top: 0; }
+      .ia-feat-col:first-child { border-top: none; padding-top: 0; }
+    }
+
+    /* ── Products ─────────────────────────────────────────────────── */
+    .ia-products { padding: 88px 0 100px; background: var(--off-white, #f3f4f5); }
+    .ia-products__head { text-align: center; max-width: 700px; margin: 0 auto 52px; }
+    .ia-products__head h2 { font-size: 31px; font-weight: 700; color: var(--dark); margin: 0 0 12px; letter-spacing: -0.4px; }
+    .ia-products__head p { font-size: 15px; color: rgba(27,39,51,0.56); line-height: 1.65; margin: 0; }
+    .ia-prod-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+    .ia-prod { background: #fff; border: 1px solid rgba(27,39,51,0.1); border-radius: 14px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 4px 24px rgba(27,39,51,0.07); }
+    .ia-prod__mockup { background: var(--off-white, #f3f4f5); padding: 22px 22px 0; }
+    .ia-prod__body { padding: 22px 26px 26px; display: flex; flex-direction: column; flex: 1; }
+    .ia-prod__tag { font-family: var(--font-mono); font-size: 9px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: rgba(27,39,51,0.38); margin-bottom: 8px; display: block; }
+    .ia-prod__name { font-size: 22px; font-weight: 700; color: var(--dark); margin: 0 0 10px; }
+    .ia-prod__desc { font-size: 14px; line-height: 1.65; color: rgba(27,39,51,0.58); margin: 0 0 18px; flex: 1; }
+    .ia-prod__link { font-size: 12px; font-weight: 700; color: var(--blue); text-decoration: none; letter-spacing: 0.6px; text-transform: uppercase; }
+    .ia-prod__link:hover { text-decoration: underline; }
+    /* API mockup */
+    .api-mock { background: #fff; border: 1px solid rgba(27,39,51,0.1); border-bottom: none; border-radius: 10px 10px 0 0; overflow: hidden; font-family: var(--font-mono); }
+    .api-mock__bar { background: rgba(27,39,51,0.03); padding: 7px 12px; display: flex; align-items: center; gap: 6px; border-bottom: 1px solid rgba(27,39,51,0.08); }
+    .api-mock__dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(27,39,51,0.15); flex-shrink: 0; }
+    .api-mock__title { font-size: 9px; font-weight: 600; color: rgba(27,39,51,0.45); letter-spacing: 0.5px; }
+    .api-mock__req { padding: 11px 14px; border-bottom: 1px solid rgba(27,39,51,0.08); }
+    .api-mock__method { display: inline-flex; align-items: center; gap: 8px; font-size: 10px; font-weight: 700; margin-bottom: 6px; }
+    .api-mock__verb { background: rgba(42,138,234,0.12); color: var(--blue); padding: 2px 6px; border-radius: 3px; font-size: 9px; letter-spacing: 0.3px; }
+    .api-mock__endpoint { color: var(--dark); }
+    .api-mock__auth { font-size: 9px; color: rgba(27,39,51,0.38); }
+    .api-mock__body { padding: 10px 14px; background: rgba(27,39,51,0.015); border-bottom: 1px solid rgba(27,39,51,0.07); font-size: 9.5px; line-height: 1.7; color: rgba(27,39,51,0.65); }
+    .api-mock__key { color: var(--blue); }
+    .api-mock__str { color: #33a06b; }
+    .api-mock__num { color: #e0672a; }
+    .api-mock__res { padding: 8px 14px; display: flex; align-items: center; gap: 8px; }
+    .api-mock__status { font-size: 9px; font-weight: 700; color: #33c100; background: rgba(51,193,0,0.1); padding: 2px 6px; border-radius: 3px; }
+    .api-mock__res-text { font-size: 9px; color: rgba(27,39,51,0.45); }
+    /* TMC booking mockup */
+    .tmc-mock { background: #fff; border: 1px solid rgba(27,39,51,0.1); border-bottom: none; border-radius: 10px 10px 0 0; overflow: hidden; }
+    .tmc-mock__head { padding: 14px 16px 10px; border-bottom: 1px solid rgba(27,39,51,0.08); }
+    .tmc-mock__trip { font-size: 14px; font-weight: 700; color: var(--dark); }
+    .tmc-mock__sub { font-size: 11px; color: rgba(27,39,51,0.45); margin-top: 2px; }
+    .tmc-mock__cols { display: flex; padding: 7px 16px; border-bottom: 1px solid rgba(27,39,51,0.1); background: rgba(27,39,51,0.02); }
+    .tmc-mock__col-label { font-family: var(--font-mono); font-size: 8px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: rgba(27,39,51,0.35); }
+    .tmc-mock__col-label:last-child { margin-left: auto; }
+    .tmc-mock__row { display: flex; align-items: center; padding: 10px 16px; border-bottom: 1px solid rgba(27,39,51,0.06); gap: 10px; }
+    .tmc-mock__avatar { width: 30px; height: 30px; border-radius: 50%; background: rgba(42,138,234,0.12); display: flex; align-items: center; justify-content: center; font-family: var(--font-mono); font-size: 9px; font-weight: 700; color: var(--blue); flex-shrink: 0; }
+    .tmc-mock__info { flex: 1; }
+    .tmc-mock__name { font-size: 12px; font-weight: 600; color: var(--dark); }
+    .tmc-mock__email { font-size: 10px; color: rgba(27,39,51,0.42); }
+    .tmc-mock__class { font-size: 12px; color: rgba(27,39,51,0.6); }
+    @media (max-width: 1024px) { .ia-products { padding: 68px 0 80px; } }
+    @media (max-width: 767px) {
+      .ia-products { padding: 52px 0 60px; }
+      .ia-products__head h2 { font-size: 27px; }
+      .ia-prod-list { grid-template-columns: 1fr; }
+    }
+
+    /* ── Benefits ─────────────────────────────────────────────────── */
+    .ia-why {
+      padding: 88px 0 100px;
+      background: linear-gradient(180deg, rgba(42,138,234,0.09) 0%, rgba(42,138,234,0.04) 50%, rgba(42,138,234,0.09) 100%);
+    }
+    .ia-why__head { text-align: center; max-width: 680px; margin: 0 auto 52px; }
+    .ia-why__head h2 { font-size: 31px; font-weight: 700; color: var(--dark); margin: 0 0 12px; letter-spacing: -0.4px; }
+    .ia-why__head p { font-size: 15px; color: rgba(27,39,51,0.56); line-height: 1.65; margin: 0; }
+    .ia-why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 44px 64px; }
+    .ia-why-icon { width: 44px; height: 44px; border-radius: 12px; background: rgba(42,138,234,0.1); display: flex; align-items: center; justify-content: center; margin-bottom: 16px; }
+    .ia-why-title { font-size: 15px; font-weight: 700; color: var(--dark); margin: 0 0 8px; line-height: 1.3; }
+    .ia-why-desc { font-size: 14px; line-height: 1.65; color: rgba(27,39,51,0.58); margin: 0; }
+    @media (max-width: 1024px) { .ia-why { padding: 68px 0 80px; } .ia-why-grid { gap: 36px 44px; } }
+    @media (max-width: 767px) {
+      .ia-why { padding: 52px 0 60px; }
+      .ia-why__head h2 { font-size: 27px; }
+      .ia-why-grid { grid-template-columns: 1fr 1fr; gap: 28px 24px; }
+    }
+    @media (max-width: 413px) { .ia-why-grid { grid-template-columns: 1fr; } }
+
+    /* ── FAQ ──────────────────────────────────────────────────────── */
+    .ia-faq { padding: 88px 0 100px; }
+    .ia-faq__head { text-align: center; max-width: 620px; margin: 0 auto 48px; }
+    .ia-faq__head h2 { font-size: 31px; font-weight: 700; color: var(--dark); margin: 0; letter-spacing: -0.4px; }
+    @media (max-width: 1024px) { .ia-faq { padding: 68px 0 80px; } }
+    @media (max-width: 767px) { .ia-faq { padding: 52px 0 60px; } .ia-faq__head h2 { font-size: 27px; } }
+
+    /* ── Final CTA ────────────────────────────────────────────────── */
+    .ia-cta {
+      padding: 88px 0 100px;
+      background: linear-gradient(180deg, rgba(42,138,234,0.12) 0%, rgba(42,138,234,0.05) 100%);
+      text-align: center;
+    }
+    .ia-cta h2 { font-size: 36px; font-weight: 700; color: var(--dark); margin: 0 0 36px; letter-spacing: -0.5px; line-height: 1.15; }
+    .ia-cta__btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .ia-cta__btns .btn-primary { height: 44px; padding: 0 28px; display: inline-flex; align-items: center; font-size: 13px; }
+    @media (max-width: 767px) { .ia-cta { padding: 72px 0 80px; } .ia-cta h2 { font-size: 28px; } }
+  </style>
   <link rel="canonical" href="https://drct.aero/solutions/tms.html">
 </head>
 <body>
+
+<!-- ================================================================
+     HEADER
+================================================================ -->
 <header class="nav-bar" id="header">
   <div class="nav-bar__inner">
-
     <a href="../index.html" class="nav-bar__logo"><img src="../img/logo.svg" alt="DRCT" width="260" height="50"></a>
-
     <nav class="nav-bar__nav" role="navigation" aria-label="Main">
-
       <div class="nav-item" data-menu="solutions">
         <button type="button" class="nav-item__trigger" aria-haspopup="true" aria-expanded="false">Solutions <svg class="nav-chevron" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 4.5l4 3.5 4-3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
         <div class="mega-menu" role="dialog" aria-label="Solutions">
-          <div class="mm-intro">
-            <strong class="mm-intro__title">Solutions</strong>
-            <p class="mm-intro__desc">Explore how DRCT helps airlines, agencies and distribution partners deliver, distribute and monetize airline offers.</p>
-          </div>
+          <div class="mm-intro"><strong class="mm-intro__title">Solutions</strong><p class="mm-intro__desc">Explore how DRCT helps airlines, agencies and distribution partners deliver, distribute and monetize airline offers.</p></div>
           <div class="mm-grid">
             <div class="mm-col">
               <a class="mm-item" href="../solutions/for-airlines.html"><span class="mm-item__icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 13.5L5.5 8l3 2.5 4-6L16 14" stroke="#2a8aea" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="9" cy="5" r="1.5" fill="#2a8aea" fill-opacity="0.35" stroke="#2a8aea" stroke-width="1.3"/></svg></span><span class="mm-item__body"><strong>For Airlines</strong><span>Distribute offers and grow ancillary revenue across all channel types.</span></span></a>
@@ -40,14 +217,10 @@
           </div>
         </div>
       </div>
-
       <div class="nav-item" data-menu="products">
         <button type="button" class="nav-item__trigger" aria-haspopup="true" aria-expanded="false">Products <svg class="nav-chevron" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 4.5l4 3.5 4-3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
         <div class="mega-menu" role="dialog" aria-label="Products">
-          <div class="mm-intro">
-            <strong class="mm-intro__title">Products</strong>
-            <p class="mm-intro__desc">Discover the DRCT platform, integrations and tools powering modern airline commerce.</p>
-          </div>
+          <div class="mm-intro"><strong class="mm-intro__title">Products</strong><p class="mm-intro__desc">Discover the DRCT platform, integrations and tools powering modern airline commerce.</p></div>
           <div class="mm-grid">
             <div class="mm-col">
               <a class="mm-item" href="../products/bt.html"><span class="mm-item__icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="2" y="3" width="14" height="12" rx="2" stroke="#2a8aea" stroke-width="1.4"/><path d="M6 8h6M6 11h4" stroke="#2a8aea" stroke-width="1.4" stroke-linecap="round" stroke-opacity="0.6"/><path d="M2 6.5h14" stroke="#2a8aea" stroke-width="1.4" stroke-opacity="0.28"/></svg></span><span class="mm-item__body"><strong>Business Travel</strong><span>Premium booking and servicing experience for corporate travelers.</span></span></a>
@@ -60,30 +233,17 @@
           </div>
         </div>
       </div>
-
       <a class="nav-item__link" href="../supply-network/index.html">Supply Network</a>
-
     </nav>
-
     <div class="nav-bar__right">
       <div class="nav-item nav-item--lang" data-menu="lang">
         <button type="button" class="nav-item__trigger" aria-haspopup="true" aria-expanded="false"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><circle cx="7" cy="7" r="5.5" stroke="currentColor" stroke-width="1.3"/><path d="M7 1.5C7 1.5 5 4 5 7s2 5.5 2 5.5M7 1.5C7 1.5 9 4 9 7s-2 5.5-2 5.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><path d="M1.5 7h11" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-opacity="0.6"/></svg> EN <svg class="nav-chevron" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 4.5l4 3.5 4-3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-        <div class="mm-lang">
-          <a href="#" class="active">English</a>
-          <a href="#">Español</a>
-          <a href="#">Français</a>
-          <a href="#">Deutsch</a>
-        </div>
+        <div class="mm-lang"><a href="#" class="active">English</a><a href="#">Español</a><a href="#">Français</a><a href="#">Deutsch</a></div>
       </div>
       <a class="nav-bar__signin" href="#">Sign In</a>
       <a class="nav-bar__demo" href="mailto:hello@drct.aero">Book a Demo</a>
     </div>
-
-    <button class="nav-bar__hamburger" id="menuToggle" aria-label="Toggle navigation" aria-expanded="false">
-      <div class="line-1"></div>
-      <div class="line-2"></div>
-    </button>
-
+    <button class="nav-bar__hamburger" id="menuToggle" aria-label="Toggle navigation" aria-expanded="false"><div class="line-1"></div><div class="line-2"></div></button>
   </div>
 </header>
 <div class="mobile-menu" id="mobileMenu">
@@ -104,28 +264,472 @@
     <li><a href="mailto:hello@drct.aero">Book a Demo</a></li>
   </ul>
 </div>
-<div class="landing-new loaded" style="background-image: linear-gradient(180deg, rgba(42,138,234,0.12) 0%, rgba(42,138,234,0) 70%);">
+
+<!-- ================================================================
+     HERO
+================================================================ -->
+<div class="ia-hero">
   <div class="landing-new__body">
-    <section class="hero">
-      <span class="hero__badge">For TMS</span>
-      <h1 class="hero__title">For TMS</h1>
-      <h2 class="hero__subtitle">Coming soon — this page is under construction.</h2>
+    <div class="ia-hero__inner">
+      <span class="ia-hero__badge">Solutions</span>
+      <h1>For TMS</h1>
+      <p class="ia-hero__lead">Airline offers integrated into your TMS. We integrate direct airline offers into your TMS workflow — normalized, enhanced, and supported 24/7 — so your team gets full content and control without switching systems.</p>
+      <p class="ia-hero__sub">Building and maintaining airline integrations is one of the most expensive problems in travel tech. DRCT connects your corporate travel management platform to GDS, NDC, and custom airline APIs through a single layer — normalized, enriched, and ready to use.</p>
+      <div class="ia-hero__ctas">
+        <a href="mailto:hello@drct.aero" class="btn-primary">Request a Demo</a>
+        <a href="#products" class="btn-outline">Explore Products</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================================================================
+     CHALLENGES / SOLUTIONS (bcard-only)
+================================================================ -->
+<div class="landing-new loaded">
+  <div class="landing-new__body">
+    <section class="ps-section" id="solutions">
+      <div class="ps-section__head">
+        <span class="ps-eyebrow">For TMS</span>
+        <h2>Challenges in corporate travel and TMS integration</h2>
+        <p>Making airline distribution work inside your TMS.</p>
+      </div>
+      <div class="bcard-grid">
+
+        <div class="bcard">
+          <div class="bcard__icon">
+            <svg width="22" height="22" viewBox="0 0 26 26" fill="none" aria-hidden="true">
+              <circle cx="8" cy="8" r="4" stroke="#2a8aea" stroke-width="1.5"/>
+              <circle cx="18" cy="8" r="4" stroke="#2a8aea" stroke-width="1.5"/>
+              <circle cx="13" cy="17" r="4" stroke="#2a8aea" stroke-width="1.5"/>
+              <path d="M12 8h2M10.5 12.5l1.5 1.5M15.5 12.5l-1.5 1.5" stroke="#2a8aea" stroke-width="1.3" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <h3 class="bcard__title">DRCT aggregates and normalizes all sources into one feed</h3>
+          <p class="bcard__desc">Including fares, ancillaries, and branded content — delivered as a unified data structure your TMS can consume without per-airline transformation.</p>
+        </div>
+
+        <div class="bcard">
+          <div class="bcard__icon">
+            <svg width="22" height="22" viewBox="0 0 26 26" fill="none" aria-hidden="true">
+              <path d="M13 3L4 8v10l9 5 9-5V8L13 3z" stroke="#2a8aea" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M13 3v20M4 8l9 5 9-5" stroke="#2a8aea" stroke-width="1.4" stroke-linecap="round" stroke-opacity="0.4"/>
+            </svg>
+          </div>
+          <h3 class="bcard__title">DRCT provides a single interface for all airline content</h3>
+          <p class="bcard__desc">Your TMS connects once and gets access to GDS, NDC, and direct airline inventory — without per-airline development, certification cycles, or ongoing maintenance.</p>
+        </div>
+
+        <div class="bcard">
+          <div class="bcard__icon">
+            <svg width="22" height="22" viewBox="0 0 26 26" fill="none" aria-hidden="true">
+              <rect x="3" y="5" width="20" height="16" rx="3" stroke="#2a8aea" stroke-width="1.6"/>
+              <path d="M3 10h20" stroke="#2a8aea" stroke-width="1.4" stroke-linecap="round" stroke-opacity="0.4"/>
+              <path d="M8 15h4M8 18h6" stroke="#2a8aea" stroke-width="1.4" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <h3 class="bcard__title">DRCT normalizes and enriches offers for your system</h3>
+          <p class="bcard__desc">Enabling consistent pricing logic, policy control, and structured data inside your TMS — raw airline content transformed into clean, comparable, policy-ready offers.</p>
+        </div>
+
+        <div class="bcard">
+          <div class="bcard__icon">
+            <svg width="22" height="22" viewBox="0 0 26 26" fill="none" aria-hidden="true">
+              <path d="M13 3C7.477 3 3 7.477 3 13s4.477 10 10 10 10-4.477 10-10S18.523 3 13 3z" stroke="#2a8aea" stroke-width="1.6"/>
+              <path d="M8 13h10M13 8v10" stroke="#2a8aea" stroke-width="1.5" stroke-linecap="round" stroke-opacity="0.5"/>
+              <circle cx="13" cy="13" r="2.5" stroke="#2a8aea" stroke-width="1.4"/>
+            </svg>
+          </div>
+          <h3 class="bcard__title">DRCT integrates everything into your TMS</h3>
+          <p class="bcard__desc">With unified logic and 24/7 support for ongoing operations — including order management, changes, cancellations, and settlement — all handled through one layer.</p>
+        </div>
+
+      </div>
     </section>
   </div>
 </div>
-<div class="landing-new loaded cta-final" id="contact">
-  <div class="landing-new__body">
-    <section class="section-block">
-      <div class="section-block__head">
-        <h2>Get in touch</h2>
-        <p>Contact the DRCT team to learn more.</p>
+
+<!-- ================================================================
+     HOW IT WORKS
+================================================================ -->
+<div class="landing-new loaded">
+  <div class="ia-how" id="how">
+    <div class="landing-new__body">
+
+      <div class="ia-how__head">
+        <h2>How it works</h2>
+        <p>DRCT is an orchestration layer that sits between airline inventory and your corporate travel management platform, handling everything in between.</p>
       </div>
-      <div class="hero__ctas">
-        <a href="mailto:hello@drct.aero" class="btn-primary">Contact DRCT</a>
+
+      <div class="ia-flow">
+
+        <!-- Col 1: Airline offers -->
+        <div class="ia-flow__col">
+          <span class="ia-flow__label">Airline Offers</span>
+          <h3 class="ia-flow__title">Direct sources</h3>
+          <p class="ia-flow__sub">As issued by the airline</p>
+          <div class="ia-flow__items">
+            <div class="ia-flow__item"><span class="ia-flow__dot" style="background:var(--blue)"></span>GDS</div>
+            <div class="ia-flow__item"><span class="ia-flow__dot" style="background:rgba(42,138,234,0.5)"></span>NDC direct</div>
+            <div class="ia-flow__item"><span class="ia-flow__dot" style="background:rgba(42,138,234,0.3)"></span>Custom APIs</div>
+          </div>
+        </div>
+
+        <!-- Arrow -->
+        <div class="ia-flow__arrow">
+          <svg width="40" height="24" viewBox="0 0 40 24" fill="none">
+            <path d="M0 12h30" stroke="rgba(42,138,234,0.3)" stroke-width="1.4" stroke-dasharray="4 3"/>
+            <path d="M24 7l8 5-8 5" stroke="rgba(42,138,234,0.4)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          </svg>
+        </div>
+
+        <!-- Col 2: DRCT -->
+        <div class="ia-flow__col ia-flow__col--core">
+          <span class="ia-flow__badge">DRCT</span>
+          <span class="ia-flow__label">Orchestration</span>
+          <h3 class="ia-flow__title">Normalization, enrichment, unified logic</h3>
+          <p class="ia-flow__sub">Your TMS — Integrated into your system</p>
+          <div class="ia-flow__steps">
+            <div class="ia-flow__step"><span class="ia-flow__n">01</span>Normalization — unified data structure across all sources</div>
+            <div class="ia-flow__step"><span class="ia-flow__n">02</span>Enrichment — ancillaries, bundles, policy data</div>
+            <div class="ia-flow__step"><span class="ia-flow__n">03</span>Delivery — via API or embedded interface</div>
+          </div>
+          <p class="ia-flow__note">Booking, servicing, order management</p>
+        </div>
+
+        <!-- Arrow -->
+        <div class="ia-flow__arrow">
+          <svg width="40" height="24" viewBox="0 0 40 24" fill="none">
+            <path d="M0 12h30" stroke="rgba(42,138,234,0.3)" stroke-width="1.4" stroke-dasharray="4 3"/>
+            <path d="M24 7l8 5-8 5" stroke="rgba(42,138,234,0.4)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          </svg>
+        </div>
+
+        <!-- Col 3: Booking & post-sale -->
+        <div class="ia-flow__col">
+          <span class="ia-flow__label">Booking &amp; Post-Sale</span>
+          <h3 class="ia-flow__title">Booking, servicing, order management</h3>
+          <p class="ia-flow__sub">Integrated into your system</p>
+          <div class="ia-flow__items">
+            <div class="ia-flow__item"><span class="ia-flow__dot" style="background:var(--blue)"></span>Booking &amp; ticketing</div>
+            <div class="ia-flow__item"><span class="ia-flow__dot" style="background:#33c100"></span>Order management</div>
+            <div class="ia-flow__item"><span class="ia-flow__dot" style="background:#ff9f00"></span>Reporting</div>
+          </div>
+        </div>
+
+      </div><!-- /ia-flow -->
+
+      <div class="ia-feat-row">
+
+        <div class="ia-feat-col">
+          <div class="ia-feat-icon">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
+              <path d="M3 17l8 3.5L19 17M3 11.5l8 3.5 8-3.5M11 2L3 6l8 3.5L19 6 11 2z" stroke="#2a8aea" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <h3 class="ia-feat-title">Offer ingestion</h3>
+          <p class="ia-feat-desc">DRCT ingests airline offers from different sources — normalizing them into a unified data structure while preserving full pricing logic, fare rules, and attributes.</p>
+        </div>
+
+        <div class="ia-feat-col">
+          <div class="ia-feat-icon">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
+              <path d="M11 2l2.1 6.4 6.4 2.1-6.4 2.1L11 19l-2.1-6.4L2.5 10.5l6.4-2.1L11 2z" stroke="#2a8aea" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <h3 class="ia-feat-title">Orchestration and enrichment</h3>
+          <p class="ia-feat-desc">DRCT transforms and enriches offers before they reach your TMS — adding ancillaries, seat options, and bundle components, and ensuring offers are complete and comparable across all sources.</p>
+        </div>
+
+        <div class="ia-feat-col">
+          <div class="ia-feat-icon">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
+              <circle cx="11" cy="11" r="8.5" stroke="#2a8aea" stroke-width="1.5"/>
+              <circle cx="11" cy="11" r="3.5" stroke="#2a8aea" stroke-width="1.4"/>
+            </svg>
+          </div>
+          <h3 class="ia-feat-title">Delivery into your TMS</h3>
+          <p class="ia-feat-desc">Enriched offers are delivered via a single interface into your travel management software — with consistent data structure and no need for per-airline integrations or format handling.</p>
+        </div>
+
+        <div class="ia-feat-col">
+          <div class="ia-feat-icon">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
+              <circle cx="11" cy="11" r="8.5" stroke="#2a8aea" stroke-width="1.5"/>
+              <path d="M8 11a3 3 0 016 0" stroke="#2a8aea" stroke-width="1.4" stroke-linecap="round"/>
+              <circle cx="11" cy="14" r="1.5" fill="#2a8aea"/>
+            </svg>
+          </div>
+          <h3 class="ia-feat-title">Booking &amp; post-sale</h3>
+          <p class="ia-feat-desc">Booking, ticketing, and post-booking operations are handled through DRCT's NDC order management layer — including changes, cancellations, and refunds, combining self-service flows with support for complex cases.</p>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ================================================================
+     PRODUCTS
+================================================================ -->
+<div class="landing-new loaded">
+  <div class="landing-new__body">
+    <section class="ia-products" id="products">
+      <div class="ia-products__head">
+        <h2>Product options for TMS integration</h2>
+        <p>Choose integration path based on your architecture and workflow requirements.</p>
+      </div>
+      <div class="ia-prod-list">
+
+        <!-- DRCT API -->
+        <div class="ia-prod">
+          <div class="ia-prod__mockup">
+            <div class="api-mock">
+              <div class="api-mock__bar">
+                <div class="api-mock__dot"></div>
+                <div class="api-mock__dot" style="background:rgba(42,138,234,0.35)"></div>
+                <div class="api-mock__dot"></div>
+                <span class="api-mock__title" style="margin-left:6px">DRCT API · v1</span>
+              </div>
+              <div class="api-mock__req">
+                <div class="api-mock__method">
+                  <span class="api-mock__verb">POST</span>
+                  <span class="api-mock__endpoint">/v1/offers/search</span>
+                </div>
+                <div class="api-mock__auth">Authorization: Bearer ••••••••••••••••••••</div>
+              </div>
+              <div class="api-mock__body">
+                {<br>
+                &nbsp;&nbsp;<span class="api-mock__key">"origin"</span>: <span class="api-mock__str">"MUC"</span>,<br>
+                &nbsp;&nbsp;<span class="api-mock__key">"destination"</span>: <span class="api-mock__str">"LHR"</span>,<br>
+                &nbsp;&nbsp;<span class="api-mock__key">"date"</span>: <span class="api-mock__str">"2025-03-15"</span>,<br>
+                &nbsp;&nbsp;<span class="api-mock__key">"passengers"</span>: <span class="api-mock__num">1</span><br>
+                }
+              </div>
+              <div class="api-mock__res">
+                <span class="api-mock__status">200 OK</span>
+                <span class="api-mock__res-text">{ "offers": [ { "price": 184, "airline": "BA", "type": "NDC" }, ... ] }</span>
+              </div>
+            </div>
+          </div>
+          <div class="ia-prod__body">
+            <span class="ia-prod__tag">API-BASED INTEGRATION</span>
+            <h3 class="ia-prod__name">DRCT API</h3>
+            <p class="ia-prod__desc">API that delivers the full DRCT distribution layer — search, pricing, booking, servicing, and reporting — into your corporate travel management platform or custom TMS.</p>
+            <a href="../products/api.html" class="ia-prod__link">LEARN MORE</a>
+          </div>
+        </div>
+
+        <!-- DRCT BT for TMS -->
+        <div class="ia-prod">
+          <div class="ia-prod__mockup">
+            <div class="tmc-mock">
+              <div class="tmc-mock__head">
+                <div class="tmc-mock__trip">London · Apr 12–15</div>
+                <div class="tmc-mock__sub">3 travelers</div>
+              </div>
+              <div class="tmc-mock__cols">
+                <span class="tmc-mock__col-label">Traveler</span>
+                <span class="tmc-mock__col-label">Class</span>
+              </div>
+              <div class="tmc-mock__row">
+                <div class="tmc-mock__avatar">AC</div>
+                <div class="tmc-mock__info">
+                  <div class="tmc-mock__name">Alice Chen</div>
+                  <div class="tmc-mock__email">alice@corp.com</div>
+                </div>
+                <div class="tmc-mock__class">Economy</div>
+              </div>
+              <div class="tmc-mock__row">
+                <div class="tmc-mock__avatar" style="background:rgba(42,138,234,0.18)">BM</div>
+                <div class="tmc-mock__info">
+                  <div class="tmc-mock__name">Bob Martin</div>
+                  <div class="tmc-mock__email">bob@corp.com</div>
+                </div>
+                <div class="tmc-mock__class">Business</div>
+              </div>
+              <div class="tmc-mock__row">
+                <div class="tmc-mock__avatar" style="background:rgba(42,138,234,0.08)">SK</div>
+                <div class="tmc-mock__info">
+                  <div class="tmc-mock__name">Sarah Kim</div>
+                  <div class="tmc-mock__email">sarah@corp.com</div>
+                </div>
+                <div class="tmc-mock__class">Economy</div>
+              </div>
+            </div>
+          </div>
+          <div class="ia-prod__body">
+            <span class="ia-prod__tag">EMBEDDED BOOKING INTERFACE</span>
+            <h3 class="ia-prod__name">DRCT BT for TMS</h3>
+            <p class="ia-prod__desc">A pre-built booking interface that can be embedded into your travel management software — delivering full airline content and NDC integration for TMC platforms without building a custom booking UI.</p>
+            <a href="../products/bt-for-tms.html" class="ia-prod__link">LEARN MORE</a>
+          </div>
+        </div>
+
       </div>
     </section>
   </div>
 </div>
+
+<!-- ================================================================
+     BENEFITS
+================================================================ -->
+<div class="ia-why">
+  <div class="landing-new__body">
+    <div class="ia-why__head">
+      <h2>Benefits for TMS and corporate travel platforms</h2>
+      <p>DRCT brings scalable airline distribution into your platform.</p>
+    </div>
+    <div class="ia-why-grid">
+
+      <div>
+        <div class="ia-why-icon">
+          <svg width="22" height="22" viewBox="0 0 26 26" fill="none" aria-hidden="true">
+            <path d="M3 19l10 4.5L23 19M3 13.5l10 4.5 10-4.5M13 2L3 7l10 4.5L23 7 13 2z" stroke="#2a8aea" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <p class="ia-why-title">Faster time to market.</p>
+        <p class="ia-why-desc">One integration gives you access to direct airline distribution. Go live with airline content without building and certifying multiple NDC and direct connections separately.</p>
+      </div>
+
+      <div>
+        <div class="ia-why-icon">
+          <svg width="22" height="22" viewBox="0 0 26 26" fill="none" aria-hidden="true">
+            <rect x="3" y="5" width="20" height="16" rx="3" stroke="#2a8aea" stroke-width="1.6"/>
+            <path d="M13 5v16" stroke="#2a8aea" stroke-width="1.4" stroke-linecap="round" stroke-opacity="0.35"/>
+            <path d="M3 10h20" stroke="#2a8aea" stroke-width="1.4" stroke-linecap="round" stroke-opacity="0.35"/>
+          </svg>
+        </div>
+        <p class="ia-why-title">Reduced engineering overhead.</p>
+        <p class="ia-why-desc">Airline API maintenance, NDC spec changes, and certification cycles are handled by DRCT. Your team builds product — not integration plumbing.</p>
+      </div>
+
+      <div>
+        <div class="ia-why-icon">
+          <svg width="22" height="22" viewBox="0 0 26 26" fill="none" aria-hidden="true">
+            <path d="M5 13l5 5 11-11" stroke="#2a8aea" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <p class="ia-why-title">Complete airline content coverage.</p>
+        <p class="ia-why-desc">Access NDC fares, ancillaries, and direct airline offers — without maintaining separate data pipelines per airline or distribution method.</p>
+      </div>
+
+      <div>
+        <div class="ia-why-icon">
+          <svg width="22" height="22" viewBox="0 0 26 26" fill="none" aria-hidden="true">
+            <rect x="4" y="3" width="18" height="20" rx="3" stroke="#2a8aea" stroke-width="1.6"/>
+            <path d="M8 9h10M8 13h10M8 17h6" stroke="#2a8aea" stroke-width="1.4" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <p class="ia-why-title">Scalable distribution architecture.</p>
+        <p class="ia-why-desc">As you expand to new markets or add airline partners, DRCT's network scales with you — no proportional increase in integration complexity.</p>
+      </div>
+
+      <div>
+        <div class="ia-why-icon">
+          <svg width="22" height="22" viewBox="0 0 26 26" fill="none" aria-hidden="true">
+            <polyline points="3,18 8,11 12,14 17,8 23,11" fill="none" stroke="#2a8aea" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M18 5h5v5" fill="none" stroke="#2a8aea" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <p class="ia-why-title">Consistent data for corporate policies.</p>
+        <p class="ia-why-desc">Normalized offer data enables consistent policy enforcement, approval workflows, and spend reporting across all airline sources.</p>
+      </div>
+
+      <div>
+        <div class="ia-why-icon">
+          <svg width="22" height="22" viewBox="0 0 26 26" fill="none" aria-hidden="true">
+            <rect x="4" y="3" width="18" height="20" rx="3" stroke="#2a8aea" stroke-width="1.6"/>
+            <path d="M8 9h10M8 13h10M8 17h6" stroke="#2a8aea" stroke-width="1.4" stroke-linecap="round" stroke-opacity="0.45"/>
+            <path d="M8 9h10M8 13h6" stroke="#2a8aea" stroke-width="1.4" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <p class="ia-why-title">Stable integration through NDC changes.</p>
+        <p class="ia-why-desc">NDC-specific challenges — spec updates, session behavior changes, and inconsistent error handling — are absorbed by DRCT and do not surface as breaking changes for your TMS.</p>
+      </div>
+
+      <div>
+        <div class="ia-why-icon">
+          <svg width="22" height="22" viewBox="0 0 26 26" fill="none" aria-hidden="true">
+            <circle cx="13" cy="13" r="9" stroke="#2a8aea" stroke-width="1.6"/>
+            <path d="M13 8v5l3 3" stroke="#2a8aea" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <p class="ia-why-title">24/7 operational support.</p>
+        <p class="ia-why-desc">DRCT provides direct support for booking escalations, settlement issues, and order management — reducing the operational burden on your team.</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ================================================================
+     FAQ
+================================================================ -->
+<div class="landing-new loaded">
+  <div class="landing-new__body">
+    <section class="ia-faq" id="faq">
+      <div class="ia-faq__head">
+        <h2>Frequently Asked Questions</h2>
+      </div>
+      <section class="questions">
+        <div class="questions__body">
+          <ul>
+
+            <li>
+              <h3>How does NDC integration for a travel management system work through DRCT? <span></span></h3>
+              <p>DRCT acts as an orchestration layer between airline inventory sources and your TMS. You connect once to the DRCT API or use the embedded interface, and DRCT handles connections to individual airlines — GDS, NDC direct APIs, and custom integrations. Offers are normalized into a consistent data structure before they reach your platform, so your system never has to handle airline-specific formatting or schema changes.</p>
+            </li>
+
+            <li>
+              <h3>What is included in NDC order management via DRCT? <span></span></h3>
+              <p>DRCT's order management layer covers the full post-booking lifecycle for NDC orders: seat changes, name corrections, voluntary and involuntary cancellations, refunds, and reissuance. Standard actions are available via API for self-service integration. Complex cases — including airline-specific workflows and settlement disputes — are handled by DRCT's operations team, available 24/7.</p>
+            </li>
+
+            <li>
+              <h3>Can DRCT work alongside an existing GDS connection? <span></span></h3>
+              <p>Yes. DRCT is designed to complement, not replace, existing GDS connections. Your TMS can continue using GDS for traditional content while DRCT adds NDC, direct airline, and low-cost carrier inventory in parallel. Offers from all sources are normalized, so your platform receives a consistent data structure regardless of the booking channel.</p>
+            </li>
+
+            <li>
+              <h3>How does DRCT support accounting and reporting for NDC bookings? <span></span></h3>
+              <p>DRCT provides structured transaction data for all bookings — including NDC — in a format compatible with standard back-office systems. This covers booking records, fare breakdowns, ancillary line items, and settlement data. For TMCs with BSP reporting requirements, DRCT includes support for reconciliation workflows that handle NDC alongside traditional GDS transactions.</p>
+            </li>
+
+            <li>
+              <h3>What happens when an airline updates its NDC API? <span></span></h3>
+              <p>DRCT absorbs airline-side API changes before they reach your TMS. When an airline updates its NDC spec, changes session behavior, or modifies its error handling, DRCT's team updates the integration — your system continues to receive a stable, normalized data structure with no breaking changes on your end. This applies to schema changes, certification updates, and new feature rollouts.</p>
+            </li>
+
+            <li>
+              <h3>How long does integration with DRCT typically take? <span></span></h3>
+              <p>Integration timelines depend on your TMS architecture and the depth of the integration. API-based integrations typically complete in a matter of weeks rather than months. The embedded DRCT BT for TMS interface can often be deployed faster, since it doesn't require custom booking UI development. DRCT provides technical documentation, sandbox access, and dedicated integration support throughout the process.</p>
+            </li>
+
+          </ul>
+        </div>
+      </section>
+    </section>
+  </div>
+</div>
+
+<!-- ================================================================
+     FINAL CTA
+================================================================ -->
+<div class="ia-cta">
+  <div class="landing-new__body">
+    <h2>Get in touch</h2>
+    <div class="ia-cta__btns">
+      <a href="mailto:hello@drct.aero" class="btn-primary">Request a Demo</a>
+      <a href="#products" class="btn-outline">Explore Products for TMS</a>
+    </div>
+  </div>
+</div>
+
+<!-- ================================================================
+     FOOTER
+================================================================ -->
 <footer class="footer">
   <div class="footer__top">
     <div class="footer__left">
