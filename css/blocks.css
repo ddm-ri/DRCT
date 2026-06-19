@@ -1263,9 +1263,8 @@
    TESTIMONIALS — airline partnership carousel
 ================================================================ */
 .testi-section {
-  background: var(--off-white);
-  border-top: 1px solid var(--dark-10);
-  padding: 96px 0 88px;
+  background: #fff;
+  padding: 88px 0 80px;
 }
 
 .testi__eyebrow {
@@ -1273,88 +1272,69 @@
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 1.8px;
-  margin: 0 0 52px;
+  margin: 0 0 40px;
   text-align: center;
   text-transform: uppercase;
 }
 
-/* Outer wrap — establishes stacking context */
-.testi__wrap {
-  position: relative;
-}
+.testi__wrap { position: relative; }
 
-/* Each slide */
+/* Each slide — IS the card */
 .testi__slide {
-  align-items: center;
   display: none;
-  gap: 64px;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 55% 45%;
+  align-items: stretch;
+  background: var(--off-white);
+  border-radius: 24px;
+  overflow: hidden;
+  min-height: 400px;
 }
 
 .testi__slide--active {
   display: grid;
-  animation: testiFadeIn 0.45s ease;
+  animation: testiFadeIn 0.4s ease;
 }
 
 @keyframes testiFadeIn {
-  from { opacity: 0; transform: translateY(8px); }
+  from { opacity: 0; transform: translateY(6px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* Left: image */
-.testi__fig {
-  aspect-ratio: 4 / 3;
-  border-radius: 24px;
-  line-height: 0;
-  margin: 0;
-  overflow: hidden;
-}
-
-.testi__img {
-  display: block;
-  height: 100%;
-  object-fit: cover;
-  width: 100%;
-}
-
-/* Right: content */
+/* Left: text content */
 .testi__body {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  padding: 52px 56px 52px 52px;
 }
 
-.testi__airline-id {
-  margin-bottom: 28px;
-}
+.testi__airline-id { margin-bottom: 24px; }
 
 .testi__airline-name {
   color: var(--dark);
-  font-size: 22px;
+  font-size: 13px;
   font-weight: 700;
-  letter-spacing: -0.4px;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
 }
 
 .testi__quote {
   color: var(--dark);
-  font-size: 21px;
+  font-size: 20px;
   font-weight: 500;
-  line-height: 1.55;
-  margin: 0 0 30px;
+  line-height: 1.6;
+  margin: 0 0 28px;
   quotes: none;
 }
 
 .testi__author {
   display: flex;
   flex-direction: column;
-  gap: 5px;
-  margin-bottom: 28px;
+  gap: 3px;
+  margin-bottom: 24px;
 }
 
-.testi__dash {
-  color: var(--dark-40);
-  font-size: 13px;
-  margin-bottom: 2px;
-}
+.testi__dash { display: none; }
 
 .testi__name {
   color: var(--dark);
@@ -1375,20 +1355,35 @@
   font-weight: 700;
   gap: 5px;
   letter-spacing: 0.3px;
+  margin-bottom: 40px;
   text-decoration: none;
 }
-
 .testi__link:hover { text-decoration: underline; }
-
 .testi__link svg { flex-shrink: 0; }
 
-/* Controls row */
+/* Right: photo */
+.testi__fig {
+  line-height: 0;
+  margin: 0;
+  overflow: hidden;
+  aspect-ratio: auto;
+}
+
+.testi__img {
+  display: block;
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+}
+
+/* Controls — below card, left-aligned with text column */
 .testi__controls {
   align-items: center;
   display: flex;
-  gap: 18px;
-  justify-content: center;
-  margin-top: 44px;
+  gap: 14px;
+  justify-content: flex-start;
+  margin-top: 24px;
+  padding-left: 52px;
 }
 
 .testi__btn {
@@ -1400,10 +1395,10 @@
   cursor: pointer;
   display: flex;
   flex-shrink: 0;
-  height: 40px;
+  height: 38px;
   justify-content: center;
   transition: border-color 0.2s, color 0.2s;
-  width: 40px;
+  width: 38px;
 }
 
 .testi__btn:hover {
@@ -1428,29 +1423,37 @@
 }
 
 .testi__dot--active {
-  background: var(--blue);
+  background: var(--dark);
   transform: scale(1.25);
 }
 
 /* Responsive */
 @media (max-width: 1024px) {
-  .testi__slide { gap: 40px; }
-  .testi__quote { font-size: 19px; }
+  .testi__slide { grid-template-columns: 58% 42%; }
+  .testi__body { padding: 44px 40px 44px 44px; }
+  .testi__controls { padding-left: 44px; }
+  .testi__quote { font-size: 18px; }
 }
 
 @media (max-width: 767px) {
   .testi-section { padding: 60px 0 52px; }
-  .testi__eyebrow { margin-bottom: 36px; }
+  .testi__eyebrow { margin-bottom: 28px; }
   .testi__slide {
-    gap: 28px;
     grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+    border-radius: 16px;
+    min-height: unset;
   }
-  .testi__fig { aspect-ratio: 16 / 9; border-radius: 16px; }
+  .testi__body { padding: 32px 28px 28px; order: 2; }
+  .testi__fig { order: 1; aspect-ratio: 16/8; }
+  .testi__controls { padding-left: 28px; }
   .testi__quote { font-size: 17px; }
-  .testi__airline-name { font-size: 17px; }
+  .testi__link { margin-bottom: 28px; }
 }
 
 @media (max-width: 413px) {
+  .testi__body { padding: 28px 20px; }
+  .testi__controls { padding-left: 20px; }
   .testi__quote { font-size: 16px; }
 }
 
