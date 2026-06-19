@@ -563,7 +563,7 @@
       .metrics__head { margin-bottom: 36px; }
     }
 
-    /* ── Solutions grid ─────────────────────────────────────────── */
+    /* ── Solutions section heading ──────────────────────────────── */
     .ps-section { padding: 88px 0 100px; }
     .ps-section__head {
       text-align: center;
@@ -594,56 +594,10 @@
       line-height: 1.65;
       margin: 0;
     }
-    .ps-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
-    }
-    .ps-card {
-      background: linear-gradient(145deg, rgba(42,138,234,0.085) 0%, rgba(42,138,234,0.015) 100%);
-      border: 1px solid rgba(42,138,234,0.13);
-      border-radius: 14px;
-      padding: 28px 24px 30px;
-      display: flex;
-      flex-direction: column;
-      box-sizing: border-box;
-    }
-    .ps-card__icon {
-      width: 48px;
-      height: 48px;
-      border-radius: 12px;
-      background: rgba(42,138,234,0.12);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 20px;
-      flex-shrink: 0;
-    }
-    .ps-card__title {
-      font-size: 16px;
-      font-weight: 700;
-      color: var(--dark);
-      margin: 0 0 10px;
-      line-height: 1.28;
-    }
-    .ps-card__desc {
-      font-size: 14px;
-      line-height: 1.65;
-      color: rgba(27,39,51,0.58);
-      margin: 0;
-      flex: 1;
-    }
-    @media (max-width: 1024px) {
-      .ps-section { padding: 68px 0 80px; }
-      .ps-grid { grid-template-columns: repeat(3, 1fr); }
-    }
+    @media (max-width: 1024px) { .ps-section { padding: 68px 0 80px; } }
     @media (max-width: 767px) {
       .ps-section { padding: 52px 0 60px; }
       .ps-section__head h2 { font-size: 27px; }
-      .ps-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
-    }
-    @media (max-width: 413px) {
-      .ps-grid { grid-template-columns: 1fr; }
     }
   </style>
   <link rel="canonical" href="https://drct.aero/solutions/for-airlines.html">
@@ -899,67 +853,62 @@
         <p>The distribution challenges airlines face — and how DRCT addresses each one.</p>
       </div>
 
-      <div class="ps-grid">
+      <div class="bcard-grid">
 
-        <!-- Card 1 -->
-        <div class="ps-card">
-          <div class="ps-card__icon">
-            <svg width="26" height="26" viewBox="0 0 26 26" fill="none" aria-hidden="true">
+        <div class="bcard">
+          <div class="bcard__icon">
+            <svg width="22" height="22" viewBox="0 0 26 26" fill="none" aria-hidden="true">
               <path d="M3 19l10 4.5L23 19M3 13.5l10 4.5 10-4.5M13 2L3 7l10 4.5L23 7 13 2z" stroke="#2a8aea" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </div>
-          <h3 class="ps-card__title">One layer for both channels</h3>
-          <p class="ps-card__desc">GDS and NDC coexist in a single distribution layer — managed, reported, and settled in one place instead of two parallel systems.</p>
+          <h3 class="bcard__title">One layer for both channels</h3>
+          <p class="bcard__desc">GDS and NDC coexist in a single distribution layer — managed, reported, and settled in one place instead of two parallel systems.</p>
         </div>
 
-        <!-- Card 2 -->
-        <div class="ps-card">
-          <div class="ps-card__icon">
-            <svg width="26" height="26" viewBox="0 0 26 26" fill="none" aria-hidden="true">
+        <div class="bcard">
+          <div class="bcard__icon">
+            <svg width="22" height="22" viewBox="0 0 26 26" fill="none" aria-hidden="true">
               <path d="M13 3l2.5 5 5.5.8-4 3.9.95 5.5L13 15.6l-4.95 2.6.95-5.5L5 8.8l5.5-.8L13 3z" stroke="#2a8aea" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </div>
-          <h3 class="ps-card__title">Full control over presentation</h3>
-          <p class="ps-card__desc">Your offer structure reaches every agent and OTA exactly as you define it — fares, bundles, and ancillaries, consistently across all channels.</p>
+          <h3 class="bcard__title">Full control over presentation</h3>
+          <p class="bcard__desc">Your offer structure reaches every agent and OTA exactly as you define it — fares, bundles, and ancillaries, consistently across all channels.</p>
         </div>
 
-        <!-- Card 3 -->
-        <div class="ps-card">
-          <div class="ps-card__icon">
-            <svg width="26" height="26" viewBox="0 0 26 26" fill="none" aria-hidden="true">
+        <div class="bcard">
+          <div class="bcard__icon">
+            <svg width="22" height="22" viewBox="0 0 26 26" fill="none" aria-hidden="true">
               <polyline points="3,18 8,11 12,14 17,8 23,11" fill="none" stroke="#2a8aea" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
               <path d="M18 5h5v5" fill="none" stroke="#2a8aea" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </div>
-          <h3 class="ps-card__title">Better economics at scale</h3>
-          <p class="ps-card__desc">Direct distribution and a gradual shift toward NDC lower cost-per-booking without sacrificing reach or agent coverage.</p>
+          <h3 class="bcard__title">Better economics at scale</h3>
+          <p class="bcard__desc">Direct distribution and a gradual shift toward NDC lower cost-per-booking without sacrificing reach or agent coverage.</p>
         </div>
 
-        <!-- Card 4 -->
-        <div class="ps-card">
-          <div class="ps-card__icon">
-            <svg width="26" height="26" viewBox="0 0 26 26" fill="none" aria-hidden="true">
+        <div class="bcard">
+          <div class="bcard__icon">
+            <svg width="22" height="22" viewBox="0 0 26 26" fill="none" aria-hidden="true">
               <path d="M14 3L5 14h8l-2 9 9-12h-8l2-8z" stroke="#2a8aea" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </div>
-          <h3 class="ps-card__title">Adoption inside familiar tools</h3>
-          <p class="ps-card__desc">NDC content surfaces within the GDS interfaces agents already use. No new systems, no retraining — adoption happens naturally.</p>
+          <h3 class="bcard__title">Adoption inside familiar tools</h3>
+          <p class="bcard__desc">NDC content surfaces within the GDS interfaces agents already use. No new systems, no retraining — adoption happens naturally.</p>
         </div>
 
-        <!-- Card 5 -->
-        <div class="ps-card">
-          <div class="ps-card__icon">
-            <svg width="26" height="26" viewBox="0 0 26 26" fill="none" aria-hidden="true">
+        <div class="bcard">
+          <div class="bcard__icon">
+            <svg width="22" height="22" viewBox="0 0 26 26" fill="none" aria-hidden="true">
               <path d="M4 13h4M18 13h4M13 4v4M13 18v4" stroke="#2a8aea" stroke-width="1.5" stroke-linecap="round"/>
               <circle cx="13" cy="13" r="4" stroke="#2a8aea" stroke-width="1.6"/>
               <circle cx="13" cy="13" r="1.5" fill="#2a8aea"/>
             </svg>
           </div>
-          <h3 class="ps-card__title">Consistent pricing everywhere</h3>
-          <p class="ps-card__desc">Centralized offer control means prices and availability stay in sync across every channel — no divergence, no lost visibility.</p>
+          <h3 class="bcard__title">Consistent pricing everywhere</h3>
+          <p class="bcard__desc">Centralized offer control means prices and availability stay in sync across every channel — no divergence, no lost visibility.</p>
         </div>
 
-      </div><!-- /ps-grid -->
+      </div><!-- /bcard-grid -->
 
     </section>
   </div>
