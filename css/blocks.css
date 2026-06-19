@@ -1457,6 +1457,11 @@
   .testi__quote { font-size: 16px; }
 }
 
+/* ── Footer — 4-column layout override ────────────────────────── */
+.footer__links { margin-right: 60px; }
+@media (max-width: 1024px) { .footer__links { margin-right: 36px; } }
+@media (max-width: 767px)  { .footer__links { margin-right: 0; } }
+
 /* ── Airline page — in-practice metric card ────────────────────── */
 .outcome-metric {
   display: block;
