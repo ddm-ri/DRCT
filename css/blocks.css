@@ -479,46 +479,40 @@
 }
 
 .bcard {
-  background: linear-gradient(145deg, #f5f9ff 0%, #e6f0ff 100%);
-  border: 1px solid rgba(42,138,234,0.17);
+  background: linear-gradient(180deg, rgba(42,138,234,0.07) 0%, rgba(42,138,234,0.02) 100%);
+  border: none;
   border-radius: 16px;
-  box-shadow: 0 2px 6px rgba(27,39,51,0.06), 0 6px 28px rgba(42,138,234,0.07);
+  box-shadow: none;
   padding: 28px 24px 26px;
-  transition: border-color 0.2s, box-shadow 0.2s, transform 0.22s;
+  transition: none;
 }
-/* Travel sellers group — soft lavender variant */
 .bcard-group:nth-child(2) .bcard {
-  background: linear-gradient(145deg, #f6f5ff 0%, #ebe4ff 100%);
-  border-color: rgba(110,86,207,0.14);
-  box-shadow: 0 2px 6px rgba(27,39,51,0.06), 0 6px 28px rgba(110,86,207,0.07);
+  background: linear-gradient(180deg, rgba(42,138,234,0.07) 0%, rgba(42,138,234,0.02) 100%);
 }
 .bcard:hover {
-  border-color: rgba(42,138,234,0.32);
-  box-shadow: 0 8px 28px rgba(27,39,51,0.09), 0 16px 44px rgba(42,138,234,0.10);
-  transform: translateY(-3px);
+  transform: none;
 }
 .bcard-group:nth-child(2) .bcard:hover {
-  border-color: rgba(110,86,207,0.28);
-  box-shadow: 0 8px 28px rgba(27,39,51,0.09), 0 16px 44px rgba(110,86,207,0.10);
+  box-shadow: none;
 }
 
 .bcard__icon {
   align-items: center;
-  background: rgba(255,255,255,0.82);
-  border: 1px solid rgba(42,138,234,0.16);
+  background: rgba(42,138,234,0.10);
+  border: none;
   border-radius: 10px;
-  box-shadow: 0 1px 4px rgba(42,138,234,0.08);
+  box-shadow: none;
   display: flex;
   height: 40px;
   justify-content: center;
   margin-bottom: 20px;
-  transition: background 0.2s, border-color 0.2s, box-shadow 0.2s;
+  transition: none;
   width: 40px;
 }
 .bcard:hover .bcard__icon {
-  background: #fff;
-  border-color: rgba(42,138,234,0.26);
-  box-shadow: 0 2px 10px rgba(42,138,234,0.14);
+  background: rgba(42,138,234,0.10);
+  border-color: none;
+  box-shadow: none;
 }
 
 .bcard__title {
