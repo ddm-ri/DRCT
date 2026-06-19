@@ -159,37 +159,72 @@
     }
 
     /* ── Products ─────────────────────────────────────────────────── */
-    .ia-products { padding: 88px 0 100px; }
-    .ia-products__head { text-align: center; max-width: 620px; margin: 0 auto 48px; }
+    .ia-products { padding: 88px 0 100px; background: var(--off-white, #f3f4f5); }
+    .ia-products__head { text-align: center; max-width: 700px; margin: 0 auto 52px; }
     .ia-products__head h2 { font-size: 31px; font-weight: 700; color: var(--dark); margin: 0 0 12px; letter-spacing: -0.4px; }
     .ia-products__head p { font-size: 15px; color: rgba(27,39,51,0.56); line-height: 1.65; margin: 0; }
-    .ia-prod-list { display: flex; flex-direction: column; gap: 14px; }
+    .ia-prod-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
     .ia-prod {
       background: #fff;
       border: 1px solid rgba(27,39,51,0.1);
       border-radius: 14px;
-      padding: 28px 32px;
-      display: flex; align-items: center; gap: 32px;
+      overflow: hidden;
+      display: flex; flex-direction: column;
+      box-shadow: 0 4px 24px rgba(27,39,51,0.07);
     }
-    .ia-prod__body { flex: 1; min-width: 0; }
+    .ia-prod__mockup { background: var(--off-white, #f3f4f5); padding: 22px 22px 0; }
+    .ia-prod__body { padding: 22px 26px 26px; display: flex; flex-direction: column; flex: 1; }
     .ia-prod__tag {
       font-family: var(--font-mono); font-size: 9px; font-weight: 700;
-      letter-spacing: 1px; text-transform: uppercase;
-      color: rgba(27,39,51,0.38); margin-bottom: 6px; display: block;
+      letter-spacing: 1.2px; text-transform: uppercase;
+      color: rgba(27,39,51,0.38); margin-bottom: 8px; display: block;
     }
-    .ia-prod__name { font-size: 20px; font-weight: 700; color: var(--dark); margin: 0 0 8px; }
-    .ia-prod__desc { font-size: 14px; line-height: 1.65; color: rgba(27,39,51,0.58); margin: 0; }
-    .ia-prod__link {
-      font-size: 12px; font-weight: 700; color: var(--blue);
-      text-decoration: none; letter-spacing: 0.4px; text-transform: uppercase;
-      white-space: nowrap; flex-shrink: 0;
-    }
+    .ia-prod__name { font-size: 22px; font-weight: 700; color: var(--dark); margin: 0 0 10px; }
+    .ia-prod__desc { font-size: 14px; line-height: 1.65; color: rgba(27,39,51,0.58); margin: 0 0 18px; flex: 1; }
+    .ia-prod__link { font-size: 12px; font-weight: 700; color: var(--blue); text-decoration: none; letter-spacing: 0.6px; text-transform: uppercase; }
     .ia-prod__link:hover { text-decoration: underline; }
+    /* BT booking mockup */
+    .prd-mock { background: #fff; border: 1px solid rgba(27,39,51,0.1); border-bottom: none; border-radius: 10px 10px 0 0; overflow: hidden; }
+    .prd-mock__search { display: flex; align-items: stretch; border-bottom: 1px solid rgba(27,39,51,0.08); }
+    .prd-mock__field { flex: 1; padding: 9px 12px; border-right: 1px solid rgba(27,39,51,0.08); }
+    .prd-mock__field--date { flex: 0.8; }
+    .prd-mock__label { font-family: var(--font-mono); font-size: 8px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; color: rgba(27,39,51,0.4); display: block; margin-bottom: 2px; }
+    .prd-mock__val { font-size: 13px; font-weight: 700; color: var(--dark); }
+    .prd-mock__swap { display: flex; align-items: center; padding: 0 8px; border-right: 1px solid rgba(27,39,51,0.08); color: var(--blue); flex-shrink: 0; }
+    .prd-mock__btn { background: var(--blue); color: #fff; border: none; font-size: 11px; font-weight: 700; letter-spacing: 0.3px; padding: 0 14px; cursor: default; flex-shrink: 0; }
+    .prd-mock__row { display: flex; align-items: center; padding: 9px 12px; border-bottom: 1px solid rgba(27,39,51,0.06); gap: 10px; }
+    .prd-mock__logo { width: 28px; height: 28px; border-radius: 6px; background: var(--blue); display: flex; align-items: center; justify-content: center; color: #fff; font-size: 9px; font-weight: 700; flex-shrink: 0; font-family: var(--font-mono); }
+    .prd-mock__logo--lh { background: #05164d; }
+    .prd-mock__info { flex: 1; }
+    .prd-mock__name { font-size: 12px; font-weight: 600; color: var(--dark); line-height: 1.2; }
+    .prd-mock__detail { font-family: var(--font-mono); font-size: 9px; color: rgba(27,39,51,0.45); margin-top: 2px; }
+    .prd-mock__price { text-align: right; }
+    .prd-mock__amt { font-family: var(--font-mono); font-size: 14px; font-weight: 700; color: var(--blue); display: block; }
+    .prd-mock__per { font-size: 9px; color: rgba(27,39,51,0.4); }
+    .prd-mock__skel { padding: 9px 12px; }
+    .prd-mock__skel-bar { height: 8px; border-radius: 4px; background: rgba(27,39,51,0.08); }
+    .prd-mock__skel-bar + .prd-mock__skel-bar { margin-top: 4px; width: 55%; }
+    /* Extension GDS mockup */
+    .ext-mock { background: #fff; border: 1px solid rgba(27,39,51,0.1); border-bottom: none; border-radius: 10px 10px 0 0; overflow: hidden; font-family: var(--font-mono); }
+    .ext-mock__bar { background: rgba(27,39,51,0.03); padding: 7px 12px; display: flex; align-items: center; gap: 6px; border-bottom: 1px solid rgba(27,39,51,0.08); }
+    .ext-mock__dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(27,39,51,0.15); flex-shrink: 0; }
+    .ext-mock__title { font-size: 9px; font-weight: 600; color: rgba(27,39,51,0.45); letter-spacing: 0.5px; }
+    .ext-mock__head { display: flex; align-items: center; padding: 6px 12px; border-bottom: 1px solid rgba(27,39,51,0.1); background: rgba(27,39,51,0.02); }
+    .ext-mock__hc { font-size: 8px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: rgba(27,39,51,0.35); }
+    .ext-mock__row { display: flex; align-items: center; padding: 8px 12px; border-bottom: 1px solid rgba(27,39,51,0.05); font-size: 10px; color: rgba(27,39,51,0.65); }
+    .ext-mock__row--ndc { background: rgba(42,138,234,0.04); }
+    .ext-mock__code { font-weight: 700; color: var(--dark); width: 46px; flex-shrink: 0; }
+    .ext-mock__route { flex: 1; }
+    .ext-mock__time { width: 72px; flex-shrink: 0; }
+    .ext-mock__p { font-weight: 700; color: var(--dark); width: 48px; flex-shrink: 0; }
+    .ext-mock__badge { font-size: 8px; font-weight: 700; letter-spacing: 0.4px; padding: 2px 5px; border-radius: 3px; }
+    .ext-mock__badge--ndc { background: rgba(42,138,234,0.12); color: var(--blue); }
+    .ext-mock__badge--gds { background: rgba(27,39,51,0.07); color: rgba(27,39,51,0.45); }
     @media (max-width: 1024px) { .ia-products { padding: 68px 0 80px; } }
     @media (max-width: 767px) {
       .ia-products { padding: 52px 0 60px; }
       .ia-products__head h2 { font-size: 27px; }
-      .ia-prod { flex-direction: column; align-items: flex-start; gap: 16px; padding: 22px 20px; }
+      .ia-prod-list { grid-template-columns: 1fr; }
     }
 
     /* ── Why choose ───────────────────────────────────────────────── */
@@ -518,26 +553,121 @@
     <section class="ia-products" id="products">
       <div class="ia-products__head">
         <h2>Products for IATA agencies</h2>
-        <p>Products built for different agent workflows — both fully integrated into the DRCT platform.</p>
+        <p>DRCT — tools to adapt, enhance, and activate airline offers across NDC and distribution channels, for agencies working in GDS and direct environments.</p>
       </div>
       <div class="ia-prod-list">
 
+        <!-- DRCT BT -->
         <div class="ia-prod">
+          <div class="ia-prod__mockup">
+            <div class="prd-mock">
+              <div class="prd-mock__search">
+                <div class="prd-mock__field">
+                  <span class="prd-mock__label">From</span>
+                  <span class="prd-mock__val">MUC</span>
+                </div>
+                <div class="prd-mock__swap">
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M3 9.5l2 2 2-2M5 11.5v-9M9 4.5l2-2 2 2M11 2.5v9" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </div>
+                <div class="prd-mock__field">
+                  <span class="prd-mock__label">To</span>
+                  <span class="prd-mock__val" style="color:var(--blue)">LHR</span>
+                </div>
+                <div class="prd-mock__field prd-mock__field--date">
+                  <span class="prd-mock__label">Date</span>
+                  <span class="prd-mock__val">Mar 15</span>
+                </div>
+                <button class="prd-mock__btn" type="button">Search</button>
+              </div>
+              <div class="prd-mock__row">
+                <div class="prd-mock__logo">BA</div>
+                <div class="prd-mock__info">
+                  <div class="prd-mock__name">British Airways</div>
+                  <div class="prd-mock__detail">09:20 → 10:55 · 1h 35m · Direct</div>
+                </div>
+                <div class="prd-mock__price">
+                  <span class="prd-mock__amt">£ 184</span>
+                  <span class="prd-mock__per">per pax</span>
+                </div>
+              </div>
+              <div class="prd-mock__row">
+                <div class="prd-mock__logo prd-mock__logo--lh">LH</div>
+                <div class="prd-mock__info">
+                  <div class="prd-mock__name">Lufthansa</div>
+                  <div class="prd-mock__detail">11:40 → 13:15 · 1h 35m · Direct</div>
+                </div>
+                <div class="prd-mock__price">
+                  <span class="prd-mock__amt">£ 211</span>
+                  <span class="prd-mock__per">per pax</span>
+                </div>
+              </div>
+              <div class="prd-mock__skel">
+                <div class="prd-mock__skel-bar"></div>
+                <div class="prd-mock__skel-bar"></div>
+              </div>
+            </div>
+          </div>
           <div class="ia-prod__body">
-            <span class="ia-prod__tag">Full booking interface</span>
+            <span class="ia-prod__tag">IATA AGENCIES</span>
             <h3 class="ia-prod__name">DRCT BT</h3>
             <p class="ia-prod__desc">A dedicated booking and servicing environment for IATA agents who want to work outside the GDS — or alongside it. Full access to GDS, NDC, and direct content in one interface.</p>
+            <a href="../products/bt.html" class="ia-prod__link">LEARN MORE</a>
           </div>
-          <a href="../products/bt.html" class="ia-prod__link">Learn more →</a>
         </div>
 
+        <!-- DRCT Extension -->
         <div class="ia-prod">
+          <div class="ia-prod__mockup">
+            <div class="ext-mock">
+              <div class="ext-mock__bar">
+                <div class="ext-mock__dot"></div>
+                <div class="ext-mock__dot" style="background:rgba(42,138,234,0.35)"></div>
+                <div class="ext-mock__dot"></div>
+                <span class="ext-mock__title" style="margin-left:6px">DRCT EXTENSION · AMADEUS</span>
+              </div>
+              <div class="ext-mock__head">
+                <span class="ext-mock__hc" style="width:46px">FLT</span>
+                <span class="ext-mock__hc" style="flex:1">ROUTE</span>
+                <span class="ext-mock__hc" style="width:72px">DEP–ARR</span>
+                <span class="ext-mock__hc" style="width:48px">PRICE</span>
+                <span class="ext-mock__hc" style="width:36px">TYPE</span>
+              </div>
+              <div class="ext-mock__row">
+                <span class="ext-mock__code">LH400</span>
+                <span class="ext-mock__route">MUC – LHR</span>
+                <span class="ext-mock__time">09:20–10:55</span>
+                <span class="ext-mock__p">£ 188</span>
+                <span class="ext-mock__badge ext-mock__badge--gds">GDS</span>
+              </div>
+              <div class="ext-mock__row ext-mock__row--ndc">
+                <span class="ext-mock__code">BA234</span>
+                <span class="ext-mock__route">MUC – LHR</span>
+                <span class="ext-mock__time">11:40–13:15</span>
+                <span class="ext-mock__p">£ 175</span>
+                <span class="ext-mock__badge ext-mock__badge--ndc">NDC</span>
+              </div>
+              <div class="ext-mock__row ext-mock__row--ndc">
+                <span class="ext-mock__code">LH402</span>
+                <span class="ext-mock__route">MUC – LHR</span>
+                <span class="ext-mock__time">14:10–15:45</span>
+                <span class="ext-mock__p">£ 192</span>
+                <span class="ext-mock__badge ext-mock__badge--ndc">NDC</span>
+              </div>
+              <div class="ext-mock__row">
+                <span class="ext-mock__code">IB340</span>
+                <span class="ext-mock__route">MUC – LHR</span>
+                <span class="ext-mock__time">16:30–18:05</span>
+                <span class="ext-mock__p">£ 201</span>
+                <span class="ext-mock__badge ext-mock__badge--gds">GDS</span>
+              </div>
+            </div>
+          </div>
           <div class="ia-prod__body">
-            <span class="ia-prod__tag">NDC inside the GDS</span>
+            <span class="ia-prod__tag">IATA AGENCIES · GDS</span>
             <h3 class="ia-prod__name">DRCT Extension</h3>
             <p class="ia-prod__desc">For agents who work primarily in GDS: the Extension brings NDC content, enhanced offers, and direct airline inventory into the GDS interface — no new system to learn, no workflow changes.</p>
+            <a href="../products/extension.html" class="ia-prod__link">LEARN MORE</a>
           </div>
-          <a href="../products/extension.html" class="ia-prod__link">Learn more →</a>
         </div>
 
       </div>
