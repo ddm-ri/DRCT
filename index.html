@@ -654,6 +654,109 @@
 </section>
 
 <!-- ================================================================
+     TESTIMONIALS
+================================================================ -->
+<div class="testi-section">
+  <div class="landing-new__body">
+    <p class="testi__eyebrow">Trusted by leading airlines</p>
+
+    <div class="testi__wrap" id="testiWrap">
+
+      <!-- ── SLIDE 1: Lufthansa ───────────────────────────────── -->
+      <div class="testi__slide testi__slide--active" data-index="0">
+        <figure class="testi__fig">
+          <img src="img/airlines/lufthansa-photo.svg" alt="Lufthansa aviation" class="testi__img" loading="lazy">
+        </figure>
+        <div class="testi__body">
+          <div class="testi__airline-id">
+            <div class="testi__airline-mark" style="background:#05164d;">
+              <svg width="34" height="34" viewBox="0 0 54 54" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <circle cx="27" cy="27" r="22" fill="#f7c200"/>
+                <ellipse cx="28" cy="27" rx="3.8" ry="9.5" fill="#05164d" transform="rotate(-38 28 27)"/>
+                <path d="M32 18 Q37 13 40 11 Q36 14 32 20Z" fill="#05164d"/>
+                <path d="M33 21 Q38 18 41 17 Q36 19 33 23Z" fill="#05164d"/>
+                <path d="M22 33 Q16 39 14 43 Q18 38 24 35Z" fill="#05164d"/>
+              </svg>
+            </div>
+            <span class="testi__airline-name">Lufthansa</span>
+          </div>
+          <blockquote class="testi__quote">
+            "Partnering with DRCT allows us to reach a broader network of travel sellers with our NDC content, while keeping the booking experience consistent and reliable."
+          </blockquote>
+          <footer class="testi__author">
+            <span class="testi__dash">—</span>
+            <strong class="testi__name">Jane Doe</strong>
+            <span class="testi__role">Head of Distribution, Lufthansa</span>
+          </footer>
+          <a href="supply-network/lufthansa.html" class="testi__link">
+            View partnership
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+              <path d="M2.5 7h9M8 3.5l3.5 3.5L8 10.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- ── SLIDE 2: Emirates ─────────────────────────────────── -->
+      <div class="testi__slide" data-index="1">
+        <figure class="testi__fig">
+          <img src="img/airlines/emirates-photo.svg" alt="Emirates aviation" class="testi__img" loading="lazy">
+        </figure>
+        <div class="testi__body">
+          <div class="testi__airline-id">
+            <div class="testi__airline-mark" style="background:#ec1b24;">
+              <svg width="34" height="34" viewBox="0 0 54 54" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M16 11 Q27 7 38 11" stroke="rgba(255,255,255,0.6)" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+                <path d="M13 19 H41" stroke="white" stroke-width="3" stroke-linecap="round"/>
+                <path d="M13 19 V37" stroke="white" stroke-width="3" stroke-linecap="round"/>
+                <path d="M13 28 H37" stroke="white" stroke-width="3" stroke-linecap="round"/>
+                <path d="M13 37 H41" stroke="white" stroke-width="3" stroke-linecap="round"/>
+                <path d="M18 43 Q27 47 36 43" stroke="rgba(255,255,255,0.45)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <span class="testi__airline-name">Emirates</span>
+          </div>
+          <blockquote class="testi__quote">
+            "Working with DRCT helps us extend the reach of our NDC content to a wider community of travel sellers — without compromising on the experience our customers expect from Emirates."
+          </blockquote>
+          <footer class="testi__author">
+            <span class="testi__dash">—</span>
+            <strong class="testi__name">John Smith</strong>
+            <span class="testi__role">VP Distribution Strategy, Emirates</span>
+          </footer>
+          <a href="supply-network/emirates.html" class="testi__link">
+            View partnership
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+              <path d="M2.5 7h9M8 3.5l3.5 3.5L8 10.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+    </div><!-- /testi__wrap -->
+
+    <!-- Controls -->
+    <div class="testi__controls">
+      <button class="testi__btn" id="testiPrev" aria-label="Previous testimonial">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      <div class="testi__dots" role="tablist" aria-label="Testimonials">
+        <button class="testi__dot testi__dot--active" data-testi="0" role="tab" aria-selected="true" aria-label="Lufthansa"></button>
+        <button class="testi__dot" data-testi="1" role="tab" aria-selected="false" aria-label="Emirates"></button>
+      </div>
+      <button class="testi__btn" id="testiNext" aria-label="Next testimonial">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<!-- ================================================================
      FINAL CTA
 ================================================================ -->
 <div class="landing-new loaded cta-final" id="contact">

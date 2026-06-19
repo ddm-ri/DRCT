@@ -1,0 +1,234 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 600" width="880" height="600">
+  <defs>
+    <!-- Deep navy sky gradient -->
+    <linearGradient id="lhSky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#020C2A"/>
+      <stop offset="35%" stop-color="#05164D"/>
+      <stop offset="70%" stop-color="#0A2272"/>
+      <stop offset="100%" stop-color="#0D2B8A"/>
+    </linearGradient>
+    <!-- Golden sunrise glow on horizon -->
+    <radialGradient id="lhGlow" cx="50%" cy="85%" r="60%">
+      <stop offset="0%" stop-color="#F7C200" stop-opacity="0.55"/>
+      <stop offset="40%" stop-color="#F9A800" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#F7C200" stop-opacity="0"/>
+    </radialGradient>
+    <!-- Aircraft body gradient (lit from above) -->
+    <linearGradient id="lhBody" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="60%" stop-color="#D8E8F8"/>
+      <stop offset="100%" stop-color="#8AAED0"/>
+    </linearGradient>
+    <!-- Aircraft shadow (under belly) -->
+    <linearGradient id="lhShadow" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#4A7AAA"/>
+      <stop offset="100%" stop-color="#1A3A6A"/>
+    </linearGradient>
+    <!-- Wing gradient -->
+    <linearGradient id="lhWing" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#E0EEF8"/>
+      <stop offset="100%" stop-color="#6A90B8"/>
+    </linearGradient>
+    <!-- Cloud softness -->
+    <filter id="cloudBlur">
+      <feGaussianBlur stdDeviation="8"/>
+    </filter>
+    <filter id="softBlur">
+      <feGaussianBlur stdDeviation="3"/>
+    </filter>
+    <!-- Stars -->
+    <filter id="starGlow">
+      <feGaussianBlur stdDeviation="1.2" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- Sky background -->
+  <rect width="880" height="600" fill="url(#lhSky)"/>
+
+  <!-- Stars (subtle) -->
+  <g opacity="0.6" filter="url(#starGlow)">
+    <circle cx="80" cy="50" r="1" fill="white" opacity="0.7"/>
+    <circle cx="155" cy="30" r="0.8" fill="white" opacity="0.5"/>
+    <circle cx="230" cy="70" r="1.2" fill="white" opacity="0.6"/>
+    <circle cx="320" cy="25" r="0.9" fill="white" opacity="0.7"/>
+    <circle cx="400" cy="55" r="0.8" fill="white" opacity="0.5"/>
+    <circle cx="490" cy="35" r="1.1" fill="white" opacity="0.6"/>
+    <circle cx="560" cy="65" r="0.9" fill="white" opacity="0.7"/>
+    <circle cx="640" cy="20" r="1" fill="white" opacity="0.5"/>
+    <circle cx="720" cy="48" r="0.8" fill="white" opacity="0.6"/>
+    <circle cx="800" cy="32" r="1.1" fill="white" opacity="0.7"/>
+    <circle cx="840" cy="75" r="0.9" fill="white" opacity="0.5"/>
+    <circle cx="110" cy="100" r="0.7" fill="white" opacity="0.4"/>
+    <circle cx="280" cy="110" r="0.8" fill="white" opacity="0.5"/>
+    <circle cx="620" cy="90" r="0.7" fill="white" opacity="0.4"/>
+    <circle cx="760" cy="105" r="0.9" fill="white" opacity="0.5"/>
+  </g>
+
+  <!-- Golden horizon glow -->
+  <ellipse cx="440" cy="560" rx="520" ry="200" fill="url(#lhGlow)"/>
+
+  <!-- Atmospheric horizon band -->
+  <rect x="0" y="510" width="880" height="90" fill="#1840C8" opacity="0.18"/>
+  <rect x="0" y="540" width="880" height="60" fill="#F7C200" opacity="0.08"/>
+
+  <!-- Thin cloud wisps (far) -->
+  <g opacity="0.18" filter="url(#cloudBlur)">
+    <ellipse cx="200" cy="480" rx="180" ry="22" fill="white"/>
+    <ellipse cx="650" cy="460" rx="220" ry="18" fill="white"/>
+    <ellipse cx="440" cy="500" rx="280" ry="16" fill="white"/>
+  </g>
+
+  <!-- Mid-cloud layer -->
+  <g opacity="0.12" filter="url(#cloudBlur)">
+    <ellipse cx="100" cy="420" rx="140" ry="28" fill="white"/>
+    <ellipse cx="780" cy="400" rx="160" ry="24" fill="white"/>
+    <ellipse cx="440" cy="380" rx="200" ry="20" fill="white"/>
+  </g>
+
+  <!-- === AIRCRAFT (wide-body, banking left-up, viewed slightly below) === -->
+  <g transform="translate(90, 120) rotate(-4, 400, 250)">
+
+    <!-- Fuselage main body -->
+    <path d="M 100,248
+             C 100,232 115,222 140,218
+             L 560,210
+             C 590,210 618,218 636,238
+             L 650,260
+             C 650,270 644,278 636,282
+             L 560,290
+             L 140,298
+             C 115,294 100,268 100,248 Z"
+          fill="url(#lhBody)" opacity="0.97"/>
+
+    <!-- Fuselage belly shadow -->
+    <path d="M 140,278
+             L 560,270
+             L 636,278
+             L 560,290
+             L 140,298 Z"
+          fill="url(#lhShadow)" opacity="0.6"/>
+
+    <!-- Nose cone (refined taper) -->
+    <path d="M 100,248
+             C 96,246 75,248 45,248
+             C 35,248 20,250 10,255
+             C 18,258 35,260 45,260
+             C 75,260 96,258 100,256 Z"
+          fill="url(#lhBody)" opacity="0.95"/>
+
+    <!-- Cockpit windows -->
+    <path d="M 85,242 C 80,240 68,243 62,246 L 62,250 C 68,252 80,252 85,252 Z"
+          fill="#1A3A6A" opacity="0.7"/>
+
+    <!-- Windows row -->
+    <g opacity="0.7">
+      <rect x="160" y="228" width="10" height="9" rx="2" fill="#A8CCE8"/>
+      <rect x="185" y="227" width="10" height="9" rx="2" fill="#A8CCE8"/>
+      <rect x="210" y="226" width="10" height="9" rx="2" fill="#A8CCE8"/>
+      <rect x="235" y="225" width="10" height="9" rx="2" fill="#A8CCE8"/>
+      <rect x="260" y="225" width="10" height="9" rx="2" fill="#A8CCE8"/>
+      <rect x="285" y="224" width="10" height="9" rx="2" fill="#A8CCE8"/>
+      <rect x="310" y="224" width="10" height="9" rx="2" fill="#A8CCE8"/>
+      <rect x="335" y="223" width="10" height="9" rx="2" fill="#A8CCE8"/>
+      <rect x="360" y="223" width="10" height="9" rx="2" fill="#A8CCE8"/>
+      <rect x="385" y="222" width="10" height="9" rx="2" fill="#A8CCE8"/>
+      <rect x="410" y="222" width="10" height="9" rx="2" fill="#A8CCE8"/>
+      <rect x="435" y="221" width="10" height="9" rx="2" fill="#A8CCE8"/>
+      <rect x="460" y="221" width="10" height="9" rx="2" fill="#A8CCE8"/>
+      <rect x="485" y="221" width="10" height="9" rx="2" fill="#A8CCE8"/>
+      <rect x="510" y="221" width="10" height="9" rx="2" fill="#A8CCE8"/>
+      <rect x="535" y="221" width="10" height="9" rx="2" fill="#A8CCE8"/>
+    </g>
+
+    <!-- Lufthansa livery stripe (yellow-gold pinstripe along fuselage) -->
+    <path d="M 140,270 L 636,262" stroke="#F7C200" stroke-width="2.5" opacity="0.8" stroke-linecap="round"/>
+
+    <!-- Main wings (swept back, viewed slightly below) -->
+    <path d="M 340,260
+             L 420,254
+             L 380,400
+             C 340,430 260,450 160,460
+             C 200,430 290,390 340,360
+             Z"
+          fill="url(#lhWing)" opacity="0.92"/>
+
+    <!-- Wing lower surface shadow -->
+    <path d="M 340,270
+             L 380,400
+             C 340,430 260,450 160,460
+             C 200,430 300,400 340,380
+             Z"
+          fill="#4A72A0" opacity="0.35"/>
+
+    <!-- Right wing (visible foreshortened) -->
+    <path d="M 380,254
+             L 420,252
+             L 455,210
+             C 480,190 510,178 530,175
+             C 510,185 490,198 470,220
+             Z"
+          fill="url(#lhWing)" opacity="0.7"/>
+
+    <!-- Engine 1 (left, inner) -->
+    <g transform="translate(290, 358)">
+      <ellipse cx="0" cy="0" rx="32" ry="12" fill="#6A90B8"/>
+      <ellipse cx="0" cy="0" rx="28" ry="9" fill="#2A4A7A"/>
+      <ellipse cx="4" cy="-1" rx="14" ry="6" fill="#1A3A6A"/>
+    </g>
+
+    <!-- Engine 2 (left, outer) -->
+    <g transform="translate(220, 392)">
+      <ellipse cx="0" cy="0" rx="26" ry="10" fill="#6A90B8"/>
+      <ellipse cx="0" cy="0" rx="22" ry="7.5" fill="#2A4A7A"/>
+      <ellipse cx="3" cy="-1" rx="11" ry="5" fill="#1A3A6A"/>
+    </g>
+
+    <!-- Vertical tail stabilizer -->
+    <path d="M 596,218
+             C 600,200 610,178 618,162
+             C 626,160 634,165 638,172
+             L 648,210
+             L 636,218 Z"
+          fill="url(#lhBody)" opacity="0.9"/>
+
+    <!-- Vertical tail livery (yellow) -->
+    <path d="M 610,195 L 626,162 L 632,168 L 618,196 Z"
+          fill="#F7C200" opacity="0.9"/>
+
+    <!-- Horizontal tail stabilizer -->
+    <path d="M 580,268
+             L 640,272
+             L 680,295
+             L 668,300
+             L 636,284
+             Z"
+          fill="url(#lhWing)" opacity="0.88"/>
+
+    <!-- Horizontal tail stabilizer (other side, foreshortened) -->
+    <path d="M 600,265
+             L 640,272
+             L 660,255
+             L 648,250
+             Z"
+          fill="url(#lhWing)" opacity="0.6"/>
+
+  </g><!-- /aircraft -->
+
+  <!-- Lufthansa logo — bottom right -->
+  <g transform="translate(724, 480)">
+    <circle cx="60" cy="60" r="52" fill="#F7C200"/>
+    <!-- LH crane mark (simplified, stylized) -->
+    <ellipse cx="62" cy="60" rx="9" ry="22" fill="#05164D" transform="rotate(-38 62 60)"/>
+    <path d="M 70 43 Q 80 34 86 30 Q 80 36 72 46 Z" fill="#05164D"/>
+    <path d="M 72 50 Q 82 44 88 42 Q 81 46 73 53 Z" fill="#05164D"/>
+    <path d="M 50 74 Q 40 83 36 88 Q 42 81 54 77 Z" fill="#05164D"/>
+  </g>
+
+  <!-- Subtle vignette overlay -->
+  <radialGradient id="lhVig" cx="50%" cy="50%" r="70%">
+    <stop offset="0%" stop-color="transparent"/>
+    <stop offset="100%" stop-color="rgba(1,5,20,0.45)"/>
+  </radialGradient>
+  <rect width="880" height="600" fill="url(#lhVig)" rx="0"/>
+</svg>

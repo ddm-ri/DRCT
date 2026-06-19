@@ -1251,6 +1251,214 @@
 }
 @media (max-width: 413px) { .certified__airlines { grid-template-columns: repeat(2, 1fr); } }
 
+/* ================================================================
+   TESTIMONIALS — airline partnership carousel
+================================================================ */
+.testi-section {
+  background: var(--off-white);
+  border-top: 1px solid var(--dark-10);
+  padding: 96px 0 88px;
+}
+
+.testi__eyebrow {
+  color: var(--blue);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.8px;
+  margin: 0 0 52px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+/* Outer wrap — establishes stacking context */
+.testi__wrap {
+  position: relative;
+}
+
+/* Each slide */
+.testi__slide {
+  align-items: center;
+  display: none;
+  gap: 64px;
+  grid-template-columns: 1fr 1fr;
+}
+
+.testi__slide--active {
+  display: grid;
+  animation: testiFadeIn 0.45s ease;
+}
+
+@keyframes testiFadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Left: image */
+.testi__fig {
+  aspect-ratio: 4 / 3;
+  border-radius: 24px;
+  line-height: 0;
+  margin: 0;
+  overflow: hidden;
+}
+
+.testi__img {
+  display: block;
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+}
+
+/* Right: content */
+.testi__body {
+  display: flex;
+  flex-direction: column;
+}
+
+.testi__airline-id {
+  align-items: center;
+  display: flex;
+  gap: 14px;
+  margin-bottom: 32px;
+}
+
+.testi__airline-mark {
+  align-items: center;
+  border-radius: 14px;
+  display: flex;
+  flex-shrink: 0;
+  height: 52px;
+  justify-content: center;
+  width: 52px;
+}
+
+.testi__airline-name {
+  color: var(--dark);
+  font-size: 19px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+}
+
+.testi__quote {
+  color: var(--dark);
+  font-size: 21px;
+  font-weight: 500;
+  line-height: 1.55;
+  margin: 0 0 30px;
+  quotes: none;
+}
+
+.testi__author {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 28px;
+}
+
+.testi__dash {
+  color: var(--dark-40);
+  font-size: 13px;
+  margin-bottom: 2px;
+}
+
+.testi__name {
+  color: var(--dark);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.testi__role {
+  color: var(--dark-70);
+  font-size: 13px;
+}
+
+.testi__link {
+  align-items: center;
+  color: var(--blue);
+  display: inline-flex;
+  font-size: 13px;
+  font-weight: 700;
+  gap: 5px;
+  letter-spacing: 0.3px;
+  text-decoration: none;
+}
+
+.testi__link:hover { text-decoration: underline; }
+
+.testi__link svg { flex-shrink: 0; }
+
+/* Controls row */
+.testi__controls {
+  align-items: center;
+  display: flex;
+  gap: 18px;
+  justify-content: center;
+  margin-top: 44px;
+}
+
+.testi__btn {
+  align-items: center;
+  background: var(--white);
+  border: 1.5px solid var(--dark-20);
+  border-radius: 50%;
+  color: var(--dark-70);
+  cursor: pointer;
+  display: flex;
+  flex-shrink: 0;
+  height: 40px;
+  justify-content: center;
+  transition: border-color 0.2s, color 0.2s;
+  width: 40px;
+}
+
+.testi__btn:hover {
+  border-color: var(--blue);
+  color: var(--blue);
+}
+
+.testi__dots {
+  display: flex;
+  gap: 8px;
+}
+
+.testi__dot {
+  background: var(--dark-20);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  height: 8px;
+  padding: 0;
+  transition: background 0.25s, transform 0.25s;
+  width: 8px;
+}
+
+.testi__dot--active {
+  background: var(--blue);
+  transform: scale(1.25);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .testi__slide { gap: 40px; }
+  .testi__quote { font-size: 19px; }
+}
+
+@media (max-width: 767px) {
+  .testi-section { padding: 60px 0 52px; }
+  .testi__eyebrow { margin-bottom: 36px; }
+  .testi__slide {
+    gap: 28px;
+    grid-template-columns: 1fr;
+  }
+  .testi__fig { aspect-ratio: 16 / 9; border-radius: 16px; }
+  .testi__quote { font-size: 17px; }
+  .testi__airline-name { font-size: 17px; }
+}
+
+@media (max-width: 413px) {
+  .testi__quote { font-size: 16px; }
+}
+
 /* ── Airline page — in-practice metric card ────────────────────── */
 .outcome-metric {
   display: block;
