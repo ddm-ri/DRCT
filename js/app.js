@@ -19,6 +19,72 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   /* ---------------------------------------------------------------
+     MEGA MENUS — hover + click + keyboard
+  --------------------------------------------------------------- */
+  var navItems = document.querySelectorAll('.nav-item[data-menu]');
+
+  function closeAllMenus() {
+    navItems.forEach(function (it) {
+      it.classList.remove('nav-item--open');
+      var t = it.querySelector('.nav-item__trigger');
+      if (t) t.setAttribute('aria-expanded', 'false');
+    });
+  }
+
+  navItems.forEach(function (item) {
+    var hoverTimer;
+    var closeTimer;
+
+    item.addEventListener('mouseenter', function () {
+      clearTimeout(closeTimer);
+      hoverTimer = setTimeout(function () {
+        closeAllMenus();
+        item.classList.add('nav-item--open');
+        var t = item.querySelector('.nav-item__trigger');
+        if (t) t.setAttribute('aria-expanded', 'true');
+      }, 60);
+    });
+
+    item.addEventListener('mouseleave', function () {
+      clearTimeout(hoverTimer);
+      closeTimer = setTimeout(function () {
+        item.classList.remove('nav-item--open');
+        var t = item.querySelector('.nav-item__trigger');
+        if (t) t.setAttribute('aria-expanded', 'false');
+      }, 130);
+    });
+
+    var trigger = item.querySelector('.nav-item__trigger');
+    if (trigger) {
+      trigger.addEventListener('click', function (e) {
+        e.stopPropagation();
+        var isOpen = item.classList.contains('nav-item--open');
+        closeAllMenus();
+        if (!isOpen) {
+          item.classList.add('nav-item--open');
+          trigger.setAttribute('aria-expanded', 'true');
+        }
+      });
+    }
+
+    item.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') {
+        closeAllMenus();
+        var t = item.querySelector('.nav-item__trigger');
+        if (t) t.focus();
+      }
+    });
+  });
+
+  document.addEventListener('click', function (e) {
+    if (!e.target.closest('.nav-item')) closeAllMenus();
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closeAllMenus();
+  });
+
+  /* ---------------------------------------------------------------
      FAQ ACCORDION
   --------------------------------------------------------------- */
   var faqItems = document.querySelectorAll('#faqList li, .questions__body li');
