@@ -563,7 +563,7 @@
       .metrics__head { margin-bottom: 36px; }
     }
 
-    /* ── Problem / Solution section ────────────────────────────── */
+    /* ── Solutions grid ─────────────────────────────────────────── */
     .ps-section { padding: 88px 0 100px; }
     .ps-section__head {
       text-align: center;
@@ -594,102 +594,56 @@
       line-height: 1.65;
       margin: 0;
     }
-    /* Row: [card] [arrow] [card] [gap] [card] [arrow] [card] */
-    .ps-row {
+    .ps-grid {
       display: grid;
-      grid-template-columns: 1fr 52px 1fr 40px 1fr 52px 1fr;
-      gap: 0;
-      align-items: start;
-      margin-bottom: 16px;
-    }
-    .ps-row--last {
-      grid-template-columns: 1fr 52px 1fr;
-      max-width: calc(50% - 20px);
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
     }
     .ps-card {
-      background: #ffffff;
-      border: 1px solid rgba(27,39,51,0.09);
+      background: linear-gradient(145deg, rgba(42,138,234,0.085) 0%, rgba(42,138,234,0.015) 100%);
+      border: 1px solid rgba(42,138,234,0.13);
       border-radius: 14px;
-      box-shadow: 0 2px 12px rgba(27,39,51,0.045);
-      padding: 26px 22px 28px;
+      padding: 28px 24px 30px;
       display: flex;
       flex-direction: column;
-      height: 100%;
       box-sizing: border-box;
     }
     .ps-card__icon {
       width: 48px;
       height: 48px;
       border-radius: 12px;
+      background: rgba(42,138,234,0.12);
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 16px;
+      margin-bottom: 20px;
       flex-shrink: 0;
     }
-    .ps-card--problem .ps-card__icon { background: rgba(230,130,0,0.10); }
-    .ps-card--solution .ps-card__icon { background: rgba(42,138,234,0.10); }
-    .ps-card__label {
-      font-family: var(--font-mono);
-      font-size: 9px;
-      font-weight: 700;
-      letter-spacing: 1.1px;
-      text-transform: uppercase;
-      margin-bottom: 7px;
-      display: block;
-    }
-    .ps-card--problem .ps-card__label { color: #d97700; }
-    .ps-card--solution .ps-card__label { color: var(--blue); }
     .ps-card__title {
-      font-size: 15px;
+      font-size: 16px;
       font-weight: 700;
       color: var(--dark);
       margin: 0 0 10px;
-      line-height: 1.3;
+      line-height: 1.28;
     }
     .ps-card__desc {
-      font-size: 13px;
+      font-size: 14px;
       line-height: 1.65;
       color: rgba(27,39,51,0.58);
       margin: 0;
       flex: 1;
     }
-    .ps-arrow {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding-top: 56px;
-    }
-    .ps-arrow__circle {
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-      border: 1.5px solid rgba(27,39,51,0.14);
-      background: #ffffff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: rgba(27,39,51,0.32);
-      flex-shrink: 0;
-    }
-    .ps-gap { /* spacer column between pairs */ }
     @media (max-width: 1024px) {
       .ps-section { padding: 68px 0 80px; }
-      .ps-row { grid-template-columns: 1fr 44px 1fr 28px 1fr 44px 1fr; }
-      .ps-row--last { grid-template-columns: 1fr 44px 1fr; max-width: calc(50% - 14px); }
+      .ps-grid { grid-template-columns: repeat(3, 1fr); }
     }
     @media (max-width: 767px) {
       .ps-section { padding: 52px 0 60px; }
       .ps-section__head h2 { font-size: 27px; }
-      .ps-row {
-        grid-template-columns: 1fr;
-        grid-auto-rows: auto;
-        gap: 12px;
-        margin-bottom: 12px;
-      }
-      .ps-row--last { max-width: 100%; grid-template-columns: 1fr; }
-      .ps-arrow { display: none; }
-      .ps-gap { display: none; }
+      .ps-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    }
+    @media (max-width: 413px) {
+      .ps-grid { grid-template-columns: 1fr; }
     }
   </style>
   <link rel="canonical" href="https://drct.aero/solutions/for-airlines.html">
@@ -933,7 +887,7 @@
 </div>
 
 <!-- ================================================================
-     PROBLEMS WE SOLVE
+     SOLUTIONS GRID
 ================================================================ -->
 <div class="landing-new loaded">
   <div class="landing-new__body">
@@ -941,181 +895,59 @@
 
       <div class="ps-section__head">
         <span class="ps-eyebrow">DRCT for airlines</span>
-        <h2>Problems we solve</h2>
-        <p>The distribution challenges holding airlines back — and how DRCT addresses each one.</p>
+        <h2>What we solve</h2>
+        <p>The distribution challenges airlines face — and how DRCT addresses each one.</p>
       </div>
 
-      <!-- ── Row 1 ────────────────────────────────────────────── -->
-      <div class="ps-row">
+      <div class="ps-grid">
 
-        <div class="ps-card ps-card--problem">
-          <div class="ps-card__icon">
-            <svg width="26" height="26" viewBox="0 0 26 26" fill="none" aria-hidden="true">
-              <circle cx="13" cy="7" r="3" stroke="#d97700" stroke-width="1.6"/>
-              <circle cx="5" cy="20" r="3" stroke="#d97700" stroke-width="1.6"/>
-              <circle cx="21" cy="20" r="3" stroke="#d97700" stroke-width="1.6"/>
-              <path d="M10.5 9.5L7 17.5M15.5 9.5L19 17.5M8 20h10" stroke="#d97700" stroke-width="1.5" stroke-linecap="round"/>
-            </svg>
-          </div>
-          <span class="ps-card__label">Problem</span>
-          <h3 class="ps-card__title">Fragmented distribution channels</h3>
-          <p class="ps-card__desc">Managing separate connections for GDS, NDC, and direct channels creates operational overhead. Mixing GDS and NDC content without a unified layer leads to gaps in coverage, reconciliation errors, and inconsistent workflows.</p>
-        </div>
-
-        <div class="ps-arrow">
-          <div class="ps-arrow__circle">
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-              <path d="M2.5 7h9M8 3.5l3.5 3.5L8 10.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </div>
-        </div>
-
-        <div class="ps-card ps-card--solution">
+        <!-- Card 1 -->
+        <div class="ps-card">
           <div class="ps-card__icon">
             <svg width="26" height="26" viewBox="0 0 26 26" fill="none" aria-hidden="true">
               <path d="M3 19l10 4.5L23 19M3 13.5l10 4.5 10-4.5M13 2L3 7l10 4.5L23 7 13 2z" stroke="#2a8aea" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </div>
-          <span class="ps-card__label">Solution</span>
-          <h3 class="ps-card__title">A unified distribution layer.</h3>
-          <p class="ps-card__desc">DRCT provides a unified distribution layer where all airline offers are normalized and delivered through a single integration. Order management, reporting, and settlement are handled in one place, reducing operational complexity and eliminating fragmentation.</p>
+          <h3 class="ps-card__title">One layer for both channels</h3>
+          <p class="ps-card__desc">GDS and NDC coexist in a single distribution layer — managed, reported, and settled in one place instead of two parallel systems.</p>
         </div>
 
-        <div class="ps-spacer"></div>
-
-        <div class="ps-card ps-card--problem">
-          <div class="ps-card__icon">
-            <svg width="26" height="26" viewBox="0 0 26 26" fill="none" aria-hidden="true">
-              <rect x="5" y="10" width="16" height="13" rx="2.5" stroke="#d97700" stroke-width="1.6"/>
-              <path d="M9 10V7.5a4 4 0 1 1 8 0V10" stroke="#d97700" stroke-width="1.6" stroke-linecap="round"/>
-              <circle cx="13" cy="17" r="1.8" fill="#d97700"/>
-            </svg>
-          </div>
-          <span class="ps-card__label">Problem</span>
-          <h3 class="ps-card__title">Limited merchandising and offer control</h3>
-          <p class="ps-card__desc">GDS channels were not built for modern airline retailing. Bundles, ancillaries, and dynamic offers are either not supported or not displayed correctly, leading to lost revenue and broken offer presentation.</p>
-        </div>
-
-        <div class="ps-arrow">
-          <div class="ps-arrow__circle">
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-              <path d="M2.5 7h9M8 3.5l3.5 3.5L8 10.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </div>
-        </div>
-
-        <div class="ps-card ps-card--solution">
+        <!-- Card 2 -->
+        <div class="ps-card">
           <div class="ps-card__icon">
             <svg width="26" height="26" viewBox="0 0 26 26" fill="none" aria-hidden="true">
               <path d="M13 3l2.5 5 5.5.8-4 3.9.95 5.5L13 15.6l-4.95 2.6.95-5.5L5 8.8l5.5-.8L13 3z" stroke="#2a8aea" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </div>
-          <span class="ps-card__label">Solution</span>
-          <h3 class="ps-card__title">Offers preserved, end to end.</h3>
-          <p class="ps-card__desc">DRCT preserves the full structure of your offer — including fares, ancillaries, bundles, and pricing logic — and delivers it consistently across all channels. This ensures your content is presented as intended and increases ancillary revenue per booking.</p>
+          <h3 class="ps-card__title">Full control over presentation</h3>
+          <p class="ps-card__desc">Your offer structure reaches every agent and OTA exactly as you define it — fares, bundles, and ancillaries, consistently across all channels.</p>
         </div>
 
-      </div><!-- /ps-row -->
-
-      <!-- ── Row 2 ────────────────────────────────────────────── -->
-      <div class="ps-row">
-
-        <div class="ps-card ps-card--problem">
-          <div class="ps-card__icon">
-            <svg width="26" height="26" viewBox="0 0 26 26" fill="none" aria-hidden="true">
-              <circle cx="13" cy="13" r="9" stroke="#d97700" stroke-width="1.6"/>
-              <path d="M13 8v1.5M13 16.5V18M10.5 10.8a2.5 2.5 0 0 1 4.8.9c0 2.3-3.3 2.8-3.3 4.8h2" stroke="#d97700" stroke-width="1.5" stroke-linecap="round"/>
-            </svg>
-          </div>
-          <span class="ps-card__label">Problem</span>
-          <h3 class="ps-card__title">High distribution costs</h3>
-          <p class="ps-card__desc">Traditional GDS models introduce multiple intermediaries, increasing cost-per-booking without proportional value. Airlines have limited control over how distribution costs scale.</p>
-        </div>
-
-        <div class="ps-arrow">
-          <div class="ps-arrow__circle">
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-              <path d="M2.5 7h9M8 3.5l3.5 3.5L8 10.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </div>
-        </div>
-
-        <div class="ps-card ps-card--solution">
+        <!-- Card 3 -->
+        <div class="ps-card">
           <div class="ps-card__icon">
             <svg width="26" height="26" viewBox="0 0 26 26" fill="none" aria-hidden="true">
               <polyline points="3,18 8,11 12,14 17,8 23,11" fill="none" stroke="#2a8aea" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
               <path d="M18 5h5v5" fill="none" stroke="#2a8aea" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </div>
-          <span class="ps-card__label">Solution</span>
-          <h3 class="ps-card__title">Better unit economics.</h3>
-          <p class="ps-card__desc">DRCT enables direct airline-to-seller distribution and supports gradual volume shift from GDS to NDC channels. By reducing dependency on intermediaries, airlines improve unit economics while maintaining distribution reach.</p>
+          <h3 class="ps-card__title">Better economics at scale</h3>
+          <p class="ps-card__desc">Direct distribution and a gradual shift toward NDC lower cost-per-booking without sacrificing reach or agent coverage.</p>
         </div>
 
-        <div class="ps-spacer"></div>
-
-        <div class="ps-card ps-card--problem">
-          <div class="ps-card__icon">
-            <svg width="26" height="26" viewBox="0 0 26 26" fill="none" aria-hidden="true">
-              <circle cx="13" cy="9" r="4" stroke="#d97700" stroke-width="1.6"/>
-              <path d="M7 22c0-3.3 2.7-6 6-6s6 2.7 6 6" stroke="#d97700" stroke-width="1.6" stroke-linecap="round"/>
-              <path d="M19 11l2-2M19 13l3 .5" stroke="#d97700" stroke-width="1.5" stroke-linecap="round"/>
-            </svg>
-          </div>
-          <span class="ps-card__label">Problem</span>
-          <h3 class="ps-card__title">Agent resistance to NDC</h3>
-          <p class="ps-card__desc">Agents rely on familiar GDS workflows. NDC adoption is slowed by operational challenges such as inconsistent booking flows, NDC ADM risk, and settlement complexity.</p>
-        </div>
-
-        <div class="ps-arrow">
-          <div class="ps-arrow__circle">
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-              <path d="M2.5 7h9M8 3.5l3.5 3.5L8 10.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </div>
-        </div>
-
-        <div class="ps-card ps-card--solution">
+        <!-- Card 4 -->
+        <div class="ps-card">
           <div class="ps-card__icon">
             <svg width="26" height="26" viewBox="0 0 26 26" fill="none" aria-hidden="true">
               <path d="M14 3L5 14h8l-2 9 9-12h-8l2-8z" stroke="#2a8aea" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </div>
-          <span class="ps-card__label">Solution</span>
-          <h3 class="ps-card__title">NDC inside familiar workflows.</h3>
-          <p class="ps-card__desc">DRCT delivers NDC content inside familiar agent workflows — including GDS-adjacent environments — eliminating the need to learn new systems. This accelerates NDC adoption without disrupting existing agent behavior.</p>
+          <h3 class="ps-card__title">Adoption inside familiar tools</h3>
+          <p class="ps-card__desc">NDC content surfaces within the GDS interfaces agents already use. No new systems, no retraining — adoption happens naturally.</p>
         </div>
 
-      </div><!-- /ps-row -->
-
-      <!-- ── Row 3 ────────────────────────────────────────────── -->
-      <div class="ps-row ps-row--last">
-
-        <div class="ps-card ps-card--problem">
-          <div class="ps-card__icon">
-            <svg width="26" height="26" viewBox="0 0 26 26" fill="none" aria-hidden="true">
-              <path d="M4 18l5-7 4 3 4-6 5 4" stroke="#d97700" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
-              <circle cx="4" cy="18" r="1.5" fill="#d97700"/>
-              <circle cx="9" cy="11" r="1.5" fill="#d97700"/>
-              <circle cx="13" cy="14" r="1.5" fill="#d97700"/>
-              <circle cx="17" cy="8" r="1.5" fill="#d97700"/>
-              <circle cx="22" cy="12" r="1.5" fill="#d97700"/>
-            </svg>
-          </div>
-          <span class="ps-card__label">Problem</span>
-          <h3 class="ps-card__title">Inconsistent pricing across channels</h3>
-          <p class="ps-card__desc">Without centralized offer control, prices and availability diverge between channels. Airlines lose visibility into how their offers are consumed and can't enforce consistent pricing or personalization logic.</p>
-        </div>
-
-        <div class="ps-arrow">
-          <div class="ps-arrow__circle">
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-              <path d="M2.5 7h9M8 3.5l3.5 3.5L8 10.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </div>
-        </div>
-
-        <div class="ps-card ps-card--solution">
+        <!-- Card 5 -->
+        <div class="ps-card">
           <div class="ps-card__icon">
             <svg width="26" height="26" viewBox="0 0 26 26" fill="none" aria-hidden="true">
               <path d="M4 13h4M18 13h4M13 4v4M13 18v4" stroke="#2a8aea" stroke-width="1.5" stroke-linecap="round"/>
@@ -1123,12 +955,11 @@
               <circle cx="13" cy="13" r="1.5" fill="#2a8aea"/>
             </svg>
           </div>
-          <span class="ps-card__label">Solution</span>
-          <h3 class="ps-card__title">Consistent pricing and signals.</h3>
-          <p class="ps-card__desc">DRCT maintains control over how offers are distributed and consumed, enabling consistent pricing, better personalization, and more accurate demand signals across all channels.</p>
+          <h3 class="ps-card__title">Consistent pricing everywhere</h3>
+          <p class="ps-card__desc">Centralized offer control means prices and availability stay in sync across every channel — no divergence, no lost visibility.</p>
         </div>
 
-      </div><!-- /ps-row -->
+      </div><!-- /ps-grid -->
 
     </section>
   </div>
