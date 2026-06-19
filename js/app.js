@@ -389,27 +389,8 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   /* ---------------------------------------------------------------
-     BENEFITS — SHOW MORE / HIDE
+     BENEFITS — always show all
   --------------------------------------------------------------- */
-  var benefitsToggle = document.getElementById('benefitsToggle');
-  var benefitItems   = document.querySelectorAll('.benefit__item');
-  var showingAll     = false;
-
-  // Initially hide items 4-6 (indices 3-5)
-  benefitItems.forEach(function (item, i) {
-    if (i >= 3) item.classList.add('hidden');
-  });
-
-  if (benefitsToggle) {
-    benefitsToggle.addEventListener('click', function (e) {
-      e.preventDefault();
-      showingAll = !showingAll;
-      benefitItems.forEach(function (item, i) {
-        if (i >= 3) item.classList.toggle('hidden', !showingAll);
-      });
-      benefitsToggle.textContent = showingAll ? 'Hide' : 'View more';
-    });
-  }
 
   /* ---------------------------------------------------------------
      COOKIE BANNER
