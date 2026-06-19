@@ -481,7 +481,7 @@
 .bcard {
   background: linear-gradient(180deg, rgba(42,138,234,0.07) 0%, rgba(42,138,234,0.02) 100%);
   border: none;
-  border-radius: 16px;
+  border-radius: 0;
   box-shadow: none;
   padding: 28px 24px 26px;
   transition: none;
