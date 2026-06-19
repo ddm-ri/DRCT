@@ -219,79 +219,61 @@
 /* ── Mega menu shell ──────────────────────────────────────────── */
 .mega-menu {
   background: #fff;
-  border: 1px solid rgba(27,39,51,0.09);
-  border-radius: 20px;
-  box-shadow: 0 20px 60px rgba(27,39,51,0.13), 0 4px 16px rgba(27,39,51,0.06);
+  border: 1px solid rgba(27,39,51,0.08);
+  border-radius: 22px;
+  box-shadow: 0 24px 64px rgba(27,39,51,0.12), 0 4px 16px rgba(27,39,51,0.05);
   left: -20px;
   opacity: 0;
-  padding: 28px;
+  padding: 28px 28px 24px;
   pointer-events: none;
   position: absolute;
-  top: calc(100% + 12px);
-  transform: translateY(-8px);
-  transition: opacity 0.18s ease, transform 0.18s ease;
-  width: 760px;
+  top: calc(100% + 14px);
+  transform: translateY(-10px) scale(0.99);
+  transition: opacity 0.16s ease, transform 0.16s ease;
+  width: 720px;
   z-index: 200;
 }
 .nav-item--open .mega-menu {
   opacity: 1;
   pointer-events: all;
-  transform: translateY(0);
+  transform: translateY(0) scale(1);
 }
 @media (max-width: 1024px) {
   .mega-menu { width: calc(100vw - 48px); }
 }
 
-/* ── Featured section ─────────────────────────────────────────── */
-.mm-featured {
-  align-items: flex-start;
-  display: flex;
-  gap: 16px;
+/* ── Intro header (non-clickable context) ─────────────────────── */
+.mm-intro {
+  margin-bottom: 20px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid rgba(27,39,51,0.07);
 }
-.mm-featured__icon {
-  flex-shrink: 0;
-  line-height: 0;
-}
-.mm-featured__body { flex: 1; }
-.mm-featured__name {
+.mm-intro__title {
   color: var(--dark);
   display: block;
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 700;
-  line-height: 1.3;
-  margin-bottom: 5px;
+  letter-spacing: -0.2px;
+  line-height: 1.2;
+  margin-bottom: 6px;
 }
-.mm-featured__desc {
-  color: rgba(27,39,51,0.58);
+.mm-intro__desc {
+  color: rgba(27,39,51,0.52);
   font-size: 13.5px;
-  line-height: 1.55;
-  margin-bottom: 10px;
-}
-.mm-featured__cta {
-  color: var(--blue);
-  font-size: 13px;
-  font-weight: 600;
-  transition: opacity 0.14s;
-}
-.mm-featured__cta:hover { opacity: 0.72; }
-
-/* ── Divider ──────────────────────────────────────────────────── */
-.mm-divider {
-  border: none;
-  border-top: 1px solid rgba(27,39,51,0.08);
-  margin: 22px 0;
+  line-height: 1.6;
+  max-width: 520px;
 }
 
 /* ── 2-column grid ────────────────────────────────────────────── */
 .mm-grid {
   display: grid;
-  gap: 4px 24px;
+  gap: 3px 32px;
   grid-template-columns: 1fr 1fr;
 }
 .mm-col {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 1px;
 }
 
 /* ── Item cards ───────────────────────────────────────────────── */
@@ -299,41 +281,46 @@
   align-items: flex-start;
   border-radius: 10px;
   display: flex;
-  gap: 12px;
-  padding: 10px 12px;
-  transition: background 0.13s;
+  gap: 13px;
+  padding: 11px 12px;
+  transition: background 0.12s;
 }
-.mm-item:hover { background: rgba(27,39,51,0.04); }
+.mm-item:hover { background: rgba(27,39,51,0.038); }
 
 .mm-item__icon {
   align-items: center;
-  background: rgba(42,138,234,0.08);
-  border-radius: 8px;
+  background: rgba(42,138,234,0.07);
+  border-radius: 9px;
   display: flex;
   flex-shrink: 0;
-  height: 34px;
+  height: 36px;
   justify-content: center;
   margin-top: 1px;
-  transition: background 0.13s;
-  width: 34px;
+  transition: background 0.12s;
+  width: 36px;
 }
-.mm-item:hover .mm-item__icon { background: rgba(42,138,234,0.14); }
+.mm-item:hover .mm-item__icon { background: rgba(42,138,234,0.13); }
 
 .mm-item__body {
   display: flex;
   flex-direction: column;
   gap: 3px;
+  padding-top: 1px;
 }
 .mm-item__body strong {
   color: var(--dark);
-  font-size: 13.5px;
+  display: block;
+  font-size: 14px;
   font-weight: 600;
-  line-height: 1.25;
+  letter-spacing: -0.1px;
+  line-height: 1.2;
+  transition: color 0.12s;
 }
+.mm-item:hover .mm-item__body strong { color: var(--blue); }
 .mm-item__body span {
-  color: rgba(27,39,51,0.52);
-  font-size: 12.5px;
-  line-height: 1.45;
+  color: rgba(27,39,51,0.48);
+  font-size: 13px;
+  line-height: 1.5;
 }
 
 /* Mobile menu — grouped section labels */
