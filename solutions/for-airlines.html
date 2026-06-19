@@ -563,6 +563,133 @@
       .metrics__head { margin-bottom: 36px; }
     }
 
+    /* ── Distribution Dashboard Mockup ─────────────────────────── */
+    .bcard-extra-row {
+      display: grid;
+      grid-template-columns: 1fr 2.6fr;
+      gap: 14px;
+      margin-top: 14px;
+    }
+    .ddm {
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 8px 40px rgba(27,39,51,0.13), 0 2px 8px rgba(27,39,51,0.06);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      font-family: var(--font-sans);
+    }
+    .ddm__head {
+      padding: 17px 20px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .ddm__title { font-size: 15px; font-weight: 700; color: var(--dark); }
+    .ddm__logo-tag {
+      font-family: var(--font-mono);
+      font-size: 9px; font-weight: 700; letter-spacing: 0.5px;
+      color: var(--blue);
+      border: 1.5px solid rgba(42,138,234,0.28);
+      border-radius: 6px;
+      padding: 3px 8px;
+    }
+    .ddm__tabs {
+      display: flex;
+      padding: 8px 20px 0;
+      border-bottom: 1px solid rgba(27,39,51,0.08);
+      gap: 0;
+    }
+    .ddm__tab {
+      font-size: 11px; font-weight: 500;
+      color: rgba(27,39,51,0.42);
+      padding: 5px 12px 8px;
+      border: none; background: none; cursor: default;
+      border-bottom: 2px solid transparent;
+      position: relative; bottom: -1px;
+    }
+    .ddm__tab--on {
+      color: var(--dark); font-weight: 600;
+      border-bottom-color: var(--blue);
+    }
+    .ddm__group-label {
+      padding: 10px 20px 5px;
+      font-size: 10px; font-weight: 700;
+      color: var(--blue); letter-spacing: 0.2px;
+    }
+    .ddm__trow {
+      display: grid;
+      grid-template-columns: 1.8fr 32px 56px 82px 58px;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 20px;
+      border-bottom: 1px solid rgba(27,39,51,0.045);
+      font-size: 11.5px;
+    }
+    .ddm__trow--head {
+      font-size: 9px; font-weight: 700; letter-spacing: 0.5px;
+      text-transform: uppercase;
+      color: rgba(27,39,51,0.35);
+      padding-top: 0;
+    }
+    .ddm__route { color: var(--dark); font-weight: 500; }
+    .ddm__iata {
+      width: 26px; height: 26px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-mono); font-size: 7.5px; font-weight: 700;
+      justify-self: center; flex-shrink: 0;
+    }
+    .ddm__ch {
+      font-family: var(--font-mono); font-size: 9px; font-weight: 700;
+      border-radius: 4px; padding: 2px 6px; text-align: center;
+      color: var(--blue); background: rgba(42,138,234,0.1);
+    }
+    .ddm__ch--gds { color: rgba(27,39,51,0.42); background: rgba(27,39,51,0.06); }
+    .ddm__badge {
+      font-size: 10px; font-weight: 600; border-radius: 4px;
+      padding: 3px 7px; text-align: center; white-space: nowrap;
+    }
+    .ddm__badge--g { background: #33c100; color: #fff; }
+    .ddm__badge--o { background: #ff9f00; color: #fff; }
+    .ddm__badge--b { background: rgba(42,138,234,0.14); color: var(--blue); }
+    .ddm__badge--r { background: #fd5666; color: #fff; }
+    .ddm__fare {
+      font-family: var(--font-mono); font-size: 11px;
+      color: var(--dark); text-align: right;
+    }
+    .ddm__ghost-row {
+      display: flex; gap: 8px; align-items: center;
+      padding: 8px 20px;
+      border-bottom: 1px solid rgba(27,39,51,0.04);
+      opacity: 0.28;
+    }
+    .ddm__ghost-row + .ddm__ghost-row { opacity: 0.15; }
+    .ddm__ghost {
+      height: 8px; border-radius: 4px;
+      background: rgba(27,39,51,0.1);
+    }
+    .ddm__tip {
+      margin: 10px 16px 14px;
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      background: #fff;
+      border: 1px solid rgba(27,39,51,0.1);
+      border-radius: 10px;
+      padding: 7px 14px 7px 8px;
+      box-shadow: 0 4px 14px rgba(27,39,51,0.09);
+      font-size: 12px; font-weight: 500; color: var(--dark);
+      align-self: flex-start;
+    }
+    .ddm__tip-icon {
+      width: 28px; height: 28px; border-radius: 50%;
+      background: rgba(42,138,234,0.1);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    @media (max-width: 1024px) { .bcard-extra-row { grid-template-columns: 1fr 2fr; } }
+    @media (max-width: 767px)  { .bcard-extra-row { grid-template-columns: 1fr; } }
+
     /* ── Solutions section heading ──────────────────────────────── */
     .ps-section { padding: 88px 0 100px; }
     .ps-section__head {
@@ -896,6 +1023,11 @@
           <p class="bcard__desc">NDC content surfaces within the GDS interfaces agents already use. No new systems, no retraining — adoption happens naturally.</p>
         </div>
 
+      </div><!-- /bcard-grid -->
+
+      <!-- ── 5th card + DRCT dashboard mockup ── -->
+      <div class="bcard-extra-row">
+
         <div class="bcard">
           <div class="bcard__icon">
             <svg width="22" height="22" viewBox="0 0 26 26" fill="none" aria-hidden="true">
@@ -908,7 +1040,87 @@
           <p class="bcard__desc">Centralized offer control means prices and availability stay in sync across every channel — no divergence, no lost visibility.</p>
         </div>
 
-      </div><!-- /bcard-grid -->
+        <!-- DRCT Distribution Dashboard Mockup -->
+        <div class="ddm">
+
+          <div class="ddm__head">
+            <span class="ddm__title">Distribution Overview</span>
+            <span class="ddm__logo-tag">DRCT</span>
+          </div>
+
+          <div class="ddm__tabs">
+            <button class="ddm__tab ddm__tab--on">Live Bookings</button>
+            <button class="ddm__tab">NDC Orders</button>
+            <button class="ddm__tab">Analytics</button>
+            <button class="ddm__tab">+</button>
+          </div>
+
+          <div class="ddm__group-label">Today &middot; 24 active routes</div>
+
+          <div class="ddm__trow ddm__trow--head">
+            <span>Route</span><span></span><span>Channel</span><span>Status</span><span>Fare</span>
+          </div>
+
+          <div class="ddm__trow">
+            <span class="ddm__route">FRA → DXB</span>
+            <span class="ddm__iata" style="background:#f6c100;color:#333">LH</span>
+            <span class="ddm__ch">NDC</span>
+            <span class="ddm__badge ddm__badge--g">Ticketed</span>
+            <span class="ddm__fare">€ 842</span>
+          </div>
+
+          <div class="ddm__trow">
+            <span class="ddm__route">LHR → DXB</span>
+            <span class="ddm__iata" style="background:#c8102e;color:#fff">EK</span>
+            <span class="ddm__ch">NDC</span>
+            <span class="ddm__badge ddm__badge--o">Pending</span>
+            <span class="ddm__fare">€ 1,205</span>
+          </div>
+
+          <div class="ddm__trow">
+            <span class="ddm__route">AMS → JFK</span>
+            <span class="ddm__iata" style="background:#00a1de;color:#fff">KL</span>
+            <span class="ddm__ch ddm__ch--gds">GDS</span>
+            <span class="ddm__badge ddm__badge--b">Fallback</span>
+            <span class="ddm__fare">€ 634</span>
+          </div>
+
+          <div class="ddm__trow">
+            <span class="ddm__route">MUC → SIN</span>
+            <span class="ddm__iata" style="background:#003876;color:#fff">LH</span>
+            <span class="ddm__ch">NDC</span>
+            <span class="ddm__badge ddm__badge--g">Ticketed</span>
+            <span class="ddm__fare">€ 1,890</span>
+          </div>
+
+          <div class="ddm__group-label" style="color:rgba(27,39,51,0.28)">Processing</div>
+          <div class="ddm__ghost-row">
+            <div class="ddm__ghost" style="flex:1.8;height:9px"></div>
+            <div class="ddm__ghost" style="width:26px;height:26px;border-radius:50%"></div>
+            <div class="ddm__ghost" style="width:56px"></div>
+            <div class="ddm__ghost" style="width:82px"></div>
+            <div class="ddm__ghost" style="width:48px"></div>
+          </div>
+          <div class="ddm__ghost-row">
+            <div class="ddm__ghost" style="flex:1.8;height:9px;width:60%"></div>
+            <div class="ddm__ghost" style="width:26px;height:26px;border-radius:50%"></div>
+            <div class="ddm__ghost" style="width:56px"></div>
+            <div class="ddm__ghost" style="width:82px"></div>
+            <div class="ddm__ghost" style="width:48px"></div>
+          </div>
+
+          <div class="ddm__tip">
+            <div class="ddm__tip-icon">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                <path d="M2 7h10M8 3l4 4-4 4" stroke="#2a8aea" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            Syncing NDC offer data…
+          </div>
+
+        </div><!-- /ddm -->
+
+      </div><!-- /bcard-extra-row -->
 
     </section>
   </div>
