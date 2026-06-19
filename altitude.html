@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Altitude — Fly business. Pay economy.</title>
+  <meta name="description" content="Altitude gives Mastercard Premium cardholders access to €30 airline vouchers and discounted business class upgrades — verified automatically, no codes needed.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400;1,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --sky-top: #a8cfe8;
+      --sky-mid: #c5dff0;
+      --sky-low: #daeaf7;
+      --white: #ffffff;
+      --off-white: #f7f7f5;
+      --text-dark: #1a1a1a;
+      --text-mid: #444;
+      --text-muted: #777;
+      --card-border: #e8e8e4;
+      --gold: #b8975a;
+      --gold-light: #f5eed8;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--text-dark);
+      background: var(--white);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── ANNOUNCEMENT BAR ── */
+    .announce-bar {
+      background: var(--text-dark);
+      color: var(--white);
+      text-align: center;
+      padding: 10px 24px;
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0.01em;
+    }
+    .announce-bar strong { font-weight: 600; }
+    .announce-bar a { color: #fff; text-decoration: underline; }
+
+    /* ── HEADER ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 0 32px;
+      background: rgba(255,255,255,0.88);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(0,0,0,0.07);
+    }
+    .site-header__inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 60px;
+    }
+    .site-header__logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text-dark);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+    }
+    .site-header__nav {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .site-header__nav a {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-dark);
+      text-decoration: none;
+      padding: 7px 16px;
+      border-radius: 999px;
+      border: 1.5px solid transparent;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .site-header__nav a:hover { border-color: rgba(0,0,0,0.18); background: rgba(0,0,0,0.03); }
+    .site-header__nav a.nav-cta {
+      border-color: var(--text-dark);
+      background: var(--text-dark);
+      color: var(--white);
+    }
+    .site-header__nav a.nav-cta:hover { background: #333; border-color: #333; }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 520px;
+      background: linear-gradient(175deg, var(--sky-top) 0%, var(--sky-mid) 40%, var(--sky-low) 72%, #eef4f9 90%, #f5f5f2 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 80px 24px 100px;
+      position: relative;
+      overflow: hidden;
+    }
+    /* soft cloud blobs */
+    .hero::before, .hero::after {
+      content: '';
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.55);
+      filter: blur(60px);
+      pointer-events: none;
+    }
+    .hero::before { width: 480px; height: 260px; top: 40px; left: -80px; }
+    .hero::after  { width: 400px; height: 220px; top: 80px; right: -60px; }
+
+    .hero__kicker {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #5a7a96;
+      margin-bottom: 24px;
+      background: rgba(255,255,255,0.5);
+      padding: 5px 14px;
+      border-radius: 999px;
+    }
+    .hero__title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(42px, 7vw, 72px);
+      font-weight: 700;
+      line-height: 1.07;
+      color: var(--text-dark);
+      max-width: 640px;
+      margin: 0 auto 22px;
+    }
+    .hero__sub {
+      font-size: 16px;
+      line-height: 1.6;
+      color: #3d5060;
+      max-width: 440px;
+      margin: 0 auto 36px;
+    }
+    .btn-primary {
+      display: inline-block;
+      background: var(--text-dark);
+      color: var(--white);
+      font-size: 15px;
+      font-weight: 500;
+      padding: 14px 32px;
+      border-radius: 999px;
+      text-decoration: none;
+      transition: background 0.15s, transform 0.1s;
+    }
+    .btn-primary:hover { background: #333; transform: translateY(-1px); }
+    .btn-outline {
+      display: inline-block;
+      background: transparent;
+      color: var(--text-dark);
+      font-size: 14px;
+      font-weight: 500;
+      padding: 11px 26px;
+      border-radius: 999px;
+      border: 1.5px solid rgba(0,0,0,0.25);
+      text-decoration: none;
+      transition: background 0.15s, border-color 0.15s;
+    }
+    .btn-outline:hover { background: rgba(0,0,0,0.04); border-color: rgba(0,0,0,0.4); }
+
+    /* ── SECTION WRAPPER ── */
+    .section {
+      padding: 88px 24px;
+    }
+    .section--white  { background: var(--white); }
+    .section--off    { background: var(--off-white); }
+    .section--dark   { background: var(--text-dark); color: var(--white); }
+
+    .section__inner {
+      max-width: 1060px;
+      margin: 0 auto;
+    }
+    .section__label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+    .section--dark .section__label { color: rgba(255,255,255,0.45); }
+    .section__heading {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(28px, 4vw, 42px);
+      font-style: italic;
+      font-weight: 400;
+      line-height: 1.2;
+      text-align: center;
+      margin-bottom: 56px;
+    }
+    .section--dark .section__heading { color: var(--white); }
+
+    /* ── BENEFIT CARDS ── */
+    .benefit-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    @media (max-width: 680px) { .benefit-cards { grid-template-columns: 1fr; } }
+
+    .benefit-card {
+      background: var(--white);
+      border: 1.5px solid var(--card-border);
+      border-radius: 20px;
+      padding: 32px 32px 0;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .benefit-card__title { font-size: 20px; font-weight: 600; margin-bottom: 10px; }
+    .benefit-card__desc  { font-size: 14px; line-height: 1.6; color: var(--text-muted); margin-bottom: 22px; }
+    .benefit-card__cta   { margin-bottom: 28px; }
+    .benefit-card__img {
+      width: 100%;
+      aspect-ratio: 16/9;
+      object-fit: cover;
+      border-radius: 12px;
+      display: block;
+    }
+
+    /* ── HOW IT WORKS ── */
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 40px;
+      margin-top: 0;
+    }
+    @media (max-width: 680px) { .steps { grid-template-columns: 1fr; gap: 32px; } }
+
+    .step__num {
+      font-family: 'Playfair Display', serif;
+      font-size: 48px;
+      font-weight: 700;
+      color: rgba(0,0,0,0.07);
+      line-height: 1;
+      margin-bottom: 16px;
+    }
+    .step__title { font-size: 17px; font-weight: 600; margin-bottom: 10px; }
+    .step__desc  { font-size: 14px; line-height: 1.65; color: var(--text-muted); }
+
+    /* ── AIRLINES STRIP ── */
+    .airlines-strip {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 20px 40px;
+      margin-top: 48px;
+    }
+    .airline-pill {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: rgba(255,255,255,0.7);
+      border: 1.5px solid rgba(255,255,255,0.18);
+      border-radius: 999px;
+      padding: 8px 20px;
+      transition: color 0.15s, border-color 0.15s;
+    }
+    .airline-pill:hover { color: #fff; border-color: rgba(255,255,255,0.5); }
+
+    .dark-strip__sub {
+      text-align: center;
+      font-size: 14px;
+      color: rgba(255,255,255,0.55);
+      margin-top: 16px;
+    }
+
+    /* ── TRUST / STATS ── */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--card-border);
+      border: 1.5px solid var(--card-border);
+      border-radius: 20px;
+      overflow: hidden;
+    }
+    @media (max-width: 680px) { .stats-row { grid-template-columns: 1fr; } }
+
+    .stat-cell {
+      background: var(--white);
+      padding: 40px 36px;
+      text-align: center;
+    }
+    .stat-cell__num {
+      font-family: 'Playfair Display', serif;
+      font-size: 44px;
+      font-weight: 700;
+      color: var(--text-dark);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .stat-cell__label { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
+
+    /* ── FOOTER ── */
+    .site-footer {
+      background: var(--text-dark);
+      color: rgba(255,255,255,0.6);
+      padding: 64px 24px 40px;
+    }
+    .site-footer__inner {
+      max-width: 1060px;
+      margin: 0 auto;
+    }
+    .site-footer__top {
+      display: grid;
+      grid-template-columns: 1.6fr 1fr 1fr 1fr;
+      gap: 48px;
+      padding-bottom: 52px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    @media (max-width: 760px) {
+      .site-footer__top { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 480px) {
+      .site-footer__top { grid-template-columns: 1fr; }
+    }
+    .footer-brand__logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--white);
+      text-decoration: none;
+      display: block;
+      margin-bottom: 14px;
+    }
+    .footer-brand__desc {
+      font-size: 13px;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.45);
+      max-width: 240px;
+    }
+    .footer-brand__badges {
+      display: flex;
+      gap: 10px;
+      margin-top: 24px;
+      flex-wrap: wrap;
+    }
+    .footer-brand__badge {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 6px;
+      padding: 5px 10px;
+    }
+    .footer-col__heading {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+      margin-bottom: 18px;
+    }
+    .footer-col__links { list-style: none; }
+    .footer-col__links li { margin-bottom: 12px; }
+    .footer-col__links a {
+      font-size: 14px;
+      color: rgba(255,255,255,0.6);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    .footer-col__links a:hover { color: var(--white); }
+
+    .site-footer__bottom {
+      padding-top: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .site-footer__copy { font-size: 13px; color: rgba(255,255,255,0.35); }
+    .site-footer__legal {
+      display: flex;
+      gap: 24px;
+    }
+    .site-footer__legal a {
+      font-size: 13px;
+      color: rgba(255,255,255,0.35);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    .site-footer__legal a:hover { color: rgba(255,255,255,0.7); }
+
+    /* ── RESPONSIVE MISC ── */
+    @media (max-width: 680px) {
+      .section { padding: 64px 20px; }
+      .hero { padding: 64px 20px 80px; }
+      .site-header { padding: 0 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── ANNOUNCEMENT BAR ── -->
+<div class="announce-bar">
+  <strong>New:</strong> Altitude now supports Wizz Air, Pegasus &amp; Sky Up routes. <a href="#">See eligible flights →</a>
+</div>
+
+<!-- ── HEADER ── -->
+<header class="site-header">
+  <div class="site-header__inner">
+    <a href="#" class="site-header__logo">Altitude</a>
+    <nav class="site-header__nav" aria-label="Main navigation">
+      <a href="#">How it works</a>
+      <a href="#">Vouchers</a>
+      <a href="#">Upgrades</a>
+      <a href="#">Airlines</a>
+      <a href="#" class="nav-cta">Check eligibility</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <span class="hero__kicker">Exclusive Mastercard Premium benefit</span>
+  <h1 class="hero__title">Fly business.<br>Pay economy.</h1>
+  <p class="hero__sub">Altitude gives Mastercard Premium cardholders access to €30 airline vouchers and discounted business class upgrades — verified automatically, no codes needed.</p>
+  <a href="#" class="btn-primary">Check my eligibility</a>
+</section>
+
+<!-- ── CHOOSE YOUR BENEFIT ── -->
+<section class="section section--off">
+  <div class="section__inner">
+    <p class="section__label" style="text-align:center">Benefits</p>
+    <h2 class="section__heading">Choose your benefit</h2>
+    <div class="benefit-cards">
+
+      <div class="benefit-card">
+        <h3 class="benefit-card__title">Altitude Essential</h3>
+        <p class="benefit-card__desc">Check the best offers available for you for airlines like Wizz Air, Pegasus, Sky Up.</p>
+        <div class="benefit-card__cta"><a href="#" class="btn-outline">Check offers</a></div>
+        <img
+          class="benefit-card__img"
+          src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=800&q=80"
+          alt="Airplane in clouds"
+          loading="lazy"
+        >
+      </div>
+
+      <div class="benefit-card">
+        <h3 class="benefit-card__title">Altitude Upgrade</h3>
+        <p class="benefit-card__desc">Get access to the best offers to upgrade your ticket to business class.</p>
+        <div class="benefit-card__cta"><a href="#" class="btn-outline">Request Upgrade</a></div>
+        <img
+          class="benefit-card__img"
+          src="https://images.unsplash.com/photo-1540339832862-474599807836?w=800&q=80"
+          alt="Business class seat"
+          loading="lazy"
+        >
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── HOW IT WORKS ── -->
+<section class="section section--white">
+  <div class="section__inner">
+    <p class="section__label" style="text-align:center">Simple process</p>
+    <h2 class="section__heading">Up in the air in three steps</h2>
+    <div class="steps">
+
+      <div class="step">
+        <div class="step__num">01</div>
+        <h3 class="step__title">Verify your card</h3>
+        <p class="step__desc">Enter your Mastercard Premium card details once. We confirm your eligibility instantly — no phone calls, no waiting.</p>
+      </div>
+
+      <div class="step">
+        <div class="step__num">02</div>
+        <h3 class="step__title">Pick your benefit</h3>
+        <p class="step__desc">Choose a €30 voucher for your next flight or request a business class upgrade on your existing booking — whichever suits your trip best.</p>
+      </div>
+
+      <div class="step">
+        <div class="step__num">03</div>
+        <h3 class="step__title">Fly in comfort</h3>
+        <p class="step__desc">Your benefit is applied automatically at check-in. No codes to paste, no counters to visit — just sit back and enjoy the extra legroom.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── STATS / TRUST ── -->
+<section class="section section--off">
+  <div class="section__inner">
+    <p class="section__label" style="text-align:center">By the numbers</p>
+    <h2 class="section__heading">Trusted by frequent flyers across Europe</h2>
+    <div class="stats-row">
+      <div class="stat-cell">
+        <div class="stat-cell__num">€30</div>
+        <div class="stat-cell__label">voucher value per<br>eligible flight</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-cell__num">14+</div>
+        <div class="stat-cell__label">partner airlines<br>and counting</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-cell__num">2 min</div>
+        <div class="stat-cell__label">average time to<br>verify &amp; claim</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PARTNER AIRLINES ── -->
+<section class="section section--dark">
+  <div class="section__inner">
+    <p class="section__label" style="text-align:center">Our airline partners</p>
+    <h2 class="section__heading">More routes, more savings</h2>
+    <div class="airlines-strip">
+      <span class="airline-pill">Wizz Air</span>
+      <span class="airline-pill">Pegasus</span>
+      <span class="airline-pill">Sky Up</span>
+      <span class="airline-pill">Ryanair</span>
+      <span class="airline-pill">easyJet</span>
+      <span class="airline-pill">Vueling</span>
+      <span class="airline-pill">PLAY</span>
+      <span class="airline-pill">Transavia</span>
+    </div>
+    <p class="dark-strip__sub">New airlines added every quarter — check back for the latest coverage.</p>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <div class="site-footer__top">
+
+      <div class="footer-brand">
+        <a href="#" class="footer-brand__logo">Altitude</a>
+        <p class="footer-brand__desc">Exclusive travel benefits for Mastercard Premium cardholders. Verified automatically, delivered instantly.</p>
+        <div class="footer-brand__badges">
+          <span class="footer-brand__badge">Mastercard Partner</span>
+          <span class="footer-brand__badge">GDPR Safe</span>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <p class="footer-col__heading">Benefits</p>
+        <ul class="footer-col__links">
+          <li><a href="#">Altitude Essential</a></li>
+          <li><a href="#">Altitude Upgrade</a></li>
+          <li><a href="#">Check eligibility</a></li>
+          <li><a href="#">Partner airlines</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <p class="footer-col__heading">Company</p>
+        <ul class="footer-col__links">
+          <li><a href="#">About us</a></li>
+          <li><a href="#">How it works</a></li>
+          <li><a href="#">Press</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <p class="footer-col__heading">Support</p>
+        <ul class="footer-col__links">
+          <li><a href="#">Help centre</a></li>
+          <li><a href="#">Terms of service</a></li>
+          <li><a href="#">Privacy policy</a></li>
+          <li><a href="#">Cookie settings</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="site-footer__bottom">
+      <p class="site-footer__copy">© 2026 Altitude. All rights reserved.</p>
+      <nav class="site-footer__legal" aria-label="Legal links">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Cookies</a>
+      </nav>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
