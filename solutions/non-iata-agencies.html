@@ -3,30 +3,156 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>For Non-IATA Agencies — DRCT</title>
+  <title>For Non-IATA Agencies — Sell airline tickets without accreditation | DRCT</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/styles.css">
   <link rel="stylesheet" href="../css/blocks.css">
   <link rel="stylesheet" href="../css/legacy.css">
+  <style>
+    /* ── Hero ─────────────────────────────────────────────────────── */
+    .ia-hero {
+      background: linear-gradient(180deg, rgba(42,138,234,0.13) 0%, rgba(42,138,234,0.03) 65%, #fff 100%);
+      padding: 96px 0 88px;
+    }
+    .ia-hero__inner { text-align: center; max-width: 760px; margin: 0 auto; padding: 0 20px; }
+    .ia-hero__badge {
+      display: inline-block; font-family: var(--font-mono);
+      font-size: 9px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase;
+      color: rgba(27,39,51,0.5); background: rgba(27,39,51,0.07);
+      border-radius: 4px; padding: 4px 10px; margin-bottom: 28px;
+    }
+    .ia-hero h1 { font-size: 62px; font-weight: 900; color: var(--dark); line-height: 1.03; margin: 0 0 26px; letter-spacing: -1.8px; }
+    .ia-hero__lead { font-size: 18px; font-weight: 700; color: var(--dark); line-height: 1.5; margin: 0 auto 20px; max-width: 680px; }
+    .ia-hero__sub { font-size: 15px; line-height: 1.68; color: rgba(27,39,51,0.54); margin: 0 auto 40px; max-width: 600px; }
+    .ia-hero__ctas { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .ia-hero__ctas .btn-primary { height: 44px; padding: 0 28px; display: inline-flex; align-items: center; font-size: 13px; }
+    .btn-outline {
+      height: 44px; padding: 0 28px; display: inline-flex; align-items: center;
+      font-size: 13px; font-weight: 700; letter-spacing: 0.6px; text-transform: uppercase;
+      color: var(--blue); border: 1.5px solid rgba(42,138,234,0.35); border-radius: 4px; text-decoration: none;
+    }
+    .btn-outline:hover { background: rgba(42,138,234,0.05); }
+    @media (max-width: 1024px) { .ia-hero { padding: 72px 0 64px; } }
+    @media (max-width: 767px) {
+      .ia-hero { padding: 60px 0 52px; }
+      .ia-hero h1 { font-size: 38px; letter-spacing: -0.8px; }
+      .ia-hero__lead { font-size: 16px; }
+      .ia-hero__sub { font-size: 14px; }
+    }
+    @media (max-width: 413px) { .ia-hero h1 { font-size: 32px; } }
+
+    /* ── Section heading ──────────────────────────────────────────── */
+    .ps-section { padding: 88px 0 100px; }
+    .ps-section__head { text-align: center; max-width: 700px; margin: 0 auto 52px; }
+    .ps-eyebrow { display: inline-block; font-family: var(--font-mono); font-size: 10px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; color: var(--blue); margin-bottom: 18px; }
+    .ps-section__head h2 { font-size: 31px; font-weight: 700; color: var(--dark); margin: 0 0 14px; letter-spacing: -0.4px; line-height: 1.18; }
+    .ps-section__head p { font-size: 15px; color: rgba(27,39,51,0.56); line-height: 1.65; margin: 0; }
+    @media (max-width: 1024px) { .ps-section { padding: 68px 0 80px; } }
+    @media (max-width: 767px) { .ps-section { padding: 52px 0 60px; } .ps-section__head h2 { font-size: 27px; } }
+
+    /* ── How it works ─────────────────────────────────────────────── */
+    .ia-how { padding: 88px 0 100px; background: rgba(27,39,51,0.025); }
+    .ia-how__head { text-align: center; max-width: 620px; margin: 0 auto 52px; }
+    .ia-how__head h2 { font-size: 31px; font-weight: 700; color: var(--dark); margin: 0 0 12px; letter-spacing: -0.4px; }
+    .ia-how__head p { font-size: 15px; color: rgba(27,39,51,0.56); line-height: 1.65; margin: 0; }
+    .ia-flow { display: grid; grid-template-columns: 1fr 52px 1.3fr 52px 1fr; align-items: center; gap: 0; margin-bottom: 52px; }
+    .ia-flow__col { background: #fff; border: 1px solid rgba(27,39,51,0.1); border-radius: 14px; padding: 24px 22px; display: flex; flex-direction: column; align-self: stretch; }
+    .ia-flow__col--core { background: linear-gradient(145deg, rgba(42,138,234,0.11) 0%, rgba(42,138,234,0.04) 100%); border-color: rgba(42,138,234,0.2); }
+    .ia-flow__badge { display: inline-flex; align-items: center; gap: 5px; font-family: var(--font-mono); font-size: 9px; font-weight: 700; letter-spacing: 0.5px; color: var(--blue); background: rgba(42,138,234,0.12); border-radius: 5px; padding: 3px 8px; margin-bottom: 10px; align-self: flex-start; }
+    .ia-flow__badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #33c100; display: block; }
+    .ia-flow__label { font-family: var(--font-mono); font-size: 9px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; color: rgba(27,39,51,0.38); margin-bottom: 5px; }
+    .ia-flow__title { font-size: 15px; font-weight: 700; color: var(--dark); margin: 0 0 3px; }
+    .ia-flow__sub { font-family: var(--font-mono); font-size: 9px; color: rgba(27,39,51,0.38); margin: 0 0 16px; }
+    .ia-flow__items { display: flex; flex-direction: column; gap: 8px; }
+    .ia-flow__item { display: flex; align-items: center; gap: 9px; font-size: 12px; color: rgba(27,39,51,0.7); }
+    .ia-flow__dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+    .ia-flow__steps { display: flex; flex-direction: column; gap: 10px; }
+    .ia-flow__step { display: flex; align-items: flex-start; gap: 9px; font-size: 12px; color: rgba(27,39,51,0.72); line-height: 1.42; }
+    .ia-flow__n { font-family: var(--font-mono); font-size: 9px; font-weight: 700; color: var(--blue); background: rgba(42,138,234,0.12); border-radius: 4px; padding: 2px 6px; flex-shrink: 0; margin-top: 1px; }
+    .ia-flow__note { font-family: var(--font-mono); font-size: 9px; color: rgba(27,39,51,0.36); margin-top: auto; padding-top: 14px; line-height: 1.55; }
+    .ia-flow__arrow { display: flex; justify-content: center; align-items: center; }
+    /* 4-col feature row */
+    .ia-feat-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border-top: 1px solid rgba(27,39,51,0.08); padding-top: 44px; }
+    .ia-feat-col { padding-right: 32px; }
+    .ia-feat-col + .ia-feat-col { padding-left: 32px; padding-right: 32px; border-left: 1px solid rgba(27,39,51,0.08); }
+    .ia-feat-col:last-child { padding-right: 0; }
+    .ia-feat-icon { color: var(--blue); margin-bottom: 14px; }
+    .ia-feat-title { font-size: 16px; font-weight: 700; color: var(--dark); margin: 0 0 10px; }
+    .ia-feat-desc { font-size: 14px; line-height: 1.65; color: rgba(27,39,51,0.56); margin: 0; }
+    @media (max-width: 1024px) {
+      .ia-how { padding: 68px 0 80px; }
+      .ia-flow { grid-template-columns: 1fr 36px 1fr 36px 1fr; }
+      .ia-feat-row { grid-template-columns: repeat(2, 1fr); }
+      .ia-feat-col:nth-child(3) { border-left: none; padding-left: 0; border-top: 1px solid rgba(27,39,51,0.08); padding-top: 28px; margin-top: 28px; }
+      .ia-feat-col:nth-child(4) { border-top: 1px solid rgba(27,39,51,0.08); padding-top: 28px; margin-top: 28px; }
+    }
+    @media (max-width: 767px) {
+      .ia-how { padding: 52px 0 60px; }
+      .ia-how__head h2 { font-size: 27px; }
+      .ia-flow { grid-template-columns: 1fr; }
+      .ia-flow__arrow { padding: 4px 0; }
+      .ia-feat-row { grid-template-columns: 1fr; }
+      .ia-feat-col, .ia-feat-col + .ia-feat-col { padding: 28px 0 0; border-left: none; border-top: 1px solid rgba(27,39,51,0.08); }
+      .ia-feat-col:nth-child(3) { border-left: none; padding-left: 0; margin-top: 0; }
+      .ia-feat-col:nth-child(4) { margin-top: 0; }
+      .ia-feat-col:first-child { border-top: none; padding-top: 0; }
+    }
+
+    /* ── Why choose ───────────────────────────────────────────────── */
+    .ia-why {
+      padding: 88px 0 100px;
+      background: linear-gradient(180deg, rgba(42,138,234,0.09) 0%, rgba(42,138,234,0.04) 50%, rgba(42,138,234,0.09) 100%);
+    }
+    .ia-why__head { text-align: center; max-width: 620px; margin: 0 auto 52px; }
+    .ia-why__head h2 { font-size: 31px; font-weight: 700; color: var(--dark); margin: 0 0 12px; letter-spacing: -0.4px; }
+    .ia-why__head p { font-size: 15px; color: rgba(27,39,51,0.56); line-height: 1.65; margin: 0; }
+    .ia-why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 44px 64px; }
+    .ia-why-icon { width: 44px; height: 44px; border-radius: 12px; background: rgba(42,138,234,0.1); display: flex; align-items: center; justify-content: center; margin-bottom: 16px; }
+    .ia-why-title { font-size: 15px; font-weight: 700; color: var(--dark); margin: 0 0 8px; line-height: 1.3; }
+    .ia-why-desc { font-size: 14px; line-height: 1.65; color: rgba(27,39,51,0.58); margin: 0; }
+    @media (max-width: 1024px) { .ia-why { padding: 68px 0 80px; } .ia-why-grid { gap: 36px 44px; } }
+    @media (max-width: 767px) {
+      .ia-why { padding: 52px 0 60px; }
+      .ia-why__head h2 { font-size: 27px; }
+      .ia-why-grid { grid-template-columns: 1fr 1fr; gap: 28px 24px; }
+    }
+    @media (max-width: 413px) { .ia-why-grid { grid-template-columns: 1fr; } }
+
+    /* ── FAQ ──────────────────────────────────────────────────────── */
+    .ia-faq { padding: 88px 0 100px; }
+    .ia-faq__head { text-align: center; max-width: 620px; margin: 0 auto 48px; }
+    .ia-faq__head h2 { font-size: 31px; font-weight: 700; color: var(--dark); margin: 0; letter-spacing: -0.4px; }
+    @media (max-width: 1024px) { .ia-faq { padding: 68px 0 80px; } }
+    @media (max-width: 767px) { .ia-faq { padding: 52px 0 60px; } .ia-faq__head h2 { font-size: 27px; } }
+
+    /* ── Final CTA ────────────────────────────────────────────────── */
+    .ia-cta {
+      padding: 96px 0 100px;
+      background: linear-gradient(180deg, rgba(42,138,234,0.12) 0%, rgba(42,138,234,0.05) 100%);
+      text-align: center;
+    }
+    .ia-cta h2 { font-size: 36px; font-weight: 700; color: var(--dark); margin: 0 0 14px; letter-spacing: -0.5px; line-height: 1.15; }
+    .ia-cta p { font-size: 16px; color: rgba(27,39,51,0.54); margin: 0 0 36px; }
+    .ia-cta .btn-primary { height: 46px; padding: 0 32px; font-size: 13px; display: inline-flex; align-items: center; gap: 8px; }
+    @media (max-width: 767px) { .ia-cta { padding: 72px 0 80px; } .ia-cta h2 { font-size: 28px; } }
+  </style>
   <link rel="canonical" href="https://drct.aero/solutions/non-iata-agencies.html">
 </head>
 <body>
+
+<!-- ================================================================
+     HEADER
+================================================================ -->
 <header class="nav-bar" id="header">
   <div class="nav-bar__inner">
-
     <a href="../index.html" class="nav-bar__logo"><img src="../img/logo.svg" alt="DRCT" width="260" height="50"></a>
-
     <nav class="nav-bar__nav" role="navigation" aria-label="Main">
-
       <div class="nav-item" data-menu="solutions">
         <button type="button" class="nav-item__trigger" aria-haspopup="true" aria-expanded="false">Solutions <svg class="nav-chevron" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 4.5l4 3.5 4-3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
         <div class="mega-menu" role="dialog" aria-label="Solutions">
-          <div class="mm-intro">
-            <strong class="mm-intro__title">Solutions</strong>
-            <p class="mm-intro__desc">Explore how DRCT helps airlines, agencies and distribution partners deliver, distribute and monetize airline offers.</p>
-          </div>
+          <div class="mm-intro"><strong class="mm-intro__title">Solutions</strong><p class="mm-intro__desc">Explore how DRCT helps airlines, agencies and distribution partners deliver, distribute and monetize airline offers.</p></div>
           <div class="mm-grid">
             <div class="mm-col">
               <a class="mm-item" href="../solutions/for-airlines.html"><span class="mm-item__icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 13.5L5.5 8l3 2.5 4-6L16 14" stroke="#2a8aea" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="9" cy="5" r="1.5" fill="#2a8aea" fill-opacity="0.35" stroke="#2a8aea" stroke-width="1.3"/></svg></span><span class="mm-item__body"><strong>For Airlines</strong><span>Distribute offers and grow ancillary revenue across all channel types.</span></span></a>
@@ -40,14 +166,10 @@
           </div>
         </div>
       </div>
-
       <div class="nav-item" data-menu="products">
         <button type="button" class="nav-item__trigger" aria-haspopup="true" aria-expanded="false">Products <svg class="nav-chevron" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 4.5l4 3.5 4-3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
         <div class="mega-menu" role="dialog" aria-label="Products">
-          <div class="mm-intro">
-            <strong class="mm-intro__title">Products</strong>
-            <p class="mm-intro__desc">Discover the DRCT platform, integrations and tools powering modern airline commerce.</p>
-          </div>
+          <div class="mm-intro"><strong class="mm-intro__title">Products</strong><p class="mm-intro__desc">Discover the DRCT platform, integrations and tools powering modern airline commerce.</p></div>
           <div class="mm-grid">
             <div class="mm-col">
               <a class="mm-item" href="../products/bt.html"><span class="mm-item__icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="2" y="3" width="14" height="12" rx="2" stroke="#2a8aea" stroke-width="1.4"/><path d="M6 8h6M6 11h4" stroke="#2a8aea" stroke-width="1.4" stroke-linecap="round" stroke-opacity="0.6"/><path d="M2 6.5h14" stroke="#2a8aea" stroke-width="1.4" stroke-opacity="0.28"/></svg></span><span class="mm-item__body"><strong>Business Travel</strong><span>Premium booking and servicing experience for corporate travelers.</span></span></a>
@@ -60,30 +182,17 @@
           </div>
         </div>
       </div>
-
       <a class="nav-item__link" href="../supply-network/index.html">Supply Network</a>
-
     </nav>
-
     <div class="nav-bar__right">
       <div class="nav-item nav-item--lang" data-menu="lang">
         <button type="button" class="nav-item__trigger" aria-haspopup="true" aria-expanded="false"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><circle cx="7" cy="7" r="5.5" stroke="currentColor" stroke-width="1.3"/><path d="M7 1.5C7 1.5 5 4 5 7s2 5.5 2 5.5M7 1.5C7 1.5 9 4 9 7s-2 5.5-2 5.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><path d="M1.5 7h11" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-opacity="0.6"/></svg> EN <svg class="nav-chevron" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 4.5l4 3.5 4-3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-        <div class="mm-lang">
-          <a href="#" class="active">English</a>
-          <a href="#">Español</a>
-          <a href="#">Français</a>
-          <a href="#">Deutsch</a>
-        </div>
+        <div class="mm-lang"><a href="#" class="active">English</a><a href="#">Español</a><a href="#">Français</a><a href="#">Deutsch</a></div>
       </div>
       <a class="nav-bar__signin" href="#">Sign In</a>
       <a class="nav-bar__demo" href="mailto:hello@drct.aero">Book a Demo</a>
     </div>
-
-    <button class="nav-bar__hamburger" id="menuToggle" aria-label="Toggle navigation" aria-expanded="false">
-      <div class="line-1"></div>
-      <div class="line-2"></div>
-    </button>
-
+    <button class="nav-bar__hamburger" id="menuToggle" aria-label="Toggle navigation" aria-expanded="false"><div class="line-1"></div><div class="line-2"></div></button>
   </div>
 </header>
 <div class="mobile-menu" id="mobileMenu">
@@ -104,28 +213,352 @@
     <li><a href="mailto:hello@drct.aero">Book a Demo</a></li>
   </ul>
 </div>
-<div class="landing-new loaded" style="background-image: linear-gradient(180deg, rgba(42,138,234,0.12) 0%, rgba(42,138,234,0) 70%);">
+
+<!-- ================================================================
+     HERO
+================================================================ -->
+<div class="ia-hero">
   <div class="landing-new__body">
-    <section class="hero">
-      <span class="hero__badge">For Non-IATA Agencies</span>
-      <h1 class="hero__title">For Non-IATA Agencies</h1>
-      <h2 class="hero__subtitle">Coming soon — this page is under construction.</h2>
+    <div class="ia-hero__inner">
+      <span class="ia-hero__badge">Solutions</span>
+      <h1>For Non-IATA Agencies</h1>
+      <p class="ia-hero__lead">Airline offers made simple for non-IATA agencies. Direct airline offers integrated into your workflow, enhanced with adaptive features and 24/7 live support — so you can sell efficiently without IATA accreditation.</p>
+      <p class="ia-hero__sub">The travel industry has always made it hard for independent travel agencies to compete. DRCT removes those barriers: one platform, real airline inventory, and everything you need to run a professional travel business — starting today.</p>
+      <div class="ia-hero__ctas">
+        <a href="mailto:hello@drct.aero" class="btn-primary">Get Started</a>
+        <a href="#how" class="btn-outline">Explore Products</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================================================================
+     SOLUTIONS (bcard-only)
+================================================================ -->
+<div class="landing-new loaded">
+  <div class="landing-new__body">
+    <section class="ps-section" id="solutions">
+      <div class="ps-section__head">
+        <span class="ps-eyebrow">For Non-IATA Agencies</span>
+        <h2>The barriers independent agencies face — and how DRCT removes them</h2>
+        <p>Access, complexity, pricing, workflow — the things holding independent agencies back.</p>
+      </div>
+      <div class="bcard-grid">
+
+        <div class="bcard">
+          <div class="bcard__icon">
+            <svg width="22" height="22" viewBox="0 0 26 26" fill="none" aria-hidden="true">
+              <path d="M3 19l10 4.5L23 19M3 13.5l10 4.5 10-4.5M13 2L3 7l10 4.5L23 7 13 2z" stroke="#2a8aea" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <h3 class="bcard__title">Full airline content under one umbrella</h3>
+          <p class="bcard__desc">DRCT operates as an accredited partner, enabling non-IATA agencies to access full airline inventory — across GDS, NDC, and direct connections — under a single umbrella. No IATA number required.</p>
+        </div>
+
+        <div class="bcard">
+          <div class="bcard__icon">
+            <svg width="22" height="22" viewBox="0 0 26 26" fill="none" aria-hidden="true">
+              <rect x="3" y="5" width="20" height="16" rx="3" stroke="#2a8aea" stroke-width="1.6"/>
+              <path d="M3 10h20" stroke="#2a8aea" stroke-width="1.4" stroke-linecap="round" stroke-opacity="0.4"/>
+              <path d="M8 15h4M8 18h6" stroke="#2a8aea" stroke-width="1.4" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <h3 class="bcard__title">Complexity handled for you</h3>
+          <p class="bcard__desc">DRCT wraps airline rules, fare conditions, and ticketing logic into a clean interface. The platform handles the complexity so you don't have to — book, change, and service tickets without GDS expertise.</p>
+        </div>
+
+        <div class="bcard">
+          <div class="bcard__icon">
+            <svg width="22" height="22" viewBox="0 0 26 26" fill="none" aria-hidden="true">
+              <polyline points="3,18 8,11 12,14 17,8 23,11" fill="none" stroke="#2a8aea" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M18 5h5v5" fill="none" stroke="#2a8aea" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <h3 class="bcard__title">Competitive, enhanced offers</h3>
+          <p class="bcard__desc">DRCT aggregates content across sources and enhances airline offers — including ancillaries and bundles — giving you access to pricing that's competitive with established players. Quote clients with confidence.</p>
+        </div>
+
+        <div class="bcard">
+          <div class="bcard__icon">
+            <svg width="22" height="22" viewBox="0 0 26 26" fill="none" aria-hidden="true">
+              <path d="M4 13h4M18 13h4M13 4v4M13 18v4" stroke="#2a8aea" stroke-width="1.5" stroke-linecap="round"/>
+              <circle cx="13" cy="13" r="4" stroke="#2a8aea" stroke-width="1.6"/>
+              <circle cx="13" cy="13" r="1.5" fill="#2a8aea"/>
+            </svg>
+          </div>
+          <h3 class="bcard__title">One platform for the full booking cycle</h3>
+          <p class="bcard__desc">Search, book, issue, change, cancel — all in one place. DRCT is a single platform for the full booking cycle. Result: fewer errors, less time lost, more bookings handled per day.</p>
+        </div>
+
+      </div>
     </section>
   </div>
 </div>
-<div class="landing-new loaded cta-final" id="contact">
+
+<!-- ================================================================
+     HOW IT WORKS
+================================================================ -->
+<div class="landing-new loaded">
+  <div class="ia-how" id="how">
+    <div class="landing-new__body">
+
+      <div class="ia-how__head">
+        <h2>How it works</h2>
+        <p>Simple workflow for independent travel agents.</p>
+      </div>
+
+      <div class="ia-flow">
+
+        <!-- Col 1: Airline content -->
+        <div class="ia-flow__col">
+          <span class="ia-flow__label">Offer</span>
+          <h3 class="ia-flow__title">Direct airline content</h3>
+          <p class="ia-flow__sub">GDS · NDC · Direct connections</p>
+          <div class="ia-flow__items">
+            <div class="ia-flow__item"><span class="ia-flow__dot" style="background:var(--blue)"></span>GDS</div>
+            <div class="ia-flow__item"><span class="ia-flow__dot" style="background:rgba(42,138,234,0.5)"></span>NDC</div>
+            <div class="ia-flow__item"><span class="ia-flow__dot" style="background:rgba(42,138,234,0.3)"></span>Direct connections</div>
+          </div>
+        </div>
+
+        <!-- Arrow -->
+        <div class="ia-flow__arrow">
+          <svg width="40" height="24" viewBox="0 0 40 24" fill="none">
+            <path d="M0 12h30" stroke="rgba(42,138,234,0.3)" stroke-width="1.4" stroke-dasharray="4 3"/>
+            <path d="M24 7l8 5-8 5" stroke="rgba(42,138,234,0.4)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          </svg>
+        </div>
+
+        <!-- Col 2: DRCT -->
+        <div class="ia-flow__col ia-flow__col--core">
+          <span class="ia-flow__badge">DRCT</span>
+          <span class="ia-flow__label">Enhancement &amp; Delivery</span>
+          <h3 class="ia-flow__title">Enriched offers in your interface</h3>
+          <p class="ia-flow__sub">Ancillaries · Bundles · Pricing</p>
+          <div class="ia-flow__steps">
+            <div class="ia-flow__step"><span class="ia-flow__n">01</span>Enhancement — ancillaries, bundles, pricing enrichment</div>
+            <div class="ia-flow__step"><span class="ia-flow__n">02</span>Delivery — displayed in your DRCT interface</div>
+            <div class="ia-flow__step"><span class="ia-flow__n">03</span>Sale — you book and issue the ticket</div>
+          </div>
+          <p class="ia-flow__note">Post-sale — changes, refunds, servicing — all in DRCT</p>
+        </div>
+
+        <!-- Arrow -->
+        <div class="ia-flow__arrow">
+          <svg width="40" height="24" viewBox="0 0 40 24" fill="none">
+            <path d="M0 12h30" stroke="rgba(42,138,234,0.3)" stroke-width="1.4" stroke-dasharray="4 3"/>
+            <path d="M24 7l8 5-8 5" stroke="rgba(42,138,234,0.4)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          </svg>
+        </div>
+
+        <!-- Col 3: Sale & post-sale -->
+        <div class="ia-flow__col">
+          <span class="ia-flow__label">Sale &amp; Post-Sale</span>
+          <h3 class="ia-flow__title">You sell and service</h3>
+          <p class="ia-flow__sub">Sale · Changes · Refunds</p>
+          <div class="ia-flow__items">
+            <div class="ia-flow__item"><span class="ia-flow__dot" style="background:var(--blue)"></span>Sale</div>
+            <div class="ia-flow__item"><span class="ia-flow__dot" style="background:#33c100"></span>Post-sale</div>
+            <div class="ia-flow__item"><span class="ia-flow__dot" style="background:#ff9f00"></span>Servicing</div>
+          </div>
+        </div>
+
+      </div><!-- /ia-flow -->
+
+      <div class="ia-feat-row">
+
+        <div class="ia-feat-col">
+          <div class="ia-feat-icon">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
+              <rect x="3" y="3" width="16" height="16" rx="3" stroke="#2a8aea" stroke-width="1.5"/>
+              <path d="M7 11l3 3 5-5" stroke="#2a8aea" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <h3 class="ia-feat-title">One login, everything inside</h3>
+          <p class="ia-feat-desc">Search flights, compare offers, check ancillaries, and issue tickets — all from a single interface. No switching between tabs, systems, or tools.</p>
+        </div>
+
+        <div class="ia-feat-col">
+          <div class="ia-feat-icon">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
+              <path d="M4 17L11 5l7 12" stroke="#2a8aea" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M7 13h8" stroke="#2a8aea" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <h3 class="ia-feat-title">Minimal learning curve</h3>
+          <p class="ia-feat-desc">The interface is designed for travel agents, not GDS engineers. If you can search a flight, you can use DRCT. Onboarding takes hours, not weeks.</p>
+        </div>
+
+        <div class="ia-feat-col">
+          <div class="ia-feat-icon">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
+              <path d="M11 2l2.1 6.4 6.4 2.1-6.4 2.1L11 19l-2.1-6.4L2.5 10.5l6.4-2.1L11 2z" stroke="#2a8aea" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <h3 class="ia-feat-title">Start selling immediately</h3>
+          <p class="ia-feat-desc">Once you're set up, you have live access to airline inventory. No waiting for accreditation. No pilot period. Search, book, and issue from day one.</p>
+        </div>
+
+        <div class="ia-feat-col">
+          <div class="ia-feat-icon">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
+              <circle cx="11" cy="11" r="8.5" stroke="#2a8aea" stroke-width="1.5"/>
+              <path d="M11 7v4l3 3" stroke="#2a8aea" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <h3 class="ia-feat-title">Post-booking in the same place</h3>
+          <p class="ia-feat-desc">Changes, seat upgrades, cancellations — all handled inside DRCT. Your entire booking history is in one place, with no manual tracking needed.</p>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ================================================================
+     WHY INDEPENDENT AGENCIES CHOOSE DRCT
+================================================================ -->
+<div class="ia-why">
   <div class="landing-new__body">
-    <section class="section-block">
-      <div class="section-block__head">
-        <h2>Get in touch</h2>
-        <p>Contact the DRCT team to learn more.</p>
+    <div class="ia-why__head">
+      <h2>Why independent travel agencies choose DRCT</h2>
+      <p>Everything you need to sell airline tickets — without accreditation.</p>
+    </div>
+    <div class="ia-why-grid">
+
+      <div>
+        <div class="ia-why-icon">
+          <svg width="22" height="22" viewBox="0 0 26 26" fill="none" aria-hidden="true">
+            <path d="M5 13l5 5 11-11" stroke="#2a8aea" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <p class="ia-why-title">No IATA required</p>
+        <p class="ia-why-desc">Start selling airline tickets immediately — access airline content without direct contracts or accreditation.</p>
       </div>
-      <div class="hero__ctas">
-        <a href="mailto:hello@drct.aero" class="btn-primary">Contact DRCT</a>
+
+      <div>
+        <div class="ia-why-icon">
+          <svg width="22" height="22" viewBox="0 0 26 26" fill="none" aria-hidden="true">
+            <path d="M3 19l10 4.5L23 19M3 13.5l10 4.5 10-4.5M13 2L3 7l10 4.5L23 7 13 2z" stroke="#2a8aea" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <p class="ia-why-title">Full airline content access</p>
+        <p class="ia-why-desc">GDS, NDC, and direct inventory in one place — the same sources larger agencies use.</p>
       </div>
+
+      <div>
+        <div class="ia-why-icon">
+          <svg width="22" height="22" viewBox="0 0 26 26" fill="none" aria-hidden="true">
+            <circle cx="13" cy="13" r="9" stroke="#2a8aea" stroke-width="1.6"/>
+            <path d="M13 8v5l3 3" stroke="#2a8aea" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <p class="ia-why-title">Fast onboarding</p>
+        <p class="ia-why-desc">Set up in hours. No weeks of training. No GDS certification needed.</p>
+      </div>
+
+      <div>
+        <div class="ia-why-icon">
+          <svg width="22" height="22" viewBox="0 0 26 26" fill="none" aria-hidden="true">
+            <polyline points="3,18 8,11 12,14 17,8 23,11" fill="none" stroke="#2a8aea" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M18 5h5v5" fill="none" stroke="#2a8aea" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <p class="ia-why-title">Competitive pricing</p>
+        <p class="ia-why-desc">Enhanced offers with ancillaries let you compete on value — not just price.</p>
+      </div>
+
+      <div>
+        <div class="ia-why-icon">
+          <svg width="22" height="22" viewBox="0 0 26 26" fill="none" aria-hidden="true">
+            <path d="M13 3C7.477 3 3 7.477 3 13s4.477 10 10 10 10-4.477 10-10S18.523 3 13 3z" stroke="#2a8aea" stroke-width="1.6"/>
+            <path d="M13 7v6l4 2" stroke="#2a8aea" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <p class="ia-why-title">24/7 support</p>
+        <p class="ia-why-desc">Expert help available around the clock for booking issues and client escalations.</p>
+      </div>
+
+      <div>
+        <div class="ia-why-icon">
+          <svg width="22" height="22" viewBox="0 0 26 26" fill="none" aria-hidden="true">
+            <rect x="3" y="5" width="20" height="16" rx="3" stroke="#2a8aea" stroke-width="1.6"/>
+            <path d="M13 5v16" stroke="#2a8aea" stroke-width="1.4" stroke-linecap="round" stroke-opacity="0.35"/>
+            <path d="M3 10h20" stroke="#2a8aea" stroke-width="1.4" stroke-linecap="round" stroke-opacity="0.35"/>
+          </svg>
+        </div>
+        <p class="ia-why-title">One platform for everything</p>
+        <p class="ia-why-desc">Search, book, issue, change, refund — no switching between tools.</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ================================================================
+     FAQ
+================================================================ -->
+<div class="landing-new loaded">
+  <div class="landing-new__body">
+    <section class="ia-faq" id="faq">
+      <div class="ia-faq__head">
+        <h2>Frequently Asked Questions</h2>
+      </div>
+      <section class="questions">
+        <div class="questions__body">
+          <ul>
+
+            <li>
+              <h3>Can I sell airline tickets without IATA accreditation? <span></span></h3>
+              <p>Yes. DRCT operates as an accredited intermediary, which means you access airline inventory through DRCT's network — not through your own IATA credentials. You don't need IATA accreditation to search, book, issue, and service airline tickets. Setup is straightforward and you can start selling from day one.</p>
+            </li>
+
+            <li>
+              <h3>What are the alternatives to traditional GDS for air content? <span></span></h3>
+              <p>DRCT aggregates content from multiple sources — GDS connections, NDC direct API integrations, and low-cost carrier feeds — and delivers it through a single interface. You see all available options in one place, without managing multiple connections yourself. This gives independent agencies access to the same range of content as larger, accredited players.</p>
+            </li>
+
+            <li>
+              <h3>Do I need contracts with individual airlines? <span></span></h3>
+              <p>No. DRCT's supply network includes direct agreements with airlines, which means you don't need to negotiate or maintain your own airline contracts. You access inventory through DRCT's accredited relationships. This eliminates one of the main barriers for independent agencies entering new markets or selling a wider range of carriers.</p>
+            </li>
+
+            <li>
+              <h3>How do I manage booking changes and cancellations? <span></span></h3>
+              <p>All post-booking actions — seat changes, name corrections, cancellations, refunds — are managed inside the DRCT platform. For standard changes, agents can act directly from the interface. For complex situations, DRCT's support team is available 24/7 to handle escalations and airline-specific workflows, including refund processing and voluntary/involuntary changes.</p>
+            </li>
+
+            <li>
+              <h3>Can I sell ancillaries and extras — not just the base fare? <span></span></h3>
+              <p>Yes. DRCT enhances airline offers with available ancillaries — baggage, seat selection, meals, upgrades, and other service items — directly in the booking interface. Ancillaries are included in the offer at search time where available, and can be added during booking or post-sale. This lets independent agents compete on the full value of a booking, not just the base ticket price.</p>
+            </li>
+
+          </ul>
+        </div>
+      </section>
     </section>
   </div>
 </div>
+
+<!-- ================================================================
+     FINAL CTA
+================================================================ -->
+<div class="ia-cta">
+  <div class="landing-new__body">
+    <h2>Ready to start selling airline tickets?</h2>
+    <p>Join independent travel agents already using DRCT to sell airline content — without IATA, without airline contracts, without complexity.</p>
+    <a href="mailto:hello@drct.aero" class="btn-primary">Get Started
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+        <path d="M2.5 11.5l9-9M5 2.5h6.5V9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </a>
+  </div>
+</div>
+
+<!-- ================================================================
+     FOOTER
+================================================================ -->
 <footer class="footer">
   <div class="footer__top">
     <div class="footer__left">
