@@ -1316,27 +1316,14 @@
 }
 
 .testi__airline-id {
-  align-items: center;
-  display: flex;
-  gap: 14px;
-  margin-bottom: 32px;
-}
-
-.testi__airline-mark {
-  align-items: center;
-  border-radius: 14px;
-  display: flex;
-  flex-shrink: 0;
-  height: 52px;
-  justify-content: center;
-  width: 52px;
+  margin-bottom: 28px;
 }
 
 .testi__airline-name {
   color: var(--dark);
-  font-size: 19px;
+  font-size: 22px;
   font-weight: 700;
-  letter-spacing: -0.3px;
+  letter-spacing: -0.4px;
 }
 
 .testi__quote {
