@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DRCT × Pegasus — WhatsApp Posts</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700;900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'IBM Plex Sans', 'Roboto', sans-serif;
+    background: #f4f4f5;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 48px;
+    padding: 48px;
+    justify-content: center;
+    align-items: flex-start;
+  }
+
+  .label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(27,39,51,0.4);
+    margin-bottom: 12px;
+    text-align: center;
+  }
+
+  /* ─── VARIANT 1: Dark Premium ─── */
+  .post-1 {
+    width: 540px;
+    min-height: 720px;
+    background: #1b2733;
+    border-radius: 5px;
+    padding: 48px 44px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    box-shadow: 0 25px 30px rgba(27,39,51,0.2), 0 0 20px rgba(27,39,51,0.1);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .post-1::before {
+    content: '';
+    position: absolute;
+    top: -120px;
+    right: -80px;
+    width: 360px;
+    height: 360px;
+    background: radial-gradient(circle, rgba(42,138,234,0.18) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .post-1 .drct-logo {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    color: #ffffff;
+    opacity: 0.9;
+    margin-bottom: 52px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .post-1 .drct-logo .dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #2a8aea;
+  }
+
+  .post-1 .eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #2a8aea;
+    margin-bottom: 16px;
+  }
+
+  .post-1 h1 {
+    font-size: 31px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: #ffffff;
+    margin-bottom: 20px;
+  }
+
+  .post-1 h1 .highlight {
+    color: #2a8aea;
+  }
+
+  .post-1 .subtitle {
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.63;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 40px;
+    max-width: 380px;
+  }
+
+  .post-1 .divider {
+    width: 100%;
+    height: 1px;
+    background: rgba(255,255,255,0.08);
+    margin-bottom: 32px;
+  }
+
+  .post-1 .agenda {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-bottom: 40px;
+  }
+
+  .post-1 .agenda-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .post-1 .agenda-item .icon {
+    width: 20px;
+    height: 20px;
+    border-radius: 3px;
+    background: rgba(42,138,234,0.15);
+    border: 1px solid rgba(42,138,234,0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .post-1 .agenda-item .icon svg {
+    width: 10px;
+    height: 10px;
+    fill: #2a8aea;
+  }
+
+  .post-1 .agenda-item span {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.57;
+    color: rgba(255,255,255,0.75);
+  }
+
+  .post-1 .info-row {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 40px;
+  }
+
+  .post-1 .info-card {
+    flex: 1;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 4px;
+    padding: 14px 16px;
+  }
+
+  .post-1 .info-card .info-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+    margin-bottom: 6px;
+  }
+
+  .post-1 .info-card .info-value {
+    font-size: 14px;
+    font-weight: 600;
+    color: #ffffff;
+  }
+
+  .post-1 .cta-block {
+    background: rgba(42,138,234,0.1);
+    border: 1px solid rgba(42,138,234,0.2);
+    border-radius: 4px;
+    padding: 20px 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .post-1 .cta-block .cta-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(42,138,234,0.7);
+  }
+
+  .post-1 .cta-block .cta-url {
+    font-size: 13px;
+    font-weight: 500;
+    color: #2a8aea;
+  }
+
+  /* ─── VARIANT 2: Light Clean ─── */
+  .post-2 {
+    width: 540px;
+    min-height: 720px;
+    background: #ffffff;
+    border-radius: 5px;
+    padding: 48px 44px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 8px 40px rgba(27,39,51,0.12);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .post-2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #2a8aea 0%, rgba(42,138,234,0.3) 100%);
+  }
+
+  .post-2 .top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 52px;
+  }
+
+  .post-2 .drct-logo {
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    color: #1b2733;
+  }
+
+  .post-2 .badge {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #2a8aea;
+    background: rgba(42,138,234,0.08);
+    border: 1px solid rgba(42,138,234,0.2);
+    border-radius: 3px;
+    padding: 4px 8px;
+  }
+
+  .post-2 .hero-section {
+    margin-bottom: 40px;
+  }
+
+  .post-2 .eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(27,39,51,0.4);
+    margin-bottom: 14px;
+  }
+
+  .post-2 h1 {
+    font-size: 27px;
+    font-weight: 700;
+    line-height: 1.25;
+    color: #1b2733;
+    margin-bottom: 16px;
+  }
+
+  .post-2 .subtitle {
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.63;
+    color: rgba(27,39,51,0.6);
+    max-width: 380px;
+  }
+
+  .post-2 .separator {
+    width: 40px;
+    height: 2px;
+    background: #2a8aea;
+    border-radius: 1px;
+    margin: 32px 0;
+  }
+
+  .post-2 .topics {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-bottom: 40px;
+    border: 1px solid rgba(27,39,51,0.08);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .post-2 .topic-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 13px 16px;
+    border-bottom: 1px solid rgba(27,39,51,0.06);
+  }
+
+  .post-2 .topic-row:last-child {
+    border-bottom: none;
+  }
+
+  .post-2 .topic-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    color: rgba(27,39,51,0.25);
+    width: 18px;
+    flex-shrink: 0;
+  }
+
+  .post-2 .topic-text {
+    font-size: 14px;
+    font-weight: 400;
+    color: rgba(27,39,51,0.8);
+    line-height: 1.4;
+  }
+
+  .post-2 .meta-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 32px;
+  }
+
+  .post-2 .meta-cell {
+    background: #f4f4f5;
+    border-radius: 4px;
+    padding: 14px 16px;
+  }
+
+  .post-2 .meta-cell .meta-key {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: rgba(27,39,51,0.35);
+    margin-bottom: 5px;
+  }
+
+  .post-2 .meta-cell .meta-val {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1b2733;
+  }
+
+  .post-2 .cta-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #1b2733;
+    border-radius: 4px;
+    padding: 18px 20px;
+  }
+
+  .post-2 .cta-row .cta-text {
+    font-size: 13px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.6);
+  }
+
+  .post-2 .cta-row .cta-link {
+    font-size: 12px;
+    font-weight: 600;
+    color: #2a8aea;
+    letter-spacing: 0.02em;
+  }
+
+  /* ─── VARIANT 3: Split / Card Stack ─── */
+  .post-3 {
+    width: 540px;
+    min-height: 720px;
+    background: #f4f4f5;
+    border-radius: 5px;
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    box-shadow: 0 8px 40px rgba(27,39,51,0.12);
+  }
+
+  .post-3 .card-header {
+    background: #1b2733;
+    border-radius: 4px;
+    padding: 32px 32px 28px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .post-3 .card-header::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0; bottom: 0; left: 0;
+    background: radial-gradient(ellipse at top right, rgba(42,138,234,0.2) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .post-3 .card-header .logos-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+
+  .post-3 .card-header .brand-name {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    color: #ffffff;
+    opacity: 0.9;
+  }
+
+  .post-3 .card-header .x-divider {
+    font-size: 13px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.25);
+  }
+
+  .post-3 .card-header .partner-name {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    color: rgba(255,255,255,0.55);
+  }
+
+  .post-3 .card-header h1 {
+    font-size: 25px;
+    font-weight: 700;
+    line-height: 1.25;
+    color: #ffffff;
+    margin-bottom: 10px;
+  }
+
+  .post-3 .card-header .sub {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.57;
+    color: rgba(255,255,255,0.55);
+  }
+
+  .post-3 .cards-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .post-3 .stat-card {
+    background: #ffffff;
+    border-radius: 4px;
+    padding: 18px 18px;
+    box-shadow: 0 4px 8px rgba(27,39,51,0.06);
+  }
+
+  .post-3 .stat-card .sk {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: rgba(27,39,51,0.35);
+    margin-bottom: 6px;
+  }
+
+  .post-3 .stat-card .sv {
+    font-size: 16px;
+    font-weight: 700;
+    color: #1b2733;
+  }
+
+  .post-3 .stat-card .sv.blue {
+    color: #2a8aea;
+  }
+
+  .post-3 .card-topics {
+    background: #ffffff;
+    border-radius: 4px;
+    padding: 22px 24px;
+    box-shadow: 0 4px 8px rgba(27,39,51,0.06);
+  }
+
+  .post-3 .card-topics .topics-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(27,39,51,0.35);
+    margin-bottom: 16px;
+  }
+
+  .post-3 .card-topics ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .post-3 .card-topics ul li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    font-weight: 400;
+    color: rgba(27,39,51,0.75);
+    line-height: 1.4;
+  }
+
+  .post-3 .card-topics ul li::before {
+    content: '';
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: #2a8aea;
+    flex-shrink: 0;
+  }
+
+  .post-3 .card-register {
+    background: #2a8aea;
+    border-radius: 4px;
+    padding: 22px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .post-3 .card-register .reg-left .reg-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.65);
+    margin-bottom: 6px;
+  }
+
+  .post-3 .card-register .reg-left .reg-url {
+    font-size: 13px;
+    font-weight: 600;
+    color: #ffffff;
+  }
+
+  .post-3 .card-register .reg-arrow {
+    width: 32px;
+    height: 32px;
+    border-radius: 3px;
+    background: rgba(255,255,255,0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .post-3 .card-register .reg-arrow svg {
+    width: 14px;
+    height: 14px;
+    stroke: #ffffff;
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+</style>
+</head>
+<body>
+
+<!-- VARIANT 1 -->
+<div>
+  <div class="label">Variant 1 — Dark Premium</div>
+  <div class="post-1">
+    <div class="drct-logo">
+      <span>DRCT</span>
+      <div class="dot"></div>
+    </div>
+
+    <div class="eyebrow">Live Webinar · 08 July 2025</div>
+    <h1>Meet<br><span class="highlight">Pegasus Airlines</span><br>& DRCT</h1>
+    <p class="subtitle">A live session with Pegasus Airlines — ask your questions directly. Learn how to access Pegasus fares through your existing GDS workflow.</p>
+
+    <div class="divider"></div>
+
+    <div class="agenda">
+      <div class="agenda-item">
+        <div class="icon">
+          <svg viewBox="0 0 10 10"><path d="M2 5l2 2 4-4"/></svg>
+        </div>
+        <span>Accessing fares effectively through DRCT</span>
+      </div>
+      <div class="agenda-item">
+        <div class="icon">
+          <svg viewBox="0 0 10 10"><path d="M2 5l2 2 4-4"/></svg>
+        </div>
+        <span>Disruption &amp; refund handling</span>
+      </div>
+      <div class="agenda-item">
+        <div class="icon">
+          <svg viewBox="0 0 10 10"><path d="M2 5l2 2 4-4"/></svg>
+        </div>
+        <span>Schedule change management</span>
+      </div>
+      <div class="agenda-item">
+        <div class="icon">
+          <svg viewBox="0 0 10 10"><path d="M2 5l2 2 4-4"/></svg>
+        </div>
+        <span>Travel agent support channels</span>
+      </div>
+      <div class="agenda-item">
+        <div class="icon">
+          <svg viewBox="0 0 10 10"><path d="M2 5l2 2 4-4"/></svg>
+        </div>
+        <span>Unlocking missed sales opportunities</span>
+      </div>
+    </div>
+
+    <div class="info-row">
+      <div class="info-card">
+        <div class="info-label">Date</div>
+        <div class="info-value">08 July 2025</div>
+      </div>
+      <div class="info-card">
+        <div class="info-label">Time</div>
+        <div class="info-value">11:00 KSA</div>
+      </div>
+      <div class="info-card">
+        <div class="info-label">Format</div>
+        <div class="info-value">Live · Online</div>
+      </div>
+    </div>
+
+    <div class="cta-block">
+      <div class="cta-label">Register &amp; submit your question</div>
+      <div class="cta-url">u45ibh2u9cs.typeform.com/to/gubSvTCl</div>
+    </div>
+  </div>
+</div>
+
+<!-- VARIANT 2 -->
+<div>
+  <div class="label">Variant 2 — Light Clean</div>
+  <div class="post-2">
+    <div class="top-bar">
+      <div class="drct-logo">DRCT</div>
+      <div class="badge">Webinar</div>
+    </div>
+
+    <div class="hero-section">
+      <div class="eyebrow">Pegasus Airlines × DRCT</div>
+      <h1>Unlock your<br>agency's potential</h1>
+      <p class="subtitle">Join a live session with Pegasus Airlines — ask directly about fares, refunds, disruptions, and how to maximize bookings through DRCT.</p>
+    </div>
+
+    <div class="separator"></div>
+
+    <div class="topics">
+      <div class="topic-row">
+        <span class="topic-num">01</span>
+        <span class="topic-text">Accessing Pegasus fares within your GDS workflow</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-num">02</span>
+        <span class="topic-text">Disruption handling &amp; refund processes</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-num">03</span>
+        <span class="topic-text">Schedule change management</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-num">04</span>
+        <span class="topic-text">Agent support channels &amp; escalation paths</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-num">05</span>
+        <span class="topic-text">Identifying &amp; capturing missed revenue opportunities</span>
+      </div>
+    </div>
+
+    <div class="meta-grid">
+      <div class="meta-cell">
+        <div class="meta-key">Date</div>
+        <div class="meta-val">08 July 2025</div>
+      </div>
+      <div class="meta-cell">
+        <div class="meta-key">Time</div>
+        <div class="meta-val">11:00 KSA</div>
+      </div>
+    </div>
+
+    <div class="cta-row">
+      <div class="cta-text">Register &amp; submit your question</div>
+      <div class="cta-link">→ typeform link</div>
+    </div>
+  </div>
+</div>
+
+<!-- VARIANT 3 -->
+<div>
+  <div class="label">Variant 3 — Card Stack</div>
+  <div class="post-3">
+
+    <div class="card-header">
+      <div class="logos-row">
+        <span class="brand-name">DRCT</span>
+        <span class="x-divider">×</span>
+        <span class="partner-name">Pegasus Airlines</span>
+      </div>
+      <h1>Live Webinar<br>08 July 2025</h1>
+      <p class="sub">Ask Pegasus directly. Learn, connect, and grow your agency with better airline access.</p>
+    </div>
+
+    <div class="cards-row">
+      <div class="stat-card">
+        <div class="sk">Time</div>
+        <div class="sv blue">11:00 KSA</div>
+      </div>
+      <div class="stat-card">
+        <div class="sk">Format</div>
+        <div class="sv">Live · Online</div>
+      </div>
+    </div>
+
+    <div class="card-topics">
+      <div class="topics-label">On the agenda</div>
+      <ul>
+        <li>Accessing fares through your existing GDS</li>
+        <li>Disruption &amp; refund handling</li>
+        <li>Schedule change management</li>
+        <li>Agent support &amp; escalation channels</li>
+        <li>Capturing missed sales opportunities</li>
+        <li>Live DRCT platform demonstration</li>
+      </ul>
+    </div>
+
+    <div class="card-register">
+      <div class="reg-left">
+        <div class="reg-label">Register &amp; submit a question</div>
+        <div class="reg-url">u45ibh2u9cs.typeform.com/to/gubSvTCl</div>
+      </div>
+      <div class="reg-arrow">
+        <svg viewBox="0 0 14 14">
+          <polyline points="3,7 11,7"/>
+          <polyline points="7,3 11,7 7,11"/>
+        </svg>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>
