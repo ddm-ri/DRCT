@@ -139,7 +139,7 @@
   pointer-events: none;
   position: absolute;
   right: 0;
-  text-align: right;
+  text-align: left;
   top: calc(100% + 10px);
   transform: translateY(-4px);
   transition: opacity 0.17s ease, transform 0.17s ease;
