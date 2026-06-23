@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DRCT × Pegasus — Variants 5 & 6</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700;900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'IBM Plex Sans', 'Roboto', sans-serif;
+    background: #2a2a2a;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 56px;
+    padding: 56px;
+    justify-content: center;
+    align-items: flex-start;
+  }
+
+  .wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .variant-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+  }
+
+  /* ── shared ── */
+  .post {
+    width: 540px;
+    background: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+  }
+
+  /* ── PEGASUS logo text ── */
+  .peg-logo {
+    font-size: 15px;
+    font-weight: 900;
+    letter-spacing: 0.04em;
+    color: #e8340a;
+    font-style: italic;
+  }
+  .drct-logo {
+    font-size: 15px;
+    font-weight: 900;
+    letter-spacing: 0.1em;
+    color: #1b1b1b;
+  }
+  .x-sep {
+    font-size: 14px;
+    font-weight: 400;
+    color: rgba(0,0,0,0.3);
+    margin: 0 8px;
+  }
+
+  /* ── orange gradient hero ── */
+  .hero-orange {
+    background: linear-gradient(145deg, #f5a623 0%, #f07b1d 55%, #e8561a 100%);
+    padding: 28px 32px 32px;
+  }
+
+  .hero-orange .top-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
+  }
+
+  .hero-orange .logos {
+    display: flex;
+    align-items: center;
+  }
+
+  .hero-orange .drct-logo { color: #1b1b1b; }
+  .hero-orange .peg-logo  { color: #fff; text-shadow: 0 1px 3px rgba(0,0,0,0.2); }
+  .hero-orange .x-sep     { color: rgba(255,255,255,0.5); }
+
+  .date-chip {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: #1b1b1b;
+    background: rgba(255,255,255,0.82);
+    border-radius: 6px;
+    padding: 5px 13px;
+    letter-spacing: 0.01em;
+  }
+
+  .hero-orange h1 {
+    font-size: 32px;
+    font-weight: 900;
+    line-height: 1.12;
+    color: #ffffff;
+    letter-spacing: -0.01em;
+  }
+
+  /* pink accent line */
+  .pink-line {
+    width: 32px;
+    height: 3px;
+    background: #e8185d;
+    border-radius: 2px;
+    margin: 0 auto;
+  }
+
+  /* ── icon list ── */
+  .icon-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .icon-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 13px 0;
+    border-bottom: 1px solid #f2f2f2;
+  }
+  .icon-row:last-child { border-bottom: none; }
+  .icon-circle {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1.5px solid #e8340a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .icon-circle svg {
+    width: 16px;
+    height: 16px;
+    stroke: #e8340a;
+    fill: none;
+    stroke-width: 1.7;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .icon-row span {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1b1b1b;
+    line-height: 1.3;
+  }
+
+  /* ── giveaway block ── */
+  .giveaway {
+    background: linear-gradient(135deg, #f5a623 0%, #e8561a 100%);
+    border-radius: 10px;
+    padding: 18px 20px;
+  }
+  .giveaway .gw-title {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #ffffff;
+    margin-bottom: 8px;
+  }
+  .giveaway .gw-sub {
+    font-size: 13px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.8);
+    margin-bottom: 12px;
+    line-height: 1.45;
+  }
+  .giveaway ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .giveaway ul li {
+    font-size: 14px;
+    font-weight: 700;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .giveaway ul li::before {
+    content: '';
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.6);
+    flex-shrink: 0;
+  }
+
+  /* ── QR footer ── */
+  .qr-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 22px 32px;
+    border-top: 1px solid #f0f0f0;
+  }
+  .qr-footer .qf-label {
+    font-size: 13px;
+    font-weight: 700;
+    color: #1b1b1b;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 4px;
+  }
+  .qr-footer .qf-sub {
+    font-size: 12px;
+    font-weight: 400;
+    color: rgba(27,27,27,0.5);
+    line-height: 1.45;
+    max-width: 260px;
+  }
+  .qr-placeholder {
+    width: 90px;
+    height: 90px;
+    border-radius: 6px;
+    border: 1.5px solid #e0e0e0;
+    background: #fafafa;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .qr-placeholder svg {
+    width: 52px;
+    height: 52px;
+    opacity: 0.18;
+  }
+
+  /* ═══════════════════════
+     VARIANT 5 specifics
+  ═══════════════════════ */
+
+  /* side-by-side two-col body */
+  .v5-body {
+    padding: 24px 32px;
+  }
+
+  .v5-section-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(27,27,27,0.38);
+    margin-bottom: 16px;
+  }
+
+  .v5-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 24px;
+  }
+
+  .v5-topic-card {
+    background: #faf7f5;
+    border-radius: 8px;
+    padding: 14px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .v5-topic-card .tc-icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 1.5px solid #e8340a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .v5-topic-card .tc-icon svg {
+    width: 14px;
+    height: 14px;
+    stroke: #e8340a;
+    fill: none;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .v5-topic-card .tc-text {
+    font-size: 12px;
+    font-weight: 600;
+    color: #1b1b1b;
+    line-height: 1.35;
+  }
+
+  /* ═══════════════════════
+     VARIANT 6 specifics
+  ═══════════════════════ */
+
+  .v6-body {
+    padding: 24px 32px;
+  }
+
+  .v6-section-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(27,27,27,0.38);
+    margin-bottom: 16px;
+  }
+
+  .v6-timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    position: relative;
+    margin-bottom: 24px;
+  }
+
+  .v6-timeline::before {
+    content: '';
+    position: absolute;
+    left: 17px;
+    top: 20px;
+    bottom: 20px;
+    width: 1.5px;
+    background: linear-gradient(180deg, #f5a623, #e8561a);
+    z-index: 0;
+  }
+
+  .v6-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 10px 0;
+    position: relative;
+    z-index: 1;
+  }
+  .v6-step .step-dot {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    border: 2px solid #f07b1d;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .v6-step .step-dot svg {
+    width: 14px;
+    height: 14px;
+    stroke: #e8340a;
+    fill: none;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .v6-step .step-content {
+    padding-top: 6px;
+  }
+  .v6-step .step-content .sc-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: #1b1b1b;
+    margin-bottom: 2px;
+  }
+  .v6-step .step-content .sc-sub {
+    font-size: 12px;
+    font-weight: 400;
+    color: rgba(27,27,27,0.5);
+    line-height: 1.4;
+  }
+
+  .v6-time-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 24px;
+  }
+  .v6-time-cell {
+    flex: 1;
+    background: #fdf6ee;
+    border-radius: 8px;
+    padding: 12px 14px;
+    border-left: 3px solid #f07b1d;
+  }
+  .v6-time-cell .tc-key {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: rgba(27,27,27,0.38);
+    margin-bottom: 4px;
+  }
+  .v6-time-cell .tc-val {
+    font-size: 14px;
+    font-weight: 700;
+    color: #1b1b1b;
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════
+     VARIANT 5 — Card Grid Topics
+═══════════════════════════ -->
+<div class="wrap">
+  <div class="variant-label">Option 5 — Card Grid</div>
+  <div class="post">
+
+    <!-- Hero -->
+    <div class="hero-orange">
+      <div class="top-row">
+        <div class="logos">
+          <span class="drct-logo">DRCT</span>
+          <span class="x-sep">×</span>
+          <span class="peg-logo">PEGASUS</span>
+        </div>
+        <div class="date-chip">08 July 2025</div>
+      </div>
+      <h1>Unlock your<br>agency's potential</h1>
+    </div>
+
+    <div style="padding: 16px 0; display:flex; justify-content:center; background:#fff; border-bottom:1px solid #f2f2f2;">
+      <div class="pink-line"></div>
+    </div>
+
+    <!-- Topic cards grid -->
+    <div class="v5-body">
+      <div class="v5-section-label">Let's ask Pegasus & DRCT</div>
+      <div class="v5-grid">
+
+        <div class="v5-topic-card">
+          <div class="tc-icon">
+            <svg viewBox="0 0 14 14"><rect x="1" y="2" width="12" height="10" rx="1"/><path d="M4 2V1M10 2V1M1 6h12"/></svg>
+          </div>
+          <div class="tc-text">Pegasus product: fleet, services & ancillaries</div>
+        </div>
+
+        <div class="v5-topic-card">
+          <div class="tc-icon">
+            <svg viewBox="0 0 14 14"><circle cx="7" cy="7" r="5.5"/><path d="M7 4.5v3l2 1.5"/></svg>
+          </div>
+          <div class="tc-text">NDC value: better fares, ancillaries, content benefits</div>
+        </div>
+
+        <div class="v5-topic-card">
+          <div class="tc-icon">
+            <svg viewBox="0 0 14 14"><rect x="1" y="2" width="12" height="10" rx="1"/><path d="M4 2V1M10 2V1M1 6h12M4 9h2M8 9h2"/></svg>
+          </div>
+          <div class="tc-text">CIP activation & access to Pegasus content</div>
+        </div>
+
+        <div class="v5-topic-card">
+          <div class="tc-icon">
+            <svg viewBox="0 0 14 14"><path d="M7 1l1.8 3.6L13 5.3l-3 2.9.7 4.1L7 10.3l-3.7 2 .7-4.1-3-2.9 4.2-.7z"/></svg>
+          </div>
+          <div class="tc-text">KSA routes, frequency & fares</div>
+        </div>
+
+        <div class="v5-topic-card">
+          <div class="tc-icon">
+            <svg viewBox="0 0 14 14"><polyline points="1,10 4,6 7,8 10,3 13,5"/></svg>
+          </div>
+          <div class="tc-text">Hidden features & time-saving tips</div>
+        </div>
+
+        <div class="v5-topic-card">
+          <div class="tc-icon">
+            <svg viewBox="0 0 14 14"><path d="M7 12s-5-3.5-5-7a5 5 0 0110 0c0 3.5-5 7-5 7z"/><circle cx="7" cy="5" r="1.5"/></svg>
+          </div>
+          <div class="tc-text">Support channels & after-sale care</div>
+        </div>
+
+      </div>
+
+      <!-- Giveaway -->
+      <div class="giveaway">
+        <div class="gw-title">Special Giveaway: Win Prizes!</div>
+        <div class="gw-sub">Be live during the webinar for your chance to win:</div>
+        <ul>
+          <li>2 vouchers — 500 SAR each</li>
+          <li>1 Pegasus round-trip ticket</li>
+        </ul>
+      </div>
+    </div>
+
+    <div style="padding: 12px 0; display:flex; justify-content:center; background:#fff; border-top:1px solid #f2f2f2;">
+      <div class="pink-line"></div>
+    </div>
+
+    <!-- QR footer -->
+    <div class="qr-footer">
+      <div>
+        <div class="qf-label">Register & Submit Your Question</div>
+        <div class="qf-sub">Scan the QR code to secure your spot and help shape the discussion.</div>
+      </div>
+      <div class="qr-placeholder">
+        <svg viewBox="0 0 52 52" fill="none" stroke="#1b1b1b" stroke-width="3" stroke-linecap="square">
+          <rect x="4" y="4" width="16" height="16"/>
+          <rect x="8" y="8" width="8" height="8" fill="#1b1b1b" stroke="none"/>
+          <rect x="32" y="4" width="16" height="16"/>
+          <rect x="36" y="8" width="8" height="8" fill="#1b1b1b" stroke="none"/>
+          <rect x="4" y="32" width="16" height="16"/>
+          <rect x="8" y="36" width="8" height="8" fill="#1b1b1b" stroke="none"/>
+          <line x1="32" y1="32" x2="32" y2="38"/>
+          <line x1="32" y1="44" x2="32" y2="48"/>
+          <line x1="38" y1="32" x2="48" y2="32"/>
+          <line x1="44" y1="38" x2="48" y2="38"/>
+          <line x1="38" y1="44" x2="38" y2="48"/>
+          <line x1="44" y1="44" x2="48" y2="44"/>
+        </svg>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════
+     VARIANT 6 — Timeline / Steps
+═══════════════════════════ -->
+<div class="wrap">
+  <div class="variant-label">Option 6 — Timeline</div>
+  <div class="post">
+
+    <!-- Hero -->
+    <div class="hero-orange">
+      <div class="top-row">
+        <div class="logos">
+          <span class="drct-logo">DRCT</span>
+          <span class="x-sep">×</span>
+          <span class="peg-logo">PEGASUS</span>
+        </div>
+        <div class="date-chip">08 July 2025</div>
+      </div>
+      <h1>Unlock your<br>agency's potential</h1>
+    </div>
+
+    <div style="padding: 16px 0; display:flex; justify-content:center; background:#fff; border-bottom:1px solid #f2f2f2;">
+      <div class="pink-line"></div>
+    </div>
+
+    <!-- Timeline topic list -->
+    <div class="v6-body">
+      <div class="v6-section-label">Let's ask Pegasus & DRCT</div>
+
+      <div class="v6-timeline">
+
+        <div class="v6-step">
+          <div class="step-dot">
+            <svg viewBox="0 0 14 14"><rect x="1" y="2" width="12" height="10" rx="1"/><path d="M4 2V1M10 2V1M1 6h12"/></svg>
+          </div>
+          <div class="step-content">
+            <div class="sc-title">Pegasus product: fleet, services & ancillaries</div>
+            <div class="sc-sub">Understanding the full scope of what Pegasus offers</div>
+          </div>
+        </div>
+
+        <div class="v6-step">
+          <div class="step-dot">
+            <svg viewBox="0 0 14 14"><circle cx="7" cy="7" r="5.5"/><path d="M5 7l1.5 1.5 3-3"/></svg>
+          </div>
+          <div class="step-content">
+            <div class="sc-title">NDC value: better fares, ancillaries, content</div>
+            <div class="sc-sub">What NDC access actually unlocks for your agency</div>
+          </div>
+        </div>
+
+        <div class="v6-step">
+          <div class="step-dot">
+            <svg viewBox="0 0 14 14"><path d="M2 4h10M2 7h7M2 10h5"/></svg>
+          </div>
+          <div class="step-content">
+            <div class="sc-title">CIP activation & Pegasus content access</div>
+            <div class="sc-sub">How to get connected and start selling</div>
+          </div>
+        </div>
+
+        <div class="v6-step">
+          <div class="step-dot">
+            <svg viewBox="0 0 14 14"><polyline points="1,10 4,6 7,8 10,3 13,5"/></svg>
+          </div>
+          <div class="step-content">
+            <div class="sc-title">KSA routes, frequency & fares</div>
+            <div class="sc-sub">What's flying, how often, and at what price</div>
+          </div>
+        </div>
+
+        <div class="v6-step">
+          <div class="step-dot">
+            <svg viewBox="0 0 14 14"><path d="M7 1l1.8 3.6L13 5.3l-3 2.9.7 4.1L7 10.3l-3.7 2 .7-4.1-3-2.9 4.2-.7z"/></svg>
+          </div>
+          <div class="step-content">
+            <div class="sc-title">Hidden features & time-saving tips</div>
+            <div class="sc-sub">Smarter ways to work with Pegasus through DRCT</div>
+          </div>
+        </div>
+
+        <div class="v6-step">
+          <div class="step-dot">
+            <svg viewBox="0 0 14 14"><path d="M2 11s1-3 5-3 5 3 5 3"/><circle cx="7" cy="5" r="2.5"/></svg>
+          </div>
+          <div class="step-content">
+            <div class="sc-title">Support channels & after-sale care</div>
+            <div class="sc-sub">Who to contact and how to resolve issues fast</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Date/time info -->
+      <div class="v6-time-row">
+        <div class="v6-time-cell">
+          <div class="tc-key">Date</div>
+          <div class="tc-val">08 July 2025</div>
+        </div>
+        <div class="v6-time-cell">
+          <div class="tc-key">Time</div>
+          <div class="tc-val">11:00 KSA</div>
+        </div>
+        <div class="v6-time-cell">
+          <div class="tc-key">Format</div>
+          <div class="tc-val">Live · Online</div>
+        </div>
+      </div>
+
+      <!-- Giveaway -->
+      <div class="giveaway">
+        <div class="gw-title">Special Giveaway: Win Prizes!</div>
+        <div class="gw-sub">Be live during the webinar for your chance to win:</div>
+        <ul>
+          <li>2 vouchers — 500 SAR each</li>
+          <li>1 Pegasus round-trip ticket</li>
+        </ul>
+      </div>
+    </div>
+
+    <div style="padding: 12px 0; display:flex; justify-content:center; background:#fff; border-top:1px solid #f2f2f2;">
+      <div class="pink-line"></div>
+    </div>
+
+    <!-- QR footer -->
+    <div class="qr-footer">
+      <div>
+        <div class="qf-label">Register & Submit Your Question</div>
+        <div class="qf-sub">Scan the QR code to secure your spot and help shape the discussion.</div>
+      </div>
+      <div class="qr-placeholder">
+        <svg viewBox="0 0 52 52" fill="none" stroke="#1b1b1b" stroke-width="3" stroke-linecap="square">
+          <rect x="4" y="4" width="16" height="16"/>
+          <rect x="8" y="8" width="8" height="8" fill="#1b1b1b" stroke="none"/>
+          <rect x="32" y="4" width="16" height="16"/>
+          <rect x="36" y="8" width="8" height="8" fill="#1b1b1b" stroke="none"/>
+          <rect x="4" y="32" width="16" height="16"/>
+          <rect x="8" y="36" width="8" height="8" fill="#1b1b1b" stroke="none"/>
+          <line x1="32" y1="32" x2="32" y2="38"/>
+          <line x1="32" y1="44" x2="32" y2="48"/>
+          <line x1="38" y1="32" x2="48" y2="32"/>
+          <line x1="44" y1="38" x2="48" y2="38"/>
+          <line x1="38" y1="44" x2="38" y2="48"/>
+          <line x1="44" y1="44" x2="48" y2="44"/>
+        </svg>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>
