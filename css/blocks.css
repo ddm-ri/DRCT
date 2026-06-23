@@ -108,7 +108,9 @@
   display: flex;
   gap: 2px;
   margin-left: auto;
+  position: relative;
 }
+.nav-item--lang { position: static; }
 @media (max-width: 767px) { .nav-bar__right { display: none; } }
 
 /* Language trigger */
