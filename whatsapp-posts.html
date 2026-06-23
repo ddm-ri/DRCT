@@ -213,23 +213,25 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 16px;
+    gap: 20px;
   }
   .cta-footer .cta-left {
     display: flex;
     flex-direction: column;
     gap: 3px;
+    flex: 1;
   }
   .cta-footer .cta-label {
     font-size: 12px;
     font-weight: 500;
     color: rgba(255,255,255,0.5);
     letter-spacing: 0.01em;
+    margin-bottom: 2px;
   }
   .cta-footer .cta-url {
-    font-size: 12px;
-    font-weight: 600;
-    color: #2a8aea;
+    font-size: 11px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.35);
   }
   .cta-footer .btn {
     font-size: 12px;
@@ -243,14 +245,31 @@
     white-space: nowrap;
     flex-shrink: 0;
   }
+  .cta-footer .qr-box {
+    width: 68px;
+    height: 68px;
+    border-radius: 2px;
+    border: 1px solid rgba(255,255,255,0.12);
+    background: rgba(255,255,255,0.06);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .cta-footer .qr-box svg {
+    width: 36px;
+    height: 36px;
+    opacity: 0.2;
+  }
 
   /* blue full-width CTA */
   .cta-blue {
     background: #2a8aea;
-    padding: 18px 36px;
+    padding: 20px 36px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 20px;
   }
   .cta-blue .cta-text {
     font-size: 13px;
@@ -263,10 +282,21 @@
     color: rgba(255,255,255,0.65);
     margin-top: 2px;
   }
-  .cta-blue .cta-arrow {
-    font-size: 20px;
-    color: rgba(255,255,255,0.7);
-    font-weight: 300;
+  .cta-blue .qr-box-blue {
+    width: 68px;
+    height: 68px;
+    border-radius: 2px;
+    background: rgba(255,255,255,0.18);
+    border: 1px solid rgba(255,255,255,0.25);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .cta-blue .qr-box-blue svg {
+    width: 36px;
+    height: 36px;
+    opacity: 0.45;
   }
 
   /* numbered rows */
@@ -416,7 +446,16 @@
       <div class="cta-label">Register &amp; submit your question</div>
       <div class="cta-url">u45ibh2u9cs.typeform.com/to/gubSvTCl</div>
     </div>
-    <div class="btn">Register →</div>
+    <div class="qr-box">
+      <svg viewBox="0 0 36 36" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="square">
+        <rect x="4" y="4" width="10" height="10"/><rect x="7" y="7" width="4" height="4" fill="white" stroke="none"/>
+        <rect x="22" y="4" width="10" height="10"/><rect x="25" y="7" width="4" height="4" fill="white" stroke="none"/>
+        <rect x="4" y="22" width="10" height="10"/><rect x="7" y="25" width="4" height="4" fill="white" stroke="none"/>
+        <line x1="22" y1="22" x2="22" y2="25"/><line x1="22" y1="28" x2="22" y2="32"/>
+        <line x1="25" y1="22" x2="32" y2="22"/><line x1="28" y1="25" x2="32" y2="25"/>
+        <line x1="25" y1="29" x2="25" y2="32"/><line x1="28" y1="29" x2="32" y2="29"/>
+      </svg>
+    </div>
   </div>
 
 </div>
@@ -480,7 +519,16 @@
       <div class="cta-label">Register &amp; submit your question</div>
       <div class="cta-url">u45ibh2u9cs.typeform.com/to/gubSvTCl</div>
     </div>
-    <div class="btn">Register →</div>
+    <div class="qr-box">
+      <svg viewBox="0 0 36 36" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="square">
+        <rect x="4" y="4" width="10" height="10"/><rect x="7" y="7" width="4" height="4" fill="white" stroke="none"/>
+        <rect x="22" y="4" width="10" height="10"/><rect x="25" y="7" width="4" height="4" fill="white" stroke="none"/>
+        <rect x="4" y="22" width="10" height="10"/><rect x="7" y="25" width="4" height="4" fill="white" stroke="none"/>
+        <line x1="22" y1="22" x2="22" y2="25"/><line x1="22" y1="28" x2="22" y2="32"/>
+        <line x1="25" y1="22" x2="32" y2="22"/><line x1="28" y1="25" x2="32" y2="25"/>
+        <line x1="25" y1="29" x2="25" y2="32"/><line x1="28" y1="29" x2="32" y2="29"/>
+      </svg>
+    </div>
   </div>
 
 </div>
@@ -558,11 +606,20 @@
   </div>
 
   <div class="cta-blue">
-    <div>
+    <div style="flex:1">
       <div class="cta-text">Register &amp; submit a question for Pegasus</div>
       <div class="cta-sub">u45ibh2u9cs.typeform.com/to/gubSvTCl</div>
     </div>
-    <div class="cta-arrow">→</div>
+    <div class="qr-box-blue">
+      <svg viewBox="0 0 36 36" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="square">
+        <rect x="4" y="4" width="10" height="10"/><rect x="7" y="7" width="4" height="4" fill="white" stroke="none"/>
+        <rect x="22" y="4" width="10" height="10"/><rect x="25" y="7" width="4" height="4" fill="white" stroke="none"/>
+        <rect x="4" y="22" width="10" height="10"/><rect x="7" y="25" width="4" height="4" fill="white" stroke="none"/>
+        <line x1="22" y1="22" x2="22" y2="25"/><line x1="22" y1="28" x2="22" y2="32"/>
+        <line x1="25" y1="22" x2="32" y2="22"/><line x1="28" y1="25" x2="32" y2="25"/>
+        <line x1="25" y1="29" x2="25" y2="32"/><line x1="28" y1="29" x2="32" y2="29"/>
+      </svg>
+    </div>
   </div>
 
 </div>
