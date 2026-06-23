@@ -138,9 +138,14 @@
         <p>DRCT creates measurable value on both sides of airline distribution.</p>
       </div>
 
+      <!-- Toggle switch -->
+      <div class="gain-toggle" role="tablist">
+        <button class="gain-toggle__btn gain-toggle__btn--active" data-tab="airlines" role="tab" aria-selected="true">For Airlines</button>
+        <button class="gain-toggle__btn" data-tab="sellers" role="tab" aria-selected="false">For Travel Sellers</button>
+      </div>
+
       <!-- For airlines -->
-      <div class="bcard-group">
-        <p class="bcard-group__label">For airlines</p>
+      <div class="gain-panel gain-panel--active" id="gain-airlines">
         <div class="bcard-grid">
 
           <div class="bcard">
@@ -179,8 +184,7 @@
       </div>
 
       <!-- For travel sellers -->
-      <div class="bcard-group">
-        <p class="bcard-group__label">For travel sellers</p>
+      <div class="gain-panel" id="gain-sellers">
         <div class="bcard-grid">
 
           <div class="bcard">

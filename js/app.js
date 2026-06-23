@@ -517,4 +517,24 @@ document.addEventListener('DOMContentLoaded', function () {
     testiStartAuto();
   }
 
+  /* ── What You Gain toggle ──────────────────────────────────────── */
+  var gainBtns = document.querySelectorAll('.gain-toggle__btn');
+  if (gainBtns.length) {
+    gainBtns.forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        gainBtns.forEach(function(b) {
+          b.classList.remove('gain-toggle__btn--active');
+          b.setAttribute('aria-selected', 'false');
+        });
+        document.querySelectorAll('.gain-panel').forEach(function(p) {
+          p.classList.remove('gain-panel--active');
+        });
+        btn.classList.add('gain-toggle__btn--active');
+        btn.setAttribute('aria-selected', 'true');
+        var panel = document.getElementById('gain-' + btn.dataset.tab);
+        if (panel) panel.classList.add('gain-panel--active');
+      });
+    });
+  }
+
 });
