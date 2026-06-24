@@ -1220,7 +1220,7 @@
   text-align: center;
 }
 .cta-final__card {
-  background: linear-gradient(135deg, rgba(230,245,254,0.6) 0%, rgba(255,234,224,0.45) 100%);
+  background: linear-gradient(135deg, #E6F5FE 0%, rgba(255,234,224,0.7) 100%);
   border-radius: 24px;
   padding: 72px 48px;
 }
