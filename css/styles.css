@@ -1722,11 +1722,11 @@ a.inline-link,
    CERTIFIED
 ---------------------------------------------------------------- */
 .certified {
-  padding-bottom: 100px;
-  padding-top: 100px;
+  padding-bottom: 80px;
+  padding-top: 80px;
 }
 @media (max-width: 767px) {
-  .certified { padding-bottom: 70px; padding-top: 70px; }
+  .certified { padding-bottom: 60px; padding-top: 60px; }
 }
 
 .certified h2 {

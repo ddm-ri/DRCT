@@ -1217,6 +1217,7 @@
 ---------------------------------------------------------------- */
 .cta-final {
   background: #ffffff;
+  padding: 80px 0;
   text-align: center;
 }
 .cta-final__card {
@@ -1342,7 +1343,7 @@
    METRICS SECTION
 ---------------------------------------------------------------- */
 .metrics {
-  padding: 108px 0 120px;
+  padding: 80px 0;
 }
 .metrics__head {
   margin-bottom: 52px;
@@ -1407,7 +1408,7 @@
   .metrics__value sup { font-size: 34px; }
 }
 @media (max-width: 767px) {
-  .metrics { padding: 72px 0 80px; }
+  .metrics { padding: 60px 0; }
   .metrics__grid { grid-template-columns: 1fr; }
   .metrics__col {
     padding: 36px 0;
@@ -1494,7 +1495,7 @@
 ================================================================ */
 .testi-section {
   background: #fff;
-  padding: 88px 0 80px;
+  padding: 80px 0;
 }
 
 .testi__eyebrow {
@@ -1666,7 +1667,7 @@
 }
 
 @media (max-width: 767px) {
-  .testi-section { padding: 60px 0 52px; }
+  .testi-section { padding: 60px 0; }
   .testi__eyebrow { margin-bottom: 28px; }
   .testi__slide {
     grid-template-columns: 1fr;
