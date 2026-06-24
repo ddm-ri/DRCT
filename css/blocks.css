@@ -1036,6 +1036,7 @@
   top: 10px;
   bottom: 10px;
   width: 1px;
+  transform: translateX(-50%);
   background: linear-gradient(180deg, rgba(42,138,234,0.45) 0%, rgba(42,138,234,0.12) 100%);
 }
 .flow-pipe__step {
@@ -1048,11 +1049,12 @@
 .flow-pipe__step::before {
   content: '';
   position: absolute;
-  left: -22px;
+  left: -18px;
   top: 12px;
   width: 7px;
   height: 7px;
   border-radius: 50%;
+  transform: translateX(-50%);
   background: var(--blue);
   box-shadow: 0 0 0 3px rgba(42,138,234,0.15);
 }
