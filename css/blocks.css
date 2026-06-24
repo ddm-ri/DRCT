@@ -1539,7 +1539,22 @@
   padding: 52px 56px 52px 52px;
 }
 
-.testi__airline-id { margin-bottom: 24px; }
+.testi__airline-id {
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.testi__airline-logo {
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  object-fit: contain;
+  background: #f4f4f5;
+  padding: 4px;
+  flex-shrink: 0;
+}
 
 .testi__airline-name {
   color: var(--dark);
