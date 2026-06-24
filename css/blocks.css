@@ -108,9 +108,8 @@
   display: flex;
   gap: 2px;
   margin-left: auto;
-  position: relative;
 }
-.nav-item--lang { position: static; }
+.nav-item--lang { position: relative; }
 @media (max-width: 767px) { .nav-bar__right { display: none; } }
 
 /* Language trigger */
@@ -134,13 +133,12 @@
   border: 1px solid rgba(27,39,51,0.09);
   border-radius: 12px;
   box-shadow: 0 8px 24px rgba(27,39,51,0.11), 0 2px 6px rgba(27,39,51,0.05);
-  left: auto;
+  left: 0;
   min-width: 148px;
   opacity: 0;
   padding: 6px;
   pointer-events: none;
   position: absolute;
-  right: 0;
   text-align: left;
   top: calc(100% + 10px);
   transform: translateY(-4px);
