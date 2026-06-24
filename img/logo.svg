@@ -2,7 +2,7 @@
   <!-- D: bold geometric bowl, rectangular inner void via evenodd -->
   <path fill-rule="evenodd" clip-rule="evenodd" fill="#1b2733" d="
     M 0 0 H 36 C 52 0 60 11 60 25 C 60 39 52 50 36 50 H 0 Z
-    M 13 13 H 34 C 42 13 47 18.5 47 25 C 47 31.5 42 37 34 37 H 13 Z
+    M 13 13 H 47 V 37 H 13 Z
   "/>
   <!-- R: bold bowl + diagonal leg, evenodd for bowl hollow -->
   <path fill-rule="evenodd" clip-rule="evenodd" fill="#1b2733" d="
