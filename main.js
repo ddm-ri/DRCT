@@ -360,6 +360,78 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   /* ---------------------------------------------------------------
+     HERO PARTICLES — quick-moving dots between airlines and sellers
+  --------------------------------------------------------------- */
+  (function () {
+    var hero = document.querySelector('.hero-centered');
+    if (!hero) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (window.innerWidth <= 767) return;
+
+    var cvs = document.createElement('canvas');
+    cvs.className = 'hc-canvas';
+    hero.appendChild(cvs);
+    var ctx = cvs.getContext('2d');
+    var pts = [];
+    var N = 70;
+
+    function resize() {
+      cvs.width  = hero.offsetWidth;
+      cvs.height = hero.offsetHeight;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    for (var i = 0; i < N; i++) {
+      var spd = 1.0 + Math.random() * 2.2;
+      var ang = Math.random() * Math.PI * 2;
+      pts.push({
+        x:  Math.random() * cvs.width,
+        y:  Math.random() * cvs.height,
+        vx: Math.cos(ang) * spd,
+        vy: Math.sin(ang) * spd,
+        r:  0.8 + Math.random() * 1.2,
+        a:  0.22 + Math.random() * 0.38
+      });
+    }
+
+    function frame() {
+      ctx.clearRect(0, 0, cvs.width, cvs.height);
+
+      for (var i = 0; i < pts.length; i++) {
+        var p = pts[i];
+
+        // Random nudge — gives the scurrying feel
+        if (Math.random() < 0.004) {
+          var cur = Math.atan2(p.vy, p.vx);
+          var spd = Math.sqrt(p.vx * p.vx + p.vy * p.vy);
+          cur += (Math.random() - 0.5) * 1.4;
+          p.vx = Math.cos(cur) * spd;
+          p.vy = Math.sin(cur) * spd;
+        }
+
+        p.x += p.vx;
+        p.y += p.vy;
+
+        // Wrap around edges
+        if (p.x < -4)               p.x = cvs.width  + 4;
+        if (p.x > cvs.width  + 4)   p.x = -4;
+        if (p.y < -4)               p.y = cvs.height + 4;
+        if (p.y > cvs.height + 4)   p.y = -4;
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(42,138,234,' + p.a + ')';
+        ctx.fill();
+      }
+
+      requestAnimationFrame(frame);
+    }
+
+    requestAnimationFrame(frame);
+  }());
+
+  /* ---------------------------------------------------------------
      HERO PARALLAX — airlines and chips drift opposite each other
      on mouse movement, creating depth without explicit connectors
   --------------------------------------------------------------- */

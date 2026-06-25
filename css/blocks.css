@@ -660,6 +660,16 @@
   padding: 90px 0;
 }
 
+/* Particle canvas layer */
+.hc-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
 /* Subtle dot grid — same pattern as other hero pages */
 .hero-centered::before {
   content: '';
