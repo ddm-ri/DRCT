@@ -1615,15 +1615,26 @@
   margin: 0;
   padding: 24px;
   display: flex;
-  align-items: stretch; /* stretches img to fill container height, not image intrinsics */
+  align-items: stretch;
 }
 
 .testi__img {
   display: block;
-  width: 100%;           /* fills the padded width */
-  object-fit: contain;   /* scales aircraft to fit, never crops */
+  width: 100%;
+  object-fit: cover;
   object-position: center center;
   border-radius: 16px;
+}
+
+/* Per-slide composition fine-tuning */
+.testi__slide[data-index="0"] .testi__img {
+  /* Lufthansa: show upper fuselage + livery, aircraft nose left side */
+  object-position: 40% 35%;
+}
+
+.testi__slide[data-index="1"] .testi__img {
+  /* Emirates A350: close-up shot, keep fuselage/engines in frame */
+  object-position: center 52%;
 }
 
 /* Controls — below card, left-aligned with text column */
