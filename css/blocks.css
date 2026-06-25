@@ -1536,7 +1536,7 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  padding: 48px 52px 48px 52px;
+  padding: 40px;
   min-height: 0; /* prevents grid row from growing beyond slide height */
   overflow: hidden;
 }
@@ -1643,7 +1643,7 @@
   gap: 14px;
   justify-content: flex-start;
   margin-top: 24px;
-  padding-left: 52px;
+  padding-left: 40px;
 }
 
 .testi__btn {
@@ -1690,8 +1690,8 @@
 /* Responsive */
 @media (max-width: 1024px) {
   .testi__slide { grid-template-columns: 58% 42%; }
-  .testi__body { padding: 40px 36px 40px 40px; }
-  .testi__controls { padding-left: 40px; }
+  .testi__body { padding: 36px; }
+  .testi__controls { padding-left: 36px; }
   .testi__quote { font-size: 18px; }
 }
 
