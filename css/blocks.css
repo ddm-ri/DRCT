@@ -1612,7 +1612,7 @@
 /* Right: photo — container size is layout-defined, identical on every slide */
 .testi__fig {
   margin: 0;
-  padding: 24px;
+  padding: 40px;
   display: flex;
   align-items: stretch;
 }
@@ -1691,6 +1691,7 @@
 @media (max-width: 1024px) {
   .testi__slide { grid-template-columns: 58% 42%; }
   .testi__body { padding: 36px; }
+  .testi__fig { padding: 36px; }
   .testi__controls { padding-left: 36px; }
   .testi__quote { font-size: 18px; }
 }
