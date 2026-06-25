@@ -704,21 +704,29 @@
   position: absolute;
   display: flex;
   align-items: center;
-  gap: 9px;
-  background: rgba(255,255,255,0.9);
-  border-radius: 10px;
-  padding: 9px 14px;
-  box-shadow: 0 2px 16px rgba(27,39,51,0.09);
+  gap: 10px;
+  background: rgba(255,255,255,0.78);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(42,138,234,0.13);
+  border-radius: 14px;
+  padding: 10px 16px 10px 10px;
+  box-shadow:
+    0 2px 8px rgba(27,39,51,0.06),
+    0 8px 28px rgba(27,39,51,0.07),
+    inset 0 1px 0 rgba(255,255,255,0.95);
   font-size: 13px;
   font-weight: 600;
   color: var(--dark);
   white-space: nowrap;
+  letter-spacing: -0.1px;
 }
 .hc-chip__icon {
-  width: 26px;
-  height: 26px;
-  border-radius: 7px;
-  background: var(--blue-10);
+  width: 30px;
+  height: 30px;
+  border-radius: 9px;
+  background: linear-gradient(135deg, rgba(42,138,234,0.16) 0%, rgba(42,138,234,0.07) 100%);
+  border: 1px solid rgba(42,138,234,0.12);
   display: flex;
   align-items: center;
   justify-content: center;
