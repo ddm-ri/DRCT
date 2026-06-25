@@ -933,7 +933,7 @@
 }
 .flow-col--source,
 .flow-col--dest {
-  background: rgba(27,39,51,0.025);
+  background: rgba(255,255,255,0.7);
   border: 1px solid rgba(27,39,51,0.08);
 }
 .flow-col--core {
@@ -1515,7 +1515,7 @@
   display: none;
   grid-template-columns: 55% 45%;
   align-items: stretch;
-  background: var(--off-white);
+  background: linear-gradient(135deg, rgba(42,138,234,0.15) 0%, rgba(42,138,234,0.04) 100%);
   border-radius: 24px;
   overflow: hidden;
   height: 460px;
