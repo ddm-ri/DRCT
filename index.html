@@ -108,127 +108,51 @@
      HERO — split: text left, video right
 ================================================================ -->
 <div class="landing-new loaded hero-split-outer" style="background-image: linear-gradient(135deg, rgba(42,138,234,0.15) 0%, rgba(42,138,234,0.04) 100%); overflow: hidden;">
-  <div class="landing-new__body">
-    <section class="hero-split">
-      <div class="hero-split__text">
-        <h1 class="hero-split__title">Activate airline offers across travel audiences</h1>
-        <p class="hero-split__sub">DRCT connects airlines and travel sellers through a single distribution platform.</p>
-        <p class="hero-split__desc">Deliver airline offers through NDC, GDS and custom distribution channels without managing multiple integrations.</p>
-        <div class="hero-split__ctas">
-          <a href="mailto:hello@drct.aero" class="nav-bar__demo" style="display:inline-flex;align-items:center;text-decoration:none;font-size:14px;height:44px;padding:0 28px;">Book a Demo</a>
-        </div>
+  <section class="hero-centered">
+
+    <!-- Airline squircle logos – left side -->
+    <div class="hc-al-wrap" aria-hidden="true">
+      <div class="hc-al hc-al--1"><img src="img/logos/Lufthansa.svg" alt="Lufthansa"></div>
+      <div class="hc-al hc-al--2"><img src="img/logos/british-airways.svg" alt="British Airways"></div>
+      <div class="hc-al hc-al--3"><img src="img/logos/Emirates.svg" alt="Emirates"></div>
+      <div class="hc-al hc-al--4"><img src="img/logos/lot-polish-airlines.svg" alt="LOT"></div>
+      <div class="hc-al hc-al--5"><img src="img/logos/KLM.svg" alt="KLM"></div>
+    </div>
+
+    <!-- Center text -->
+    <div class="hc-body">
+      <h1 class="hero-split__title">Activate airline offers across travel audiences</h1>
+      <p class="hero-split__desc">Deliver airline offers through NDC, GDS and custom distribution channels without managing multiple integrations.</p>
+      <div class="hero-split__ctas">
+        <a href="mailto:hello@drct.aero" class="nav-bar__demo" style="display:inline-flex;align-items:center;text-decoration:none;font-size:14px;height:44px;padding:0 28px;">Book a Demo</a>
       </div>
-      <div class="hero-split__media">
-        <div class="hero-diagram" aria-hidden="true">
+    </div>
 
-          <!-- SVG: connection paths + animated dots
-               Layout: airlines x=0–108, gap x=108–164, platform x=164–304,
-               gap x=304–360, sellers x=360–468. Card centres y=52,108,164,220,276. -->
-          <svg class="hd-svg" viewBox="0 0 468 320" xmlns="http://www.w3.org/2000/svg">
-            <!-- Left paths: airlines → platform (converge to x=164, y=164) -->
-            <path id="hd-p0" d="M108,52  C136,52  136,164 164,164" stroke="rgba(42,138,234,0.2)"  stroke-width="1.5" fill="none" stroke-linecap="round"/>
-            <path id="hd-p1" d="M108,108 C136,108 136,164 164,164" stroke="rgba(42,138,234,0.2)"  stroke-width="1.5" fill="none" stroke-linecap="round"/>
-            <path id="hd-p2" d="M108,164 L164,164"                 stroke="rgba(42,138,234,0.2)"  stroke-width="1.5" fill="none" stroke-linecap="round"/>
-            <path id="hd-p3" d="M108,220 C136,220 136,164 164,164" stroke="rgba(42,138,234,0.2)"  stroke-width="1.5" fill="none" stroke-linecap="round"/>
-            <path id="hd-p4" d="M108,276 C136,276 136,164 164,164" stroke="rgba(42,138,234,0.2)"  stroke-width="1.5" fill="none" stroke-linecap="round"/>
-            <!-- Right paths: platform (x=304, y=164) → sellers (fan to x=360) -->
-            <path id="hd-q0" d="M304,164 C332,164 332,52  360,52"  stroke="rgba(42,138,234,0.2)"  stroke-width="1.5" fill="none" stroke-linecap="round"/>
-            <path id="hd-q1" d="M304,164 C332,164 332,108 360,108" stroke="rgba(42,138,234,0.2)"  stroke-width="1.5" fill="none" stroke-linecap="round"/>
-            <path id="hd-q2" d="M304,164 L360,164"                 stroke="rgba(42,138,234,0.2)"  stroke-width="1.5" fill="none" stroke-linecap="round"/>
-            <path id="hd-q3" d="M304,164 C332,164 332,220 360,220" stroke="rgba(42,138,234,0.2)"  stroke-width="1.5" fill="none" stroke-linecap="round"/>
-            <path id="hd-q4" d="M304,164 C332,164 332,276 360,276" stroke="rgba(42,138,234,0.2)"  stroke-width="1.5" fill="none" stroke-linecap="round"/>
-            <!-- Hub nodes at platform edges -->
-            <circle cx="164" cy="164" r="4" fill="#2a8aea" opacity="0.1"/>
-            <circle cx="164" cy="164" r="2" fill="#2a8aea" opacity="0.45"/>
-            <circle cx="304" cy="164" r="4" fill="#2a8aea" opacity="0.1"/>
-            <circle cx="304" cy="164" r="2" fill="#2a8aea" opacity="0.45"/>
-            <!-- Animated dots LEFT (airline → platform) -->
-            <circle r="2.5" fill="#2a8aea" opacity="0.65"><animateMotion dur="1.7s" repeatCount="indefinite" begin="0s"    calcMode="linear"><mpath href="#hd-p0"/></animateMotion></circle>
-            <circle r="2.5" fill="#2a8aea" opacity="0.65"><animateMotion dur="1.7s" repeatCount="indefinite" begin="0.34s"  calcMode="linear"><mpath href="#hd-p1"/></animateMotion></circle>
-            <circle r="2.5" fill="#2a8aea" opacity="0.65"><animateMotion dur="1.7s" repeatCount="indefinite" begin="0.68s"  calcMode="linear"><mpath href="#hd-p2"/></animateMotion></circle>
-            <circle r="2.5" fill="#2a8aea" opacity="0.65"><animateMotion dur="1.7s" repeatCount="indefinite" begin="1.02s"  calcMode="linear"><mpath href="#hd-p3"/></animateMotion></circle>
-            <circle r="2.5" fill="#2a8aea" opacity="0.65"><animateMotion dur="1.7s" repeatCount="indefinite" begin="1.36s"  calcMode="linear"><mpath href="#hd-p4"/></animateMotion></circle>
-            <!-- Animated dots RIGHT (platform → seller) — offset by half a cycle -->
-            <circle r="2.5" fill="#2a8aea" opacity="0.65"><animateMotion dur="1.7s" repeatCount="indefinite" begin="0.85s"  calcMode="linear"><mpath href="#hd-q0"/></animateMotion></circle>
-            <circle r="2.5" fill="#2a8aea" opacity="0.65"><animateMotion dur="1.7s" repeatCount="indefinite" begin="1.19s"  calcMode="linear"><mpath href="#hd-q1"/></animateMotion></circle>
-            <circle r="2.5" fill="#2a8aea" opacity="0.65"><animateMotion dur="1.7s" repeatCount="indefinite" begin="0.17s"  calcMode="linear"><mpath href="#hd-q2"/></animateMotion></circle>
-            <circle r="2.5" fill="#2a8aea" opacity="0.65"><animateMotion dur="1.7s" repeatCount="indefinite" begin="0.51s"  calcMode="linear"><mpath href="#hd-q3"/></animateMotion></circle>
-            <circle r="2.5" fill="#2a8aea" opacity="0.65"><animateMotion dur="1.7s" repeatCount="indefinite" begin="1.53s"  calcMode="linear"><mpath href="#hd-q4"/></animateMotion></circle>
-          </svg>
-
-          <!-- Left: Airline cards -->
-          <div class="hd-airlines">
-            <p class="hd-col__label">Airlines</p>
-            <div class="hd-airline" style="--accent:#FFD900"><span class="hd-iata">LH</span><span class="hd-name">Lufthansa</span></div>
-            <div class="hd-airline" style="--accent:#C8102E"><span class="hd-iata">EK</span><span class="hd-name">Emirates</span></div>
-            <div class="hd-airline" style="--accent:#2B3480"><span class="hd-iata">BA</span><span class="hd-name">British Airways</span></div>
-            <div class="hd-airline" style="--accent:#003DA5"><span class="hd-iata">AF</span><span class="hd-name">Air France</span></div>
-            <div class="hd-airline" style="--accent:#E4003B"><span class="hd-iata">LX</span><span class="hd-name">SWISS</span></div>
-          </div>
-
-          <!-- Center: DRCT Platform card -->
-          <div class="hd-platform">
-            <div class="hd-platform__top">
-              <img src="img/logo-new.png" alt="DRCT" class="hd-platform__logo">
-              <span class="hd-platform__tag">Distribution Platform</span>
-            </div>
-            <div class="hd-offer">
-              <div class="hd-offer__type">
-                <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M1 6h10M7.5 3l3 3-3 3" stroke="#2a8aea" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                Offer · Request
-              </div>
-              <div class="hd-offer__route">LHR <span>→</span> JFK</div>
-              <div class="hd-offer__meta">Economy · Flexible</div>
-              <div class="hd-offer__pills">
-                <span>Fare</span><span>Bundle</span><span>Ancillary</span>
-              </div>
-            </div>
-            <div class="hd-stds">
-              <span class="hd-std hd-std--ndc">NDC</span>
-              <span class="hd-std">GDS</span>
-              <span class="hd-std">API</span>
-            </div>
-          </div>
-
-          <!-- Right: Travel seller cards -->
-          <div class="hd-sellers">
-            <p class="hd-col__label">Travel Sellers</p>
-            <div class="hd-seller">
-              <div class="hd-seller__icon">
-                <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="#2a8aea" stroke-width="1.3"/><ellipse cx="8" cy="8" rx="2.7" ry="6.5" stroke="#2a8aea" stroke-width="1.3"/><path d="M1.5 8h13" stroke="#2a8aea" stroke-width="1.2" stroke-linecap="round"/></svg>
-              </div>
-              <span class="hd-seller__name">OTAs</span>
-            </div>
-            <div class="hd-seller">
-              <div class="hd-seller__icon">
-                <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M2 14.5V6.5L8 2l6 4.5v8" stroke="#2a8aea" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/><rect x="6" y="9.5" width="4" height="5" rx="0.5" stroke="#2a8aea" stroke-width="1.3"/></svg>
-              </div>
-              <span class="hd-seller__name">Travel Agencies</span>
-            </div>
-            <div class="hd-seller">
-              <div class="hd-seller__icon">
-                <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><rect x="1.5" y="5.5" width="13" height="9" rx="1.5" stroke="#2a8aea" stroke-width="1.3"/><path d="M5.5 5.5V4a2.5 2.5 0 0 1 5 0v1.5" stroke="#2a8aea" stroke-width="1.3" stroke-linecap="round"/></svg>
-              </div>
-              <span class="hd-seller__name">Corporate Booking</span>
-            </div>
-            <div class="hd-seller">
-              <div class="hd-seller__icon">
-                <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="2.5" stroke="#2a8aea" stroke-width="1.3"/><path d="M8 1v2.5M8 12.5V15M1 8h2.5M12.5 8H15M3.1 3.1l1.8 1.8M11.1 11.1l1.8 1.8M12.9 3.1l-1.8 1.8M4.9 11.1l-1.8 1.8" stroke="#2a8aea" stroke-width="1.2" stroke-linecap="round"/></svg>
-              </div>
-              <span class="hd-seller__name">TMCs</span>
-            </div>
-            <div class="hd-seller">
-              <div class="hd-seller__icon">
-                <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="1.8" fill="#2a8aea" opacity="0.35"/><circle cx="3" cy="4.5" r="1.5" stroke="#2a8aea" stroke-width="1.2"/><circle cx="13" cy="4.5" r="1.5" stroke="#2a8aea" stroke-width="1.2"/><circle cx="3" cy="11.5" r="1.5" stroke="#2a8aea" stroke-width="1.2"/><circle cx="13" cy="11.5" r="1.5" stroke="#2a8aea" stroke-width="1.2"/><path d="M4.4 5.2L6.6 7M9.4 9l2.2 1.8M11.6 5.2L9.4 7M6.6 9l-2.2 1.8" stroke="#2a8aea" stroke-width="1.1"/></svg>
-              </div>
-              <span class="hd-seller__name">Aggregators</span>
-            </div>
-          </div>
-
-        </div>
+    <!-- Travel seller type chips – right side -->
+    <div class="hc-chips" aria-hidden="true">
+      <div class="hc-chip hc-chip--1">
+        <span class="hc-chip__icon"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="#2a8aea" stroke-width="1.3"/><ellipse cx="8" cy="8" rx="2.7" ry="6.5" stroke="#2a8aea" stroke-width="1.3"/><path d="M1.5 8h13" stroke="#2a8aea" stroke-width="1.2" stroke-linecap="round"/></svg></span>
+        <span>OTAs</span>
       </div>
-    </section>
-  </div>
+      <div class="hc-chip hc-chip--2">
+        <span class="hc-chip__icon"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M2 14.5V6.5L8 2l6 4.5v8" stroke="#2a8aea" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/><rect x="6" y="9.5" width="4" height="5" rx="0.5" stroke="#2a8aea" stroke-width="1.3"/></svg></span>
+        <span>Travel Agencies</span>
+      </div>
+      <div class="hc-chip hc-chip--3">
+        <span class="hc-chip__icon"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><rect x="1.5" y="5.5" width="13" height="9" rx="1.5" stroke="#2a8aea" stroke-width="1.3"/><path d="M5.5 5.5V4a2.5 2.5 0 0 1 5 0v1.5" stroke="#2a8aea" stroke-width="1.3" stroke-linecap="round"/></svg></span>
+        <span>Corporate &amp; TMCs</span>
+      </div>
+      <div class="hc-chip hc-chip--4">
+        <span class="hc-chip__icon"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="2.5" stroke="#2a8aea" stroke-width="1.3"/><path d="M8 1v2.5M8 12.5V15M1 8h2.5M12.5 8H15M3.1 3.1l1.8 1.8M11.1 11.1l1.8 1.8M12.9 3.1l-1.8 1.8M4.9 11.1l-1.8 1.8" stroke="#2a8aea" stroke-width="1.2" stroke-linecap="round"/></svg></span>
+        <span>Super Apps</span>
+      </div>
+      <div class="hc-chip hc-chip--5">
+        <span class="hc-chip__icon"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="1.8" fill="#2a8aea" opacity="0.35"/><circle cx="3" cy="4.5" r="1.5" stroke="#2a8aea" stroke-width="1.2"/><circle cx="13" cy="4.5" r="1.5" stroke="#2a8aea" stroke-width="1.2"/><circle cx="3" cy="11.5" r="1.5" stroke="#2a8aea" stroke-width="1.2"/><circle cx="13" cy="11.5" r="1.5" stroke="#2a8aea" stroke-width="1.2"/><path d="M4.4 5.2L6.6 7M9.4 9l2.2 1.8M11.6 5.2L9.4 7M6.6 9l-2.2 1.8" stroke="#2a8aea" stroke-width="1.1"/></svg></span>
+        <span>Aggregators</span>
+      </div>
+    </div>
+
+  </section>
 </div>
 
 <!-- ================================================================
@@ -244,8 +168,8 @@
 
       <!-- Toggle switch -->
       <div class="gain-toggle" role="tablist">
-        <button class="gain-toggle__btn" data-tab="airlines" role="tab" aria-selected="false">For Airlines</button>
         <button class="gain-toggle__btn gain-toggle__btn--active" data-tab="sellers" role="tab" aria-selected="true">For Travel Sellers</button>
+        <button class="gain-toggle__btn" data-tab="airlines" role="tab" aria-selected="false">For Airlines</button>
       </div>
 
       <!-- For airlines -->

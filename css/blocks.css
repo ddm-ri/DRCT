@@ -648,6 +648,78 @@
   line-height: 1.25;
 }
 
+/* ================================================================
+   HERO CENTERED — full-width centered layout with floating elements
+================================================================ */
+.hero-centered {
+  position: relative;
+  min-height: 560px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 0;
+}
+.hc-body {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  max-width: 660px;
+  padding: 0 24px;
+}
+.hc-al-wrap,
+.hc-chips {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.hc-al {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+}
+.hc-al img { width: 100%; height: auto; display: block; }
+.hc-al--1 { top: 8%;    left: 2%;  }
+.hc-al--2 { top: 38%;   left: 9%;  }
+.hc-al--3 { top: 65%;   left: 2%;  }
+.hc-al--4 { bottom: 8%; left: 17%; }
+.hc-al--5 { top: 20%;   left: 18%; }
+.hc-chip {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  background: rgba(255,255,255,0.88);
+  border-radius: 10px;
+  padding: 9px 14px;
+  box-shadow: 0 2px 12px rgba(27,39,51,0.07);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--dark);
+  white-space: nowrap;
+}
+.hc-chip__icon {
+  width: 26px;
+  height: 26px;
+  border-radius: 7px;
+  background: var(--blue-10);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.hc-chip--1 { top: 8%;    right: 3%;  }
+.hc-chip--2 { top: 24%;   right: 10%; }
+.hc-chip--3 { top: 44%;   right: 3%;  }
+.hc-chip--4 { top: 62%;   right: 10%; }
+.hc-chip--5 { bottom: 8%; right: 3%;  }
+@media (max-width: 1024px) {
+  .hc-al { width: 68px; height: 68px; }
+}
+@media (max-width: 767px) {
+  .hc-al-wrap, .hc-chips { display: none; }
+  .hero-centered { min-height: auto; padding: 60px 20px; }
+}
+
 /* ----------------------------------------------------------------
    HERO — centered (legacy, kept for other pages)
 ---------------------------------------------------------------- */
@@ -1780,7 +1852,7 @@
 
 /* ── What You Gain — toggle switch ────────────────────────────── */
 .gain-toggle {
-  background: rgba(27,39,51,0.07);
+  background: rgba(42,138,234,0.12);
   border-radius: 10px;
   display: flex;
   gap: 2px;
@@ -1792,7 +1864,7 @@
   background: none;
   border: none;
   border-radius: 7px;
-  color: var(--blue);
+  color: var(--dark);
   cursor: pointer;
   font-family: var(--font-sans);
   font-size: 13px;
