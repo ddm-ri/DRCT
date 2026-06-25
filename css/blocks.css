@@ -1607,7 +1607,7 @@
 .testi__link:hover { text-decoration: underline; }
 .testi__link svg { flex-shrink: 0; }
 
-/* Right: photo */
+/* Right: photo — fills entire right column edge-to-edge */
 .testi__fig {
   line-height: 0;
   margin: 0;
@@ -1621,9 +1621,8 @@
   inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: contain;
-  object-position: center center;
-  padding: 24px;
+  object-fit: cover;
+  object-position: center 40%;
 }
 
 /* Controls — below card, left-aligned with text column */
