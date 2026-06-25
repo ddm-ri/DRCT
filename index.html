@@ -114,34 +114,39 @@
     <svg class="hc-svg" viewBox="0 0 1440 680" preserveAspectRatio="none" aria-hidden="true" focusable="false">
 
       <!-- ── Lines: above text ──────────────────────────────────────── -->
-      <g fill="none" stroke="#2a8aea" stroke-width="0.9" stroke-opacity="0.11">
-        <path d="M 69 94 C 400 44 1040 44 1327 76"/>
-        <path d="M 299 176 C 600 120 960 120 1226 185"/>
+      <!-- Asymmetric control points give each path its own gentle character -->
+      <g fill="none" stroke="#2a8aea" stroke-opacity="0.11">
+        <!-- Wide upper arc — rises early, lingers, gentle rightward lean -->
+        <path stroke-width="0.95" d="M 69 94 C 462 38 1106 48 1327 76"/>
+        <!-- Tighter upper arc — peaks slightly left of center, softer curve -->
+        <path stroke-width="0.75" d="M 299 176 C 554 112 1002 134 1226 185"/>
       </g>
 
       <!-- ── Lines: below text ──────────────────────────────────────── -->
-      <g fill="none" stroke="#2a8aea" stroke-width="0.9" stroke-opacity="0.11">
-        <path d="M 69 482 C 400 540 960 540 1231 444"/>
-        <path d="M 285 586 C 580 624 1040 624 1327 648"/>
+      <g fill="none" stroke="#2a8aea" stroke-opacity="0.11">
+        <!-- Lower arc — dips left-center, less symmetrical descent -->
+        <path stroke-width="0.95" d="M 69 482 C 358 548 1004 556 1231 444"/>
+        <!-- Gentle lower sweep — peaks right, gradual and organic -->
+        <path stroke-width="0.75" d="M 285 586 C 640 630 1064 616 1327 648"/>
       </g>
 
       <!-- ── Fixed pulsing dots at path midpoints ───────────────────── -->
       <g class="hc-particles" fill="#2a8aea">
-        <circle cx="715" cy="54" r="2" opacity="0.3">
+        <circle cx="760" cy="53" r="2" opacity="0.3">
           <animate attributeName="r" values="2;3;2" dur="4s" repeatCount="indefinite" begin="0s"/>
           <animate attributeName="opacity" values="0.3;0.6;0.3" dur="4s" repeatCount="indefinite" begin="0s"/>
         </circle>
-        <circle cx="776" cy="135" r="2" opacity="0.3">
-          <animate attributeName="r" values="2;3;2" dur="4.5s" repeatCount="indefinite" begin="1.5s"/>
-          <animate attributeName="opacity" values="0.3;0.6;0.3" dur="4.5s" repeatCount="indefinite" begin="1.5s"/>
+        <circle cx="774" cy="137" r="2" opacity="0.3">
+          <animate attributeName="r" values="2;3;2" dur="4.8s" repeatCount="indefinite" begin="1.6s"/>
+          <animate attributeName="opacity" values="0.3;0.6;0.3" dur="4.8s" repeatCount="indefinite" begin="1.6s"/>
         </circle>
-        <circle cx="673" cy="521" r="2" opacity="0.3">
-          <animate attributeName="r" values="2;3;2" dur="4s" repeatCount="indefinite" begin="0.8s"/>
-          <animate attributeName="opacity" values="0.3;0.6;0.3" dur="4s" repeatCount="indefinite" begin="0.8s"/>
+        <circle cx="673" cy="528" r="2" opacity="0.3">
+          <animate attributeName="r" values="2;3;2" dur="4.2s" repeatCount="indefinite" begin="0.8s"/>
+          <animate attributeName="opacity" values="0.3;0.6;0.3" dur="4.2s" repeatCount="indefinite" begin="0.8s"/>
         </circle>
-        <circle cx="809" cy="622" r="2" opacity="0.3">
-          <animate attributeName="r" values="2;3;2" dur="4.5s" repeatCount="indefinite" begin="2.2s"/>
-          <animate attributeName="opacity" values="0.3;0.6;0.3" dur="4.5s" repeatCount="indefinite" begin="2.2s"/>
+        <circle cx="841" cy="622" r="2" opacity="0.3">
+          <animate attributeName="r" values="2;3;2" dur="4.6s" repeatCount="indefinite" begin="2.4s"/>
+          <animate attributeName="opacity" values="0.3;0.6;0.3" dur="4.6s" repeatCount="indefinite" begin="2.4s"/>
         </circle>
       </g>
     </svg>
