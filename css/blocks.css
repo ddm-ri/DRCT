@@ -653,11 +653,11 @@
 ================================================================ */
 .hero-centered {
   position: relative;
-  min-height: 480px;
+  min-height: 680px;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 52px 0;
+  padding: 90px 0;
 }
 
 /* SVG connection layer */
@@ -744,7 +744,7 @@
 @media (max-width: 767px) {
   .hc-svg, .hc-hub { display: none; }
   .hc-al-wrap, .hc-chips { display: none; }
-  .hero-centered { min-height: auto; padding: 48px 20px; }
+  .hero-centered { min-height: auto; padding: 56px 20px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .hc-svg .hc-particles { display: none; }

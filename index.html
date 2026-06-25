@@ -110,76 +110,38 @@
 <div class="landing-new loaded hero-split-outer" style="background-image: linear-gradient(135deg, rgba(42,138,234,0.15) 0%, rgba(42,138,234,0.04) 100%); overflow: hidden;">
   <section class="hero-centered">
 
-    <!-- SVG data-flow: 5 paths arcing above or below the text block -->
-    <!-- viewBox matches section min-height (480px). Text occupies ~y90–390. -->
-    <!-- Paths peak at y≈20–48 (above) or dip to y≈448–462 (below) in mid. -->
-    <svg class="hc-svg" viewBox="0 0 1440 480" preserveAspectRatio="none" aria-hidden="true" focusable="false">
-      <defs>
-        <filter id="hc-ptcl" x="-150%" y="-150%" width="400%" height="400%">
-          <feGaussianBlur in="SourceGraphic" stdDeviation="1.6" result="blur"/>
-          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-        </filter>
-      </defs>
+    <!-- SVG data-flow: 4 clean paths, 2 above text zone, 2 below -->
+    <svg class="hc-svg" viewBox="0 0 1440 680" preserveAspectRatio="none" aria-hidden="true" focusable="false">
 
-      <!-- ── Lines ──────────────────────────────────────────────────── -->
-      <g fill="none" stroke="#2a8aea" stroke-width="0.9" stroke-opacity="0.14">
-        <!-- Lufthansa → OTAs: sweeps above (peak y≈20) -->
-        <path id="p1" d="M 69 78  C 380 20  1060 20  1344 60"/>
-        <!-- KLM → Travel Agencies: arcs above (peak y≈48) -->
-        <path id="p2" d="M 299 136 C 560 48  960  48  1214 137"/>
-        <!-- British Airways → Corporate & TMCs: major upper bypass (peak y≈35) -->
-        <path id="p3" d="M 170 222 C 430 35  1010 35  1297 233"/>
-        <!-- Emirates → Super Apps: lower bypass (dip y≈448) -->
-        <path id="p4" d="M 69 352  C 380 448 1020 448 1226 320"/>
-        <!-- LOT → Aggregators: sweeps below (dip y≈462) -->
-        <path id="p5" d="M 285 402 C 580 462 1050 462 1325 420"/>
+      <!-- ── Lines: above text ──────────────────────────────────────── -->
+      <g fill="none" stroke="#2a8aea" stroke-width="0.9" stroke-opacity="0.11">
+        <path d="M 69 94 C 400 44 1040 44 1327 76"/>
+        <path d="M 299 176 C 600 120 960 120 1226 185"/>
       </g>
 
-      <!-- ── Particles ──────────────────────────────────────────────── -->
-      <g class="hc-particles" filter="url(#hc-ptcl)">
-        <circle r="2.4" fill="#2a8aea">
-          <animateMotion dur="3.0s" repeatCount="indefinite" begin="0s"><mpath href="#p1"/></animateMotion>
-          <animate attributeName="opacity" values="0;0.7;0.7;0" keyTimes="0;0.08;0.88;1" dur="3.0s" repeatCount="indefinite" begin="0s"/>
-        </circle>
-        <circle r="2.4" fill="#2a8aea">
-          <animateMotion dur="3.0s" repeatCount="indefinite" begin="1.5s"><mpath href="#p1"/></animateMotion>
-          <animate attributeName="opacity" values="0;0.7;0.7;0" keyTimes="0;0.08;0.88;1" dur="3.0s" repeatCount="indefinite" begin="1.5s"/>
-        </circle>
+      <!-- ── Lines: below text ──────────────────────────────────────── -->
+      <g fill="none" stroke="#2a8aea" stroke-width="0.9" stroke-opacity="0.11">
+        <path d="M 69 482 C 400 540 960 540 1231 444"/>
+        <path d="M 285 586 C 580 624 1040 624 1327 648"/>
+      </g>
 
-        <circle r="2.4" fill="#2a8aea">
-          <animateMotion dur="2.6s" repeatCount="indefinite" begin="0.4s"><mpath href="#p2"/></animateMotion>
-          <animate attributeName="opacity" values="0;0.7;0.7;0" keyTimes="0;0.08;0.88;1" dur="2.6s" repeatCount="indefinite" begin="0.4s"/>
+      <!-- ── Fixed pulsing dots at path midpoints ───────────────────── -->
+      <g class="hc-particles" fill="#2a8aea">
+        <circle cx="715" cy="54" r="2" opacity="0.3">
+          <animate attributeName="r" values="2;3;2" dur="4s" repeatCount="indefinite" begin="0s"/>
+          <animate attributeName="opacity" values="0.3;0.6;0.3" dur="4s" repeatCount="indefinite" begin="0s"/>
         </circle>
-        <circle r="2.4" fill="#2a8aea">
-          <animateMotion dur="2.6s" repeatCount="indefinite" begin="1.7s"><mpath href="#p2"/></animateMotion>
-          <animate attributeName="opacity" values="0;0.7;0.7;0" keyTimes="0;0.08;0.88;1" dur="2.6s" repeatCount="indefinite" begin="1.7s"/>
+        <circle cx="776" cy="135" r="2" opacity="0.3">
+          <animate attributeName="r" values="2;3;2" dur="4.5s" repeatCount="indefinite" begin="1.5s"/>
+          <animate attributeName="opacity" values="0.3;0.6;0.3" dur="4.5s" repeatCount="indefinite" begin="1.5s"/>
         </circle>
-
-        <circle r="2.4" fill="#2a8aea">
-          <animateMotion dur="3.2s" repeatCount="indefinite" begin="0.8s"><mpath href="#p3"/></animateMotion>
-          <animate attributeName="opacity" values="0;0.7;0.7;0" keyTimes="0;0.08;0.88;1" dur="3.2s" repeatCount="indefinite" begin="0.8s"/>
+        <circle cx="673" cy="521" r="2" opacity="0.3">
+          <animate attributeName="r" values="2;3;2" dur="4s" repeatCount="indefinite" begin="0.8s"/>
+          <animate attributeName="opacity" values="0.3;0.6;0.3" dur="4s" repeatCount="indefinite" begin="0.8s"/>
         </circle>
-        <circle r="2.4" fill="#2a8aea">
-          <animateMotion dur="3.2s" repeatCount="indefinite" begin="2.4s"><mpath href="#p3"/></animateMotion>
-          <animate attributeName="opacity" values="0;0.7;0.7;0" keyTimes="0;0.08;0.88;1" dur="3.2s" repeatCount="indefinite" begin="2.4s"/>
-        </circle>
-
-        <circle r="2.4" fill="#2a8aea">
-          <animateMotion dur="2.8s" repeatCount="indefinite" begin="0.2s"><mpath href="#p4"/></animateMotion>
-          <animate attributeName="opacity" values="0;0.7;0.7;0" keyTimes="0;0.08;0.88;1" dur="2.8s" repeatCount="indefinite" begin="0.2s"/>
-        </circle>
-        <circle r="2.4" fill="#2a8aea">
-          <animateMotion dur="2.8s" repeatCount="indefinite" begin="1.6s"><mpath href="#p4"/></animateMotion>
-          <animate attributeName="opacity" values="0;0.7;0.7;0" keyTimes="0;0.08;0.88;1" dur="2.8s" repeatCount="indefinite" begin="1.6s"/>
-        </circle>
-
-        <circle r="2.4" fill="#2a8aea">
-          <animateMotion dur="2.4s" repeatCount="indefinite" begin="1.0s"><mpath href="#p5"/></animateMotion>
-          <animate attributeName="opacity" values="0;0.7;0.7;0" keyTimes="0;0.08;0.88;1" dur="2.4s" repeatCount="indefinite" begin="1.0s"/>
-        </circle>
-        <circle r="2.4" fill="#2a8aea">
-          <animateMotion dur="2.4s" repeatCount="indefinite" begin="2.2s"><mpath href="#p5"/></animateMotion>
-          <animate attributeName="opacity" values="0;0.7;0.7;0" keyTimes="0;0.08;0.88;1" dur="2.4s" repeatCount="indefinite" begin="2.2s"/>
+        <circle cx="809" cy="622" r="2" opacity="0.3">
+          <animate attributeName="r" values="2;3;2" dur="4.5s" repeatCount="indefinite" begin="2.2s"/>
+          <animate attributeName="opacity" values="0.3;0.6;0.3" dur="4.5s" repeatCount="indefinite" begin="2.2s"/>
         </circle>
       </g>
     </svg>
