@@ -660,8 +660,8 @@
   padding: 90px 0;
 }
 
-/* Particle canvas layer */
-.hc-canvas {
+/* SVG paths + animateMotion dots layer */
+.hc-svg {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -785,11 +785,13 @@
   .hc-al { width: 68px; height: 68px; }
 }
 @media (max-width: 767px) {
+  .hc-svg { display: none; }
   .hc-al-wrap, .hc-chips { display: none; }
   .hero-centered { min-height: auto; padding: 56px 20px; }
   .hero-centered::before { display: none; }
 }
 @media (prefers-reduced-motion: reduce) {
+  .hc-svg { display: none; }
   .hc-al, .hc-chip, .hc-al img { animation: none !important; }
 }
 
