@@ -110,47 +110,7 @@
 <div class="landing-new loaded hero-split-outer" style="background-image: linear-gradient(135deg, rgba(42,138,234,0.15) 0%, rgba(42,138,234,0.04) 100%); overflow: hidden;">
   <section class="hero-centered">
 
-    <!-- SVG: soft highlight nodes that glow over the dot grid -->
-    <svg class="hc-svg" viewBox="0 0 1440 680" preserveAspectRatio="none" aria-hidden="true" focusable="false">
-      <defs>
-        <filter id="hc-glow" x="-150%" y="-150%" width="400%" height="400%">
-          <feGaussianBlur in="SourceGraphic" stdDeviation="3.5" result="blur"/>
-          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-        </filter>
-      </defs>
 
-      <!-- Highlight nodes — no connections, no routes -->
-      <g class="hc-particles" fill="#2a8aea" filter="url(#hc-glow)">
-        <circle cx="180"  cy="90"  r="2.8" opacity="0.32">
-          <animate attributeName="opacity" values="0.32;0.58;0.32" dur="5.4s" repeatCount="indefinite" begin="0s"/>
-        </circle>
-        <circle cx="540"  cy="60"  r="2.2" opacity="0.24"/>
-        <circle cx="900"  cy="88"  r="3.0" opacity="0.28">
-          <animate attributeName="opacity" values="0.28;0.54;0.28" dur="4.8s" repeatCount="indefinite" begin="1.4s"/>
-        </circle>
-        <circle cx="1260" cy="62"  r="2.2" opacity="0.26">
-          <animate attributeName="opacity" values="0.26;0.50;0.26" dur="5.8s" repeatCount="indefinite" begin="3.0s"/>
-        </circle>
-        <circle cx="60"   cy="270" r="2.5" opacity="0.28">
-          <animate attributeName="opacity" values="0.28;0.52;0.28" dur="5.0s" repeatCount="indefinite" begin="2.6s"/>
-        </circle>
-        <circle cx="1380" cy="240" r="2.4" opacity="0.26"/>
-        <circle cx="120"  cy="420" r="2.2" opacity="0.24"/>
-        <circle cx="1382" cy="450" r="2.6" opacity="0.28">
-          <animate attributeName="opacity" values="0.28;0.52;0.28" dur="4.6s" repeatCount="indefinite" begin="0.8s"/>
-        </circle>
-        <circle cx="120"  cy="540" r="2.8" opacity="0.30">
-          <animate attributeName="opacity" values="0.30;0.56;0.30" dur="5.2s" repeatCount="indefinite" begin="1.9s"/>
-        </circle>
-        <circle cx="480"  cy="570" r="2.2" opacity="0.24"/>
-        <circle cx="840"  cy="510" r="3.0" opacity="0.28">
-          <animate attributeName="opacity" values="0.28;0.54;0.28" dur="4.4s" repeatCount="indefinite" begin="3.2s"/>
-        </circle>
-        <circle cx="1200" cy="572" r="2.4" opacity="0.26">
-          <animate attributeName="opacity" values="0.26;0.50;0.26" dur="5.6s" repeatCount="indefinite" begin="0.5s"/>
-        </circle>
-      </g>
-    </svg>
 
     <!-- Airline squircle logos – left side -->
     <div class="hc-al-wrap" aria-hidden="true">

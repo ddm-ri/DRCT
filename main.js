@@ -360,6 +360,35 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   /* ---------------------------------------------------------------
+     HERO PARALLAX — airlines and chips drift opposite each other
+     on mouse movement, creating depth without explicit connectors
+  --------------------------------------------------------------- */
+  var heroEl  = document.querySelector('.hero-centered');
+  var alWrap  = document.querySelector('.hc-al-wrap');
+  var chipWrap = document.querySelector('.hc-chips');
+
+  if (heroEl && alWrap && chipWrap) {
+    heroEl.addEventListener('mousemove', function (e) {
+      var rect = heroEl.getBoundingClientRect();
+      var x = ((e.clientX - rect.left) / rect.width  - 0.5) * 8;
+      var y = ((e.clientY - rect.top)  / rect.height - 0.5) * 5;
+
+      alWrap.style.transition  = 'none';
+      chipWrap.style.transition = 'none';
+      alWrap.style.transform   = 'translate(' + (-x * 0.42) + 'px,' + (-y * 0.32) + 'px)';
+      chipWrap.style.transform  = 'translate(' + ( x * 0.42) + 'px,' + (-y * 0.32) + 'px)';
+    });
+
+    heroEl.addEventListener('mouseleave', function () {
+      var ease = 'transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94)';
+      alWrap.style.transition  = ease;
+      chipWrap.style.transition = ease;
+      alWrap.style.transform   = '';
+      chipWrap.style.transform  = '';
+    });
+  }
+
+  /* ---------------------------------------------------------------
      DEMO LINKS (Typeform placeholder)
   --------------------------------------------------------------- */
   document.querySelectorAll('[data-demo]').forEach(function (el) {
