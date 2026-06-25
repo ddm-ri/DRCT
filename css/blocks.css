@@ -714,6 +714,9 @@
   max-width: 660px;
   padding: 0 24px;
 }
+.hc-body .hero-split__ctas {
+  justify-content: center;
+}
 .hc-al-wrap,
 .hc-chips {
   position: absolute;
