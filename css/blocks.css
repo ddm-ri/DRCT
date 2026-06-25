@@ -1607,22 +1607,22 @@
 .testi__link:hover { text-decoration: underline; }
 .testi__link svg { flex-shrink: 0; }
 
-/* Right: photo — fills entire right column edge-to-edge */
+/* Right: photo — featured media element, padded inside card */
 .testi__fig {
-  line-height: 0;
   margin: 0;
-  overflow: hidden;
-  position: relative;
+  padding: 24px 24px 24px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .testi__img {
   display: block;
-  position: absolute;
-  inset: 0;
   width: 100%;
-  height: 100%;
+  height: auto;
+  max-height: 412px; /* 460px card - 24px top - 24px bottom */
+  border-radius: 16px;
   object-fit: contain;
-  object-position: center center;
 }
 
 /* Controls — below card, left-aligned with text column */
@@ -1694,7 +1694,8 @@
     height: auto;
   }
   .testi__body { padding: 32px 28px 36px; order: 2; }
-  .testi__fig { order: 1; aspect-ratio: 16/8; position: relative; }
+  .testi__fig { order: 1; padding: 16px 16px 0; }
+  .testi__img { max-height: none; border-radius: 12px; }
   .testi__controls { padding-left: 28px; }
   .testi__quote { font-size: 17px; }
   .testi__link { margin-top: 24px; }
