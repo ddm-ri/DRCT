@@ -649,7 +649,7 @@
 }
 
 /* ================================================================
-   HERO CENTERED — full-width centered layout with floating elements
+   HERO CENTERED — full-width centered layout with data-flow vis
 ================================================================ */
 .hero-centered {
   position: relative;
@@ -659,9 +659,57 @@
   justify-content: center;
   padding: 80px 0;
 }
+
+/* SVG connection layer */
+.hc-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Hub convergence glow */
+.hc-hub {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 300px;
+  height: 300px;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 0;
+}
+.hc-hub__glow {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(42,138,234,0.16) 0%, rgba(42,138,234,0.05) 50%, transparent 72%);
+  animation: hc-breath 5s ease-in-out infinite;
+}
+.hc-hub__ring {
+  position: absolute;
+  inset: 28%;
+  border-radius: 50%;
+  border: 1px solid rgba(42,138,234,0.3);
+}
+.hc-hub__ring--a { animation: hc-pulse 3.2s ease-out infinite; }
+.hc-hub__ring--b { animation: hc-pulse 3.2s ease-out 1.6s infinite; }
+
+@keyframes hc-breath {
+  0%, 100% { transform: scale(1);    opacity: 1;   }
+  50%       { transform: scale(1.14); opacity: 0.55; }
+}
+@keyframes hc-pulse {
+  0%   { transform: scale(0.8);  opacity: 0.55; }
+  100% { transform: scale(1.7);  opacity: 0;    }
+}
+
+/* Content layers */
 .hc-body {
   position: relative;
-  z-index: 1;
+  z-index: 3;
   text-align: center;
   max-width: 660px;
   padding: 0 24px;
@@ -671,6 +719,7 @@
   position: absolute;
   inset: 0;
   pointer-events: none;
+  z-index: 2;
 }
 .hc-al {
   position: absolute;
@@ -688,10 +737,10 @@
   display: flex;
   align-items: center;
   gap: 9px;
-  background: rgba(255,255,255,0.88);
+  background: rgba(255,255,255,0.9);
   border-radius: 10px;
   padding: 9px 14px;
-  box-shadow: 0 2px 12px rgba(27,39,51,0.07);
+  box-shadow: 0 2px 16px rgba(27,39,51,0.09);
   font-size: 13px;
   font-weight: 600;
   color: var(--dark);
@@ -712,12 +761,19 @@
 .hc-chip--3 { top: 44%;   right: 3%;  }
 .hc-chip--4 { top: 62%;   right: 10%; }
 .hc-chip--5 { bottom: 8%; right: 3%;  }
+
 @media (max-width: 1024px) {
   .hc-al { width: 68px; height: 68px; }
 }
 @media (max-width: 767px) {
+  .hc-svg, .hc-hub { display: none; }
   .hc-al-wrap, .hc-chips { display: none; }
   .hero-centered { min-height: auto; padding: 60px 20px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hc-svg circle { display: none; }
+  .hc-hub__ring--a, .hc-hub__ring--b { display: none; }
+  .hc-hub__glow { animation: none; }
 }
 
 /* ----------------------------------------------------------------
