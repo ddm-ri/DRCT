@@ -707,16 +707,13 @@
     <!-- Controls -->
     <div class="testi__controls">
       <button class="testi__btn" id="testiPrev" aria-label="Previous testimonial">
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
           <path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </button>
-      <div class="testi__dots" role="tablist" aria-label="Testimonials">
-        <button class="testi__dot testi__dot--active" data-testi="0" role="tab" aria-selected="true" aria-label="Lufthansa"></button>
-        <button class="testi__dot" data-testi="1" role="tab" aria-selected="false" aria-label="Emirates"></button>
-      </div>
+      <span class="testi__counter" id="testiCounter" aria-live="polite">1 / 2</span>
       <button class="testi__btn" id="testiNext" aria-label="Next testimonial">
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
           <path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </button>

@@ -322,6 +322,26 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   /* ---------------------------------------------------------------
+     TESTIMONIALS CAROUSEL
+  --------------------------------------------------------------- */
+  var testiSlides  = document.querySelectorAll('.testi__slide');
+  var testiPrev    = document.getElementById('testiPrev');
+  var testiNext    = document.getElementById('testiNext');
+  var testiCounter = document.getElementById('testiCounter');
+  var testiCurrent = 0;
+  var testiTotal   = testiSlides.length;
+
+  function goToTesti(idx) {
+    testiSlides[testiCurrent].classList.remove('testi__slide--active');
+    testiCurrent = (idx + testiTotal) % testiTotal;
+    testiSlides[testiCurrent].classList.add('testi__slide--active');
+    if (testiCounter) testiCounter.textContent = (testiCurrent + 1) + ' / ' + testiTotal;
+  }
+
+  if (testiPrev) testiPrev.addEventListener('click', function () { goToTesti(testiCurrent - 1); });
+  if (testiNext) testiNext.addEventListener('click', function () { goToTesti(testiCurrent + 1); });
+
+  /* ---------------------------------------------------------------
      BENEFITS — SHOW MORE / HIDE
   --------------------------------------------------------------- */
   var benefitsToggle = document.getElementById('benefitsToggle');

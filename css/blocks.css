@@ -1861,7 +1861,7 @@
 .testi__controls {
   align-items: center;
   display: flex;
-  gap: 14px;
+  gap: 10px;
   justify-content: flex-start;
   margin-top: 24px;
   padding-left: 40px;
@@ -1869,43 +1869,33 @@
 
 .testi__btn {
   align-items: center;
-  background: var(--white);
-  border: 1.5px solid var(--dark-20);
+  background: transparent;
+  border: 1px solid var(--dark-15);
   border-radius: 50%;
-  color: var(--dark-70);
+  color: var(--dark-40);
   cursor: pointer;
   display: flex;
   flex-shrink: 0;
-  height: 38px;
+  height: 32px;
   justify-content: center;
-  transition: border-color 0.2s, color 0.2s;
-  width: 38px;
+  transition: border-color 0.18s, color 0.18s;
+  width: 32px;
 }
 
 .testi__btn:hover {
-  border-color: var(--blue);
-  color: var(--blue);
+  border-color: var(--dark-40);
+  color: var(--dark);
 }
 
-.testi__dots {
-  display: flex;
-  gap: 8px;
-}
-
-.testi__dot {
-  background: var(--dark-20);
-  border: none;
-  border-radius: 50%;
-  cursor: pointer;
-  height: 8px;
-  padding: 0;
-  transition: background 0.25s, transform 0.25s;
-  width: 8px;
-}
-
-.testi__dot--active {
-  background: var(--dark);
-  transform: scale(1.25);
+.testi__counter {
+  color: var(--dark-40);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  min-width: 28px;
+  text-align: center;
+  user-select: none;
 }
 
 /* Responsive */
