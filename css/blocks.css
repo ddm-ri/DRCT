@@ -660,6 +660,17 @@
   padding: 90px 0;
 }
 
+/* Subtle dot grid — same pattern as other hero pages */
+.hero-centered::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(27,39,51,0.11) 1px, transparent 1px);
+  background-size: 28px 28px;
+  pointer-events: none;
+  z-index: 0;
+}
+
 /* Gentle float — shared by logos and chips, each gets its own rhythm */
 @keyframes hc-float {
   0%, 100% { transform: translateY(0px); }
@@ -766,6 +777,7 @@
 @media (max-width: 767px) {
   .hc-al-wrap, .hc-chips { display: none; }
   .hero-centered { min-height: auto; padding: 56px 20px; }
+  .hero-centered::before { display: none; }
 }
 @media (prefers-reduced-motion: reduce) {
   .hc-al, .hc-chip, .hc-al img { animation: none !important; }
