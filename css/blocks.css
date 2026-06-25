@@ -1792,7 +1792,7 @@
   background: none;
   border: none;
   border-radius: 7px;
-  color: rgba(27,39,51,0.55);
+  color: var(--blue);
   cursor: pointer;
   font-family: var(--font-sans);
   font-size: 13px;
