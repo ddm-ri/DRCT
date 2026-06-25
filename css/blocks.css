@@ -1607,10 +1607,10 @@
 .testi__link:hover { text-decoration: underline; }
 .testi__link svg { flex-shrink: 0; }
 
-/* Right: photo — featured media element, padded inside card */
+/* Right: photo — featured media element, equal padding on all sides */
 .testi__fig {
   margin: 0;
-  padding: 24px 24px 24px 0;
+  padding: 24px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1694,7 +1694,7 @@
     height: auto;
   }
   .testi__body { padding: 32px 28px 36px; order: 2; }
-  .testi__fig { order: 1; padding: 16px 16px 0; }
+  .testi__fig { order: 1; padding: 16px 16px 0 16px; }
   .testi__img { max-height: none; border-radius: 12px; }
   .testi__controls { padding-left: 28px; }
   .testi__quote { font-size: 17px; }
