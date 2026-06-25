@@ -660,7 +660,18 @@
   padding: 90px 0;
 }
 
-/* SVG connection layer */
+/* Dot grid — the unified platform substrate */
+.hero-centered::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(42,138,234,0.16) 1.5px, transparent 1.5px);
+  background-size: 60px 60px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* SVG highlight layer */
 .hc-svg {
   position: absolute;
   inset: 0;
@@ -745,6 +756,7 @@
   .hc-svg, .hc-hub { display: none; }
   .hc-al-wrap, .hc-chips { display: none; }
   .hero-centered { min-height: auto; padding: 56px 20px; }
+  .hero-centered::before { display: none; }
 }
 @media (prefers-reduced-motion: reduce) {
   .hc-svg .hc-particles { display: none; }
