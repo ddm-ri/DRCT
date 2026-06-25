@@ -110,44 +110,115 @@
 <div class="landing-new loaded hero-split-outer" style="background-image: linear-gradient(135deg, rgba(42,138,234,0.15) 0%, rgba(42,138,234,0.04) 100%); overflow: hidden;">
   <section class="hero-centered">
 
-    <!-- SVG data-flow: 4 clean paths, 2 above text zone, 2 below -->
+    <!-- SVG mesh: field of nodes representing a shared digital ecosystem -->
     <svg class="hc-svg" viewBox="0 0 1440 680" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+      <defs>
+        <filter id="hc-glow" x="-100%" y="-100%" width="300%" height="300%">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="1.8" result="blur"/>
+          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
 
-      <!-- ── Lines: above text ──────────────────────────────────────── -->
-      <!-- Asymmetric control points give each path its own gentle character -->
-      <g fill="none" stroke="#2a8aea" stroke-opacity="0.11">
-        <!-- Wide upper arc — rises early, lingers, gentle rightward lean -->
-        <path stroke-width="0.95" d="M 69 94 C 462 38 1106 48 1327 76"/>
-        <!-- Tighter upper arc — peaks slightly left of center, softer curve -->
-        <path stroke-width="0.75" d="M 299 176 C 554 112 1002 134 1226 185"/>
+      <!-- Sparse local connections — nearby nodes only, no routes -->
+      <g fill="none" stroke="#2a8aea" stroke-width="0.55" stroke-opacity="0.07">
+        <line x1="140"  y1="48"  x2="340"  y2="66"/>
+        <line x1="580"  y1="84"  x2="760"  y2="46"/>
+        <line x1="960"  y1="78"  x2="1140" y2="58"/>
+        <line x1="460"  y1="120" x2="664"  y2="158"/>
+        <line x1="856"  y1="134" x2="1054" y2="150"/>
+        <line x1="42"   y1="228" x2="158"  y2="270"/>
+        <line x1="1282" y1="404" x2="1382" y2="328"/>
+        <line x1="112"  y1="532" x2="316"  y2="550"/>
+        <line x1="718"  y1="558" x2="922"  y2="522"/>
+        <line x1="1102" y1="546" x2="1298" y2="518"/>
+        <line x1="438"  y1="606" x2="638"  y2="646"/>
+        <line x1="838"  y1="610" x2="1038" y2="636"/>
       </g>
 
-      <!-- ── Lines: below text ──────────────────────────────────────── -->
-      <g fill="none" stroke="#2a8aea" stroke-opacity="0.11">
-        <!-- Lower arc — dips left-center, less symmetrical descent -->
-        <path stroke-width="0.95" d="M 69 482 C 358 548 1004 556 1231 444"/>
-        <!-- Gentle lower sweep — peaks right, gradual and organic -->
-        <path stroke-width="0.75" d="M 285 586 C 640 630 1064 616 1327 648"/>
-      </g>
+      <!-- Node field — 37 nodes, varied size and opacity -->
+      <g class="hc-particles" fill="#2a8aea" filter="url(#hc-glow)">
 
-      <!-- ── Fixed pulsing dots at path midpoints ───────────────────── -->
-      <g class="hc-particles" fill="#2a8aea">
-        <circle cx="760" cy="53" r="2" opacity="0.3">
-          <animate attributeName="r" values="2;3;2" dur="4s" repeatCount="indefinite" begin="0s"/>
-          <animate attributeName="opacity" values="0.3;0.6;0.3" dur="4s" repeatCount="indefinite" begin="0s"/>
+        <!-- ── Upper band, y 40–165 ──────────────────────────────── -->
+        <circle cx="140"  cy="48"  r="2.0" opacity="0.34">
+          <animate attributeName="opacity" values="0.34;0.56;0.34" dur="5.2s" repeatCount="indefinite" begin="0s"/>
         </circle>
-        <circle cx="774" cy="137" r="2" opacity="0.3">
-          <animate attributeName="r" values="2;3;2" dur="4.8s" repeatCount="indefinite" begin="1.6s"/>
-          <animate attributeName="opacity" values="0.3;0.6;0.3" dur="4.8s" repeatCount="indefinite" begin="1.6s"/>
+        <circle cx="340"  cy="66"  r="1.4" opacity="0.20"/>
+        <circle cx="580"  cy="84"  r="2.2" opacity="0.30">
+          <animate attributeName="opacity" values="0.30;0.52;0.30" dur="4.8s" repeatCount="indefinite" begin="1.3s"/>
         </circle>
-        <circle cx="673" cy="528" r="2" opacity="0.3">
-          <animate attributeName="r" values="2;3;2" dur="4.2s" repeatCount="indefinite" begin="0.8s"/>
-          <animate attributeName="opacity" values="0.3;0.6;0.3" dur="4.2s" repeatCount="indefinite" begin="0.8s"/>
+        <circle cx="760"  cy="46"  r="1.5" opacity="0.18"/>
+        <circle cx="960"  cy="78"  r="1.8" opacity="0.28">
+          <animate attributeName="opacity" values="0.28;0.50;0.28" dur="5.6s" repeatCount="indefinite" begin="0.7s"/>
         </circle>
-        <circle cx="841" cy="622" r="2" opacity="0.3">
-          <animate attributeName="r" values="2;3;2" dur="4.6s" repeatCount="indefinite" begin="2.4s"/>
-          <animate attributeName="opacity" values="0.3;0.6;0.3" dur="4.6s" repeatCount="indefinite" begin="2.4s"/>
+        <circle cx="1140" cy="58"  r="1.4" opacity="0.20"/>
+        <circle cx="1322" cy="82"  r="2.0" opacity="0.30">
+          <animate attributeName="opacity" values="0.30;0.52;0.30" dur="4.6s" repeatCount="indefinite" begin="2.1s"/>
         </circle>
+        <circle cx="248"  cy="140" r="1.6" opacity="0.22"/>
+        <circle cx="460"  cy="120" r="2.0" opacity="0.32">
+          <animate attributeName="opacity" values="0.32;0.54;0.32" dur="5.0s" repeatCount="indefinite" begin="1.8s"/>
+        </circle>
+        <circle cx="664"  cy="158" r="1.4" opacity="0.18"/>
+        <circle cx="856"  cy="134" r="2.2" opacity="0.28">
+          <animate attributeName="opacity" values="0.28;0.50;0.28" dur="4.4s" repeatCount="indefinite" begin="0.4s"/>
+        </circle>
+        <circle cx="1054" cy="150" r="1.6" opacity="0.22"/>
+        <circle cx="1238" cy="136" r="1.8" opacity="0.26">
+          <animate attributeName="opacity" values="0.26;0.46;0.26" dur="5.8s" repeatCount="indefinite" begin="3.2s"/>
+        </circle>
+
+        <!-- ── Left fringe, y 220–460 ────────────────────────────── -->
+        <circle cx="42"   cy="228" r="1.6" opacity="0.22">
+          <animate attributeName="opacity" values="0.22;0.42;0.22" dur="5.0s" repeatCount="indefinite" begin="1.5s"/>
+        </circle>
+        <circle cx="158"  cy="270" r="1.8" opacity="0.26"/>
+        <circle cx="76"   cy="342" r="1.4" opacity="0.16"/>
+        <circle cx="196"  cy="390" r="1.8" opacity="0.24">
+          <animate attributeName="opacity" values="0.24;0.44;0.24" dur="4.6s" repeatCount="indefinite" begin="2.7s"/>
+        </circle>
+        <circle cx="116"  cy="456" r="1.5" opacity="0.18"/>
+
+        <!-- ── Right fringe, y 208–472 ───────────────────────────── -->
+        <circle cx="1382" cy="208" r="1.8" opacity="0.24">
+          <animate attributeName="opacity" values="0.24;0.44;0.24" dur="5.2s" repeatCount="indefinite" begin="0.9s"/>
+        </circle>
+        <circle cx="1260" cy="268" r="1.4" opacity="0.18"/>
+        <circle cx="1382" cy="328" r="2.0" opacity="0.28">
+          <animate attributeName="opacity" values="0.28;0.50;0.28" dur="4.4s" repeatCount="indefinite" begin="2.3s"/>
+        </circle>
+        <circle cx="1282" cy="404" r="1.6" opacity="0.20"/>
+        <circle cx="1382" cy="472" r="1.4" opacity="0.16"/>
+
+        <!-- ── Lower band, y 510–652 ─────────────────────────────── -->
+        <circle cx="112"  cy="532" r="1.8" opacity="0.26">
+          <animate attributeName="opacity" values="0.26;0.48;0.26" dur="4.6s" repeatCount="indefinite" begin="0.6s"/>
+        </circle>
+        <circle cx="316"  cy="550" r="1.4" opacity="0.18"/>
+        <circle cx="518"  cy="510" r="2.0" opacity="0.30">
+          <animate attributeName="opacity" values="0.30;0.52;0.30" dur="5.2s" repeatCount="indefinite" begin="2.5s"/>
+        </circle>
+        <circle cx="718"  cy="558" r="2.2" opacity="0.26">
+          <animate attributeName="opacity" values="0.26;0.46;0.26" dur="4.8s" repeatCount="indefinite" begin="1.1s"/>
+        </circle>
+        <circle cx="922"  cy="522" r="1.6" opacity="0.20"/>
+        <circle cx="1102" cy="546" r="1.8" opacity="0.26">
+          <animate attributeName="opacity" values="0.26;0.48;0.26" dur="5.4s" repeatCount="indefinite" begin="1.7s"/>
+        </circle>
+        <circle cx="1298" cy="518" r="1.4" opacity="0.18"/>
+        <circle cx="198"  cy="622" r="1.6" opacity="0.20"/>
+        <circle cx="438"  cy="606" r="2.0" opacity="0.26">
+          <animate attributeName="opacity" values="0.26;0.46;0.26" dur="4.2s" repeatCount="indefinite" begin="2.9s"/>
+        </circle>
+        <circle cx="638"  cy="646" r="1.4" opacity="0.16"/>
+        <circle cx="838"  cy="610" r="2.2" opacity="0.24">
+          <animate attributeName="opacity" values="0.24;0.44;0.24" dur="5.6s" repeatCount="indefinite" begin="0.2s"/>
+        </circle>
+        <circle cx="1038" cy="636" r="1.6" opacity="0.18"/>
+        <circle cx="1218" cy="618" r="1.8" opacity="0.22">
+          <animate attributeName="opacity" values="0.22;0.42;0.22" dur="4.8s" repeatCount="indefinite" begin="3.5s"/>
+        </circle>
+        <circle cx="1386" cy="648" r="1.4" opacity="0.16"/>
+
       </g>
     </svg>
 
