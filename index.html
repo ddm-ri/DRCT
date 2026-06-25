@@ -113,147 +113,81 @@
     <!-- SVG data-flow connections: airlines → hub → sellers -->
     <svg class="hc-svg" viewBox="0 0 1440 560" preserveAspectRatio="none" aria-hidden="true" focusable="false">
       <defs>
-        <!-- Particle glow filter -->
-        <filter id="hc-ptcl-glow" x="-150%" y="-150%" width="400%" height="400%">
+        <filter id="hc-dot-glow" x="-200%" y="-200%" width="500%" height="500%">
           <feGaussianBlur in="SourceGraphic" stdDeviation="2" result="blur"/>
           <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
         </filter>
-        <!-- Gradient: airline side (left→hub) -->
-        <linearGradient id="hc-grad-al" x1="0%" y1="0%" x2="100%" y2="0%" gradientUnits="objectBoundingBox">
-          <stop offset="0%" stop-color="#2a8aea" stop-opacity="0.03"/>
-          <stop offset="100%" stop-color="#2a8aea" stop-opacity="0.18"/>
-        </linearGradient>
-        <!-- Gradient: seller side (hub→right) -->
-        <linearGradient id="hc-grad-sel" x1="0%" y1="0%" x2="100%" y2="0%" gradientUnits="objectBoundingBox">
-          <stop offset="0%" stop-color="#2a8aea" stop-opacity="0.18"/>
-          <stop offset="100%" stop-color="#2a8aea" stop-opacity="0.03"/>
-        </linearGradient>
       </defs>
 
-      <!-- ── Airline → Hub connection paths ───────────────────────── -->
-      <!-- Lufthansa (69,85) → hub (720,280) -->
-      <path id="hc-a1" d="M 69 85 C 342 85 447 280 720 280"  fill="none" stroke="url(#hc-grad-al)" stroke-width="1.2"/>
-      <!-- British Airways (170,253) → hub -->
-      <path id="hc-a2" d="M 170 253 C 401 253 489 280 720 280" fill="none" stroke="url(#hc-grad-al)" stroke-width="1.2"/>
-      <!-- Emirates (69,404) → hub -->
-      <path id="hc-a3" d="M 69 404 C 342 404 447 280 720 280" fill="none" stroke="url(#hc-grad-al)" stroke-width="1.2"/>
-      <!-- LOT (285,475) → hub -->
-      <path id="hc-a4" d="M 285 475 C 468 475 537 280 720 280" fill="none" stroke="url(#hc-grad-al)" stroke-width="1.2"/>
-      <!-- KLM (299,152) → hub -->
-      <path id="hc-a5" d="M 299 152 C 476 152 543 280 720 280" fill="none" stroke="url(#hc-grad-al)" stroke-width="1.2"/>
+      <!-- ── Connection lines — very subtle, barely perceptible ─────── -->
+      <g fill="none" stroke="#2a8aea" stroke-width="0.8" stroke-opacity="0.12">
+        <path d="M 69 85  C 342 85  447 280 720 280"/>
+        <path d="M 170 253 C 401 253 489 280 720 280"/>
+        <path d="M 69 404 C 342 404 447 280 720 280"/>
+        <path d="M 285 475 C 468 475 537 280 720 280"/>
+        <path d="M 299 152 C 476 152 543 280 720 280"/>
+        <path d="M 720 280 C 980 280  1078 67  1338 67"/>
+        <path d="M 720 280 C 930 280  1011 156 1221 156"/>
+        <path d="M 720 280 C 969 280  1063 268 1312 268"/>
+        <path d="M 720 280 C 935 280  1017 369 1232 369"/>
+        <path d="M 720 280 C 974 280  1071 493 1325 493"/>
+      </g>
 
-      <!-- ── Hub → Seller connection paths ────────────────────────── -->
-      <!-- hub → OTAs (1338,67) -->
-      <path id="hc-s1" d="M 720 280 C 980 280 1078 67 1338 67"   fill="none" stroke="url(#hc-grad-sel)" stroke-width="1.2"/>
-      <!-- hub → Travel Agencies (1221,156) -->
-      <path id="hc-s2" d="M 720 280 C 930 280 1011 156 1221 156"  fill="none" stroke="url(#hc-grad-sel)" stroke-width="1.2"/>
-      <!-- hub → Corporate & TMCs (1312,268) -->
-      <path id="hc-s3" d="M 720 280 C 969 280 1063 268 1312 268"  fill="none" stroke="url(#hc-grad-sel)" stroke-width="1.2"/>
-      <!-- hub → Super Apps (1232,369) -->
-      <path id="hc-s4" d="M 720 280 C 935 280 1017 369 1232 369"  fill="none" stroke="url(#hc-grad-sel)" stroke-width="1.2"/>
-      <!-- hub → Aggregators (1325,493) -->
-      <path id="hc-s5" d="M 720 280 C 974 280 1071 493 1325 493"  fill="none" stroke="url(#hc-grad-sel)" stroke-width="1.2"/>
-
-      <!-- ── Animated data particles ───────────────────────────────── -->
-      <g filter="url(#hc-ptcl-glow)">
-        <!-- AL1 — Lufthansa path -->
-        <circle r="2.8" fill="#2a8aea">
-          <animateMotion dur="2.4s" repeatCount="indefinite" begin="0s"><mpath href="#hc-a1"/></animateMotion>
-          <animate attributeName="opacity" values="0;0.7;0.7;0" keyTimes="0;0.08;0.88;1" dur="2.4s" repeatCount="indefinite" begin="0s"/>
+      <!-- ── Pulsing dots — outer zones only, never over text ──────── -->
+      <!-- Dot coordinates sit at ~t=0.10–0.15 on airline paths          -->
+      <!-- and ~t=0.80–0.85 on seller paths, keeping clear of the         -->
+      <!-- center text block (approx x 390–1050 in this viewBox).         -->
+      <g filter="url(#hc-dot-glow)">
+        <!-- AL1 Lufthansa →  t≈0.10  (146, 90) -->
+        <circle cx="146" cy="90" r="2.5" fill="#2a8aea">
+          <animate attributeName="r"       values="2;3.4;2"         dur="3.0s" repeatCount="indefinite" begin="0s"/>
+          <animate attributeName="opacity" values="0.35;0.8;0.35"   dur="3.0s" repeatCount="indefinite" begin="0s"/>
         </circle>
-        <circle r="2.8" fill="#2a8aea">
-          <animateMotion dur="2.4s" repeatCount="indefinite" begin="1.2s"><mpath href="#hc-a1"/></animateMotion>
-          <animate attributeName="opacity" values="0;0.7;0.7;0" keyTimes="0;0.08;0.88;1" dur="2.4s" repeatCount="indefinite" begin="1.2s"/>
+        <!-- AL2 British Airways  t≈0.10  (235, 254) -->
+        <circle cx="235" cy="254" r="2.5" fill="#2a8aea">
+          <animate attributeName="r"       values="2;3.4;2"         dur="2.7s" repeatCount="indefinite" begin="0.55s"/>
+          <animate attributeName="opacity" values="0.35;0.8;0.35"   dur="2.7s" repeatCount="indefinite" begin="0.55s"/>
         </circle>
-
-        <!-- AL2 — British Airways path -->
-        <circle r="2.8" fill="#2a8aea">
-          <animateMotion dur="1.9s" repeatCount="indefinite" begin="0.4s"><mpath href="#hc-a2"/></animateMotion>
-          <animate attributeName="opacity" values="0;0.7;0.7;0" keyTimes="0;0.08;0.88;1" dur="1.9s" repeatCount="indefinite" begin="0.4s"/>
+        <!-- AL3 Emirates         t≈0.10  (146, 390) -->
+        <circle cx="146" cy="390" r="2.5" fill="#2a8aea">
+          <animate attributeName="r"       values="2;3.4;2"         dur="3.2s" repeatCount="indefinite" begin="1.1s"/>
+          <animate attributeName="opacity" values="0.35;0.8;0.35"   dur="3.2s" repeatCount="indefinite" begin="1.1s"/>
         </circle>
-        <circle r="2.8" fill="#2a8aea">
-          <animateMotion dur="1.9s" repeatCount="indefinite" begin="1.35s"><mpath href="#hc-a2"/></animateMotion>
-          <animate attributeName="opacity" values="0;0.7;0.7;0" keyTimes="0;0.08;0.88;1" dur="1.9s" repeatCount="indefinite" begin="1.35s"/>
+        <!-- AL4 LOT              t≈0.15  (360, 463) -->
+        <circle cx="360" cy="463" r="2.5" fill="#2a8aea">
+          <animate attributeName="r"       values="2;3.4;2"         dur="2.9s" repeatCount="indefinite" begin="0.8s"/>
+          <animate attributeName="opacity" values="0.35;0.8;0.35"   dur="2.9s" repeatCount="indefinite" begin="0.8s"/>
         </circle>
-
-        <!-- AL3 — Emirates path -->
-        <circle r="2.8" fill="#2a8aea">
-          <animateMotion dur="2.4s" repeatCount="indefinite" begin="0.75s"><mpath href="#hc-a3"/></animateMotion>
-          <animate attributeName="opacity" values="0;0.7;0.7;0" keyTimes="0;0.08;0.88;1" dur="2.4s" repeatCount="indefinite" begin="0.75s"/>
-        </circle>
-        <circle r="2.8" fill="#2a8aea">
-          <animateMotion dur="2.4s" repeatCount="indefinite" begin="1.95s"><mpath href="#hc-a3"/></animateMotion>
-          <animate attributeName="opacity" values="0;0.7;0.7;0" keyTimes="0;0.08;0.88;1" dur="2.4s" repeatCount="indefinite" begin="1.95s"/>
+        <!-- AL5 KLM              t≈0.15  (371, 160) -->
+        <circle cx="371" cy="160" r="2.5" fill="#2a8aea">
+          <animate attributeName="r"       values="2;3.4;2"         dur="2.6s" repeatCount="indefinite" begin="1.65s"/>
+          <animate attributeName="opacity" values="0.35;0.8;0.35"   dur="2.6s" repeatCount="indefinite" begin="1.65s"/>
         </circle>
 
-        <!-- AL4 — LOT path -->
-        <circle r="2.8" fill="#2a8aea">
-          <animateMotion dur="2.0s" repeatCount="indefinite" begin="1.05s"><mpath href="#hc-a4"/></animateMotion>
-          <animate attributeName="opacity" values="0;0.7;0.7;0" keyTimes="0;0.08;0.88;1" dur="2.0s" repeatCount="indefinite" begin="1.05s"/>
+        <!-- S1 OTAs              t≈0.82  (1199, 89) -->
+        <circle cx="1199" cy="89" r="2.5" fill="#2a8aea">
+          <animate attributeName="r"       values="2;3.4;2"         dur="2.8s" repeatCount="indefinite" begin="0.3s"/>
+          <animate attributeName="opacity" values="0.35;0.8;0.35"   dur="2.8s" repeatCount="indefinite" begin="0.3s"/>
         </circle>
-        <circle r="2.8" fill="#2a8aea">
-          <animateMotion dur="2.0s" repeatCount="indefinite" begin="2.05s"><mpath href="#hc-a4"/></animateMotion>
-          <animate attributeName="opacity" values="0;0.7;0.7;0" keyTimes="0;0.08;0.88;1" dur="2.0s" repeatCount="indefinite" begin="2.05s"/>
+        <!-- S2 Travel Agencies   t≈0.82  (1108, 169) -->
+        <circle cx="1108" cy="169" r="2.5" fill="#2a8aea">
+          <animate attributeName="r"       values="2;3.4;2"         dur="3.1s" repeatCount="indefinite" begin="1.4s"/>
+          <animate attributeName="opacity" values="0.35;0.8;0.35"   dur="3.1s" repeatCount="indefinite" begin="1.4s"/>
         </circle>
-
-        <!-- AL5 — KLM path -->
-        <circle r="2.8" fill="#2a8aea">
-          <animateMotion dur="1.85s" repeatCount="indefinite" begin="0.2s"><mpath href="#hc-a5"/></animateMotion>
-          <animate attributeName="opacity" values="0;0.7;0.7;0" keyTimes="0;0.08;0.88;1" dur="1.85s" repeatCount="indefinite" begin="0.2s"/>
+        <!-- S3 Corporate & TMCs  t≈0.82  (1179, 269) -->
+        <circle cx="1179" cy="269" r="2.5" fill="#2a8aea">
+          <animate attributeName="r"       values="2;3.4;2"         dur="2.5s" repeatCount="indefinite" begin="0.6s"/>
+          <animate attributeName="opacity" values="0.35;0.8;0.35"   dur="2.5s" repeatCount="indefinite" begin="0.6s"/>
         </circle>
-        <circle r="2.8" fill="#2a8aea">
-          <animateMotion dur="1.85s" repeatCount="indefinite" begin="1.12s"><mpath href="#hc-a5"/></animateMotion>
-          <animate attributeName="opacity" values="0;0.7;0.7;0" keyTimes="0;0.08;0.88;1" dur="1.85s" repeatCount="indefinite" begin="1.12s"/>
+        <!-- S4 Super Apps        t≈0.82  (1117, 360) -->
+        <circle cx="1117" cy="360" r="2.5" fill="#2a8aea">
+          <animate attributeName="r"       values="2;3.4;2"         dur="3.0s" repeatCount="indefinite" begin="2.0s"/>
+          <animate attributeName="opacity" values="0.35;0.8;0.35"   dur="3.0s" repeatCount="indefinite" begin="2.0s"/>
         </circle>
-
-        <!-- S1 — OTAs path -->
-        <circle r="2.8" fill="#2a8aea">
-          <animateMotion dur="2.3s" repeatCount="indefinite" begin="0.3s"><mpath href="#hc-s1"/></animateMotion>
-          <animate attributeName="opacity" values="0;0.7;0.7;0" keyTimes="0;0.08;0.88;1" dur="2.3s" repeatCount="indefinite" begin="0.3s"/>
-        </circle>
-        <circle r="2.8" fill="#2a8aea">
-          <animateMotion dur="2.3s" repeatCount="indefinite" begin="1.45s"><mpath href="#hc-s1"/></animateMotion>
-          <animate attributeName="opacity" values="0;0.7;0.7;0" keyTimes="0;0.08;0.88;1" dur="2.3s" repeatCount="indefinite" begin="1.45s"/>
-        </circle>
-
-        <!-- S2 — Travel Agencies path -->
-        <circle r="2.8" fill="#2a8aea">
-          <animateMotion dur="1.75s" repeatCount="indefinite" begin="0.65s"><mpath href="#hc-s2"/></animateMotion>
-          <animate attributeName="opacity" values="0;0.7;0.7;0" keyTimes="0;0.08;0.88;1" dur="1.75s" repeatCount="indefinite" begin="0.65s"/>
-        </circle>
-        <circle r="2.8" fill="#2a8aea">
-          <animateMotion dur="1.75s" repeatCount="indefinite" begin="1.52s"><mpath href="#hc-s2"/></animateMotion>
-          <animate attributeName="opacity" values="0;0.7;0.7;0" keyTimes="0;0.08;0.88;1" dur="1.75s" repeatCount="indefinite" begin="1.52s"/>
-        </circle>
-
-        <!-- S3 — Corporate & TMCs path -->
-        <circle r="2.8" fill="#2a8aea">
-          <animateMotion dur="2.05s" repeatCount="indefinite" begin="0.1s"><mpath href="#hc-s3"/></animateMotion>
-          <animate attributeName="opacity" values="0;0.7;0.7;0" keyTimes="0;0.08;0.88;1" dur="2.05s" repeatCount="indefinite" begin="0.1s"/>
-        </circle>
-        <circle r="2.8" fill="#2a8aea">
-          <animateMotion dur="2.05s" repeatCount="indefinite" begin="1.12s"><mpath href="#hc-s3"/></animateMotion>
-          <animate attributeName="opacity" values="0;0.7;0.7;0" keyTimes="0;0.08;0.88;1" dur="2.05s" repeatCount="indefinite" begin="1.12s"/>
-        </circle>
-
-        <!-- S4 — Super Apps path -->
-        <circle r="2.8" fill="#2a8aea">
-          <animateMotion dur="1.8s" repeatCount="indefinite" begin="0.85s"><mpath href="#hc-s4"/></animateMotion>
-          <animate attributeName="opacity" values="0;0.7;0.7;0" keyTimes="0;0.08;0.88;1" dur="1.8s" repeatCount="indefinite" begin="0.85s"/>
-        </circle>
-        <circle r="2.8" fill="#2a8aea">
-          <animateMotion dur="1.8s" repeatCount="indefinite" begin="1.75s"><mpath href="#hc-s4"/></animateMotion>
-          <animate attributeName="opacity" values="0;0.7;0.7;0" keyTimes="0;0.08;0.88;1" dur="1.8s" repeatCount="indefinite" begin="1.75s"/>
-        </circle>
-
-        <!-- S5 — Aggregators path -->
-        <circle r="2.8" fill="#2a8aea">
-          <animateMotion dur="2.35s" repeatCount="indefinite" begin="0.5s"><mpath href="#hc-s5"/></animateMotion>
-          <animate attributeName="opacity" values="0;0.7;0.7;0" keyTimes="0;0.08;0.88;1" dur="2.35s" repeatCount="indefinite" begin="0.5s"/>
-        </circle>
-        <circle r="2.8" fill="#2a8aea">
-          <animateMotion dur="2.35s" repeatCount="indefinite" begin="1.67s"><mpath href="#hc-s5"/></animateMotion>
-          <animate attributeName="opacity" values="0;0.7;0.7;0" keyTimes="0;0.08;0.88;1" dur="2.35s" repeatCount="indefinite" begin="1.67s"/>
+        <!-- S5 Aggregators       t≈0.82  (1189, 471) -->
+        <circle cx="1189" cy="471" r="2.5" fill="#2a8aea">
+          <animate attributeName="r"       values="2;3.4;2"         dur="2.8s" repeatCount="indefinite" begin="1.2s"/>
+          <animate attributeName="opacity" values="0.35;0.8;0.35"   dur="2.8s" repeatCount="indefinite" begin="1.2s"/>
         </circle>
       </g>
     </svg>

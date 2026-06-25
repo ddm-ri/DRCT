@@ -774,7 +774,7 @@
   .hero-centered { min-height: auto; padding: 60px 20px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .hc-svg circle { display: none; }
+  .hc-svg circle animate { display: none; }
   .hc-hub__ring--a, .hc-hub__ring--b { display: none; }
   .hc-hub__glow { animation: none; }
 }
