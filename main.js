@@ -328,12 +328,11 @@ document.addEventListener('DOMContentLoaded', function () {
   var benefitItems   = document.querySelectorAll('.benefit__item');
   var showingAll     = false;
 
-  // Initially hide items 4-6 (indices 3-5)
-  benefitItems.forEach(function (item, i) {
-    if (i >= 3) item.classList.add('hidden');
-  });
-
+  // Only hide items when a toggle button exists (grid layout shows all)
   if (benefitsToggle) {
+    benefitItems.forEach(function (item, i) {
+      if (i >= 3) item.classList.add('hidden');
+    });
     benefitsToggle.addEventListener('click', function (e) {
       e.preventDefault();
       showingAll = !showingAll;
