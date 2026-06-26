@@ -332,8 +332,26 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   /* ---------------------------------------------------------------
-     TESTIMONIALS — both cards always visible; arrows are hover-only
+     TESTIMONIALS — peek slider, blue progress bar, hover arrows
   --------------------------------------------------------------- */
+  var tcSlider       = document.getElementById('tcSlider');
+  var tcTrack        = document.getElementById('tcTrack');
+  var tcProgressFill = document.getElementById('tcProgressFill');
+  var tcCards        = document.querySelectorAll('.tc-card');
+  var tcIndex        = 0;
+  var tcTotal        = tcCards.length;
+
+  function goToTc(idx) {
+    tcIndex = (idx + tcTotal) % tcTotal;
+    var cardWidth = tcSlider ? tcSlider.offsetWidth * 0.88 : 0;
+    if (tcTrack) tcTrack.style.transform = 'translateX(-' + (tcIndex * (cardWidth + 24)) + 'px)';
+    if (tcProgressFill) tcProgressFill.style.width = ((tcIndex + 1) / tcTotal * 100) + '%';
+  }
+
+  var tcPrev = document.getElementById('tcPrev');
+  var tcNext = document.getElementById('tcNext');
+  if (tcPrev) tcPrev.addEventListener('click', function () { goToTc(tcIndex - 1); });
+  if (tcNext) tcNext.addEventListener('click', function () { goToTc(tcIndex + 1); });
 
   /* ---------------------------------------------------------------
      BENEFITS — SHOW MORE / HIDE

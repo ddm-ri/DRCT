@@ -1732,56 +1732,58 @@
   max-width: 620px;
 }
 
-/* Slider container — hover target for side arrows */
+/* Slider container — clips track, hover target for arrows */
 .tc-slider {
+  border-radius: 16px;
+  overflow: hidden;
   position: relative;
 }
 
-/* Two-card track — both cards always visible */
+/* Scrolling track — peek layout */
 .tc-track {
-  align-items: stretch;
   display: flex;
   gap: 24px;
+  transition: transform 0.38s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  will-change: transform;
 }
 
-/* Individual card — vertical layout: text top, image bottom */
+/* Individual card — horizontal layout: text left, photo right */
+/* Card is 88% of slider width so next card peeks ~8% on the right */
 .tc-card {
-  background: var(--gray-light);
+  background: linear-gradient(135deg, rgba(42,138,234,0.15) 0%, rgba(42,138,234,0.04) 100%);
   border-radius: 16px;
-  display: flex;
-  flex: 1 1 0;
-  flex-direction: column;
-  min-width: 0;
+  display: grid;
+  flex: 0 0 88%;
+  grid-template-columns: 57% 43%;
   overflow: hidden;
 }
 
-/* Top: text content */
+/* Left: text content */
 .tc-card__text {
   display: flex;
-  flex: 1;
   flex-direction: column;
-  padding: 32px 32px 28px;
+  padding: 28px 28px 28px 32px;
 }
 
 .tc-card__logo {
-  height: 44px;
-  margin-bottom: 20px;
-  max-width: 180px;
+  height: 40px;
+  margin-bottom: 16px;
+  max-width: 160px;
   object-fit: contain;
   object-position: left center;
   width: auto;
 }
 
-.tc-card[data-index="1"] .tc-card__logo { height: 52px; }
+.tc-card[data-index="1"] .tc-card__logo { height: 48px; }
 
 .tc-card__quote {
   color: var(--dark);
   flex: 1;
-  font-size: 18px;
+  font-size: 15px;
   font-style: normal;
   font-weight: 500;
   line-height: 1.6;
-  margin: 0 0 24px;
+  margin: 0 0 20px;
 }
 
 .tc-card__author {
@@ -1792,19 +1794,17 @@
 
 .tc-card__name {
   color: var(--dark);
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 700;
 }
 
 .tc-card__role {
   color: var(--dark-70);
-  font-size: 13px;
+  font-size: 12px;
 }
 
-/* Bottom: airline photo */
+/* Right: airline photo */
 .tc-card__fig {
-  flex-shrink: 0;
-  height: 220px;
   margin: 0;
   overflow: hidden;
 }
@@ -1842,8 +1842,8 @@
   z-index: 2;
 }
 
-.tc-side-btn--prev { left: -20px; }
-.tc-side-btn--next { right: -20px; }
+.tc-side-btn--prev { left: 16px; }
+.tc-side-btn--next { right: 16px; }
 
 .tc-slider:hover .tc-side-btn { opacity: 1; }
 .tc-side-btn:hover { background: rgba(255, 255, 255, 0.98); }
@@ -1853,18 +1853,37 @@
   outline: none;
 }
 
+/* Blue progress bar */
+.tc-progress {
+  background: var(--dark-10);
+  border-radius: 4px;
+  height: 4px;
+  margin-top: 20px;
+  overflow: hidden;
+  width: 100%;
+}
+
+.tc-progress__fill {
+  background: var(--blue);
+  border-radius: 4px;
+  height: 100%;
+  transition: width 0.38s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  width: 50%;
+}
+
 /* Responsive */
 @media (max-width: 767px) {
   .tc-section { padding: 60px 0; }
   .tc-track { flex-direction: column; gap: 16px; }
-  .tc-card__quote { font-size: 17px; }
-  .tc-card__fig { height: 200px; }
+  .tc-card { flex: 0 0 100%; grid-template-columns: 1fr; grid-template-rows: auto auto; }
+  .tc-card__text { order: 2; padding: 24px 24px 28px; }
+  .tc-card__fig { order: 1; height: 180px; }
+  .tc-card__quote { font-size: 15px; }
   .tc-side-btn { display: none; }
 }
 
 @media (max-width: 413px) {
-  .tc-card__text { padding: 24px 20px 20px; }
-  .tc-card__quote { font-size: 16px; }
+  .tc-card__text { padding: 20px 18px 24px; }
 }
 
 /* ── What You Gain — toggle switch ────────────────────────────── */
