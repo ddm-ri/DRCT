@@ -572,8 +572,8 @@ a.inline-link,
    HOW IT WORKS
 ---------------------------------------------------------------- */
 .how {
-  padding-bottom: 90px;
-  padding-top: 90px;
+  padding-bottom: 80px;
+  padding-top: 80px;
   position: relative;
 }
 
@@ -1174,8 +1174,8 @@ a.inline-link,
    ONE PLACE
 ---------------------------------------------------------------- */
 .one-place {
-  padding-bottom: 135px;
-  padding-top: 110px;
+  padding-bottom: 80px;
+  padding-top: 80px;
   position: relative;
 }
 @media (max-width: 767px) {
