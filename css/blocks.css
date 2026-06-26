@@ -115,19 +115,17 @@
 .nav-item--lang { position: relative; }
 @media (max-width: 767px) { .nav-bar__right { display: none; } }
 
-/* Language trigger */
+/* Language trigger — matches nav items */
 .nav-item--lang .nav-item__trigger {
-  font-size: 13px;
-  gap: 5px;
-  opacity: 0.6;
-  padding: 7px 10px;
+  font-size: 14px;
+  font-weight: 500;
+  gap: 4px;
+  padding: 8px 12px;
 }
-.nav-item--lang .nav-item__trigger:hover { opacity: 1; }
 .nav-item--lang .nav-item__trigger:hover,
 .nav-item--lang.nav-item--open .nav-item__trigger {
-  background: rgba(27,39,51,0.055);
-  color: var(--dark);
-  opacity: 1;
+  background: rgba(42,138,234,0.09);
+  color: var(--blue);
 }
 
 /* Language dropdown */
