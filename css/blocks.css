@@ -96,10 +96,13 @@
   transition: background 0.14s, color 0.14s;
   white-space: nowrap;
 }
-.nav-item__link:hover,
-.nav-item__link.active {
+.nav-item__link:hover {
   background: rgba(27,39,51,0.055);
   color: var(--dark);
+}
+.nav-item__link.active {
+  background: var(--blue-10);
+  color: var(--blue);
 }
 
 /* ── Right-side actions ───────────────────────────────────────── */
