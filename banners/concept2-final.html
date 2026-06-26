@@ -1,0 +1,278 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@700&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;}
+body{width:1200px;height:1200px;overflow:hidden;font-family:'Inter',sans-serif;background:#F4F2ED;}
+
+.page{width:1200px;height:1200px;display:flex;flex-direction:column;}
+
+/* ── TOP: problem statement ── */
+.top{background:#111118;padding:52px 64px 48px;position:relative;overflow:hidden;}
+.top-noise{position:absolute;inset:0;background:
+  radial-gradient(ellipse 500px 300px at 80% 50%,rgba(255,95,0,.12) 0%,transparent 70%);
+}
+.top-inner{position:relative;z-index:2;}
+.top-logos{display:flex;align-items:center;gap:14px;margin-bottom:36px;}
+.logo-pill{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:100px;padding:8px 20px;font-size:14px;font-weight:700;color:rgba(255,255,255,.7);display:flex;align-items:center;gap:8px;}
+.logo-dot{width:8px;height:8px;border-radius:50%;background:#FF5F00;}
+.logo-sep{color:rgba(255,255,255,.2);font-size:18px;}
+.ksa-tag{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:100px;padding:8px 18px;font-size:13px;color:rgba(255,255,255,.45);font-weight:600;margin-left:auto;}
+
+.problem-text{font-size:28px;font-weight:700;color:#fff;line-height:1.35;letter-spacing:-0.5px;margin-bottom:16px;max-width:900px;}
+.problem-text em{font-style:normal;color:#FF5F00;}
+
+.answer-text{font-size:18px;font-weight:400;color:rgba(255,255,255,.5);line-height:1.6;max-width:820px;}
+.answer-text b{color:rgba(255,255,255,.85);font-weight:600;}
+
+/* ── MIDDLE: price gap visual ── */
+.middle{flex:1;background:#F4F2ED;padding:36px 64px;display:flex;gap:28px;align-items:center;}
+
+/* GDS card */
+.gds-card{width:310px;flex-shrink:0;background:#1A1A2E;border-radius:20px;overflow:hidden;box-shadow:0 16px 48px rgba(0,0,0,.2);}
+.gds-titlebar{background:#252540;padding:12px 16px;display:flex;align-items:center;gap:8px;}
+.gds-dot{width:11px;height:11px;border-radius:50%;}
+.d-r{background:#FF5F57;} .d-y{background:#FEBC2E;} .d-g{background:#28C840;}
+.gds-title-text{font-family:'JetBrains Mono',monospace;font-size:12px;color:rgba(255,255,255,.35);margin-left:6px;}
+.gds-body{padding:20px 20px 24px;font-family:'JetBrains Mono',monospace;}
+.gds-line{font-size:12px;color:rgba(255,255,255,.25);line-height:2;}
+.gds-route{margin:12px 0 8px;}
+.gds-airports{display:flex;align-items:center;gap:8px;}
+.gds-code{font-size:26px;font-weight:700;color:#fff;letter-spacing:1px;}
+.gds-arr{color:rgba(255,255,255,.25);font-size:14px;}
+.gds-price-block{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:14px 16px;margin-top:12px;}
+.gds-price-lbl{font-size:10px;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px;}
+.gds-price-num{font-size:44px;font-weight:900;font-family:'Inter',sans-serif;color:#FF6B6B;letter-spacing:-2px;line-height:1;}
+.gds-price-cur{font-size:18px;font-weight:700;color:#FF6B6B;}
+.gds-price-sub{font-size:10px;color:rgba(255,255,255,.2);margin-top:4px;font-family:'JetBrains Mono',monospace;}
+.gds-tag{display:inline-block;margin-top:12px;background:rgba(255,150,0,.1);border:1px solid rgba(255,150,0,.2);color:#FFB340;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:4px 10px;border-radius:6px;}
+
+/* Passenger column */
+.passenger-col{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;}
+.bubble{background:#fff;border:2.5px solid #111;border-radius:18px;padding:16px 20px;font-size:16px;font-weight:700;color:#111;text-align:center;line-height:1.45;position:relative;box-shadow:4px 4px 0 #111;max-width:220px;}
+.bubble::after{content:'';position:absolute;bottom:-16px;left:50%;transform:translateX(-50%);border-left:10px solid transparent;border-right:10px solid transparent;border-top:14px solid #111;}
+.bubble::before{content:'';position:absolute;bottom:-11px;left:50%;transform:translateX(-50%);border-left:8px solid transparent;border-right:8px solid transparent;border-top:11px solid #fff;z-index:1;}
+.face-wrap{margin-top:22px;}
+
+/* Site card */
+.site-card{width:310px;flex-shrink:0;background:#fff;border-radius:20px;overflow:hidden;box-shadow:0 16px 48px rgba(0,0,0,.1);border:1.5px solid #E8E8E8;}
+.site-titlebar{background:#F5F5F5;border-bottom:1px solid #E8E8E8;padding:12px 16px;display:flex;align-items:center;gap:8px;}
+.site-title-text{font-size:12px;color:#888;margin-left:6px;}
+.site-urlbar{margin:12px 16px;background:#fff;border:1.5px solid #E0E0E0;border-radius:8px;padding:6px 12px;display:flex;align-items:center;gap:6px;}
+.site-lock{font-size:12px;color:#34C759;}
+.site-url{font-size:12px;color:#555;font-family:'JetBrains Mono',monospace;}
+.site-url span{color:#FF5F00;font-weight:700;}
+.site-body{padding:0 16px 20px;}
+.flight-card{background:#FFF8F4;border:1.5px solid #FFD4B5;border-radius:12px;padding:14px;}
+.flight-head{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
+.airline-logo{width:28px;height:28px;background:linear-gradient(135deg,#FF5F00,#FF9933);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:14px;}
+.airline-name{font-size:13px;font-weight:700;color:#222;}
+.airline-sub{font-size:11px;color:#999;}
+.flight-route{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
+.f-airport{text-align:center;}
+.f-code{font-size:22px;font-weight:900;color:#111;letter-spacing:1px;}
+.f-city{font-size:10px;color:#999;margin-top:2px;}
+.f-line{flex:1;padding:0 8px;display:flex;flex-direction:column;align-items:center;gap:3px;}
+.f-dur{font-size:11px;color:#aaa;}
+.f-bar{width:100%;height:1.5px;background:#DDD;position:relative;}
+.f-bar::after{content:'✈';position:absolute;right:-6px;top:-9px;font-size:12px;color:#FF5F00;}
+.price-row{display:flex;align-items:flex-end;justify-content:space-between;background:#fff;border-radius:8px;padding:12px 14px;}
+.price-lbl{font-size:11px;color:#aaa;margin-bottom:3px;}
+.price-num{font-size:38px;font-weight:900;color:#1A7D3A;letter-spacing:-1.5px;line-height:1;}
+.price-cur{font-size:16px;font-weight:700;color:#1A7D3A;}
+.book-btn{background:#FF5F00;color:#fff;font-size:13px;font-weight:700;padding:10px 16px;border-radius:8px;white-space:nowrap;}
+.site-tag{display:inline-block;margin:10px 0 0;background:rgba(52,199,89,.1);border:1px solid rgba(52,199,89,.25);color:#1A7D3A;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:4px 10px;border-radius:6px;}
+
+/* ── DIFF BAR ── */
+.diff-bar{background:#fff;border-top:2px solid #E8E4DC;border-bottom:2px solid #E8E4DC;padding:20px 64px;display:flex;align-items:center;gap:0;}
+.diff-item{flex:1;text-align:center;}
+.diff-lbl{font-size:11px;font-weight:700;color:#aaa;letter-spacing:2px;text-transform:uppercase;margin-bottom:4px;}
+.diff-val{font-size:36px;font-weight:900;letter-spacing:-1.5px;line-height:1;}
+.diff-val.red{color:#E0392A;}
+.diff-val.green{color:#1A7D3A;}
+.diff-val.orange{color:#FF5F00;}
+.diff-cur{font-size:16px;font-weight:700;}
+.diff-sep{width:1px;height:48px;background:#E8E4DC;}
+.diff-arrow{font-size:20px;color:#ccc;padding:0 20px;}
+
+/* ── BOTTOM: CTA ── */
+.bottom{background:#FF5F00;padding:32px 64px;display:flex;align-items:center;justify-content:space-between;gap:32px;}
+.bottom-text{}
+.bottom-label{font-size:12px;font-weight:700;color:rgba(255,255,255,.6);letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;}
+.bottom-cta{font-size:26px;font-weight:900;color:#fff;line-height:1.2;letter-spacing:-0.5px;}
+.bottom-right{display:flex;align-items:center;gap:20px;flex-shrink:0;}
+.bottom-prize{background:rgba(0,0,0,.2);border-radius:12px;padding:12px 20px;text-align:center;}
+.bp-icon{font-size:20px;}
+.bp-text{font-size:12px;font-weight:700;color:rgba(255,255,255,.8);margin-top:4px;white-space:nowrap;}
+.bottom-btn{background:#fff;color:#FF5F00;font-size:18px;font-weight:900;padding:18px 36px;border-radius:12px;white-space:nowrap;box-shadow:0 6px 20px rgba(0,0,0,.2);}
+</style></head><body>
+<div class="page">
+
+  <!-- TOP: problem statement -->
+  <div class="top">
+    <div class="top-noise"></div>
+    <div class="top-inner">
+      <div class="top-logos">
+        <div class="logo-pill"><div class="logo-dot"></div>Pegasus Airlines</div>
+        <span class="logo-sep">×</span>
+        <div class="logo-pill" style="border-color:rgba(255,255,255,.08);">DRCT</div>
+        <div class="ksa-tag">🇸🇦 KSA Travel Agents · Jul 8, 2025</div>
+      </div>
+      <div class="problem-text">
+        GDS shows one price. Pegasus website shows <em>another.</em><br>
+        Your customer asks why — and you don't have a clear answer.
+      </div>
+      <div class="answer-text">
+        On <b>Jul 8</b>, Pegasus is answering this question directly to KSA travel agents. <b>Live.</b> No marketing slides — just real Q&A.
+      </div>
+    </div>
+  </div>
+
+  <!-- MIDDLE: price comparison -->
+  <div class="middle">
+
+    <!-- GDS terminal -->
+    <div class="gds-card">
+      <div class="gds-titlebar">
+        <div class="gds-dot d-r"></div><div class="gds-dot d-y"></div><div class="gds-dot d-g"></div>
+        <span class="gds-title-text">GDS TERMINAL</span>
+      </div>
+      <div class="gds-body">
+        <div class="gds-line">> AVAIL 08JUL RUHPAR</div>
+        <div class="gds-route">
+          <div class="gds-airports">
+            <span class="gds-code">RUH</span>
+            <span class="gds-arr">──✈──</span>
+            <span class="gds-code">PAR</span>
+          </div>
+        </div>
+        <div class="gds-line">PC 123 · Economy · 08JUL</div>
+        <div class="gds-price-block">
+          <div class="gds-price-lbl">Total fare incl. taxes</div>
+          <div><span class="gds-price-num">1336</span><span class="gds-price-cur"> SAR</span></div>
+          <div class="gds-price-sub">BASE 944 + TAX 392 SAR</div>
+        </div>
+        <div class="gds-tag">⚡ GDS Published Fare</div>
+      </div>
+    </div>
+
+    <!-- Angry passenger -->
+    <div class="passenger-col">
+      <div class="bubble">
+        "Why is it<br>338 SAR cheaper<br>on your website?!"
+      </div>
+      <div class="face-wrap">
+        <svg width="130" height="130" viewBox="0 0 130 130" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="65" cy="74" r="46" fill="#FBBF5A" stroke="#111" stroke-width="3"/>
+          <rect x="52" y="113" width="26" height="15" rx="5" fill="#F5A623" stroke="#111" stroke-width="2.5"/>
+          <path d="M28 128 L52 116 L65 122 L78 116 L102 128" stroke="#111" stroke-width="3" stroke-linecap="round"/>
+          <path d="M22 66 Q24 30 65 28 Q106 30 108 66" fill="#2D2D2D" stroke="#111" stroke-width="2.5"/>
+          <!-- angry brows -->
+          <path d="M38 60 L54 67" stroke="#111" stroke-width="4.5" stroke-linecap="round"/>
+          <path d="M92 60 L76 67" stroke="#111" stroke-width="4.5" stroke-linecap="round"/>
+          <!-- eyes -->
+          <ellipse cx="48" cy="74" rx="9" ry="7" fill="#fff" stroke="#111" stroke-width="2.5"/>
+          <ellipse cx="82" cy="74" rx="9" ry="7" fill="#fff" stroke="#111" stroke-width="2.5"/>
+          <circle cx="50" cy="75" r="5" fill="#111"/>
+          <circle cx="84" cy="75" r="5" fill="#111"/>
+          <!-- angry mouth -->
+          <path d="M46 96 Q65 87 84 96" stroke="#111" stroke-width="3" stroke-linecap="round" fill="none"/>
+          <!-- blush -->
+          <ellipse cx="36" cy="84" rx="9" ry="6" fill="rgba(255,80,80,.3)"/>
+          <ellipse cx="94" cy="84" rx="9" ry="6" fill="rgba(255,80,80,.3)"/>
+          <!-- vein -->
+          <path d="M54 50 Q57 44 62 47 Q64 50 59 53" stroke="#CC0000" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <!-- sweat -->
+          <path d="M106 48 Q111 41 116 48 Q116 55 106 48Z" fill="#7EC8F0" stroke="#111" stroke-width="1.5"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Website card -->
+    <div class="site-card">
+      <div class="site-titlebar">
+        <div class="gds-dot d-r"></div><div class="gds-dot d-y"></div><div class="gds-dot d-g"></div>
+        <span class="site-title-text">Pegasus Airlines — Official Site</span>
+      </div>
+      <div class="site-urlbar">
+        <span class="site-lock">🔒</span>
+        <span class="site-url">flypgs.com/<span>RUH-PAR</span></span>
+      </div>
+      <div class="site-body">
+        <div class="flight-card">
+          <div class="flight-head">
+            <div class="airline-logo">✈</div>
+            <div>
+              <div class="airline-name">Pegasus Airlines</div>
+              <div class="airline-sub">PC 123 · Economy · 08 Jul</div>
+            </div>
+          </div>
+          <div class="flight-route">
+            <div class="f-airport">
+              <div class="f-code">RUH</div>
+              <div class="f-city">Riyadh</div>
+              <div style="font-size:13px;font-weight:700;color:#333;margin-top:4px;">08:30</div>
+            </div>
+            <div class="f-line">
+              <div class="f-dur">6h 45m</div>
+              <div class="f-bar"></div>
+            </div>
+            <div class="f-airport">
+              <div class="f-code">CDG</div>
+              <div class="f-city">Paris</div>
+              <div style="font-size:13px;font-weight:700;color:#333;margin-top:4px;">13:15</div>
+            </div>
+          </div>
+          <div class="price-row">
+            <div>
+              <div class="price-lbl">Per person</div>
+              <div><span class="price-num">998</span><span class="price-cur"> SAR</span></div>
+            </div>
+            <div class="book-btn">Book Now</div>
+          </div>
+        </div>
+        <div class="site-tag">✓ NDC Direct Price</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- DIFF BAR -->
+  <div class="diff-bar">
+    <div class="diff-item">
+      <div class="diff-lbl">GDS price</div>
+      <div class="diff-val red">1336<span class="diff-cur"> SAR</span></div>
+    </div>
+    <div class="diff-arrow">→</div>
+    <div class="diff-item">
+      <div class="diff-lbl">Website price</div>
+      <div class="diff-val green">998<span class="diff-cur"> SAR</span></div>
+    </div>
+    <div class="diff-sep"></div>
+    <div class="diff-item">
+      <div class="diff-lbl">Gap per ticket</div>
+      <div class="diff-val orange">338<span class="diff-cur"> SAR</span></div>
+    </div>
+    <div class="diff-sep"></div>
+    <div class="diff-item">
+      <div class="diff-lbl">10 tickets / week</div>
+      <div class="diff-val" style="color:#111;">13,800<span class="diff-cur" style="color:#888;font-size:13px;"> SAR/mo</span></div>
+    </div>
+  </div>
+
+  <!-- BOTTOM: CTA -->
+  <div class="bottom">
+    <div class="bottom-text">
+      <div class="bottom-label">Free live webinar · July 8, 2025</div>
+      <div class="bottom-cta">Register to sell Pegasus<br>at website price</div>
+    </div>
+    <div class="bottom-right">
+      <div class="bottom-prize">
+        <div class="bp-icon">🏆</div>
+        <div class="bp-text">Win 2× 500 SAR<br>+ round-trip ticket</div>
+      </div>
+      <div class="bottom-btn">Register Free →</div>
+    </div>
+  </div>
+
+</div>
+</body></html>
