@@ -326,10 +326,10 @@ a.inline-link,
    MOBILE MENU
 ---------------------------------------------------------------- */
 .mobile-menu {
-  background: var(--white);
   bottom: 0;
   display: none;
   left: 0;
+  overflow: hidden;
   position: fixed;
   right: 0;
   top: var(--header-h);
@@ -337,25 +337,110 @@ a.inline-link,
 }
 .mobile-menu.open { display: block; }
 
-.menu__links {
-  align-items: center;
+/* Panel system */
+.menu-panel {
+  background: var(--white);
+  bottom: 0;
   display: flex;
   flex-direction: column;
-  position: relative;
-  top: calc(50% - 60px);
-  transform: translateY(-50%);
+  left: 0;
+  overflow-y: auto;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transform: translateX(100%);
+  transition: transform 0.28s cubic-bezier(0.19,1,0.22,1);
 }
-.menu__links li { margin: 12px 0; }
-.menu__links a {
+/* Main panel starts visible */
+#menuMain { transform: translateX(0); }
+/* Main panel pushed left when sub is open */
+#menuMain.menu-panel--pushed { transform: translateX(-30%); }
+/* Active sub-panel slides in */
+.menu-panel--sub.menu-panel--open { transform: translateX(0); }
+
+.menu-panel__nav { flex: 1; }
+
+/* Nav rows */
+.menu-row {
+  align-items: center;
+  background: none;
+  border: none;
+  border-bottom: 1px solid var(--dark-10);
   color: var(--dark);
   cursor: pointer;
-  font-size: 13px;
-  font-weight: 700;
-  opacity: 0.5;
-  text-transform: uppercase;
+  display: flex;
+  font-family: var(--font-sans);
+  font-size: 20px;
+  font-weight: 600;
+  justify-content: space-between;
+  padding: 20px 24px;
+  text-align: left;
+  text-decoration: none;
+  width: 100%;
 }
-.menu__links a.active { cursor: default; opacity: 1; }
-.menu__links a:hover { opacity: 0.7; }
+.menu-row:hover { background: var(--dark-05); }
+.menu-row__chevron { color: var(--dark-40); flex-shrink: 0; }
+
+/* Utility items (Sign In) */
+.menu-row--meta {
+  font-size: 16px;
+  font-weight: 500;
+  gap: 10px;
+  justify-content: flex-start;
+}
+.menu-row--meta svg { color: var(--dark-40); }
+
+/* Divider */
+.menu-divider {
+  border-top: 1px solid var(--dark-10);
+  margin: 8px 0;
+}
+
+/* Sub-panel top header */
+.menu-sub-hd {
+  align-items: center;
+  border-bottom: 1px solid var(--dark-10);
+  display: flex;
+  gap: 12px;
+  padding: 16px 20px;
+}
+.menu-sub-hd__title {
+  color: var(--dark);
+  font-size: 16px;
+  font-weight: 700;
+}
+.menu-back {
+  align-items: center;
+  background: none;
+  border: none;
+  color: var(--dark);
+  cursor: pointer;
+  display: flex;
+  flex-shrink: 0;
+  padding: 4px;
+}
+
+/* Footer CTA */
+.menu-panel__footer {
+  border-top: 1px solid var(--dark-10);
+  margin-top: auto;
+  padding: 20px 24px;
+}
+.menu-panel__cta {
+  background: var(--blue);
+  border-radius: 8px;
+  color: var(--white);
+  display: block;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  padding: 14px 20px;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: opacity 0.14s;
+}
+.menu-panel__cta:hover { opacity: 0.88; }
 
 /* ----------------------------------------------------------------
    HERO (info)

@@ -10,11 +10,42 @@ document.addEventListener('DOMContentLoaded', function () {
   var menuToggle  = document.getElementById('menuToggle');
   var mobileMenu  = document.getElementById('mobileMenu');
 
+  function resetMobilePanels() {
+    var subs = mobileMenu.querySelectorAll('.menu-panel--sub');
+    subs.forEach(function (p) { p.classList.remove('menu-panel--open'); });
+    var main = document.getElementById('menuMain');
+    if (main) main.classList.remove('menu-panel--pushed');
+  }
+
   if (menuToggle && mobileMenu) {
     menuToggle.addEventListener('click', function () {
       var open = mobileMenu.classList.toggle('open');
       menuToggle.classList.toggle('active', open);
       document.body.style.overflow = open ? 'hidden' : '';
+      if (!open) resetMobilePanels();
+    });
+
+    // Drill into sub-panel
+    mobileMenu.addEventListener('click', function (e) {
+      var drillBtn = e.target.closest('[data-open]');
+      if (drillBtn) {
+        var targetId = drillBtn.dataset.open;
+        var target = document.getElementById(targetId);
+        var main = document.getElementById('menuMain');
+        if (target && main) {
+          main.classList.add('menu-panel--pushed');
+          target.classList.add('menu-panel--open');
+        }
+        return;
+      }
+      // Back button
+      var backBtn = e.target.closest('[data-close]');
+      if (backBtn) {
+        var sub = backBtn.closest('.menu-panel--sub');
+        var main = document.getElementById('menuMain');
+        if (sub) sub.classList.remove('menu-panel--open');
+        if (main) main.classList.remove('menu-panel--pushed');
+      }
     });
   }
 
