@@ -345,6 +345,7 @@ a.inline-link,
   flex-direction: column;
   left: 0;
   overflow-y: auto;
+  pointer-events: none;
   position: absolute;
   right: 0;
   top: 0;
@@ -352,11 +353,11 @@ a.inline-link,
   transition: transform 0.28s cubic-bezier(0.19,1,0.22,1);
 }
 /* Main panel starts visible */
-#menuMain { transform: translateX(0); }
+#menuMain { pointer-events: auto; transform: translateX(0); }
 /* Main panel pushed left when sub is open */
-#menuMain.menu-panel--pushed { transform: translateX(-30%); }
+#menuMain.menu-panel--pushed { pointer-events: none; transform: translateX(-30%); }
 /* Active sub-panel slides in */
-.menu-panel--sub.menu-panel--open { transform: translateX(0); }
+.menu-panel--sub.menu-panel--open { pointer-events: auto; transform: translateX(0); }
 
 .menu-panel__nav { flex: 1; }
 
@@ -461,6 +462,21 @@ a.inline-link,
   transition: opacity 0.14s;
 }
 .menu-panel__cta:hover { opacity: 0.88; }
+
+.menu-panel__signin {
+  color: var(--dark-60);
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  margin-top: 12px;
+  text-align: center;
+  text-decoration: none;
+  transition: color 0.14s;
+}
+.menu-panel__signin:hover { color: var(--blue); }
+
+.menu-lang-row--active { color: var(--blue); font-weight: 700; }
+.menu-lang-row--active .menu-row__chevron { display: none; }
 
 /* ----------------------------------------------------------------
    HERO (info)
