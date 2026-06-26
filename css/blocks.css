@@ -1380,7 +1380,7 @@
 }
 .benefits .benefit__item--wide .benefit__text {
   flex: 1;
-  padding: 40px 48px;
+  padding: 24px 48px;
 }
 .benefits .benefit__item--wide .benefit__text h3 {
   font-size: 18px;
@@ -1395,7 +1395,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 32px 40px 32px 16px;
+  padding: 20px 40px 20px 16px;
   align-self: stretch;
 }
 
