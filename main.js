@@ -332,31 +332,8 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   /* ---------------------------------------------------------------
-     TESTIMONIALS SLIDER
+     TESTIMONIALS — both cards always visible; arrows are hover-only
   --------------------------------------------------------------- */
-  var tcTrack   = document.getElementById('tcTrack');
-  var tcCards   = document.querySelectorAll('.tc-card');
-  var tcNavLogos = document.querySelectorAll('.tc-nav__logo');
-  var tcIndex   = 0;
-  var tcTotal   = tcCards.length;
-
-  function goToTc(idx) {
-    tcIndex = (idx + tcTotal) % tcTotal;
-    if (tcTrack) tcTrack.style.transform = 'translateX(-' + (tcIndex * 100) + '%)';
-    tcNavLogos.forEach(function (logo, i) {
-      logo.classList.toggle('tc-nav__logo--active', i === tcIndex);
-    });
-  }
-
-  var tcPrev    = document.getElementById('tcPrev');
-  var tcNext    = document.getElementById('tcNext');
-  var tcNavPrev = document.getElementById('tcNavPrev');
-  var tcNavNext = document.getElementById('tcNavNext');
-
-  if (tcPrev)    tcPrev.addEventListener('click',    function () { goToTc(tcIndex - 1); });
-  if (tcNext)    tcNext.addEventListener('click',    function () { goToTc(tcIndex + 1); });
-  if (tcNavPrev) tcNavPrev.addEventListener('click', function () { goToTc(tcIndex - 1); });
-  if (tcNavNext) tcNavNext.addEventListener('click', function () { goToTc(tcIndex + 1); });
 
   /* ---------------------------------------------------------------
      BENEFITS — SHOW MORE / HIDE

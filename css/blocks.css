@@ -1732,64 +1732,56 @@
   max-width: 620px;
 }
 
-/* Outer slider container — hover target for side arrows */
+/* Slider container — hover target for side arrows */
 .tc-slider {
-  border-radius: 24px;
-  box-shadow: var(--shadow-card);
-  overflow: hidden;
   position: relative;
 }
 
-/* Scrolling track */
+/* Two-card track — both cards always visible */
 .tc-track {
+  align-items: stretch;
   display: flex;
-  transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  will-change: transform;
+  gap: 24px;
 }
 
-/* Individual card */
+/* Individual card — vertical layout: text top, image bottom */
 .tc-card {
-  background: linear-gradient(135deg, rgba(42,138,234,0.15) 0%, rgba(42,138,234,0.04) 100%);
-  display: grid;
-  flex: 0 0 100%;
-  grid-template-columns: 52% 48%;
-  min-height: 440px;
+  background: var(--gray-light);
+  border-radius: 16px;
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
 }
 
-/* Left: text content */
+/* Top: text content */
 .tc-card__text {
   display: flex;
+  flex: 1;
   flex-direction: column;
-  padding: 48px 52px;
-}
-
-.tc-card__eyebrow {
-  color: var(--blue);
-  display: block;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 1.8px;
-  margin-bottom: 16px;
-  text-transform: uppercase;
+  padding: 32px 32px 28px;
 }
 
 .tc-card__logo {
-  height: 52px;
-  margin-bottom: 28px;
+  height: 44px;
+  margin-bottom: 20px;
+  max-width: 180px;
   object-fit: contain;
   object-position: left center;
   width: auto;
-  max-width: 200px;
 }
+
+.tc-card[data-index="1"] .tc-card__logo { height: 52px; }
 
 .tc-card__quote {
   color: var(--dark);
   flex: 1;
-  font-size: 20px;
+  font-size: 18px;
   font-style: normal;
   font-weight: 500;
   line-height: 1.6;
-  margin: 0 0 28px;
+  margin: 0 0 24px;
 }
 
 .tc-card__author {
@@ -1809,14 +1801,15 @@
   font-size: 13px;
 }
 
-/* Right: airline photo */
+/* Bottom: airline photo */
 .tc-card__fig {
+  flex-shrink: 0;
+  height: 220px;
   margin: 0;
-  padding: 32px 32px 32px 0;
+  overflow: hidden;
 }
 
 .tc-card__img {
-  border-radius: 16px;
   display: block;
   height: 100%;
   object-fit: cover;
@@ -1831,109 +1824,46 @@
   align-items: center;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  background: rgba(255, 255, 255, 0.82);
-  border: 1px solid rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid rgba(255, 255, 255, 0.6);
   border-radius: 50%;
-  box-shadow: 0 4px 20px rgba(27, 39, 51, 0.22), 0 1px 4px rgba(27, 39, 51, 0.1);
+  box-shadow: 0 4px 20px rgba(27, 39, 51, 0.18), 0 1px 4px rgba(27, 39, 51, 0.08);
   color: var(--dark);
   cursor: pointer;
   display: flex;
-  height: 48px;
+  height: 44px;
   justify-content: center;
   opacity: 0;
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  transition: opacity 0.2s, background 0.15s, box-shadow 0.15s;
-  width: 48px;
+  transition: opacity 0.2s, background 0.15s;
+  width: 44px;
   z-index: 2;
 }
 
-.tc-side-btn--prev { left: 20px; }
-.tc-side-btn--next { right: 20px; }
+.tc-side-btn--prev { left: -20px; }
+.tc-side-btn--next { right: -20px; }
 
 .tc-slider:hover .tc-side-btn { opacity: 1; }
-.tc-side-btn:hover {
-  background: rgba(255, 255, 255, 0.96);
-  box-shadow: 0 6px 24px rgba(27, 39, 51, 0.28), 0 1px 4px rgba(27, 39, 51, 0.1);
-}
+.tc-side-btn:hover { background: rgba(255, 255, 255, 0.98); }
 .tc-side-btn:focus-visible {
-  box-shadow: 0 0 0 3px rgba(42, 138, 234, 0.2), 0 4px 20px rgba(27, 39, 51, 0.22);
+  box-shadow: 0 0 0 3px rgba(42, 138, 234, 0.2);
   opacity: 1;
   outline: none;
 }
 
-/* Bottom pill navigation */
-.tc-nav {
-  align-items: center;
-  display: flex;
-  gap: 12px;
-  justify-content: center;
-  margin-top: 24px;
-}
-
-.tc-nav__btn {
-  align-items: center;
-  background: none;
-  border: 1.5px solid var(--dark-20);
-  border-radius: 50%;
-  color: var(--dark-40);
-  cursor: pointer;
-  display: flex;
-  height: 34px;
-  justify-content: center;
-  padding: 0;
-  transition: border-color 0.18s, color 0.18s;
-  width: 34px;
-}
-
-.tc-nav__btn:hover {
-  border-color: var(--dark-40);
-  color: var(--dark);
-}
-
-.tc-nav__logos {
-  align-items: center;
-  display: flex;
-  height: 44px;
-  justify-content: center;
-  min-width: 160px;
-}
-
-.tc-nav__logo {
-  display: none;
-  height: 36px;
-  object-fit: contain;
-  object-position: center;
-  width: auto;
-}
-
-.tc-nav__logo--active { display: block; }
-
-.tc-nav__logo--emirates { height: 48px; }
-
 /* Responsive */
-@media (max-width: 1024px) {
-  .tc-card { grid-template-columns: 58% 42%; }
-  .tc-card__text { padding: 36px; }
-  .tc-card__quote { font-size: 18px; }
-}
-
 @media (max-width: 767px) {
   .tc-section { padding: 60px 0; }
-  .tc-card {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto auto;
-    min-height: auto;
-  }
-  .tc-card__text { order: 2; padding: 32px 28px 36px; }
-  .tc-card__fig { aspect-ratio: 16 / 9; order: 1; padding: 16px 16px 0; }
+  .tc-track { flex-direction: column; gap: 16px; }
   .tc-card__quote { font-size: 17px; }
-  .tc-side-btn { height: 40px; opacity: 1; width: 40px; }
+  .tc-card__fig { height: 200px; }
+  .tc-side-btn { display: none; }
 }
 
 @media (max-width: 413px) {
-  .tc-card__text { padding: 28px 20px; }
+  .tc-card__text { padding: 24px 20px 20px; }
   .tc-card__quote { font-size: 16px; }
 }
 
