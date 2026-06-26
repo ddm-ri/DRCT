@@ -1912,18 +1912,20 @@
     border-radius: 16px;
     height: auto;
   }
-  .testi__body { order: 2; padding: 32px 28px 36px; }
+  .testi__body { order: 2; padding: 32px 28px 88px; }
   .testi__fig { order: 1; padding: 16px; aspect-ratio: 16 / 9; }
   .testi__img { border-radius: 12px; }
   .testi__controls { padding-left: 28px; }
   .testi__quote { font-size: 17px; }
   .testi__link { margin-top: 24px; }
+  .testi__arrows { bottom: 28px; left: 28px; }
 }
 
 @media (max-width: 413px) {
-  .testi__body { padding: 28px 20px; }
+  .testi__body { padding: 28px 20px 84px; }
   .testi__controls { padding-left: 20px; }
   .testi__quote { font-size: 16px; }
+  .testi__arrows { bottom: 24px; left: 20px; }
 }
 
 /* ── What You Gain — toggle switch ────────────────────────────── */
