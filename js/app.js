@@ -419,103 +419,26 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   /* ---------------------------------------------------------------
-     TESTIMONIALS CAROUSEL
+     TESTIMONIALS — peek slider, blue progress bar, hover arrows
   --------------------------------------------------------------- */
-  var testiSlides  = document.querySelectorAll('.testi__slide');
-  var testiDots    = document.querySelectorAll('.testi__dot');
-  var testiPrevBtn = document.getElementById('testiPrev');
-  var testiNextBtn = document.getElementById('testiNext');
-  var testiWrap    = document.getElementById('testiWrap');
-  var testiIdx     = 0;
-  var testiTotal   = testiSlides.length;
-  var testiTimer   = null;
-  var testiRunning = false;
+  var tcSlider       = document.getElementById('tcSlider');
+  var tcTrack        = document.getElementById('tcTrack');
+  var tcProgressFill = document.getElementById('tcProgressFill');
+  var tcCards        = document.querySelectorAll('.tc-card');
+  var tcIndex        = 0;
+  var tcTotal        = tcCards.length;
 
-  function testiGo(next) {
-    if (!testiTotal || testiRunning) return;
-    next = ((next % testiTotal) + testiTotal) % testiTotal;
-    if (next === testiIdx) return;
-
-    testiRunning = true;
-    var current = testiSlides[testiIdx];
-
-    // Fade out current
-    current.style.transition = 'opacity 0.28s ease';
-    current.style.opacity = '0';
-
-    setTimeout(function () {
-      current.classList.remove('testi__slide--active');
-      current.style.opacity = '';
-      current.style.transition = '';
-
-      testiIdx = next;
-      testiSlides[testiIdx].classList.add('testi__slide--active');
-
-      // Update dots
-      testiDots.forEach(function (d, i) {
-        d.classList.toggle('testi__dot--active', i === testiIdx);
-        d.setAttribute('aria-selected', i === testiIdx ? 'true' : 'false');
-      });
-
-      testiRunning = false;
-    }, 290);
+  function goToTc(idx) {
+    tcIndex = ((idx % tcTotal) + tcTotal) % tcTotal;
+    var cardWidth = tcSlider ? tcSlider.offsetWidth * 0.84 : 0;
+    if (tcTrack) tcTrack.style.transform = 'translateX(-' + (tcIndex * (cardWidth + 24)) + 'px)';
+    if (tcProgressFill) tcProgressFill.style.width = ((tcIndex + 1) / tcTotal * 100) + '%';
   }
 
-  function testiStartAuto() {
-    testiStopAuto();
-    testiTimer = setInterval(function () { testiGo(testiIdx + 1); }, 6000);
-  }
-
-  function testiStopAuto() {
-    if (testiTimer) { clearInterval(testiTimer); testiTimer = null; }
-  }
-
-  if (testiTotal > 1) {
-    // Arrow buttons
-    if (testiPrevBtn) {
-      testiPrevBtn.addEventListener('click', function () {
-        testiStopAuto(); testiGo(testiIdx - 1); testiStartAuto();
-      });
-    }
-    if (testiNextBtn) {
-      testiNextBtn.addEventListener('click', function () {
-        testiStopAuto(); testiGo(testiIdx + 1); testiStartAuto();
-      });
-    }
-
-    // Dot buttons
-    testiDots.forEach(function (dot) {
-      dot.addEventListener('click', function () {
-        testiStopAuto();
-        testiGo(parseInt(dot.dataset.testi, 10));
-        testiStartAuto();
-      });
-    });
-
-    // Pause on hover
-    if (testiWrap) {
-      testiWrap.addEventListener('mouseenter', testiStopAuto);
-      testiWrap.addEventListener('mouseleave', testiStartAuto);
-    }
-
-    // Mobile swipe
-    if (testiWrap) {
-      var testiTouchX = 0;
-      testiWrap.addEventListener('touchstart', function (e) {
-        testiTouchX = e.touches[0].clientX;
-      }, { passive: true });
-      testiWrap.addEventListener('touchend', function (e) {
-        var diff = testiTouchX - e.changedTouches[0].clientX;
-        if (Math.abs(diff) > 44) {
-          testiStopAuto();
-          testiGo(diff > 0 ? testiIdx + 1 : testiIdx - 1);
-          testiStartAuto();
-        }
-      }, { passive: true });
-    }
-
-    testiStartAuto();
-  }
+  var tcPrev = document.getElementById('tcPrev');
+  var tcNext = document.getElementById('tcNext');
+  if (tcPrev) tcPrev.addEventListener('click', function () { goToTc(tcIndex - 1); });
+  if (tcNext) tcNext.addEventListener('click', function () { goToTc(tcIndex + 1); });
 
   /* ── What You Gain toggle ──────────────────────────────────────── */
   var gainBtns = document.querySelectorAll('.gain-toggle__btn');

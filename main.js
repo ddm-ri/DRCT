@@ -342,8 +342,8 @@ document.addEventListener('DOMContentLoaded', function () {
   var tcTotal        = tcCards.length;
 
   function goToTc(idx) {
-    tcIndex = (idx + tcTotal) % tcTotal;
-    var cardWidth = tcSlider ? tcSlider.offsetWidth * 0.88 : 0;
+    tcIndex = ((idx % tcTotal) + tcTotal) % tcTotal;
+    var cardWidth = tcSlider ? tcSlider.offsetWidth * 0.84 : 0;
     if (tcTrack) tcTrack.style.transform = 'translateX(-' + (tcIndex * (cardWidth + 24)) + 'px)';
     if (tcProgressFill) tcProgressFill.style.width = ((tcIndex + 1) / tcTotal * 100) + '%';
   }
