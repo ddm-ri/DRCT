@@ -332,24 +332,30 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   /* ---------------------------------------------------------------
-     TESTIMONIALS CAROUSEL
+     TESTIMONIALS SLIDER
   --------------------------------------------------------------- */
-  var testiSlides  = document.querySelectorAll('.testi__slide');
-  var testiPrev    = document.getElementById('testiPrev');
-  var testiNext    = document.getElementById('testiNext');
-  var testiCounter = document.getElementById('testiCounter');
-  var testiCurrent = 0;
-  var testiTotal   = testiSlides.length;
+  var tcTrack   = document.getElementById('tcTrack');
+  var tcLabel   = document.getElementById('tcNavLabel');
+  var tcCards   = document.querySelectorAll('.tc-card');
+  var tcNames   = ['Lufthansa', 'Emirates'];
+  var tcIndex   = 0;
+  var tcTotal   = tcCards.length;
 
-  function goToTesti(idx) {
-    testiSlides[testiCurrent].classList.remove('testi__slide--active');
-    testiCurrent = (idx + testiTotal) % testiTotal;
-    testiSlides[testiCurrent].classList.add('testi__slide--active');
-    if (testiCounter) testiCounter.textContent = (testiCurrent + 1) + ' / ' + testiTotal;
+  function goToTc(idx) {
+    tcIndex = (idx + tcTotal) % tcTotal;
+    if (tcTrack) tcTrack.style.transform = 'translateX(-' + (tcIndex * 100) + '%)';
+    if (tcLabel) tcLabel.textContent = tcNames[tcIndex];
   }
 
-  if (testiPrev) testiPrev.addEventListener('click', function () { goToTesti(testiCurrent - 1); });
-  if (testiNext) testiNext.addEventListener('click', function () { goToTesti(testiCurrent + 1); });
+  var tcPrev    = document.getElementById('tcPrev');
+  var tcNext    = document.getElementById('tcNext');
+  var tcNavPrev = document.getElementById('tcNavPrev');
+  var tcNavNext = document.getElementById('tcNavNext');
+
+  if (tcPrev)    tcPrev.addEventListener('click',    function () { goToTc(tcIndex - 1); });
+  if (tcNext)    tcNext.addEventListener('click',    function () { goToTc(tcIndex + 1); });
+  if (tcNavPrev) tcNavPrev.addEventListener('click', function () { goToTc(tcIndex - 1); });
+  if (tcNavNext) tcNavNext.addEventListener('click', function () { goToTc(tcIndex + 1); });
 
   /* ---------------------------------------------------------------
      BENEFITS — SHOW MORE / HIDE
