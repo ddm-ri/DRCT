@@ -1833,47 +1833,20 @@
 .tc-card[data-index="0"] .tc-card__img { object-position: 40% 35%; }
 .tc-card[data-index="1"] .tc-card__img { object-position: center 52%; }
 
-/* Side hover arrows */
-.tc-side-btn {
+/* Bottom row: progress bar + paired controls */
+.tc-footer {
   align-items: center;
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  background: rgba(255, 255, 255, 0.52);
-  border: none;
-  border-radius: 50%;
-  box-shadow: none;
-  color: var(--dark);
-  cursor: pointer;
   display: flex;
-  height: 44px;
-  justify-content: center;
-  opacity: 0;
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  transition: opacity 0.2s, background 0.15s;
-  width: 44px;
-  z-index: 2;
+  gap: 16px;
+  margin-top: 20px;
 }
 
-.tc-side-btn--prev { left: 16px; }
-.tc-side-btn--next { right: 16px; }
-
-.tc-slider:hover .tc-side-btn { opacity: 1; }
-.tc-side-btn:hover { background: rgba(255, 255, 255, 0.7); }
-.tc-side-btn:focus-visible {
-  outline: none;
-  opacity: 1;
-}
-
-/* Blue progress bar */
 .tc-progress {
   background: var(--dark-10);
   border-radius: 4px;
+  flex: 1;
   height: 4px;
-  margin-top: 20px;
   overflow: hidden;
-  width: 100%;
 }
 
 .tc-progress__fill {
@@ -1884,6 +1857,32 @@
   width: 50%;
 }
 
+/* Paired ← → circle buttons */
+.tc-controls {
+  display: flex;
+  flex-shrink: 0;
+  gap: 8px;
+}
+
+.tc-ctrl-btn {
+  align-items: center;
+  background: transparent;
+  border: 1.5px solid var(--dark-26);
+  border-radius: 50%;
+  color: var(--dark);
+  cursor: pointer;
+  display: flex;
+  height: 40px;
+  justify-content: center;
+  transition: border-color 0.14s, background 0.14s;
+  width: 40px;
+}
+
+.tc-ctrl-btn:hover {
+  background: var(--dark-05);
+  border-color: var(--dark-40);
+}
+
 /* Responsive */
 @media (max-width: 767px) {
   .tc-section { padding: 60px 0; }
@@ -1892,7 +1891,6 @@
   .tc-card__text { order: 2; padding: 24px 24px 28px; }
   .tc-card__fig { order: 1; height: 180px; }
   .tc-card__quote { font-size: 15px; }
-  .tc-side-btn { display: none; }
 }
 
 @media (max-width: 413px) {
