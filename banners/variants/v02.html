@@ -1,0 +1,72 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800;900&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;}
+body{width:1200px;height:1200px;overflow:hidden;font-family:'Inter',sans-serif;background:#0C0C14;}
+.bg{position:absolute;inset:0;background:radial-gradient(ellipse 800px 600px at 70% 40%,rgba(255,95,0,.18) 0%,transparent 70%),radial-gradient(ellipse 400px 400px at 20% 80%,rgba(255,140,0,.1) 0%,transparent 60%);}
+.wrap{position:relative;z-index:10;width:1200px;height:1200px;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:auto 1fr auto;}
+.nav{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;padding:52px 64px 0;}
+.logo{display:flex;align-items:center;gap:14px;}
+.logo-sq{width:48px;height:48px;background:linear-gradient(135deg,#FF5F00,#FF8C00);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:24px;}
+.logo-name{font-size:22px;font-weight:900;color:#fff;}
+.x{color:rgba(255,255,255,.25);font-size:18px;margin:0 4px;}
+.logo-drct{font-size:22px;font-weight:900;color:rgba(255,255,255,.5);letter-spacing:2px;}
+.badge{background:rgba(255,95,0,.15);border:1px solid rgba(255,95,0,.4);border-radius:100px;padding:10px 22px;font-size:13px;font-weight:700;color:#FF8C00;letter-spacing:1.5px;text-transform:uppercase;}
+.left{padding:60px 0 60px 64px;display:flex;flex-direction:column;justify-content:center;}
+.eyebrow{font-size:13px;font-weight:700;color:#FF5F00;letter-spacing:3px;text-transform:uppercase;margin-bottom:24px;}
+.h1{font-size:72px;font-weight:900;line-height:1.0;letter-spacing:-3px;color:#fff;margin-bottom:24px;}
+.h1 em{font-style:normal;color:#FF5F00;}
+.sub{font-size:22px;color:rgba(255,255,255,.5);line-height:1.5;margin-bottom:48px;}
+.sub b{color:rgba(255,255,255,.85);}
+.btn{display:inline-flex;align-items:center;gap:12px;background:#FF5F00;color:#fff;font-size:18px;font-weight:800;padding:18px 36px;border-radius:12px;width:fit-content;box-shadow:0 8px 32px rgba(255,95,0,.4);}
+.right{display:flex;flex-direction:column;justify-content:center;padding:60px 64px 60px 40px;gap:20px;}
+.card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:20px;padding:28px 32px;}
+.card-icon{font-size:28px;margin-bottom:12px;}
+.card-title{font-size:18px;font-weight:800;color:#fff;margin-bottom:6px;}
+.card-text{font-size:15px;color:rgba(255,255,255,.4);line-height:1.5;}
+.card.orange{background:linear-gradient(135deg,rgba(255,95,0,.2),rgba(255,140,0,.1));border-color:rgba(255,95,0,.3);}
+.prize-bar{grid-column:1/-1;margin:0 64px 52px;background:rgba(255,215,0,.08);border:1px solid rgba(255,215,0,.2);border-radius:16px;padding:22px 32px;display:flex;align-items:center;gap:16px;}
+.prize-bar-icon{font-size:28px;}
+.prize-bar-text{font-size:19px;font-weight:700;color:#fff;}
+.prize-bar-text em{font-style:normal;color:#FFD700;}
+</style></head><body>
+<div class="bg"></div>
+<div class="wrap">
+  <div class="nav">
+    <div class="logo">
+      <div class="logo-sq">✈</div>
+      <span class="logo-name">Pegasus</span>
+      <span class="x">×</span>
+      <span class="logo-drct">DRCT</span>
+    </div>
+    <div class="badge">🇸🇦 KSA Agencies · Jul 8</div>
+  </div>
+  <div class="left">
+    <div class="eyebrow">Live NDC Webinar</div>
+    <div class="h1">Pegasus<br><em>NDC</em> —<br>built for<br>KSA agencies</div>
+    <div class="sub">Live with <b>Pegasus</b> & <b>DRCT</b></div>
+    <div class="btn">Register Free →</div>
+  </div>
+  <div class="right">
+    <div class="card orange">
+      <div class="card-icon">⚡</div>
+      <div class="card-title">NDC Direct Access</div>
+      <div class="card-text">Sell at website prices. No GDS markup. Real-time fares for KSA agents.</div>
+    </div>
+    <div class="card">
+      <div class="card-icon">📅</div>
+      <div class="card-title">July 8, 2025 · 14:00 AST</div>
+      <div class="card-text">Live session with Pegasus team. Real Q&A — no marketing slides.</div>
+    </div>
+    <div class="card">
+      <div class="card-icon">🎙️</div>
+      <div class="card-title">Open Q&A Session</div>
+      <div class="card-text">Ask anything about pricing, integration, commissions for KSA market.</div>
+    </div>
+  </div>
+  <div class="prize-bar">
+    <div class="prize-bar-icon">🏆</div>
+    <div class="prize-bar-text">Win: <em>2× 500 SAR vouchers</em> + Pegasus round-trip ticket for all registrants</div>
+  </div>
+</div>
+</body></html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800;900&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;}
+body{width:1200px;height:1200px;overflow:hidden;font-family:'Inter',sans-serif;background:#fff;}
+/* Bold type + color block — super clean poster style */
+.page{width:1200px;height:1200px;display:flex;flex-direction:column;}
+.top-block{background:#FF5F00;padding:52px 64px 48px;position:relative;overflow:hidden;}
+.tb-logo{font-size:16px;font-weight:900;color:rgba(255,255,255,.7);letter-spacing:3px;text-transform:uppercase;margin-bottom:52px;display:flex;justify-content:space-between;align-items:center;}
+.tb-live{display:flex;align-items:center;gap:8px;background:rgba(0,0,0,.2);border-radius:100px;padding:8px 18px;}
+.tb-live-dot{width:8px;height:8px;border-radius:50%;background:#fff;}
+.tb-live-text{font-size:12px;font-weight:700;color:#fff;letter-spacing:2px;text-transform:uppercase;}
+.tb-h1{font-size:104px;font-weight:900;color:#fff;line-height:.88;letter-spacing:-5px;}
+.tb-h1 em{font-style:normal;display:block;color:rgba(255,255,255,.35);font-size:80px;}
+
+.mid-block{background:#fff;padding:48px 64px;display:flex;align-items:center;justify-content:space-between;border-bottom:3px solid #F0F0F0;}
+.mb-sub{font-size:36px;font-weight:800;color:#111;letter-spacing:-1px;}
+.mb-sub span{color:#FF5F00;}
+.mb-date{text-align:right;}
+.mb-date-big{font-size:52px;font-weight:900;color:#111;letter-spacing:-2px;line-height:1;}
+.mb-date-sub{font-size:15px;color:#999;font-weight:600;margin-top:4px;}
+
+.content-block{flex:1;background:#fff;display:flex;gap:0;}
+.cb-left{flex:1;padding:44px 64px;display:flex;flex-direction:column;justify-content:space-between;border-right:2px solid #F0F0F0;}
+.cb-items{display:flex;flex-direction:column;gap:24px;}
+.cb-item{display:flex;align-items:flex-start;gap:16px;}
+.cb-num{width:36px;height:36px;background:#FF5F00;color:#fff;font-size:14px;font-weight:900;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}
+.cb-item-body{}
+.cb-item-title{font-size:20px;font-weight:800;color:#111;margin-bottom:4px;}
+.cb-item-text{font-size:15px;color:#888;line-height:1.4;}
+.cb-btn{display:inline-flex;align-items:center;gap:12px;background:#FF5F00;color:#fff;font-size:20px;font-weight:900;padding:20px 44px;border-radius:12px;width:fit-content;box-shadow:0 6px 24px rgba(255,95,0,.3);}
+
+.cb-right{width:320px;padding:44px 40px;background:#F7F6F3;display:flex;flex-direction:column;gap:0;}
+.cr-ksa{background:#111;color:#fff;border-radius:12px;padding:20px;margin-bottom:20px;text-align:center;}
+.cr-ksa-flag{font-size:36px;margin-bottom:8px;}
+.cr-ksa-text{font-size:16px;font-weight:800;color:#fff;}
+.cr-ksa-sub{font-size:13px;color:rgba(255,255,255,.5);margin-top:4px;}
+.cr-stat{border-bottom:1px solid #E8E8E8;padding:20px 0;display:flex;justify-content:space-between;align-items:center;}
+.cr-stat:last-of-type{border-bottom:none;}
+.cr-stat-label{font-size:13px;color:#888;font-weight:500;}
+.cr-stat-val{font-size:17px;font-weight:800;color:#111;}
+.cr-stat-val.orange{color:#FF5F00;}
+
+.prize-block{background:#111118;padding:28px 64px;display:flex;align-items:center;gap:16px;}
+.pb-icon{font-size:32px;}
+.pb-text{font-size:20px;font-weight:700;color:#fff;}
+.pb-text em{font-style:normal;color:#FFD700;}
+.pb-right{margin-left:auto;font-size:14px;color:rgba(255,255,255,.4);font-weight:600;}
+</style></head><body>
+<div class="page">
+  <div class="top-block">
+    <div class="tb-logo">
+      PEGASUS × DRCT
+      <div class="tb-live"><div class="tb-live-dot"></div><span class="tb-live-text">Live Webinar</span></div>
+    </div>
+    <div class="tb-h1">
+      Pegasus NDC<br>
+      <em>built for KSA</em>
+    </div>
+  </div>
+
+  <div class="mid-block">
+    <div class="mb-sub">Live with <span>Pegasus</span> & DRCT</div>
+    <div class="mb-date">
+      <div class="mb-date-big">8 July</div>
+      <div class="mb-date-sub">14:00 AST · Free · 🇸🇦 KSA</div>
+    </div>
+  </div>
+
+  <div class="content-block">
+    <div class="cb-left">
+      <div class="cb-items">
+        <div class="cb-item">
+          <div class="cb-num">1</div>
+          <div class="cb-item-body">
+            <div class="cb-item-title">Sell at website prices</div>
+            <div class="cb-item-text">NDC gives you direct Pegasus fares — no GDS markup, no price gap</div>
+          </div>
+        </div>
+        <div class="cb-item">
+          <div class="cb-num">2</div>
+          <div class="cb-item-body">
+            <div class="cb-item-title">Real Q&A with Pegasus team</div>
+            <div class="cb-item-text">Ask anything: fares, commissions, setup, Arabic support</div>
+          </div>
+        </div>
+        <div class="cb-item">
+          <div class="cb-num">3</div>
+          <div class="cb-item-body">
+            <div class="cb-item-title">Free for all KSA agents</div>
+            <div class="cb-item-text">Register once, join live on July 8. No experience needed.</div>
+          </div>
+        </div>
+      </div>
+      <div class="cb-btn">Register Free →</div>
+    </div>
+
+    <div class="cb-right">
+      <div class="cr-ksa">
+        <div class="cr-ksa-flag">🇸🇦</div>
+        <div class="cr-ksa-text">KSA Exclusive</div>
+        <div class="cr-ksa-sub">Saudi travel agents only</div>
+      </div>
+      <div class="cr-stat"><span class="cr-stat-label">Date</span><span class="cr-stat-val">8 Jul 2025</span></div>
+      <div class="cr-stat"><span class="cr-stat-label">Time</span><span class="cr-stat-val">14:00 AST</span></div>
+      <div class="cr-stat"><span class="cr-stat-label">Format</span><span class="cr-stat-val">Live Q&A</span></div>
+      <div class="cr-stat"><span class="cr-stat-label">Cost</span><span class="cr-stat-val orange">Free</span></div>
+      <div class="cr-stat"><span class="cr-stat-label">Language</span><span class="cr-stat-val">EN / AR</span></div>
+    </div>
+  </div>
+
+  <div class="prize-block">
+    <div class="pb-icon">🏆</div>
+    <div class="pb-text">Win: <em>2× 500 SAR vouchers</em> + Pegasus round-trip ticket</div>
+    <div class="pb-right">For all registrants</div>
+  </div>
+</div>
+</body></html>

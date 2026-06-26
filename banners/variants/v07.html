@@ -1,0 +1,93 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800;900&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;}
+body{width:1200px;height:1200px;overflow:hidden;font-family:'Inter',sans-serif;background:#fff;}
+/* Diagonal big shape */
+.diag{position:absolute;top:0;left:0;width:1200px;height:1200px;overflow:hidden;}
+.diag::before{content:'';position:absolute;top:0;left:0;width:760px;height:1200px;background:#FF5F00;clip-path:polygon(0 0,100% 0,78% 100%,0 100%);}
+.diag::after{content:'';position:absolute;top:0;right:0;width:100px;height:1200px;background:#FF5F00;opacity:.12;}
+
+.wrap{position:relative;z-index:10;width:1200px;height:1200px;display:flex;}
+.left{width:640px;padding:68px 60px;display:flex;flex-direction:column;justify-content:space-between;}
+.right{flex:1;padding:68px 60px 68px 32px;display:flex;flex-direction:column;justify-content:space-between;}
+
+/* Left */
+.l-top{display:flex;align-items:center;gap:12px;}
+.l-logo{font-size:19px;font-weight:900;color:#fff;display:flex;align-items:center;gap:10px;}
+.l-logo-sq{width:42px;height:42px;background:rgba(255,255,255,.2);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;}
+.l-mid{flex:1;display:flex;flex-direction:column;justify-content:center;}
+.l-eyebrow{font-size:13px;font-weight:700;color:rgba(255,255,255,.6);letter-spacing:3px;text-transform:uppercase;margin-bottom:20px;}
+.l-h1{font-size:82px;font-weight:900;color:#fff;line-height:.9;letter-spacing:-4px;margin-bottom:24px;}
+.l-sub{font-size:24px;color:rgba(255,255,255,.7);font-weight:500;}
+.l-sub b{color:#fff;}
+.l-bottom{}
+.l-btn{display:inline-flex;align-items:center;gap:10px;background:#fff;color:#FF5F00;font-size:19px;font-weight:900;padding:18px 40px;border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,.15);}
+
+/* Right */
+.r-top{display:flex;justify-content:flex-end;}
+.r-ksa{background:#F5F5F5;border-radius:100px;padding:10px 20px;font-size:13px;font-weight:700;color:#444;}
+.r-mid{flex:1;display:flex;flex-direction:column;justify-content:center;gap:16px;}
+.r-card{background:#fff;border:2px solid #F0F0F0;border-radius:18px;padding:24px 28px;display:flex;align-items:flex-start;gap:16px;box-shadow:0 4px 16px rgba(0,0,0,.05);}
+.r-card.featured{background:#FFF3EC;border-color:#FFD4B5;}
+.r-card-icon{font-size:24px;flex-shrink:0;margin-top:2px;}
+.r-card-body{}
+.r-card-title{font-size:17px;font-weight:800;color:#111;margin-bottom:4px;}
+.r-card-text{font-size:13px;color:#888;line-height:1.4;}
+.r-bottom{}
+.r-prize{background:#111;border-radius:16px;padding:20px 24px;display:flex;align-items:center;gap:12px;}
+.r-prize-icon{font-size:24px;}
+.r-prize-text{font-size:16px;font-weight:700;color:#fff;}
+.r-prize-text em{font-style:normal;color:#FFD700;}
+</style></head><body>
+<div class="diag"></div>
+<div class="wrap">
+  <div class="left">
+    <div class="l-top">
+      <div class="l-logo"><div class="l-logo-sq">✈</div>PEGASUS × DRCT</div>
+    </div>
+    <div class="l-mid">
+      <div class="l-eyebrow">Live Webinar · July 8</div>
+      <div class="l-h1">Pegasus<br>NDC<br>for KSA</div>
+      <div class="l-sub">Live with <b>Pegasus</b><br>& <b>DRCT</b></div>
+    </div>
+    <div class="l-bottom">
+      <div class="l-btn">Register Free →</div>
+    </div>
+  </div>
+  <div class="right">
+    <div class="r-top">
+      <div class="r-ksa">🇸🇦 KSA Agencies Only</div>
+    </div>
+    <div class="r-mid">
+      <div class="r-card featured">
+        <div class="r-card-icon">⚡</div>
+        <div class="r-card-body">
+          <div class="r-card-title">Pegasus NDC — built for KSA agencies</div>
+          <div class="r-card-text">Direct access to website fares, ancillaries and real-time availability</div>
+        </div>
+      </div>
+      <div class="r-card">
+        <div class="r-card-icon">📅</div>
+        <div class="r-card-body">
+          <div class="r-card-title">July 8, 2025 · 14:00 AST</div>
+          <div class="r-card-text">Live session — real Q&A, no marketing slides</div>
+        </div>
+      </div>
+      <div class="r-card">
+        <div class="r-card-icon">🎙️</div>
+        <div class="r-card-body">
+          <div class="r-card-title">Direct with Pegasus team</div>
+          <div class="r-card-text">Ask about pricing, setup, commissions, Arabic support</div>
+        </div>
+      </div>
+    </div>
+    <div class="r-bottom">
+      <div class="r-prize">
+        <div class="r-prize-icon">🏆</div>
+        <div class="r-prize-text">Win: <em>2× 500 SAR + round-trip</em></div>
+      </div>
+    </div>
+  </div>
+</div>
+</body></html>

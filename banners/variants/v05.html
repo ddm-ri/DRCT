@@ -1,0 +1,112 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800;900&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;}
+body{width:1200px;height:1200px;overflow:hidden;font-family:'Inter',sans-serif;background:#fff;}
+/* Editorial / magazine style */
+.grid{display:grid;grid-template-columns:56px 1fr 1fr 56px;grid-template-rows:auto 1fr auto auto;height:1200px;gap:0;}
+.col-accent{background:#FF5F00;}
+.col-accent2{background:#FF5F00;}
+
+/* Header */
+.header{grid-column:2/4;padding:52px 0 40px;border-bottom:4px solid #111;display:flex;justify-content:space-between;align-items:flex-end;}
+.hdr-logo{font-size:16px;font-weight:900;color:#111;letter-spacing:3px;text-transform:uppercase;}
+.hdr-right{text-align:right;}
+.hdr-date{font-size:13px;font-weight:700;color:#999;letter-spacing:1.5px;text-transform:uppercase;}
+.hdr-live{font-size:13px;font-weight:900;color:#FF5F00;letter-spacing:1.5px;text-transform:uppercase;}
+
+/* Main content */
+.content{grid-column:2/4;padding:52px 0;display:grid;grid-template-columns:1.2fr 1fr;gap:52px;align-items:start;}
+.c-left{}
+.issue-num{font-size:13px;font-weight:700;color:#FF5F00;letter-spacing:3px;text-transform:uppercase;margin-bottom:20px;}
+.big-h{font-size:88px;font-weight:900;line-height:.92;letter-spacing:-4px;color:#111;margin-bottom:24px;}
+.big-h em{font-style:normal;-webkit-text-stroke:2px #111;color:transparent;}
+.deck{font-size:22px;color:#444;line-height:1.5;font-weight:400;border-left:4px solid #FF5F00;padding-left:20px;margin-bottom:40px;}
+.deck b{color:#111;font-weight:700;}
+.byline{font-size:15px;color:#999;font-weight:500;margin-bottom:32px;}
+.cta-bar{display:flex;align-items:center;gap:16px;}
+.cta-btn{background:#111;color:#fff;font-size:17px;font-weight:800;padding:16px 32px;border-radius:10px;}
+.cta-free{font-size:14px;color:#999;font-weight:500;}
+
+.c-right{padding-top:8px;}
+.side-rule{width:100%;height:3px;background:#111;margin-bottom:24px;}
+.side-box{background:#FF5F00;color:#fff;padding:32px;border-radius:4px;margin-bottom:20px;}
+.side-box-eyebrow{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;opacity:.7;margin-bottom:10px;}
+.side-box-text{font-size:26px;font-weight:900;line-height:1.2;letter-spacing:-0.5px;}
+.side-item{border-bottom:1px solid #E8E8E8;padding:20px 0;display:flex;gap:16px;align-items:flex-start;}
+.side-item:last-child{border-bottom:none;}
+.side-icon{font-size:20px;flex-shrink:0;margin-top:2px;}
+.side-item-title{font-size:16px;font-weight:800;color:#111;margin-bottom:4px;}
+.side-item-text{font-size:13px;color:#888;line-height:1.4;}
+
+/* Footer */
+.footer{grid-column:2/4;border-top:2px solid #111;padding:28px 0;display:flex;align-items:center;justify-content:space-between;}
+.f-prize{display:flex;align-items:center;gap:12px;font-size:18px;font-weight:700;color:#111;}
+.f-prize em{font-style:normal;color:#FF5F00;}
+.f-ksa{font-size:14px;color:#999;font-weight:600;}
+</style></head><body>
+<div class="grid">
+  <div class="col-accent"></div>
+  <div class="header">
+    <div class="hdr-logo">Pegasus Airlines × DRCT</div>
+    <div class="hdr-right">
+      <div class="hdr-date">July 8, 2025</div>
+      <div class="hdr-live">● Live Webinar</div>
+    </div>
+  </div>
+  <div class="col-accent"></div>
+
+  <div class="col-accent"></div>
+  <div class="content">
+    <div class="c-left">
+      <div class="issue-num">NDC for KSA Market</div>
+      <div class="big-h">Pegasus<br>NDC<br><em>KSA</em></div>
+      <div class="deck">
+        Built for KSA agencies.<br>
+        <b>Live with Pegasus & DRCT.</b>
+      </div>
+      <div class="byline">🇸🇦 Exclusive session for Saudi travel agents</div>
+      <div class="cta-bar">
+        <div class="cta-btn">Register Now →</div>
+        <div class="cta-free">Free · Live Q&A</div>
+      </div>
+    </div>
+    <div class="c-right">
+      <div class="side-rule"></div>
+      <div class="side-box">
+        <div class="side-box-eyebrow">What you'll learn</div>
+        <div class="side-box-text">Sell Pegasus at website prices — directly</div>
+      </div>
+      <div class="side-item">
+        <div class="side-icon">📅</div>
+        <div>
+          <div class="side-item-title">July 8 · 14:00 AST</div>
+          <div class="side-item-text">Tuesday · Live format · 60 min</div>
+        </div>
+      </div>
+      <div class="side-item">
+        <div class="side-icon">🎙️</div>
+        <div>
+          <div class="side-item-title">No slides — real Q&A</div>
+          <div class="side-item-text">Direct with Pegasus NDC team</div>
+        </div>
+      </div>
+      <div class="side-item">
+        <div class="side-icon">⚡</div>
+        <div>
+          <div class="side-item-title">NDC Access</div>
+          <div class="side-item-text">Website fares, ancillaries, Arabic support</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-accent"></div>
+
+  <div class="col-accent"></div>
+  <div class="footer">
+    <div class="f-prize">🏆 Win: <em>2× 500 SAR vouchers</em> + Pegasus round-trip ticket</div>
+    <div class="f-ksa">🇸🇦 KSA Agents Only</div>
+  </div>
+  <div class="col-accent"></div>
+</div>
+</body></html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800;900&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;}
+body{width:1200px;height:1200px;overflow:hidden;font-family:'Inter',sans-serif;background:#0A0A12;}
+/* Glassmorphism on dark */
+.bg{position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 600px 600px at 15% 20%,rgba(255,95,0,.35) 0%,transparent 60%),
+    radial-gradient(ellipse 500px 500px at 85% 75%,rgba(255,140,0,.2) 0%,transparent 60%),
+    radial-gradient(ellipse 400px 400px at 50% 50%,rgba(100,0,200,.1) 0%,transparent 60%),
+    #0A0A12;}
+.wrap{position:relative;z-index:10;width:1200px;height:1200px;padding:64px;display:flex;flex-direction:column;gap:0;}
+/* Top bar */
+.topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:48px;}
+.logo{display:flex;align-items:center;gap:12px;}
+.logo-orb{width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#FF5F00,#FF8C00);display:flex;align-items:center;justify-content:center;font-size:22px;box-shadow:0 0 24px rgba(255,95,0,.5);}
+.logo-text{font-size:20px;font-weight:900;color:#fff;}
+.logo-x{color:rgba(255,255,255,.25);margin:0 6px;}
+.logo-drct{color:rgba(255,255,255,.5);letter-spacing:2px;}
+.ksa-badge{background:rgba(255,255,255,.06);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.12);border-radius:100px;padding:10px 22px;font-size:14px;font-weight:600;color:rgba(255,255,255,.7);}
+
+/* Glass card main */
+.glass-main{
+  background:rgba(255,255,255,.06);
+  backdrop-filter:blur(24px);
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:28px;
+  padding:52px 56px;
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  position:relative;
+  overflow:hidden;
+}
+.glass-main::before{
+  content:'';
+  position:absolute;
+  top:0;left:0;right:0;
+  height:2px;
+  background:linear-gradient(90deg,#FF5F00,#FF8C00,transparent);
+}
+.gm-top{}
+.gm-label{font-size:12px;font-weight:700;color:#FF8C00;letter-spacing:3px;text-transform:uppercase;margin-bottom:20px;display:flex;align-items:center;gap:8px;}
+.gm-label::before{content:'';width:24px;height:2px;background:#FF8C00;border-radius:1px;}
+.gm-h1{font-size:90px;font-weight:900;color:#fff;line-height:.92;letter-spacing:-4px;margin-bottom:20px;}
+.gm-h1 em{font-style:normal;color:#FF5F00;}
+.gm-sub{font-size:26px;color:rgba(255,255,255,.5);font-weight:500;letter-spacing:-0.3px;}
+.gm-sub b{color:rgba(255,255,255,.85);}
+
+/* Bottom of glass card */
+.gm-bottom{display:flex;align-items:center;justify-content:space-between;}
+.gm-chips{display:flex;gap:12px;}
+.gm-chip{
+  background:rgba(255,255,255,.07);
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:14px;
+  padding:14px 20px;
+}
+.gm-chip-label{font-size:10px;font-weight:700;color:rgba(255,255,255,.35);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:4px;}
+.gm-chip-val{font-size:16px;font-weight:800;color:#fff;}
+.gm-btn{
+  background:linear-gradient(135deg,#FF5F00,#FF8C00);
+  color:#fff;
+  font-size:18px;
+  font-weight:800;
+  padding:18px 40px;
+  border-radius:14px;
+  box-shadow:0 8px 32px rgba(255,95,0,.45),0 0 0 1px rgba(255,140,0,.3);
+  letter-spacing:-0.2px;
+}
+
+/* Prize row */
+.prize-row{
+  background:rgba(255,215,0,.07);
+  border:1px solid rgba(255,215,0,.18);
+  backdrop-filter:blur(12px);
+  border-radius:18px;
+  padding:22px 32px;
+  display:flex;
+  align-items:center;
+  gap:16px;
+  margin-top:20px;
+}
+.pr-icon{font-size:28px;}
+.pr-text{font-size:19px;font-weight:700;color:#fff;}
+.pr-text em{font-style:normal;color:#FFD700;}
+</style></head><body>
+<div class="bg"></div>
+<div class="wrap">
+  <div class="topbar">
+    <div class="logo">
+      <div class="logo-orb">✈</div>
+      <div class="logo-text">
+        Pegasus<span class="logo-x">×</span><span class="logo-drct">DRCT</span>
+      </div>
+    </div>
+    <div class="ksa-badge">🇸🇦 KSA Travel Agents · July 8</div>
+  </div>
+
+  <div class="glass-main">
+    <div class="gm-top">
+      <div class="gm-label">Live NDC Webinar</div>
+      <div class="gm-h1">Pegasus <em>NDC</em><br>built for<br>KSA agencies</div>
+      <div class="gm-sub">Live with <b>Pegasus</b> & <b>DRCT</b></div>
+    </div>
+    <div class="gm-bottom">
+      <div class="gm-chips">
+        <div class="gm-chip">
+          <div class="gm-chip-label">Date</div>
+          <div class="gm-chip-val">8 July 2025</div>
+        </div>
+        <div class="gm-chip">
+          <div class="gm-chip-label">Time</div>
+          <div class="gm-chip-val">14:00 AST</div>
+        </div>
+        <div class="gm-chip">
+          <div class="gm-chip-label">Format</div>
+          <div class="gm-chip-val">Live Q&A</div>
+        </div>
+      </div>
+      <div class="gm-btn">Register Free →</div>
+    </div>
+  </div>
+
+  <div class="prize-row">
+    <div class="pr-icon">🏆</div>
+    <div class="pr-text">Win: <em>2× 500 SAR vouchers</em> + Pegasus round-trip ticket for all registrants</div>
+  </div>
+</div>
+</body></html>

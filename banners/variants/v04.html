@@ -1,0 +1,74 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800;900&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;}
+body{width:1200px;height:1200px;overflow:hidden;font-family:'Inter',sans-serif;}
+/* Split: top orange / bottom white */
+.top-half{width:1200px;height:600px;background:linear-gradient(135deg,#FF5F00 0%,#FF8C00 100%);position:relative;overflow:hidden;display:flex;flex-direction:column;padding:60px 72px;}
+.th-bg-circle{position:absolute;width:700px;height:700px;border-radius:50%;background:rgba(255,255,255,.07);top:-200px;right:-200px;}
+.th-bg-circle2{position:absolute;width:300px;height:300px;border-radius:50%;background:rgba(0,0,0,.08);bottom:-100px;left:100px;}
+.th-nav{display:flex;align-items:center;justify-content:space-between;position:relative;z-index:2;}
+.th-logo{font-size:20px;font-weight:900;color:#fff;display:flex;align-items:center;gap:10px;}
+.th-logo-sq{width:40px;height:40px;background:rgba(255,255,255,.2);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;}
+.th-pill{background:rgba(0,0,0,.2);border-radius:100px;padding:9px 20px;font-size:13px;font-weight:700;color:#fff;letter-spacing:1.5px;text-transform:uppercase;}
+.th-content{flex:1;display:flex;flex-direction:column;justify-content:flex-end;padding-bottom:16px;position:relative;z-index:2;}
+.th-eyebrow{font-size:15px;font-weight:700;color:rgba(255,255,255,.65);letter-spacing:1px;margin-bottom:16px;}
+.th-h1{font-size:80px;font-weight:900;color:#fff;line-height:.95;letter-spacing:-3.5px;}
+
+.bottom-half{width:1200px;height:600px;background:#fff;padding:52px 72px;display:flex;flex-direction:column;justify-content:space-between;}
+.bh-sub{font-size:34px;font-weight:700;color:#111;letter-spacing:-0.8px;margin-bottom:0;}
+.bh-sub span{color:#FF5F00;}
+.bh-row{display:flex;align-items:stretch;gap:20px;flex:1;margin:36px 0;}
+.bh-card{flex:1;background:#F7F6F3;border-radius:20px;padding:28px;display:flex;flex-direction:column;gap:10px;}
+.bh-card.orange{background:#FF5F00;}
+.bh-card-icon{font-size:28px;}
+.bh-card-title{font-size:17px;font-weight:800;color:#111;line-height:1.2;}
+.bh-card.orange .bh-card-title{color:#fff;}
+.bh-card-text{font-size:14px;color:#777;line-height:1.5;}
+.bh-card.orange .bh-card-text{color:rgba(255,255,255,.7);}
+.bh-bottom{display:flex;align-items:center;justify-content:space-between;}
+.bh-prize{display:flex;align-items:center;gap:14px;background:#FFF8F0;border:2px solid #FFD4B5;border-radius:14px;padding:16px 24px;}
+.bh-prize-text{font-size:17px;font-weight:700;color:#111;}
+.bh-prize-text em{font-style:normal;color:#FF5F00;}
+.bh-btn{background:#FF5F00;color:#fff;font-size:19px;font-weight:900;padding:20px 48px;border-radius:14px;box-shadow:0 6px 24px rgba(255,95,0,.3);}
+</style></head><body>
+<div class="top-half">
+  <div class="th-bg-circle"></div>
+  <div class="th-bg-circle2"></div>
+  <div class="th-nav">
+    <div class="th-logo"><div class="th-logo-sq">✈</div>PEGASUS × DRCT</div>
+    <div class="th-pill">🇸🇦 KSA Only</div>
+  </div>
+  <div class="th-content">
+    <div class="th-eyebrow">Live Webinar · July 8, 2025</div>
+    <div class="th-h1">Pegasus NDC —<br>built for<br>KSA agencies</div>
+  </div>
+</div>
+<div class="bottom-half">
+  <div class="bh-sub">Live with <span>Pegasus</span> & DRCT</div>
+  <div class="bh-row">
+    <div class="bh-card orange">
+      <div class="bh-card-icon">⚡</div>
+      <div class="bh-card-title">NDC Direct Prices</div>
+      <div class="bh-card-text">Website fares for your customers — no GDS premium</div>
+    </div>
+    <div class="bh-card">
+      <div class="bh-card-icon">📅</div>
+      <div class="bh-card-title">July 8 · 14:00 AST</div>
+      <div class="bh-card-text">Live Q&A with Pegasus team. Real answers, no marketing.</div>
+    </div>
+    <div class="bh-card">
+      <div class="bh-card-icon">🎙️</div>
+      <div class="bh-card-title">Open Format</div>
+      <div class="bh-card-text">Ask anything: fares, setup, commissions, KSA specifics.</div>
+    </div>
+  </div>
+  <div class="bh-bottom">
+    <div class="bh-prize">
+      <span>🏆</span>
+      <div class="bh-prize-text">Win: <em>2× 500 SAR</em> + round-trip ticket</div>
+    </div>
+    <div class="bh-btn">Register Free →</div>
+  </div>
+</div>
+</body></html>
