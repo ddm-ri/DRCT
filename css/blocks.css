@@ -960,6 +960,20 @@
   border-color: none;
   box-shadow: none;
 }
+.bcard__icon svg path {
+  transform-box: view-box;
+  transform-origin: 128px 128px;
+  transform: scale(0.78);
+}
+.benefit__icon {
+  display: inline-block;
+  margin-bottom: 10px;
+}
+.benefit__icon svg path {
+  transform-box: view-box;
+  transform-origin: 128px 128px;
+  transform: scale(0.72);
+}
 
 .bcard__title {
   color: var(--dark);
