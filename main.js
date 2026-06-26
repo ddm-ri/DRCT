@@ -335,16 +335,17 @@ document.addEventListener('DOMContentLoaded', function () {
      TESTIMONIALS SLIDER
   --------------------------------------------------------------- */
   var tcTrack   = document.getElementById('tcTrack');
-  var tcLabel   = document.getElementById('tcNavLabel');
   var tcCards   = document.querySelectorAll('.tc-card');
-  var tcNames   = ['Lufthansa', 'Emirates'];
+  var tcNavLogos = document.querySelectorAll('.tc-nav__logo');
   var tcIndex   = 0;
   var tcTotal   = tcCards.length;
 
   function goToTc(idx) {
     tcIndex = (idx + tcTotal) % tcTotal;
     if (tcTrack) tcTrack.style.transform = 'translateX(-' + (tcIndex * 100) + '%)';
-    if (tcLabel) tcLabel.textContent = tcNames[tcIndex];
+    tcNavLogos.forEach(function (logo, i) {
+      logo.classList.toggle('tc-nav__logo--active', i === tcIndex);
+    });
   }
 
   var tcPrev    = document.getElementById('tcPrev');

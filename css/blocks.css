@@ -1871,27 +1871,42 @@
 .tc-nav__btn {
   align-items: center;
   background: none;
-  border: none;
-  border-radius: 4px;
+  border: 1.5px solid var(--dark-20);
+  border-radius: 50%;
   color: var(--dark-40);
   cursor: pointer;
   display: flex;
+  height: 34px;
   justify-content: center;
-  padding: 6px;
-  transition: color 0.14s;
+  padding: 0;
+  transition: border-color 0.18s, color 0.18s;
+  width: 34px;
 }
 
-.tc-nav__btn:hover { color: var(--dark); }
-
-.tc-nav__label {
+.tc-nav__btn:hover {
+  border-color: var(--dark-40);
   color: var(--dark);
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 1.2px;
-  min-width: 90px;
-  text-align: center;
-  text-transform: uppercase;
 }
+
+.tc-nav__logos {
+  align-items: center;
+  display: flex;
+  height: 44px;
+  justify-content: center;
+  min-width: 160px;
+}
+
+.tc-nav__logo {
+  display: none;
+  height: 36px;
+  object-fit: contain;
+  object-position: center;
+  width: auto;
+}
+
+.tc-nav__logo--active { display: block; }
+
+.tc-nav__logo--emirates { height: 48px; }
 
 /* Responsive */
 @media (max-width: 1024px) {
