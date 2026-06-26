@@ -1703,149 +1703,177 @@
 @media (max-width: 413px) { .certified__airlines { grid-template-columns: repeat(2, 1fr); } }
 
 /* ================================================================
-   TESTIMONIALS — tc-section horizontal card slider
+   TESTIMONIALS
 ================================================================ */
-.tc-section {
+.testi-section {
   background: #fff;
-  padding: 80px 0;
+  padding: 88px 0 80px;
 }
 
-.tc-heading {
-  text-align: center;
-  margin-bottom: 48px;
-}
-
-.tc-heading h2 {
-  color: var(--dark);
-  font-size: 31px;
+.testi__eyebrow {
+  color: var(--blue);
+  font-size: 11px;
   font-weight: 700;
-  line-height: 1.25;
-  margin: 0 0 12px;
+  letter-spacing: 1.8px;
+  margin: 0 0 40px;
+  text-align: center;
+  text-transform: uppercase;
 }
 
-.tc-heading p {
-  color: var(--dark-70);
-  font-size: 14px;
-  line-height: 1.6;
-  margin: 0 auto;
-  max-width: 620px;
-}
+.testi__wrap { position: relative; }
 
-.tc-slider {
-  border-radius: 16px;
+.testi__slide {
+  display: none;
+  grid-template-columns: 55% 45%;
+  align-items: stretch;
+  background: var(--off-white);
+  border-radius: 24px;
   overflow: hidden;
-  position: relative;
+  min-height: 400px;
 }
 
-.tc-track {
-  display: flex;
-  transition: transform 0.38s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  will-change: transform;
-}
-
-.tc-card {
-  background: linear-gradient(135deg, rgba(42,138,234,0.15) 0%, rgba(42,138,234,0.04) 100%);
-  border-radius: 16px;
+.testi__slide--active {
   display: grid;
-  flex: 0 0 100%;
-  grid-template-columns: 57% 43%;
-  overflow: hidden;
+  animation: testiFadeIn 0.4s ease;
 }
 
-.tc-card__text {
+@keyframes testiFadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.testi__body {
   display: flex;
   flex-direction: column;
-  padding: 28px 28px 28px 32px;
+  justify-content: center;
+  padding: 52px 56px 52px 52px;
 }
 
-.tc-card__logo {
-  height: 40px;
-  margin-bottom: 16px;
-  max-width: 160px;
-  object-fit: contain;
-  object-position: left center;
-  width: auto;
-}
+.testi__airline-id { margin-bottom: 24px; }
 
-.tc-card[data-index="1"] .tc-card__logo { height: 48px; }
-
-.tc-card__quote {
+.testi__airline-name {
   color: var(--dark);
-  flex: 1;
-  font-size: 15px;
-  font-style: normal;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+}
+
+.testi__quote {
+  color: var(--dark);
+  font-size: 20px;
   font-weight: 500;
   line-height: 1.6;
-  margin: 0 0 20px;
+  margin: 0 0 28px;
+  quotes: none;
 }
 
-.tc-card__author {
+.testi__author {
   display: flex;
   flex-direction: column;
   gap: 3px;
 }
 
-.tc-card__name {
+.testi__name {
   color: var(--dark);
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 700;
 }
 
-.tc-card__role {
+.testi__role {
   color: var(--dark-70);
-  font-size: 12px;
+  font-size: 13px;
 }
 
-.tc-card__fig {
+.testi__fig {
+  line-height: 0;
   margin: 0;
   overflow: hidden;
 }
 
-.tc-card__img {
+.testi__img {
   display: block;
   height: 100%;
   object-fit: cover;
   width: 100%;
 }
 
-.tc-card[data-index="0"] .tc-card__img { object-position: 40% 35%; }
-.tc-card[data-index="1"] .tc-card__img { object-position: center 52%; }
-
-/* Nav arrows — below the slider */
-.tc-nav {
+.testi__controls {
+  align-items: center;
   display: flex;
-  gap: 8px;
-  margin-top: 20px;
+  gap: 14px;
+  justify-content: flex-start;
+  margin-top: 24px;
+  padding-left: 52px;
 }
 
-.tc-nav__btn {
+.testi__btn {
   align-items: center;
-  background: transparent;
+  background: var(--white);
   border: 1.5px solid var(--dark-20);
   border-radius: 50%;
-  color: var(--dark);
+  color: var(--dark-70);
   cursor: pointer;
   display: flex;
+  flex-shrink: 0;
   height: 38px;
   justify-content: center;
-  transition: background 0.15s, border-color 0.15s;
+  transition: border-color 0.2s, color 0.2s;
   width: 38px;
 }
 
-.tc-nav__btn:hover {
-  background: var(--dark-05);
-  border-color: var(--dark-40);
+.testi__btn:hover {
+  border-color: var(--blue);
+  color: var(--blue);
+}
+
+.testi__dots {
+  display: flex;
+  gap: 8px;
+}
+
+.testi__dot {
+  background: var(--dark-20);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  height: 8px;
+  padding: 0;
+  transition: background 0.25s, transform 0.25s;
+  width: 8px;
+}
+
+.testi__dot--active {
+  background: var(--dark);
+  transform: scale(1.25);
+}
+
+@media (max-width: 1024px) {
+  .testi__slide { grid-template-columns: 58% 42%; }
+  .testi__body { padding: 44px 40px 44px 44px; }
+  .testi__controls { padding-left: 44px; }
+  .testi__quote { font-size: 18px; }
 }
 
 @media (max-width: 767px) {
-  .tc-section { padding: 60px 0; }
-  .tc-card { grid-template-columns: 1fr; grid-template-rows: auto auto; }
-  .tc-card__text { order: 2; padding: 24px 24px 28px; }
-  .tc-card__fig { order: 1; height: 180px; }
-  .tc-card__quote { font-size: 15px; }
+  .testi-section { padding: 60px 0 52px; }
+  .testi__eyebrow { margin-bottom: 28px; }
+  .testi__slide {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+    border-radius: 16px;
+    min-height: unset;
+  }
+  .testi__body { padding: 32px 28px 28px; order: 2; }
+  .testi__fig { order: 1; aspect-ratio: 16/8; }
+  .testi__controls { padding-left: 28px; }
+  .testi__quote { font-size: 17px; }
 }
+
 @media (max-width: 413px) {
-  .tc-card__text { padding: 20px 18px 24px; }
+  .testi__body { padding: 28px 20px; }
+  .testi__controls { padding-left: 20px; }
+  .testi__quote { font-size: 16px; }
 }
 
 @media (max-width: 413px) {
