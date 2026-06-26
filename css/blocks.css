@@ -1247,6 +1247,10 @@
     border-left: none;
     border-top: 1px solid var(--dark-10);
     padding: 24px 0 0;
+    text-align: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
   }
   .step-col:first-child { border-top: none; }
 }
