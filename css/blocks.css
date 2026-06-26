@@ -1795,8 +1795,12 @@
   display: block;
   height: 100%;
   object-fit: cover;
+  object-position: center center;
   width: 100%;
 }
+
+.testi__slide[data-index="0"] .testi__img { object-position: 40% 35%; }
+.testi__slide[data-index="1"] .testi__img { object-position: center 52%; }
 
 .testi__controls {
   align-items: center;
