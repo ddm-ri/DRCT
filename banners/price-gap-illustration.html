@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1200">
+<title>Price Gap Illustration</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    width: 1200px;
+    height: 1200px;
+    overflow: hidden;
+    font-family: 'Inter', sans-serif;
+    background: #F2F1EC;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  /* Subtle texture */
+  body::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle, rgba(0,0,0,0.04) 1px, transparent 1px);
+    background-size: 28px 28px;
+  }
+
+  .scene {
+    position: relative;
+    width: 1100px;
+    height: 1100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+  }
+
+  /* TOP LABEL */
+  .top-label {
+    font-size: 18px;
+    font-weight: 600;
+    color: #999;
+    letter-spacing: 0.5px;
+    margin-bottom: 48px;
+    text-align: center;
+  }
+
+  /* SCREENS ROW */
+  .screens-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 0;
+    position: relative;
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* ── GDS SCREEN ── */
+  .screen {
+    width: 400px;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.15), 0 4px 12px rgba(0,0,0,0.08);
+    flex-shrink: 0;
+  }
+
+  .screen-titlebar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 16px;
+  }
+
+  .dot { width: 12px; height: 12px; border-radius: 50%; }
+  .dot-r { background: #FF5F57; }
+  .dot-y { background: #FEBC2E; }
+  .dot-g { background: #28C840; }
+
+  .screen-titlebar-label {
+    margin-left: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    flex: 1;
+    text-align: center;
+    padding-right: 52px;
+  }
+
+  /* GDS terminal style */
+  .screen.gds {
+    background: #1A1A2E;
+  }
+
+  .screen.gds .screen-titlebar {
+    background: #252540;
+  }
+
+  .screen.gds .screen-titlebar-label {
+    color: rgba(255,255,255,0.5);
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .gds-body {
+    padding: 20px 20px 28px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .gds-line {
+    font-size: 13px;
+    color: rgba(255,255,255,0.35);
+    line-height: 1.8;
+  }
+
+  .gds-line.hi { color: #00FF88; }
+  .gds-line.dim { color: rgba(255,255,255,0.2); }
+  .gds-line.warn { color: #FF9500; }
+
+  .gds-route-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 14px 0 4px;
+    font-size: 14px;
+    color: rgba(255,255,255,0.7);
+  }
+
+  .gds-airports {
+    font-size: 22px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 1px;
+  }
+
+  .gds-arrow { color: rgba(255,255,255,0.3); font-size: 16px; }
+
+  .gds-price-block {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin-top: 16px;
+  }
+
+  .gds-price-label {
+    font-size: 11px;
+    color: rgba(255,255,255,0.3);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 8px;
+  }
+
+  .gds-price-number {
+    font-size: 48px;
+    font-weight: 900;
+    font-family: 'Inter', sans-serif;
+    color: #FF6B6B;
+    letter-spacing: -2px;
+    line-height: 1;
+  }
+
+  .gds-price-cur {
+    font-size: 22px;
+    font-weight: 700;
+    color: #FF6B6B;
+    margin-left: 4px;
+  }
+
+  .gds-price-sub {
+    font-size: 12px;
+    color: rgba(255,255,255,0.25);
+    margin-top: 6px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .gds-source-tag {
+    display: inline-block;
+    background: rgba(255,165,0,0.12);
+    border: 1px solid rgba(255,165,0,0.25);
+    color: #FFB340;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 6px;
+    margin-top: 14px;
+  }
+
+  /* WEBSITE SCREEN */
+  .screen.web {
+    background: #fff;
+  }
+
+  .screen.web .screen-titlebar {
+    background: #F5F5F5;
+    border-bottom: 1px solid #E8E8E8;
+  }
+
+  .screen.web .screen-titlebar-label {
+    color: #888;
+    font-size: 13px;
+  }
+
+  .web-urlbar {
+    background: #fff;
+    border: 1.5px solid #E0E0E0;
+    border-radius: 8px;
+    padding: 6px 14px;
+    margin: 0 16px 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 12px;
+  }
+
+  .web-lock { font-size: 13px; color: #34C759; }
+
+  .web-url {
+    font-size: 13px;
+    color: #555;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .web-url span { color: #FF6600; font-weight: 700; }
+
+  .web-body { padding: 0 20px 28px; }
+
+  .web-nav {
+    display: flex;
+    gap: 16px;
+    border-bottom: 1px solid #F0F0F0;
+    padding-bottom: 12px;
+    margin-bottom: 16px;
+  }
+
+  .web-nav-item {
+    font-size: 13px;
+    color: #999;
+    font-weight: 500;
+    cursor: pointer;
+  }
+
+  .web-nav-item.active {
+    color: #FF6600;
+    font-weight: 700;
+    border-bottom: 2px solid #FF6600;
+    padding-bottom: 12px;
+    margin-bottom: -13px;
+  }
+
+  .web-flight-card {
+    background: #FFF8F4;
+    border: 1.5px solid #FFD4B5;
+    border-radius: 12px;
+    padding: 18px;
+    margin-bottom: 12px;
+  }
+
+  .web-flight-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+
+  .web-airline-logo {
+    width: 32px; height: 32px;
+    background: linear-gradient(135deg, #FF6600, #FF9933);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+  }
+
+  .web-airline-name {
+    font-size: 14px;
+    font-weight: 700;
+    color: #222;
+  }
+
+  .web-airline-sub {
+    font-size: 12px;
+    color: #999;
+  }
+
+  .web-flight-route {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+  }
+
+  .web-airport {
+    text-align: center;
+  }
+
+  .web-airport-code {
+    font-size: 26px;
+    font-weight: 900;
+    color: #111;
+    letter-spacing: 1px;
+  }
+
+  .web-airport-city {
+    font-size: 11px;
+    color: #999;
+    margin-top: 2px;
+  }
+
+  .web-flight-line {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 0 12px;
+  }
+
+  .web-flight-duration {
+    font-size: 12px;
+    color: #999;
+  }
+
+  .web-flight-bar {
+    width: 100%;
+    height: 2px;
+    background: #E0E0E0;
+    border-radius: 2px;
+    position: relative;
+  }
+
+  .web-flight-bar::after {
+    content: '✈';
+    position: absolute;
+    right: -6px;
+    top: -9px;
+    font-size: 14px;
+    color: #FF6600;
+  }
+
+  .web-price-row {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    background: #fff;
+    border-radius: 10px;
+    padding: 14px 16px;
+    border: 1px solid #F0F0F0;
+  }
+
+  .web-price-label {
+    font-size: 12px;
+    color: #999;
+    margin-bottom: 4px;
+  }
+
+  .web-price-number {
+    font-size: 42px;
+    font-weight: 900;
+    color: #1A7D3A;
+    letter-spacing: -1.5px;
+    line-height: 1;
+  }
+
+  .web-price-cur {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1A7D3A;
+    margin-left: 3px;
+  }
+
+  .web-book-btn {
+    background: #FF6600;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 700;
+    padding: 12px 20px;
+    border-radius: 10px;
+    white-space: nowrap;
+  }
+
+  .web-source-tag {
+    display: inline-block;
+    background: rgba(52,199,89,0.1);
+    border: 1px solid rgba(52,199,89,0.25);
+    color: #1A7D3A;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 6px;
+    margin-top: 12px;
+  }
+
+  /* ── MIDDLE PASSENGER ── */
+  .passenger-wrap {
+    position: relative;
+    width: 220px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 80px;
+    z-index: 10;
+  }
+
+  .passenger-bubble {
+    background: #fff;
+    border: 2px solid #111;
+    border-radius: 20px;
+    padding: 14px 18px;
+    font-size: 15px;
+    font-weight: 700;
+    color: #111;
+    text-align: center;
+    line-height: 1.4;
+    position: relative;
+    box-shadow: 4px 4px 0 #111;
+    margin-bottom: 4px;
+  }
+
+  .passenger-bubble::after {
+    content: '';
+    position: absolute;
+    bottom: -16px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0; height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 14px solid #111;
+  }
+
+  .passenger-bubble::before {
+    content: '';
+    position: absolute;
+    bottom: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0; height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 12px solid #fff;
+    z-index: 1;
+  }
+
+  /* Comic-style angry face */
+  .face {
+    width: 120px;
+    height: 120px;
+    position: relative;
+    margin-top: 20px;
+  }
+
+  .face svg {
+    width: 120px;
+    height: 120px;
+  }
+
+  /* VS badge */
+  .vs-badge {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 56px; height: 56px;
+    background: #111;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: 900;
+    color: #fff;
+    z-index: 20;
+    border: 3px solid #F2F1EC;
+    display: none; /* hidden, passenger is the separator */
+  }
+
+  /* ── BOTTOM: diff banner ── */
+  .diff-banner {
+    margin-top: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 32px;
+    background: #111118;
+    border-radius: 24px;
+    padding: 28px 56px;
+    width: 960px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .diff-banner::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      -45deg,
+      rgba(255,102,0,0.04),
+      rgba(255,102,0,0.04) 10px,
+      transparent 10px,
+      transparent 20px
+    );
+  }
+
+  .diff-item {
+    text-align: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .diff-label {
+    font-size: 12px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.4);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .diff-num {
+    font-size: 48px;
+    font-weight: 900;
+    letter-spacing: -2px;
+    line-height: 1;
+  }
+
+  .diff-num.red { color: #FF6B6B; }
+  .diff-num.green { color: #34C759; }
+  .diff-num.yellow { color: #FFD700; }
+
+  .diff-cur {
+    font-size: 22px;
+    font-weight: 700;
+    margin-left: 3px;
+  }
+
+  .diff-cur.red { color: #FF6B6B; }
+  .diff-cur.green { color: #34C759; }
+  .diff-cur.yellow { color: #FFD700; }
+
+  .diff-sub {
+    font-size: 13px;
+    color: rgba(255,255,255,0.35);
+    margin-top: 4px;
+  }
+
+  .diff-sep {
+    width: 1px;
+    height: 64px;
+    background: rgba(255,255,255,0.1);
+  }
+
+  .diff-arrow {
+    font-size: 36px;
+    color: rgba(255,255,255,0.2);
+    position: relative;
+    z-index: 1;
+  }
+
+  .diff-msg {
+    position: relative;
+    z-index: 1;
+    text-align: left;
+  }
+
+  .diff-msg-main {
+    font-size: 20px;
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.3;
+  }
+
+  .diff-msg-main em {
+    color: #FFD700;
+    font-style: normal;
+  }
+
+  .diff-msg-sub {
+    font-size: 14px;
+    color: rgba(255,255,255,0.4);
+    margin-top: 4px;
+  }
+</style>
+</head>
+<body>
+  <div class="scene">
+    <div class="top-label">What your customer sees vs. what you're selling</div>
+
+    <div class="screens-row">
+
+      <!-- GDS SCREEN -->
+      <div class="screen gds">
+        <div class="screen-titlebar">
+          <div class="dot dot-r"></div>
+          <div class="dot dot-y"></div>
+          <div class="dot dot-g"></div>
+          <div class="screen-titlebar-label">GDS TERMINAL</div>
+        </div>
+        <div class="gds-body">
+          <div class="gds-line dim">> AVAIL 08JUL RUHPAR</div>
+          <div class="gds-line dim">> PC1/ 1ADT</div>
+          <div class="gds-line">&nbsp;</div>
+          <div class="gds-route-row">
+            <span class="gds-airports">RUH</span>
+            <span class="gds-arrow">──────✈──────</span>
+            <span class="gds-airports">PAR</span>
+          </div>
+          <div class="gds-line dim">08JUL · PC 123 · Y · ECONOMY</div>
+          <div class="gds-price-block">
+            <div class="gds-price-label">Total fare (YQ+taxes)</div>
+            <div>
+              <span class="gds-price-number">1336</span>
+              <span class="gds-price-cur">SAR</span>
+            </div>
+            <div class="gds-price-sub">BASE 944 SAR + TAX 392 SAR</div>
+          </div>
+          <div class="gds-source-tag">⚡ GDS Published Fare</div>
+        </div>
+      </div>
+
+      <!-- PASSENGER -->
+      <div class="passenger-wrap">
+        <div class="passenger-bubble">
+          Why is it<br>
+          338 SAR<br>
+          cheaper<br>
+          on your site?!
+        </div>
+
+        <!-- SVG angry face -->
+        <div class="face">
+          <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Head -->
+            <circle cx="60" cy="68" r="42" fill="#FBBF5A" stroke="#111" stroke-width="3"/>
+            <!-- Neck -->
+            <rect x="48" y="104" width="24" height="14" rx="4" fill="#F5A623" stroke="#111" stroke-width="2.5"/>
+            <!-- Shirt collar -->
+            <path d="M30 118 L48 108 L60 114 L72 108 L90 118" stroke="#111" stroke-width="3" stroke-linecap="round"/>
+            <!-- Hair -->
+            <path d="M20 60 Q22 28 60 26 Q98 28 100 60" fill="#2D2D2D" stroke="#111" stroke-width="2.5"/>
+            <!-- Angry eyebrows -->
+            <path d="M35 54 L50 60" stroke="#111" stroke-width="4" stroke-linecap="round"/>
+            <path d="M85 54 L70 60" stroke="#111" stroke-width="4" stroke-linecap="round"/>
+            <!-- Eyes (angry squint) -->
+            <ellipse cx="44" cy="66" rx="8" ry="6" fill="#fff" stroke="#111" stroke-width="2.5"/>
+            <ellipse cx="76" cy="66" rx="8" ry="6" fill="#fff" stroke="#111" stroke-width="2.5"/>
+            <circle cx="46" cy="67" r="4" fill="#111"/>
+            <circle cx="78" cy="67" r="4" fill="#111"/>
+            <!-- Angry mouth -->
+            <path d="M42 88 Q60 80 78 88" stroke="#111" stroke-width="3" stroke-linecap="round" fill="none"/>
+            <!-- Cheek red -->
+            <ellipse cx="34" cy="78" rx="8" ry="5" fill="rgba(255,80,80,0.35)"/>
+            <ellipse cx="86" cy="78" rx="8" ry="5" fill="rgba(255,80,80,0.35)"/>
+            <!-- Sweat drop -->
+            <path d="M98 44 Q102 38 106 44 Q106 50 98 44Z" fill="#7EC8F0" stroke="#111" stroke-width="1.5"/>
+            <!-- Vein on forehead -->
+            <path d="M50 44 Q52 40 56 42 Q58 44 54 46" stroke="#CC0000" stroke-width="2" fill="none" stroke-linecap="round"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- WEBSITE SCREEN -->
+      <div class="screen web">
+        <div class="screen-titlebar">
+          <div class="dot dot-r"></div>
+          <div class="dot dot-y"></div>
+          <div class="dot dot-g"></div>
+          <div class="screen-titlebar-label" style="color:#888; font-size:13px;">Pegasus Airlines — Official</div>
+        </div>
+        <div class="web-urlbar">
+          <span class="web-lock">🔒</span>
+          <span class="web-url">flypgs.com/<span>search?RUH-PAR</span></span>
+        </div>
+        <div class="web-body">
+          <div class="web-nav">
+            <div class="web-nav-item">Flights</div>
+            <div class="web-nav-item active">Results</div>
+            <div class="web-nav-item">Hotels</div>
+          </div>
+
+          <div class="web-flight-card">
+            <div class="web-flight-header">
+              <div class="web-airline-logo">✈</div>
+              <div>
+                <div class="web-airline-name">Pegasus Airlines</div>
+                <div class="web-airline-sub">PC 123 · Economy · Non-stop</div>
+              </div>
+            </div>
+
+            <div class="web-flight-route">
+              <div class="web-airport">
+                <div class="web-airport-code">RUH</div>
+                <div class="web-airport-city">Riyadh</div>
+                <div style="font-size:13px; color:#555; font-weight:700; margin-top:4px;">08:30</div>
+              </div>
+              <div class="web-flight-line">
+                <div class="web-flight-duration">6h 45m</div>
+                <div class="web-flight-bar"></div>
+              </div>
+              <div class="web-airport">
+                <div class="web-airport-code">CDG</div>
+                <div class="web-airport-city">Paris</div>
+                <div style="font-size:13px; color:#555; font-weight:700; margin-top:4px;">13:15</div>
+              </div>
+            </div>
+
+            <div class="web-price-row">
+              <div>
+                <div class="web-price-label">Per person</div>
+                <div>
+                  <span class="web-price-number">998</span>
+                  <span class="web-price-cur">SAR</span>
+                </div>
+              </div>
+              <div class="web-book-btn">Book Now</div>
+            </div>
+          </div>
+
+          <div class="web-source-tag">✓ NDC Direct Price</div>
+        </div>
+      </div>
+
+    </div><!-- /screens-row -->
+
+    <!-- BOTTOM DIFF BANNER -->
+    <div class="diff-banner">
+      <div class="diff-item">
+        <div class="diff-label">GDS price</div>
+        <div>
+          <span class="diff-num red">1336</span>
+          <span class="diff-cur red">SAR</span>
+        </div>
+        <div class="diff-sub">what you quote</div>
+      </div>
+
+      <div class="diff-arrow">→</div>
+
+      <div class="diff-item">
+        <div class="diff-label">Website price</div>
+        <div>
+          <span class="diff-num green">998</span>
+          <span class="diff-cur green">SAR</span>
+        </div>
+        <div class="diff-sub">what customer sees</div>
+      </div>
+
+      <div class="diff-sep"></div>
+
+      <div class="diff-item">
+        <div class="diff-label">Gap</div>
+        <div>
+          <span class="diff-num yellow">338</span>
+          <span class="diff-cur yellow">SAR</span>
+        </div>
+        <div class="diff-sub">per ticket</div>
+      </div>
+
+      <div class="diff-sep"></div>
+
+      <div class="diff-msg">
+        <div class="diff-msg-main">
+          10 tickets/week =<br>
+          <em>13,800 SAR lost</em> monthly
+        </div>
+        <div class="diff-msg-sub">Jul 8 — Pegasus explains how to close this gap</div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>
