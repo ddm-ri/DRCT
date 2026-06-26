@@ -1720,7 +1720,7 @@
   text-transform: uppercase;
 }
 
-.testi__wrap { position: relative; }
+.testi__wrap { position: relative; border-radius: 24px; overflow: hidden; }
 
 .testi__slide {
   display: none;
@@ -1795,10 +1795,50 @@
   font-size: 13px;
 }
 
-.testi__nav {
+.testi__arrows {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
   display: flex;
-  gap: 10px;
-  margin-top: auto;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.22s ease;
+  z-index: 2;
+}
+
+.testi__wrap:hover .testi__arrows {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.testi__progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: rgba(42, 138, 234, 0.15);
+}
+
+.testi__progress-bar {
+  height: 100%;
+  width: 0%;
+  background: var(--blue);
+}
+
+.testi__progress-bar--running {
+  animation: testiProgress 6s linear forwards;
+}
+
+.testi__wrap:hover .testi__progress-bar--running {
+  animation-play-state: paused;
+}
+
+@keyframes testiProgress {
+  from { width: 0%; }
+  to   { width: 100%; }
 }
 
 .testi__fig {
@@ -1823,23 +1863,25 @@
 
 .testi__btn {
   align-items: center;
-  background: transparent;
-  border: 1.5px solid var(--dark-20);
+  background: rgba(255, 255, 255, 0.22);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1.5px solid rgba(255, 255, 255, 0.4);
   border-radius: 50%;
-  color: var(--dark-70);
+  color: var(--dark);
   cursor: pointer;
   display: flex;
   flex-shrink: 0;
-  height: 38px;
+  height: 44px;
   justify-content: center;
   padding: 0;
-  transition: border-color 0.2s, color 0.2s;
-  width: 38px;
+  transition: background 0.18s, border-color 0.18s;
+  width: 44px;
 }
 
 .testi__btn:hover {
-  border-color: var(--blue);
-  color: var(--blue);
+  background: rgba(255, 255, 255, 0.42);
+  border-color: rgba(255, 255, 255, 0.7);
 }
 
 .testi__dots {

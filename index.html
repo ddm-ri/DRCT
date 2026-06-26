@@ -614,18 +614,6 @@
             <strong class="testi__name">Jane Doe</strong>
             <span class="testi__role">Head of Distribution, Lufthansa</span>
           </footer>
-          <div class="testi__nav">
-            <button class="testi__btn testi__prev-btn" aria-label="Previous testimonial">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                <path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </button>
-            <button class="testi__btn testi__next-btn" aria-label="Next testimonial">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                <path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </button>
-          </div>
         </div>
         <figure class="testi__fig">
           <img src="img/airlines/Lufthansa_image.png" alt="Lufthansa airport terminal" class="testi__img" loading="lazy">
@@ -645,22 +633,29 @@
             <strong class="testi__name">John Smith</strong>
             <span class="testi__role">VP Distribution Strategy, Emirates</span>
           </footer>
-          <div class="testi__nav">
-            <button class="testi__btn testi__prev-btn" aria-label="Previous testimonial">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                <path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </button>
-            <button class="testi__btn testi__next-btn" aria-label="Next testimonial">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                <path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </button>
-          </div>
         </div>
         <figure class="testi__fig">
           <img src="img/airlines/Emirates_image.png" alt="Emirates pilots at airport" class="testi__img" loading="lazy">
         </figure>
+      </div>
+
+      <!-- Hover-reveal arrows overlay -->
+      <div class="testi__arrows">
+        <button class="testi__btn testi__prev-btn" aria-label="Previous testimonial">
+          <svg width="18" height="18" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <button class="testi__btn testi__next-btn" aria-label="Next testimonial">
+          <svg width="18" height="18" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Thin progress bar -->
+      <div class="testi__progress">
+        <div class="testi__progress-bar" id="testiProgressBar"></div>
       </div>
 
     </div><!-- /testi__wrap -->

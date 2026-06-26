@@ -421,15 +421,23 @@ document.addEventListener('DOMContentLoaded', function () {
   /* ---------------------------------------------------------------
      TESTIMONIALS CAROUSEL
   --------------------------------------------------------------- */
-  var testiSlides   = document.querySelectorAll('.testi__slide');
-  var testiDots     = document.querySelectorAll('.testi__dot');
-  var testiPrevBtns = document.querySelectorAll('.testi__prev-btn');
-  var testiNextBtns = document.querySelectorAll('.testi__next-btn');
-  var testiWrap     = document.getElementById('testiWrap');
-  var testiIdx      = 0;
-  var testiTotal    = testiSlides.length;
-  var testiTimer    = null;
-  var testiRunning  = false;
+  var testiSlides      = document.querySelectorAll('.testi__slide');
+  var testiDots        = document.querySelectorAll('.testi__dot');
+  var testiPrevBtns    = document.querySelectorAll('.testi__prev-btn');
+  var testiNextBtns    = document.querySelectorAll('.testi__next-btn');
+  var testiWrap        = document.getElementById('testiWrap');
+  var testiProgressBar = document.getElementById('testiProgressBar');
+  var testiIdx         = 0;
+  var testiTotal       = testiSlides.length;
+  var testiTimer       = null;
+  var testiRunning     = false;
+
+  function testiRestartProgress() {
+    if (!testiProgressBar) return;
+    testiProgressBar.classList.remove('testi__progress-bar--running');
+    void testiProgressBar.offsetWidth; // force reflow to restart animation
+    testiProgressBar.classList.add('testi__progress-bar--running');
+  }
 
   function testiGo(next) {
     if (!testiTotal || testiRunning) return;
@@ -455,12 +463,14 @@ document.addEventListener('DOMContentLoaded', function () {
         d.setAttribute('aria-selected', i === testiIdx ? 'true' : 'false');
       });
 
+      testiRestartProgress();
       testiRunning = false;
     }, 290);
   }
 
   function testiStartAuto() {
     testiStopAuto();
+    testiRestartProgress();
     testiTimer = setInterval(function () { testiGo(testiIdx + 1); }, 6000);
   }
 
