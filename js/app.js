@@ -421,15 +421,15 @@ document.addEventListener('DOMContentLoaded', function () {
   /* ---------------------------------------------------------------
      TESTIMONIALS CAROUSEL
   --------------------------------------------------------------- */
-  var testiSlides  = document.querySelectorAll('.testi__slide');
-  var testiDots    = document.querySelectorAll('.testi__dot');
-  var testiPrevBtn = document.getElementById('testiPrev');
-  var testiNextBtn = document.getElementById('testiNext');
-  var testiWrap    = document.getElementById('testiWrap');
-  var testiIdx     = 0;
-  var testiTotal   = testiSlides.length;
-  var testiTimer   = null;
-  var testiRunning = false;
+  var testiSlides   = document.querySelectorAll('.testi__slide');
+  var testiDots     = document.querySelectorAll('.testi__dot');
+  var testiPrevBtns = document.querySelectorAll('.testi__prev-btn');
+  var testiNextBtns = document.querySelectorAll('.testi__next-btn');
+  var testiWrap     = document.getElementById('testiWrap');
+  var testiIdx      = 0;
+  var testiTotal    = testiSlides.length;
+  var testiTimer    = null;
+  var testiRunning  = false;
 
   function testiGo(next) {
     if (!testiTotal || testiRunning) return;
@@ -469,16 +469,16 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   if (testiTotal > 1) {
-    if (testiPrevBtn) {
-      testiPrevBtn.addEventListener('click', function () {
+    testiPrevBtns.forEach(function (btn) {
+      btn.addEventListener('click', function () {
         testiStopAuto(); testiGo(testiIdx - 1); testiStartAuto();
       });
-    }
-    if (testiNextBtn) {
-      testiNextBtn.addEventListener('click', function () {
+    });
+    testiNextBtns.forEach(function (btn) {
+      btn.addEventListener('click', function () {
         testiStopAuto(); testiGo(testiIdx + 1); testiStartAuto();
       });
-    }
+    });
 
     testiDots.forEach(function (dot) {
       dot.addEventListener('click', function () {
