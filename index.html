@@ -130,28 +130,23 @@
         <path id="hp5" d="M 1360 604 C 1060 630 600  630 285 586"/>
       </g>
 
-      <!-- Animated dots — 3 per path, fast travel, staggered starts -->
+      <!-- Animated dots — 2 per path, slow travel, staggered starts -->
       <g fill="#2a8aea" filter="url(#hc-dot-glow)">
         <!-- Path 1 -->
-        <circle r="2.5"><animateMotion dur="1.0s" repeatCount="indefinite" begin="0s"><mpath href="#hp1"/></animateMotion><animate attributeName="opacity" values="0;0.9;0.9;0" keyTimes="0;0.07;0.92;1" dur="1.0s" repeatCount="indefinite" begin="0s"/></circle>
-        <circle r="2.5"><animateMotion dur="1.0s" repeatCount="indefinite" begin="0.33s"><mpath href="#hp1"/></animateMotion><animate attributeName="opacity" values="0;0.9;0.9;0" keyTimes="0;0.07;0.92;1" dur="1.0s" repeatCount="indefinite" begin="0.33s"/></circle>
-        <circle r="2.5"><animateMotion dur="1.0s" repeatCount="indefinite" begin="0.67s"><mpath href="#hp1"/></animateMotion><animate attributeName="opacity" values="0;0.9;0.9;0" keyTimes="0;0.07;0.92;1" dur="1.0s" repeatCount="indefinite" begin="0.67s"/></circle>
-        <!-- Path 2 -->
-        <circle r="2.5"><animateMotion dur="0.9s" repeatCount="indefinite" begin="0.15s"><mpath href="#hp2"/></animateMotion><animate attributeName="opacity" values="0;0.9;0.9;0" keyTimes="0;0.08;0.91;1" dur="0.9s" repeatCount="indefinite" begin="0.15s"/></circle>
-        <circle r="2.5"><animateMotion dur="0.9s" repeatCount="indefinite" begin="0.45s"><mpath href="#hp2"/></animateMotion><animate attributeName="opacity" values="0;0.9;0.9;0" keyTimes="0;0.08;0.91;1" dur="0.9s" repeatCount="indefinite" begin="0.45s"/></circle>
-        <circle r="2.5"><animateMotion dur="0.9s" repeatCount="indefinite" begin="0.75s"><mpath href="#hp2"/></animateMotion><animate attributeName="opacity" values="0;0.9;0.9;0" keyTimes="0;0.08;0.91;1" dur="0.9s" repeatCount="indefinite" begin="0.75s"/></circle>
+        <circle r="2.5"><animateMotion dur="3.2s" repeatCount="indefinite" begin="0s"><mpath href="#hp1"/></animateMotion><animate attributeName="opacity" values="0;0.6;0.6;0" keyTimes="0;0.07;0.92;1" dur="3.2s" repeatCount="indefinite" begin="0s"/></circle>
+        <circle r="2.5"><animateMotion dur="3.2s" repeatCount="indefinite" begin="1.6s"><mpath href="#hp1"/></animateMotion><animate attributeName="opacity" values="0;0.6;0.6;0" keyTimes="0;0.07;0.92;1" dur="3.2s" repeatCount="indefinite" begin="1.6s"/></circle>
+        <!-- Path 2 (reversed: left→right) -->
+        <circle r="2.5"><animateMotion dur="2.8s" repeatCount="indefinite" begin="0.15s" keyPoints="1;0" keyTimes="0;1"><mpath href="#hp2"/></animateMotion><animate attributeName="opacity" values="0;0.6;0.6;0" keyTimes="0;0.08;0.91;1" dur="2.8s" repeatCount="indefinite" begin="0.15s"/></circle>
+        <circle r="2.5"><animateMotion dur="2.8s" repeatCount="indefinite" begin="1.55s" keyPoints="1;0" keyTimes="0;1"><mpath href="#hp2"/></animateMotion><animate attributeName="opacity" values="0;0.6;0.6;0" keyTimes="0;0.08;0.91;1" dur="2.8s" repeatCount="indefinite" begin="1.55s"/></circle>
         <!-- Path 3 -->
-        <circle r="2.5"><animateMotion dur="1.2s" repeatCount="indefinite" begin="0.3s"><mpath href="#hp3"/></animateMotion><animate attributeName="opacity" values="0;0.9;0.9;0" keyTimes="0;0.06;0.93;1" dur="1.2s" repeatCount="indefinite" begin="0.3s"/></circle>
-        <circle r="2.5"><animateMotion dur="1.2s" repeatCount="indefinite" begin="0.7s"><mpath href="#hp3"/></animateMotion><animate attributeName="opacity" values="0;0.9;0.9;0" keyTimes="0;0.06;0.93;1" dur="1.2s" repeatCount="indefinite" begin="0.7s"/></circle>
-        <circle r="2.5"><animateMotion dur="1.2s" repeatCount="indefinite" begin="1.1s"><mpath href="#hp3"/></animateMotion><animate attributeName="opacity" values="0;0.9;0.9;0" keyTimes="0;0.06;0.93;1" dur="1.2s" repeatCount="indefinite" begin="1.1s"/></circle>
-        <!-- Path 4 -->
-        <circle r="2.5"><animateMotion dur="1.0s" repeatCount="indefinite" begin="0.1s"><mpath href="#hp4"/></animateMotion><animate attributeName="opacity" values="0;0.9;0.9;0" keyTimes="0;0.07;0.92;1" dur="1.0s" repeatCount="indefinite" begin="0.1s"/></circle>
-        <circle r="2.5"><animateMotion dur="1.0s" repeatCount="indefinite" begin="0.43s"><mpath href="#hp4"/></animateMotion><animate attributeName="opacity" values="0;0.9;0.9;0" keyTimes="0;0.07;0.92;1" dur="1.0s" repeatCount="indefinite" begin="0.43s"/></circle>
-        <circle r="2.5"><animateMotion dur="1.0s" repeatCount="indefinite" begin="0.77s"><mpath href="#hp4"/></animateMotion><animate attributeName="opacity" values="0;0.9;0.9;0" keyTimes="0;0.07;0.92;1" dur="1.0s" repeatCount="indefinite" begin="0.77s"/></circle>
+        <circle r="2.5"><animateMotion dur="3.8s" repeatCount="indefinite" begin="0.3s"><mpath href="#hp3"/></animateMotion><animate attributeName="opacity" values="0;0.6;0.6;0" keyTimes="0;0.06;0.93;1" dur="3.8s" repeatCount="indefinite" begin="0.3s"/></circle>
+        <circle r="2.5"><animateMotion dur="3.8s" repeatCount="indefinite" begin="2.2s"><mpath href="#hp3"/></animateMotion><animate attributeName="opacity" values="0;0.6;0.6;0" keyTimes="0;0.06;0.93;1" dur="3.8s" repeatCount="indefinite" begin="2.2s"/></circle>
+        <!-- Path 4 (reversed: left→right) -->
+        <circle r="2.5"><animateMotion dur="3.0s" repeatCount="indefinite" begin="0.1s" keyPoints="1;0" keyTimes="0;1"><mpath href="#hp4"/></animateMotion><animate attributeName="opacity" values="0;0.6;0.6;0" keyTimes="0;0.07;0.92;1" dur="3.0s" repeatCount="indefinite" begin="0.1s"/></circle>
+        <circle r="2.5"><animateMotion dur="3.0s" repeatCount="indefinite" begin="1.6s" keyPoints="1;0" keyTimes="0;1"><mpath href="#hp4"/></animateMotion><animate attributeName="opacity" values="0;0.6;0.6;0" keyTimes="0;0.07;0.92;1" dur="3.0s" repeatCount="indefinite" begin="1.6s"/></circle>
         <!-- Path 5 -->
-        <circle r="2.5"><animateMotion dur="0.9s" repeatCount="indefinite" begin="0.2s"><mpath href="#hp5"/></animateMotion><animate attributeName="opacity" values="0;0.9;0.9;0" keyTimes="0;0.08;0.91;1" dur="0.9s" repeatCount="indefinite" begin="0.2s"/></circle>
-        <circle r="2.5"><animateMotion dur="0.9s" repeatCount="indefinite" begin="0.5s"><mpath href="#hp5"/></animateMotion><animate attributeName="opacity" values="0;0.9;0.9;0" keyTimes="0;0.08;0.91;1" dur="0.9s" repeatCount="indefinite" begin="0.5s"/></circle>
-        <circle r="2.5"><animateMotion dur="0.9s" repeatCount="indefinite" begin="0.8s"><mpath href="#hp5"/></animateMotion><animate attributeName="opacity" values="0;0.9;0.9;0" keyTimes="0;0.08;0.91;1" dur="0.9s" repeatCount="indefinite" begin="0.8s"/></circle>
+        <circle r="2.5"><animateMotion dur="2.6s" repeatCount="indefinite" begin="0.2s"><mpath href="#hp5"/></animateMotion><animate attributeName="opacity" values="0;0.6;0.6;0" keyTimes="0;0.08;0.91;1" dur="2.6s" repeatCount="indefinite" begin="0.2s"/></circle>
+        <circle r="2.5"><animateMotion dur="2.6s" repeatCount="indefinite" begin="1.5s"><mpath href="#hp5"/></animateMotion><animate attributeName="opacity" values="0;0.6;0.6;0" keyTimes="0;0.08;0.91;1" dur="2.6s" repeatCount="indefinite" begin="1.5s"/></circle>
       </g>
     </svg>
 
@@ -159,39 +154,6 @@
     <div class="hc-al-wrap" aria-hidden="true">
       <div class="hc-al hc-al--1"><img src="img/logos/Lufthansa.svg" alt="Lufthansa"></div>
       <div class="hc-al hc-al--2"><img src="img/logos/british-airways.svg" alt="British Airways"></div>
-      <div class="hc-al hc-al--3"><img src="img/logos/Emirates.svg" alt="Emirates"></div>
-      <div class="hc-al hc-al--4"><img src="img/logos/lot-polish-airlines.svg" alt="LOT"></div>
-      <div class="hc-al hc-al--5"><img src="img/logos/KLM.svg" alt="KLM"></div>
-      <div class="hc-al hc-al--6"><img src="img/logos/air-france.svg" alt="Air France"></div>
-      <div class="hc-iata">
-        <svg width="52" height="52" viewBox="0 0 130 130" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <path id="hci-top" d="M 12,65 A 53,53 0 0 1 118,65"/>
-            <path id="hci-bot" d="M 12,65 A 53,53 0 0 0 118,65"/>
-          </defs>
-          <circle cx="65" cy="65" r="63" fill="#1b2733"/>
-          <circle cx="65" cy="65" r="57" fill="none" stroke="white" stroke-width="1.2"/>
-          <circle cx="65" cy="65" r="45.5" fill="none" stroke="white" stroke-width="1.2"/>
-          <circle cx="65" cy="65" r="44" fill="#CC3527"/>
-          <circle cx="12" cy="65" r="2.5" fill="white"/>
-          <circle cx="118" cy="65" r="2.5" fill="white"/>
-          <text fill="white" font-family="IBM Plex Sans,sans-serif" font-size="7" font-weight="700" letter-spacing="1.6">
-            <textPath href="#hci-top" startOffset="50%" text-anchor="middle">AIRLINE RETAILING MATURITY</textPath>
-          </text>
-          <text fill="white" font-family="IBM Plex Sans,sans-serif" font-size="7" font-weight="700" letter-spacing="3.8">
-            <textPath href="#hci-bot" startOffset="50%" text-anchor="middle">SYSTEM PROVIDER</textPath>
-          </text>
-          <circle cx="65" cy="57" r="15" stroke="white" stroke-width="1.5" fill="none"/>
-          <line x1="65" y1="42" x2="65" y2="72" stroke="white" stroke-width="0.9" opacity="0.75"/>
-          <line x1="50" y1="57" x2="80" y2="57" stroke="white" stroke-width="0.9" opacity="0.75"/>
-          <ellipse cx="65" cy="57" rx="9" ry="15" stroke="white" stroke-width="0.9" fill="none" opacity="0.75"/>
-          <path d="M 50,52 Q 65,48 80,52" stroke="white" stroke-width="0.8" fill="none" opacity="0.6"/>
-          <path d="M 50,62 Q 65,66 80,62" stroke="white" stroke-width="0.8" fill="none" opacity="0.6"/>
-          <path d="M 50,59 L 31,63 L 31,65.5 L 50,63 Z" fill="white"/>
-          <path d="M 80,59 L 99,63 L 99,65.5 L 80,63 Z" fill="white"/>
-          <text x="65" y="80" fill="white" font-family="IBM Plex Sans,sans-serif" font-size="11.5" font-weight="800" text-anchor="middle" letter-spacing="0.5">IATA</text>
-        </svg>
-      </div>
     </div>
 
     <!-- Center text -->

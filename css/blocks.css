@@ -76,8 +76,8 @@
 }
 .nav-item__trigger:hover,
 .nav-item--open > .nav-item__trigger {
-  background: rgba(27,39,51,0.055);
-  color: var(--dark);
+  background: rgba(42,138,234,0.09);
+  color: var(--blue);
 }
 .nav-chevron {
   flex-shrink: 0;
@@ -97,8 +97,8 @@
   white-space: nowrap;
 }
 .nav-item__link:hover {
-  background: rgba(27,39,51,0.055);
-  color: var(--dark);
+  background: rgba(42,138,234,0.09);
+  color: var(--blue);
 }
 .nav-item__link.active {
   background: var(--blue-10);
@@ -732,28 +732,12 @@
   pointer-events: none;
 }
 
-/* Position + staggered float — each logo drifts at its own pace */
-.hc-al--1 { top: 8%;    left: 2%;  animation: hc-float 5.5s ease-in-out infinite; }
-.hc-al--2 { top: 38%;   left: 9%;  animation: hc-float 6.3s ease-in-out infinite 1.4s; }
-.hc-al--3 { top: 65%;   left: 2%;  animation: hc-float 4.9s ease-in-out infinite 0.8s; }
-.hc-al--4 { bottom: 8%; left: 17%; animation: hc-float 6.7s ease-in-out infinite 2.2s; }
-.hc-al--5 { top: 20%;   left: 18%; animation: hc-float 5.2s ease-in-out infinite 1.7s; }
-.hc-al--6 { top: 50%;   left: 21%; animation: hc-float 5.7s ease-in-out infinite 3.4s; }
+/* Position + staggered float — Lufthansa top, British Airways below */
+.hc-al--1 { top: 28%;  left: 4%;  animation: hc-float 5.5s ease-in-out infinite; }
+.hc-al--2 { top: 56%;  left: 11%; animation: hc-float 6.3s ease-in-out infinite 1.4s; }
 
-/* Two logos pulse slowly — long interval keeps it occasional */
-.hc-al--2 img { animation: hc-pulse 9s  ease-in-out infinite 2.0s; }
-.hc-al--4 img { animation: hc-pulse 11s ease-in-out infinite 5.5s; }
-
-/* IATA ARM badge — small floating trust element */
-.hc-iata {
-  position: absolute;
-  bottom: 12%;
-  left: 5%;
-  width: 52px;
-  height: 52px;
-  animation: hc-float 7.1s ease-in-out infinite 4.2s;
-  filter: drop-shadow(0 2px 6px rgba(27,39,51,0.18));
-}
+/* Logos pulse slowly */
+.hc-al--2 img { animation: hc-pulse 9s ease-in-out infinite 2.0s; }
 
 /* Seller chips */
 .hc-chip {
