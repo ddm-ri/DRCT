@@ -1862,15 +1862,9 @@
 .tc-side-btn:hover { background: rgba(255, 255, 255, 0.75); }
 .tc-side-btn:focus-visible { opacity: 1; outline: none; }
 
-/* Bottom row: progress bar + paired controls */
-.tc-footer {
-  align-items: center;
-  display: flex;
-  gap: 16px;
-  margin-top: 20px;
-}
-
+/* Blue progress bar */
 .tc-progress {
+  margin-top: 20px;
   background: var(--dark-10);
   border-radius: 2px;
   flex: 1;
@@ -1886,31 +1880,6 @@
   width: 50%;
 }
 
-/* Paired ← → circle buttons */
-.tc-controls {
-  display: flex;
-  flex-shrink: 0;
-  gap: 8px;
-}
-
-.tc-ctrl-btn {
-  align-items: center;
-  background: transparent;
-  border: 1.5px solid var(--dark-26);
-  border-radius: 50%;
-  color: var(--dark);
-  cursor: pointer;
-  display: flex;
-  height: 40px;
-  justify-content: center;
-  transition: border-color 0.14s, background 0.14s;
-  width: 40px;
-}
-
-.tc-ctrl-btn:hover {
-  background: var(--dark-05);
-  border-color: var(--dark-40);
-}
 
 /* Responsive */
 @media (max-width: 767px) {
