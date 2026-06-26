@@ -370,25 +370,45 @@ a.inline-link,
   cursor: pointer;
   display: flex;
   font-family: var(--font-sans);
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 600;
   justify-content: space-between;
-  padding: 20px 24px;
+  padding: 16px 24px;
   text-align: left;
   text-decoration: none;
+  transition: background 0.14s, color 0.14s;
   width: 100%;
 }
-.menu-row:hover { background: var(--dark-05); }
-.menu-row__chevron { color: var(--dark-40); flex-shrink: 0; }
+.menu-row:hover {
+  background: var(--blue-10);
+  color: var(--blue);
+}
+.menu-row:hover .menu-row__icon { background: var(--blue-20); }
+.menu-row:hover .menu-row__chevron { color: var(--blue); }
+
+.menu-row__left {
+  align-items: center;
+  display: flex;
+  gap: 14px;
+}
+.menu-row__icon {
+  align-items: center;
+  background: rgba(42,138,234,0.08);
+  border-radius: 9px;
+  display: flex;
+  flex-shrink: 0;
+  height: 34px;
+  justify-content: center;
+  transition: background 0.14s;
+  width: 34px;
+}
+.menu-row__chevron { color: var(--dark-40); flex-shrink: 0; transition: color 0.14s; }
 
 /* Utility items (Sign In) */
 .menu-row--meta {
   font-size: 16px;
   font-weight: 500;
-  gap: 10px;
-  justify-content: flex-start;
 }
-.menu-row--meta svg { color: var(--dark-40); }
 
 /* Divider */
 .menu-divider {
