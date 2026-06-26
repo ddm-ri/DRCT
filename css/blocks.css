@@ -943,14 +943,14 @@
   align-items: center;
   background: rgba(42,138,234,0.10);
   border: none;
-  border-radius: 10px;
+  border-radius: 8px;
   box-shadow: none;
   display: flex;
-  height: 40px;
+  height: 34px;
   justify-content: center;
   margin-bottom: 20px;
   transition: none;
-  width: 40px;
+  width: 34px;
 }
 .bcard:hover .bcard__icon {
   background: rgba(42,138,234,0.10);
