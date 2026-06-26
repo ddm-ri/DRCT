@@ -1612,6 +1612,8 @@
     padding: 36px 0;
     border-left: none !important;
     border-top: 1px solid rgba(27,39,51,0.08);
+    text-align: center;
+    align-items: center;
   }
   .metrics__col:first-child { border-top: none; padding-top: 0; }
   .metrics__value { font-size: 72px; letter-spacing: -2.5px; }
@@ -1687,7 +1689,7 @@
   .certified__airline:hover p { opacity: 1; }
   .certified__airline svg { height: unset; width: unset; }
 }
-@media (max-width: 413px) { .certified__airlines { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 413px) { .certified__airlines { grid-template-columns: repeat(3, 1fr); } }
 
 /* ================================================================
    TESTIMONIALS
