@@ -1623,7 +1623,7 @@ a.inline-link,
   font-size: 14px;
   line-height: 24px;
   margin-bottom: 60px;
-  margin-top: 12px;
+  margin-top: 16px;
   text-align: center;
 }
 
@@ -1634,9 +1634,7 @@ a.inline-link,
 }
 
 .questions__body {
-  cursor: pointer;
   text-align: left;
-  user-select: none;
 }
 
 .questions__body ul li:last-child {
@@ -1655,6 +1653,7 @@ a.inline-link,
 
 .questions__body ul li p {
   color: var(--dark);
+  cursor: text;
   display: none;
   font-size: 14px;
   line-height: 1.57;
@@ -1669,12 +1668,14 @@ a.inline-link,
 .questions__body ul li h3 {
   align-items: center;
   color: var(--dark);
+  cursor: pointer;
   display: flex;
   font-size: 21px;
   font-weight: 400;
   justify-content: space-between;
   padding-right: 25px;
   position: relative;
+  user-select: none;
 }
 @media (max-width: 767px) {
   .questions__body ul li h3 {
