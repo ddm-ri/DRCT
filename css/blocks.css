@@ -1819,33 +1819,26 @@
 .testi__slide[data-index="0"] .testi__img { object-position: 40% 35%; }
 .testi__slide[data-index="1"] .testi__img { object-position: center 52%; }
 
-.testi__controls {
-  align-items: center;
-  display: flex;
-  gap: 14px;
-  justify-content: flex-start;
-  margin-top: 24px;
-  padding-left: 40px;
-}
+.testi__controls { display: none; }
 
 .testi__btn {
   align-items: center;
-  background: var(--white);
-  border: 1.5px solid var(--dark-20);
+  background: none;
+  border: none;
   border-radius: 50%;
-  color: var(--dark-70);
+  color: var(--dark-40);
   cursor: pointer;
   display: flex;
   flex-shrink: 0;
-  height: 38px;
+  height: 32px;
   justify-content: center;
-  transition: border-color 0.2s, color 0.2s;
-  width: 38px;
+  padding: 0;
+  transition: color 0.2s;
+  width: 32px;
 }
 
 .testi__btn:hover {
-  border-color: var(--blue);
-  color: var(--blue);
+  color: var(--dark);
 }
 
 .testi__dots {
