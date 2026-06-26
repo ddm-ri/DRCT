@@ -160,7 +160,7 @@
   padding: 8px 12px;
   transition: background 0.12s;
 }
-.mm-lang a:hover { background: rgba(27,39,51,0.05); color: var(--dark); }
+.mm-lang a:hover { background: rgba(42,138,234,0.09); color: var(--blue); }
 .mm-lang a.active { color: var(--blue); font-weight: 600; }
 
 /* Sign In */
@@ -173,7 +173,7 @@
   transition: background 0.14s, color 0.14s;
   white-space: nowrap;
 }
-.nav-bar__signin:hover { background: rgba(27,39,51,0.055); color: var(--dark); }
+.nav-bar__signin:hover { background: rgba(42,138,234,0.09); color: var(--blue); }
 
 /* Book a Demo */
 .nav-bar__demo {
