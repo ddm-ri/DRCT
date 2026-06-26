@@ -27,12 +27,22 @@ document.addEventListener('DOMContentLoaded', function () {
     var heading = item.querySelector('h3');
     if (!heading) return;
 
-    heading.addEventListener('click', function () {
+    function toggle() {
       var isActive = item.classList.contains('active');
-      // Close all
-      faqItems.forEach(function (el) { el.classList.remove('active'); });
-      // Open clicked (unless it was already open)
-      if (!isActive) item.classList.add('active');
+      faqItems.forEach(function (el) {
+        el.classList.remove('active');
+        var h = el.querySelector('h3');
+        if (h) h.setAttribute('aria-expanded', 'false');
+      });
+      if (!isActive) {
+        item.classList.add('active');
+        heading.setAttribute('aria-expanded', 'true');
+      }
+    }
+
+    heading.addEventListener('click', toggle);
+    heading.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
     });
   });
 
