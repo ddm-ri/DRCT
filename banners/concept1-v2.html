@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1200">
+<title>Concept 1 v2 — Pegasus NDC</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    width: 1200px;
+    height: 1200px;
+    overflow: hidden;
+    font-family: 'Inter', sans-serif;
+    background: #fff;
+    position: relative;
+  }
+
+  /* ── NAV BAR (Pegasus style) ── */
+  .navbar {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 72px;
+    background: #fff;
+    border-bottom: 1px solid #F0F0F0;
+    display: flex;
+    align-items: center;
+    padding: 0 56px;
+    z-index: 20;
+    gap: 32px;
+  }
+
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+  }
+
+  /* Pegasus logo recreation */
+  .logo-bird {
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+  }
+
+  .logo-wordmark {
+    font-size: 22px;
+    font-weight: 900;
+    color: #FF5F00;
+    letter-spacing: -0.5px;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 28px;
+    margin-left: 24px;
+  }
+
+  .nav-link {
+    font-size: 14px;
+    font-weight: 500;
+    color: #444;
+  }
+
+  .nav-link.active {
+    color: #FF5F00;
+    font-weight: 600;
+  }
+
+  .nav-right {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .nav-lang {
+    font-size: 13px;
+    font-weight: 600;
+    color: #555;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .nav-login {
+    font-size: 14px;
+    font-weight: 600;
+    color: #FF5F00;
+    border: 2px solid #FF5F00;
+    border-radius: 8px;
+    padding: 8px 20px;
+  }
+
+  /* ── HERO SECTION ── */
+  .hero {
+    position: absolute;
+    top: 72px; left: 0; right: 0;
+    height: 480px;
+    background: linear-gradient(160deg, #FF5F00 0%, #FF8C00 55%, #FFB347 100%);
+    overflow: hidden;
+  }
+
+  /* Geometric shapes (Pegasus website style) */
+  .hero-circle-1 {
+    position: absolute;
+    width: 500px; height: 500px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.06);
+    top: -120px; right: -60px;
+  }
+
+  .hero-circle-2 {
+    position: absolute;
+    width: 300px; height: 300px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.05);
+    bottom: -80px; right: 200px;
+  }
+
+  .hero-circle-3 {
+    position: absolute;
+    width: 180px; height: 180px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.07);
+    top: 40px; left: 380px;
+  }
+
+  /* Plane silhouette */
+  .hero-plane {
+    position: absolute;
+    right: 48px;
+    bottom: -20px;
+    opacity: 0.12;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 10;
+    padding: 52px 56px 0;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.18);
+    border: 1px solid rgba(255,255,255,0.35);
+    border-radius: 100px;
+    padding: 8px 20px;
+    margin-bottom: 28px;
+    backdrop-filter: blur(4px);
+  }
+
+  .hero-badge-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: #fff;
+    animation: blink 1.4s infinite;
+  }
+
+  @keyframes blink {
+    0%,100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  .hero-badge-text {
+    font-size: 13px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+
+  .hero-headline {
+    font-size: 68px;
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.02;
+    letter-spacing: -2.5px;
+    margin-bottom: 20px;
+    max-width: 760px;
+  }
+
+  .hero-subheadline {
+    font-size: 28px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.8);
+    letter-spacing: -0.3px;
+  }
+
+  .hero-subheadline strong {
+    color: #fff;
+    font-weight: 700;
+  }
+
+  /* ── SEARCH WIDGET (Pegasus style) ── */
+  .search-widget {
+    position: absolute;
+    bottom: -68px;
+    left: 56px;
+    right: 56px;
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.06);
+    z-index: 15;
+    overflow: hidden;
+  }
+
+  .widget-tabs {
+    display: flex;
+    border-bottom: 1px solid #F0F0F0;
+    padding: 0 28px;
+  }
+
+  .widget-tab {
+    font-size: 14px;
+    font-weight: 600;
+    color: #999;
+    padding: 18px 20px 16px;
+    border-bottom: 3px solid transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .widget-tab.active {
+    color: #FF5F00;
+    border-bottom-color: #FF5F00;
+  }
+
+  .widget-row {
+    display: flex;
+    align-items: stretch;
+    padding: 0 16px;
+    gap: 0;
+  }
+
+  .widget-field {
+    flex: 1;
+    padding: 18px 20px;
+    border-right: 1px solid #F0F0F0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+  }
+
+  .widget-field:last-of-type { border-right: none; }
+
+  .widget-field-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: #999;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+  }
+
+  .widget-field-value {
+    font-size: 22px;
+    font-weight: 800;
+    color: #111;
+    letter-spacing: -0.5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .widget-field-sub {
+    font-size: 12px;
+    color: #aaa;
+  }
+
+  .widget-search-btn {
+    background: #FF5F00;
+    color: #fff;
+    font-size: 17px;
+    font-weight: 800;
+    padding: 0 40px;
+    border-radius: 0 0 12px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+    white-space: nowrap;
+    letter-spacing: -0.2px;
+  }
+
+  /* ── MIDDLE SECTION ── */
+  .middle {
+    position: absolute;
+    top: 622px; left: 0; right: 0;
+    padding: 0 56px;
+    display: flex;
+    gap: 24px;
+  }
+
+  /* Event card — main CTA */
+  .event-card {
+    flex: 1.6;
+    background: #fff;
+    border: 2px solid #F0F0F0;
+    border-radius: 20px;
+    padding: 36px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .event-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 5px;
+    background: linear-gradient(90deg, #FF5F00, #FFB347);
+  }
+
+  .event-card-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #FFF3EC;
+    border: 1px solid #FFD4B5;
+    color: #FF5F00;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+  }
+
+  .event-card-title {
+    font-size: 32px;
+    font-weight: 900;
+    color: #111;
+    line-height: 1.15;
+    letter-spacing: -0.8px;
+    margin-bottom: 12px;
+  }
+
+  .event-card-sub {
+    font-size: 17px;
+    color: #666;
+    font-weight: 400;
+    margin-bottom: 28px;
+    line-height: 1.5;
+  }
+
+  .event-meta {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+
+  .event-meta-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #F7F7F7;
+    border-radius: 10px;
+    padding: 10px 16px;
+  }
+
+  .event-meta-icon { font-size: 18px; }
+
+  .event-meta-text {
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
+    line-height: 1.3;
+  }
+
+  .event-meta-text span {
+    font-weight: 400;
+    color: #888;
+    font-size: 12px;
+    display: block;
+  }
+
+  .register-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: #FF5F00;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 800;
+    padding: 18px 36px;
+    border-radius: 12px;
+    text-decoration: none;
+    letter-spacing: -0.2px;
+    box-shadow: 0 6px 24px rgba(255,95,0,0.3);
+  }
+
+  .register-btn .arrow {
+    font-size: 20px;
+  }
+
+  /* Info cards column */
+  .info-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .info-card {
+    background: #fff;
+    border: 2px solid #F0F0F0;
+    border-radius: 20px;
+    padding: 28px 28px;
+    flex: 1;
+  }
+
+  .info-card-icon { font-size: 32px; margin-bottom: 12px; }
+
+  .info-card-title {
+    font-size: 17px;
+    font-weight: 800;
+    color: #111;
+    margin-bottom: 6px;
+    letter-spacing: -0.3px;
+  }
+
+  .info-card-text {
+    font-size: 14px;
+    color: #777;
+    line-height: 1.5;
+  }
+
+  .info-card.ndc {
+    background: linear-gradient(135deg, #FF5F00, #FF8C00);
+    border-color: transparent;
+  }
+
+  .info-card.ndc .info-card-title,
+  .info-card.ndc .info-card-text { color: #fff; }
+
+  .info-card.ndc .info-card-text { color: rgba(255,255,255,0.75); }
+
+  /* ── PRIZE BANNER ── */
+  .prize-banner {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 116px;
+    background: #111118;
+    display: flex;
+    align-items: center;
+    padding: 0 56px;
+    gap: 24px;
+  }
+
+  .prize-icon { font-size: 40px; flex-shrink: 0; }
+
+  .prize-text-wrap { flex: 1; }
+
+  .prize-eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.4);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  .prize-main {
+    font-size: 22px;
+    font-weight: 800;
+    color: #fff;
+    letter-spacing: -0.3px;
+  }
+
+  .prize-main em {
+    font-style: normal;
+    color: #FFD700;
+  }
+
+  .prize-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-shrink: 0;
+  }
+
+  .prize-ticket {
+    background: rgba(255,215,0,0.12);
+    border: 1px solid rgba(255,215,0,0.25);
+    border-radius: 12px;
+    padding: 12px 24px;
+    text-align: center;
+  }
+
+  .prize-ticket-icon { font-size: 24px; }
+
+  .prize-ticket-text {
+    font-size: 12px;
+    color: #FFD700;
+    font-weight: 700;
+    margin-top: 4px;
+    white-space: nowrap;
+  }
+
+  /* KSA flag accent */
+  .ksa-tag {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 100px;
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.6);
+  }
+</style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <div class="navbar">
+    <div class="nav-logo">
+      <!-- Pegasus logo SVG recreation -->
+      <svg class="logo-bird" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Orange background circle -->
+        <circle cx="22" cy="22" r="22" fill="#FF5F00"/>
+        <!-- Stylized P / wing -->
+        <path d="M10 28 Q14 12 24 12 Q32 12 32 19 Q32 25 24 26 L18 26 L18 34"
+              stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <path d="M18 22 L26 22" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/>
+      </svg>
+      <span class="logo-wordmark">PEGASUS</span>
+    </div>
+
+    <div class="nav-links">
+      <span class="nav-link active">Book</span>
+      <span class="nav-link">Check-in</span>
+      <span class="nav-link">My Trips</span>
+      <span class="nav-link">BolBol</span>
+    </div>
+
+    <div class="nav-right">
+      <span class="nav-lang">🇸🇦 AR / EN</span>
+      <span class="nav-login">Log in</span>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-circle-1"></div>
+    <div class="hero-circle-2"></div>
+    <div class="hero-circle-3"></div>
+
+    <!-- Plane SVG -->
+    <div class="hero-plane">
+      <svg width="620" height="380" viewBox="0 0 620 380" fill="none">
+        <path d="M80 280 L520 80 L580 100 L200 280 Z" fill="white" opacity="0.5"/>
+        <path d="M200 280 L580 100 L600 160 L260 310 Z" fill="white" opacity="0.3"/>
+        <path d="M80 280 L120 310 L200 280 L80 280 Z" fill="white" opacity="0.4"/>
+        <circle cx="520" cy="80" r="18" fill="white" opacity="0.6"/>
+      </svg>
+    </div>
+
+    <div class="hero-content">
+      <div class="hero-badge">
+        <div class="hero-badge-dot"></div>
+        <span class="hero-badge-text">Live Webinar · July 8, 2025</span>
+      </div>
+
+      <div class="hero-headline">
+        Pegasus NDC —<br>built for<br>KSA agencies
+      </div>
+
+      <div class="hero-subheadline">
+        Live with <strong>Pegasus</strong> & <strong>DRCT</strong>
+      </div>
+    </div>
+  </div>
+
+  <!-- SEARCH WIDGET -->
+  <div class="search-widget">
+    <div class="widget-tabs">
+      <div class="widget-tab active">✈ One Way</div>
+      <div class="widget-tab">⇄ Round Trip</div>
+      <div class="widget-tab">🏨 Hotel</div>
+      <div class="widget-tab">🎁 Holiday</div>
+    </div>
+    <div class="widget-row">
+      <div class="widget-field">
+        <div class="widget-field-label">From</div>
+        <div class="widget-field-value">Riyadh · RUH</div>
+        <div class="widget-field-sub">King Khalid International</div>
+      </div>
+      <div class="widget-field">
+        <div class="widget-field-label">To</div>
+        <div class="widget-field-value">Istanbul · SAW</div>
+        <div class="widget-field-sub">Sabiha Gökçen</div>
+      </div>
+      <div class="widget-field">
+        <div class="widget-field-label">Departure</div>
+        <div class="widget-field-value">08 July 2025</div>
+        <div class="widget-field-sub">Tuesday</div>
+      </div>
+      <div class="widget-field">
+        <div class="widget-field-label">Passengers</div>
+        <div class="widget-field-value">1 Adult</div>
+        <div class="widget-field-sub">Economy</div>
+      </div>
+      <div class="widget-search-btn">
+        Search Flights →
+      </div>
+    </div>
+  </div>
+
+  <!-- MIDDLE CARDS -->
+  <div class="middle">
+
+    <!-- Main event card -->
+    <div class="event-card">
+      <div class="event-card-label">
+        🇸🇦 KSA Exclusive
+      </div>
+      <div class="event-card-title">
+        Sell Pegasus at<br>website prices — live
+      </div>
+      <div class="event-card-sub">
+        On Jul 8, Pegasus answers the price gap question<br>
+        directly to KSA travel agents. No slides — just real Q&A.
+      </div>
+
+      <div class="event-meta">
+        <div class="event-meta-item">
+          <span class="event-meta-icon">📅</span>
+          <div class="event-meta-text">
+            July 8, 2025
+            <span>Tuesday</span>
+          </div>
+        </div>
+        <div class="event-meta-item">
+          <span class="event-meta-icon">🕑</span>
+          <div class="event-meta-text">
+            14:00 AST
+            <span>Live Webinar</span>
+          </div>
+        </div>
+        <div class="event-meta-item">
+          <span class="event-meta-icon">🎙️</span>
+          <div class="event-meta-text">
+            Real Q&A
+            <span>With Pegasus team</span>
+          </div>
+        </div>
+      </div>
+
+      <a href="#" class="register-btn">
+        Register Free <span class="arrow">→</span>
+      </a>
+    </div>
+
+    <!-- Info cards -->
+    <div class="info-col">
+      <div class="info-card ndc">
+        <div class="info-card-icon">⚡</div>
+        <div class="info-card-title">What is Pegasus NDC?</div>
+        <div class="info-card-text">
+          Direct access to website fares, ancillaries and real-time availability — without GDS markups.
+        </div>
+      </div>
+
+      <div class="info-card">
+        <div class="info-card-icon">🎯</div>
+        <div class="info-card-title">Built for KSA market</div>
+        <div class="info-card-text">
+          Arabic support · SAR pricing · Tailored for Saudi travel agencies via DRCT.
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- PRIZE BANNER -->
+  <div class="prize-banner">
+    <div class="prize-icon">🏆</div>
+    <div class="prize-text-wrap">
+      <div class="prize-eyebrow">Exclusive giveaway for all registrants</div>
+      <div class="prize-main">
+        Win: <em>2× 500 SAR vouchers</em> + Pegasus round-trip ticket
+      </div>
+    </div>
+    <div class="prize-right">
+      <div class="prize-ticket">
+        <div class="prize-ticket-icon">🎫</div>
+        <div class="prize-ticket-text">Round-trip<br>ticket</div>
+      </div>
+      <div class="ksa-tag">🇸🇦 KSA Agents Only</div>
+    </div>
+  </div>
+
+</body>
+</html>
