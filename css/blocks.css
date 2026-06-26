@@ -1739,6 +1739,20 @@
   position: relative;
 }
 
+/* Blur overlay on the peeking right portion */
+.tc-slider::after {
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  bottom: 0;
+  content: '';
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 13%;
+  z-index: 1;
+}
+
 /* Scrolling track — peek layout */
 .tc-track {
   display: flex;
@@ -1748,12 +1762,12 @@
 }
 
 /* Individual card — horizontal layout: text left, photo right */
-/* Card is 88% of slider width so next card peeks ~8% on the right */
+/* Card is 84% of slider width so ~16% of next card peeks on the right */
 .tc-card {
   background: linear-gradient(135deg, rgba(42,138,234,0.15) 0%, rgba(42,138,234,0.04) 100%);
   border-radius: 16px;
   display: grid;
-  flex: 0 0 88%;
+  flex: 0 0 84%;
   grid-template-columns: 57% 43%;
   overflow: hidden;
 }
@@ -1822,12 +1836,12 @@
 /* Side hover arrows */
 .tc-side-btn {
   align-items: center;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  background: rgba(255, 255, 255, 0.88);
-  border: 1px solid rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  background: rgba(255, 255, 255, 0.52);
+  border: none;
   border-radius: 50%;
-  box-shadow: 0 4px 20px rgba(27, 39, 51, 0.18), 0 1px 4px rgba(27, 39, 51, 0.08);
+  box-shadow: none;
   color: var(--dark);
   cursor: pointer;
   display: flex;
@@ -1846,11 +1860,10 @@
 .tc-side-btn--next { right: 16px; }
 
 .tc-slider:hover .tc-side-btn { opacity: 1; }
-.tc-side-btn:hover { background: rgba(255, 255, 255, 0.98); }
+.tc-side-btn:hover { background: rgba(255, 255, 255, 0.7); }
 .tc-side-btn:focus-visible {
-  box-shadow: 0 0 0 3px rgba(42, 138, 234, 0.2);
-  opacity: 1;
   outline: none;
+  opacity: 1;
 }
 
 /* Blue progress bar */
