@@ -943,22 +943,8 @@
 }
 
 .bcard__icon {
-  align-items: center;
-  background: rgba(42,138,234,0.10);
-  border: none;
-  border-radius: 8px;
-  box-shadow: none;
-  display: flex;
-  height: 34px;
-  justify-content: center;
+  display: inline-block;
   margin-bottom: 20px;
-  transition: none;
-  width: 34px;
-}
-.bcard:hover .bcard__icon {
-  background: rgba(42,138,234,0.10);
-  border-color: none;
-  box-shadow: none;
 }
 .benefit__icon {
   display: inline-block;
