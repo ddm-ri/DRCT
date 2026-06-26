@@ -1720,7 +1720,7 @@
   text-transform: uppercase;
 }
 
-.testi__wrap { position: relative; }
+.testi__wrap { position: relative; min-height: 400px; }
 
 .testi__slide {
   display: none;
@@ -1746,17 +1746,17 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 52px 56px 52px 52px;
+  padding: 52px 56px 100px 52px;
 }
 
 .testi__airline-id { margin-bottom: 24px; }
 
-.testi__airline-name {
-  color: var(--dark);
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 1.2px;
-  text-transform: uppercase;
+.testi__logo {
+  height: 44px;
+  max-width: 200px;
+  object-fit: contain;
+  object-position: left center;
+  width: auto;
 }
 
 .testi__quote {
@@ -1800,11 +1800,11 @@
 
 .testi__controls {
   align-items: center;
+  bottom: 52px;
   display: flex;
   gap: 14px;
-  justify-content: flex-start;
-  margin-top: 24px;
-  padding-left: 52px;
+  left: 52px;
+  position: absolute;
 }
 
 .testi__btn {
@@ -1850,34 +1850,31 @@
 
 @media (max-width: 1024px) {
   .testi__slide { grid-template-columns: 58% 42%; }
-  .testi__body { padding: 44px 40px 44px 44px; }
-  .testi__controls { padding-left: 44px; }
+  .testi__body { padding: 44px 40px 96px 44px; }
+  .testi__controls { bottom: 44px; left: 44px; }
   .testi__quote { font-size: 18px; }
 }
 
 @media (max-width: 767px) {
   .testi-section { padding: 60px 0 52px; }
   .testi__eyebrow { margin-bottom: 28px; }
+  .testi__wrap { min-height: unset; }
   .testi__slide {
     grid-template-columns: 1fr;
     grid-template-rows: auto auto;
     border-radius: 16px;
     min-height: unset;
   }
-  .testi__body { padding: 32px 28px 28px; order: 2; }
+  .testi__body { order: 2; padding: 28px 28px 88px; }
   .testi__fig { order: 1; aspect-ratio: 16/8; }
-  .testi__controls { padding-left: 28px; }
+  .testi__controls { bottom: 28px; left: 28px; }
   .testi__quote { font-size: 17px; }
 }
 
 @media (max-width: 413px) {
-  .testi__body { padding: 28px 20px; }
-  .testi__controls { padding-left: 20px; }
+  .testi__body { padding: 24px 20px 80px; }
+  .testi__controls { bottom: 24px; left: 20px; }
   .testi__quote { font-size: 16px; }
-}
-
-@media (max-width: 413px) {
-  .tc-card__text { padding: 20px 18px 24px; }
 }
 
 /* ── What You Gain — toggle switch ────────────────────────────── */
