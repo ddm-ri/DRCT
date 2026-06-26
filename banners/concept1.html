@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1200">
+<title>Concept 1 — Pegasus NDC</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    width: 1200px;
+    height: 1200px;
+    overflow: hidden;
+    font-family: 'Inter', sans-serif;
+    background: #0A0E1A;
+    position: relative;
+  }
+
+  /* Background gradient mesh */
+  .bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 700px 500px at 60% 30%, rgba(0,107,182,0.35) 0%, transparent 70%),
+      radial-gradient(ellipse 500px 400px at 10% 80%, rgba(255,102,0,0.18) 0%, transparent 60%),
+      #0A0E1A;
+  }
+
+  /* Subtle grid lines */
+  .grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+
+  /* Pegasus brand stripe */
+  .top-stripe {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 6px;
+    background: linear-gradient(90deg, #FF6600, #FF9933, #006BB6, #0099FF);
+  }
+
+  .wrap {
+    position: relative;
+    z-index: 10;
+    width: 1200px;
+    height: 1200px;
+    padding: 72px 80px 64px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  /* TOP: logos */
+  .logos {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .logo-pegasus {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .logo-icon {
+    width: 52px;
+    height: 52px;
+    background: linear-gradient(135deg, #FF6600, #FF9933);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+  }
+
+  .logo-text {
+    font-size: 22px;
+    font-weight: 800;
+    color: #fff;
+    letter-spacing: -0.3px;
+  }
+
+  .logo-divider {
+    width: 2px;
+    height: 36px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 2px;
+  }
+
+  .logo-drct {
+    font-size: 22px;
+    font-weight: 800;
+    color: rgba(255,255,255,0.7);
+    letter-spacing: 1px;
+  }
+
+  .live-badge {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 100px;
+    padding: 10px 22px;
+  }
+
+  .live-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #FF3B30;
+    box-shadow: 0 0 0 3px rgba(255,59,48,0.3);
+    animation: pulse 1.5s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 0 0 3px rgba(255,59,48,0.3); }
+    50% { box-shadow: 0 0 0 6px rgba(255,59,48,0.1); }
+  }
+
+  .live-text {
+    font-size: 15px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+
+  /* CENTER: main content */
+  .main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 40px 0;
+  }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: linear-gradient(135deg, rgba(255,102,0,0.15), rgba(0,107,182,0.15));
+    border: 1px solid rgba(255,102,0,0.3);
+    border-radius: 8px;
+    padding: 10px 20px;
+    margin-bottom: 36px;
+    width: fit-content;
+  }
+
+  .eyebrow-icon { font-size: 18px; }
+
+  .eyebrow-text {
+    font-size: 16px;
+    font-weight: 700;
+    color: #FF8C42;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  .headline {
+    font-size: 88px;
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: -3px;
+    margin-bottom: 32px;
+    color: #fff;
+  }
+
+  .headline .highlight {
+    background: linear-gradient(135deg, #FF6600, #FF9933);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .headline .ksa {
+    color: #0099FF;
+    -webkit-text-fill-color: #0099FF;
+  }
+
+  .subheadline {
+    font-size: 36px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.65);
+    margin-bottom: 56px;
+    letter-spacing: -0.5px;
+  }
+
+  .subheadline span {
+    color: rgba(255,255,255,0.9);
+  }
+
+  /* Event info row */
+  .event-row {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    margin-bottom: 56px;
+  }
+
+  .event-chip {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 16px;
+    padding: 16px 28px;
+  }
+
+  .event-chip-icon { font-size: 22px; }
+
+  .event-chip-text {
+    font-size: 20px;
+    font-weight: 600;
+    color: #fff;
+  }
+
+  .event-chip-text span {
+    color: rgba(255,255,255,0.5);
+    font-weight: 400;
+    font-size: 15px;
+    display: block;
+    margin-top: 2px;
+  }
+
+  .register-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: linear-gradient(135deg, #FF6600, #FF8C00);
+    border-radius: 16px;
+    padding: 18px 40px;
+    font-size: 20px;
+    font-weight: 800;
+    color: #fff;
+    text-decoration: none;
+    letter-spacing: 0.2px;
+    box-shadow: 0 8px 32px rgba(255,102,0,0.4);
+  }
+
+  .register-btn .arrow {
+    font-size: 22px;
+  }
+
+  /* BOTTOM: prize */
+  .prize-bar {
+    background: linear-gradient(135deg, rgba(255,215,0,0.08), rgba(255,165,0,0.12));
+    border: 1px solid rgba(255,215,0,0.25);
+    border-radius: 20px;
+    padding: 28px 40px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .prize-icon { font-size: 36px; }
+
+  .prize-content { flex: 1; }
+
+  .prize-label {
+    font-size: 13px;
+    font-weight: 700;
+    color: #FFD700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .prize-text {
+    font-size: 24px;
+    font-weight: 700;
+    color: #fff;
+  }
+
+  .prize-text .accent { color: #FFD700; }
+
+  .prize-flag { font-size: 32px; }
+</style>
+</head>
+<body>
+  <div class="bg"></div>
+  <div class="grid"></div>
+  <div class="top-stripe"></div>
+
+  <div class="wrap">
+    <!-- Top logos -->
+    <div class="logos">
+      <div class="logo-pegasus">
+        <div class="logo-icon">✈️</div>
+        <div class="logo-text">Pegasus</div>
+      </div>
+      <div class="logo-divider"></div>
+      <div class="logo-drct">DRCT</div>
+      <div class="live-badge">
+        <div class="live-dot"></div>
+        <div class="live-text">Live Webinar</div>
+      </div>
+    </div>
+
+    <!-- Main content -->
+    <div class="main">
+      <div class="eyebrow">
+        <span class="eyebrow-icon">🇸🇦</span>
+        <span class="eyebrow-text">KSA Travel Agencies · Jul 8, 2025</span>
+      </div>
+
+      <div class="headline">
+        Pegasus NDC<br>
+        <span class="highlight">built for</span><br>
+        <span class="ksa">KSA agencies</span>
+      </div>
+
+      <div class="subheadline">
+        Live with <span>Pegasus</span> & <span>DRCT</span>
+      </div>
+
+      <div class="event-row">
+        <div class="event-chip">
+          <span class="event-chip-icon">📅</span>
+          <div class="event-chip-text">
+            July 8, 2025
+            <span>Tuesday · 14:00 AST</span>
+          </div>
+        </div>
+        <div class="event-chip">
+          <span class="event-chip-icon">🎙️</span>
+          <div class="event-chip-text">
+            Live Q&A
+            <span>No slides. Real answers.</span>
+          </div>
+        </div>
+        <a href="#" class="register-btn">
+          Register Free <span class="arrow">→</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Bottom prize -->
+    <div class="prize-bar">
+      <div class="prize-icon">🏆</div>
+      <div class="prize-content">
+        <div class="prize-label">Exclusive giveaway for attendees</div>
+        <div class="prize-text">
+          Win: <span class="accent">2× 500 SAR vouchers</span> + Pegasus round-trip ticket
+        </div>
+      </div>
+      <div class="prize-flag">🎫</div>
+    </div>
+  </div>
+</body>
+</html>

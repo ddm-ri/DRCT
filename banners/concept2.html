@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1200">
+<title>Concept 2 — Pegasus NDC Price Gap</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    width: 1200px;
+    height: 1200px;
+    overflow: hidden;
+    font-family: 'Inter', sans-serif;
+    background: #F5F4F0;
+    position: relative;
+  }
+
+  /* Left dark panel */
+  .panel-left {
+    position: absolute;
+    top: 0; left: 0;
+    width: 540px;
+    height: 1200px;
+    background: #111118;
+    overflow: hidden;
+  }
+
+  .panel-left-gradient {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 400px 400px at 60% 20%, rgba(0,107,182,0.25) 0%, transparent 70%);
+  }
+
+  /* Right light panel */
+  .panel-right {
+    position: absolute;
+    top: 0; right: 0;
+    width: 660px;
+    height: 1200px;
+    background: #F5F4F0;
+  }
+
+  /* Diagonal cut between panels */
+  .panel-cut {
+    position: absolute;
+    top: 0; left: 490px;
+    width: 120px;
+    height: 1200px;
+    background: linear-gradient(105deg, #111118 50%, #F5F4F0 50%);
+    z-index: 5;
+  }
+
+  /* Top brand bar */
+  .top-bar {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 5px;
+    background: linear-gradient(90deg, #FF6600 0%, #FF9933 40%, #006BB6 60%, #0099FF 100%);
+    z-index: 20;
+  }
+
+  /* LEFT side content */
+  .left-content {
+    position: absolute;
+    top: 0; left: 0;
+    width: 540px;
+    height: 1200px;
+    z-index: 10;
+    padding: 60px 56px 56px 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .logos {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .logo-p {
+    font-size: 16px;
+    font-weight: 800;
+    color: #fff;
+    background: linear-gradient(135deg, #FF6600, #FF9933);
+    padding: 6px 16px;
+    border-radius: 8px;
+  }
+
+  .logo-x {
+    color: rgba(255,255,255,0.3);
+    font-size: 18px;
+  }
+
+  .logo-d {
+    font-size: 16px;
+    font-weight: 800;
+    color: rgba(255,255,255,0.6);
+    letter-spacing: 2px;
+  }
+
+  .left-main { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 20px 0; }
+
+  .problem-label {
+    font-size: 12px;
+    font-weight: 700;
+    color: #FF6600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 28px;
+  }
+
+  .problem-headline {
+    font-size: 40px;
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.12;
+    letter-spacing: -1px;
+    margin-bottom: 28px;
+  }
+
+  .problem-headline em {
+    font-style: normal;
+    color: #FF6600;
+  }
+
+  .problem-body {
+    font-size: 18px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.6;
+    margin-bottom: 40px;
+  }
+
+  .problem-body strong {
+    color: rgba(255,255,255,0.85);
+    font-weight: 600;
+  }
+
+  /* Angry customer quote */
+  .quote-bubble {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 16px;
+    padding: 20px 24px;
+    position: relative;
+    margin-bottom: 8px;
+  }
+
+  .quote-bubble::after {
+    content: '';
+    position: absolute;
+    bottom: -12px;
+    left: 28px;
+    width: 0; height: 0;
+    border-left: 12px solid transparent;
+    border-right: 12px solid transparent;
+    border-top: 12px solid rgba(255,255,255,0.06);
+  }
+
+  .quote-text {
+    font-size: 17px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.75);
+    font-style: italic;
+    line-height: 1.5;
+  }
+
+  .quote-author {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+    padding-left: 4px;
+  }
+
+  .quote-avatar {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #FF6600, #cc0000);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+  }
+
+  .quote-name {
+    font-size: 14px;
+    color: rgba(255,255,255,0.4);
+  }
+
+  /* Date/event on left bottom */
+  .event-info {
+    background: rgba(0,107,182,0.15);
+    border: 1px solid rgba(0,153,255,0.2);
+    border-radius: 14px;
+    padding: 18px 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .event-date-big {
+    text-align: center;
+    background: #0099FF;
+    border-radius: 10px;
+    padding: 8px 16px;
+    min-width: 64px;
+  }
+
+  .event-date-day {
+    font-size: 28px;
+    font-weight: 900;
+    color: #fff;
+    line-height: 1;
+  }
+
+  .event-date-month {
+    font-size: 12px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.8);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .event-details {
+    flex: 1;
+  }
+
+  .event-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 4px;
+  }
+
+  .event-sub {
+    font-size: 13px;
+    color: rgba(255,255,255,0.45);
+  }
+
+  .live-pill {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255,59,48,0.15);
+    border: 1px solid rgba(255,59,48,0.3);
+    border-radius: 100px;
+    padding: 6px 14px;
+  }
+
+  .live-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: #FF3B30;
+  }
+
+  .live-text {
+    font-size: 12px;
+    font-weight: 700;
+    color: #FF3B30;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  /* RIGHT side content */
+  .right-content {
+    position: absolute;
+    top: 0; right: 0;
+    width: 660px;
+    height: 1200px;
+    z-index: 10;
+    padding: 60px 60px 56px 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .right-eyebrow {
+    font-size: 13px;
+    font-weight: 700;
+    color: #006BB6;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    margin-bottom: 0;
+    text-align: right;
+  }
+
+  .right-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0;
+  }
+
+  .route-label {
+    font-size: 13px;
+    font-weight: 700;
+    color: #888;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  .route-code {
+    font-size: 72px;
+    font-weight: 900;
+    color: #111118;
+    letter-spacing: -2px;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .route-name {
+    font-size: 18px;
+    color: #888;
+    font-weight: 500;
+    margin-bottom: 48px;
+  }
+
+  /* Price comparison cards */
+  .price-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 40px;
+  }
+
+  .price-card {
+    border-radius: 20px;
+    padding: 28px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .price-card.gds {
+    background: #fff;
+    border: 2px solid #E5E5E5;
+    position: relative;
+  }
+
+  .price-card.site {
+    background: #111118;
+    border: 2px solid #111118;
+    position: relative;
+  }
+
+  .price-card-source {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .source-tag {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 6px;
+    width: fit-content;
+    margin-bottom: 6px;
+  }
+
+  .gds .source-tag {
+    background: #FFE5D9;
+    color: #CC3300;
+  }
+
+  .site .source-tag {
+    background: rgba(0,153,255,0.15);
+    color: #0099FF;
+  }
+
+  .source-name {
+    font-size: 22px;
+    font-weight: 700;
+  }
+
+  .gds .source-name { color: #333; }
+  .site .source-name { color: #fff; }
+
+  .source-desc {
+    font-size: 14px;
+    font-weight: 400;
+  }
+
+  .gds .source-desc { color: #999; }
+  .site .source-desc { color: rgba(255,255,255,0.4); }
+
+  .price-amount {
+    text-align: right;
+  }
+
+  .price-number {
+    font-size: 52px;
+    font-weight: 900;
+    letter-spacing: -2px;
+    line-height: 1;
+  }
+
+  .gds .price-number { color: #CC3300; }
+  .site .price-number { color: #34C759; }
+
+  .price-currency {
+    font-size: 20px;
+    font-weight: 600;
+    margin-left: 2px;
+  }
+
+  .gds .price-currency { color: #CC3300; }
+  .site .price-currency { color: #34C759; }
+
+  .price-label {
+    font-size: 13px;
+    font-weight: 500;
+    margin-top: 4px;
+  }
+
+  .gds .price-label { color: #999; }
+  .site .price-label { color: rgba(255,255,255,0.4); }
+
+  /* Saving highlight */
+  .saving-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: linear-gradient(135deg, #E8F9EE, #D4F5E0);
+    border: 1.5px solid #34C759;
+    border-radius: 16px;
+    padding: 18px 28px;
+    margin-bottom: 40px;
+  }
+
+  .saving-icon { font-size: 28px; }
+
+  .saving-text {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1A6B35;
+  }
+
+  .saving-text span { color: #34C759; }
+
+  /* CTA */
+  .cta-block { }
+
+  .cta-btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: linear-gradient(135deg, #FF6600, #FF8C00);
+    border-radius: 20px;
+    padding: 26px 36px;
+    text-decoration: none;
+    box-shadow: 0 12px 40px rgba(255,102,0,0.35);
+    margin-bottom: 16px;
+  }
+
+  .cta-text-wrap { }
+
+  .cta-sub {
+    font-size: 13px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.7);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .cta-main {
+    font-size: 22px;
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.2;
+  }
+
+  .cta-arrow {
+    width: 52px; height: 52px;
+    border-radius: 14px;
+    background: rgba(255,255,255,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+    color: #fff;
+  }
+
+  .cta-note {
+    font-size: 14px;
+    color: #999;
+    text-align: center;
+  }
+
+  .cta-note span { color: #FFD700; font-weight: 600; }
+</style>
+</head>
+<body>
+  <div class="panel-left">
+    <div class="panel-left-gradient"></div>
+  </div>
+  <div class="panel-right"></div>
+  <div class="panel-cut"></div>
+  <div class="top-bar"></div>
+
+  <!-- LEFT CONTENT -->
+  <div class="left-content">
+    <div class="logos">
+      <span class="logo-p">Pegasus</span>
+      <span class="logo-x">×</span>
+      <span class="logo-d">DRCT</span>
+    </div>
+
+    <div class="left-main">
+      <div class="problem-label">Real problem. Live answer.</div>
+
+      <div class="problem-headline">
+        GDS shows one price.<br>
+        Pegasus website<br>
+        shows <em>another.</em>
+      </div>
+
+      <div class="problem-body">
+        Your customer asks why —<br>
+        and you don't have a <strong>clear answer.</strong>
+      </div>
+
+      <div class="quote-bubble">
+        <div class="quote-text">
+          "Why is it cheaper on the website?<br>Are you overcharging me?"
+        </div>
+      </div>
+      <div class="quote-author">
+        <div class="quote-avatar">😤</div>
+        <div class="quote-name">Your KSA customer, probably last week</div>
+      </div>
+    </div>
+
+    <div class="event-info">
+      <div class="event-date-big">
+        <div class="event-date-day">8</div>
+        <div class="event-date-month">Jul</div>
+      </div>
+      <div class="event-details">
+        <div class="event-title">Pegasus answers. Directly.</div>
+        <div class="event-sub">No marketing slides — just real Q&A for KSA agents</div>
+      </div>
+      <div class="live-pill">
+        <div class="live-dot"></div>
+        <div class="live-text">Live</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT CONTENT -->
+  <div class="right-content">
+    <div class="right-eyebrow">🇸🇦 KSA Travel Agents Only</div>
+
+    <div class="right-main">
+      <div class="route-label">Example route</div>
+      <div class="route-code">RUH → PAR</div>
+      <div class="route-name">Riyadh → Paris · Economy · 1 pax</div>
+
+      <div class="price-cards">
+        <div class="price-card gds">
+          <div class="price-card-source">
+            <span class="source-tag">GDS</span>
+            <span class="source-name">Your GDS</span>
+            <span class="source-desc">What you're selling today</span>
+          </div>
+          <div class="price-amount">
+            <div class="price-number">1336<span class="price-currency"> SAR</span></div>
+            <div class="price-label">per person</div>
+          </div>
+        </div>
+
+        <div class="price-card site">
+          <div class="price-card-source">
+            <span class="source-tag">NDC / Website</span>
+            <span class="source-name">Pegasus Direct</span>
+            <span class="source-desc">What your customer sees</span>
+          </div>
+          <div class="price-amount">
+            <div class="price-number">998<span class="price-currency"> SAR</span></div>
+            <div class="price-label">per person</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="saving-row">
+        <div class="saving-icon">💸</div>
+        <div class="saving-text">
+          Difference: <span>338 SAR per ticket.</span><br>
+          Imagine 10 tickets a week.
+        </div>
+      </div>
+    </div>
+
+    <div class="cta-block">
+      <a href="#" class="cta-btn">
+        <div class="cta-text-wrap">
+          <div class="cta-sub">Free webinar · Jul 8</div>
+          <div class="cta-main">Register to sell Pegasus<br>at website prices</div>
+        </div>
+        <div class="cta-arrow">→</div>
+      </a>
+      <div class="cta-note">🏆 Win: <span>2× 500 SAR vouchers</span> + Pegasus round-trip ticket</div>
+    </div>
+  </div>
+</body>
+</html>
