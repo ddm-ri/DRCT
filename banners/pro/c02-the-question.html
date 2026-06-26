@@ -1,0 +1,138 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;}
+body{width:1200px;height:1200px;overflow:hidden;font-family:'Inter',sans-serif;background:#F2EFE8;}
+
+.page{width:1200px;height:1200px;display:flex;flex-direction:column;position:relative;}
+
+/* NAV */
+.nav{padding:48px 64px 0;display:flex;align-items:center;justify-content:space-between;}
+.logos{display:flex;align-items:center;gap:10px;}
+.logo-drct{font-size:16px;font-weight:900;color:#111;letter-spacing:.5px;}
+.logo-x{font-size:14px;color:#bbb;margin:0 2px;}
+.pgs-icon{width:26px;height:26px;background:#FF5F00;border-radius:6px;display:flex;align-items:center;justify-content:center;}
+.pgs-icon svg{width:14px;height:14px;}
+.pgs-name{font-size:16px;font-weight:900;color:#111;}
+
+/* MINI COMPARISON STRIP */
+.mini-strip{margin:0 64px;margin-top:44px;display:flex;align-items:center;gap:0;border-radius:14px;overflow:hidden;border:1px solid #E0DDD6;}
+.ms-side{flex:1;padding:18px 24px;background:#fff;}
+.ms-side.pgs{background:#FF5F00;}
+.ms-label{font-size:11px;font-weight:700;color:#aaa;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:4px;}
+.ms-side.pgs .ms-label{color:rgba(255,255,255,.6);}
+.ms-amount{font-size:32px;font-weight:900;letter-spacing:-1.5px;color:#888;}
+.ms-side.pgs .ms-amount{color:#fff;}
+.ms-cur{font-size:16px;font-weight:600;margin-right:3px;}
+.ms-sep{width:1px;background:#E0DDD6;align-self:stretch;}
+.ms-gap{padding:18px 24px;background:#FFF8F0;display:flex;align-items:center;gap:8px;white-space:nowrap;flex-shrink:0;}
+.ms-gap-arrow{font-size:13px;color:#FF5F00;}
+.ms-gap-text{font-size:13px;font-weight:700;color:#FF5F00;}
+.ms-gap-pct{font-size:13px;font-weight:700;color:#aaa;}
+
+/* HEADLINE AREA */
+.headline-area{padding:0 64px;margin-top:44px;flex:1;display:flex;flex-direction:column;justify-content:flex-start;}
+.hl-route{font-size:14px;font-weight:600;color:#aaa;letter-spacing:2px;text-transform:uppercase;margin-bottom:20px;display:flex;align-items:center;gap:8px;}
+.hl-route-arrow{color:#ddd;}
+.big-hl{font-size:76px;font-weight:900;color:#111;line-height:.95;letter-spacing:-3.5px;margin-bottom:0;}
+.big-hl em{font-style:normal;color:#FF5F00;}
+
+/* COUNTER SCENE */
+.counter-scene{margin:0 64px;margin-top:40px;display:flex;align-items:flex-end;gap:24px;}
+.counter-label{font-size:11px;font-weight:700;color:#aaa;letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;}
+.counter-visual{width:180px;height:140px;background:#E8E5DE;border-radius:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0;position:relative;overflow:hidden;}
+.counter-visual-inner{width:80px;height:100px;background:#D0CCC4;border-radius:10px;position:relative;}
+.counter-visual-inner::before{content:'';position:absolute;top:12px;left:50%;transform:translateX(-50%);width:40px;height:40px;border-radius:50%;background:#B8B4AC;}
+.counter-visual-inner::after{content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:56px;height:50px;border-radius:8px 8px 0 0;background:#C4C0B8;}
+.speech-col{flex:1;display:flex;flex-direction:column;gap:10px;}
+.speech-bubble{background:#fff;border:1.5px solid #E0DDD6;border-radius:20px 20px 20px 4px;padding:18px 22px;font-size:20px;font-weight:500;color:#111;line-height:1.45;box-shadow:0 4px 16px rgba(0,0,0,.06);max-width:480px;}
+.speech-bubble em{font-style:normal;font-weight:700;}
+.typing-bubble{background:#fff;border:1.5px solid #E0DDD6;border-radius:20px 20px 20px 4px;padding:16px 22px;display:flex;gap:6px;align-items:center;width:fit-content;box-shadow:0 4px 16px rgba(0,0,0,.04);}
+.td{width:8px;height:8px;border-radius:50%;background:#ccc;}
+
+/* CTA BLOCK */
+.cta-block{margin:0 64px;margin-top:32px;background:#FF5F00;border-radius:20px;padding:32px 40px;display:flex;align-items:center;justify-content:space-between;gap:32px;}
+.cta-left{}
+.cta-eyebrow{font-size:11px;font-weight:700;color:rgba(255,255,255,.55);letter-spacing:2.5px;text-transform:uppercase;margin-bottom:10px;}
+.cta-text{font-size:22px;font-weight:700;color:#fff;line-height:1.4;max-width:500px;}
+.cta-btn{background:#fff;color:#FF5F00;font-size:16px;font-weight:800;padding:16px 32px;border-radius:12px;white-space:nowrap;flex-shrink:0;}
+
+/* FOOTER */
+.footer{padding:24px 64px;display:flex;align-items:center;justify-content:space-between;}
+.f-left{font-size:12px;font-weight:600;color:#aaa;letter-spacing:1.5px;text-transform:uppercase;}
+.f-prize{font-size:13px;font-weight:600;color:#888;display:flex;align-items:center;gap:8px;}
+.f-prize span{color:#FF5F00;}
+</style></head><body>
+<div class="page">
+
+  <div class="nav">
+    <div class="logos">
+      <span class="logo-drct">DRCT</span>
+      <span class="logo-x">×</span>
+      <div class="pgs-icon">
+        <svg viewBox="0 0 14 14" fill="none"><path d="M2.5 12 Q3 3 7.5 3 Q11.5 3 11.5 7 Q11.5 10.5 7.5 11 L5 11 L5 13.5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <span class="pgs-name">Pegasus</span>
+    </div>
+  </div>
+
+  <div class="mini-strip">
+    <div class="ms-side">
+      <div class="ms-label">GDS</div>
+      <div class="ms-amount"><span class="ms-cur">SAR</span>1,336</div>
+    </div>
+    <div class="ms-sep"></div>
+    <div class="ms-side pgs">
+      <div class="ms-label">Pegasus.com</div>
+      <div class="ms-amount"><span class="ms-cur">SAR</span>998</div>
+    </div>
+    <div class="ms-gap">
+      <span class="ms-gap-arrow">→</span>
+      <span class="ms-gap-text">338 SAR gap</span>
+      <span class="ms-gap-pct">· −25%</span>
+    </div>
+  </div>
+
+  <div class="headline-area">
+    <div class="hl-route">
+      RUH <span class="hl-route-arrow">→</span> PAR · One-Way
+    </div>
+    <div class="big-hl">
+      You don't have<br>a clear answer.<br><em>We do.</em>
+    </div>
+  </div>
+
+  <div class="counter-scene">
+    <div>
+      <div class="counter-label">At the counter</div>
+      <div class="counter-visual">
+        <div class="counter-visual-inner"></div>
+      </div>
+    </div>
+    <div class="speech-col">
+      <div class="speech-bubble">
+        "Why is it <em>338 SAR cheaper</em> on your website?"
+      </div>
+      <div class="typing-bubble">
+        <div class="td"></div>
+        <div class="td"></div>
+        <div class="td"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cta-block">
+    <div class="cta-left">
+      <div class="cta-eyebrow">July 8 · Live Q&A · KSA Travel Agents</div>
+      <div class="cta-text">Pegasus answers KSA travel agents directly. No marketing slides — just real questions and real answers.</div>
+    </div>
+    <div class="cta-btn">Register Free →</div>
+  </div>
+
+  <div class="footer">
+    <span class="f-left">🇸🇦 KSA Agencies Only</span>
+    <div class="f-prize">🎁 Win: <span>2 × 500 SAR</span> + Pegasus round-trip ticket</div>
+  </div>
+
+</div>
+</body></html>

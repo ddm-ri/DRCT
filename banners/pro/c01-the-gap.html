@@ -1,0 +1,154 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;}
+body{width:1200px;height:1200px;overflow:hidden;font-family:'Inter',sans-serif;background:#FF5F00;}
+
+.page{width:1200px;height:1200px;padding:56px 64px;display:flex;flex-direction:column;justify-content:space-between;background:#FF5F00;position:relative;overflow:hidden;}
+
+/* bg texture circles */
+.bg-c1{position:absolute;width:900px;height:900px;border-radius:50%;border:1px solid rgba(255,255,255,.08);top:-320px;right:-260px;pointer-events:none;}
+.bg-c2{position:absolute;width:500px;height:500px;border-radius:50%;border:1px solid rgba(255,255,255,.06);bottom:-180px;left:-120px;pointer-events:none;}
+
+/* TOP */
+.top{display:flex;align-items:center;justify-content:space-between;position:relative;z-index:2;}
+.logos{display:flex;align-items:center;gap:10px;}
+.logo-drct{font-size:17px;font-weight:900;color:#fff;letter-spacing:.5px;}
+.logo-x{font-size:14px;color:rgba(255,255,255,.4);margin:0 2px;}
+.logo-pgs{display:flex;align-items:center;gap:7px;}
+.pgs-icon{width:28px;height:28px;background:#fff;border-radius:7px;display:flex;align-items:center;justify-content:center;}
+.pgs-icon svg{width:16px;height:16px;}
+.pgs-name{font-size:17px;font-weight:900;color:#fff;}
+.event-pill{display:flex;align-items:center;gap:8px;background:rgba(0,0,0,.2);border-radius:100px;padding:9px 20px;}
+.ep-dot{width:7px;height:7px;border-radius:50%;background:#fff;}
+.ep-text{font-size:13px;font-weight:700;color:#fff;letter-spacing:1px;text-transform:uppercase;}
+
+/* HEADLINE */
+.headline-block{position:relative;z-index:2;}
+.hl-label{font-size:12px;font-weight:700;color:rgba(255,255,255,.55);letter-spacing:3px;text-transform:uppercase;margin-bottom:20px;}
+.hl-text{font-size:72px;font-weight:900;color:#fff;line-height:1.0;letter-spacing:-3px;max-width:820px;}
+
+/* CARD */
+.card{background:#fff;border-radius:24px;padding:40px 44px;position:relative;z-index:2;box-shadow:0 32px 80px rgba(0,0,0,.18);}
+.card-route-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:32px;}
+.card-route{display:flex;align-items:center;gap:12px;}
+.card-route-code{font-size:20px;font-weight:800;color:#111;letter-spacing:1px;}
+.card-route-arrow{font-size:16px;color:#ccc;}
+.card-route-meta{display:flex;gap:8px;}
+.card-meta-tag{font-size:11px;font-weight:700;color:#aaa;letter-spacing:1.5px;text-transform:uppercase;background:#F5F5F5;border-radius:6px;padding:4px 10px;}
+
+/* Two price columns */
+.card-prices{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:28px;}
+.price-col{border-radius:16px;padding:28px 28px 24px;}
+.price-col.gds{background:#F8F8F8;}
+.price-col.pgs{background:#111118;}
+.pc-source{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:16px;}
+.price-col.gds .pc-source{color:#aaa;}
+.price-col.pgs .pc-source{color:rgba(255,255,255,.4);}
+.pc-amount{display:flex;align-items:flex-start;gap:5px;margin-bottom:6px;}
+.pc-cur{font-size:18px;font-weight:700;padding-top:6px;}
+.price-col.gds .pc-cur{color:#bbb;}
+.price-col.pgs .pc-cur{color:rgba(255,255,255,.5);}
+.pc-num{font-size:64px;font-weight:900;letter-spacing:-3px;line-height:1;}
+.price-col.gds .pc-num{color:#888;}
+.price-col.pgs .pc-num{color:#fff;}
+.pc-note{font-size:13px;font-weight:400;}
+.price-col.gds .pc-note{color:#bbb;}
+.price-col.pgs .pc-note{color:rgba(255,255,255,.35);}
+
+/* Gap line */
+.card-gap{display:flex;align-items:center;gap:12px;padding-top:4px;border-top:1px solid #F0F0F0;}
+.gap-text{font-size:15px;color:#888;font-weight:400;}
+.gap-highlight{font-weight:800;color:#FF5F00;}
+.gap-pct{font-size:15px;font-weight:700;color:#FF5F00;margin-left:4px;}
+
+/* BOTTOM */
+.bottom{position:relative;z-index:2;}
+.bottom-body{font-size:20px;color:rgba(255,255,255,.8);line-height:1.55;font-weight:400;margin-bottom:28px;max-width:780px;}
+.bottom-body b{color:#fff;font-weight:700;}
+.bottom-footer{display:flex;align-items:center;justify-content:space-between;}
+.bf-left{font-size:12px;font-weight:700;color:rgba(255,255,255,.45);letter-spacing:2px;text-transform:uppercase;}
+.bf-sep{width:4px;height:4px;border-radius:50%;background:rgba(255,255,255,.25);margin:0 12px;display:inline-block;}
+.bf-right{font-size:12px;font-weight:700;color:rgba(255,255,255,.45);letter-spacing:2px;text-transform:uppercase;}
+</style></head><body>
+<div class="page">
+  <div class="bg-c1"></div>
+  <div class="bg-c2"></div>
+
+  <div class="top">
+    <div class="logos">
+      <span class="logo-drct">DRCT</span>
+      <span class="logo-x">×</span>
+      <div class="logo-pgs">
+        <div class="pgs-icon">
+          <svg viewBox="0 0 16 16" fill="none"><path d="M3 13 Q3.5 4 8.5 4 Q13 4 13 8.5 Q13 12 8.5 12.5 L5.5 12.5 L5.5 15" stroke="#FF5F00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <span class="pgs-name">Pegasus</span>
+      </div>
+    </div>
+    <div class="event-pill">
+      <div class="ep-dot"></div>
+      <span class="ep-text">Jul 8 · Live Q&A</span>
+    </div>
+  </div>
+
+  <div class="headline-block">
+    <div class="hl-label">The Price Discrepancy</div>
+    <div class="hl-text">GDS shows one price.<br>Our website shows another.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-route-row">
+      <div class="card-route">
+        <span class="card-route-code">RUH</span>
+        <span class="card-route-arrow">→</span>
+        <span class="card-route-code">PAR</span>
+      </div>
+      <div class="card-route-meta">
+        <span class="card-meta-tag">One-Way</span>
+        <span class="card-meta-tag">All-In</span>
+        <span class="card-meta-tag">Economy</span>
+      </div>
+    </div>
+
+    <div class="card-prices">
+      <div class="price-col gds">
+        <div class="pc-source">Quoted in GDS</div>
+        <div class="pc-amount">
+          <span class="pc-cur">SAR</span>
+          <span class="pc-num">1,336</span>
+        </div>
+        <div class="pc-note">What your customer's agent sees</div>
+      </div>
+      <div class="price-col pgs">
+        <div class="pc-source">On Pegasus.com</div>
+        <div class="pc-amount">
+          <span class="pc-cur">SAR</span>
+          <span class="pc-num">998</span>
+        </div>
+        <div class="pc-note">The live website fare</div>
+      </div>
+    </div>
+
+    <div class="card-gap">
+      <span class="gap-text">A gap of <span class="gap-highlight">338 SAR</span> — that's</span>
+      <span class="gap-pct">−25%</span>
+    </div>
+  </div>
+
+  <div class="bottom">
+    <div class="bottom-body">
+      Your customer asks why — and you don't have a clear answer.<br>
+      On <b>July 8</b>, Pegasus answers it directly. <b>Live.</b>
+    </div>
+    <div class="bottom-footer">
+      <div>
+        <span class="bf-left">Live Q&A · For KSA Travel Agents</span>
+      </div>
+      <div>
+        <span class="bf-right">No slides · Just real answers</span>
+      </div>
+    </div>
+  </div>
+</div>
+</body></html>

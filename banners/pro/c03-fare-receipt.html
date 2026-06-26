@@ -1,0 +1,141 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;}
+body{width:1200px;height:1200px;overflow:hidden;font-family:'Inter',sans-serif;background:#FF5F00;}
+
+.page{width:1200px;height:1200px;padding:56px 64px;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden;}
+
+.bg-c{position:absolute;border-radius:50%;border:1px solid rgba(255,255,255,.07);pointer-events:none;}
+.bc1{width:1000px;height:1000px;top:-400px;right:-300px;}
+.bc2{width:600px;height:600px;bottom:-250px;left:-150px;}
+
+/* TOP NAV */
+.topnav{display:flex;align-items:center;justify-content:space-between;position:relative;z-index:2;}
+.logos{display:flex;align-items:center;gap:10px;}
+.logo-drct{font-size:16px;font-weight:900;color:rgba(255,255,255,.9);}
+.logo-x{color:rgba(255,255,255,.35);margin:0 4px;}
+.pgs-wrap{display:flex;align-items:center;gap:7px;}
+.pgs-icon{width:26px;height:26px;background:rgba(255,255,255,.2);border-radius:6px;display:flex;align-items:center;justify-content:center;}
+.pgs-icon svg{width:14px;height:14px;}
+.pgs-name{font-size:16px;font-weight:900;color:#fff;}
+.fare-tag{font-size:12px;font-weight:700;color:rgba(255,255,255,.5);letter-spacing:2.5px;text-transform:uppercase;}
+
+/* HEADLINE */
+.headline{position:relative;z-index:2;}
+.hl{font-size:68px;font-weight:900;color:#fff;line-height:.98;letter-spacing:-3px;max-width:760px;}
+
+/* RECEIPT CARD */
+.receipt{background:#fff;border-radius:28px;overflow:hidden;position:relative;z-index:2;box-shadow:0 40px 100px rgba(0,0,0,.22);}
+
+/* Receipt header */
+.receipt-header{padding:28px 40px 24px;border-bottom:1px solid #F0F0F0;display:flex;align-items:center;justify-content:space-between;}
+.rh-route{display:flex;align-items:center;gap:12px;}
+.rh-code{font-size:22px;font-weight:800;color:#111;letter-spacing:1.5px;}
+.rh-arrow{font-size:16px;color:#ddd;}
+.rh-tags{display:flex;gap:8px;}
+.rh-tag{font-size:11px;font-weight:700;color:#bbb;letter-spacing:1.5px;text-transform:uppercase;background:#F5F5F5;border-radius:6px;padding:5px 12px;}
+
+/* Receipt rows */
+.receipt-row{padding:28px 40px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #F5F5F5;}
+.rr-label{font-size:15px;font-weight:500;color:#888;}
+.rr-amount{display:flex;align-items:flex-start;gap:4px;}
+.rr-cur{font-size:16px;font-weight:600;padding-top:4px;}
+.rr-num{font-size:44px;font-weight:900;letter-spacing:-2px;line-height:1;}
+
+.receipt-row.gds .rr-cur{color:#bbb;}
+.receipt-row.gds .rr-num{color:#bbb;}
+.receipt-row.pgs .rr-cur{color:#FF5F00;}
+.receipt-row.pgs .rr-num{color:#FF5F00;}
+
+/* Receipt diff */
+.receipt-diff{background:#111118;padding:24px 40px;display:flex;align-items:center;justify-content:space-between;}
+.rd-label{font-size:12px;font-weight:700;color:rgba(255,255,255,.4);letter-spacing:2px;text-transform:uppercase;}
+.rd-amount{display:flex;align-items:flex-start;gap:4px;}
+.rd-cur{font-size:18px;font-weight:700;color:rgba(255,255,255,.5);padding-top:4px;}
+.rd-num{font-size:52px;font-weight:900;letter-spacing:-2.5px;line-height:1;color:#fff;}
+.rd-pct{font-size:18px;font-weight:700;color:rgba(255,255,255,.35);}
+
+/* BOTTOM */
+.bottom{position:relative;z-index:2;display:flex;align-items:flex-end;justify-content:space-between;}
+.bottom-left{font-size:14px;font-weight:600;color:rgba(255,255,255,.5);letter-spacing:1.5px;text-transform:uppercase;line-height:1.7;}
+.bottom-right{text-align:right;}
+.br-cta{font-size:18px;font-weight:700;color:#fff;margin-bottom:6px;}
+.br-register{display:inline-flex;align-items:center;gap:10px;background:rgba(0,0,0,.25);border-radius:10px;padding:12px 24px;font-size:15px;font-weight:700;color:#fff;}
+</style></head><body>
+<div class="page">
+  <div class="bg-c bc1"></div>
+  <div class="bg-c bc2"></div>
+
+  <div class="topnav">
+    <div class="logos">
+      <span class="logo-drct">DRCT</span>
+      <span class="logo-x">×</span>
+      <div class="pgs-wrap">
+        <div class="pgs-icon">
+          <svg viewBox="0 0 14 14" fill="none"><path d="M2.5 12 Q3 3 7.5 3 Q11.5 3 11.5 7 Q11.5 10.5 7.5 11 L5 11 L5 13.5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <span class="pgs-name">Pegasus</span>
+      </div>
+    </div>
+    <div class="fare-tag">Fare Comparison</div>
+  </div>
+
+  <div class="headline">
+    <div class="hl">One route.<br>Two prices.<br>Your customer<br>sees both.</div>
+  </div>
+
+  <div class="receipt">
+    <div class="receipt-header">
+      <div class="rh-route">
+        <span class="rh-code">RUH</span>
+        <span class="rh-arrow">→</span>
+        <span class="rh-code">PAR</span>
+      </div>
+      <div class="rh-tags">
+        <span class="rh-tag">One-Way</span>
+        <span class="rh-tag">All-In</span>
+        <span class="rh-tag">Economy</span>
+      </div>
+    </div>
+
+    <div class="receipt-row gds">
+      <span class="rr-label">Quoted in GDS</span>
+      <div class="rr-amount">
+        <span class="rr-cur">SAR</span>
+        <span class="rr-num">1,336</span>
+      </div>
+    </div>
+
+    <div class="receipt-row pgs">
+      <span class="rr-label">On Pegasus.com</span>
+      <div class="rr-amount">
+        <span class="rr-cur">SAR</span>
+        <span class="rr-num">998</span>
+      </div>
+    </div>
+
+    <div class="receipt-diff">
+      <span class="rd-label">The Difference</span>
+      <div style="display:flex;align-items:center;gap:20px;">
+        <div class="rd-amount">
+          <span class="rd-cur">SAR</span>
+          <span class="rd-num">338</span>
+        </div>
+        <span class="rd-pct">−25%</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="bottom">
+    <div class="bottom-left">
+      July 8 · Live Q&A<br>KSA Travel Agents<br>🇸🇦 No slides · Real answers
+    </div>
+    <div class="bottom-right">
+      <div class="br-cta">Get the real answer — live.</div>
+      <div class="br-register">Register Free →</div>
+    </div>
+  </div>
+
+</div>
+</body></html>
