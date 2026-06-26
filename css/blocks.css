@@ -1710,7 +1710,6 @@
   padding: 80px 0;
 }
 
-/* Section heading */
 .tc-heading {
   text-align: center;
   margin-bottom: 48px;
@@ -1732,51 +1731,31 @@
   max-width: 620px;
 }
 
-/* Slider container — clips track, hover target for arrows */
 .tc-slider {
   border-radius: 16px;
   overflow: hidden;
   position: relative;
 }
 
-/* Blur overlay on the peeking right portion */
-.tc-slider::after {
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
-  bottom: 0;
-  content: '';
-  pointer-events: none;
-  position: absolute;
-  right: 0;
-  top: 0;
-  width: 13%;
-  z-index: 1;
-}
-
-/* Scrolling track — peek layout */
 .tc-track {
   display: flex;
-  gap: 24px;
   transition: transform 0.38s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   will-change: transform;
 }
 
-/* Individual card — horizontal layout: text left, photo right */
-/* Card is 84% of slider width so ~16% of next card peeks on the right */
 .tc-card {
   background: linear-gradient(135deg, rgba(42,138,234,0.15) 0%, rgba(42,138,234,0.04) 100%);
   border-radius: 16px;
   display: grid;
-  flex: 0 0 84%;
+  flex: 0 0 100%;
   grid-template-columns: 57% 43%;
   overflow: hidden;
 }
 
-/* Left: text content */
 .tc-card__text {
   display: flex;
   flex-direction: column;
-  padding: 28px 28px 28px 32px;
+  padding: 28px 28px 76px 32px;
 }
 
 .tc-card__logo {
@@ -1817,7 +1796,6 @@
   font-size: 12px;
 }
 
-/* Right: airline photo */
 .tc-card__fig {
   margin: 0;
   overflow: hidden;
@@ -1833,62 +1811,46 @@
 .tc-card[data-index="0"] .tc-card__img { object-position: 40% 35%; }
 .tc-card[data-index="1"] .tc-card__img { object-position: center 52%; }
 
-/* Side hover arrows */
-.tc-side-btn {
+/* Nav arrows — bottom-left of card */
+.tc-nav {
+  bottom: 28px;
+  display: flex;
+  gap: 8px;
+  left: 32px;
+  position: absolute;
+  z-index: 2;
+}
+
+.tc-nav__btn {
   align-items: center;
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  background: rgba(255, 255, 255, 0.52);
-  border: none;
+  background: transparent;
+  border: 1.5px solid var(--dark-20);
   border-radius: 50%;
   color: var(--dark);
   cursor: pointer;
   display: flex;
-  height: 44px;
+  height: 38px;
   justify-content: center;
-  opacity: 0;
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  transition: opacity 0.2s, background 0.15s;
-  width: 44px;
-  z-index: 2;
+  transition: background 0.15s, border-color 0.15s;
+  width: 38px;
 }
 
-.tc-side-btn--prev { left: 16px; }
-.tc-side-btn--next { right: 16px; }
-
-.tc-slider:hover .tc-side-btn { opacity: 1; }
-.tc-side-btn:hover { background: rgba(255, 255, 255, 0.75); }
-.tc-side-btn:focus-visible { opacity: 1; outline: none; }
-
-/* Blue progress bar */
-.tc-progress {
-  margin-top: 20px;
-  background: var(--dark-10);
-  border-radius: 2px;
-  flex: 1;
-  height: 2px;
-  overflow: hidden;
+.tc-nav__btn:hover {
+  background: var(--dark-05);
+  border-color: var(--dark-40);
 }
 
-.tc-progress__fill {
-  background: var(--blue);
-  border-radius: 2px;
-  height: 100%;
-  transition: width 0.38s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  width: 50%;
-}
-
-
-/* Responsive */
 @media (max-width: 767px) {
   .tc-section { padding: 60px 0; }
-  .tc-track { flex-direction: column; gap: 16px; }
-  .tc-card { flex: 0 0 100%; grid-template-columns: 1fr; grid-template-rows: auto auto; }
-  .tc-card__text { order: 2; padding: 24px 24px 28px; }
+  .tc-card { grid-template-columns: 1fr; grid-template-rows: auto auto; }
+  .tc-card__text { order: 2; padding: 24px 24px 72px; }
   .tc-card__fig { order: 1; height: 180px; }
   .tc-card__quote { font-size: 15px; }
+  .tc-nav { bottom: 24px; left: 24px; }
+}
+@media (max-width: 413px) {
+  .tc-card__text { padding: 20px 18px 68px; }
+  .tc-nav { bottom: 20px; left: 18px; }
 }
 
 @media (max-width: 413px) {

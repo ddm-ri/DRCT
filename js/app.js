@@ -419,20 +419,17 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   /* ---------------------------------------------------------------
-     TESTIMONIALS — peek slider, blue progress bar, hover arrows
+     TESTIMONIALS — full-width card slider with bottom nav arrows
   --------------------------------------------------------------- */
-  var tcSlider       = document.getElementById('tcSlider');
-  var tcTrack        = document.getElementById('tcTrack');
-  var tcProgressFill = document.getElementById('tcProgressFill');
-  var tcCards        = document.querySelectorAll('.tc-card');
-  var tcIndex        = 0;
-  var tcTotal        = tcCards.length;
+  var tcSlider = document.getElementById('tcSlider');
+  var tcTrack  = document.getElementById('tcTrack');
+  var tcCards  = document.querySelectorAll('.tc-card');
+  var tcIndex  = 0;
+  var tcTotal  = tcCards.length;
 
   function goToTc(idx) {
     tcIndex = ((idx % tcTotal) + tcTotal) % tcTotal;
-    var cardWidth = tcSlider ? tcSlider.offsetWidth * 0.84 : 0;
-    if (tcTrack) tcTrack.style.transform = 'translateX(-' + (tcIndex * (cardWidth + 24)) + 'px)';
-    if (tcProgressFill) tcProgressFill.style.width = ((tcIndex + 1) / tcTotal * 100) + '%';
+    if (tcTrack) tcTrack.style.transform = 'translateX(-' + (tcIndex * (tcSlider ? tcSlider.offsetWidth : 0)) + 'px)';
   }
 
   var tcPrev = document.getElementById('tcPrev');
