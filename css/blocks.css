@@ -1823,22 +1823,23 @@
 
 .testi__btn {
   align-items: center;
-  background: none;
-  border: none;
+  background: transparent;
+  border: 1.5px solid var(--dark-20);
   border-radius: 50%;
-  color: var(--dark-40);
+  color: var(--dark-70);
   cursor: pointer;
   display: flex;
   flex-shrink: 0;
-  height: 32px;
+  height: 38px;
   justify-content: center;
   padding: 0;
-  transition: color 0.2s;
-  width: 32px;
+  transition: border-color 0.2s, color 0.2s;
+  width: 38px;
 }
 
 .testi__btn:hover {
-  color: var(--dark);
+  border-color: var(--blue);
+  color: var(--blue);
 }
 
 .testi__dots {
