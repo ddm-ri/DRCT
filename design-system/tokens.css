@@ -1,0 +1,185 @@
+/* ================================================================
+   DRCT DESIGN SYSTEM — DESIGN TOKENS
+   Source of truth for color, type, space, radius, shadow and motion.
+   Extracted from the DRCT v3 marketing site (drct.aero).
+
+   Portability: every visual decision in this system is expressed as
+   a CSS custom property below. To reuse this system in a new project
+   under a different brand, redefine the tokens in this file (or in
+   an override block loaded after it) — components.css never hard-codes
+   a color, size or timing value.
+================================================================ */
+
+:root {
+  /* ---------------------------------------------------------------
+     COLOR — brand
+  --------------------------------------------------------------- */
+  --color-primary:        #2a8aea;
+  --color-primary-rgb:    42, 138, 234;
+  --color-primary-hover:  #1a7dd4;
+  --color-primary-alt:    #2188ed;
+
+  /* Primary at fixed opacities — used for tints, hovers, icon chips */
+  --color-primary-85:     rgba(var(--color-primary-rgb), 0.85);
+  --color-primary-80:     rgba(var(--color-primary-rgb), 0.80);
+  --color-primary-61:     rgba(var(--color-primary-rgb), 0.61);
+  --color-primary-20:     rgba(var(--color-primary-rgb), 0.20);
+  --color-primary-12:     rgba(var(--color-primary-rgb), 0.12);
+  --color-primary-10:     rgba(var(--color-primary-rgb), 0.10);
+  --color-primary-09:     rgba(var(--color-primary-rgb), 0.09);
+
+  /* ---------------------------------------------------------------
+     COLOR — ink (text / neutral dark)
+  --------------------------------------------------------------- */
+  --color-ink:            #1b2733;
+  --color-ink-rgb:        27, 39, 51;
+  --color-ink-90:         rgba(var(--color-ink-rgb), 0.90);
+  --color-ink-70:         rgba(var(--color-ink-rgb), 0.70);
+  --color-ink-45:         rgba(var(--color-ink-rgb), 0.45);
+  --color-ink-40:         rgba(var(--color-ink-rgb), 0.40);
+  --color-ink-26:         rgba(var(--color-ink-rgb), 0.26);
+  --color-ink-20:         rgba(var(--color-ink-rgb), 0.20);
+  --color-ink-15:         rgba(var(--color-ink-rgb), 0.15);
+  --color-ink-10:         rgba(var(--color-ink-rgb), 0.10);
+  --color-ink-05:         rgba(var(--color-ink-rgb), 0.05);
+
+  /* ---------------------------------------------------------------
+     COLOR — surface
+  --------------------------------------------------------------- */
+  --color-surface:        #ffffff;
+  --color-surface-alt:    #f3f4f5;   /* page background tint, banners */
+  --color-surface-muted:  #f4f4f5;   /* section backgrounds */
+  --color-surface-tint:   #f6faff;   /* faint brand-tinted panel */
+  --color-inverse:        #17171e;   /* near-black, for dark UI (terminals) */
+
+  /* ---------------------------------------------------------------
+     COLOR — status
+  --------------------------------------------------------------- */
+  --color-success:        #33c100;
+  --color-warning:        #ff9f00;
+  --color-warning-ink:    #c07000;
+  --color-error:          #fd5666;
+
+  /* ---------------------------------------------------------------
+     TYPOGRAPHY — families
+  --------------------------------------------------------------- */
+  --font-sans: 'IBM Plex Sans', 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace;
+
+  /* Weights */
+  --font-weight-regular:  400;
+  --font-weight-medium:   500;
+  --font-weight-semibold: 600;
+  --font-weight-bold:     700;
+  --font-weight-black:    900;
+
+  /* Type scale — desktop. Pair with the fluid overrides in base.css
+     for the documented mobile step-downs (31→27, 40→32, 92→72…). */
+  --text-2xs:   9px;
+  --text-xs:    10px;
+  --text-sm:    11px;
+  --text-base-sm: 12px;
+  --text-base:  13px;
+  --text-md:    14px;
+  --text-lg:    15px;
+  --text-xl:    16px;
+  --text-2xl:   18px;
+  --text-3xl:   21px;
+  --text-4xl:   31px;   /* primary section heading */
+  --text-5xl:   40px;   /* hero title */
+  --text-6xl:   56px;
+  --text-7xl:   92px;   /* big stat numbers */
+
+  /* Line heights */
+  --leading-tight:   1;
+  --leading-snug:    1.2;
+  --leading-normal:  1.3;
+  --leading-relaxed: 1.55;
+  --leading-loose:   1.6;
+  --leading-body:    1.57;  /* standard body copy */
+
+  /* Letter spacing */
+  --tracking-tightest: -0.6px;
+  --tracking-tighter:  -0.4px;
+  --tracking-tight:    -0.15px;
+  --tracking-normal:   0;
+  --tracking-wide:     0.3px;
+  --tracking-wider:    0.6px;   /* standard button/uppercase-label spacing */
+  --tracking-widest:   1.8px;
+
+  /* ---------------------------------------------------------------
+     LAYOUT
+  --------------------------------------------------------------- */
+  --container-width:  1010px;
+  --container-wide:   1200px;
+  --header-height:    68px;
+
+  /* Breakpoints — documented for reference; CSS custom properties
+     cannot be used inside @media, so mirror these literal values
+     in your media queries. Do not introduce new ones. */
+  --bp-tablet:      1024px;
+  --bp-mobile:      767px;
+  --bp-mobile-sm:   480px;
+  --bp-mobile-xs:   413px;
+  --bp-mobile-xxs:  320px;
+
+  /* ---------------------------------------------------------------
+     SPACING SCALE (px)
+  --------------------------------------------------------------- */
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-5:  20px;
+  --space-6:  24px;
+  --space-7:  28px;
+  --space-8:  32px;
+  --space-9:  40px;
+  --space-10: 48px;
+  --space-11: 52px;
+  --space-12: 60px;
+  --space-13: 80px;
+
+  /* ---------------------------------------------------------------
+     RADIUS
+  --------------------------------------------------------------- */
+  --radius-sm:   4px;   /* buttons, badges */
+  --radius-md:   8px;   /* media frames, nav items */
+  --radius-lg:   10px;  /* pills, icon chips, toggle groups */
+  --radius-xl:   16px;  /* cards */
+  --radius-2xl:  24px;  /* large cards, hero-style panels */
+  --radius-full: 50%;   /* circles: dots, thumbs, control buttons */
+
+  /* ---------------------------------------------------------------
+     SHADOW
+  --------------------------------------------------------------- */
+  --shadow-sm:      0 2px 12px rgba(var(--color-ink-rgb), 0.06), 0 6px 32px rgba(var(--color-ink-rgb), 0.04);
+  --shadow-md:      0 8px 40px rgba(var(--color-ink-rgb), 0.2);
+  --shadow-lg:      0 24px 64px rgba(var(--color-ink-rgb), 0.12), 0 4px 16px rgba(var(--color-ink-rgb), 0.05);
+  --shadow-image:   0 25px 30px rgba(var(--color-ink-rgb), 0.2), 0 0 20px rgba(var(--color-ink-rgb), 0.1);
+  --shadow-header:  0 4px 8px rgba(var(--color-ink-rgb), 0.1);
+  --shadow-popover: 0 6px 12px rgba(var(--color-ink-rgb), 0.2);
+  --shadow-dropdown: 0 8px 24px rgba(var(--color-ink-rgb), 0.11), 0 2px 6px rgba(var(--color-ink-rgb), 0.05);
+  --shadow-focus:   0 0 0 3px var(--color-primary-20);
+  --shadow-cta:     0 4px 14px rgba(var(--color-primary-rgb), 0.3);
+
+  /* ---------------------------------------------------------------
+     MOTION
+  --------------------------------------------------------------- */
+  --ease-out-quart: cubic-bezier(0.19, 1, 0.22, 1);
+  --duration-fast:   0.14s;
+  --duration-base:   0.2s;
+  --duration-slow:   0.3s;
+  --duration-slower: 0.5s;
+
+  /* ---------------------------------------------------------------
+     Z-INDEX SCALE
+  --------------------------------------------------------------- */
+  --z-behind:   -1;
+  --z-raised:   1;
+  --z-banner:   5;
+  --z-header:   6;
+  --z-mobile-menu: 9;
+  --z-nav:      100;
+  --z-dropdown: 200;
+}

@@ -1,0 +1,91 @@
+/* ================================================================
+   DRCT DESIGN SYSTEM — BASE
+   Reset + base element styles. Load after tokens.css.
+================================================================ */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body, div, span, h1, h2, h3, h4, h5, h6,
+p, a, ul, ol, li, img, video, button, input, textarea,
+header, footer, section, nav, article, figure {
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  margin: 0;
+  padding: 0;
+  vertical-align: baseline;
+}
+
+header, footer, section, article, nav { display: block; }
+ol, ul { list-style: none; }
+a { text-decoration: none; color: inherit; }
+button { background: none; border: none; cursor: pointer; outline: none; }
+input, textarea { outline: none; }
+img { display: block; max-width: 100%; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  background: var(--color-surface);
+  font-family: var(--font-sans);
+  color: var(--color-ink);
+  line-height: var(--leading-tight);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ----------------------------------------------------------------
+   BASE TYPOGRAPHY
+   These set sane defaults for raw <h1>–<h3>/<p> in prose content.
+   Components in components.css override sizes for their own context.
+---------------------------------------------------------------- */
+h1, h2, h3 {
+  color: var(--color-ink);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--leading-snug);
+}
+h1 { font-size: var(--text-5xl); letter-spacing: var(--tracking-tighter); }
+h2 { font-size: var(--text-4xl); }
+h3 { font-size: var(--text-xl); }
+
+p {
+  color: var(--color-ink-70);
+  font-size: var(--text-md);
+  line-height: var(--leading-body);
+}
+
+code, pre, .font-mono {
+  font-family: var(--font-mono);
+}
+
+/* ----------------------------------------------------------------
+   LAYOUT CONTAINER
+---------------------------------------------------------------- */
+.container {
+  margin: 0 auto;
+  width: var(--container-width);
+}
+@media (max-width: 1024px) {
+  .container { width: 100%; padding: 0 20px; }
+}
+@media (max-width: 767px) {
+  .container { padding: 0 24px; }
+}
+@media (max-width: 413px) {
+  .container { padding: 0 8px; }
+}
+
+.container--wide {
+  margin: 0 auto;
+  max-width: var(--container-wide);
+  padding: 0 40px;
+}
+@media (max-width: 1024px) { .container--wide { padding: 0 24px; } }
+@media (max-width: 414px)  { .container--wide { padding: 0 18px; } }
+
+/* Page fade-in wrapper — add `.is-loaded` once assets/content are ready */
+.page-fade {
+  opacity: 0;
+  transition: opacity var(--duration-slow);
+}
+.page-fade.is-loaded { opacity: 1; }
