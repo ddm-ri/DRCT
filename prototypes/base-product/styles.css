@@ -567,6 +567,17 @@ body {
 }
 .info-note__text { font-size: 13px; color: var(--dark-70); }
 
+.notice-banner {
+  background: #F9D448;
+  border-radius: 4px;
+  padding: 16px 20px;
+  margin-top: 16px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--dark);
+}
+.notice-banner b { font-weight: 700; }
+
 .server-error-panel { border: 1px solid var(--border); border-radius: var(--radius-l); padding: 32px; text-align: center; margin-top: 20px; }
 .server-error-panel__icon { width: 44px; height: 44px; border-radius: 50%; background: var(--error-bg); color: var(--error); display: flex; align-items: center; justify-content: center; margin: 0 auto 14px; font-size: 20px; font-weight: 700; }
 .server-error-panel h3 { font-size: 17px; font-weight: 700; }

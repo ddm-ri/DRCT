@@ -227,6 +227,7 @@
     regular: { from: '', to: '', fromCode: '', toCode: '', departure: '', return: '', adults: 1, children: 0, infants: 0, paxOpen: false },
     resultsQuery: null,
     aiQuery: 'Economy with a stopover in Madrid',
+    groupAiQuery: 'Morning departures on Lufthansa or Lot',
     resultsFilters: { type: 'all', sort: 'optimal', bag: 'without' },
     currentOffer: null,
     offerDraft: null,
@@ -470,7 +471,7 @@
       (atMax ? '<div class="group-cta-inline">' +
         '<div class="group-cta-inline__title">Looking for group rates?</div>' +
         '<div class="group-cta-inline__text">Request fares for 10 or more passengers.</div>' +
-        '<button class="btn btn-tertiary btn-block btn-sm" data-action="try-group-fares">Try group fares</button>' +
+        '<button class="btn btn-tertiary btn-sm" style="padding-left:0;padding-right:0" data-action="try-group-fares">Try group fares</button>' +
       '</div>' : '') +
     '</div>';
   }
@@ -728,7 +729,7 @@
     }
     return groupFormBar(g, e) +
       (Object.keys(e).length ? '<div class="field-error" style="margin-top:10px">Please complete all required fields.</div>' : '') +
-      '<div class="info-note"><div class="info-note__icon">i</div><div class="info-note__text">Group results are indicative. Final price and conditions will be confirmed directly by the airline.</div></div>';
+      '<div class="notice-banner"><b>Group results are indicative.</b> Final price and conditions will be confirmed directly by the airline.</div>';
   }
 
   function groupFormBar(g, e) {
@@ -788,7 +789,13 @@
         '</div>' +
         '<button class="btn btn-primary search-bar__submit" data-action="group-search-submit">Search</button>' +
       '</div>' +
-      '<div class="info-note"><div class="info-note__icon">i</div><div class="info-note__text">The final offer may differ from these results in price, exact flight, timing and conditions — it will be confirmed by the airline.</div></div>' +
+      '<div class="ai-filters-band">' +
+        '<div class="ai-filters-band__icon">&#10022;</div>' +
+        '<div class="ai-filters-band__label">AI Filters</div>' +
+        '<div class="ai-filters-band__info">i</div>' +
+        '<input class="ai-filters-band__query" data-field="groupAiQuery" value="' + escapeHtml(state.groupAiQuery) + '">' +
+        '<div class="ai-filters-band__cta" data-action="noop">Filter flights</div>' +
+      '</div>' +
       '<div class="results-filter-row">' +
         '<div class="rf-group rf-group--type">' +
           groupFilterToggle('All flights', 'all') + groupFilterToggle('Direct', 'direct') + groupFilterToggle('Up to 1 connection', '1stop') +
