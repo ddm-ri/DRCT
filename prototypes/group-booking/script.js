@@ -65,6 +65,53 @@
 
   function airlineById(id) { for (var i = 0; i < AIRLINES.length; i++) if (AIRLINES[i].id === id) return AIRLINES[i]; return null; }
 
+  var AIRPORTS = [
+    { city: 'Warsaw', name: 'Chopin Airport', code: 'WAW' },
+    { city: 'Warsaw', name: 'Modlin Airport', code: 'WMI' },
+    { city: 'Paris', name: 'Charles de Gaulle Intl', code: 'CDG' },
+    { city: 'Paris', name: 'Orly Airport', code: 'ORY' },
+    { city: 'Paris', name: 'Beauvais–Tillé Airport', code: 'BVA' },
+    { city: 'London', name: 'Heathrow Airport', code: 'LHR' },
+    { city: 'London', name: 'Gatwick Airport', code: 'LGW' },
+    { city: 'London', name: 'Stansted Airport', code: 'STN' },
+    { city: 'Frankfurt', name: 'Frankfurt Airport', code: 'FRA' },
+    { city: 'Amsterdam', name: 'Schiphol Airport', code: 'AMS' },
+    { city: 'Zurich', name: 'Zurich Airport', code: 'ZRH' },
+    { city: 'Vienna', name: 'Vienna Intl Airport', code: 'VIE' },
+    { city: 'Madrid', name: 'Adolfo Suárez Madrid–Barajas', code: 'MAD' },
+    { city: 'New York', name: 'John F. Kennedy Intl', code: 'JFK' },
+    { city: 'New York', name: 'Newark Liberty Intl', code: 'EWR' },
+    { city: 'New York', name: 'LaGuardia Airport', code: 'LGA' },
+    { city: 'Rome', name: 'Leonardo da Vinci–Fiumicino', code: 'FCO' },
+    { city: 'Barcelona', name: 'Josep Tarradellas Barcelona-El Prat', code: 'BCN' },
+    { city: 'Dubai', name: 'Dubai Intl Airport', code: 'DXB' },
+    { city: 'Lisbon', name: 'Humberto Delgado Airport', code: 'LIS' }
+  ];
+
+  function searchAirports(query) {
+    var q = query.trim().toLowerCase();
+    if (!q) return [];
+    var order = [], byCity = {};
+    AIRPORTS.forEach(function (a) {
+      var cityMatch = a.city.toLowerCase().indexOf(q) !== -1;
+      var airportMatch = a.name.toLowerCase().indexOf(q) !== -1 || a.code.toLowerCase().indexOf(q) !== -1;
+      if (!cityMatch && !airportMatch) return;
+      if (!byCity[a.city]) { byCity[a.city] = { city: a.city, cityMatch: false, airports: [] }; order.push(a.city); }
+      if (cityMatch) byCity[a.city].cityMatch = true;
+      byCity[a.city].airports.push(a);
+    });
+    return order.slice(0, 5).map(function (c) { return byCity[c]; });
+  }
+
+  function formatFieldDate(iso) {
+    if (!iso) return '';
+    var d = parseISO(iso);
+    if (!d || isNaN(d.getTime())) return '';
+    var months = ['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'];
+    var days = ['sun','mon','tue','wed','thu','fri','sat'];
+    return d.getDate() + ' ' + months[d.getMonth()] + ', ' + days[d.getDay()];
+  }
+
   var TRIP_REASONS = [
     { v: 'business', l: 'Business' }, { v: 'sports', l: 'Sports' }, { v: 'education', l: 'Education' },
     { v: 'leisure', l: 'Leisure' }, { v: 'event', l: 'Event' }, { v: 'other', l: 'Other' }
@@ -106,9 +153,9 @@
     page: 'search',
     searchTab: 'form',
     groupsScreen: 'form',
-    regular: { from: '', to: '', departure: '', return: '', adults: 1, children: 0, infants: 0, paxOpen: false, searched: false },
+    regular: { from: '', to: '', fromCode: '', toCode: '', departure: '', return: '', adults: 1, children: 0, infants: 0, paxOpen: false, searched: false },
     regularErrors: {},
-    group: { from: '', to: '', departure: '', return: '', pax: 10 },
+    group: { from: '', to: '', fromCode: '', toCode: '', departure: '', return: '', pax: 10, paxOpen: false },
     groupErrors: {},
     groupSubmitState: 'idle',
     resultsQuery: null,
@@ -127,7 +174,8 @@
     currentOffer: null,
     declineModal: null,
     toasts: [],
-    requestCounter: 1048
+    requestCounter: 1048,
+    openPopover: null
   };
   window.__DRCT_STATE__ = state;
 
@@ -265,6 +313,10 @@
     renderDeclineModal();
     renderToasts();
     scheduleTimers();
+    if (state.openPopover && state.openPopover.type === 'airport') {
+      var afInput = document.querySelector('[data-airport-input][data-field="' + state.openPopover.field + '"]');
+      if (afInput) { afInput.focus(); var v = afInput.value; afInput.setSelectionRange(v.length, v.length); }
+    }
     window.scrollTo(0, main.dataset.keepScroll ? window.scrollY : 0);
   }
 
@@ -302,7 +354,7 @@
           '<div><h1>' + title + '</h1><p class="page-head__desc">' + desc + '</p></div>' +
           '<div class="local-tabs">' + tabsHtml + '</div>' +
         '</div>' +
-        (state.searchTab === 'groups' ? '<div style="margin-top:20px">' + calloutHtml('i', 'Group fares are requested directly from airlines. Final prices, flight details and conditions may differ from the options shown in search results.', 'muted') + '</div>' : '') +
+        (state.searchTab === 'groups' ? '<div style="margin-top:20px">' + warningBannerHtml('Group fares are requested directly from airlines. Final prices, flight details and conditions may differ from the options shown in search results.') + '</div>' : '') +
       '</div>' +
       body;
   }
@@ -312,6 +364,10 @@
       '<div class="callout__icon">' + icon + '</div>' +
       '<div>' + (title ? '<div class="callout__title">' + escapeHtml(title) + '</div>' : '') +
       '<div class="callout__text">' + text + '</div></div></div>';
+  }
+
+  function warningBannerHtml(html) {
+    return '<div class="warning-banner">' + html + '</div>';
   }
 
   function paxSummaryLabel(r) {
@@ -324,19 +380,11 @@
     var atMax = r.adults >= 9;
     return '' +
       '<div class="search-bar' + (Object.keys(e).length ? ' has-error' : '') + '">' +
-        '<div class="search-field search-field--from' + (e.from ? ' is-invalid' : '') + '">' +
-          '<label>From</label><input type="text" placeholder="From" data-field="regular.from" value="' + escapeHtml(r.from) + '">' +
-        '</div>' +
+        renderAirportField('regular.from', 'From', ' search-field--from' + (e.from ? ' is-invalid' : '')) +
         '<div class="search-field--swap" data-action="swap-regular" title="Swap origin and destination">' + swapIcon() + '</div>' +
-        '<div class="search-field search-field--to' + (e.to ? ' is-invalid' : '') + '">' +
-          '<label>To</label><input type="text" placeholder="To" data-field="regular.to" value="' + escapeHtml(r.to) + '">' +
-        '</div>' +
-        '<div class="search-field' + (e.departure ? ' is-invalid' : '') + '">' +
-          '<label>Departure</label><input type="date" data-field="regular.departure" min="' + toISO(TODAY) + '" value="' + r.departure + '">' +
-        '</div>' +
-        '<div class="search-field' + (e.return ? ' is-invalid' : '') + '">' +
-          '<label>Return</label><input type="date" data-field="regular.return" min="' + (r.departure || toISO(TODAY)) + '" value="' + r.return + '">' +
-        '</div>' +
+        renderAirportField('regular.to', 'To', ' search-field--to' + (e.to ? ' is-invalid' : '')) +
+        renderCalendarField('regular.departure', 'Departure', toISO(TODAY), false, e.departure) +
+        renderCalendarField('regular.return', 'Return', r.departure || toISO(TODAY), true, e.return) +
         '<div class="search-field search-field--pax" data-action="toggle-pax-regular">' +
           '<label>Passengers</label><div class="search-field__pax-value">' + paxSummaryLabel(r) + '</div>' +
           (r.paxOpen ? renderRegularPaxPop(atMax) : '') +
@@ -376,6 +424,118 @@
     return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"></polyline><path d="M3 11V9a4 4 0 0 1 4-4h14"></path><polyline points="7 23 3 19 7 15"></polyline><path d="M21 13v2a4 4 0 0 1-4 4H3"></path></svg>';
   }
 
+  /* ----------------------------------------------------------------
+     AIRPORT COMBOBOX FIELD (From / To)
+  ---------------------------------------------------------------- */
+  function renderAirportField(fieldKey, placeholder, extraClass) {
+    var name = get(fieldKey, state) || '';
+    var code = get(fieldKey + 'Code', state) || '';
+    var isOpen = state.openPopover && state.openPopover.type === 'airport' && state.openPopover.field === fieldKey;
+    var inner;
+    if (isOpen) {
+      inner = '<input type="text" class="field-input" data-airport-input data-field="' + fieldKey + '" value="' + escapeHtml(state.openPopover.query) + '" placeholder="' + escapeHtml(placeholder) + '" autocomplete="off">';
+    } else if (name) {
+      inner = '<span class="field-value"><span class="field-value__name">' + escapeHtml(name) + '</span>' + (code ? '<span class="field-value__code">' + escapeHtml(code) + '</span>' : '') + '</span>';
+    } else {
+      inner = '<span class="field-placeholder">' + escapeHtml(placeholder) + '</span>';
+    }
+    return '<div class="search-field' + (extraClass || '') + '" data-action="open-airport-field" data-field="' + fieldKey + '">' +
+      inner +
+      (isOpen ? renderAirportPopover(fieldKey, state.openPopover.query) : '') +
+    '</div>';
+  }
+
+  function renderAirportPopover(fieldKey, query) {
+    return '<div class="field-pop field-pop--airport" data-action="noop">' +
+      '<div class="field-pop__list">' + renderAirportGroups(query) + '</div>' +
+    '</div>';
+  }
+
+  function renderAirportGroups(query) {
+    var q = (query || '').trim();
+    if (!q) return '<div class="field-pop__hint">Start typing a city or airport</div>';
+    var groups = searchAirports(q);
+    if (!groups.length) return '<div class="field-pop__hint">No matches found</div>';
+    return groups.map(function (g) {
+      var rows = '';
+      if (g.cityMatch) rows += airportRowHtml(g.city, g.airports[0].code, false);
+      g.airports.slice(0, 4).forEach(function (a) { rows += airportRowHtml(a.name, a.code, true); });
+      return rows;
+    }).join('');
+  }
+
+  function airportRowHtml(name, code, indented) {
+    return '<div class="airport-row' + (indented ? ' airport-row--sub' : '') + '" data-action="select-airport" data-name="' + escapeHtml(name) + '" data-code="' + code + '">' +
+      '<span>' + escapeHtml(name) + '</span><span class="airport-row__code">' + code + '</span></div>';
+  }
+
+  /* ----------------------------------------------------------------
+     CALENDAR FIELD (Departure / Return)
+  ---------------------------------------------------------------- */
+  var MONTH_NAMES = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+
+  function renderCalendarField(fieldKey, placeholder, minISO, isReturn, hasError) {
+    var iso = get(fieldKey, state) || '';
+    var isOpen = state.openPopover && state.openPopover.type === 'calendar' && state.openPopover.field === fieldKey;
+    var inner = iso
+      ? '<span class="field-value"><span class="field-value__name">' + formatFieldDate(iso) + '</span></span>'
+      : '<span class="field-placeholder">' + escapeHtml(placeholder) + '</span>';
+    return '<div class="search-field' + (hasError ? ' is-invalid' : '') + '" data-action="open-calendar-field" data-field="' + fieldKey + '" data-min="' + minISO + '" data-return="' + (isReturn ? '1' : '0') + '">' +
+      inner +
+      (isOpen ? renderCalendarPopover(fieldKey, iso, minISO, isReturn) : '') +
+    '</div>';
+  }
+
+  function renderCalendarPopover(fieldKey, selectedISO, minISO, isReturn) {
+    var op = state.openPopover;
+    var y = op.calYear, m = op.calMonth;
+    var nm = m + 1, ny = y;
+    if (nm > 11) { nm = 0; ny++; }
+    return '<div class="field-pop field-pop--calendar' + (isReturn ? ' field-pop--calendar-right' : '') + '" data-action="noop">' +
+      '<div class="cal-head">' +
+        '<span class="cal-head__title">Choose date</span>' +
+        (isReturn ? '<span class="cal-head__skip" data-action="calendar-skip-return" data-field="' + fieldKey + '">Without a return flight</span>' : '') +
+      '</div>' +
+      '<div class="cal-nav-row">' +
+        '<button class="cal-nav" data-action="calendar-nav" data-dir="-1" aria-label="Previous month">' + chevronSvg('left') + '</button>' +
+        '<span class="cal-month-title">' + MONTH_NAMES[m] + '</span>' +
+        '<span class="cal-month-title">' + MONTH_NAMES[nm] + '</span>' +
+        '<button class="cal-nav" data-action="calendar-nav" data-dir="1" aria-label="Next month">' + chevronSvg('right') + '</button>' +
+      '</div>' +
+      '<div class="cal-grids">' +
+        renderMonthGrid(y, m, fieldKey, selectedISO, minISO) +
+        renderMonthGrid(ny, nm, fieldKey, selectedISO, minISO) +
+      '</div>' +
+    '</div>';
+  }
+
+  function renderMonthGrid(y, m, fieldKey, selectedISO, minISO) {
+    var first = new Date(y, m, 1);
+    var startDow = first.getDay();
+    var daysInMonth = new Date(y, m + 1, 0).getDate();
+    var minD = minISO ? parseISO(minISO) : null;
+    var cells = '';
+    for (var i = 0; i < startDow; i++) cells += '<span class="cal-cell cal-cell--pad"></span>';
+    for (var d = 1; d <= daysInMonth; d++) {
+      var iso = y + '-' + pad(m + 1) + '-' + pad(d);
+      var dateObj = new Date(y, m, d);
+      var disabled = minD && dateObj < minD;
+      var selected = iso === selectedISO;
+      cells += '<span class="cal-cell' + (disabled ? ' is-disabled' : '') + (selected ? ' is-selected' : '') + '"' +
+        (disabled ? '' : ' data-action="select-date" data-field="' + fieldKey + '" data-date="' + iso + '"') +
+        '>' + d + '</span>';
+    }
+    return '<div class="cal-grid">' +
+      '<div class="cal-weekdays"><span>su</span><span>mo</span><span>tu</span><span>we</span><span>th</span><span>fr</span><span>sa</span></div>' +
+      '<div class="cal-days">' + cells + '</div>' +
+    '</div>';
+  }
+
+  function chevronSvg(dir) {
+    var d = dir === 'left' ? 'M15 18l-6-6 6-6' : 'M9 18l6-6-6-6';
+    return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="' + d + '"></path></svg>';
+  }
+
   /* ----- Group search form ----- */
   function renderGroupForm() {
     var g = state.group, e = state.groupErrors;
@@ -400,32 +560,32 @@
   function groupFormBar(g, e) {
     var loading = state.groupSubmitState === 'loading';
     return '<div class="search-bar' + (Object.keys(e).length ? ' has-error' : '') + '">' +
-      '<div class="search-field search-field--from' + (e.from ? ' is-invalid' : '') + '">' +
-        '<label>From</label><input type="text" placeholder="From" data-field="group.from" value="' + escapeHtml(g.from) + '">' +
-      '</div>' +
+      renderAirportField('group.from', 'From', ' search-field--from' + (e.from ? ' is-invalid' : '')) +
       '<div class="search-field--swap" data-action="swap-group" title="Swap origin and destination">' + swapIcon() + '</div>' +
-      '<div class="search-field search-field--to' + (e.to ? ' is-invalid' : '') + '">' +
-        '<label>To</label><input type="text" placeholder="To" data-field="group.to" value="' + escapeHtml(g.to) + '">' +
-      '</div>' +
-      '<div class="search-field' + (e.departure ? ' is-invalid' : '') + '">' +
-        '<label>Departure</label><input type="date" data-field="group.departure" min="' + toISO(TODAY) + '" value="' + g.departure + '">' +
-      '</div>' +
-      '<div class="search-field' + (e.return ? ' is-invalid' : '') + '">' +
-        '<label>Return</label><input type="date" data-field="group.return" min="' + (g.departure || toISO(TODAY)) + '" value="' + g.return + '">' +
-      '</div>' +
-      '<div class="search-field search-field--pax-total' + (e.pax ? ' is-invalid' : '') + '">' +
-        '<label>Passengers</label>' +
-        '<div class="pax-total-field">' +
-          '<span class="pax-total-field__count">' + g.pax + ' passengers</span>' +
-          '<div class="stepper">' +
-            '<button class="stepper__btn' + (g.pax > 10 ? ' is-active' : '') + '" data-action="group-pax-step" data-dir="-1" ' + (g.pax <= 10 ? 'disabled' : '') + '>&minus;</button>' +
-            '<button class="stepper__btn is-active" data-action="group-pax-step" data-dir="1">+</button>' +
-          '</div>' +
-        '</div>' +
+      renderAirportField('group.to', 'To', ' search-field--to' + (e.to ? ' is-invalid' : '')) +
+      renderCalendarField('group.departure', 'Departure', toISO(TODAY), false, e.departure) +
+      renderCalendarField('group.return', 'Return', g.departure || toISO(TODAY), true, e.return) +
+      '<div class="search-field search-field--pax-total search-field--pax' + (e.pax ? ' is-invalid' : '') + '" data-action="toggle-pax-group">' +
+        '<span class="search-field__pax-value">' + g.pax + ' passengers</span>' +
+        (g.paxOpen ? renderGroupPaxPop() : '') +
       '</div>' +
       '<button class="btn btn-primary search-bar__submit" data-action="group-search-submit" ' + (loading ? 'disabled' : '') + '>' +
         (loading ? '<span class="spinner"></span> Searching' : 'Search') +
       '</button>' +
+    '</div>';
+  }
+
+  function renderGroupPaxPop() {
+    var g = state.group;
+    return '<div class="pax-pop" data-action="noop">' +
+      '<div class="pax-row" style="border-top:none">' +
+        '<div><div class="pax-row__label">Passengers</div><div class="pax-row__sub">Group of 10 or more</div></div>' +
+        '<div class="stepper">' +
+          '<button class="stepper__btn' + (g.pax > 10 ? ' is-active' : '') + '" data-action="group-pax-step" data-dir="-1" ' + (g.pax <= 10 ? 'disabled' : '') + '>&minus;</button>' +
+          '<span class="stepper__val">' + g.pax + '</span>' +
+          '<button class="stepper__btn is-active" data-action="group-pax-step" data-dir="1">+</button>' +
+        '</div>' +
+      '</div>' +
     '</div>';
   }
 
@@ -443,18 +603,13 @@
     var g = state.group;
     return '' +
       '<div class="summary-bar">' +
-        summaryField('From', 'group.from', g.from, false) +
-        summaryField('To', 'group.to', g.to, false) +
-        summaryField('Departure', 'group.departure', g.departure, true) +
-        summaryField('Return', 'group.return', g.return, true) +
-        '<div class="summary-field summary-field--pax">' +
-          '<div class="pax-total-field">' +
-            '<span class="pax-total-field__count">' + g.pax + ' passengers</span>' +
-            '<div class="stepper">' +
-              '<button class="stepper__btn' + (g.pax > 10 ? ' is-active' : '') + '" data-action="group-pax-step" data-dir="-1" ' + (g.pax <= 10 ? 'disabled' : '') + '>&minus;</button>' +
-              '<button class="stepper__btn is-active" data-action="group-pax-step" data-dir="1">+</button>' +
-            '</div>' +
-          '</div>' +
+        renderAirportField('group.from', 'From', '') +
+        renderAirportField('group.to', 'To', '') +
+        renderCalendarField('group.departure', 'Departure', toISO(TODAY), false) +
+        renderCalendarField('group.return', 'Return', g.departure || toISO(TODAY), true) +
+        '<div class="search-field search-field--pax-total search-field--pax" data-action="toggle-pax-group">' +
+          '<span class="search-field__pax-value">' + g.pax + ' passengers</span>' +
+          (g.paxOpen ? renderGroupPaxPop() : '') +
         '</div>' +
         '<div class="summary-field summary-field--btn">' +
           '<button class="btn btn-primary btn-sm" data-action="group-results-update-search">Update search</button>' +
@@ -468,11 +623,6 @@
       '</div>' +
       '<div class="flight-card-list">' + cards + '</div>' +
       '<div style="height:70px"></div>';
-  }
-
-  function summaryField(label, field, value, isDate) {
-    return '<div class="summary-field">' +
-      '<input type="' + (isDate ? 'date' : 'text') + '" placeholder="' + label + '" data-field="' + field + '" value="' + escapeHtml(value) + '"></div>';
   }
 
   function filterToggle(label, val) {
@@ -561,10 +711,10 @@
         '<div class="form-section__title">Trip details</div>' +
         '<div class="form-section__desc">Route, dates and passenger count can still be edited.</div>' +
         '<div class="form-grid">' +
-          '<div class="search-field"><label>From</label><input type="text" data-field="requestDraft.from" value="' + escapeHtml(d.from) + '"></div>' +
-          '<div class="search-field"><label>To</label><input type="text" data-field="requestDraft.to" value="' + escapeHtml(d.to) + '"></div>' +
-          '<div class="search-field"><label>Departure</label><input type="date" data-field="requestDraft.departure" min="' + toISO(TODAY) + '" value="' + d.departure + '"></div>' +
-          '<div class="search-field"><label>Return</label><input type="date" data-field="requestDraft.return" min="' + (d.departure || toISO(TODAY)) + '" value="' + d.return + '"></div>' +
+          renderAirportField('requestDraft.from', 'From', '') +
+          renderAirportField('requestDraft.to', 'To', '') +
+          renderCalendarField('requestDraft.departure', 'Departure', toISO(TODAY), false) +
+          renderCalendarField('requestDraft.return', 'Return', d.departure || toISO(TODAY), true) +
         '</div>' +
         '<div class="field-group">' +
           '<div class="field-group__label">Passengers</div>' +
@@ -879,14 +1029,26 @@
   /* ----------------------------------------------------------------
      EVENT HANDLERS
   ---------------------------------------------------------------- */
+  var POPOVER_ACTIONS = ['open-airport-field', 'select-airport', 'open-calendar-field', 'calendar-nav', 'select-date', 'calendar-skip-return', 'noop'];
+
   function onClick(e) {
     var el = e.target.closest('[data-action]');
     if (!el) {
       var pax = document.querySelector('.search-field--pax');
-      if (state.regular.paxOpen && (!pax || !pax.contains(e.target))) { state.regular.paxOpen = false; render(); }
+      if ((state.regular.paxOpen || state.group.paxOpen) && (!pax || !pax.contains(e.target))) {
+        state.regular.paxOpen = false;
+        state.group.paxOpen = false;
+        render();
+      } else if (state.openPopover) {
+        state.openPopover = null;
+        render();
+      }
       return;
     }
     var action = el.dataset.action;
+    if (state.openPopover && POPOVER_ACTIONS.indexOf(action) === -1) {
+      state.openPopover = null;
+    }
 
     switch (action) {
       case 'noop': break;
@@ -894,11 +1056,19 @@
       case 'set-tab':
         state.searchTab = el.dataset.tab;
         state.regular.paxOpen = false;
+        state.group.paxOpen = false;
         render();
         break;
 
       case 'toggle-pax-regular':
         state.regular.paxOpen = !state.regular.paxOpen;
+        state.group.paxOpen = false;
+        render();
+        break;
+
+      case 'toggle-pax-group':
+        state.group.paxOpen = !state.group.paxOpen;
+        state.regular.paxOpen = false;
         render();
         break;
 
@@ -914,6 +1084,7 @@
 
       case 'swap-regular': {
         var tmp = state.regular.from; state.regular.from = state.regular.to; state.regular.to = tmp;
+        var tmpC = state.regular.fromCode; state.regular.fromCode = state.regular.toCode; state.regular.toCode = tmpC;
         render();
         break;
       }
@@ -943,6 +1114,79 @@
 
       case 'swap-group': {
         var tmpg = state.group.from; state.group.from = state.group.to; state.group.to = tmpg;
+        var tmpgC = state.group.fromCode; state.group.fromCode = state.group.toCode; state.group.toCode = tmpgC;
+        render();
+        break;
+      }
+
+      case 'open-airport-field': {
+        var afKey = el.dataset.field;
+        if (state.openPopover && state.openPopover.type === 'airport' && state.openPopover.field === afKey) break;
+        state.openPopover = { type: 'airport', field: afKey, query: get(afKey, state) || '' };
+        state.regular.paxOpen = false;
+        state.group.paxOpen = false;
+        render();
+        break;
+      }
+
+      case 'select-airport': {
+        var selField = state.openPopover.field;
+        set(selField, el.dataset.name, state);
+        set(selField + 'Code', el.dataset.code, state);
+        state.openPopover = null;
+        render();
+        break;
+      }
+
+      case 'open-calendar-field': {
+        var cfKey = el.dataset.field;
+        if (state.openPopover && state.openPopover.type === 'calendar' && state.openPopover.field === cfKey) break;
+        var curIso = get(cfKey, state);
+        var base = curIso ? parseISO(curIso) : TODAY;
+        state.openPopover = {
+          type: 'calendar', field: cfKey,
+          calYear: base.getFullYear(), calMonth: base.getMonth(),
+          minISO: el.dataset.min, isReturn: el.dataset.return === '1'
+        };
+        state.regular.paxOpen = false;
+        state.group.paxOpen = false;
+        render();
+        break;
+      }
+
+      case 'calendar-nav': {
+        var dirc = +el.dataset.dir;
+        var mm = state.openPopover.calMonth + dirc;
+        var yy = state.openPopover.calYear;
+        if (mm < 0) { mm = 11; yy--; } else if (mm > 11) { mm = 0; yy++; }
+        state.openPopover.calMonth = mm;
+        state.openPopover.calYear = yy;
+        render();
+        break;
+      }
+
+      case 'select-date': {
+        var dfKey = el.dataset.field, dIso = el.dataset.date;
+        set(dfKey, dIso, state);
+        state.openPopover = null;
+        if (dfKey.indexOf('.departure') !== -1) {
+          var ns = dfKey.split('.')[0];
+          var retPath = ns + '.return';
+          var retVal = get(retPath, state);
+          if (retVal && parseISO(retVal) < parseISO(dIso)) set(retPath, '', state);
+          state.openPopover = {
+            type: 'calendar', field: retPath,
+            calYear: parseISO(dIso).getFullYear(), calMonth: parseISO(dIso).getMonth(),
+            minISO: dIso, isReturn: true
+          };
+        }
+        render();
+        break;
+      }
+
+      case 'calendar-skip-return': {
+        set(el.dataset.field, '', state);
+        state.openPopover = null;
         render();
         break;
       }
@@ -970,7 +1214,8 @@
           state.groupSubmitState = 'idle';
           state.resultsQuery = {
             from: state.group.from, to: state.group.to,
-            fromCode: guessCode(state.group.from, 'WAW'), toCode: guessCode(state.group.to, 'CDG'),
+            fromCode: state.group.fromCode || guessCode(state.group.from, 'WAW'),
+            toCode: state.group.toCode || guessCode(state.group.to, 'CDG'),
             departure: state.group.departure, return: state.group.return, pax: state.group.pax
           };
           state.groupsScreen = 'results';
@@ -988,8 +1233,8 @@
         }
         state.resultsQuery = {
           from: state.group.from, to: state.group.to,
-          fromCode: guessCode(state.group.from, state.resultsQuery.fromCode),
-          toCode: guessCode(state.group.to, state.resultsQuery.toCode),
+          fromCode: state.group.fromCode || guessCode(state.group.from, state.resultsQuery.fromCode),
+          toCode: state.group.toCode || guessCode(state.group.to, state.resultsQuery.toCode),
           departure: state.group.departure, return: state.group.return, pax: state.group.pax
         };
         pushToast({ title: 'Search updated', text: 'Flight options refreshed for the new search.', duration: 2600 });
@@ -1220,16 +1465,19 @@
   }
 
   function onInput(e) {
+    if (e.target.hasAttribute('data-airport-input')) {
+      var afField = e.target.dataset.field;
+      var query = e.target.value;
+      set(afField, query, state);
+      set(afField + 'Code', '', state);
+      if (state.openPopover) state.openPopover.query = query;
+      var listEl = document.querySelector('.field-pop--airport .field-pop__list');
+      if (listEl) listEl.innerHTML = renderAirportGroups(query);
+      return;
+    }
     var field = e.target.dataset.field;
     if (!field) return;
     set(field, e.target.value, state);
-    if (field === 'regular.departure' || field === 'group.departure' || field === 'requestDraft.departure') {
-      var minReturnEl = e.target.closest('.search-bar, .form-grid, .summary-bar');
-      if (minReturnEl) {
-        var retInput = minReturnEl.querySelector('[data-field$=".return"]');
-        if (retInput) retInput.min = e.target.value;
-      }
-    }
     var fieldEl = e.target.closest('.search-field, .summary-field');
     if (fieldEl) fieldEl.classList.remove('is-invalid');
   }

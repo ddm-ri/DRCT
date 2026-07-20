@@ -219,11 +219,11 @@ body {
 
 .btn-secondary {
   background: var(--white);
-  color: var(--dark);
-  border: 1px solid var(--border);
+  color: var(--blue);
+  border: 1px solid var(--blue-20);
 }
-.btn-secondary:hover:not(:disabled) { border-color: var(--dark-40); }
-.btn-secondary:disabled { color: var(--dark-26); cursor: not-allowed; }
+.btn-secondary:hover:not(:disabled) { border-color: var(--blue); background: var(--blue-10); }
+.btn-secondary:disabled { color: var(--dark-26); border-color: var(--border); cursor: not-allowed; }
 
 .btn-ghost {
   background: transparent;
@@ -394,6 +394,122 @@ body {
 .pax-total-field__count { font-size: 15px; color: var(--dark); }
 
 /* ----------------------------------------------------------------
+   FIELD VALUE / PLACEHOLDER (shared by airport + calendar fields)
+---------------------------------------------------------------- */
+.field-value {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: 8px;
+}
+.field-value__name {
+  color: var(--dark);
+  font-size: 15px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.field-value__code { color: var(--dark-40); font-size: 13px; font-weight: 600; flex: 0 0 auto; }
+.field-placeholder { color: var(--dark-40); font-size: 15px; }
+.field-input { width: 100%; border: none; background: transparent; font-size: 15px; color: var(--dark); }
+
+.field-pop {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  min-width: 320px;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(27,39,51,0.11), 0 2px 6px rgba(27,39,51,0.05);
+  z-index: 60;
+  cursor: default;
+}
+.field-pop__hint { padding: 16px 20px; font-size: 13px; color: var(--dark-40); }
+
+/* Airport combobox */
+.field-pop--airport { padding: 8px 0; max-height: 340px; overflow-y: auto; }
+.airport-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--dark);
+}
+.airport-row:hover { background: var(--off-white); }
+.airport-row--sub { font-weight: 400; padding-left: 36px; color: var(--dark-70); }
+.airport-row__code { color: var(--dark-40); font-size: 12px; font-weight: 600; letter-spacing: .3px; }
+
+/* Calendar */
+.field-pop--calendar { width: 560px; padding: 20px; }
+.field-pop--calendar-right { left: auto; right: 0; }
+.cal-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 16px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+.cal-head__title { font-size: 14px; font-weight: 700; color: var(--dark); }
+.cal-head__skip {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .5px;
+  text-transform: uppercase;
+  color: var(--blue);
+  cursor: pointer;
+}
+.cal-head__skip:hover { opacity: .8; }
+.cal-nav-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+}
+.cal-nav {
+  width: 28px; height: 28px;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--dark-70);
+  border-radius: 50%;
+  flex: 0 0 auto;
+}
+.cal-nav:hover { background: var(--off-white); }
+.cal-nav svg { width: 18px; height: 18px; }
+.cal-month-title { flex: 1 1 0; text-align: center; font-size: 15px; font-weight: 700; color: var(--dark); }
+.cal-grids { display: flex; gap: 24px; }
+.cal-grid { flex: 1 1 0; min-width: 0; }
+.cal-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  margin-bottom: 6px;
+}
+.cal-weekdays span {
+  text-align: center;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--dark-40);
+  text-transform: lowercase;
+}
+.cal-days { display: grid; grid-template-columns: repeat(7, 1fr); row-gap: 2px; }
+.cal-cell {
+  display: flex; align-items: center; justify-content: center;
+  height: 32px;
+  font-size: 13px;
+  color: var(--dark);
+  border-radius: 50%;
+  cursor: pointer;
+}
+.cal-cell:hover:not(.is-disabled):not(.is-selected) { background: var(--off-white); }
+.cal-cell--pad { cursor: default; }
+.cal-cell.is-disabled { color: var(--dark-15); cursor: not-allowed; }
+.cal-cell.is-selected { background: var(--blue); color: var(--white); font-weight: 700; }
+
+/* ----------------------------------------------------------------
    CALLOUT (flat, no shadow)
 ---------------------------------------------------------------- */
 .callout {
@@ -431,6 +547,16 @@ body {
 }
 .callout--error .callout__icon { background: var(--error); }
 .callout--error .callout__title { color: var(--error); }
+
+.warning-banner {
+  background: #f2c94c;
+  color: var(--dark);
+  border-radius: var(--radius-m);
+  padding: 16px 20px;
+  font-size: 13.5px;
+  line-height: 1.5;
+}
+.warning-banner b { font-weight: 700; }
 
 /* ----------------------------------------------------------------
    FORM STATE / VALIDATION BANNER
@@ -484,22 +610,7 @@ body {
   margin-bottom: 16px;
   background: var(--white);
 }
-.summary-field {
-  height: 48px;
-  display: flex;
-  align-items: center;
-  padding: 0 16px;
-  border-right: 1px solid var(--border);
-  flex: 1 1 0;
-  min-width: 0;
-}
-.summary-field:last-of-type { border-right: none; }
-.summary-field input {
-  width: 100%; border: none; background: transparent; font-size: 14px; color: var(--dark);
-}
-.summary-field input::placeholder { color: var(--dark-40); }
-.summary-field--pax { flex: 1.4 1 0; }
-.summary-field--btn { flex: 0 0 auto; display: flex; align-items: center; padding: 8px; border-right: none; }
+.summary-field--btn { flex: 0 0 auto; height: 56px; display: flex; align-items: center; padding: 0 12px; border-right: none; }
 
 /* ----------------------------------------------------------------
    FILTER TOGGLES (existing product pattern)
