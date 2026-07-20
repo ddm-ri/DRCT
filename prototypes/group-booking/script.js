@@ -1,0 +1,1270 @@
+/* ================================================================
+   DRCT — GROUP BOOKING FLOW PROTOTYPE
+   Vanilla JS, single-state app. No build step, no framework.
+================================================================ */
+
+(function () {
+  'use strict';
+
+  var TODAY = new Date('2026-07-20T00:00:00');
+
+  function pad(n) { return n < 10 ? '0' + n : '' + n; }
+  function toISO(d) { return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); }
+  function addDays(d, n) { var r = new Date(d); r.setDate(r.getDate() + n); return r; }
+  function parseISO(s) { if (!s) return null; var p = s.split('-'); return new Date(+p[0], +p[1] - 1, +p[2]); }
+  function formatDisplay(s) {
+    if (!s) return '';
+    var d = parseISO(s);
+    if (!d || isNaN(d.getTime())) return s;
+    var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    var days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+    return d.getDate() + ' ' + months[d.getMonth()] + ', ' + days[d.getDay()];
+  }
+  function formatDateTime(d) {
+    var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    return d.getDate() + ' ' + months[d.getMonth()] + ' ' + d.getFullYear();
+  }
+  function escapeHtml(str) {
+    if (str == null) return '';
+    return String(str).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+  function fmtMoney(n) { return n.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 }); }
+  function get(path, obj) {
+    return path.split('.').reduce(function (o, k) { return (o == null) ? o : o[k]; }, obj);
+  }
+  function set(path, value, obj) {
+    var parts = path.split('.');
+    var last = parts.pop();
+    var target = parts.reduce(function (o, k) { return o[k]; }, obj);
+    target[last] = value;
+  }
+
+  /* ----------------------------------------------------------------
+     DATA
+  ---------------------------------------------------------------- */
+  var AIRLINES = [
+    { id: 'lot', name: 'LOT Polish Airlines', code: 'LO', logo: 'assets/logos/lot-polish-airlines.svg',
+      dep: '07:20', arr: '09:50', duration: '2h 30m', stops: 0, connection: null, flightNo: 'LO 281', available: true },
+    { id: 'airfrance', name: 'Air France', code: 'AF', logo: 'assets/logos/air-france.svg',
+      dep: '12:25', arr: '14:50', duration: '2h 25m', stops: 0, connection: null, flightNo: 'AF 1147', available: true },
+    { id: 'lufthansa', name: 'Lufthansa', code: 'LH', logo: 'assets/logos/Lufthansa.svg',
+      dep: '06:35', arr: '11:55', duration: '4h 20m', stops: 1, connection: 'Frankfurt (FRA)', flightNo: 'LH 1338 / LH 1054', available: true },
+    { id: 'klm', name: 'KLM', code: 'KL', logo: 'assets/logos/KLM.svg',
+      dep: '09:10', arr: '14:35', duration: '4h 25m', stops: 1, connection: 'Amsterdam (AMS)', flightNo: 'KL 1372 / KL 1233', available: true },
+    { id: 'swiss', name: 'SWISS', code: 'LX', logo: 'assets/logos/SWISS.svg',
+      dep: '10:40', arr: '16:05', duration: '4h 25m', stops: 1, connection: 'Zurich (ZRH)', flightNo: 'LX 1548 / LX 792', available: true },
+    { id: 'austrian', name: 'Austrian Airlines', code: 'OS', logo: 'assets/logos/austrian-airlines.svg',
+      dep: '13:50', arr: '19:35', duration: '4h 45m', stops: 1, connection: 'Vienna (VIE)', flightNo: 'OS 599 / OS 405', available: true },
+    { id: 'iberia', name: 'Iberia', code: 'IB', logo: 'assets/logos/Iberia.svg',
+      dep: '15:20', arr: '21:15', duration: '4h 55m', stops: 1, connection: 'Madrid (MAD)', flightNo: 'IB 5352 / IB 3402', available: true },
+    { id: 'ba', name: 'British Airways', code: 'BA', logo: 'assets/logos/british-airways.svg',
+      dep: '08:15', arr: '13:40', duration: '4h 25m', stops: 1, connection: 'London Heathrow (LHR)', flightNo: 'BA 838 / BA 304', available: false }
+  ];
+
+  function airlineById(id) { for (var i = 0; i < AIRLINES.length; i++) if (AIRLINES[i].id === id) return AIRLINES[i]; return null; }
+
+  var TRIP_REASONS = [
+    { v: 'business', l: 'Business' }, { v: 'sports', l: 'Sports' }, { v: 'education', l: 'Education' },
+    { v: 'leisure', l: 'Leisure' }, { v: 'event', l: 'Event' }, { v: 'other', l: 'Other' }
+  ];
+  var FLEX_OPTIONS = [
+    { v: 'exact', l: 'Exact dates' }, { v: '1', l: '± 1 day' }, { v: '2', l: '± 2 days' }, { v: '3', l: '± 3 days' }
+  ];
+  var DECLINE_REASONS = [
+    'Price is too high', 'Flight option is unsuitable', 'Conditions are unsuitable',
+    'Decision deadline was missed', 'Client cancelled the trip', 'Another airline was selected', 'Other'
+  ];
+
+  function buildOfferData(airlineId, pax, createdAt) {
+    var a = airlineById(airlineId);
+    var perPax = 260 + (a.stops === 0 ? 90 : 0) + (a.id.length * 7 % 60);
+    var total = perPax * pax;
+    var acceptBy = addDays(createdAt, 3);
+    var depositBy = addDays(acceptBy, 5);
+    var namesBy = (['lot', 'klm', 'austrian'].indexOf(airlineId) !== -1) ? addDays(acceptBy, 9) : null;
+    return {
+      perPax: perPax, total: total, currency: 'EUR',
+      acceptBy: acceptBy, depositBy: depositBy, namesBy: namesBy,
+      baggageIncluded: a.stops === 0 ? '1 checked bag (23 kg) per passenger' : 'Cabin bag only',
+      baggageNote: 'Additional bags available for 45 EUR each per passenger, subject to airline confirmation.',
+      conditions: {
+        payment: '50% deposit required within 5 days of offer acceptance. Balance due 30 days before departure.',
+        changes: 'Date changes allowed up to 14 days before departure for a 75 EUR fee per passenger.',
+        cancellation: 'Non-refundable after deposit payment. Full refund if the airline cancels the group offer.',
+        flexibility: 'Group size may be reduced by up to 10% without penalty until 21 days before departure.',
+        other: 'Full passenger name list must be submitted by the passenger names deadline, if applicable.'
+      }
+    };
+  }
+
+  /* ----------------------------------------------------------------
+     STATE
+  ---------------------------------------------------------------- */
+  var state = {
+    page: 'search',
+    searchTab: 'form',
+    groupsScreen: 'form',
+    regular: { from: '', to: '', departure: '', return: '', adults: 1, children: 0, infants: 0, paxOpen: false, searched: false },
+    regularErrors: {},
+    group: { from: '', to: '', departure: '', return: '', pax: 10 },
+    groupErrors: {},
+    groupSubmitState: 'idle',
+    resultsQuery: null,
+    groupFilter: 'all',
+    selectedAirlineIds: [],
+    requestDraft: null,
+    builderStep: 1,
+    builderErrors: {},
+    builderSubmitState: 'idle',
+    bookingsFilter: 'all',
+    groupRequests: [],
+    regularBookings: [
+      { id: 'BR-9931', from: 'Warsaw Chopin', fromCode: 'WAW', to: 'Charles de Gaulle Intl', toCode: 'CDG', departure: '2026-08-02', pax: 2, ref: 'K4TQXP' },
+      { id: 'BR-9902', from: 'Charles de Gaulle Intl', fromCode: 'CDG', to: 'John F. Kennedy Intl', toCode: 'JFK', departure: '2026-08-14', pax: 1, ref: 'M9PLRZ' }
+    ],
+    currentOffer: null,
+    declineModal: null,
+    toasts: [],
+    requestCounter: 1048
+  };
+  window.__DRCT_STATE__ = state;
+
+  /* ---- seed group requests (pre-existing, for demo variety) ---- */
+  (function seed() {
+    var c1 = addDays(TODAY, -3);
+    var accepted1 = buildOfferData('lot', 18, c1);
+    var accepted2 = buildOfferData('airfrance', 18, c1);
+    var declined1 = buildOfferData('lufthansa', 18, c1);
+    state.groupRequests.push({
+      id: 'GR-1032', from: 'Warsaw Chopin', fromCode: 'WAW', to: 'John F. Kennedy Intl', toCode: 'JFK',
+      departure: '2026-08-20', ret: '2026-08-27', pax: 18, createdAt: c1, dateFlexibility: '2', tripReason: 'sports',
+      baggage: '18 sports bags, 23 kg each', comments: 'Team travelling together, prefer adjacent seating if possible.',
+      offers: [
+        Object.assign({ airlineId: 'lot', status: 'accepted', acceptedAt: addDays(c1, 1) }, accepted1),
+        Object.assign({ airlineId: 'airfrance', status: 'accepted', acceptedAt: addDays(c1, 1) }, accepted2),
+        Object.assign({ airlineId: 'lufthansa', status: 'declined', declineReason: 'Another airline was selected', declineComment: '' }, declined1)
+      ]
+    });
+
+    var c2 = addDays(TODAY, -1);
+    var review2 = buildOfferData('klm', 12, c2);
+    var expired2 = buildOfferData('iberia', 12, addDays(TODAY, -9));
+    expired2.acceptBy = addDays(TODAY, -2);
+    state.groupRequests.push({
+      id: 'GR-1041', from: 'Warsaw Chopin', fromCode: 'WAW', to: 'Charles de Gaulle Intl', toCode: 'CDG',
+      departure: '2026-09-05', ret: '2026-09-09', pax: 12, createdAt: c2, dateFlexibility: 'exact', tripReason: 'business',
+      baggage: '', comments: 'Prefer morning departure if the airline can accommodate.',
+      offers: [
+        Object.assign({ airlineId: 'klm', status: 'review' }, review2),
+        { airlineId: 'swiss', status: 'calculating' },
+        Object.assign({ airlineId: 'iberia', status: 'expired' }, expired2)
+      ]
+    });
+  })();
+
+  /* ----------------------------------------------------------------
+     TOASTS
+  ---------------------------------------------------------------- */
+  var toastSeq = 1;
+  function pushToast(opts) {
+    var id = 'toast-' + (toastSeq++);
+    var toast = { id: id, title: opts.title, text: opts.text || '', actionLabel: opts.actionLabel || null,
+      onAction: opts.onAction || null, variant: opts.variant || 'default', timer: null };
+    state.toasts.push(toast);
+    if (opts.autoDismiss !== false) {
+      toast.timer = setTimeout(function () { removeToast(id); }, opts.duration || 5000);
+    }
+    renderToasts();
+    return id;
+  }
+  function removeToast(id) {
+    state.toasts = state.toasts.filter(function (t) {
+      if (t.id === id && t.timer) clearTimeout(t.timer);
+      return t.id !== id;
+    });
+    renderToasts();
+  }
+  function renderToasts() {
+    var host = document.getElementById('toastStack');
+    host.innerHTML = state.toasts.map(function (t) {
+      return '<div class="toast' + (t.variant === 'error' ? ' toast--error' : '') + '" data-toast-id="' + t.id + '">' +
+        '<div class="toast__body">' +
+          '<div class="toast__title">' + escapeHtml(t.title) + '</div>' +
+          (t.text ? '<div class="toast__text">' + escapeHtml(t.text) + '</div>' : '') +
+        '</div>' +
+        (t.actionLabel ? '<button class="toast__action" data-action="toast-action" data-toast="' + t.id + '">' + escapeHtml(t.actionLabel) + '</button>' : '') +
+        '<button class="toast__close" data-action="toast-close" data-toast="' + t.id + '" aria-label="Dismiss">&times;</button>' +
+      '</div>';
+    }).join('');
+  }
+
+  /* ----------------------------------------------------------------
+     BACKGROUND OFFER TIMERS
+  ---------------------------------------------------------------- */
+  function scheduleTimers() {
+    state.groupRequests.forEach(function (req) {
+      req.offers.forEach(function (offer) {
+        if (offer.status === 'calculating' && !offer._scheduled) {
+          offer._scheduled = true;
+          var delay = 5000 + Math.random() * 6000;
+          setTimeout(function () {
+            if (offer.status !== 'calculating') return;
+            var data = buildOfferData(offer.airlineId, req.pax, new Date());
+            Object.assign(offer, data, { status: 'review' });
+            if (state.page === 'bookings' || (state.page === 'offer-details' && state.currentOffer && state.currentOffer.requestId === req.id)) {
+              render();
+            }
+          }, delay);
+        }
+      });
+    });
+  }
+
+  /* ----------------------------------------------------------------
+     VALIDATION HELPERS
+  ---------------------------------------------------------------- */
+  function validateGroupForm() {
+    var g = state.group, errs = {};
+    if (!g.from.trim()) errs.from = 'This field is required.';
+    if (!g.to.trim()) errs.to = 'This field is required.';
+    if (!g.departure) errs.departure = 'This field is required.';
+    if (!g.return) errs.return = 'This field is required.';
+    if (g.departure && g.return) {
+      var d = parseISO(g.departure), r = parseISO(g.return);
+      if (r < d) errs.return = 'Return date cannot be before the departure date.';
+    }
+    if (g.pax < 10) errs.pax = 'Group requests require at least 10 passengers.';
+    return errs;
+  }
+
+  function isStep1Valid() {
+    var d = state.requestDraft;
+    if (!d) return false;
+    if (!d.from.trim() || !d.to.trim() || !d.departure || !d.return) return false;
+    if (parseISO(d.return) < parseISO(d.departure)) return false;
+    if (d.pax < 10) return false;
+    if (d.airlineIds.length < 1) return false;
+    if (!d.dateFlexibility || !d.tripReason) return false;
+    return true;
+  }
+
+  /* ----------------------------------------------------------------
+     RENDER: ROOT
+  ---------------------------------------------------------------- */
+  function render() {
+    renderHeader();
+    var main = document.getElementById('main');
+    if (state.page === 'search') main.innerHTML = renderSearchPage();
+    else if (state.page === 'request-builder') main.innerHTML = renderRequestBuilder();
+    else if (state.page === 'bookings') main.innerHTML = renderBookings();
+    else if (state.page === 'offer-details') main.innerHTML = renderOfferDetails();
+    renderStickyBar();
+    renderStickyOfferActions();
+    renderDeclineModal();
+    renderToasts();
+    scheduleTimers();
+    window.scrollTo(0, main.dataset.keepScroll ? window.scrollY : 0);
+  }
+
+  function renderHeader() {
+    var isSearchArea = (state.page === 'search' || state.page === 'request-builder');
+    var isBookingsArea = (state.page === 'bookings' || state.page === 'offer-details');
+    document.getElementById('navSearch').className = 'app-header__link' + (isSearchArea ? ' active' : '');
+    document.getElementById('navBookings').className = 'app-header__link' + (isBookingsArea ? ' active' : '');
+  }
+
+  /* ----------------------------------------------------------------
+     RENDER: SEARCH PAGE
+  ---------------------------------------------------------------- */
+  function renderSearchPage() {
+    var tabs = ['copilot', 'form', 'groups', 'terminal'];
+    var labels = { copilot: 'Copilot', form: 'Form', groups: 'Groups', terminal: 'Terminal' };
+    var tabsHtml = tabs.map(function (t) {
+      return '<div class="local-tabs__tab' + (state.searchTab === t ? ' active' : '') + '" data-action="set-tab" data-tab="' + t + '">' + labels[t] + '</div>';
+    }).join('');
+
+    var title = 'Search', desc = 'Look for, book and issue tickets to any destination in the world.';
+    if (state.searchTab === 'groups') {
+      title = 'Group search';
+      desc = 'Search flight options for groups of 10 or more passengers and request group fares from selected airlines.';
+    }
+
+    var body;
+    if (state.searchTab === 'form') body = renderRegularForm();
+    else if (state.searchTab === 'groups') body = (state.groupsScreen === 'results') ? renderGroupResults() : renderGroupForm();
+    else body = '<div class="placeholder-panel">This section is not part of the Group Booking Flow prototype.<br>Use the <strong>FORM</strong> or <strong>GROUPS</strong> tab to continue.</div>';
+
+    return '' +
+      '<div class="page-head">' +
+        '<div class="page-head__top">' +
+          '<div><h1>' + title + '</h1><p class="page-head__desc">' + desc + '</p></div>' +
+          '<div class="local-tabs">' + tabsHtml + '</div>' +
+        '</div>' +
+        (state.searchTab === 'groups' ? '<div style="margin-top:18px">' + calloutHtml('i', 'Group fares are requested directly from airlines. Final prices, flight details and conditions may differ from the options shown in search results.', 'muted') + '</div>' : '') +
+      '</div>' +
+      body;
+  }
+
+  function calloutHtml(icon, text, variant, title) {
+    return '<div class="callout' + (variant ? ' callout--' + variant : '') + '">' +
+      '<div class="callout__icon">' + icon + '</div>' +
+      '<div>' + (title ? '<div class="callout__title">' + escapeHtml(title) + '</div>' : '') +
+      '<div class="callout__text">' + text + '</div></div></div>';
+  }
+
+  function paxSummaryLabel(r) {
+    var total = r.adults + r.children + r.infants;
+    return total + (total === 1 ? ' passenger' : ' passengers');
+  }
+
+  function renderRegularForm() {
+    var r = state.regular, e = state.regularErrors;
+    var atMax = r.adults >= 9;
+    return '' +
+      '<div class="search-bar' + (Object.keys(e).length ? ' has-error' : '') + '">' +
+        '<div class="search-field search-field--from' + (e.from ? ' is-invalid' : '') + '">' +
+          '<label>From</label><input type="text" placeholder="City or airport" data-field="regular.from" value="' + escapeHtml(r.from) + '">' +
+        '</div>' +
+        '<div class="search-field--swap" data-action="swap-regular" title="Swap origin and destination">' + swapIcon() + '</div>' +
+        '<div class="search-field search-field--to' + (e.to ? ' is-invalid' : '') + '">' +
+          '<label>To</label><input type="text" placeholder="City or airport" data-field="regular.to" value="' + escapeHtml(r.to) + '">' +
+        '</div>' +
+        '<div class="search-field' + (e.departure ? ' is-invalid' : '') + '">' +
+          '<label>Departure</label><input type="date" data-field="regular.departure" min="' + toISO(TODAY) + '" value="' + r.departure + '">' +
+        '</div>' +
+        '<div class="search-field' + (e.return ? ' is-invalid' : '') + '">' +
+          '<label>Return</label><input type="date" data-field="regular.return" min="' + (r.departure || toISO(TODAY)) + '" value="' + r.return + '">' +
+        '</div>' +
+        '<div class="search-field search-field--pax" data-action="toggle-pax-regular">' +
+          '<label>Passengers</label><div class="search-field__pax-value">' + paxSummaryLabel(r) + '</div>' +
+          (r.paxOpen ? renderRegularPaxPop(atMax) : '') +
+        '</div>' +
+        '<button class="btn btn-primary search-bar__submit" data-action="regular-search-submit">Search</button>' +
+      '</div>' +
+      (Object.keys(e).length ? '<div class="field-error" style="margin-top:8px">Please complete all required fields.</div>' : '') +
+      '<div class="search-multicity">Search multi-city</div>' +
+      (r.searched ? '<div class="placeholder-panel">Regular flight search results are outside the scope of this Group Booking Flow prototype.<br>Set passengers to <strong>9</strong> to explore the group fares entry point, or switch to the <strong>GROUPS</strong> tab.</div>' : '');
+  }
+
+  function renderRegularPaxPop(atMax) {
+    var r = state.regular;
+    return '<div class="pax-pop" data-action="noop">' +
+      paxRow('Adults', 'Over 12 years old', 'regular', 'adults', r.adults, 1, 9) +
+      paxRow('Children', 'From 2 to 12 years', 'regular', 'children', r.children, 0, 8) +
+      paxRow('Infants', 'Up to 2 years, no seat', 'regular', 'infants', r.infants, 0, 8) +
+      (atMax ? '<div class="group-cta-inline">' +
+        '<div class="group-cta-inline__title">Looking for group rates?</div>' +
+        '<div class="group-cta-inline__text">Request fares for 10 or more passengers.</div>' +
+        '<button class="btn btn-secondary btn-block btn-sm" data-action="try-group-fares">Try group fares</button>' +
+      '</div>' : '') +
+    '</div>';
+  }
+
+  function paxRow(label, sub, ns, key, val, min, max) {
+    return '<div class="pax-row">' +
+      '<div><div class="pax-row__label">' + label + '</div><div class="pax-row__sub">' + sub + '</div></div>' +
+      '<div class="stepper">' +
+        '<button class="stepper__btn' + (val > min ? ' is-active' : '') + '" data-action="pax-step" data-ns="' + ns + '" data-key="' + key + '" data-dir="-1" data-min="' + min + '" data-max="' + max + '" ' + (val <= min ? 'disabled' : '') + '>&minus;</button>' +
+        '<span class="stepper__val">' + val + '</span>' +
+        '<button class="stepper__btn' + (val < max ? ' is-active' : '') + '" data-action="pax-step" data-ns="' + ns + '" data-key="' + key + '" data-dir="1" data-min="' + min + '" data-max="' + max + '" ' + (val >= max ? 'disabled' : '') + '>+</button>' +
+      '</div></div>';
+  }
+
+  function swapIcon() {
+    return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"></polyline><path d="M3 11V9a4 4 0 0 1 4-4h14"></path><polyline points="7 23 3 19 7 15"></polyline><path d="M21 13v2a4 4 0 0 1-4 4H3"></path></svg>';
+  }
+
+  /* ----- Group search form ----- */
+  function renderGroupForm() {
+    var g = state.group, e = state.groupErrors;
+    if (state.groupSubmitState === 'loading') {
+      return groupFormBar(g, e) + '<div class="search-multicity" style="visibility:hidden">.</div>';
+    }
+    if (state.groupSubmitState === 'error') {
+      return groupFormBar(g, e) +
+        '<div class="server-error-panel">' +
+          '<div class="server-error-panel__icon">!</div>' +
+          '<h3>We couldn’t load group search results</h3>' +
+          '<p>Something went wrong on our end. Your search details have been kept — please try again.</p>' +
+          '<div class="server-error-panel__actions">' +
+            '<button class="btn btn-primary" data-action="group-search-submit">Retry</button>' +
+          '</div>' +
+        '</div>';
+    }
+    return groupFormBar(g, e) +
+      (Object.keys(e).length ? '<div class="field-error" style="margin-top:10px">Please complete all required fields.</div>' : '');
+  }
+
+  function groupFormBar(g, e) {
+    var loading = state.groupSubmitState === 'loading';
+    return '<div class="search-bar' + (Object.keys(e).length ? ' has-error' : '') + '">' +
+      '<div class="search-field search-field--from' + (e.from ? ' is-invalid' : '') + '">' +
+        '<label>From</label><input type="text" placeholder="City or airport" data-field="group.from" value="' + escapeHtml(g.from) + '">' +
+      '</div>' +
+      '<div class="search-field--swap" data-action="swap-group" title="Swap origin and destination">' + swapIcon() + '</div>' +
+      '<div class="search-field search-field--to' + (e.to ? ' is-invalid' : '') + '">' +
+        '<label>To</label><input type="text" placeholder="City or airport" data-field="group.to" value="' + escapeHtml(g.to) + '">' +
+      '</div>' +
+      '<div class="search-field' + (e.departure ? ' is-invalid' : '') + '">' +
+        '<label>Departure</label><input type="date" data-field="group.departure" min="' + toISO(TODAY) + '" value="' + g.departure + '">' +
+      '</div>' +
+      '<div class="search-field' + (e.return ? ' is-invalid' : '') + '">' +
+        '<label>Return</label><input type="date" data-field="group.return" min="' + (g.departure || toISO(TODAY)) + '" value="' + g.return + '">' +
+      '</div>' +
+      '<div class="search-field search-field--pax-total' + (e.pax ? ' is-invalid' : '') + '">' +
+        '<label>Passengers</label>' +
+        '<div class="pax-total-field">' +
+          '<span class="pax-total-field__count">' + g.pax + ' passengers</span>' +
+          '<div class="stepper">' +
+            '<button class="stepper__btn' + (g.pax > 10 ? ' is-active' : '') + '" data-action="group-pax-step" data-dir="-1" ' + (g.pax <= 10 ? 'disabled' : '') + '>&minus;</button>' +
+            '<button class="stepper__btn is-active" data-action="group-pax-step" data-dir="1">+</button>' +
+          '</div>' +
+        '</div>' +
+      '</div>' +
+      '<button class="btn btn-primary search-bar__submit" data-action="group-search-submit" ' + (loading ? 'disabled' : '') + '>' +
+        (loading ? '<span class="spinner"></span> Searching' : 'Search') +
+      '</button>' +
+    '</div>';
+  }
+
+  /* ----- Group results ----- */
+  function renderGroupResults() {
+    var q = state.resultsQuery;
+    var flights = AIRLINES.filter(function (a) {
+      if (state.groupFilter === 'direct') return a.stops === 0;
+      if (state.groupFilter === '1-stop') return a.stops <= 1;
+      return true;
+    });
+
+    var cards = flights.map(renderFlightCard).join('');
+
+    var g = state.group;
+    return '' +
+      '<div class="summary-bar">' +
+        summaryField('From', 'group.from', g.from, false) +
+        summaryField('To', 'group.to', g.to, false) +
+        summaryField('Departure', 'group.departure', g.departure, true) +
+        summaryField('Return', 'group.return', g.return, true) +
+        '<div class="summary-field">' +
+          '<div class="summary-field__label">Passengers</div>' +
+          '<div class="pax-total-field" style="margin-top:2px">' +
+            '<span class="pax-total-field__count" style="font-size:14px">' + g.pax + ' passengers</span>' +
+            '<div class="stepper">' +
+              '<button class="stepper__btn' + (g.pax > 10 ? ' is-active' : '') + '" data-action="group-pax-step" data-dir="-1" ' + (g.pax <= 10 ? 'disabled' : '') + '>&minus;</button>' +
+              '<button class="stepper__btn is-active" data-action="group-pax-step" data-dir="1">+</button>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="summary-field summary-field--btn">' +
+          '<button class="btn btn-primary btn-sm" data-action="group-results-update-search">Update search</button>' +
+        '</div>' +
+      '</div>' +
+      '<div style="margin-bottom:20px">' + calloutHtml('!', 'Final group fares, flight times, availability and conditions will be confirmed by each airline after you submit a request.', null, 'These options are indicative') + '</div>' +
+      '<h2 style="font-size:19px;font-weight:700;margin-bottom:2px">Group flight options</h2>' +
+      '<p style="font-size:13.5px;color:var(--dark-70);margin-bottom:18px">Select up to 3 airlines to request final group fares.</p>' +
+      '<div class="filter-row">' +
+        filterToggle('All flights', 'all') + filterToggle('Direct', 'direct') + filterToggle('Up to 1 connection', '1-stop') +
+      '</div>' +
+      '<div class="flight-card-list">' + cards + '</div>' +
+      '<div style="height:70px"></div>';
+  }
+
+  function summaryField(label, field, value, isDate) {
+    if (!field) {
+      return '<div class="summary-field"><div class="summary-field__label">' + label + '</div><div class="summary-field__value">' + escapeHtml(value) + '</div></div>';
+    }
+    return '<div class="summary-field"><div class="summary-field__label">' + label + '</div>' +
+      '<input type="' + (isDate ? 'date' : 'text') + '" data-field="' + field + '" value="' + escapeHtml(value) + '"></div>';
+  }
+
+  function filterToggle(label, val) {
+    return '<div class="filter-toggle' + (state.groupFilter === val ? ' active' : '') + '" data-action="set-group-filter" data-filter="' + val + '">' + label + '</div>';
+  }
+
+  function renderFlightCard(a) {
+    var selected = state.selectedAirlineIds.indexOf(a.id) !== -1;
+    var cls = 'flight-card' + (selected ? ' is-selected' : '') + (!a.available ? ' is-unavailable' : '');
+    var cta;
+    if (!a.available) {
+      cta = '<button class="btn btn-secondary" disabled>Choose airline</button><div class="flight-card__unavailable-note">Group requests are unavailable for this airline.</div>';
+    } else if (selected) {
+      cta = '<button class="btn is-selected-btn" data-action="toggle-select-airline" data-airline="' + a.id + '">Selected</button>' +
+        '<div class="flight-card__remove" data-action="toggle-select-airline" data-airline="' + a.id + '">Remove</div>';
+    } else {
+      cta = '<button class="btn btn-secondary" data-action="toggle-select-airline" data-airline="' + a.id + '">Choose airline</button>';
+    }
+    return '<div class="' + cls + '" ' + (a.available ? 'data-action="toggle-select-airline" data-airline="' + a.id + '"' : '') + '>' +
+      '<div class="flight-card__logo"><img src="' + a.logo + '" alt="' + a.name + '"></div>' +
+      '<div class="flight-card__airline"><div class="flight-card__airline-name">' + a.name + '</div><div class="flight-card__airline-flight">' + a.flightNo + '</div></div>' +
+      '<div class="flight-card__times"><div class="flight-card__times-main">' + a.dep + ' — ' + a.arr + '</div><div class="flight-card__times-sub">' + (state.resultsQuery.fromCode || 'WAW') + ' → ' + (state.resultsQuery.toCode || 'CDG') + '</div></div>' +
+      '<div class="flight-card__duration"><div class="flight-card__duration-val">' + a.duration + '</div><div class="flight-card__stops' + (a.stops === 0 ? ' is-direct' : '') + '">' + (a.stops === 0 ? 'Direct flight' : '1 connection · ' + a.connection) + '</div></div>' +
+      '<div class="flight-card__cta" data-action="noop">' + cta + '</div>' +
+    '</div>';
+  }
+
+  /* ----------------------------------------------------------------
+     RENDER: STICKY SELECTION BAR
+  ---------------------------------------------------------------- */
+  function renderStickyBar() {
+    var host = document.getElementById('stickyBarHost');
+    var visible = state.page === 'search' && state.searchTab === 'groups' && state.groupsScreen === 'results' && state.selectedAirlineIds.length > 0;
+    if (!visible) { host.innerHTML = ''; return; }
+    var chips = state.selectedAirlineIds.map(function (id) {
+      var a = airlineById(id);
+      return '<div class="sticky-bar__chip"><img src="' + a.logo + '" alt="">' + a.code + '</div>';
+    }).join('');
+    host.innerHTML = '<div class="sticky-bar is-visible">' +
+      '<div class="sticky-bar__left">' +
+        '<div class="sticky-bar__count">Selected airlines: ' + state.selectedAirlineIds.length + '/3</div>' +
+        '<div class="sticky-bar__chips">' + chips + '</div>' +
+      '</div>' +
+      '<div class="sticky-bar__right">' +
+        '<button class="btn btn-ghost" data-action="clear-all-selection">Clear all</button>' +
+        '<button class="btn btn-primary" data-action="create-request">Create request</button>' +
+      '</div>' +
+    '</div>';
+  }
+
+  /* ----------------------------------------------------------------
+     RENDER: REQUEST BUILDER
+  ---------------------------------------------------------------- */
+  function renderRequestBuilder() {
+    if (state.builderSubmitState === 'success') return renderBuilderSuccess();
+    var d = state.requestDraft;
+    var steps = '<div class="progress-steps">' +
+      progressStep(1, 'Trip details') + '<div class="progress-connector' + (state.builderStep > 1 ? ' is-done' : '') + '"></div>' +
+      progressStep(2, 'Additional details') +
+    '</div>';
+
+    return '' +
+      '<div class="page-head"><h1>Create group fare request</h1><p class="page-head__desc">Review the trip details and add the information airlines need to prepare group offers.</p></div>' +
+      steps +
+      (state.builderStep === 1 ? renderBuilderStep1(d) : renderBuilderStep2(d));
+  }
+
+  function progressStep(n, label) {
+    var cls = 'progress-step' + (state.builderStep === n ? ' is-active' : (state.builderStep > n ? ' is-done' : ''));
+    var dot = state.builderStep > n ? '✓' : n;
+    return '<div class="' + cls + '"><div class="progress-step__dot">' + dot + '</div>' + label + '</div>';
+  }
+
+  function renderBuilderStep1(d) {
+    var e = state.builderErrors;
+    var chips = d.airlineIds.map(function (id) {
+      var a = airlineById(id);
+      return '<div class="chip"><img src="' + a.logo + '" alt="">' + '<span>' + a.name + '</span>' +
+        (d.airlineIds.length > 1 ? '<span class="chip__remove" data-action="remove-builder-airline" data-airline="' + id + '">&times;</span>' : '') +
+      '</div>';
+    }).join('');
+
+    return '' +
+      (e.general ? '<div class="form-alert">Please complete all required fields.</div>' : '') +
+      '<div class="form-section">' +
+        '<div class="form-section__title">Trip details</div>' +
+        '<div class="form-section__desc">Route, dates and passenger count can still be edited.</div>' +
+        '<div class="form-grid">' +
+          '<div class="search-field"><label>From</label><input type="text" data-field="requestDraft.from" value="' + escapeHtml(d.from) + '"></div>' +
+          '<div class="search-field"><label>To</label><input type="text" data-field="requestDraft.to" value="' + escapeHtml(d.to) + '"></div>' +
+          '<div class="search-field"><label>Departure</label><input type="date" data-field="requestDraft.departure" min="' + toISO(TODAY) + '" value="' + d.departure + '"></div>' +
+          '<div class="search-field"><label>Return</label><input type="date" data-field="requestDraft.return" min="' + (d.departure || toISO(TODAY)) + '" value="' + d.return + '"></div>' +
+        '</div>' +
+        '<div class="field-group">' +
+          '<div class="field-group__label">Passengers</div>' +
+          '<div class="pax-total-field" style="max-width:220px;border:1px solid var(--border);border-radius:6px;padding:12px 16px">' +
+            '<span class="pax-total-field__count">' + d.pax + ' passengers</span>' +
+            '<div class="stepper">' +
+              '<button class="stepper__btn' + (d.pax > 10 ? ' is-active' : '') + '" data-action="builder-pax-step" data-dir="-1" ' + (d.pax <= 10 ? 'disabled' : '') + '>&minus;</button>' +
+              '<button class="stepper__btn is-active" data-action="builder-pax-step" data-dir="1">+</button>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="field-group">' +
+          '<div class="field-group__label">Selected airlines</div>' +
+          '<div class="chip-list">' + chips + '</div>' +
+        '</div>' +
+        '<div class="field-group">' +
+          '<div class="field-group__label">Date flexibility <span class="field-group__required">*</span></div>' +
+          '<div class="pill-group">' + FLEX_OPTIONS.map(function (o) {
+            return '<div class="pill' + (d.dateFlexibility === o.v ? ' is-selected' : '') + (e.dateFlexibility ? ' is-invalid' : '') + '" data-action="set-flex" data-value="' + o.v + '">' + o.l + '</div>';
+          }).join('') + '</div>' +
+        '</div>' +
+        '<div class="field-group">' +
+          '<div class="field-group__label">Trip reason <span class="field-group__required">*</span></div>' +
+          '<div class="pill-group">' + TRIP_REASONS.map(function (o) {
+            return '<div class="pill' + (d.tripReason === o.v ? ' is-selected' : '') + (e.tripReason ? ' is-invalid' : '') + '" data-action="set-reason" data-value="' + o.v + '">' + o.l + '</div>';
+          }).join('') + '</div>' +
+        '</div>' +
+      '</div>' +
+      '<div class="form-actions">' +
+        '<button class="btn btn-secondary" data-action="builder-back-to-results">Back to results</button>' +
+        '<button class="btn btn-primary" data-action="builder-continue" ' + (isStep1Valid() ? '' : 'disabled') + '>Continue</button>' +
+      '</div>';
+  }
+
+  function renderBuilderStep2(d) {
+    if (state.builderSubmitState === 'error') {
+      return '<div class="server-error-panel">' +
+        '<div class="server-error-panel__icon">!</div>' +
+        '<h3>We couldn’t submit your request</h3>' +
+        '<p>Your information has been saved. Try submitting again.</p>' +
+        '<div class="server-error-panel__actions">' +
+          '<button class="btn btn-primary" data-action="submit-request">Retry</button>' +
+          '<button class="btn btn-secondary" data-action="builder-error-back">Back to form</button>' +
+        '</div>' +
+      '</div>';
+    }
+    var submitting = state.builderSubmitState === 'submitting';
+    var airlineNames = d.airlineIds.map(function (id) { return airlineById(id).name; }).join(', ');
+    var flexLabel = FLEX_OPTIONS.filter(function (o) { return o.v === d.dateFlexibility; })[0];
+    var reasonLabel = TRIP_REASONS.filter(function (o) { return o.v === d.tripReason; })[0];
+    return '' +
+      '<div class="form-section">' +
+        '<div class="form-section__title">Additional details</div>' +
+        '<div class="form-section__desc">Add any requirements that may affect the airline’s offer.</div>' +
+        '<div class="field-group">' +
+          '<div class="field-group__label">Baggage requirements</div>' +
+          '<textarea class="textarea" data-field="requestDraft.baggage" placeholder="For example: 10 sports bags, 20 kg each">' + escapeHtml(d.baggage) + '</textarea>' +
+        '</div>' +
+        '<div class="field-group">' +
+          '<div class="field-group__label">Additional comments</div>' +
+          '<textarea class="textarea" data-field="requestDraft.comments" placeholder="Add preferred departure times, alternative airports or other important requirements">' + escapeHtml(d.comments) + '</textarea>' +
+        '</div>' +
+      '</div>' +
+      '<div class="summary-box">' +
+        '<div class="summary-box__title">Request summary</div>' +
+        '<dl>' +
+          summaryRow('Route', escapeHtml(d.from) + ' → ' + escapeHtml(d.to)) +
+          summaryRow('Dates', formatDisplay(d.departure) + ' – ' + formatDisplay(d.return)) +
+          summaryRow('Date flexibility', flexLabel ? flexLabel.l : '—') +
+          summaryRow('Passengers', d.pax + ' passengers') +
+          summaryRow('Selected airlines', airlineNames) +
+          summaryRow('Trip reason', reasonLabel ? reasonLabel.l : '—') +
+        '</dl>' +
+      '</div>' +
+      '<div class="form-actions">' +
+        '<button class="btn btn-secondary" data-action="builder-back-step1" ' + (submitting ? 'disabled' : '') + '>Back</button>' +
+        '<button class="btn btn-primary" data-action="submit-request" ' + (submitting ? 'disabled' : '') + '>' +
+          (submitting ? '<span class="spinner"></span> Submitting' : 'Submit request') +
+        '</button>' +
+      '</div>' +
+      '<div class="form-actions__note">By submitting this request, you understand that final fares and conditions will be confirmed by the airlines.</div>';
+  }
+
+  function summaryRow(label, value) {
+    return '<div class="summary-box__row"><dt>' + label + '</dt><dd>' + value + '</dd></div>';
+  }
+
+  function renderBuilderSuccess() {
+    return '<div class="success-panel">' +
+      '<div class="success-panel__icon">✓</div>' +
+      '<h2>Group fare request submitted</h2>' +
+      '<p>We’ll show each airline’s response in Bookings. Calculation may take up to 24 hours.</p>' +
+      '<button class="btn btn-primary" data-action="goto-bookings-from-success">View in bookings</button>' +
+    '</div>';
+  }
+
+  /* ----------------------------------------------------------------
+     RENDER: BOOKINGS
+  ---------------------------------------------------------------- */
+  function renderBookings() {
+    var filters = ['all', 'regular', 'groups'];
+    var labels = { all: 'All', regular: 'Regular', groups: 'Groups' };
+    var filterHtml = filters.map(function (f) {
+      return '<div class="bookings-filter' + (state.bookingsFilter === f ? ' active' : '') + '" data-action="set-bookings-filter" data-filter="' + f + '">' + labels[f] + '</div>';
+    }).join('');
+
+    var body = '';
+    if (state.bookingsFilter !== 'groups') {
+      body += state.regularBookings.map(renderRegularBookingRow).join('');
+    }
+    if (state.bookingsFilter !== 'regular') {
+      var sorted = state.groupRequests.slice().sort(function (a, b) { return b.createdAt - a.createdAt; });
+      body += sorted.map(renderGroupRequestBlock).join('');
+    }
+    if (!body) body = '<div class="empty-note">No bookings to show.</div>';
+
+    return '' +
+      '<div class="page-head"><h1>Bookings</h1></div>' +
+      '<div class="bookings-filters">' + filterHtml + '</div>' +
+      body;
+  }
+
+  function renderRegularBookingRow(b) {
+    return '<div class="booking-row">' +
+      '<div><div class="booking-row__route"><span class="badge badge--regular" style="margin-right:8px">Regular</span>' + b.fromCode + ' → ' + b.toCode + '</div>' +
+      '<div class="booking-row__meta">' + formatDisplay(b.departure) + ' · ' + b.pax + ' pax · Ref ' + b.ref + '</div></div>' +
+    '</div>';
+  }
+
+  function renderGroupRequestBlock(req) {
+    var responded = req.offers.filter(function (o) { return o.status !== 'calculating'; }).length;
+    var acceptedCount = req.offers.filter(function (o) { return o.status === 'accepted'; }).length;
+    var cards = req.offers.map(function (o) { return renderOfferCard(req, o); }).join('');
+    return '<div class="group-request">' +
+      '<div class="group-request__head">' +
+        '<div>' +
+          '<div class="group-request__id"><span class="badge badge--group">Group</span> &nbsp;Group request #' + req.id + '</div>' +
+          '<div class="group-request__route">' + req.fromCode + ' → ' + req.toCode + '</div>' +
+          '<div class="group-request__meta">' + formatDisplay(req.departure) + ' – ' + formatDisplay(req.ret) + ' · ' + req.pax + ' passengers · Created ' + formatDateTime(req.createdAt) + '</div>' +
+        '</div>' +
+        '<div class="group-request__progress">' + responded + ' of ' + req.offers.length + ' airlines responded</div>' +
+      '</div>' +
+      (acceptedCount > 1 ? '<div class="group-request__multi-warning">Multiple offers are currently accepted. Select one final offer before the hold deadlines expire.</div>' : '') +
+      '<div class="group-request__body">' + cards + '</div>' +
+    '</div>';
+  }
+
+  function renderOfferCard(req, o) {
+    var a = airlineById(o.airlineId);
+    var routeSummary = req.fromCode + ' → ' + req.toCode + ' · ' + formatDisplay(req.departure);
+    var cardCls = 'offer-card';
+    var statusPill, right, priceBlock = '';
+
+    if (o.status === 'calculating') {
+      cardCls += ' is-calculating';
+      statusPill = statusPillHtml('calculating', 'Calculating');
+      right = '<div class="offer-card__note">The airline is preparing a group offer.<br>Usually within 24 hours.</div>' +
+        '<button class="btn btn-secondary btn-sm offer-card__cta" disabled>Waiting for offer</button>';
+    } else if (o.status === 'review') {
+      cardCls += ' is-review-required';
+      statusPill = statusPillHtml('review', 'Review required');
+      priceBlock = '<div class="offer-card__price">' + fmtMoney(o.total) + ' ' + o.currency + '</div><div class="offer-card__deadline">Deadline ' + formatDisplay(toISO(o.acceptBy)) + '</div>';
+      right = '<button class="btn btn-primary btn-sm offer-card__cta" data-action="open-offer" data-request="' + req.id + '" data-airline="' + a.id + '">Review offer</button>';
+    } else if (o.status === 'accepted') {
+      statusPill = statusPillHtml('accepted', 'Accepted');
+      priceBlock = '<div class="offer-card__price">' + fmtMoney(o.total) + ' ' + o.currency + '</div><div class="offer-card__deadline">Deposit due ' + formatDisplay(toISO(o.depositBy)) + '</div>';
+      right = '<button class="btn btn-secondary btn-sm offer-card__cta" data-action="open-offer" data-request="' + req.id + '" data-airline="' + a.id + '">View offer</button>';
+    } else if (o.status === 'declined') {
+      cardCls += ' is-declined';
+      statusPill = statusPillHtml('declined', 'Declined');
+      right = (o.declineReason ? '<div class="offer-card__note">' + escapeHtml(o.declineReason) + '</div>' : '') +
+        '<button class="btn btn-ghost btn-sm offer-card__cta" data-action="open-offer" data-request="' + req.id + '" data-airline="' + a.id + '">View details</button>';
+    } else if (o.status === 'expired') {
+      cardCls += ' is-expired';
+      statusPill = statusPillHtml('expired', 'Expired');
+      right = '<div class="offer-card__note">The response deadline has passed.</div>' +
+        '<button class="btn btn-ghost btn-sm offer-card__cta" data-action="open-offer" data-request="' + req.id + '" data-airline="' + a.id + '">View details</button>';
+    }
+
+    return '<div class="' + cardCls + '">' +
+      '<div class="offer-card__logo"><img src="' + a.logo + '" alt=""></div>' +
+      '<div class="offer-card__info"><div class="offer-card__airline">' + a.name + '</div><div class="offer-card__route">' + routeSummary + '</div></div>' +
+      (priceBlock ? '<div class="offer-card__status-wrap">' + statusPill + priceBlock + '</div>' : '<div class="offer-card__status-wrap">' + statusPill + '</div>') +
+      '<div style="text-align:right">' + right + '</div>' +
+    '</div>';
+  }
+
+  function statusPillHtml(cls, label) {
+    return '<div class="status-pill status-pill--' + cls + '"><span class="dot"></span>' + label + '</div>';
+  }
+
+  /* ----------------------------------------------------------------
+     RENDER: OFFER DETAILS
+  ---------------------------------------------------------------- */
+  function renderOfferDetails() {
+    var ref = state.currentOffer;
+    var req = state.groupRequests.filter(function (r) { return r.id === ref.requestId; })[0];
+    var o = req.offers.filter(function (x) { return x.airlineId === ref.airlineId; })[0];
+    var a = airlineById(o.airlineId);
+    var statusLabels = { calculating: 'Calculating', review: 'Review required', accepted: 'Accepted', declined: 'Declined', expired: 'Expired' };
+
+    return '' +
+      '<div class="page-head">' +
+        '<h1>Group offer</h1>' +
+        '<div class="offer-header">' +
+          '<span>' + a.name + '</span><span class="offer-header__sep">•</span>' +
+          '<span>Request #' + req.id + '</span><span class="offer-header__sep">•</span>' +
+          '<span>' + statusLabels[o.status] + '</span>' +
+          (o.acceptBy ? '<span class="offer-header__sep">•</span><span>Decision deadline: ' + formatDisplay(toISO(o.acceptBy)) + '</span>' : '') +
+        '</div>' +
+      '</div>' +
+
+      '<div class="detail-block">' +
+        '<div class="detail-block__title">Flight details</div>' +
+        '<div class="detail-grid">' +
+          detailRow('Route', req.fromCode + ' → ' + req.toCode) +
+          detailRow('Airports', req.from + ' – ' + req.to) +
+          detailRow('Departure', formatDisplay(req.departure) + ', ' + a.dep) +
+          detailRow('Arrival', formatDisplay(req.departure) + ', ' + a.arr) +
+          detailRow('Flight number(s)', a.flightNo) +
+          detailRow('Connection', a.stops === 0 ? 'Direct flight' : '1 connection via ' + a.connection) +
+        '</div>' +
+      '</div>' +
+
+      '<div class="detail-block">' +
+        '<div class="detail-block__title">Price</div>' +
+        '<div class="detail-grid">' +
+          detailRow('Price per passenger', fmtMoney(o.perPax) + ' ' + o.currency) +
+          detailRow('Passengers', req.pax + ' passengers') +
+        '</div>' +
+        '<div class="price-total-row"><div class="price-total-row__label">Total price</div><div class="price-total-row__value">' + fmtMoney(o.total) + ' ' + o.currency + '</div></div>' +
+      '</div>' +
+
+      '<div class="detail-block">' +
+        '<div class="detail-block__title">Baggage</div>' +
+        '<div class="detail-grid">' +
+          detailRow('Included baggage', o.baggageIncluded) +
+          detailRow('Additional baggage', o.baggageNote) +
+        '</div>' +
+      '</div>' +
+
+      '<div class="detail-block">' +
+        '<div class="detail-block__title">Deadlines</div>' +
+        '<div class="detail-grid">' +
+          detailRow('Accept offer by', formatDisplay(toISO(o.acceptBy))) +
+          detailRow('Deposit payment by', formatDisplay(toISO(o.depositBy))) +
+          (o.namesBy ? detailRow('Passenger names due by', formatDisplay(toISO(o.namesBy))) : '') +
+        '</div>' +
+      '</div>' +
+
+      '<div class="detail-block">' +
+        '<div class="detail-block__title">Fare conditions</div>' +
+        '<ul class="conditions-list">' +
+          '<li><b>Payment</b>' + o.conditions.payment + '</li>' +
+          '<li><b>Changes</b>' + o.conditions.changes + '</li>' +
+          '<li><b>Cancellations</b>' + o.conditions.cancellation + '</li>' +
+          '<li><b>Passenger flexibility</b>' + o.conditions.flexibility + '</li>' +
+          '<li><b>Other</b>' + o.conditions.other + '</li>' +
+        '</ul>' +
+      '</div>' +
+      (o.status === 'declined' && o.declineReason ? '<div class="detail-block"><div class="detail-block__title">Decline reason</div><div class="detail-grid">' + detailRow('Reason', o.declineReason) + (o.declineComment ? detailRow('Comment', escapeHtml(o.declineComment)) : '') + '</div></div>' : '') +
+      '<div style="height:70px"></div>';
+  }
+
+  function detailRow(label, value) {
+    return '<div class="detail-row"><dt>' + label + '</dt><dd>' + value + '</dd></div>';
+  }
+
+  function renderStickyOfferActions() {
+    var host = document.getElementById('offerActionsHost');
+    if (state.page !== 'offer-details') { host.innerHTML = ''; return; }
+    var ref = state.currentOffer;
+    var req = state.groupRequests.filter(function (r) { return r.id === ref.requestId; })[0];
+    var o = req.offers.filter(function (x) { return x.airlineId === ref.airlineId; })[0];
+    var actions = '<button class="btn btn-ghost offer-sticky-actions__back" data-action="offer-back-to-bookings">Back to bookings</button>';
+    if (o.status === 'review' || o.status === 'accepted') {
+      actions += '<button class="btn btn-destructive" data-action="open-decline-modal">Decline</button>';
+      actions += '<button class="btn btn-primary" data-action="accept-offer" ' + (o.status === 'accepted' ? 'disabled' : '') + '>' + (o.status === 'accepted' ? 'Offer accepted' : 'Accept offer') + '</button>';
+    }
+    host.innerHTML = '<div class="offer-sticky-actions">' + actions + '</div>';
+  }
+
+  /* ----------------------------------------------------------------
+     RENDER: DECLINE MODAL
+  ---------------------------------------------------------------- */
+  function renderDeclineModal() {
+    var host = document.getElementById('modalHost');
+    if (!state.declineModal) { host.innerHTML = ''; return; }
+    var m = state.declineModal;
+    host.innerHTML = '<div class="modal-overlay" data-action="close-decline-modal-overlay">' +
+      '<div class="modal" data-action="noop">' +
+        '<h2>Decline offer</h2>' +
+        '<p class="modal__desc">Tell us why this offer does not work for your client.</p>' +
+        '<label class="field-label">Reason <span class="field-group__required">*</span></label>' +
+        '<select class="select-native' + (m.error ? ' is-invalid' : '') + '" data-field="declineModal.reason">' +
+          '<option value="" ' + (!m.reason ? 'selected' : '') + '>Select a reason</option>' +
+          DECLINE_REASONS.map(function (r) { return '<option value="' + escapeHtml(r) + '" ' + (m.reason === r ? 'selected' : '') + '>' + r + '</option>'; }).join('') +
+        '</select>' +
+        (m.error ? '<div class="field-error">Please select a reason.</div>' : '') +
+        '<div class="field-group">' +
+          '<label class="field-label">Comment (optional)</label>' +
+          '<textarea class="textarea" data-field="declineModal.comment" placeholder="Add more context for your team">' + escapeHtml(m.comment) + '</textarea>' +
+        '</div>' +
+        '<div class="modal__actions">' +
+          '<button class="btn btn-secondary" data-action="close-decline-modal">Cancel</button>' +
+          '<button class="btn btn-destructive-solid" data-action="confirm-decline">Decline offer</button>' +
+        '</div>' +
+      '</div>' +
+    '</div>';
+  }
+
+  /* ----------------------------------------------------------------
+     EVENT HANDLERS
+  ---------------------------------------------------------------- */
+  function onClick(e) {
+    var el = e.target.closest('[data-action]');
+    if (!el) {
+      var pax = document.querySelector('.search-field--pax');
+      if (state.regular.paxOpen && (!pax || !pax.contains(e.target))) { state.regular.paxOpen = false; render(); }
+      return;
+    }
+    var action = el.dataset.action;
+
+    switch (action) {
+      case 'noop': break;
+
+      case 'set-tab':
+        state.searchTab = el.dataset.tab;
+        state.regular.paxOpen = false;
+        render();
+        break;
+
+      case 'toggle-pax-regular':
+        state.regular.paxOpen = !state.regular.paxOpen;
+        render();
+        break;
+
+      case 'pax-step': {
+        var ns = el.dataset.ns, key = el.dataset.key, dir = +el.dataset.dir, min = +el.dataset.min, max = +el.dataset.max;
+        var cur = state[ns][key];
+        var next = Math.max(min, Math.min(max, cur + dir));
+        state[ns][key] = next;
+        state.regular.paxOpen = true;
+        render();
+        break;
+      }
+
+      case 'swap-regular': {
+        var tmp = state.regular.from; state.regular.from = state.regular.to; state.regular.to = tmp;
+        render();
+        break;
+      }
+
+      case 'try-group-fares':
+        state.group.from = state.regular.from;
+        state.group.to = state.regular.to;
+        state.group.departure = state.regular.departure;
+        state.group.return = state.regular.return;
+        state.group.pax = 10;
+        state.regular.paxOpen = false;
+        state.searchTab = 'groups';
+        state.groupsScreen = 'form';
+        render();
+        break;
+
+      case 'regular-search-submit': {
+        var errs = {};
+        if (!state.regular.from.trim()) errs.from = 1;
+        if (!state.regular.to.trim()) errs.to = 1;
+        if (!state.regular.departure) errs.departure = 1;
+        state.regularErrors = errs;
+        state.regular.searched = Object.keys(errs).length === 0;
+        render();
+        break;
+      }
+
+      case 'swap-group': {
+        var tmpg = state.group.from; state.group.from = state.group.to; state.group.to = tmpg;
+        render();
+        break;
+      }
+
+      case 'group-pax-step': {
+        var dirg = +el.dataset.dir;
+        state.group.pax = Math.max(10, state.group.pax + dirg);
+        render();
+        break;
+      }
+
+      case 'group-search-submit': {
+        var gerrs = validateGroupForm();
+        state.groupErrors = gerrs;
+        if (Object.keys(gerrs).length) { render(); break; }
+        state.groupSubmitState = 'loading';
+        render();
+        setTimeout(function () {
+          var failTrigger = /fail/i.test(state.group.from) || /fail/i.test(state.group.to);
+          if (failTrigger) {
+            state.groupSubmitState = 'error';
+            render();
+            return;
+          }
+          state.groupSubmitState = 'idle';
+          state.resultsQuery = {
+            from: state.group.from, to: state.group.to,
+            fromCode: guessCode(state.group.from, 'WAW'), toCode: guessCode(state.group.to, 'CDG'),
+            departure: state.group.departure, return: state.group.return, pax: state.group.pax
+          };
+          state.groupsScreen = 'results';
+          state.groupFilter = 'all';
+          render();
+        }, 900);
+        break;
+      }
+
+      case 'group-results-update-search': {
+        var uErrs = validateGroupForm();
+        if (Object.keys(uErrs).length) {
+          pushToast({ title: 'Please complete all required fields', variant: 'error' });
+          break;
+        }
+        state.resultsQuery = {
+          from: state.group.from, to: state.group.to,
+          fromCode: guessCode(state.group.from, state.resultsQuery.fromCode),
+          toCode: guessCode(state.group.to, state.resultsQuery.toCode),
+          departure: state.group.departure, return: state.group.return, pax: state.group.pax
+        };
+        pushToast({ title: 'Search updated', text: 'Flight options refreshed for the new search.', duration: 2600 });
+        render();
+        break;
+      }
+
+      case 'set-group-filter':
+        state.groupFilter = el.dataset.filter;
+        render();
+        break;
+
+      case 'toggle-select-airline': {
+        var aid = el.dataset.airline;
+        var idx = state.selectedAirlineIds.indexOf(aid);
+        if (idx !== -1) {
+          state.selectedAirlineIds.splice(idx, 1);
+        } else if (state.selectedAirlineIds.length >= 3) {
+          pushToast({ title: 'You can select up to 3 airlines', text: 'Remove one of the selected airlines to choose another.', actionLabel: 'Got it' });
+          break;
+        } else {
+          state.selectedAirlineIds.push(aid);
+        }
+        render();
+        break;
+      }
+
+      case 'clear-all-selection':
+        state.selectedAirlineIds = [];
+        render();
+        break;
+
+      case 'create-request': {
+        if (state.selectedAirlineIds.length === 0) break;
+        var q = state.resultsQuery;
+        state.requestDraft = {
+          from: q.from, to: q.to, fromCode: q.fromCode, toCode: q.toCode,
+          departure: q.departure, return: q.return, pax: q.pax,
+          airlineIds: state.selectedAirlineIds.slice(),
+          dateFlexibility: null, tripReason: null, baggage: '', comments: ''
+        };
+        state.builderStep = 1;
+        state.builderErrors = {};
+        state.builderSubmitState = 'idle';
+        state.page = 'request-builder';
+        render();
+        break;
+      }
+
+      case 'builder-back-to-results':
+        state.page = 'search';
+        render();
+        break;
+
+      case 'remove-builder-airline': {
+        var rid = el.dataset.airline;
+        if (state.requestDraft.airlineIds.length > 1) {
+          state.requestDraft.airlineIds = state.requestDraft.airlineIds.filter(function (id) { return id !== rid; });
+          state.selectedAirlineIds = state.requestDraft.airlineIds.slice();
+          render();
+        }
+        break;
+      }
+
+      case 'builder-pax-step': {
+        var dirb = +el.dataset.dir;
+        state.requestDraft.pax = Math.max(10, state.requestDraft.pax + dirb);
+        render();
+        break;
+      }
+
+      case 'set-flex':
+        state.requestDraft.dateFlexibility = el.dataset.value;
+        state.builderErrors.dateFlexibility = false;
+        render();
+        break;
+
+      case 'set-reason':
+        state.requestDraft.tripReason = el.dataset.value;
+        state.builderErrors.tripReason = false;
+        render();
+        break;
+
+      case 'builder-continue':
+        if (!isStep1Valid()) {
+          state.builderErrors = { general: true };
+          render();
+          break;
+        }
+        state.builderErrors = {};
+        state.builderStep = 2;
+        render();
+        break;
+
+      case 'builder-back-step1':
+        state.builderStep = 1;
+        render();
+        break;
+
+      case 'builder-error-back':
+        state.builderSubmitState = 'idle';
+        render();
+        break;
+
+      case 'submit-request': {
+        state.builderSubmitState = 'submitting';
+        render();
+        setTimeout(function () {
+          var d = state.requestDraft;
+          var fail = /fail/i.test(d.comments) || /fail/i.test(d.baggage);
+          if (fail) {
+            state.builderSubmitState = 'error';
+            render();
+            return;
+          }
+          var id = 'GR-' + (state.requestCounter++);
+          var createdAt = new Date();
+          state.groupRequests.push({
+            id: id, from: d.from, fromCode: d.fromCode || guessCode(d.from, 'WAW'),
+            to: d.to, toCode: d.toCode || guessCode(d.to, 'CDG'),
+            departure: d.departure, ret: d.return, pax: d.pax, createdAt: createdAt,
+            dateFlexibility: d.dateFlexibility, tripReason: d.tripReason,
+            baggage: d.baggage, comments: d.comments,
+            offers: d.airlineIds.map(function (aid) { return { airlineId: aid, status: 'calculating' }; })
+          });
+          state.lastCreatedRequestId = id;
+          state.builderSubmitState = 'success';
+          render();
+        }, 1200);
+        break;
+      }
+
+      case 'goto-bookings-from-success':
+        state.page = 'bookings';
+        state.bookingsFilter = 'groups';
+        render();
+        break;
+
+      case 'set-bookings-filter':
+        state.bookingsFilter = el.dataset.filter;
+        render();
+        break;
+
+      case 'open-offer':
+        state.currentOffer = { requestId: el.dataset.request, airlineId: el.dataset.airline };
+        state.page = 'offer-details';
+        render();
+        break;
+
+      case 'offer-back-to-bookings':
+        state.page = 'bookings';
+        render();
+        break;
+
+      case 'accept-offer': {
+        var refA = state.currentOffer;
+        var reqA = state.groupRequests.filter(function (r) { return r.id === refA.requestId; })[0];
+        var offA = reqA.offers.filter(function (x) { return x.airlineId === refA.airlineId; })[0];
+        var prevStatus = offA.status;
+        offA.status = 'accepted';
+        offA.acceptedAt = new Date();
+        render();
+        var toastId = pushToast({
+          title: 'Offer accepted',
+          text: 'The offer is now on hold. Check the payment deadline in the offer details.',
+          actionLabel: 'Undo',
+          duration: 5000
+        });
+        var toastObj = state.toasts.filter(function (t) { return t.id === toastId; })[0];
+        if (toastObj) toastObj.onAction = function () {
+          offA.status = prevStatus;
+          render();
+        };
+        break;
+      }
+
+      case 'open-decline-modal':
+        state.declineModal = { requestId: state.currentOffer.requestId, airlineId: state.currentOffer.airlineId, reason: '', comment: '', error: false };
+        render();
+        break;
+
+      case 'close-decline-modal':
+      case 'close-decline-modal-overlay':
+        state.declineModal = null;
+        render();
+        break;
+
+      case 'confirm-decline': {
+        var m = state.declineModal;
+        if (!m.reason) { m.error = true; render(); break; }
+        var reqD = state.groupRequests.filter(function (r) { return r.id === m.requestId; })[0];
+        var offD = reqD.offers.filter(function (x) { return x.airlineId === m.airlineId; })[0];
+        var prevStatusD = offD.status;
+        offD.status = 'declined';
+        offD.declineReason = m.reason;
+        offD.declineComment = m.comment;
+        state.declineModal = null;
+        render();
+        var toastIdD = pushToast({ title: 'Offer declined', actionLabel: 'Undo', duration: 5000 });
+        var toastObjD = state.toasts.filter(function (t) { return t.id === toastIdD; })[0];
+        if (toastObjD) toastObjD.onAction = function () {
+          offD.status = prevStatusD;
+          delete offD.declineReason;
+          delete offD.declineComment;
+          render();
+        };
+        break;
+      }
+
+      case 'toast-action': {
+        var tid = el.dataset.toast;
+        var t = state.toasts.filter(function (x) { return x.id === tid; })[0];
+        if (t && t.onAction) t.onAction();
+        removeToast(tid);
+        break;
+      }
+      case 'toast-close':
+        removeToast(el.dataset.toast);
+        break;
+    }
+  }
+
+  function guessCode(text, fallback) {
+    if (!text) return fallback;
+    var t = text.trim().toUpperCase();
+    if (/^[A-Z]{3}$/.test(t)) return t;
+    return t.slice(0, 3) || fallback;
+  }
+
+  function onInput(e) {
+    var field = e.target.dataset.field;
+    if (!field) return;
+    set(field, e.target.value, state);
+    if (field === 'regular.departure' || field === 'group.departure' || field === 'requestDraft.departure') {
+      var minReturnEl = e.target.closest('.search-bar, .form-grid, .summary-bar');
+      if (minReturnEl) {
+        var retInput = minReturnEl.querySelector('[data-field$=".return"]');
+        if (retInput) retInput.min = e.target.value;
+      }
+    }
+    var fieldEl = e.target.closest('.search-field, .summary-field');
+    if (fieldEl) fieldEl.classList.remove('is-invalid');
+  }
+
+  function onChange(e) {
+    var field = e.target.dataset.field;
+    if (!field) return;
+    set(field, e.target.value, state);
+    if (field === 'declineModal.reason') {
+      state.declineModal.error = false;
+      var sel = e.target;
+      sel.classList.remove('is-invalid');
+      var errBox = sel.parentElement.querySelector('.field-error');
+      if (errBox) errBox.remove();
+    }
+  }
+
+  /* ----------------------------------------------------------------
+     INIT
+  ---------------------------------------------------------------- */
+  document.addEventListener('click', onClick);
+  document.addEventListener('input', onInput);
+  document.addEventListener('change', onChange);
+  document.getElementById('navSearch').addEventListener('click', function () {
+    state.page = 'search';
+    render();
+  });
+  document.getElementById('navBookings').addEventListener('click', function () {
+    state.page = 'bookings';
+    render();
+  });
+
+  render();
+})();
