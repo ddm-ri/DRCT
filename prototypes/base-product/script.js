@@ -46,10 +46,10 @@
      DATA
   ---------------------------------------------------------------- */
   var AIRLINES = {
-    airfrance: { name: 'Air France', code: 'AF', logo: 'assets/logos/air-france.svg' },
-    lot:       { name: 'LOT', code: 'LO', logo: 'assets/logos/lot-polish-airlines.svg' },
-    lufthansa: { name: 'Lufthansa', code: 'LH', logo: 'assets/logos/Lufthansa.svg' },
-    klm:       { name: 'KLM', code: 'KL', logo: 'assets/logos/KLM.svg' }
+    airfrance: { name: 'Air France', code: 'AF', logo: 'assets/logos/AF.png' },
+    lot:       { name: 'LOT', code: 'LO', logo: 'assets/logos/LO.png' },
+    lufthansa: { name: 'Lufthansa', code: 'LH', logo: 'assets/logos/LH.png' },
+    klm:       { name: 'KLM', code: 'KL', logo: 'assets/logos/KL.png' }
   };
 
   var AIRPORTS = [
@@ -165,17 +165,17 @@
 
   /* Airlines offering group fares (Group Search Results roster) */
   var GROUP_AIRLINES = [
-    { id: 'lot', name: 'LOT Polish Airlines', code: 'LO', logo: 'assets/logos/lot-polish-airlines.svg',
+    { id: 'lot', name: 'LOT Polish Airlines', code: 'LO', logo: 'assets/logos/LO.png',
       dep: '07:20', arr: '09:50', duration: '2h 30m', stops: 0, connectionCode: null, layover: null, flightNo: 'LO 281' },
-    { id: 'airfrance', name: 'Air France', code: 'AF', logo: 'assets/logos/air-france.svg',
+    { id: 'airfrance', name: 'Air France', code: 'AF', logo: 'assets/logos/AF.png',
       dep: '12:25', arr: '14:50', duration: '2h 25m', stops: 0, connectionCode: null, layover: null, flightNo: 'AF 1147' },
-    { id: 'lufthansa', name: 'Lufthansa', code: 'LH', logo: 'assets/logos/Lufthansa.svg',
+    { id: 'lufthansa', name: 'Lufthansa', code: 'LH', logo: 'assets/logos/LH.png',
       dep: '06:35', arr: '11:55', duration: '4h 20m', stops: 1, connectionCode: 'FRA', layover: '1h 15m', flightNo: 'LH 1338 / LH 1054' },
-    { id: 'klm', name: 'KLM', code: 'KL', logo: 'assets/logos/KLM.svg',
+    { id: 'klm', name: 'KLM', code: 'KL', logo: 'assets/logos/KL.png',
       dep: '09:10', arr: '14:35', duration: '4h 25m', stops: 1, connectionCode: 'AMS', layover: '2h 0m', flightNo: 'KL 1372 / KL 1233' },
-    { id: 'swiss', name: 'SWISS', code: 'LX', logo: 'assets/logos/SWISS.svg',
+    { id: 'swiss', name: 'SWISS', code: 'LX', logo: 'assets/logos/LX.png',
       dep: '10:40', arr: '16:05', duration: '4h 25m', stops: 1, connectionCode: 'ZRH', layover: '1h 45m', flightNo: 'LX 1548 / LX 792' },
-    { id: 'austrian', name: 'Austrian Airlines', code: 'OS', logo: 'assets/logos/austrian-airlines.svg',
+    { id: 'austrian', name: 'Austrian Airlines', code: 'OS', logo: 'assets/logos/OS.png',
       dep: '13:50', arr: '19:35', duration: '4h 45m', stops: 1, connectionCode: 'VIE', layover: '1h 30m', flightNo: 'OS 599 / OS 405' },
     { id: 'iberia', name: 'Iberia', code: 'IB', logo: 'assets/logos/Iberia.svg',
       dep: '15:20', arr: '21:15', duration: '4h 55m', stops: 1, connectionCode: 'MAD', layover: '2h 10m', flightNo: 'IB 5352 / IB 3402' }
@@ -428,14 +428,18 @@
       body = renderRegularForm();
     }
 
-    return '' +
+    var isResultsScreen = (state.searchTab === 'groups' && state.groupsScreen === 'results') ||
+      (state.searchTab === 'form' && state.searchScreen === 'results');
+
+    var head = isResultsScreen ? '' :
       '<div class="page-head">' +
         '<div class="page-head__top">' +
           '<div><h1>' + title + '</h1><p class="page-head__desc">' + desc + '</p></div>' +
           '<div class="local-tabs">' + tabsHtml + '</div>' +
         '</div>' +
-      '</div>' +
-      body;
+      '</div>';
+
+    return head + body;
   }
 
   function paxSummaryLabel(r) {
@@ -544,7 +548,7 @@
     var inner = iso
       ? '<span class="field-value"><span class="field-value__name">' + formatFieldDate(iso) + '</span></span>'
       : '<span class="field-placeholder">' + escapeHtml(placeholder) + '</span>';
-    return '<div class="search-field' + (isOpen ? ' is-active' : '') + '" data-action="open-calendar-field" data-field="' + fieldKey + '" data-min="' + minISO + '" data-return="' + (isReturn ? '1' : '0') + '">' +
+    return '<div class="search-field search-field--date' + (isOpen ? ' is-active' : '') + '" data-action="open-calendar-field" data-field="' + fieldKey + '" data-min="' + minISO + '" data-return="' + (isReturn ? '1' : '0') + '">' +
       inner +
       (isOpen ? renderCalendarPopover(fieldKey, iso, minISO, isReturn) : '') +
     '</div>';
@@ -628,7 +632,7 @@
         '<button class="btn btn-primary search-bar__submit" data-action="regular-search-submit">Search</button>' +
       '</div>' +
       '<div class="ai-filters-band">' +
-        '<div class="ai-filters-band__icon">&#10022;</div>' +
+        '<div class="ai-filters-band__icon"><img src="assets/logos/ai-icon.svg" alt=""></div>' +
         '<div class="ai-filters-band__label">AI Filters</div>' +
         '<div class="ai-filters-band__info">i</div>' +
         '<input class="ai-filters-band__query" data-field="aiQuery" value="' + escapeHtml(state.aiQuery) + '">' +
@@ -680,7 +684,7 @@
     return '<div class="alt-options-row">' +
       '<div class="alt-options-row__icon">😍</div>' +
       '<div><div class="alt-options-row__title">We have found alternative options</div><div class="alt-options-row__sub">Check flight options from nearby airports</div></div>' +
-      '<div class="alt-options-row__side">from <b>1 149</b> EUR<span class="alt-options-row__choose" data-action="noop">Choose</span></div>' +
+      '<div class="alt-options-row__side">from 1 149<span class="cur">EUR</span><span class="alt-options-row__choose" data-action="noop">Choose</span></div>' +
     '</div>';
   }
 
@@ -790,7 +794,7 @@
         '<button class="btn btn-primary search-bar__submit" data-action="group-search-submit">Search</button>' +
       '</div>' +
       '<div class="ai-filters-band">' +
-        '<div class="ai-filters-band__icon">&#10022;</div>' +
+        '<div class="ai-filters-band__icon"><img src="assets/logos/ai-icon.svg" alt=""></div>' +
         '<div class="ai-filters-band__label">AI Filters</div>' +
         '<div class="ai-filters-band__info">i</div>' +
         '<input class="ai-filters-band__query" data-field="groupAiQuery" value="' + escapeHtml(state.groupAiQuery) + '">' +
@@ -1181,7 +1185,6 @@
           '<div class="gender-toggle__opt' + (d.gender === 'M' ? ' is-selected' : '') + '" data-action="set-gender" data-value="M">M</div>' +
           '<div class="gender-toggle__opt' + (d.gender === 'F' ? ' is-selected' : '') + '" data-action="set-gender" data-value="F">F</div>' +
         '</div></div>' +
-        '<div><span class="field-caption">Date of birth</span><input class="text-field" data-field="offerDraft.dob" placeholder="DD.MM.YYYY" value="' + escapeHtml(d.dob) + '"></div>' +
       '</div>' +
 
       '<div class="fare-recap-box">' +
@@ -1198,11 +1201,18 @@
       '<div class="recap-block"><div class="recap-block__label">Adult</div><div class="recap-block__value">' + escapeHtml((d.lastName + ' ' + d.firstName).trim() || '—') + '</div></div>' +
 
       '<div class="section-title">Contact information</div>' +
-      '<div class="section-desc">Enter passenger\'s contact information</div>' +
-      '<div class="adult-form-grid" style="grid-template-columns:repeat(2,1fr);max-width:640px">' +
-        '<div><span class="field-caption">Email</span><input class="text-field" data-field="offerDraft.email" value="' + escapeHtml(d.email) + '"></div>' +
+      '<div class="adult-form-grid">' +
         '<div><span class="field-caption">Phone number</span><input class="text-field" data-field="offerDraft.phone" value="' + escapeHtml(d.phone) + '"></div>' +
+        '<div><span class="field-caption">Email</span><input class="text-field" data-field="offerDraft.email" value="' + escapeHtml(d.email) + '"></div>' +
       '</div>' +
+      '<div class="section-desc" style="margin-top:8px">* Contacts are optional. Fill in the fields in case you need to transfer customer\'s data to the airline.</div>' +
+
+      '<div class="section-title">Frequent flyer</div>' +
+      '<div class="adult-form-grid">' +
+        '<div><span class="field-caption">Frequent flyer carrier</span><input class="text-field" data-field="offerDraft.ffCarrier" value="' + escapeHtml(d.ffCarrier || '') + '"></div>' +
+        '<div><span class="field-caption">Frequent flyer number</span><input class="text-field" data-field="offerDraft.ffNumber" value="' + escapeHtml(d.ffNumber || '') + '"></div>' +
+      '</div>' +
+      '<div class="section-desc" style="margin-top:8px">* Optional. Add your frequent flyer number to earn miles and other program benefits.</div>' +
 
       '<div class="price-summary">' +
         '<div class="price-summary__row"><span>Adult</span><span>' + fmtMoney(selectedTier.price) + ' EUR</span></div>' +
@@ -1372,10 +1382,10 @@
           '</div>' +
         '</div>' +
         '<div class="booking-detail__section"><h3>Adult</h3><p>' + escapeHtml(b.passengerFullName) + '</p></div>' +
-        '<div class="booking-detail__section"><h3>Contact information</h3><p class="desc">Enter passenger\'s contact information</p>' +
-          '<div class="adult-form-grid" style="grid-template-columns:repeat(2,1fr);max-width:640px">' +
-            '<div><span class="field-caption">Email</span><input class="text-field" data-field="__noop" value="' + escapeHtml(b.contactEmail) + '"></div>' +
+        '<div class="booking-detail__section"><h3>Contact information</h3>' +
+          '<div class="adult-form-grid">' +
             '<div><span class="field-caption">Phone number</span><input class="text-field" data-field="__noop" value="' + escapeHtml(b.contactPhone) + '"></div>' +
+            '<div><span class="field-caption">Email</span><input class="text-field" data-field="__noop" value="' + escapeHtml(b.contactEmail) + '"></div>' +
           '</div>' +
         '</div>' +
         '<div class="price-summary">' +
@@ -1544,7 +1554,7 @@
         var flight = flightById(el.dataset.flight);
         var fareKey = el.dataset.fare;
         state.currentOffer = { flightId: flight.id };
-        state.offerDraft = { fareTier: fareKey, lastName: 'ELON', firstName: 'MUSK', gender: 'M', dob: '28.06.1988', email: 'DDM@DRCT.AERO', phone: '684526545' };
+        state.offerDraft = { fareTier: fareKey, lastName: 'ELON', firstName: 'MUSK', gender: 'M', email: 'DDM@DRCT.AERO', phone: '684526545', ffCarrier: '', ffNumber: '' };
         state.page = 'offer-details';
         window.scrollTo(0, 0);
         render();
@@ -1936,6 +1946,8 @@
   document.addEventListener('change', onChange);
   document.getElementById('navSearch').addEventListener('click', function () {
     state.page = 'search';
+    state.searchScreen = 'form';
+    state.groupsScreen = 'form';
     window.scrollTo(0, 0);
     render();
   });
