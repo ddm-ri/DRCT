@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>DRCT — Passenger Mini Profiles (prototype)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Interactive prototype: passenger mini profiles integrated into the DRCT booking passenger block.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+/* ================================================================
+   Tokens — carried over from DRCT's own design system (styles.css)
+================================================================ */
+:root{
+  --dark:#1b2733;
+  --dark-70:rgba(27,39,51,.7);
+  --dark-45:rgba(27,39,51,.45);
+  --dark-26:rgba(27,39,51,.26);
+  --dark-14:rgba(27,39,51,.14);
+  --dark-08:rgba(27,39,51,.08);
+  --dark-05:rgba(27,39,51,.05);
+  --blue:#2a8aea;
+  --blue-70:rgba(42,138,234,.7);
+  --blue-14:rgba(42,138,234,.14);
+  --blue-08:rgba(42,138,234,.08);
+  --white:#ffffff;
+  --off-white:#f6f7f8;
+  --error:#fd5666;
+  --error-bg:rgba(253,86,102,.08);
+  --warning:#c97b00;
+  --warning-bg:rgba(255,159,0,.12);
+  --success:#1f9e2c;
+  --success-bg:rgba(51,193,0,.1);
+  --font-sans:'IBM Plex Sans','Roboto',sans-serif;
+  --font-mono:'IBM Plex Mono',monospace;
+  --shadow-header:0 4px 8px rgba(27,39,51,.08);
+  --shadow-pop:0 8px 24px rgba(27,39,51,.16);
+  --r-s:4px;
+  --r-m:6px;
+  --r-l:10px;
+}
+:root[data-theme="dark"]{
+  --dark:#eef1f4; --dark-70:rgba(238,241,244,.7); --dark-45:rgba(238,241,244,.45);
+  --dark-26:rgba(238,241,244,.26); --dark-14:rgba(238,241,244,.14); --dark-08:rgba(238,241,244,.08); --dark-05:rgba(238,241,244,.05);
+  --white:#161c24; --off-white:#1d2530;
+  --blue-14:rgba(42,138,234,.22); --blue-08:rgba(42,138,234,.14);
+  --error-bg:rgba(253,86,102,.14); --warning-bg:rgba(255,159,0,.16); --success-bg:rgba(51,193,0,.16);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --dark:#eef1f4; --dark-70:rgba(238,241,244,.7); --dark-45:rgba(238,241,244,.45);
+    --dark-26:rgba(238,241,244,.26); --dark-14:rgba(238,241,244,.14); --dark-08:rgba(238,241,244,.08); --dark-05:rgba(238,241,244,.05);
+    --white:#161c24; --off-white:#1d2530;
+    --blue-14:rgba(42,138,234,.22); --blue-08:rgba(42,138,234,.14);
+    --error-bg:rgba(253,86,102,.14); --warning-bg:rgba(255,159,0,.16); --success-bg:rgba(51,193,0,.16);
+  }
+}
+
+*,*::before,*::after{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  font-family:var(--font-sans);
+  color:var(--dark);
+  background:var(--off-white);
+  -webkit-font-smoothing:antialiased;
+  line-height:1.4;
+}
+button{font-family:inherit;}
+:focus-visible{outline:2px solid var(--blue);outline-offset:2px;}
+.mono{font-family:var(--font-mono);}
+
+/* ---------------------------------------------------------------
+   Prototype harness bar — deliberately NOT styled like DRCT product UI
+--------------------------------------------------------------- */
+.proto-bar{
+  background:var(--dark);
+  color:var(--white);
+  font-family:var(--font-mono);
+  font-size:12px;
+  padding:10px 20px;
+}
+.proto-bar__row{
+  max-width:1180px;margin:0 auto;
+  display:flex;align-items:center;gap:16px;flex-wrap:wrap;
+}
+.proto-bar__label{
+  text-transform:uppercase;letter-spacing:.08em;font-weight:600;
+  background:var(--blue);color:#fff;padding:2px 8px;border-radius:3px;font-size:10px;
+}
+.proto-bar p{margin:0;opacity:.85;flex:1 1 420px;}
+.proto-bar label{display:flex;align-items:center;gap:6px;white-space:nowrap;opacity:.9;cursor:pointer;}
+.proto-bar input[type="checkbox"]{accent-color:var(--blue);}
+
+/* ---------------------------------------------------------------
+   .wrapper / .header — reused
+--------------------------------------------------------------- */
+.wrapper{max-width:1180px;margin:0 auto;padding-bottom:64px;}
+.header{
+  background:var(--white);
+  box-shadow:var(--shadow-header);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 24px;height:56px;margin-bottom:20px;
+}
+.header__logo{font-weight:700;font-size:18px;letter-spacing:.02em;color:var(--dark);}
+.header__nav{display:flex;gap:22px;font-size:13px;font-weight:500;}
+.header__nav a{color:var(--dark-45);text-decoration:none;padding:4px 0;}
+.header__nav a.active{color:var(--dark);font-weight:700;border-bottom:2px solid var(--blue);}
+
+/* ---------------------------------------------------------------
+   Search form / filters bar — reused, static
+--------------------------------------------------------------- */
+.search-form{
+  background:var(--white);border:1px solid var(--dark-08);border-radius:var(--r-m);
+  display:flex;align-items:center;padding:10px 16px;gap:14px;margin-bottom:10px;flex-wrap:wrap;
+}
+.sf-item{font-size:13px;}
+.sf-item span{display:block;color:var(--dark-45);font-size:10px;text-transform:uppercase;letter-spacing:.04em;}
+.sf-item strong{font-weight:600;}
+.sf-submit{
+  margin-left:auto;background:var(--blue);color:#fff;border:none;border-radius:var(--r-s);
+  padding:10px 22px;font-weight:700;font-size:12px;letter-spacing:.05em;text-transform:uppercase;cursor:pointer;
+}
+.ai-filters-bar{
+  background:linear-gradient(90deg,var(--blue-08),transparent);
+  border:1px solid var(--blue-14);border-radius:var(--r-m);
+  display:flex;align-items:center;gap:10px;padding:10px 16px;margin-bottom:16px;font-size:13px;
+}
+.ai-filters-bar strong{font-size:12px;}
+.ai-filters-bar input{
+  flex:1;border:none;background:transparent;font-size:13px;color:var(--dark-70);font-family:inherit;
+}
+.ai-filters-bar input:focus{outline:none;}
+.ai-filters-bar a{margin-left:auto;color:var(--blue);font-weight:700;font-size:11px;letter-spacing:.05em;text-transform:uppercase;text-decoration:none;}
+.filters-row{display:flex;gap:24px;padding:0 4px 14px;font-size:13px;color:var(--dark-45);flex-wrap:wrap;}
+.filters-row span{margin-right:16px;cursor:default;}
+.filters-row span.active{color:var(--dark);font-weight:700;}
+
+/* ---------------------------------------------------------------
+   .search__flight card / fares — reused, static
+--------------------------------------------------------------- */
+.search__flight{
+  background:var(--white);border:1px solid var(--dark-08);border-radius:var(--r-l);
+  padding:22px 24px;margin-bottom:14px;
+}
+.flight-total{display:flex;justify-content:flex-end;font-weight:700;font-size:18px;margin-bottom:4px;}
+.flight-details__title{font-size:15px;font-weight:700;margin:0 0 2px;}
+.flight-details__duration{font-size:12px;color:var(--dark-45);margin:0 0 10px;}
+.segment{display:flex;align-items:center;gap:14px;font-size:13px;}
+.segment__time{font-weight:700;font-family:var(--font-mono);}
+.segment__airport{color:var(--dark-70);margin-left:6px;}
+.segment__day{color:var(--dark-45);margin-left:6px;font-size:11px;}
+.segment__dash{flex:0 0 46px;height:1px;background:var(--dark-14);position:relative;}
+.segment__code{font-size:11px;color:var(--dark-45);font-family:var(--font-mono);margin-left:10px;}
+.search-fares{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin:18px 0 4px;}
+.fare-card{border:1px solid var(--dark-08);border-radius:var(--r-m);padding:12px;font-size:12px;}
+.fare-card.selected{border-color:var(--blue);background:var(--blue-08);}
+.fare-card__name{font-weight:700;margin:0 0 2px;}
+.fare-card__basis{font-family:var(--font-mono);color:var(--dark-45);font-size:11px;margin:0 0 8px;}
+.fare-card__row{display:flex;justify-content:space-between;color:var(--dark-70);margin-bottom:2px;}
+.fare-card__price{font-weight:700;font-size:14px;margin-top:8px;}
+
+/* ---------------------------------------------------------------
+   .search__separator / .search__passenger-block — reused
+--------------------------------------------------------------- */
+.search__separator{height:1px;background:var(--dark-08);margin:22px 0;}
+.search__passenger-block{}
+.pmp-title-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:2px;}
+.search__flight-title{font-size:15px;font-weight:700;margin:0;}
+.search__flight-description{font-size:12px;color:var(--dark-45);margin:2px 0 16px;}
+
+.search__passenger-inputs{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:16px;
+}
+@media (max-width:860px){.search__passenger-inputs{grid-template-columns:repeat(2,1fr);}}
+.form-field{position:relative;}
+.form-field__label{display:block;font-size:11px;color:var(--dark-45);margin-bottom:5px;text-transform:uppercase;letter-spacing:.03em;}
+.input{border:1px solid var(--dark-14);border-radius:var(--r-s);background:var(--white);transition:border-color .12s;}
+.input:focus-within{border-color:var(--blue);box-shadow:0 0 0 3px var(--blue-08);}
+.input__input{
+  width:100%;border:none;background:transparent;padding:10px 12px;font-size:13px;color:var(--dark);
+  font-family:inherit;border-radius:var(--r-s);
+}
+.input__input:focus{outline:none;}
+.input--invalid{border-color:var(--error);}
+.input--invalid:focus-within{border-color:var(--error);box-shadow:0 0 0 3px var(--error-bg);}
+
+.gender-radio{display:flex;gap:8px;}
+.gender-radio__wrapper{flex:1;position:relative;}
+.gender-radio__input{position:absolute;opacity:0;inset:0;cursor:pointer;margin:0;}
+.gender-radio__label{
+  display:flex;align-items:center;justify-content:center;height:37px;border:1px solid var(--dark-14);
+  border-radius:var(--r-s);font-size:13px;font-weight:600;color:var(--dark-45);cursor:pointer;
+}
+.gender-radio__input:checked + .gender-radio__label{border-color:var(--blue);color:var(--blue);background:var(--blue-08);}
+.gender-radio__input:focus-visible + .gender-radio__label{outline:2px solid var(--blue);outline-offset:2px;}
+
+.search__passenger-info{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-bottom:6px;}
+.passenger-input-text{font-size:11px;color:var(--dark-45);margin:0 0 16px;grid-column:1/-1;}
+.frequent-flyer-info{margin-top:6px;}
+
+/* ---------------------------------------------------------------
+   NEW — profile tag / filled-from badge
+--------------------------------------------------------------- */
+.pmp-tag{
+  font-family:var(--font-mono);font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;
+  background:var(--blue-14);color:var(--blue);padding:3px 8px;border-radius:20px;
+}
+.pmp-filled-note{
+  display:flex;align-items:center;gap:6px;font-size:12px;color:var(--success);margin-left:auto;
+}
+.pmp-filled-note svg{flex:none;}
+.pmp-linklike{
+  background:none;border:none;color:var(--blue);font-size:12px;font-weight:600;cursor:pointer;padding:0;
+  text-decoration:underline;font-family:inherit;
+}
+.pmp-source-panel{
+  border:1px solid var(--dark-08);background:var(--off-white);border-radius:var(--r-m);
+  padding:12px 14px;font-size:12px;margin:0 0 16px;display:grid;grid-template-columns:repeat(2,1fr);gap:6px 18px;
+}
+.pmp-source-panel dt{color:var(--dark-45);}
+.pmp-source-panel dd{margin:0 0 2px;font-family:var(--font-mono);}
+
+/* ---------------------------------------------------------------
+   NEW — search dropdown under Last/First/Email
+--------------------------------------------------------------- */
+.pmp-dropdown{
+  position:absolute;top:calc(100% + 4px);left:0;right:0;z-index:20;
+  background:var(--white);border:1px solid var(--dark-14);border-radius:var(--r-m);
+  box-shadow:var(--shadow-pop);max-height:280px;overflow-y:auto;
+}
+.pmp-dropdown__result{
+  display:flex;flex-direction:column;gap:2px;padding:10px 12px;cursor:pointer;border-bottom:1px solid var(--dark-05);
+}
+.pmp-dropdown__result:last-child{border-bottom:none;}
+.pmp-dropdown__result:hover,.pmp-dropdown__result:focus-visible{background:var(--blue-08);}
+.pmp-dropdown__result-top{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;}
+.pmp-dropdown__result-meta{display:flex;gap:10px;font-size:11px;color:var(--dark-45);font-family:var(--font-mono);flex-wrap:wrap;}
+.pmp-dropdown__empty{padding:14px 12px;font-size:12px;color:var(--dark-45);}
+.pmp-dropdown__empty strong{display:block;color:var(--dark);margin-bottom:2px;font-size:13px;}
+
+/* ---------------------------------------------------------------
+   NEW — alerts (stale profile / duplicate / passport warning)
+--------------------------------------------------------------- */
+.pmp-alert{
+  display:flex;gap:10px;align-items:flex-start;border-radius:var(--r-m);padding:12px 14px;margin-bottom:16px;font-size:12px;
+}
+.pmp-alert--warning{background:var(--warning-bg);border:1px solid rgba(201,123,0,.25);}
+.pmp-alert--warning strong{color:var(--warning);display:block;font-size:13px;margin-bottom:2px;}
+.pmp-alert p{margin:0;color:var(--dark-70);}
+.pmp-alert svg{flex:none;margin-top:1px;}
+
+/* ---------------------------------------------------------------
+   NEW — inline prompts (update/keep, save profile)
+--------------------------------------------------------------- */
+.pmp-inline-prompt{
+  border:1px dashed var(--dark-14);border-radius:var(--r-m);padding:12px 14px;margin-bottom:16px;
+  display:flex;align-items:center;gap:14px;flex-wrap:wrap;font-size:12px;
+}
+.pmp-inline-prompt--muted{background:var(--off-white);border-style:solid;}
+.pmp-inline-prompt p{margin:0;flex:1 1 260px;color:var(--dark-70);}
+.pmp-inline-prompt strong{color:var(--dark);}
+.pmp-inline-prompt__actions{display:flex;gap:8px;flex-wrap:wrap;}
+.pmp-btn{
+  border-radius:var(--r-s);padding:8px 14px;font-size:12px;font-weight:700;cursor:pointer;border:1px solid transparent;
+  letter-spacing:.02em;
+}
+.pmp-btn--primary{background:var(--blue);color:#fff;}
+.pmp-btn--primary:hover{background:var(--blue-70);}
+.pmp-btn--ghost{background:transparent;border-color:var(--dark-14);color:var(--dark);}
+.pmp-btn--ghost:hover{border-color:var(--dark-26);}
+
+/* ---------------------------------------------------------------
+   NEW — toast
+--------------------------------------------------------------- */
+.pmp-toast{
+  display:flex;align-items:center;gap:8px;border-radius:var(--r-m);padding:10px 14px;font-size:12px;font-weight:600;margin-bottom:4px;
+}
+.pmp-toast--success{background:var(--success-bg);color:var(--success);}
+.pmp-toast--error{background:var(--error-bg);color:var(--error);}
+
+/* ---------------------------------------------------------------
+   Passport / checkout stage section
+--------------------------------------------------------------- */
+.pmp-stage-divider{
+  display:flex;align-items:center;gap:12px;margin:28px 0 14px;color:var(--dark-45);font-size:11px;
+  text-transform:uppercase;letter-spacing:.05em;
+}
+.pmp-stage-divider::before,.pmp-stage-divider::after{content:"";flex:1;height:1px;background:var(--dark-08);}
+.pmp-select{appearance:none;background-image:none;cursor:pointer;}
+.pmp-field-error{color:var(--error);font-size:11px;margin:6px 2px 0;}
+.pmp-field-ok{color:var(--success);font-size:11px;margin:6px 2px 0;}
+.pmp-info-icon{
+  position:relative;flex:none;width:16px;height:16px;border-radius:50%;border:1px solid var(--warning);
+  color:var(--warning);background:transparent;font-size:10px;font-weight:700;font-style:italic;line-height:14px;
+  cursor:pointer;font-family:var(--font-mono);
+}
+.pmp-tooltip{
+  display:none;position:absolute;bottom:calc(100% + 8px);right:-8px;width:250px;background:var(--dark);color:#fff;
+  font-size:11px;font-weight:400;font-family:var(--font-sans);padding:10px 12px;border-radius:var(--r-m);
+  box-shadow:var(--shadow-pop);text-align:left;line-height:1.5;z-index:5;
+}
+.pmp-info-icon:hover .pmp-tooltip,.pmp-info-icon:focus-visible .pmp-tooltip{display:block;}
+
+/* ---------------------------------------------------------------
+   Booking block — reused, static
+--------------------------------------------------------------- */
+.search__booking-block{display:flex;align-items:center;justify-content:space-between;padding-top:18px;border-top:1px solid var(--dark-08);margin-top:6px;}
+.booking-price{font-size:13px;}
+.booking-price strong{font-size:18px;display:block;}
+.book-btn{background:var(--blue);color:#fff;border:none;border-radius:var(--r-s);padding:12px 34px;font-weight:700;font-size:13px;letter-spacing:.03em;cursor:pointer;}
+
+/* Collapsed alt rows */
+.alt-flight{display:flex;justify-content:space-between;align-items:center;padding:14px 22px;font-size:13px;color:var(--dark-70);}
+.alt-flight strong{color:var(--dark);}
+</style>
+</head>
+<body>
+
+<div class="proto-bar">
+  <div class="proto-bar__row">
+    <span class="proto-bar__label">Prototype</span>
+    <p>Type <strong>"Kowal"</strong> in Last name → pick a profile → edit a field to see the update/keep prompt. Type <strong>"Nowak"</strong> for a single match, anything else for no results. Fill the form manually and save it as a new profile — try Kowalski/Jan/1985‑04‑12 to trigger duplicate detection. Passport states are further down the page.</p>
+    <label><input type="checkbox" id="simulateErrorToggle"> simulate save/update error</label>
+  </div>
+</div>
+
+<div class="wrapper">
+
+  <header class="header">
+    <div class="header__logo">DRCT</div>
+    <nav class="header__nav">
+      <a href="#" class="active">Search</a>
+      <a href="#">Bookings</a>
+      <a href="#">Management</a>
+      <a href="#">Sales</a>
+      <a href="#">Transactions</a>
+      <a href="#">Profile</a>
+    </nav>
+  </header>
+
+  <div class="search-form">
+    <div class="sf-item"><span>From</span><strong>Warsaw Chopin · WAW</strong></div>
+    <div class="sf-item"><span>To</span><strong>Charles de Gaulle · CDG</strong></div>
+    <div class="sf-item"><span>Depart</span><strong>27 Jul, Mon</strong></div>
+    <div class="sf-item"><span>Passengers</span><strong>1 passenger</strong></div>
+    <button class="sf-submit" type="button">Search</button>
+  </div>
+
+  <div class="ai-filters-bar">
+    <strong>AI Filters</strong>
+    <input type="text" placeholder="Morning departures on Lufthansa or Lot" disabled>
+    <a href="#">Filter flights</a>
+  </div>
+
+  <div class="filters-row">
+    <span><span class="active">All flights</span><span>Direct</span><span>Up to 1 connection</span></span>
+    <span><span>Cheapest</span><span>Fastest</span><span class="active">Optimal</span></span>
+    <span style="margin-left:auto"><span>Without baggage</span><span>With baggage</span></span>
+  </div>
+
+  <div class="search__flight">
+    <div class="flight-total">322.62 EUR</div>
+    <p class="flight-details__title">Flight to Paris</p>
+    <p class="flight-details__duration">On the way 2h 25m</p>
+    <div class="segment">
+      <span class="segment__time">16:25</span><span class="segment__airport">Warsaw Chopin, WAW</span><span class="segment__day">27 Jul, Mon</span>
+      <span class="segment__dash"></span>
+      <span class="segment__time">18:50</span><span class="segment__airport">Charles de Gaulle, CDG</span><span class="segment__day">27 Jul, Mon</span>
+      <span class="segment__code">LOT, LO 335</span>
+    </div>
+
+    <div class="search-fares">
+      <div class="fare-card selected">
+        <p class="fare-card__name">Economy saver</p>
+        <p class="fare-card__basis">T1SAV0</p>
+        <div class="fare-card__row"><span>Baggage</span><span>0PC</span></div>
+        <div class="fare-card__row"><span>Changes</span><span>Paid</span></div>
+        <div class="fare-card__row"><span>Refund</span><span>Paid</span></div>
+        <p class="fare-card__price">322.62 EUR</p>
+      </div>
+      <div class="fare-card">
+        <p class="fare-card__name">Economy standard</p>
+        <p class="fare-card__basis">T1STD0</p>
+        <div class="fare-card__row"><span>Baggage</span><span>1PC</span></div>
+        <p class="fare-card__price">359.62 EUR</p>
+      </div>
+      <div class="fare-card">
+        <p class="fare-card__name">Economy flex</p>
+        <p class="fare-card__basis">T1FLX0</p>
+        <div class="fare-card__row"><span>Baggage</span><span>1PC</span></div>
+        <p class="fare-card__price">436.62 EUR</p>
+      </div>
+      <div class="fare-card">
+        <p class="fare-card__name">Business semi flex</p>
+        <p class="fare-card__basis">D1SFX0</p>
+        <div class="fare-card__row"><span>Baggage</span><span>2PC</span></div>
+        <p class="fare-card__price">918.12 EUR</p>
+      </div>
+    </div>
+
+    <!-- ============================================================
+         .search__passenger — the integrated mini-profile block
+    ============================================================= -->
+    <div class="search__separator"></div>
+    <div class="search__passenger-block">
+
+      <div class="pmp-title-row">
+        <p class="search__flight-title">Adult</p>
+        <span class="pmp-tag" id="profileTag" hidden></span>
+        <span class="pmp-filled-note" id="filledNote" hidden>
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7.5 5.5 11 12 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>Filled from saved profile</span>
+          <button type="button" class="pmp-linklike" id="viewSourceBtn">view</button>
+        </span>
+      </div>
+      <p class="search__flight-description">Enter the data in Latin as specified in the document</p>
+
+      <dl class="pmp-source-panel" id="sourcePanel" hidden></dl>
+
+      <div class="pmp-alert pmp-alert--warning" id="staleAlert" hidden>
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 5v3.5M8 11h.01" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.3"/></svg>
+        <div>
+          <strong>Check this profile's details</strong>
+          <p>This saved profile hasn't been updated since <span id="staleDate" class="mono"></span>. Confirm the passenger's data is still correct before booking.</p>
+        </div>
+      </div>
+
+      <div class="search__passenger-inputs">
+        <div class="form-field" id="lastNameField">
+          <label class="form-field__label" for="lastName">Last name</label>
+          <div class="input"><input class="input__input" id="lastName" autocomplete="off"></div>
+          <div class="pmp-dropdown" id="lastNameDropdown" hidden></div>
+        </div>
+        <div class="form-field" id="firstNameField">
+          <label class="form-field__label" for="firstName">First name</label>
+          <div class="input"><input class="input__input" id="firstName" autocomplete="off"></div>
+          <div class="pmp-dropdown" id="firstNameDropdown" hidden></div>
+        </div>
+        <div class="form-field search__passenger-inputs__gender">
+          <label class="form-field__label">Gender</label>
+          <div class="gender-radio">
+            <div class="gender-radio__wrapper"><input class="gender-radio__input" type="radio" name="gender" id="genderM" value="M"><label class="gender-radio__label" for="genderM">M</label></div>
+            <div class="gender-radio__wrapper"><input class="gender-radio__input" type="radio" name="gender" id="genderF" value="F"><label class="gender-radio__label" for="genderF">F</label></div>
+          </div>
+        </div>
+        <div class="form-field" id="dobField">
+          <label class="form-field__label" for="dob">Date of birth</label>
+          <div class="input"><input class="input__input" id="dob" placeholder="DD MMM YYYY" autocomplete="off"></div>
+        </div>
+      </div>
+
+      <div class="pmp-inline-prompt" id="editAfterFillRow" hidden>
+        <p>You changed data pulled from <strong id="editedProfileName"></strong>'s saved profile. Apply this change to the saved profile too?</p>
+        <div class="pmp-inline-prompt__actions">
+          <button type="button" class="pmp-btn pmp-btn--primary" id="updateProfileBtn">Update saved profile</button>
+          <button type="button" class="pmp-btn pmp-btn--ghost" id="keepBookingOnlyBtn">Keep for this booking only</button>
+        </div>
+      </div>
+
+      <div>
+        <div class="search__passenger-info">
+          <div class="form-field">
+            <label class="form-field__label" for="phone">Phone number</label>
+            <div class="input"><input class="input__input" id="phone" autocomplete="off"></div>
+          </div>
+          <div class="form-field" id="emailField">
+            <label class="form-field__label" for="email">Email</label>
+            <div class="input"><input class="input__input" id="email" autocomplete="off"></div>
+            <div class="pmp-dropdown" id="emailDropdown" hidden></div>
+          </div>
+        </div>
+        <p class="passenger-input-text">* Contacts are optional. Fill in the fields in case you need to transfer customer's data to the airline.</p>
+      </div>
+
+      <div>
+        <div class="search__passenger-info frequent-flyer-info">
+          <div class="form-field">
+            <label class="form-field__label" for="fqtvCarrier">Frequent flyer carrier</label>
+            <div class="input"><input class="input__input" id="fqtvCarrier" autocomplete="off"></div>
+          </div>
+          <div class="form-field">
+            <label class="form-field__label" for="fqtvNumber">Frequent flyer number</label>
+            <div class="input"><input class="input__input" id="fqtvNumber" autocomplete="off"></div>
+          </div>
+        </div>
+        <p class="passenger-input-text">* Optional. Add your frequent flyer number to earn miles and other program benefits.</p>
+      </div>
+
+      <div class="pmp-inline-prompt pmp-inline-prompt--muted" id="saveProfileRow" hidden>
+        <p>No saved profile matches these details.</p>
+        <div class="pmp-inline-prompt__actions">
+          <button type="button" class="pmp-btn pmp-btn--primary" id="saveNewProfileBtn">Save as passenger profile</button>
+        </div>
+      </div>
+
+      <div class="pmp-alert pmp-alert--warning" id="duplicateAlert" hidden>
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 5v3.5M8 11h.01" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.3"/></svg>
+        <div style="flex:1">
+          <strong>This profile may already exist</strong>
+          <p>A saved profile with a matching name and date of birth was found.</p>
+          <div class="pmp-inline-prompt__actions" style="margin-top:10px">
+            <button type="button" class="pmp-btn pmp-btn--ghost" id="viewDuplicateBtn">View existing profile</button>
+            <button type="button" class="pmp-btn pmp-btn--ghost" id="cancelDuplicateBtn">Cancel</button>
+            <button type="button" class="pmp-btn pmp-btn--primary" id="saveAnywayBtn">Save as separate profile</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="pmp-toast" id="pmpToast" hidden role="status"></div>
+    </div>
+
+    <div class="search__booking-block">
+      <div class="booking-price">Adult<strong>322.62 EUR</strong></div>
+      <button class="book-btn" type="button" id="bookBtn">Book</button>
+    </div>
+  </div>
+
+  <div class="search__flight" style="padding:0;">
+    <div class="alt-flight"><span>07:20 — 09:50 · <strong>LOT</strong> · Direct</span><strong>323 EUR</strong></div>
+  </div>
+  <div class="search__flight" style="padding:0;">
+    <div class="alt-flight"><span>12:25 — 17:45 · <strong>KLM</strong> · 1 connection</span><strong>235 EUR</strong></div>
+  </div>
+
+  <!-- ============================================================
+       Separate checkout-stage card — passport fields only shown here
+  ============================================================= -->
+  <div class="pmp-stage-divider">Later in the booking — the step where LOT requires passport details</div>
+
+  <div class="search__flight">
+    <div class="search__passenger-block">
+      <p class="search__flight-title">Adult — travel document</p>
+      <p class="search__flight-description">Required for this itinerary · Departure 27 Jul 2026</p>
+
+      <div class="form-field" id="passportPickerField" style="max-width:340px;margin-bottom:18px;">
+        <label class="form-field__label" for="passportPicker">Use a saved passport</label>
+        <div class="input"><select class="input__input pmp-select" id="passportPicker">
+          <option value="">— Enter manually —</option>
+          <option value="A">Primary passport · PL · expires 25 Jul 2026</option>
+          <option value="B">Secondary passport · PL · expires 05 Oct 2026</option>
+          <option value="C">Primary passport (renewed) · PL · expires 01 Jan 2029</option>
+        </select></div>
+      </div>
+
+      <div class="search__passenger-inputs">
+        <div class="form-field">
+          <label class="form-field__label" for="passportDocName">Passport name</label>
+          <div class="input"><input class="input__input" id="passportDocName" placeholder="e.g. Primary passport"></div>
+        </div>
+        <div class="form-field">
+          <label class="form-field__label" for="passportNumber">Document number</label>
+          <div class="input"><input class="input__input" id="passportNumber"></div>
+        </div>
+        <div class="form-field">
+          <label class="form-field__label" for="passportCountry">Country of issue</label>
+          <div class="input"><input class="input__input" id="passportCountry" placeholder="PL"></div>
+        </div>
+        <div class="form-field" id="passportExpiryField">
+          <label class="form-field__label" for="passportExpiry">Expiry date</label>
+          <div class="input" id="passportExpiryInputWrap"><input class="input__input" id="passportExpiry" type="date"></div>
+          <p class="pmp-field-error" id="passportExpiryError" hidden></p>
+          <p class="pmp-field-ok" id="passportExpiryOk" hidden>Valid for this itinerary</p>
+        </div>
+      </div>
+
+      <div class="pmp-alert pmp-alert--warning" id="passportWarningAlert" hidden>
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 5v3.5M8 11h.01" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.3"/></svg>
+        <p id="passportWarningText" style="flex:1"></p>
+        <span class="pmp-info-icon" id="passportInfoIcon" tabindex="0">i
+          <span class="pmp-tooltip">Passport validity requirements depend on destination, transit countries, and airline rules. DRCT provides general warnings based on common international requirements.</span>
+        </span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  var TODAY = new Date(2026, 6, 20);
+  var DEPARTURE = new Date(2026, 6, 27);
+
+  var PROFILES = [
+    { id:'p1', lastName:'Kowalski', firstName:'Jan', gender:'M', dob:'1985-04-12', tag:'Adult',
+      lastEdited:'2026-06-10', phone:'+48501234567', email:'jan.kowalski@example.com',
+      fqtvCarrier:'LO', fqtvNumber:'4021178832' },
+    { id:'p2', lastName:'Kowalski', firstName:'Anna', gender:'F', dob:'2016-09-03', tag:'Child',
+      lastEdited:'2025-02-18', phone:'', email:'',
+      fqtvCarrier:'', fqtvNumber:'' },
+    { id:'p3', lastName:'Kowalczyk', firstName:'Marek', gender:'M', dob:'1978-01-22', tag:'Adult',
+      lastEdited:'2026-07-01', phone:'+48660111222', email:'marek.kowalczyk@agency.example',
+      fqtvCarrier:'LH', fqtvNumber:'9981223345' },
+    { id:'p4', lastName:'Nowak', firstName:'Julia', gender:'F', dob:'1993-12-30', tag:'Adult',
+      lastEdited:'2026-05-22', phone:'+48512987654', email:'julia.nowak@example.com',
+      fqtvCarrier:'', fqtvNumber:'' }
+  ];
+  var nextProfileId = 5;
+
+  var PASSPORTS = {
+    A:{ name:'Primary passport', number:'AB1234567', country:'PL', expiry:'2026-07-25' },
+    B:{ name:'Secondary passport', number:'CD9988776', country:'PL', expiry:'2026-10-05' },
+    C:{ name:'Primary passport (renewed)', number:'EF5544332', country:'PL', expiry:'2029-01-01' }
+  };
+
+  var $ = function(id){ return document.getElementById(id); };
+
+  var els = {
+    lastName: $('lastName'), firstName: $('firstName'), dob: $('dob'), phone: $('phone'), email: $('email'),
+    fqtvCarrier: $('fqtvCarrier'), fqtvNumber: $('fqtvNumber'),
+    lastNameField: $('lastNameField'), firstNameField: $('firstNameField'), emailField: $('emailField'),
+    lastNameDropdown: $('lastNameDropdown'), firstNameDropdown: $('firstNameDropdown'), emailDropdown: $('emailDropdown'),
+    profileTag: $('profileTag'), filledNote: $('filledNote'), viewSourceBtn: $('viewSourceBtn'), sourcePanel: $('sourcePanel'),
+    staleAlert: $('staleAlert'), staleDate: $('staleDate'),
+    editAfterFillRow: $('editAfterFillRow'), editedProfileName: $('editedProfileName'),
+    updateProfileBtn: $('updateProfileBtn'), keepBookingOnlyBtn: $('keepBookingOnlyBtn'),
+    saveProfileRow: $('saveProfileRow'), saveNewProfileBtn: $('saveNewProfileBtn'),
+    duplicateAlert: $('duplicateAlert'), viewDuplicateBtn: $('viewDuplicateBtn'),
+    cancelDuplicateBtn: $('cancelDuplicateBtn'), saveAnywayBtn: $('saveAnywayBtn'),
+    toast: $('pmpToast'), simulateErrorToggle: $('simulateErrorToggle'),
+    bookBtn: $('bookBtn')
+  };
+
+  var SOURCED_FIELDS = ['lastName','firstName','dob','phone','email','fqtvCarrier','fqtvNumber'];
+
+  var state = { activeProfile:null, snapshot:null, pendingDuplicate:null, toastTimer:null };
+
+  /* ---------------- helpers ---------------- */
+
+  function fmtDate(iso){
+    var d = new Date(iso + 'T00:00:00');
+    var months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    return d.getDate()+' '+months[d.getMonth()]+' '+d.getFullYear();
+  }
+  function monthsBetween(a,b){
+    return (b.getFullYear()-a.getFullYear())*12 + (b.getMonth()-a.getMonth()) - (b.getDate()<a.getDate()?1:0);
+  }
+  function maskEmail(email){
+    if(!email) return '—';
+    var parts = email.split('@');
+    var name = parts[0];
+    var visible = name.slice(0, Math.min(2,name.length));
+    return visible + '***@' + (parts[1]||'');
+  }
+  function maskPhone(phone){
+    if(!phone) return '—';
+    var tail = phone.slice(-2);
+    return phone.slice(0,3) + ' ***** ' + tail;
+  }
+  function fullName(p){ return p.firstName + ' ' + p.lastName; }
+
+  function closeAllDropdowns(){
+    [els.lastNameDropdown, els.firstNameDropdown, els.emailDropdown].forEach(function(d){
+      d.hidden = true; d.innerHTML = '';
+    });
+  }
+
+  function showToast(message, type){
+    clearTimeout(state.toastTimer);
+    els.toast.textContent = message;
+    els.toast.className = 'pmp-toast pmp-toast--' + type;
+    els.toast.hidden = false;
+    state.toastTimer = setTimeout(function(){ els.toast.hidden = true; }, 4000);
+  }
+
+  /* ---------------- search dropdown ---------------- */
+
+  function matchProfiles(field, query){
+    query = query.trim().toLowerCase();
+    if(query.length < 2) return null;
+    return PROFILES.filter(function(p){
+      if(field === 'lastName') return p.lastName.toLowerCase().indexOf(query) === 0;
+      if(field === 'firstName') return p.firstName.toLowerCase().indexOf(query) === 0;
+      if(field === 'email') return p.email && p.email.toLowerCase().indexOf(query) !== -1;
+      return false;
+    });
+  }
+
+  function renderDropdown(dropdownEl, matches, query){
+    dropdownEl.innerHTML = '';
+    if(matches === null){ dropdownEl.hidden = true; return; }
+
+    if(matches.length === 0){
+      var empty = document.createElement('div');
+      empty.className = 'pmp-dropdown__empty';
+      empty.innerHTML = '<strong>No saved profile found</strong>You can continue filling in the details manually.';
+      dropdownEl.appendChild(empty);
+      dropdownEl.hidden = false;
+      return;
+    }
+
+    matches.forEach(function(p){
+      var row = document.createElement('div');
+      row.className = 'pmp-dropdown__result';
+      row.tabIndex = 0;
+      row.setAttribute('role','button');
+      row.innerHTML =
+        '<span class="pmp-dropdown__result-top">' + fullName(p) +
+          (p.tag ? ' <span class="pmp-tag">' + p.tag + '</span>' : '') +
+        '</span>' +
+        '<span class="pmp-dropdown__result-meta">' +
+          '<span>DOB ' + fmtDate(p.dob) + '</span>' +
+          '<span>Edited ' + fmtDate(p.lastEdited) + '</span>' +
+          (p.email ? '<span>' + maskEmail(p.email) + '</span>' : '') +
+          (p.phone ? '<span>' + maskPhone(p.phone) + '</span>' : '') +
+        '</span>';
+      row.addEventListener('click', function(){ selectProfile(p); });
+      row.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); selectProfile(p); } });
+      dropdownEl.appendChild(row);
+    });
+    dropdownEl.hidden = false;
+  }
+
+  function attachSearch(inputEl, dropdownEl, field){
+    inputEl.addEventListener('input', function(){
+      var matches = matchProfiles(field, inputEl.value);
+      renderDropdown(dropdownEl, matches, inputEl.value);
+      checkDirty();
+      maybeOfferSave();
+    });
+    inputEl.addEventListener('focus', function(){
+      var matches = matchProfiles(field, inputEl.value);
+      if(matches) renderDropdown(dropdownEl, matches, inputEl.value);
+    });
+  }
+
+  attachSearch(els.lastName, els.lastNameDropdown, 'lastName');
+  attachSearch(els.firstName, els.firstNameDropdown, 'firstName');
+  attachSearch(els.email, els.emailDropdown, 'email');
+
+  document.addEventListener('click', function(e){
+    [els.lastNameField, els.firstNameField, els.emailField].forEach(function(field, i){
+      var dd = [els.lastNameDropdown, els.firstNameDropdown, els.emailDropdown][i];
+      if(!field.contains(e.target)) dd.hidden = true;
+    });
+  });
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeAllDropdowns(); });
+
+  /* ---------------- profile select / autofill ---------------- */
+
+  function selectProfile(p){
+    closeAllDropdowns();
+    els.lastName.value = p.lastName;
+    els.firstName.value = p.firstName;
+    els.dob.value = fmtDate(p.dob);
+    els.phone.value = p.phone;
+    els.email.value = p.email;
+    els.fqtvCarrier.value = p.fqtvCarrier;
+    els.fqtvNumber.value = p.fqtvNumber;
+    if(p.gender === 'M'){ $('genderM').checked = true; } else if(p.gender === 'F'){ $('genderF').checked = true; }
+
+    state.activeProfile = p;
+    state.snapshot = snapshotForm();
+
+    if(p.tag){ els.profileTag.textContent = p.tag; els.profileTag.hidden = false; }
+    else { els.profileTag.hidden = true; }
+    els.filledNote.hidden = false;
+    els.sourcePanel.hidden = true;
+
+    els.saveProfileRow.hidden = true;
+    els.duplicateAlert.hidden = true;
+    els.editAfterFillRow.hidden = true;
+
+    var monthsOld = monthsBetween(new Date(p.lastEdited+'T00:00:00'), TODAY);
+    if(monthsOld > 12){
+      els.staleDate.textContent = fmtDate(p.lastEdited);
+      els.staleAlert.hidden = false;
+    } else {
+      els.staleAlert.hidden = true;
+    }
+  }
+
+  els.viewSourceBtn.addEventListener('click', function(){
+    if(!state.activeProfile) return;
+    var p = state.activeProfile;
+    if(!els.sourcePanel.hidden){ els.sourcePanel.hidden = true; return; }
+    els.sourcePanel.innerHTML =
+      '<dt>Profile</dt><dd>' + fullName(p) + (p.tag ? ' · ' + p.tag : '') + '</dd>' +
+      '<dt>Date of birth</dt><dd>' + fmtDate(p.dob) + '</dd>' +
+      '<dt>Last edited</dt><dd>' + fmtDate(p.lastEdited) + '</dd>' +
+      '<dt>Contacts</dt><dd>' + maskEmail(p.email) + ' · ' + maskPhone(p.phone) + '</dd>';
+    els.sourcePanel.hidden = false;
+  });
+
+  /* ---------------- dirty tracking / update vs keep ---------------- */
+
+  function snapshotForm(){
+    return {
+      lastName: els.lastName.value, firstName: els.firstName.value, dob: els.dob.value,
+      phone: els.phone.value, email: els.email.value,
+      fqtvCarrier: els.fqtvCarrier.value, fqtvNumber: els.fqtvNumber.value,
+      gender: $('genderM').checked ? 'M' : ($('genderF').checked ? 'F' : '')
+    };
+  }
+  function formsEqual(a,b){
+    return SOURCED_FIELDS.concat(['gender']).every(function(k){ return a[k] === b[k]; });
+  }
+
+  function checkDirty(){
+    if(!state.activeProfile) return;
+    var current = snapshotForm();
+    if(!formsEqual(current, state.snapshot)){
+      els.editedProfileName.textContent = fullName(state.activeProfile);
+      els.editAfterFillRow.hidden = false;
+    } else {
+      els.editAfterFillRow.hidden = true;
+    }
+  }
+  ['dob','phone','fqtvCarrier','fqtvNumber'].forEach(function(id){ els[id].addEventListener('input', checkDirty); });
+  document.getElementById('genderM').addEventListener('change', checkDirty);
+  document.getElementById('genderF').addEventListener('change', checkDirty);
+
+  els.updateProfileBtn.addEventListener('click', function(){
+    if(!state.activeProfile) return;
+    if(els.simulateErrorToggle.checked){
+      showToast("Couldn't update the profile. Try again.", 'error');
+      return;
+    }
+    var p = state.activeProfile;
+    var current = snapshotForm();
+    p.lastName=current.lastName; p.firstName=current.firstName; p.phone=current.phone; p.email=current.email;
+    p.fqtvCarrier=current.fqtvCarrier; p.fqtvNumber=current.fqtvNumber; p.gender=current.gender;
+    p.lastEdited = '2026-07-20';
+    state.snapshot = current;
+    els.editAfterFillRow.hidden = true;
+    els.staleAlert.hidden = true;
+    showToast('Saved profile for ' + fullName(p) + ' updated.', 'success');
+  });
+
+  els.keepBookingOnlyBtn.addEventListener('click', function(){
+    state.snapshot = snapshotForm();
+    els.editAfterFillRow.hidden = true;
+    showToast("Changes kept for this booking only — the saved profile wasn't modified.", 'success');
+  });
+
+  /* ---------------- save new profile / duplicate check ---------------- */
+
+  function maybeOfferSave(){
+    if(state.activeProfile) { els.saveProfileRow.hidden = true; return; }
+    var hasLast = els.lastName.value.trim().length > 1;
+    var hasFirst = els.firstName.value.trim().length > 1;
+    els.saveProfileRow.hidden = !(hasLast && hasFirst);
+  }
+  [els.lastName, els.firstName].forEach(function(el){ el.addEventListener('blur', maybeOfferSave); });
+
+  function isoFromDobInput(text){
+    var months={jan:'01',feb:'02',mar:'03',apr:'04',may:'05',jun:'06',jul:'07',aug:'08',sep:'09',oct:'10',nov:'11',dec:'12'};
+    var m = text.trim().toLowerCase().match(/^(\d{1,2})\s+([a-z]{3})\w*\s+(\d{4})$/);
+    if(!m || !months[m[2]]) return null;
+    return m[3] + '-' + months[m[2]] + '-' + (m[1].length===1 ? '0'+m[1] : m[1]);
+  }
+
+  function findDuplicate(candidate){
+    return PROFILES.find(function(p){
+      return p.lastName.toLowerCase() === candidate.lastName.toLowerCase() &&
+             p.firstName.toLowerCase() === candidate.firstName.toLowerCase() &&
+             (!candidate.dob || p.dob === candidate.dob);
+    }) || null;
+  }
+
+  function buildCandidate(){
+    var current = snapshotForm();
+    return {
+      lastName: current.lastName.trim(), firstName: current.firstName.trim(),
+      gender: current.gender, dob: isoFromDobInput(current.dob) || '',
+      phone: current.phone, email: current.email,
+      fqtvCarrier: current.fqtvCarrier, fqtvNumber: current.fqtvNumber
+    };
+  }
+
+  function commitSave(candidate){
+    if(els.simulateErrorToggle.checked){
+      showToast("Couldn't save this profile. Try again.", 'error');
+      return;
+    }
+    var p = Object.assign({ id:'p'+(nextProfileId++), tag:'', lastEdited:'2026-07-20' }, candidate);
+    PROFILES.push(p);
+    state.activeProfile = p;
+    state.snapshot = snapshotForm();
+    els.saveProfileRow.hidden = true;
+    els.duplicateAlert.hidden = true;
+    els.filledNote.hidden = true;
+    showToast('New passenger profile saved for ' + fullName(p) + '.', 'success');
+  }
+
+  els.saveNewProfileBtn.addEventListener('click', function(){
+    var candidate = buildCandidate();
+    var dup = findDuplicate(candidate);
+    if(dup){
+      state.pendingDuplicate = dup;
+      els.saveProfileRow.hidden = true;
+      els.duplicateAlert.hidden = false;
+    } else {
+      commitSave(candidate);
+    }
+  });
+
+  els.viewDuplicateBtn.addEventListener('click', function(){
+    if(!state.pendingDuplicate) return;
+    els.duplicateAlert.hidden = true;
+    selectProfile(state.pendingDuplicate);
+    state.pendingDuplicate = null;
+  });
+  els.cancelDuplicateBtn.addEventListener('click', function(){
+    els.duplicateAlert.hidden = true;
+    state.pendingDuplicate = null;
+    maybeOfferSave();
+  });
+  els.saveAnywayBtn.addEventListener('click', function(){
+    var candidate = buildCandidate();
+    els.duplicateAlert.hidden = true;
+    state.pendingDuplicate = null;
+    commitSave(candidate);
+  });
+
+  els.bookBtn.addEventListener('click', function(){
+    showToast('Prototype only — booking is not wired up here.', 'success');
+  });
+
+  /* ---------------- passport step ---------------- */
+
+  var passportEls = {
+    picker: $('passportPicker'), name: $('passportDocName'), number: $('passportNumber'),
+    country: $('passportCountry'), expiry: $('passportExpiry'), expiryWrap: $('passportExpiryInputWrap'),
+    error: $('passportExpiryError'), ok: $('passportExpiryOk'),
+    warnAlert: $('passportWarningAlert'), warnText: $('passportWarningText')
+  };
+
+  var MONTH_BINS = [30,60,90,120,150,180,210,240,270];
+  function monthsUntilWarning(diffDays){
+    for(var i=0;i<MONTH_BINS.length;i++){ if(diffDays <= MONTH_BINS[i]) return i+1; }
+    return null;
+  }
+
+  function validatePassportExpiry(){
+    passportEls.error.hidden = true; passportEls.ok.hidden = true; passportEls.warnAlert.hidden = true;
+    passportEls.expiryWrap.classList.remove('input--invalid');
+    if(!passportEls.expiry.value) return;
+
+    var expiry = new Date(passportEls.expiry.value + 'T00:00:00');
+    var diffDays = Math.round((expiry - DEPARTURE) / 86400000);
+
+    if(diffDays <= 0){
+      passportEls.expiryWrap.classList.add('input--invalid');
+      passportEls.error.textContent = 'The passport expiration date must be later than the departure date';
+      passportEls.error.hidden = false;
+      return;
+    }
+    if(diffDays < 270){
+      var x = monthsUntilWarning(diffDays);
+      passportEls.warnText.textContent = 'Warning! The passport expires in less than ' + x + ' month' + (x>1?'s':'') + ' before departure';
+      passportEls.warnAlert.hidden = false;
+      return;
+    }
+    passportEls.ok.hidden = false;
+  }
+  passportEls.expiry.addEventListener('change', validatePassportExpiry);
+  passportEls.expiry.addEventListener('input', validatePassportExpiry);
+
+  passportEls.picker.addEventListener('change', function(){
+    var key = passportEls.picker.value;
+    if(!key){ passportEls.name.value=''; passportEls.number.value=''; passportEls.country.value=''; passportEls.expiry.value=''; validatePassportExpiry(); return; }
+    var d = PASSPORTS[key];
+    passportEls.name.value = d.name; passportEls.number.value = d.number;
+    passportEls.country.value = d.country; passportEls.expiry.value = d.expiry;
+    validatePassportExpiry();
+  });
+
+})();
+</script>
+</body>
+</html>
