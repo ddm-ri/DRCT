@@ -7,57 +7,54 @@
 <meta name="description" content="Interactive prototype: passenger mini profiles integrated into the DRCT booking passenger block.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 /* ================================================================
-   Tokens — carried over from DRCT's own design system (styles.css)
+   Tokens — DRCT production design system (single ink, single accent,
+   two semantic pairs; one typeface, IBM Plex Sans, everywhere).
+   Product surface is deliberately light-only: production ships no
+   dark theme, so this page does not reinterpret it under a system
+   or viewer dark toggle — only the non-product prototype bar does.
 ================================================================ */
 :root{
   --dark:#1b2733;
+  --dark-90:rgba(27,39,51,.9);
   --dark-70:rgba(27,39,51,.7);
   --dark-45:rgba(27,39,51,.45);
+  --dark-40:rgba(27,39,51,.4);
   --dark-26:rgba(27,39,51,.26);
-  --dark-14:rgba(27,39,51,.14);
-  --dark-08:rgba(27,39,51,.08);
+  --dark-20:rgba(27,39,51,.2);
+  --dark-15:rgba(27,39,51,.15);
+  --dark-10:rgba(27,39,51,.1);
   --dark-05:rgba(27,39,51,.05);
   --blue:#2a8aea;
-  --blue-70:rgba(42,138,234,.7);
-  --blue-14:rgba(42,138,234,.14);
-  --blue-08:rgba(42,138,234,.08);
+  --blue-85:rgba(42,138,234,.85);
+  --blue-20:rgba(42,138,234,.2);
+  --blue-12:rgba(42,138,234,.12);
+  --blue-10:rgba(42,138,234,.1);
+  --blue-06:rgba(42,138,234,.06);
   --white:#ffffff;
-  --off-white:#f6f7f8;
-  --error:#fd5666;
-  --error-bg:rgba(253,86,102,.08);
-  --warning:#c97b00;
-  --warning-bg:rgba(255,159,0,.12);
-  --success:#1f9e2c;
-  --success-bg:rgba(51,193,0,.1);
-  --font-sans:'IBM Plex Sans','Roboto',sans-serif;
-  --font-mono:'IBM Plex Mono',monospace;
-  --shadow-header:0 4px 8px rgba(27,39,51,.08);
-  --shadow-pop:0 8px 24px rgba(27,39,51,.16);
-  --r-s:4px;
-  --r-m:6px;
-  --r-l:10px;
-}
-:root[data-theme="dark"]{
-  --dark:#eef1f4; --dark-70:rgba(238,241,244,.7); --dark-45:rgba(238,241,244,.45);
-  --dark-26:rgba(238,241,244,.26); --dark-14:rgba(238,241,244,.14); --dark-08:rgba(238,241,244,.08); --dark-05:rgba(238,241,244,.05);
-  --white:#161c24; --off-white:#1d2530;
-  --blue-14:rgba(42,138,234,.22); --blue-08:rgba(42,138,234,.14);
-  --error-bg:rgba(253,86,102,.14); --warning-bg:rgba(255,159,0,.16); --success-bg:rgba(51,193,0,.16);
-}
-@media (prefers-color-scheme:dark){
-  :root:not([data-theme="light"]){
-    --dark:#eef1f4; --dark-70:rgba(238,241,244,.7); --dark-45:rgba(238,241,244,.45);
-    --dark-26:rgba(238,241,244,.26); --dark-14:rgba(238,241,244,.14); --dark-08:rgba(238,241,244,.08); --dark-05:rgba(238,241,244,.05);
-    --white:#161c24; --off-white:#1d2530;
-    --blue-14:rgba(42,138,234,.22); --blue-08:rgba(42,138,234,.14);
-    --error-bg:rgba(253,86,102,.14); --warning-bg:rgba(255,159,0,.16); --success-bg:rgba(51,193,0,.16);
-  }
+  --off-white:#fafcff;
+  --border:#e8e9ea;
+  --error:#ff3737;
+  --error-bg:rgba(255,55,55,.08);
+  --warning:#ff9f00;
+  --warning-bg:rgba(255,159,0,.08);
+  --success:#38d14a;
+  --success-bg:rgba(56,209,74,.08);
+  --font-sans:'IBM Plex Sans',sans-serif;
+  --font-mono:ui-monospace,"SFMono-Regular",Menlo,monospace; /* prototype-bar only — product uses one typeface */
+  --content-w:1010px;
+  --radius-s:3px;   /* buttons, inputs */
+  --radius-xs:4px;  /* popovers, inner rows, AI band */
+  --radius-m:6px;   /* cards, rows, dropdown container */
+  --shadow-row:0 1px 6px rgba(35,54,73,.12);
+  --shadow-pop:0 4px 20px rgba(27,39,51,.15);
+  --shadow-bar:0 1px 4px 1px rgba(27,39,51,.05);
 }
 
 *,*::before,*::after{box-sizing:border-box;}
+[hidden]{display:none !important;}
 html,body{margin:0;padding:0;}
 body{
   font-family:var(--font-sans);
@@ -67,11 +64,14 @@ body{
   line-height:1.4;
 }
 button{font-family:inherit;}
+input,select{font-family:inherit;}
 :focus-visible{outline:2px solid var(--blue);outline-offset:2px;}
-.mono{font-family:var(--font-mono);}
+.tabular{font-variant-numeric:tabular-nums;}
 
 /* ---------------------------------------------------------------
-   Prototype harness bar — deliberately NOT styled like DRCT product UI
+   Prototype harness bar — deliberately NOT styled like DRCT product UI.
+   Uses a system monospace stack on purpose, so it reads as tooling,
+   never as a second product typeface.
 --------------------------------------------------------------- */
 .proto-bar{
   background:var(--dark);
@@ -81,7 +81,7 @@ button{font-family:inherit;}
   padding:10px 20px;
 }
 .proto-bar__row{
-  max-width:1180px;margin:0 auto;
+  max-width:1120px;margin:0 auto;
   display:flex;align-items:center;gap:16px;flex-wrap:wrap;
 }
 .proto-bar__label{
@@ -93,106 +93,114 @@ button{font-family:inherit;}
 .proto-bar input[type="checkbox"]{accent-color:var(--blue);}
 
 /* ---------------------------------------------------------------
-   .wrapper / .header — reused
+   .wrapper / .header — reused. Production runs a fixed 1010px
+   centered container, not a fluid one.
 --------------------------------------------------------------- */
-.wrapper{max-width:1180px;margin:0 auto;padding-bottom:64px;}
+.wrapper{max-width:var(--content-w);width:100%;margin:0 auto;padding:0 20px 64px;}
 .header{
   background:var(--white);
-  box-shadow:var(--shadow-header);
+  border-bottom:1px solid var(--border);
   display:flex;align-items:center;justify-content:space-between;
-  padding:0 24px;height:56px;margin-bottom:20px;
+  padding:0 4px;height:56px;margin-bottom:20px;
 }
 .header__logo{font-weight:700;font-size:18px;letter-spacing:.02em;color:var(--dark);}
 .header__nav{display:flex;gap:22px;font-size:13px;font-weight:500;}
-.header__nav a{color:var(--dark-45);text-decoration:none;padding:4px 0;}
-.header__nav a.active{color:var(--dark);font-weight:700;border-bottom:2px solid var(--blue);}
+.header__nav a{color:var(--dark);opacity:.5;text-decoration:none;padding:4px 0;}
+.header__nav a.active{opacity:1;font-weight:700;border-bottom:2px solid var(--blue);}
 
 /* ---------------------------------------------------------------
-   Search form / filters bar — reused, static
+   Search bar — reused, matches production's pill-shaped segmented
+   field group exactly (radius-s, hairline cell dividers, blue tail).
 --------------------------------------------------------------- */
-.search-form{
-  background:var(--white);border:1px solid var(--dark-08);border-radius:var(--r-m);
-  display:flex;align-items:center;padding:10px 16px;gap:14px;margin-bottom:10px;flex-wrap:wrap;
+.search-bar{
+  display:flex;align-items:stretch;height:47px;border-radius:var(--radius-s);
+  box-shadow:var(--shadow-bar);border:1px solid var(--dark-10);overflow:hidden;
+  width:fit-content;max-width:100%;background:var(--white);margin-bottom:16px;
 }
-.sf-item{font-size:13px;}
-.sf-item span{display:block;color:var(--dark-45);font-size:10px;text-transform:uppercase;letter-spacing:.04em;}
-.sf-item strong{font-weight:600;}
-.sf-submit{
-  margin-left:auto;background:var(--blue);color:#fff;border:none;border-radius:var(--r-s);
-  padding:10px 22px;font-weight:700;font-size:12px;letter-spacing:.05em;text-transform:uppercase;cursor:pointer;
-}
+.sf-cell{display:flex;flex-direction:column;justify-content:center;padding:0 14px;border-right:1px solid var(--dark-10);}
+.sf-cell:last-of-type{border-right:none;}
+.sf-name{font-size:13px;}
+.sf-code{font-size:11px;color:var(--dark-45);}
+.sf-submit{width:93px;border:none;background:var(--blue);color:#fff;font-family:inherit;font-size:13px;font-weight:600;opacity:.85;cursor:pointer;}
+.sf-submit:hover{opacity:1;}
+
+/* AI filters band — the real dual-gradient border technique */
 .ai-filters-bar{
-  background:linear-gradient(90deg,var(--blue-08),transparent);
-  border:1px solid var(--blue-14);border-radius:var(--r-m);
-  display:flex;align-items:center;gap:10px;padding:10px 16px;margin-bottom:16px;font-size:13px;
+  padding:10px 7px 10px 12px;border-radius:var(--radius-xs);
+  background:linear-gradient(#fff,#fff),linear-gradient(90deg,#4182ff,#3affff);
+  background-clip:padding-box,border-box;background-origin:padding-box,border-box;border:1px solid transparent;
+  display:flex;align-items:center;gap:10px;margin-bottom:16px;font-size:13px;
 }
-.ai-filters-bar strong{font-size:12px;}
-.ai-filters-bar input{
-  flex:1;border:none;background:transparent;font-size:13px;color:var(--dark-70);font-family:inherit;
-}
+.ai-filters-bar strong{font-size:12.5px;}
+.ai-filters-bar input{flex:1;border:none;background:transparent;font-size:13px;color:var(--dark-70);font-family:inherit;}
 .ai-filters-bar input:focus{outline:none;}
-.ai-filters-bar a{margin-left:auto;color:var(--blue);font-weight:700;font-size:11px;letter-spacing:.05em;text-transform:uppercase;text-decoration:none;}
-.filters-row{display:flex;gap:24px;padding:0 4px 14px;font-size:13px;color:var(--dark-45);flex-wrap:wrap;}
-.filters-row span{margin-right:16px;cursor:default;}
-.filters-row span.active{color:var(--dark);font-weight:700;}
+.ai-filters-bar a{margin-left:auto;color:var(--blue);font-weight:700;font-size:11px;letter-spacing:.02em;text-transform:uppercase;text-decoration:none;flex:none;}
+
+/* Filter toggles — uppercase 12/700, inactive = opacity .5 on the same ink, not a separate gray */
+.filters-row{display:flex;gap:24px;padding:0 2px 14px;flex-wrap:wrap;}
+.filters-row .fgroup{display:flex;gap:16px;}
+.filter-toggle{font-size:12px;font-weight:700;color:var(--dark);opacity:.5;cursor:default;text-transform:uppercase;letter-spacing:.02em;}
+.filter-toggle.is-active{opacity:1;}
 
 /* ---------------------------------------------------------------
-   .search__flight card / fares — reused, static
+   .search__flight card / fares — reused. Cards carry no border,
+   elevation-only shadow.
 --------------------------------------------------------------- */
 .search__flight{
-  background:var(--white);border:1px solid var(--dark-08);border-radius:var(--r-l);
+  background:var(--white);border-radius:var(--radius-m);box-shadow:var(--shadow-row);
   padding:22px 24px;margin-bottom:14px;
 }
-.flight-total{display:flex;justify-content:flex-end;font-weight:700;font-size:18px;margin-bottom:4px;}
-.flight-details__title{font-size:15px;font-weight:700;margin:0 0 2px;}
+.flight-total{display:flex;justify-content:flex-end;font-weight:700;font-size:20px;margin-bottom:4px;}
+.flight-details__title{font-size:16px;font-weight:700;letter-spacing:.37px;margin:0 0 2px;}
 .flight-details__duration{font-size:12px;color:var(--dark-45);margin:0 0 10px;}
-.segment{display:flex;align-items:center;gap:14px;font-size:13px;}
-.segment__time{font-weight:700;font-family:var(--font-mono);}
+.segment{display:flex;align-items:center;gap:14px;font-size:13px;flex-wrap:wrap;}
+.segment__time{font-weight:700;}
 .segment__airport{color:var(--dark-70);margin-left:6px;}
 .segment__day{color:var(--dark-45);margin-left:6px;font-size:11px;}
-.segment__dash{flex:0 0 46px;height:1px;background:var(--dark-14);position:relative;}
-.segment__code{font-size:11px;color:var(--dark-45);font-family:var(--font-mono);margin-left:10px;}
-.search-fares{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin:18px 0 4px;}
-.fare-card{border:1px solid var(--dark-08);border-radius:var(--r-m);padding:12px;font-size:12px;}
-.fare-card.selected{border-color:var(--blue);background:var(--blue-08);}
-.fare-card__name{font-weight:700;margin:0 0 2px;}
-.fare-card__basis{font-family:var(--font-mono);color:var(--dark-45);font-size:11px;margin:0 0 8px;}
+.segment__dash{flex:0 0 46px;height:1px;background:var(--dark-15);}
+.segment__code{font-size:11px;color:var(--dark-45);margin-left:10px;}
+.search-fares{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;margin:18px 0 4px;}
+.fare-card{border:1px solid var(--dark-10);border-radius:var(--radius-m);padding:12px;font-size:12px;}
+.fare-card.selected{border-color:var(--blue);background:var(--blue-06);}
+.fare-card__name{font-size:12.5px;font-weight:700;margin:0 0 2px;}
+.fare-card__basis{color:var(--dark-45);font-size:11px;margin:0 0 8px;}
 .fare-card__row{display:flex;justify-content:space-between;color:var(--dark-70);margin-bottom:2px;}
-.fare-card__price{font-weight:700;font-size:14px;margin-top:8px;}
+.fare-card__price{font-weight:700;font-size:16px;margin-top:6px;}
 
 /* ---------------------------------------------------------------
    .search__separator / .search__passenger-block — reused
 --------------------------------------------------------------- */
-.search__separator{height:1px;background:var(--dark-08);margin:22px 0;}
-.search__passenger-block{}
+.search__separator{height:1px;background:var(--border);margin:22px 0;}
 .pmp-title-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:2px;}
-.search__flight-title{font-size:15px;font-weight:700;margin:0;}
+.search__flight-title{font-size:15px;font-weight:600;margin:0;}
 .search__flight-description{font-size:12px;color:var(--dark-45);margin:2px 0 16px;}
 
-.search__passenger-inputs{
-  display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:16px;
-}
-@media (max-width:860px){.search__passenger-inputs{grid-template-columns:repeat(2,1fr);}}
+.search__passenger-inputs{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:16px;}
+@media (max-width:820px){.search__passenger-inputs{grid-template-columns:repeat(2,1fr);}}
 .form-field{position:relative;}
-.form-field__label{display:block;font-size:11px;color:var(--dark-45);margin-bottom:5px;text-transform:uppercase;letter-spacing:.03em;}
-.input{border:1px solid var(--dark-14);border-radius:var(--r-s);background:var(--white);transition:border-color .12s;}
-.input:focus-within{border-color:var(--blue);box-shadow:0 0 0 3px var(--blue-08);}
-.input__input{
-  width:100%;border:none;background:transparent;padding:10px 12px;font-size:13px;color:var(--dark);
-  font-family:inherit;border-radius:var(--r-s);
-}
-.input__input:focus{outline:none;}
-.input--invalid{border-color:var(--error);}
-.input--invalid:focus-within{border-color:var(--error);box-shadow:0 0 0 3px var(--error-bg);}
+.form-field__label{display:block;font-size:11px;color:var(--dark-45);margin-bottom:5px;}
 
-.gender-radio{display:flex;gap:8px;}
-.gender-radio__wrapper{flex:1;position:relative;}
+/* Text field — reused verbatim: border rgba(dark,.2), hover/focus swaps to rgba(blue,.85), no glow */
+.input{border:1px solid var(--dark-20);border-radius:var(--radius-s);background:var(--white);height:35px;transition:border-color .12s;}
+.input:hover,.input:focus-within{border-color:var(--blue-85);}
+.input__input{width:100%;height:100%;border:none;background:transparent;padding:0 11px;font-size:13px;color:var(--dark);font-family:inherit;border-radius:var(--radius-s);}
+.input__input:focus{outline:none;}
+.input__input:focus-visible{outline:2px solid var(--blue);outline-offset:1px;}
+.input--invalid{border-color:var(--error);}
+.input--invalid:hover,.input--invalid:focus-within{border-color:var(--error);}
+
+/* Gender toggle — reused: merged pill, not separate boxes */
+.gender-radio{display:flex;width:fit-content;height:35px;}
+.gender-radio__wrapper{position:relative;}
+.gender-radio__wrapper:not(:first-child) .gender-radio__label{border-left:none;}
 .gender-radio__input{position:absolute;opacity:0;inset:0;cursor:pointer;margin:0;}
 .gender-radio__label{
-  display:flex;align-items:center;justify-content:center;height:37px;border:1px solid var(--dark-14);
-  border-radius:var(--r-s);font-size:13px;font-weight:600;color:var(--dark-45);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;height:35px;padding:0 16px;
+  border:1px solid var(--dark-20);font-size:13px;color:var(--dark-70);cursor:pointer;
 }
-.gender-radio__input:checked + .gender-radio__label{border-color:var(--blue);color:var(--blue);background:var(--blue-08);}
+.gender-radio__wrapper:first-child .gender-radio__label{border-radius:var(--radius-s) 0 0 var(--radius-s);}
+.gender-radio__wrapper:last-child .gender-radio__label{border-radius:0 var(--radius-s) var(--radius-s) 0;}
+.gender-radio__input:checked + .gender-radio__label{background:var(--blue);border-color:var(--blue);color:#fff;}
 .gender-radio__input:focus-visible + .gender-radio__label{outline:2px solid var(--blue);outline-offset:2px;}
 
 .search__passenger-info{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-bottom:6px;}
@@ -200,119 +208,126 @@ button{font-family:inherit;}
 .frequent-flyer-info{margin-top:6px;}
 
 /* ---------------------------------------------------------------
-   NEW — profile tag / filled-from badge
+   Status pill — reused component (used in production for group
+   request statuses); repurposed here for the profile tag and the
+   "filled from profile" indicator.
 --------------------------------------------------------------- */
-.pmp-tag{
-  font-family:var(--font-mono);font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;
-  background:var(--blue-14);color:var(--blue);padding:3px 8px;border-radius:20px;
-}
-.pmp-filled-note{
-  display:flex;align-items:center;gap:6px;font-size:12px;color:var(--success);margin-left:auto;
-}
-.pmp-filled-note svg{flex:none;}
-.pmp-linklike{
-  background:none;border:none;color:var(--blue);font-size:12px;font-weight:600;cursor:pointer;padding:0;
-  text-decoration:underline;font-family:inherit;
-}
+.pill{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;padding:5px 10px;border-radius:20px;text-transform:uppercase;letter-spacing:.02em;}
+.pill__dot{width:6px;height:6px;border-radius:50%;flex:none;}
+.pill--tag{background:var(--blue-10);color:var(--blue);}
+.pill--filled{background:var(--success-bg);color:#1f9e30;}
+.pill--filled svg{flex:none;}
+.pmp-filled-note{display:flex;align-items:center;gap:8px;margin-left:auto;}
+.pmp-linklike{background:none;border:none;color:var(--blue);font-size:12px;font-weight:600;cursor:pointer;padding:0;text-decoration:underline;font-family:inherit;}
 .pmp-source-panel{
-  border:1px solid var(--dark-08);background:var(--off-white);border-radius:var(--r-m);
+  border:1px solid var(--border);background:var(--off-white);border-radius:var(--radius-m);
   padding:12px 14px;font-size:12px;margin:0 0 16px;display:grid;grid-template-columns:repeat(2,1fr);gap:6px 18px;
 }
 .pmp-source-panel dt{color:var(--dark-45);}
-.pmp-source-panel dd{margin:0 0 2px;font-family:var(--font-mono);}
+.pmp-source-panel dd{margin:0 0 2px;}
 
 /* ---------------------------------------------------------------
-   NEW — search dropdown under Last/First/Email
+   NEW — profile search dropdown. Same popover primitive production
+   uses for airline/date/passenger pickers (field-pop): radius-m
+   card, 1px hairline border, elevation shadow, radius-xs rows that
+   tint to the surface color on hover.
 --------------------------------------------------------------- */
 .pmp-dropdown{
   position:absolute;top:calc(100% + 4px);left:0;right:0;z-index:20;
-  background:var(--white);border:1px solid var(--dark-14);border-radius:var(--r-m);
-  box-shadow:var(--shadow-pop);max-height:280px;overflow-y:auto;
+  background:var(--white);border:1px solid var(--dark-10);border-radius:var(--radius-m);
+  box-shadow:var(--shadow-pop);padding:8px;max-height:280px;overflow-y:auto;
 }
-.pmp-dropdown__result{
-  display:flex;flex-direction:column;gap:2px;padding:10px 12px;cursor:pointer;border-bottom:1px solid var(--dark-05);
-}
-.pmp-dropdown__result:last-child{border-bottom:none;}
-.pmp-dropdown__result:hover,.pmp-dropdown__result:focus-visible{background:var(--blue-08);}
+.pmp-dropdown__result{display:flex;flex-direction:column;gap:3px;padding:8px 9px;border-radius:var(--radius-xs);cursor:pointer;}
+.pmp-dropdown__result:hover,.pmp-dropdown__result:focus-visible{background:var(--off-white);}
 .pmp-dropdown__result-top{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;}
-.pmp-dropdown__result-meta{display:flex;gap:10px;font-size:11px;color:var(--dark-45);font-family:var(--font-mono);flex-wrap:wrap;}
-.pmp-dropdown__empty{padding:14px 12px;font-size:12px;color:var(--dark-45);}
+.pmp-dropdown__result-meta{display:flex;gap:10px;font-size:11px;color:var(--dark-45);flex-wrap:wrap;}
+.pmp-dropdown__empty{padding:10px 9px;font-size:12px;color:var(--dark-45);}
 .pmp-dropdown__empty strong{display:block;color:var(--dark);margin-bottom:2px;font-size:13px;}
 
 /* ---------------------------------------------------------------
-   NEW — alerts (stale profile / duplicate / passport warning)
+   NEW — alerts (stale profile / duplicate / passport warning).
+   No production equivalent; built from the same semantic warning
+   tint used elsewhere (rgba warning .08), no border, radius-m.
 --------------------------------------------------------------- */
-.pmp-alert{
-  display:flex;gap:10px;align-items:flex-start;border-radius:var(--r-m);padding:12px 14px;margin-bottom:16px;font-size:12px;
-}
-.pmp-alert--warning{background:var(--warning-bg);border:1px solid rgba(201,123,0,.25);}
-.pmp-alert--warning strong{color:var(--warning);display:block;font-size:13px;margin-bottom:2px;}
+.pmp-alert{display:flex;gap:10px;align-items:flex-start;border-radius:var(--radius-m);padding:12px 14px;margin-bottom:16px;font-size:12px;background:var(--warning-bg);}
+.pmp-alert strong{color:#b06a00;display:block;font-size:13px;margin-bottom:2px;}
 .pmp-alert p{margin:0;color:var(--dark-70);}
-.pmp-alert svg{flex:none;margin-top:1px;}
+.pmp-alert svg{flex:none;margin-top:1px;color:var(--warning);}
 
 /* ---------------------------------------------------------------
    NEW — inline prompts (update/keep, save profile)
 --------------------------------------------------------------- */
-.pmp-inline-prompt{
-  border:1px dashed var(--dark-14);border-radius:var(--r-m);padding:12px 14px;margin-bottom:16px;
-  display:flex;align-items:center;gap:14px;flex-wrap:wrap;font-size:12px;
-}
+.pmp-inline-prompt{border:1px dashed var(--dark-15);border-radius:var(--radius-m);padding:12px 14px;margin-bottom:16px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;font-size:12px;}
 .pmp-inline-prompt--muted{background:var(--off-white);border-style:solid;}
 .pmp-inline-prompt p{margin:0;flex:1 1 260px;color:var(--dark-70);}
 .pmp-inline-prompt strong{color:var(--dark);}
-.pmp-inline-prompt__actions{display:flex;gap:8px;flex-wrap:wrap;}
-.pmp-btn{
-  border-radius:var(--r-s);padding:8px 14px;font-size:12px;font-weight:700;cursor:pointer;border:1px solid transparent;
-  letter-spacing:.02em;
-}
-.pmp-btn--primary{background:var(--blue);color:#fff;}
-.pmp-btn--primary:hover{background:var(--blue-70);}
-.pmp-btn--ghost{background:transparent;border-color:var(--dark-14);color:var(--dark);}
-.pmp-btn--ghost:hover{border-color:var(--dark-26);}
+.pmp-inline-prompt__actions{display:flex;gap:10px;flex-wrap:wrap;}
+
+/* Buttons — reused verbatim (height 39, radius-s, font 13/600) */
+.btn-primary,.btn-outline-block{height:39px;padding:0 22px;border-radius:var(--radius-s);font-family:inherit;font-size:13px;font-weight:600;cursor:pointer;}
+.btn-primary{border:none;background:var(--blue);color:#fff;}
+.btn-primary:hover{background:#2179d1;}
+.btn-outline-block{border:1px solid var(--blue-20);background:#fff;color:var(--blue);}
+.btn-outline-block:hover{background:var(--blue);color:#fff;border-color:var(--blue);}
 
 /* ---------------------------------------------------------------
    NEW — toast
 --------------------------------------------------------------- */
-.pmp-toast{
-  display:flex;align-items:center;gap:8px;border-radius:var(--r-m);padding:10px 14px;font-size:12px;font-weight:600;margin-bottom:4px;
-}
-.pmp-toast--success{background:var(--success-bg);color:var(--success);}
+.pmp-toast{display:flex;align-items:center;gap:8px;border-radius:var(--radius-xs);padding:10px 14px;font-size:12px;font-weight:600;margin-bottom:4px;}
+.pmp-toast--success{background:var(--success-bg);color:#1f9e30;}
 .pmp-toast--error{background:var(--error-bg);color:var(--error);}
 
 /* ---------------------------------------------------------------
    Passport / checkout stage section
 --------------------------------------------------------------- */
-.pmp-stage-divider{
-  display:flex;align-items:center;gap:12px;margin:28px 0 14px;color:var(--dark-45);font-size:11px;
-  text-transform:uppercase;letter-spacing:.05em;
-}
-.pmp-stage-divider::before,.pmp-stage-divider::after{content:"";flex:1;height:1px;background:var(--dark-08);}
-.pmp-select{appearance:none;background-image:none;cursor:pointer;}
+.pmp-stage-divider{display:flex;align-items:center;gap:12px;margin:28px 0 14px;color:var(--dark-45);font-size:11px;text-transform:uppercase;letter-spacing:.05em;}
+.pmp-stage-divider::before,.pmp-stage-divider::after{content:"";flex:1;height:1px;background:var(--border);}
+.pmp-select{appearance:none;background-image:none;cursor:pointer;padding-right:11px;}
 .pmp-field-error{color:var(--error);font-size:11px;margin:6px 2px 0;}
-.pmp-field-ok{color:var(--success);font-size:11px;margin:6px 2px 0;}
+.pmp-field-ok{color:#1f9e30;font-size:11px;margin:6px 2px 0;}
 .pmp-info-icon{
   position:relative;flex:none;width:16px;height:16px;border-radius:50%;border:1px solid var(--warning);
-  color:var(--warning);background:transparent;font-size:10px;font-weight:700;font-style:italic;line-height:14px;
-  cursor:pointer;font-family:var(--font-mono);
+  color:#b06a00;background:transparent;font-size:10px;font-weight:700;font-style:italic;line-height:14px;cursor:pointer;
 }
 .pmp-tooltip{
   display:none;position:absolute;bottom:calc(100% + 8px);right:-8px;width:250px;background:var(--dark);color:#fff;
-  font-size:11px;font-weight:400;font-family:var(--font-sans);padding:10px 12px;border-radius:var(--r-m);
+  font-size:11px;font-weight:400;font-style:normal;padding:10px 12px;border-radius:var(--radius-m);
   box-shadow:var(--shadow-pop);text-align:left;line-height:1.5;z-index:5;
 }
 .pmp-info-icon:hover .pmp-tooltip,.pmp-info-icon:focus-visible .pmp-tooltip{display:block;}
 
 /* ---------------------------------------------------------------
-   Booking block — reused, static
+   Booking block — reused
 --------------------------------------------------------------- */
-.search__booking-block{display:flex;align-items:center;justify-content:space-between;padding-top:18px;border-top:1px solid var(--dark-08);margin-top:6px;}
+.search__booking-block{display:flex;align-items:center;justify-content:space-between;padding-top:18px;border-top:1px solid var(--border);margin-top:6px;}
 .booking-price{font-size:13px;}
-.booking-price strong{font-size:18px;display:block;}
-.book-btn{background:var(--blue);color:#fff;border:none;border-radius:var(--r-s);padding:12px 34px;font-weight:700;font-size:13px;letter-spacing:.03em;cursor:pointer;}
+.booking-price strong{font-size:20px;display:block;}
 
-/* Collapsed alt rows */
-.alt-flight{display:flex;justify-content:space-between;align-items:center;padding:14px 22px;font-size:13px;color:var(--dark-70);}
+/* Collapsed alt rows — fare-price-box style hover */
+.alt-flight{display:flex;justify-content:space-between;align-items:center;padding:14px 22px;font-size:13px;color:var(--dark-70);cursor:pointer;border-radius:var(--radius-m);}
+.alt-flight:hover{background:var(--off-white);}
 .alt-flight strong{color:var(--dark);}
+
+/* ---------------------------------------------------------------
+   Provenance table — same compare-table/tag pattern used by the
+   sibling design-system doc to record what's reused vs. new.
+--------------------------------------------------------------- */
+.pmp-provenance{margin-top:36px;}
+.pmp-provenance h2{font-size:16px;font-weight:700;margin:0 0 4px;}
+.pmp-provenance>p{font-size:12.5px;color:var(--dark-45);margin:0 0 14px;max-width:640px;}
+.compare-table{width:100%;border-collapse:collapse;font-size:12.5px;background:var(--white);border-radius:var(--radius-m);overflow:hidden;box-shadow:var(--shadow-row);}
+.compare-table th,.compare-table td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--border);}
+.compare-table tr:last-child td{border-bottom:none;}
+.compare-table th{font-size:10.5px;text-transform:uppercase;letter-spacing:.04em;color:var(--dark-45);font-weight:700;}
+.tag{display:inline-block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.03em;padding:2px 7px;border-radius:4px;}
+.tag--reuse{background:var(--success-bg);color:#1f9e30;}
+.tag--new{background:var(--blue-10);color:var(--blue);}
+
+@media (max-width:600px){
+  .search-bar{height:auto;flex-wrap:wrap;}
+  .sf-cell{border-right:none;border-bottom:1px solid var(--dark-10);padding:8px 14px;}
+  .sf-submit{width:100%;height:39px;}
+}
 </style>
 </head>
 <body>
@@ -339,11 +354,11 @@ button{font-family:inherit;}
     </nav>
   </header>
 
-  <div class="search-form">
-    <div class="sf-item"><span>From</span><strong>Warsaw Chopin · WAW</strong></div>
-    <div class="sf-item"><span>To</span><strong>Charles de Gaulle · CDG</strong></div>
-    <div class="sf-item"><span>Depart</span><strong>27 Jul, Mon</strong></div>
-    <div class="sf-item"><span>Passengers</span><strong>1 passenger</strong></div>
+  <div class="search-bar">
+    <div class="sf-cell"><div class="sf-name">Warsaw</div><div class="sf-code">WAW</div></div>
+    <div class="sf-cell"><div class="sf-name">Paris</div><div class="sf-code">CDG</div></div>
+    <div class="sf-cell"><div class="sf-name">27 Jul, Mon</div><div class="sf-code">Departure</div></div>
+    <div class="sf-cell"><div class="sf-name">1 pax</div><div class="sf-code">Adults</div></div>
     <button class="sf-submit" type="button">Search</button>
   </div>
 
@@ -354,19 +369,19 @@ button{font-family:inherit;}
   </div>
 
   <div class="filters-row">
-    <span><span class="active">All flights</span><span>Direct</span><span>Up to 1 connection</span></span>
-    <span><span>Cheapest</span><span>Fastest</span><span class="active">Optimal</span></span>
-    <span style="margin-left:auto"><span>Without baggage</span><span>With baggage</span></span>
+    <div class="fgroup"><span class="filter-toggle is-active">All flights</span><span class="filter-toggle">Direct</span><span class="filter-toggle">Up to 1 connection</span></div>
+    <div class="fgroup"><span class="filter-toggle">Cheapest</span><span class="filter-toggle">Fastest</span><span class="filter-toggle is-active">Optimal</span></div>
+    <div class="fgroup" style="margin-left:auto"><span class="filter-toggle">Without baggage</span><span class="filter-toggle">With baggage</span></div>
   </div>
 
   <div class="search__flight">
-    <div class="flight-total">322.62 EUR</div>
-    <p class="flight-details__title">Flight to Paris</p>
+    <div class="flight-total tabular">322.62 EUR</div>
+    <p class="flight-details__title">Flight to Paris Charles de Gaulle</p>
     <p class="flight-details__duration">On the way 2h 25m</p>
     <div class="segment">
-      <span class="segment__time">16:25</span><span class="segment__airport">Warsaw Chopin, WAW</span><span class="segment__day">27 Jul, Mon</span>
+      <span class="segment__time tabular">16:25</span><span class="segment__airport">Warsaw Chopin, WAW</span><span class="segment__day">27 Jul, Mon</span>
       <span class="segment__dash"></span>
-      <span class="segment__time">18:50</span><span class="segment__airport">Charles de Gaulle, CDG</span><span class="segment__day">27 Jul, Mon</span>
+      <span class="segment__time tabular">18:50</span><span class="segment__airport">Charles de Gaulle, CDG</span><span class="segment__day">27 Jul, Mon</span>
       <span class="segment__code">LOT, LO 335</span>
     </div>
 
@@ -377,25 +392,25 @@ button{font-family:inherit;}
         <div class="fare-card__row"><span>Baggage</span><span>0PC</span></div>
         <div class="fare-card__row"><span>Changes</span><span>Paid</span></div>
         <div class="fare-card__row"><span>Refund</span><span>Paid</span></div>
-        <p class="fare-card__price">322.62 EUR</p>
+        <p class="fare-card__price tabular">322.62 EUR</p>
       </div>
       <div class="fare-card">
         <p class="fare-card__name">Economy standard</p>
         <p class="fare-card__basis">T1STD0</p>
         <div class="fare-card__row"><span>Baggage</span><span>1PC</span></div>
-        <p class="fare-card__price">359.62 EUR</p>
+        <p class="fare-card__price tabular">359.62 EUR</p>
       </div>
       <div class="fare-card">
         <p class="fare-card__name">Economy flex</p>
         <p class="fare-card__basis">T1FLX0</p>
         <div class="fare-card__row"><span>Baggage</span><span>1PC</span></div>
-        <p class="fare-card__price">436.62 EUR</p>
+        <p class="fare-card__price tabular">436.62 EUR</p>
       </div>
       <div class="fare-card">
         <p class="fare-card__name">Business semi flex</p>
         <p class="fare-card__basis">D1SFX0</p>
         <div class="fare-card__row"><span>Baggage</span><span>2PC</span></div>
-        <p class="fare-card__price">918.12 EUR</p>
+        <p class="fare-card__price tabular">918.12 EUR</p>
       </div>
     </div>
 
@@ -407,10 +422,12 @@ button{font-family:inherit;}
 
       <div class="pmp-title-row">
         <p class="search__flight-title">Adult</p>
-        <span class="pmp-tag" id="profileTag" hidden></span>
+        <span class="pill pill--tag" id="profileTag" hidden></span>
         <span class="pmp-filled-note" id="filledNote" hidden>
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7.5 5.5 11 12 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          <span>Filled from saved profile</span>
+          <span class="pill pill--filled">
+            <svg width="12" height="12" viewBox="0 0 14 14" fill="none"><path d="M2 7.5 5.5 11 12 3.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Filled from profile
+          </span>
           <button type="button" class="pmp-linklike" id="viewSourceBtn">view</button>
         </span>
       </div>
@@ -418,11 +435,11 @@ button{font-family:inherit;}
 
       <dl class="pmp-source-panel" id="sourcePanel" hidden></dl>
 
-      <div class="pmp-alert pmp-alert--warning" id="staleAlert" hidden>
+      <div class="pmp-alert" id="staleAlert" hidden>
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 5v3.5M8 11h.01" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.3"/></svg>
         <div>
           <strong>Check this profile's details</strong>
-          <p>This saved profile hasn't been updated since <span id="staleDate" class="mono"></span>. Confirm the passenger's data is still correct before booking.</p>
+          <p>This saved profile hasn't been updated since <span id="staleDate" class="tabular"></span>. Confirm the passenger's data is still correct before booking.</p>
         </div>
       </div>
 
@@ -453,8 +470,8 @@ button{font-family:inherit;}
       <div class="pmp-inline-prompt" id="editAfterFillRow" hidden>
         <p>You changed data pulled from <strong id="editedProfileName"></strong>'s saved profile. Apply this change to the saved profile too?</p>
         <div class="pmp-inline-prompt__actions">
-          <button type="button" class="pmp-btn pmp-btn--primary" id="updateProfileBtn">Update saved profile</button>
-          <button type="button" class="pmp-btn pmp-btn--ghost" id="keepBookingOnlyBtn">Keep for this booking only</button>
+          <button type="button" class="btn-primary" id="updateProfileBtn">Update saved profile</button>
+          <button type="button" class="btn-outline-block" id="keepBookingOnlyBtn">Keep for this booking only</button>
         </div>
       </div>
 
@@ -490,19 +507,19 @@ button{font-family:inherit;}
       <div class="pmp-inline-prompt pmp-inline-prompt--muted" id="saveProfileRow" hidden>
         <p>No saved profile matches these details.</p>
         <div class="pmp-inline-prompt__actions">
-          <button type="button" class="pmp-btn pmp-btn--primary" id="saveNewProfileBtn">Save as passenger profile</button>
+          <button type="button" class="btn-primary" id="saveNewProfileBtn">Save as passenger profile</button>
         </div>
       </div>
 
-      <div class="pmp-alert pmp-alert--warning" id="duplicateAlert" hidden>
+      <div class="pmp-alert" id="duplicateAlert" hidden>
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 5v3.5M8 11h.01" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.3"/></svg>
         <div style="flex:1">
           <strong>This profile may already exist</strong>
           <p>A saved profile with a matching name and date of birth was found.</p>
           <div class="pmp-inline-prompt__actions" style="margin-top:10px">
-            <button type="button" class="pmp-btn pmp-btn--ghost" id="viewDuplicateBtn">View existing profile</button>
-            <button type="button" class="pmp-btn pmp-btn--ghost" id="cancelDuplicateBtn">Cancel</button>
-            <button type="button" class="pmp-btn pmp-btn--primary" id="saveAnywayBtn">Save as separate profile</button>
+            <button type="button" class="btn-outline-block" id="viewDuplicateBtn">View existing profile</button>
+            <button type="button" class="btn-outline-block" id="cancelDuplicateBtn">Cancel</button>
+            <button type="button" class="btn-primary" id="saveAnywayBtn">Save as separate profile</button>
           </div>
         </div>
       </div>
@@ -511,16 +528,16 @@ button{font-family:inherit;}
     </div>
 
     <div class="search__booking-block">
-      <div class="booking-price">Adult<strong>322.62 EUR</strong></div>
-      <button class="book-btn" type="button" id="bookBtn">Book</button>
+      <div class="booking-price">Adult<strong class="tabular">322.62 EUR</strong></div>
+      <button class="btn-primary" type="button" id="bookBtn">Book</button>
     </div>
   </div>
 
-  <div class="search__flight" style="padding:0;">
-    <div class="alt-flight"><span>07:20 — 09:50 · <strong>LOT</strong> · Direct</span><strong>323 EUR</strong></div>
+  <div class="search__flight" style="padding:6px;">
+    <div class="alt-flight"><span>07:20 — 09:50 · <strong>LOT</strong> · Direct</span><strong class="tabular">323 EUR</strong></div>
   </div>
-  <div class="search__flight" style="padding:0;">
-    <div class="alt-flight"><span>12:25 — 17:45 · <strong>KLM</strong> · 1 connection</span><strong>235 EUR</strong></div>
+  <div class="search__flight" style="padding:6px;">
+    <div class="alt-flight"><span>12:25 — 17:45 · <strong>KLM</strong> · 1 connection</span><strong class="tabular">235 EUR</strong></div>
   </div>
 
   <!-- ============================================================
@@ -564,15 +581,35 @@ button{font-family:inherit;}
         </div>
       </div>
 
-      <div class="pmp-alert pmp-alert--warning" id="passportWarningAlert" hidden>
+      <div class="pmp-alert" id="passportWarningAlert" hidden>
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 5v3.5M8 11h.01" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.3"/></svg>
-        <p id="passportWarningText" style="flex:1"></p>
+        <p id="passportWarningText" style="flex:1;color:var(--dark-70);"></p>
         <span class="pmp-info-icon" id="passportInfoIcon" tabindex="0">i
           <span class="pmp-tooltip">Passport validity requirements depend on destination, transit countries, and airline rules. DRCT provides general warnings based on common international requirements.</span>
         </span>
       </div>
     </div>
   </div>
+
+  <!-- ============================================================
+       Provenance — same reuse/new convention as the DRCT design
+       system doc this page was built against.
+  ============================================================= -->
+  <section class="pmp-provenance">
+    <h2>What's reused vs. new</h2>
+    <p>Everything below was matched against DRCT's production design system (color/type/radius tokens, buttons, text field, search bar, gender toggle, field-pop dropdown, result-row &amp; fare-tier-card shadows). Only the rows marked <span class="tag tag--new">new</span> have no direct production equivalent.</p>
+    <table class="compare-table">
+      <thead><tr><th>Component</th><th>Status</th><th>Note</th></tr></thead>
+      <tbody>
+        <tr><td>Color tokens, type scale, radius scale, 1010px container, IBM Plex Sans only</td><td><span class="tag tag--reuse">reused</span></td><td>Matched to the production design system doc, not approximated</td></tr>
+        <tr><td>.search__passenger-block, .form-field, .input, .gender-radio, buttons, search bar</td><td><span class="tag tag--reuse">reused</span></td><td>Real component markup and states from the production booking flow</td></tr>
+        <tr><td>Profile search dropdown</td><td><span class="tag tag--reuse">reused</span></td><td>Same field-pop popover pattern production uses for airline/date/passenger pickers</td></tr>
+        <tr><td>Result-row / fare-tier-card shadows &amp; selection tint</td><td><span class="tag tag--reuse">reused</span></td><td>Shadow-only cards, blue-06 selected tint — no invented borders</td></tr>
+        <tr><td>Profile tag &amp; "filled from profile" indicator</td><td><span class="tag tag--new">new</span></td><td>Built from the existing status-pill primitive and semantic colors</td></tr>
+        <tr><td>Stale-profile warning, duplicate check, update/keep prompt, passport expiry validation</td><td><span class="tag tag--new">new</span></td><td>No production equivalent; assembled from existing card, field and button primitives</td></tr>
+      </tbody>
+    </table>
+  </section>
 
 </div>
 
@@ -698,7 +735,7 @@ button{font-family:inherit;}
       row.setAttribute('role','button');
       row.innerHTML =
         '<span class="pmp-dropdown__result-top">' + fullName(p) +
-          (p.tag ? ' <span class="pmp-tag">' + p.tag + '</span>' : '') +
+          (p.tag ? ' <span class="pill pill--tag">' + p.tag + '</span>' : '') +
         '</span>' +
         '<span class="pmp-dropdown__result-meta">' +
           '<span>DOB ' + fmtDate(p.dob) + '</span>' +
@@ -713,8 +750,23 @@ button{font-family:inherit;}
     dropdownEl.hidden = false;
   }
 
+  function checkIdentityDivergence(){
+    if(!state.activeProfile) return;
+    var ln = els.lastName.value.trim().toLowerCase();
+    var fn = els.firstName.value.trim().toLowerCase();
+    if(ln === state.activeProfile.lastName.toLowerCase() && fn === state.activeProfile.firstName.toLowerCase()) return;
+    state.activeProfile = null;
+    state.snapshot = null;
+    els.filledNote.hidden = true;
+    els.profileTag.hidden = true;
+    els.sourcePanel.hidden = true;
+    els.staleAlert.hidden = true;
+    els.editAfterFillRow.hidden = true;
+  }
+
   function attachSearch(inputEl, dropdownEl, field){
     inputEl.addEventListener('input', function(){
+      checkIdentityDivergence();
       var matches = matchProfiles(field, inputEl.value);
       renderDropdown(dropdownEl, matches, inputEl.value);
       checkDirty();
