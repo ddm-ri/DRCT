@@ -111,6 +111,17 @@
     var days = ['sun','mon','tue','wed','thu','fri','sat'];
     return d.getDate() + ' ' + months[d.getMonth()] + ', ' + days[d.getDay()];
   }
+  function formatRowDate(iso, time) {
+    if (!iso) return '';
+    var d = parseISO(iso);
+    if (!d || isNaN(d.getTime())) return '';
+    var months = ['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'];
+    return d.getDate() + ' ' + months[d.getMonth()] + (time ? ' ' + time : '');
+  }
+  function airportNameByCode(code) {
+    for (var i = 0; i < AIRPORTS.length; i++) if (AIRPORTS[i].code === code) return AIRPORTS[i].name;
+    return code;
+  }
 
   var TRIP_REASONS = [
     { v: 'business', l: 'Business' }, { v: 'sports', l: 'Sports' }, { v: 'education', l: 'Education' },
@@ -165,11 +176,16 @@
     builderStep: 1,
     builderErrors: {},
     builderSubmitState: 'idle',
-    bookingsFilter: 'all',
+    bookingsTab: 'booked',
+    bookingsSelected: { type: 'regular', id: 'BR-9931' },
     groupRequests: [],
     regularBookings: [
-      { id: 'BR-9931', from: 'Warsaw Chopin', fromCode: 'WAW', to: 'Charles de Gaulle Intl', toCode: 'CDG', departure: '2026-08-02', pax: 2, ref: 'K4TQXP' },
-      { id: 'BR-9902', from: 'Charles de Gaulle Intl', fromCode: 'CDG', to: 'John F. Kennedy Intl', toCode: 'JFK', departure: '2026-08-14', pax: 1, ref: 'M9PLRZ' }
+      { id: 'BR-9931', passengerName: 'KATE LEAN MRS', from: 'Chopin Airport', fromCode: 'WAW', to: 'Charles de Gaulle Intl', toCode: 'CDG',
+        departure: '2026-08-02', depTime: '12:25', arrTime: '14:50', pax: 2, ref: 'K4TQXP', airlineId: 'airfrance',
+        fareName: 'Standard', fareCode: 'RS0BLA2', price: 486, currency: 'EUR' },
+      { id: 'BR-9902', passengerName: 'JOHN CARTER MR', from: 'Charles de Gaulle Intl', fromCode: 'CDG', to: 'John F. Kennedy Intl', toCode: 'JFK',
+        departure: '2026-08-14', depTime: '09:15', arrTime: '11:40', pax: 1, ref: 'M9PLRZ', airlineId: 'lot',
+        fareName: 'Light', fareCode: 'EYQ2BAL', price: 612, currency: 'EUR' }
     ],
     currentOffer: null,
     declineModal: null,
@@ -822,57 +838,135 @@
      RENDER: BOOKINGS
   ---------------------------------------------------------------- */
   function renderBookings() {
-    var filters = ['all', 'regular', 'groups'];
-    var labels = { all: 'All', regular: 'Regular', groups: 'Groups' };
-    var filterHtml = filters.map(function (f) {
-      return '<div class="bookings-filter' + (state.bookingsFilter === f ? ' active' : '') + '" data-action="set-bookings-filter" data-filter="' + f + '">' + labels[f] + '</div>';
+    var tabOrder = ['find', 'booked', 'inprogress', 'issued', 'groups'];
+    var tabLabels = { find: 'Find', booked: 'Booked', inprogress: 'In progress', issued: 'Issued', groups: 'Groups' };
+    var tabsHtml = tabOrder.map(function (t) {
+      return '<div class="filter-toggle' + (state.bookingsTab === t ? ' active' : '') + '" data-action="set-bookings-tab" data-tab="' + t + '">' + tabLabels[t] + '</div>';
     }).join('');
 
-    var body = '';
-    if (state.bookingsFilter !== 'groups') {
-      body += state.regularBookings.map(renderRegularBookingRow).join('');
-    }
-    if (state.bookingsFilter !== 'regular') {
-      var sorted = state.groupRequests.slice().sort(function (a, b) { return b.createdAt - a.createdAt; });
-      body += sorted.map(renderGroupRequestBlock).join('');
-    }
-    if (!body) body = '<div class="empty-note">No bookings to show.</div>';
+    var items = bookingsListItems();
+    var listHtml = items.length ? items.map(renderBookingListRow).join('') : '<div class="empty-note">No items in this view.</div>';
 
     return '' +
       '<div class="page-head"><h1>Bookings</h1></div>' +
-      '<div class="bookings-filters">' + filterHtml + '</div>' +
-      body;
+      '<div class="bookings-tabs">' + tabsHtml + '</div>' +
+      '<div class="bookings-layout">' +
+        '<div class="bookings-list">' + listHtml + '</div>' +
+        '<div class="bookings-detail">' + renderBookingDetailPanel() + '</div>' +
+      '</div>';
   }
 
-  function renderRegularBookingRow(b) {
-    return '<div class="booking-row">' +
-      '<div><div class="booking-row__route"><span class="badge badge--regular" style="margin-right:8px">Regular</span>' + b.fromCode + ' → ' + b.toCode + '</div>' +
-      '<div class="booking-row__meta">' + formatDisplay(b.departure) + ' · ' + b.pax + ' pax · Ref ' + b.ref + '</div></div>' +
-    '</div>';
+  function bookingsListItems() {
+    if (state.bookingsTab === 'booked') {
+      return state.regularBookings.map(function (b) { return { type: 'regular', id: b.id, data: b }; });
+    }
+    if (state.bookingsTab === 'groups') {
+      var sorted = state.groupRequests.slice().sort(function (a, b) { return b.createdAt - a.createdAt; });
+      return sorted.map(function (r) { return { type: 'group', id: r.id, data: r }; });
+    }
+    return [];
   }
 
-  function renderGroupRequestBlock(req) {
+  function groupOverallStatus(req) {
+    var total = req.offers.length;
     var responded = req.offers.filter(function (o) { return o.status !== 'calculating'; }).length;
+    var reviewCount = req.offers.filter(function (o) { return o.status === 'review'; }).length;
     var acceptedCount = req.offers.filter(function (o) { return o.status === 'accepted'; }).length;
-    var cards = req.offers.map(function (o) { return renderOfferCard(req, o); }).join('');
-    return '<div class="group-request">' +
-      '<div class="group-request__head">' +
-        '<div>' +
-          '<div class="group-request__id"><span class="badge badge--group">Group</span> &nbsp;Group request #' + req.id + '</div>' +
-          '<div class="group-request__route">' + req.fromCode + ' → ' + req.toCode + '</div>' +
-          '<div class="group-request__meta">' + formatDisplay(req.departure) + ' – ' + formatDisplay(req.ret) + ' · ' + req.pax + ' passengers · Created ' + formatDateTime(req.createdAt) + '</div>' +
-        '</div>' +
-        '<div class="group-request__progress">' + responded + ' of ' + req.offers.length + ' airlines responded</div>' +
-      '</div>' +
-      (acceptedCount > 1 ? '<div class="group-request__multi-warning">Multiple offers are currently accepted. Select one final offer before the hold deadlines expire.</div>' : '') +
-      '<div class="group-request__body">' + cards + '</div>' +
+    var calculatingCount = req.offers.filter(function (o) { return o.status === 'calculating'; }).length;
+    var label, cls;
+    if (reviewCount > 0) { label = 'Review required'; cls = 'review'; }
+    else if (calculatingCount > 0) { label = 'Calculating'; cls = 'calculating'; }
+    else if (acceptedCount > 0) { label = 'Accepted'; cls = 'accepted'; }
+    else { label = 'Closed'; cls = 'closed'; }
+    return { count: responded + ' of ' + total + ' responded', label: label, cls: cls, acceptedCount: acceptedCount };
+  }
+
+  function renderBookingListRow(item) {
+    var sel = state.bookingsSelected;
+    var selected = !!(sel && sel.type === item.type && sel.id === item.id);
+    var top1, top2, bottom1, bottom2;
+    if (item.type === 'regular') {
+      var b = item.data;
+      top1 = escapeHtml(b.passengerName);
+      top2 = fmtMoney(b.price) + ' ' + b.currency;
+      bottom1 = formatRowDate(b.departure, b.depTime) + ', ' + b.fromCode + '-' + b.toCode;
+      bottom2 = 'Ref ' + b.ref;
+    } else {
+      var req = item.data, overall = groupOverallStatus(req);
+      top1 = 'Group request #' + req.id;
+      top2 = overall.count;
+      bottom1 = req.fromCode + ' → ' + req.toCode + ' · ' + formatFieldDate(req.departure);
+      bottom2 = overall.label;
+    }
+    return '<div class="booking-list-row' + (selected ? ' is-selected' : '') + '" data-action="select-booking" data-type="' + item.type + '" data-id="' + item.id + '">' +
+      '<div class="booking-list-row__top"><span class="booking-list-row__name">' + top1 + '</span><span class="booking-list-row__price">' + top2 + '</span></div>' +
+      '<div class="booking-list-row__bottom"><span>' + bottom1 + '</span><span>' + bottom2 + '</span></div>' +
     '</div>';
   }
 
-  function renderOfferCard(req, o) {
+  function renderBookingDetailPanel() {
+    var sel = state.bookingsSelected;
+    if (!sel) return '<div class="empty-note">Select a booking to see details.</div>';
+    if (sel.type === 'regular') {
+      var b = state.regularBookings.filter(function (x) { return x.id === sel.id; })[0];
+      return b ? renderRegularBookingDetail(b) : '<div class="empty-note">Select a booking to see details.</div>';
+    }
+    var req = state.groupRequests.filter(function (x) { return x.id === sel.id; })[0];
+    return req ? renderGroupBookingDetail(req) : '<div class="empty-note">Select a booking to see details.</div>';
+  }
+
+  function cityByAirportName(name) {
+    for (var i = 0; i < AIRPORTS.length; i++) if (AIRPORTS[i].name === name) return AIRPORTS[i].city;
+    return name;
+  }
+
+  function renderFlightSegmentRow(logo, depTime, depName, depCode, depDate, arrTime, arrName, arrCode, arrDate, captionHtml) {
+    return '<div class="segment-row">' +
+      '<div class="segment-row__logo"><img src="' + logo + '" alt=""></div>' +
+      '<div class="segment-row__lines">' +
+        '<div class="segment-row__line"><span class="segment-row__time">' + depTime + '</span><span class="segment-row__airport">' + escapeHtml(depName) + ', ' + depCode + '</span><span class="segment-row__date">' + formatFieldDate(depDate) + '</span></div>' +
+        '<div class="segment-row__line"><span class="segment-row__time">' + arrTime + '</span><span class="segment-row__airport">' + escapeHtml(arrName) + ', ' + arrCode + '</span><span class="segment-row__date">' + formatFieldDate(arrDate) + '</span></div>' +
+        '<div class="segment-row__caption">' + captionHtml + '</div>' +
+      '</div>' +
+    '</div>';
+  }
+
+  function renderRegularBookingDetail(b) {
+    var a = airlineById(b.airlineId);
+    var caption = a.name + ', ' + a.flightNo.split(' / ')[0] + ', duration ' + a.duration;
+    var seg = renderFlightSegmentRow(a.logo, b.depTime, b.from, b.fromCode, b.departure, b.arrTime, b.to, b.toCode, b.departure, caption);
+    var copyText = a.name + ' ' + a.flightNo.split(' / ')[0] + ', ' + b.fromCode + ' → ' + b.toCode + ', ' + formatFieldDate(b.departure) + ', ' + b.depTime + '-' + b.arrTime;
+    return '' +
+      '<div class="booking-detail__banner booking-detail__banner--accepted">Booked</div>' +
+      '<div class="booking-detail__body">' +
+        '<h2 class="booking-detail__heading">Flight to ' + escapeHtml(cityByAirportName(b.to)) + '</h2>' +
+        '<p class="booking-detail__sub">On the way ' + a.duration + '</p>' +
+        '<div class="segment-card" data-action="copy-option" data-copy="' + escapeHtml(copyText) + '">' +
+          seg +
+          '<div class="segment-card__copy">Click to copy option</div>' +
+        '</div>' +
+        '<div class="fare-box"><div class="fare-box__name">' + escapeHtml(b.fareName) + '</div><div class="fare-box__code">' + escapeHtml(b.fareCode) + '</div></div>' +
+        '<div class="booking-detail__section"><h3>Adult</h3><p>' + escapeHtml(b.passengerName) + '</p></div>' +
+        '<div class="price-total-row"><div class="price-total-row__label">Total</div><div class="price-total-row__value">' + fmtMoney(b.price * b.pax) + ' ' + b.currency + '</div></div>' +
+      '</div>';
+  }
+
+  function renderGroupBookingDetail(req) {
+    var overall = groupOverallStatus(req);
+    var offersHtml = req.offers.map(function (o) { return renderGroupOfferRow(req, o); }).join('');
+    return '' +
+      '<div class="booking-detail__banner booking-detail__banner--' + overall.cls + '">' + overall.label + '</div>' +
+      '<div class="booking-detail__body">' +
+        '<h2 class="booking-detail__heading">' + req.fromCode + ' → ' + req.toCode + '</h2>' +
+        '<p class="booking-detail__sub">' + formatFieldDate(req.departure) + ' – ' + formatFieldDate(req.ret) + ' · ' + req.pax + ' passengers · Group request #' + req.id + '</p>' +
+        (overall.acceptedCount > 1 ? '<div style="margin:16px 0">' + warningBannerHtml('Multiple offers are currently accepted. Select one final offer before the hold deadlines expire.') + '</div>' : '') +
+        '<div class="group-offer-list">' + offersHtml + '</div>' +
+      '</div>';
+  }
+
+  function renderGroupOfferRow(req, o) {
     var a = airlineById(o.airlineId);
-    var routeSummary = req.fromCode + ' → ' + req.toCode + ' · ' + formatDisplay(req.departure);
-    var cardCls = 'offer-card';
+    var cardCls = 'group-offer-row';
     var statusPill, right, priceBlock = '';
 
     if (o.status === 'calculating') {
@@ -901,11 +995,17 @@
         '<button class="btn btn-ghost btn-sm offer-card__cta" data-action="open-offer" data-request="' + req.id + '" data-airline="' + a.id + '">View details</button>';
     }
 
+    var caption = a.stops === 0
+      ? (a.name + ', ' + a.flightNo + ', duration ' + a.duration)
+      : (a.name + ', ' + a.flightNo + ', duration ' + a.duration + ' · 1 connection via ' + escapeHtml(airportNameByCode(a.connectionCode)) + ' (' + a.connectionCode + '), layover ' + a.layover);
+    var seg = renderFlightSegmentRow(a.logo, a.dep, req.from, req.fromCode, req.departure, a.arr, req.to, req.toCode, req.departure, caption);
+
     return '<div class="' + cardCls + '">' +
-      '<div class="offer-card__logo"><img src="' + a.logo + '" alt=""></div>' +
-      '<div class="offer-card__info"><div class="offer-card__airline">' + a.name + '</div><div class="offer-card__route">' + routeSummary + '</div></div>' +
-      (priceBlock ? '<div class="offer-card__status-wrap">' + statusPill + priceBlock + '</div>' : '<div class="offer-card__status-wrap">' + statusPill + '</div>') +
-      '<div style="text-align:right">' + right + '</div>' +
+      seg +
+      '<div class="group-offer-row__side">' +
+        (priceBlock ? '<div class="group-offer-row__status">' + statusPill + priceBlock + '</div>' : '<div class="group-offer-row__status">' + statusPill + '</div>') +
+        '<div class="group-offer-row__cta">' + right + '</div>' +
+      '</div>' +
     '</div>';
   }
 
@@ -1376,14 +1476,35 @@
 
       case 'goto-bookings-from-success':
         state.page = 'bookings';
-        state.bookingsFilter = 'groups';
+        state.bookingsTab = 'groups';
+        state.bookingsSelected = { type: 'group', id: state.lastCreatedRequestId };
         render();
         break;
 
-      case 'set-bookings-filter':
-        state.bookingsFilter = el.dataset.filter;
+      case 'set-bookings-tab': {
+        state.bookingsTab = el.dataset.tab;
+        var firstItem = bookingsListItems()[0];
+        state.bookingsSelected = firstItem ? { type: firstItem.type, id: firstItem.id } : null;
         render();
         break;
+      }
+
+      case 'select-booking':
+        state.bookingsSelected = { type: el.dataset.type, id: el.dataset.id };
+        render();
+        break;
+
+      case 'copy-option': {
+        var copyText = el.dataset.copy;
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(copyText).then(function () {
+            pushToast({ title: 'Copied to clipboard', duration: 2200 });
+          }).catch(function () {
+            pushToast({ title: 'Could not copy', variant: 'error', duration: 2200 });
+          });
+        }
+        break;
+      }
 
       case 'open-offer':
         state.currentOffer = { requestId: el.dataset.request, airlineId: el.dataset.airline };
