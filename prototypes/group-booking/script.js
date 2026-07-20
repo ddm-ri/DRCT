@@ -46,21 +46,21 @@
   ---------------------------------------------------------------- */
   var AIRLINES = [
     { id: 'lot', name: 'LOT Polish Airlines', code: 'LO', logo: 'assets/logos/lot-polish-airlines.svg',
-      dep: '07:20', arr: '09:50', duration: '2h 30m', stops: 0, connection: null, flightNo: 'LO 281', available: true },
+      dep: '07:20', arr: '09:50', duration: '2h 30m', stops: 0, connection: null, connectionCode: null, layover: null, flightNo: 'LO 281', available: true },
     { id: 'airfrance', name: 'Air France', code: 'AF', logo: 'assets/logos/air-france.svg',
-      dep: '12:25', arr: '14:50', duration: '2h 25m', stops: 0, connection: null, flightNo: 'AF 1147', available: true },
+      dep: '12:25', arr: '14:50', duration: '2h 25m', stops: 0, connection: null, connectionCode: null, layover: null, flightNo: 'AF 1147', available: true },
     { id: 'lufthansa', name: 'Lufthansa', code: 'LH', logo: 'assets/logos/Lufthansa.svg',
-      dep: '06:35', arr: '11:55', duration: '4h 20m', stops: 1, connection: 'Frankfurt (FRA)', flightNo: 'LH 1338 / LH 1054', available: true },
+      dep: '06:35', arr: '11:55', duration: '4h 20m', stops: 1, connection: 'Frankfurt', connectionCode: 'FRA', layover: '1h 15m', flightNo: 'LH 1338 / LH 1054', available: true },
     { id: 'klm', name: 'KLM', code: 'KL', logo: 'assets/logos/KLM.svg',
-      dep: '09:10', arr: '14:35', duration: '4h 25m', stops: 1, connection: 'Amsterdam (AMS)', flightNo: 'KL 1372 / KL 1233', available: true },
+      dep: '09:10', arr: '14:35', duration: '4h 25m', stops: 1, connection: 'Amsterdam', connectionCode: 'AMS', layover: '2h 0m', flightNo: 'KL 1372 / KL 1233', available: true },
     { id: 'swiss', name: 'SWISS', code: 'LX', logo: 'assets/logos/SWISS.svg',
-      dep: '10:40', arr: '16:05', duration: '4h 25m', stops: 1, connection: 'Zurich (ZRH)', flightNo: 'LX 1548 / LX 792', available: true },
+      dep: '10:40', arr: '16:05', duration: '4h 25m', stops: 1, connection: 'Zurich', connectionCode: 'ZRH', layover: '1h 45m', flightNo: 'LX 1548 / LX 792', available: true },
     { id: 'austrian', name: 'Austrian Airlines', code: 'OS', logo: 'assets/logos/austrian-airlines.svg',
-      dep: '13:50', arr: '19:35', duration: '4h 45m', stops: 1, connection: 'Vienna (VIE)', flightNo: 'OS 599 / OS 405', available: true },
+      dep: '13:50', arr: '19:35', duration: '4h 45m', stops: 1, connection: 'Vienna', connectionCode: 'VIE', layover: '1h 30m', flightNo: 'OS 599 / OS 405', available: true },
     { id: 'iberia', name: 'Iberia', code: 'IB', logo: 'assets/logos/Iberia.svg',
-      dep: '15:20', arr: '21:15', duration: '4h 55m', stops: 1, connection: 'Madrid (MAD)', flightNo: 'IB 5352 / IB 3402', available: true },
+      dep: '15:20', arr: '21:15', duration: '4h 55m', stops: 1, connection: 'Madrid', connectionCode: 'MAD', layover: '2h 10m', flightNo: 'IB 5352 / IB 3402', available: true },
     { id: 'ba', name: 'British Airways', code: 'BA', logo: 'assets/logos/british-airways.svg',
-      dep: '08:15', arr: '13:40', duration: '4h 25m', stops: 1, connection: 'London Heathrow (LHR)', flightNo: 'BA 838 / BA 304', available: false }
+      dep: '08:15', arr: '13:40', duration: '4h 25m', stops: 1, connection: 'London Heathrow', connectionCode: 'LHR', layover: '1h 40m', flightNo: 'BA 838 / BA 304', available: false }
   ];
 
   function airlineById(id) { for (var i = 0; i < AIRLINES.length; i++) if (AIRLINES[i].id === id) return AIRLINES[i]; return null; }
@@ -354,7 +354,6 @@
           '<div><h1>' + title + '</h1><p class="page-head__desc">' + desc + '</p></div>' +
           '<div class="local-tabs">' + tabsHtml + '</div>' +
         '</div>' +
-        (state.searchTab === 'groups' ? '<div style="margin-top:20px">' + warningBannerHtml('Group fares are requested directly from airlines. Final prices, flight details and conditions may differ from the options shown in search results.') + '</div>' : '') +
       '</div>' +
       body;
   }
@@ -540,10 +539,10 @@
   function renderGroupForm() {
     var g = state.group, e = state.groupErrors;
     if (state.groupSubmitState === 'loading') {
-      return groupFormBar(g, e) + '<div class="search-multicity" style="visibility:hidden">.</div>';
+      return groupSearchBarGroup(g, e) + '<div class="search-multicity" style="visibility:hidden">.</div>';
     }
     if (state.groupSubmitState === 'error') {
-      return groupFormBar(g, e) +
+      return groupSearchBarGroup(g, e) +
         '<div class="server-error-panel">' +
           '<div class="server-error-panel__icon">!</div>' +
           '<h3>We couldn’t load group search results</h3>' +
@@ -553,8 +552,15 @@
           '</div>' +
         '</div>';
     }
-    return groupFormBar(g, e) +
+    return groupSearchBarGroup(g, e) +
       (Object.keys(e).length ? '<div class="field-error" style="margin-top:10px">Please complete all required fields.</div>' : '');
+  }
+
+  function groupSearchBarGroup(g, e) {
+    return '<div class="search-bar-group">' +
+      groupFormBar(g, e) +
+      warningBannerHtml('Group fares are requested directly from airlines. Final prices, flight details and conditions may differ from the options shown in search results.') +
+    '</div>';
   }
 
   function groupFormBar(g, e) {
@@ -598,7 +604,7 @@
       return true;
     });
 
-    var cards = flights.map(renderFlightCard).join('');
+    var cards = flights.length ? flights.map(renderFlightCard).join('') : '<div class="empty-note">No flights match this filter. Try a different filter.</div>';
 
     var g = state.group;
     return '' +
@@ -641,11 +647,12 @@
     } else {
       cta = '<button class="btn btn-secondary" data-action="toggle-select-airline" data-airline="' + a.id + '">Choose airline</button>';
     }
+    var fromCode = state.resultsQuery.fromCode || 'WAW', toCode = state.resultsQuery.toCode || 'CDG';
     return '<div class="' + cls + '" ' + (a.available ? 'data-action="toggle-select-airline" data-airline="' + a.id + '"' : '') + '>' +
       '<div class="flight-card__logo"><img src="' + a.logo + '" alt="' + a.name + '"></div>' +
-      '<div class="flight-card__airline"><div class="flight-card__airline-name">' + a.name + '</div><div class="flight-card__airline-flight">' + a.flightNo + '</div></div>' +
-      '<div class="flight-card__times"><div class="flight-card__times-main">' + a.dep + ' — ' + a.arr + '</div><div class="flight-card__times-sub">' + (state.resultsQuery.fromCode || 'WAW') + ' → ' + (state.resultsQuery.toCode || 'CDG') + '</div></div>' +
-      '<div class="flight-card__duration"><div class="flight-card__duration-val">' + a.duration + '</div><div class="flight-card__stops' + (a.stops === 0 ? ' is-direct' : '') + '">' + (a.stops === 0 ? 'Direct flight' : '1 connection · ' + a.connection) + '</div></div>' +
+      '<div class="flight-card__times"><div class="flight-card__times-main">' + a.dep + ' — ' + a.arr + '</div><div class="flight-card__times-sub">' + a.name + '</div></div>' +
+      '<div class="flight-card__duration"><div class="flight-card__duration-val">' + a.duration + '</div><div class="flight-card__times-sub">' + fromCode + ' — ' + toCode + '</div></div>' +
+      '<div class="flight-card__stops-col"><div class="flight-card__stops' + (a.stops === 0 ? ' is-direct' : '') + '">' + (a.stops === 0 ? 'Direct flight' : '1 connection') + '</div>' + (a.stops === 0 ? '' : '<div class="flight-card__times-sub">' + a.connectionCode + ' ' + a.layover + '</div>') + '</div>' +
       '<div class="flight-card__cta" data-action="noop">' + cta + '</div>' +
     '</div>';
   }
