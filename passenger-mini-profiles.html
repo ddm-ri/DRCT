@@ -2,615 +2,595 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>DRCT — Passenger Mini Profiles (prototype)</title>
+<title>DRCT</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Interactive prototype: passenger mini profiles integrated into the DRCT booking passenger block.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
 <style>
-/* ================================================================
-   Tokens — DRCT production design system (single ink, single accent,
-   two semantic pairs; one typeface, IBM Plex Sans, everywhere).
-   Product surface is deliberately light-only: production ships no
-   dark theme, so this page does not reinterpret it under a system
-   or viewer dark toggle — only the non-product prototype bar does.
-================================================================ */
-:root{
-  --dark:#1b2733;
-  --dark-90:rgba(27,39,51,.9);
-  --dark-70:rgba(27,39,51,.7);
-  --dark-45:rgba(27,39,51,.45);
-  --dark-40:rgba(27,39,51,.4);
-  --dark-26:rgba(27,39,51,.26);
-  --dark-20:rgba(27,39,51,.2);
-  --dark-15:rgba(27,39,51,.15);
-  --dark-10:rgba(27,39,51,.1);
-  --dark-05:rgba(27,39,51,.05);
-  --blue:#2a8aea;
-  --blue-85:rgba(42,138,234,.85);
-  --blue-20:rgba(42,138,234,.2);
-  --blue-12:rgba(42,138,234,.12);
-  --blue-10:rgba(42,138,234,.1);
-  --blue-06:rgba(42,138,234,.06);
-  --white:#ffffff;
-  --off-white:#fafcff;
-  --border:#e8e9ea;
-  --error:#ff3737;
-  --error-bg:rgba(255,55,55,.08);
-  --warning:#ff9f00;
-  --warning-bg:rgba(255,159,0,.08);
-  --success:#38d14a;
-  --success-bg:rgba(56,209,74,.08);
-  --font-sans:'IBM Plex Sans',sans-serif;
-  --font-mono:ui-monospace,"SFMono-Regular",Menlo,monospace; /* prototype-bar only — product uses one typeface */
-  --content-w:1010px;
-  --radius-s:3px;   /* buttons, inputs */
-  --radius-xs:4px;  /* popovers, inner rows, AI band */
-  --radius-m:6px;   /* cards, rows, dropdown container */
-  --shadow-row:0 1px 6px rgba(35,54,73,.12);
-  --shadow-pop:0 4px 20px rgba(27,39,51,.15);
-  --shadow-bar:0 1px 4px 1px rgba(27,39,51,.05);
-}
-
+/* ==================================================================
+   Reconstructed from: the production DOM capture (real classes below,
+   unchanged), the two reference screenshots (colors/spacing measured
+   from them), and the extracted token doc where the screenshots don't
+   show enough detail. DRCT's actual external CSS file was not
+   available to this build — see the residual-differences note sent
+   alongside this file for what that means in practice.
+================================================================== */
 *,*::before,*::after{box-sizing:border-box;}
 [hidden]{display:none !important;}
 html,body{margin:0;padding:0;}
 body{
-  font-family:var(--font-sans);
-  color:var(--dark);
-  background:var(--off-white);
+  font-family:'IBM Plex Sans','Roboto',sans-serif;
+  color:#1B2733;
+  background:#ffffff;
   -webkit-font-smoothing:antialiased;
-  line-height:1.4;
+  font-size:14px;
+  line-height:1.3;
 }
-button{font-family:inherit;}
-input,select{font-family:inherit;}
-:focus-visible{outline:2px solid var(--blue);outline-offset:2px;}
-.tabular{font-variant-numeric:tabular-nums;}
+button,input,select{font-family:inherit;}
+a{color:inherit;text-decoration:none;}
+:focus-visible{outline:2px solid #2a8aea;outline-offset:1px;}
 
-/* ---------------------------------------------------------------
-   Prototype harness bar — deliberately NOT styled like DRCT product UI.
-   Uses a system monospace stack on purpose, so it reads as tooling,
-   never as a second product typeface.
---------------------------------------------------------------- */
-.proto-bar{
-  background:var(--dark);
-  color:var(--white);
-  font-family:var(--font-mono);
-  font-size:12px;
-  padding:10px 20px;
-}
-.proto-bar__row{
-  max-width:1120px;margin:0 auto;
-  display:flex;align-items:center;gap:16px;flex-wrap:wrap;
-}
-.proto-bar__label{
-  text-transform:uppercase;letter-spacing:.08em;font-weight:600;
-  background:var(--blue);color:#fff;padding:2px 8px;border-radius:3px;font-size:10px;
-}
-.proto-bar p{margin:0;opacity:.85;flex:1 1 420px;}
-.proto-bar label{display:flex;align-items:center;gap:6px;white-space:nowrap;opacity:.9;cursor:pointer;}
-.proto-bar input[type="checkbox"]{accent-color:var(--blue);}
-
-/* ---------------------------------------------------------------
-   .wrapper / .header — reused. Production runs a fixed 1010px
-   centered container, not a fluid one.
---------------------------------------------------------------- */
-.wrapper{max-width:var(--content-w);width:100%;margin:0 auto;padding:0 20px 64px;}
+/* ---------------- header ---------------- */
 .header{
-  background:var(--white);
-  border-bottom:1px solid var(--border);
   display:flex;align-items:center;justify-content:space-between;
-  padding:0 4px;height:56px;margin-bottom:20px;
+  max-width:1010px;margin:0 auto;padding:24px 20px 20px;
 }
-.header__logo{font-weight:700;font-size:18px;letter-spacing:.02em;color:var(--dark);}
-.header__nav{display:flex;gap:22px;font-size:13px;font-weight:500;}
-.header__nav a{color:var(--dark);opacity:.5;text-decoration:none;padding:4px 0;}
-.header__nav a.active{opacity:1;font-weight:700;border-bottom:2px solid var(--blue);}
+.header__logo{display:block;height:18px;width:auto;}
+.header__nav{display:flex;gap:24px;font-size:14px;}
+.header__nav a{color:#1B2733;opacity:.5;}
+.header__nav a.active{opacity:1;font-weight:700;}
 
-/* ---------------------------------------------------------------
-   Search bar — reused, matches production's pill-shaped segmented
-   field group exactly (radius-s, hairline cell dividers, blue tail).
---------------------------------------------------------------- */
+/* ---------------- search-form ---------------- */
+.search-form{
+  max-width:1010px;margin:0 auto 12px;padding:0 20px;
+  display:flex;align-items:stretch;height:46px;
+}
+.search-form > *{
+  display:flex;align-items:center;
+  border:1px solid #e2e4e7;border-right:none;background:#fff;
+}
+.search-form > *:first-child{border-radius:4px 0 0 4px;}
+.search-form__submit{border-right:1px solid #e2e4e7 !important;border-radius:0 4px 4px 0 !important;}
+
+.airport-input{position:relative;flex:1 1 200px;padding:0 14px;gap:8px;}
+.airport-input input{border:none;background:transparent;font-size:14px;color:#1B2733;width:100%;padding:0;}
+.airport-input input::placeholder{color:#1B2733;}
+.airport-input__code{color:#8D9399;font-size:13px;flex:none;}
+
+.swap-container{flex:0 0 44px;justify-content:center;cursor:pointer;}
+
+.search-form__date{padding:0 14px;gap:16px;}
+.datepicker__dummy-wrapper{display:flex;gap:16px;}
+.datepicker__input{font-size:14px;color:#1B2733;cursor:pointer;}
+.datepicker__input--no-value{color:#8D9399;}
+
+.search-form__pass{flex:0 0 110px;padding:0 14px;}
+.passenger-input__result{font-size:14px;color:#1B2733;cursor:pointer;}
+
+.search-form__submit{
+  flex:0 0 110px;justify-content:center;
+  background:#2a8aea;color:#fff;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.03em;border:none;cursor:pointer;
+}
+.search-form__submit:hover{background:#2179d1;}
+
+/* ---------------- AI filters ---------------- */
+.search-bar-container{max-width:1010px;margin:0 auto 16px;padding:0 20px;}
 .search-bar{
-  display:flex;align-items:stretch;height:47px;border-radius:var(--radius-s);
-  box-shadow:var(--shadow-bar);border:1px solid var(--dark-10);overflow:hidden;
-  width:fit-content;max-width:100%;background:var(--white);margin-bottom:16px;
+  display:flex;align-items:center;gap:10px;height:44px;padding:0 16px;
+  border-radius:4px;border:1px solid rgba(42,138,234,.35);
+  background:linear-gradient(90deg,rgba(65,130,255,.07),rgba(58,255,255,.07)),#fff;
 }
-.sf-cell{display:flex;flex-direction:column;justify-content:center;padding:0 14px;border-right:1px solid var(--dark-10);}
-.sf-cell:last-of-type{border-right:none;}
-.sf-name{font-size:13px;}
-.sf-code{font-size:11px;color:var(--dark-45);}
-.sf-submit{width:93px;border:none;background:var(--blue);color:#fff;font-family:inherit;font-size:13px;font-weight:600;opacity:.85;cursor:pointer;}
-.sf-submit:hover{opacity:1;}
+.ai-filters{display:flex;align-items:center;gap:8px;width:100%;}
+.ai-icon{width:18px;height:18px;flex:none;}
+.ai-filters strong{font-size:14px;font-weight:700;flex:none;}
+.info-icon-wrapper{display:flex;flex:none;}
+.info-icon{width:12px;height:13px;}
+.ai-filters input{flex:1;border:none;background:transparent;font-size:14px;color:#8D9399;font-family:inherit;}
+.ai-filters input:focus{outline:none;}
+.filter-flights{flex:none;color:#2a8aea;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.02em;cursor:pointer;}
 
-/* AI filters band — the real dual-gradient border technique */
-.ai-filters-bar{
-  padding:10px 7px 10px 12px;border-radius:var(--radius-xs);
-  background:linear-gradient(#fff,#fff),linear-gradient(90deg,#4182ff,#3affff);
-  background-clip:padding-box,border-box;background-origin:padding-box,border-box;border:1px solid transparent;
-  display:flex;align-items:center;gap:10px;margin-bottom:16px;font-size:13px;
+/* ---------------- filters row ---------------- */
+.search__filters{
+  max-width:1010px;margin:0 auto;padding:0 20px 14px;
+  display:flex;align-items:center;gap:28px;border-bottom:1px solid #eef0f2;
 }
-.ai-filters-bar strong{font-size:12.5px;}
-.ai-filters-bar input{flex:1;border:none;background:transparent;font-size:13px;color:var(--dark-70);font-family:inherit;}
-.ai-filters-bar input:focus{outline:none;}
-.ai-filters-bar a{margin-left:auto;color:var(--blue);font-weight:700;font-size:11px;letter-spacing:.02em;text-transform:uppercase;text-decoration:none;flex:none;}
+.search__filter{display:flex;gap:18px;}
+.search__filter--right{margin-left:auto;}
+.search__filter input{position:absolute;opacity:0;width:0;height:0;}
+.search__filter label{
+  font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.02em;
+  color:#1B2733;opacity:.45;cursor:pointer;display:flex;align-items:center;gap:5px;
+}
+.search__filter label.active{opacity:1;}
+.basic-sort-icon{opacity:.6;}
 
-/* Filter toggles — uppercase 12/700, inactive = opacity .5 on the same ink, not a separate gray */
-.filters-row{display:flex;gap:24px;padding:0 2px 14px;flex-wrap:wrap;}
-.filters-row .fgroup{display:flex;gap:16px;}
-.filter-toggle{font-size:12px;font-weight:700;color:var(--dark);opacity:.5;cursor:default;text-transform:uppercase;letter-spacing:.02em;}
-.filter-toggle.is-active{opacity:1;}
+/* ---------------- results container ---------------- */
+.search__result{max-width:1010px;margin:16px auto 0;padding:0 20px;}
 
-/* ---------------------------------------------------------------
-   .search__flight card / fares — reused. Cards carry no border,
-   elevation-only shadow.
---------------------------------------------------------------- */
+/* ---------------- flight card ---------------- */
 .search__flight{
-  background:var(--white);border-radius:var(--radius-m);box-shadow:var(--shadow-row);
-  padding:22px 24px;margin-bottom:14px;
+  background:#fff;border-radius:6px;box-shadow:0 1px 6px rgba(35,54,73,.12);
+  padding:22px 24px;margin-bottom:12px;position:relative;
 }
-.flight-total{display:flex;justify-content:flex-end;font-weight:700;font-size:20px;margin-bottom:4px;}
-.flight-details__title{font-size:16px;font-weight:700;letter-spacing:.37px;margin:0 0 2px;}
-.flight-details__duration{font-size:12px;color:var(--dark-45);margin:0 0 10px;}
-.segment{display:flex;align-items:center;gap:14px;font-size:13px;flex-wrap:wrap;}
+.search__flight-total{display:block;text-align:right;font-weight:700;font-size:20px;margin-bottom:6px;}
+.flight-details__title{font-size:16px;font-weight:700;margin:0 0 2px;}
+.flight-details__duration{font-size:12px;color:#8D9399;margin:0 0 10px;}
+.segment{display:flex;align-items:center;gap:16px;font-size:13px;flex-wrap:wrap;}
+.segment__from,.segment__to{display:flex;align-items:baseline;gap:6px;}
 .segment__time{font-weight:700;}
-.segment__airport{color:var(--dark-70);margin-left:6px;}
-.segment__day{color:var(--dark-45);margin-left:6px;font-size:11px;}
-.segment__dash{flex:0 0 46px;height:1px;background:var(--dark-15);}
-.segment__code{font-size:11px;color:var(--dark-45);margin-left:10px;}
-.search-fares{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;margin:18px 0 4px;}
-.fare-card{border:1px solid var(--dark-10);border-radius:var(--radius-m);padding:12px;font-size:12px;}
-.fare-card.selected{border-color:var(--blue);background:var(--blue-06);}
-.fare-card__name{font-size:12.5px;font-weight:700;margin:0 0 2px;}
-.fare-card__basis{color:var(--dark-45);font-size:11px;margin:0 0 8px;}
-.fare-card__row{display:flex;justify-content:space-between;color:var(--dark-70);margin-bottom:2px;}
-.fare-card__price{font-weight:700;font-size:16px;margin-top:6px;}
+.segment__airport{color:rgba(27,39,51,.7);}
+.segment__day{color:#8D9399;font-size:11px;}
+.segment__icon{flex:0 0 28px;height:1px;background:#e2e4e7;position:relative;}
+.segment__details{font-size:11px;color:#8D9399;margin:0 0 0 6px;}
 
-/* ---------------------------------------------------------------
-   .search__separator / .search__passenger-block — reused
---------------------------------------------------------------- */
-.search__separator{height:1px;background:var(--border);margin:22px 0;}
-.pmp-title-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:2px;}
-.search__flight-title{font-size:15px;font-weight:600;margin:0;}
-.search__flight-description{font-size:12px;color:var(--dark-45);margin:2px 0 16px;}
+.search-fares{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px;margin:18px 0 0;}
+.search-fares__fare{border:1px solid #e2e4e7;border-radius:4px;padding:12px;font-size:12px;display:flex;flex-direction:column;}
+.search-fares__fare.selected{border-color:#2a8aea;background:rgba(42,138,234,.05);}
+.search-fares__name{font-size:13px;font-weight:700;margin:0 0 2px;}
+.search-fares__basis{color:#8D9399;font-size:11px;margin:0 0 6px;}
+.search-fares__rules{margin:0 0 8px;}
+.button--link-out.button--small{
+  background:none;border:none;padding:0;color:#2a8aea;font-size:11px;font-weight:700;
+  text-transform:uppercase;letter-spacing:.02em;cursor:pointer;font-family:inherit;
+}
+.search-fares__fare-rules > p{display:flex;justify-content:space-between;color:rgba(27,39,51,.7);margin:0 0 2px;}
+.search-fares__price{font-weight:700;font-size:15px;margin:8px 0 0;}
+
+/* ---------------- passenger block ---------------- */
+.search__separator{height:1px;background:#eef0f2;margin:22px 0;}
+.search__flight-title{font-size:15px;font-weight:700;margin:0 0 2px;display:inline-block;}
+.search__flight-description{font-size:12px;color:#8D9399;margin:0 0 16px;}
 
 .search__passenger-inputs{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:16px;}
 @media (max-width:820px){.search__passenger-inputs{grid-template-columns:repeat(2,1fr);}}
 .form-field{position:relative;}
-.form-field__label{display:block;font-size:11px;color:var(--dark-45);margin-bottom:5px;}
+.form-field__label{display:block;font-size:14px;font-weight:700;color:#1B2733;margin-bottom:8px;}
 
-/* Text field — reused verbatim: border rgba(dark,.2), hover/focus swaps to rgba(blue,.85), no glow */
-.input{border:1px solid var(--dark-20);border-radius:var(--radius-s);background:var(--white);height:35px;transition:border-color .12s;}
-.input:hover,.input:focus-within{border-color:var(--blue-85);}
-.input__input{width:100%;height:100%;border:none;background:transparent;padding:0 11px;font-size:13px;color:var(--dark);font-family:inherit;border-radius:var(--radius-s);}
+.input{border:1px solid #dfe2e6;border-radius:4px;background:#fff;height:44px;transition:border-color .12s;}
+.input:hover,.input:focus-within{border-color:#2a8aea;}
+.input__input{width:100%;height:100%;border:none;background:transparent;padding:0 13px;font-size:14px;color:#1B2733;font-family:inherit;border-radius:4px;}
 .input__input:focus{outline:none;}
-.input__input:focus-visible{outline:2px solid var(--blue);outline-offset:1px;}
-.input--invalid{border-color:var(--error);}
-.input--invalid:hover,.input--invalid:focus-within{border-color:var(--error);}
+.input--invalid{border-color:#d32f2f;}
+.input--invalid:hover,.input--invalid:focus-within{border-color:#d32f2f;}
 
-/* Gender toggle — reused: merged pill, not separate boxes */
-.gender-radio{display:flex;width:fit-content;height:35px;}
+.gender-radio{display:flex;width:fit-content;height:44px;}
 .gender-radio__wrapper{position:relative;}
 .gender-radio__wrapper:not(:first-child) .gender-radio__label{border-left:none;}
 .gender-radio__input{position:absolute;opacity:0;inset:0;cursor:pointer;margin:0;}
 .gender-radio__label{
-  display:flex;align-items:center;justify-content:center;height:35px;padding:0 16px;
-  border:1px solid var(--dark-20);font-size:13px;color:var(--dark-70);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;height:44px;min-width:56px;padding:0 16px;
+  border:1px solid #dfe2e6;font-size:14px;color:rgba(27,39,51,.7);cursor:pointer;
 }
-.gender-radio__wrapper:first-child .gender-radio__label{border-radius:var(--radius-s) 0 0 var(--radius-s);}
-.gender-radio__wrapper:last-child .gender-radio__label{border-radius:0 var(--radius-s) var(--radius-s) 0;}
-.gender-radio__input:checked + .gender-radio__label{background:var(--blue);border-color:var(--blue);color:#fff;}
-.gender-radio__input:focus-visible + .gender-radio__label{outline:2px solid var(--blue);outline-offset:2px;}
+.gender-radio__wrapper:first-child .gender-radio__label{border-radius:4px 0 0 4px;}
+.gender-radio__wrapper:last-child .gender-radio__label{border-radius:0 4px 4px 0;}
+.gender-radio__input:checked + .gender-radio__label{background:#2a8aea;border-color:#2a8aea;color:#fff;}
 
-.search__passenger-info{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-bottom:6px;}
-.passenger-input-text{font-size:11px;color:var(--dark-45);margin:0 0 16px;grid-column:1/-1;}
+.search__passenger-info{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-bottom:8px;}
+.passenger-input-text{font-size:11px;color:#8D9399;margin:0 0 18px;grid-column:1/-1;}
 .frequent-flyer-info{margin-top:6px;}
 
-/* ---------------------------------------------------------------
-   Status pill — reused component (used in production for group
-   request statuses); repurposed here for the profile tag and the
-   "filled from profile" indicator.
---------------------------------------------------------------- */
-.pill{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;padding:5px 10px;border-radius:20px;text-transform:uppercase;letter-spacing:.02em;}
-.pill__dot{width:6px;height:6px;border-radius:50%;flex:none;}
-.pill--tag{background:var(--blue-10);color:var(--blue);}
-.pill--filled{background:var(--success-bg);color:#1f9e30;}
-.pill--filled svg{flex:none;}
-.pmp-filled-note{display:flex;align-items:center;gap:8px;margin-left:auto;}
-.pmp-linklike{background:none;border:none;color:var(--blue);font-size:12px;font-weight:600;cursor:pointer;padding:0;text-decoration:underline;font-family:inherit;}
+/* ---------------- booking block ---------------- */
+.search__booking-block{padding-top:18px;border-top:1px solid #eef0f2;margin-top:6px;}
+.booking__price{display:flex;justify-content:space-between;margin-bottom:16px;font-size:13px;color:rgba(27,39,51,.7);}
+.booking__price p{margin:0 0 6px;}
+.booking__price-total{font-weight:700;color:#1B2733;margin-bottom:0 !important;}
+.booking__price__left{display:flex;flex-direction:column;}
+.booking__price__right{display:flex;flex-direction:column;text-align:right;}
+.search__book-button{
+  display:block;width:100%;background:#fff;border:1px solid #dfe2e6;border-radius:4px;
+  padding:16px;color:#2a8aea;font-size:13px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;
+  cursor:pointer;font-family:inherit;
+}
+.search__book-button:hover{background:#fafcff;}
+
+/* =====================================================================
+   Mini Profiles — additions only, built from the components above:
+   .input for the dropdown surface, .button--link-out for lightweight
+   actions, .search__book-button for the primary Save/Update action,
+   and the real toast styling captured in production's own inline
+   goober stylesheet (#313131 / #43a047 / #d32f2f / #ff9800, 4px
+   radius, that exact elevation shadow) for notifications.
+   ===================================================================== */
+.pmp-title-row{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;}
+.pmp-filled-note{font-size:12px;color:#1f9e30;margin-left:auto;display:flex;align-items:center;gap:6px;}
+.pmp-filled-note svg{flex:none;}
+.pmp-linklike{background:none;border:none;color:#2a8aea;font-size:12px;font-weight:700;cursor:pointer;padding:0;font-family:inherit;text-transform:uppercase;letter-spacing:.02em;}
 .pmp-source-panel{
-  border:1px solid var(--border);background:var(--off-white);border-radius:var(--radius-m);
+  border:1px solid #eef0f2;background:#fafcff;border-radius:4px;
   padding:12px 14px;font-size:12px;margin:0 0 16px;display:grid;grid-template-columns:repeat(2,1fr);gap:6px 18px;
 }
-.pmp-source-panel dt{color:var(--dark-45);}
+.pmp-source-panel dt{color:#8D9399;}
 .pmp-source-panel dd{margin:0 0 2px;}
 
-/* ---------------------------------------------------------------
-   NEW — profile search dropdown. Same popover primitive production
-   uses for airline/date/passenger pickers (field-pop): radius-m
-   card, 1px hairline border, elevation shadow, radius-xs rows that
-   tint to the surface color on hover.
---------------------------------------------------------------- */
 .pmp-dropdown{
   position:absolute;top:calc(100% + 4px);left:0;right:0;z-index:20;
-  background:var(--white);border:1px solid var(--dark-10);border-radius:var(--radius-m);
-  box-shadow:var(--shadow-pop);padding:8px;max-height:280px;overflow-y:auto;
+  background:#fff;border:1px solid #dfe2e6;border-radius:4px;
+  box-shadow:0 4px 20px rgba(27,39,51,.15);padding:6px;max-height:280px;overflow-y:auto;
 }
-.pmp-dropdown__result{display:flex;flex-direction:column;gap:3px;padding:8px 9px;border-radius:var(--radius-xs);cursor:pointer;}
-.pmp-dropdown__result:hover,.pmp-dropdown__result:focus-visible{background:var(--off-white);}
-.pmp-dropdown__result-top{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;}
-.pmp-dropdown__result-meta{display:flex;gap:10px;font-size:11px;color:var(--dark-45);flex-wrap:wrap;}
-.pmp-dropdown__empty{padding:10px 9px;font-size:12px;color:var(--dark-45);}
-.pmp-dropdown__empty strong{display:block;color:var(--dark);margin-bottom:2px;font-size:13px;}
+.pmp-dropdown__result{padding:8px 9px;border-radius:3px;cursor:pointer;}
+.pmp-dropdown__result:hover,.pmp-dropdown__result:focus-visible{background:#fafcff;}
+.pmp-dropdown__result-top{font-size:13px;font-weight:600;}
+.pmp-dropdown__result-tag{color:#8D9399;font-weight:400;}
+.pmp-dropdown__result-meta{display:block;font-size:11px;color:#8D9399;margin-top:2px;}
+.pmp-dropdown__empty{padding:8px 9px;font-size:12px;color:#8D9399;}
+.pmp-dropdown__empty strong{display:block;color:#1B2733;margin-bottom:2px;font-size:13px;font-weight:600;}
 
-/* ---------------------------------------------------------------
-   NEW — alerts (stale profile / duplicate / passport warning).
-   No production equivalent; built from the same semantic warning
-   tint used elsewhere (rgba warning .08), no border, radius-m.
---------------------------------------------------------------- */
-.pmp-alert{display:flex;gap:10px;align-items:flex-start;border-radius:var(--radius-m);padding:12px 14px;margin-bottom:16px;font-size:12px;background:var(--warning-bg);}
-.pmp-alert strong{color:#b06a00;display:block;font-size:13px;margin-bottom:2px;}
-.pmp-alert p{margin:0;color:var(--dark-70);}
-.pmp-alert svg{flex:none;margin-top:1px;color:var(--warning);}
+.pmp-notice{display:flex;gap:8px;align-items:flex-start;font-size:12px;padding:10px 0;border-top:1px solid #eef0f2;margin-bottom:16px;color:rgba(27,39,51,.7);}
+.pmp-notice svg{flex:none;margin-top:1px;}
+.pmp-notice strong{display:block;color:#1B2733;font-size:12.5px;margin-bottom:1px;}
+.pmp-notice--warning svg{color:#ff9800;}
+.pmp-notice--error svg{color:#d32f2f;}
 
-/* ---------------------------------------------------------------
-   NEW — inline prompts (update/keep, save profile)
---------------------------------------------------------------- */
-.pmp-inline-prompt{border:1px dashed var(--dark-15);border-radius:var(--radius-m);padding:12px 14px;margin-bottom:16px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;font-size:12px;}
-.pmp-inline-prompt--muted{background:var(--off-white);border-style:solid;}
-.pmp-inline-prompt p{margin:0;flex:1 1 260px;color:var(--dark-70);}
-.pmp-inline-prompt strong{color:var(--dark);}
-.pmp-inline-prompt__actions{display:flex;gap:10px;flex-wrap:wrap;}
+.pmp-inline-actions{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:10px 0;border-top:1px solid #eef0f2;margin-bottom:16px;font-size:12px;}
+.pmp-inline-actions p{margin:0;flex:1 1 260px;color:rgba(27,39,51,.7);}
+.pmp-inline-actions strong{color:#1B2733;}
+.pmp-inline-actions__buttons{display:flex;gap:10px;flex-wrap:wrap;}
+.pmp-btn-primary{
+  background:#2a8aea;color:#fff;border:none;border-radius:4px;padding:0 18px;height:36px;
+  font-size:12.5px;font-weight:700;text-transform:uppercase;letter-spacing:.03em;cursor:pointer;font-family:inherit;
+}
+.pmp-btn-primary:hover{background:#2179d1;}
 
-/* Buttons — reused verbatim (height 39, radius-s, font 13/600) */
-.btn-primary,.btn-outline-block{height:39px;padding:0 22px;border-radius:var(--radius-s);font-family:inherit;font-size:13px;font-weight:600;cursor:pointer;}
-.btn-primary{border:none;background:var(--blue);color:#fff;}
-.btn-primary:hover{background:#2179d1;}
-.btn-outline-block{border:1px solid var(--blue-20);background:#fff;color:var(--blue);}
-.btn-outline-block:hover{background:var(--blue);color:#fff;border-color:var(--blue);}
+.pmp-toast{
+  position:fixed;left:20px;bottom:20px;z-index:100;
+  background:#313131;color:#fff;font-size:.875rem;line-height:1.43;
+  padding:6px 16px;border-radius:4px;
+  box-shadow:0px 3px 5px -1px rgba(0,0,0,.2),0px 6px 10px 0px rgba(0,0,0,.14),0px 1px 18px 0px rgba(0,0,0,.12);
+}
+.pmp-toast--success{background:#43a047;}
+.pmp-toast--error{background:#d32f2f;}
 
-/* ---------------------------------------------------------------
-   NEW — toast
---------------------------------------------------------------- */
-.pmp-toast{display:flex;align-items:center;gap:8px;border-radius:var(--radius-xs);padding:10px 14px;font-size:12px;font-weight:600;margin-bottom:4px;}
-.pmp-toast--success{background:var(--success-bg);color:#1f9e30;}
-.pmp-toast--error{background:var(--error-bg);color:var(--error);}
-
-/* ---------------------------------------------------------------
-   Passport / checkout stage section
---------------------------------------------------------------- */
-.pmp-stage-divider{display:flex;align-items:center;gap:12px;margin:28px 0 14px;color:var(--dark-45);font-size:11px;text-transform:uppercase;letter-spacing:.05em;}
-.pmp-stage-divider::before,.pmp-stage-divider::after{content:"";flex:1;height:1px;background:var(--border);}
-.pmp-select{appearance:none;background-image:none;cursor:pointer;padding-right:11px;}
-.pmp-field-error{color:var(--error);font-size:11px;margin:6px 2px 0;}
+/* Passport / checkout stage */
+.pmp-select{appearance:none;background-image:none;cursor:pointer;padding-right:11px;text-overflow:ellipsis;}
+.pmp-field-error{color:#d32f2f;font-size:11px;margin:6px 2px 0;}
 .pmp-field-ok{color:#1f9e30;font-size:11px;margin:6px 2px 0;}
 .pmp-info-icon{
-  position:relative;flex:none;width:16px;height:16px;border-radius:50%;border:1px solid var(--warning);
-  color:#b06a00;background:transparent;font-size:10px;font-weight:700;font-style:italic;line-height:14px;cursor:pointer;
+  position:relative;flex:none;width:15px;height:15px;border-radius:50%;border:1px solid #ff9800;
+  color:#b06a00;background:transparent;font-size:9px;font-weight:700;font-style:italic;line-height:13px;
+  text-align:center;cursor:pointer;
 }
 .pmp-tooltip{
-  display:none;position:absolute;bottom:calc(100% + 8px);right:-8px;width:250px;background:var(--dark);color:#fff;
-  font-size:11px;font-weight:400;font-style:normal;padding:10px 12px;border-radius:var(--radius-m);
-  box-shadow:var(--shadow-pop);text-align:left;line-height:1.5;z-index:5;
+  display:none;position:absolute;bottom:calc(100% + 8px);right:-8px;width:250px;background:#1B2733;color:#fff;
+  font-size:11px;font-weight:400;font-style:normal;padding:10px 12px;border-radius:4px;
+  box-shadow:0 4px 20px rgba(27,39,51,.15);text-align:left;line-height:1.5;z-index:5;
 }
 .pmp-info-icon:hover .pmp-tooltip,.pmp-info-icon:focus-visible .pmp-tooltip{display:block;}
 
-/* ---------------------------------------------------------------
-   Booking block — reused
---------------------------------------------------------------- */
-.search__booking-block{display:flex;align-items:center;justify-content:space-between;padding-top:18px;border-top:1px solid var(--border);margin-top:6px;}
-.booking-price{font-size:13px;}
-.booking-price strong{font-size:20px;display:block;}
-
-/* Collapsed alt rows — fare-price-box style hover */
-.alt-flight{display:flex;justify-content:space-between;align-items:center;padding:14px 22px;font-size:13px;color:var(--dark-70);cursor:pointer;border-radius:var(--radius-m);}
-.alt-flight:hover{background:var(--off-white);}
-.alt-flight strong{color:var(--dark);}
-
-/* ---------------------------------------------------------------
-   Provenance table — same compare-table/tag pattern used by the
-   sibling design-system doc to record what's reused vs. new.
---------------------------------------------------------------- */
-.pmp-provenance{margin-top:36px;}
-.pmp-provenance h2{font-size:16px;font-weight:700;margin:0 0 4px;}
-.pmp-provenance>p{font-size:12.5px;color:var(--dark-45);margin:0 0 14px;max-width:640px;}
-.compare-table{width:100%;border-collapse:collapse;font-size:12.5px;background:var(--white);border-radius:var(--radius-m);overflow:hidden;box-shadow:var(--shadow-row);}
-.compare-table th,.compare-table td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--border);}
-.compare-table tr:last-child td{border-bottom:none;}
-.compare-table th{font-size:10.5px;text-transform:uppercase;letter-spacing:.04em;color:var(--dark-45);font-weight:700;}
-.tag{display:inline-block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.03em;padding:2px 7px;border-radius:4px;}
-.tag--reuse{background:var(--success-bg);color:#1f9e30;}
-.tag--new{background:var(--blue-10);color:var(--blue);}
-
-@media (max-width:600px){
-  .search-bar{height:auto;flex-wrap:wrap;}
-  .sf-cell{border-right:none;border-bottom:1px solid var(--dark-10);padding:8px 14px;}
-  .sf-submit{width:100%;height:39px;}
+@media (max-width:640px){
+  .search-form{flex-wrap:wrap;height:auto;}
+  .search-form > *{border-radius:0 !important;border-right:1px solid #e2e4e7 !important;flex:1 1 45%;}
 }
 </style>
 </head>
 <body>
 
-<div class="proto-bar">
-  <div class="proto-bar__row">
-    <span class="proto-bar__label">Prototype</span>
-    <p>Type <strong>"Kowal"</strong> in Last name → pick a profile → edit a field to see the update/keep prompt. Type <strong>"Nowak"</strong> for a single match, anything else for no results. Fill the form manually and save it as a new profile — try Kowalski/Jan/1985‑04‑12 to trigger duplicate detection. Passport states are further down the page.</p>
-    <label><input type="checkbox" id="simulateErrorToggle"> simulate save/update error</label>
+<header class="header">
+  <a href="#"><img class="header__logo" alt="DRCT" src="data:image/svg+xml,%3csvg%20width='94'%20height='18'%20viewBox='0%200%2094%2018'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20d='M22.1176%200H0V17.9998H22.1176C28.4105%2017.9998%2032.4779%2014.4599%2032.4779%208.98658C32.4779%203.5133%2028.4173%200%2022.1176%200ZM27.9791%209.01325C27.9791%2012.2199%2025.7879%2014.1332%2022.1176%2014.1332H4.3756V3.89329H22.0971C25.7811%203.89329%2027.9791%205.80661%2027.9791%209.01325V9.01325Z'%20fill='%231B2733'/%3e%3cpath%20d='M73.5664%200V3.93413H81.3264V17.9998H85.7627V3.93413H93.5227V0H73.5664Z'%20fill='%231B2733'/%3e%3cpath%20d='M65.2032%203.88753H71.5835V0H65.2032C58.8711%200%2054.7852%203.53473%2054.7852%208.99992C54.7852%2014.4651%2058.8711%2017.9998%2065.2032%2017.9998H71.6111V14.1123H65.2032C61.51%2014.1123%2059.312%2012.2018%2059.312%208.99992C59.312%205.79802%2061.5169%203.88753%2065.2032%203.88753Z'%20fill='%231B2733'/%3e%3cpath%20d='M49.0121%2011.0025C50.1007%2010.6228%2051.0376%209.91123%2051.6861%208.97143C52.3347%208.03164%2052.6611%206.91274%2052.6178%205.7778C52.6178%202.21249%2049.9542%200%2045.6776%200H34.4336V17.9932H38.8119V11.5356H44.4034L48.5377%2017.9998H53.6073L49.0121%2011.0025ZM45.8402%208.20355H38.8119V3.41203H45.8402C46.4642%203.4444%2047.0518%203.71093%2047.4818%204.15667C47.9119%204.60242%2048.1516%205.1934%2048.1516%205.80779C48.1516%206.42219%2047.9119%207.01317%2047.4818%207.45891C47.0518%207.90465%2046.4642%208.17118%2045.8402%208.20355Z'%20fill='%231B2733'/%3e%3c/svg%3e"></a>
+  <nav class="header__nav">
+    <a href="#" class="active">Search</a>
+    <a href="#">Bookings</a>
+    <a href="#">Management</a>
+    <a href="#">Sales</a>
+    <a href="#">Transactions</a>
+    <a href="#">Profile</a>
+  </nav>
+</header>
+
+<div class="search-form">
+  <div class="airport-input"><input type="text" value="Chopin Airport" readonly><span class="airport-input__code">WAW</span></div>
+  <div class="swap-container" tabindex="0" role="button" aria-label="Swap departure airport and destination airport">
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M9.71967 2.21967C9.42678 2.51256 9.42678 2.98744 9.71967 3.28033L10.4393 4H3.75C3.33579 4 3 4.33579 3 4.75C3 5.16421 3.33579 5.5 3.75 5.5H10.4393L9.71967 6.21967C9.42678 6.51256 9.42678 6.98744 9.71967 7.28033C10.0126 7.57322 10.4874 7.57322 10.7803 7.28033L12.7803 5.28033C13.0732 4.98744 13.0732 4.51256 12.7803 4.21967L10.7803 2.21967C10.4874 1.92678 10.0126 1.92678 9.71967 2.21967ZM6.28033 8.71967C6.57322 9.01256 6.57322 9.48744 6.28033 9.78033L5.56066 10.5H12.25C12.6642 10.5 13 10.8358 13 11.25C13 11.6642 12.6642 12 12.25 12H5.56066L6.28033 12.7197C6.57322 13.0126 6.57322 13.4874 6.28033 13.7803C5.98744 14.0732 5.51256 14.0732 5.21967 13.7803L3.21967 11.7803C2.92678 11.4874 2.92678 11.0126 3.21967 10.7197L5.21967 8.71967C5.51256 8.42678 5.98744 8.42678 6.28033 8.71967Z" fill="#8D9399"></path></svg>
+  </div>
+  <div class="airport-input"><input type="text" value="Charles de Gaulle Intl" readonly><span class="airport-input__code">CDG</span></div>
+  <div class="search-form__date">
+    <div class="datepicker__dummy-wrapper">
+      <div class="datepicker__input">27 jul, mon</div>
+      <div class="datepicker__input datepicker__input--no-value">Return</div>
+    </div>
+  </div>
+  <div class="search-form__pass"><div class="passenger-input__result">1 passenger</div></div>
+  <button class="search-form__submit" type="button">Search</button>
+</div>
+
+<div class="search-bar-container">
+  <div class="search-bar">
+    <div class="ai-filters">
+      <svg class="ai-icon" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="9" cy="9" r="9" fill="white"/><path fill-rule="evenodd" clip-rule="evenodd" d="M8.99479 18.0013C13.9668 18.0013 17.9974 13.9707 17.9974 8.9987C17.9974 4.0267 13.9668 -0.00390625 8.99479 -0.00390625C4.02279 -0.00390625 -0.0078125 4.0267 -0.0078125 8.9987C-0.0078125 13.9707 4.02279 18.0013 8.99479 18.0013ZM9.60929 4.2314C9.61501 4.27917 9.62073 4.32696 9.63025 4.37393C10.0378 6.38535 11.6117 7.9592 13.6231 8.36676C13.67 8.37627 13.7178 8.38199 13.7656 8.38771C13.8365 8.3962 13.9073 8.40467 13.9752 8.42552C14.2207 8.50081 14.3992 8.72926 14.3992 8.9994C14.3992 9.26954 14.2207 9.49799 13.9752 9.57328C13.9073 9.59413 13.8365 9.6026 13.7656 9.61109C13.7178 9.61681 13.67 9.62253 13.6231 9.63204C11.6117 10.0396 10.0378 11.6135 9.63025 13.6249C9.62073 13.6718 9.61501 13.7196 9.60929 13.7674C9.60081 13.8383 9.59233 13.9091 9.57149 13.977C9.4962 14.2225 9.26774 14.401 8.9976 14.401C8.72746 14.401 8.49901 14.2225 8.42372 13.977C8.40288 13.9091 8.3944 13.8383 8.38592 13.7674C8.3802 13.7196 8.37448 13.6718 8.36496 13.6249C7.9574 11.6135 6.38355 10.0396 4.37214 9.63204C4.32517 9.62253 4.27737 9.61681 4.2296 9.61109C4.15875 9.6026 4.08794 9.59413 4.01998 9.57328C3.77452 9.49799 3.59604 9.26954 3.59604 8.9994C3.59604 8.72926 3.77452 8.50081 4.01998 8.42552C4.08794 8.40467 4.15874 8.3962 4.2296 8.38771C4.27737 8.38199 4.32517 8.37627 4.37214 8.36676C6.38355 7.9592 7.9574 6.38535 8.36496 4.37393C8.37448 4.32696 8.3802 4.27917 8.38592 4.2314C8.3944 4.16054 8.40288 4.08974 8.42372 4.02178C8.49901 3.77631 8.72746 3.59784 8.9976 3.59784C9.26774 3.59784 9.4962 3.77631 9.57149 4.02178C9.59233 4.08974 9.60081 4.16054 9.60929 4.2314Z" fill="url(#pmp_ai_grad)"/><defs><linearGradient id="pmp_ai_grad" x1="-0.00781247" y1="18.0013" x2="17.9974" y2="-0.00390622" gradientUnits="userSpaceOnUse"><stop stop-color="#4182FF"/><stop offset="1" stop-color="#3AFFFF"/></linearGradient></defs></svg>
+      <strong>AI Filters</strong>
+      <span class="info-icon-wrapper">
+        <svg class="info-icon" width="12" height="13" viewBox="0 0 12 13" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.104 4.716C5.89067 4.716 5.736 4.668 5.64 4.572C5.54933 4.476 5.504 4.35333 5.504 4.204V4.044C5.504 3.89467 5.54933 3.772 5.64 3.676C5.736 3.58 5.89067 3.532 6.104 3.532C6.312 3.532 6.464 3.58 6.56 3.676C6.656 3.772 6.704 3.89467 6.704 4.044V4.204C6.704 4.35333 6.656 4.476 6.56 4.572C6.464 4.668 6.312 4.716 6.104 4.716ZM5.592 5.324H6.616V9.5H5.592V5.324Z" fill="#1B2733"/><circle cx="6" cy="6.5" r="5.5" stroke="#1B2733"/></svg>
+      </span>
+      <input type="text" placeholder="Morning departures on Lufthansa or Lot" disabled>
+      <a class="filter-flights" href="#">Filter flights</a>
+    </div>
   </div>
 </div>
 
-<div class="wrapper">
-
-  <header class="header">
-    <div class="header__logo">DRCT</div>
-    <nav class="header__nav">
-      <a href="#" class="active">Search</a>
-      <a href="#">Bookings</a>
-      <a href="#">Management</a>
-      <a href="#">Sales</a>
-      <a href="#">Transactions</a>
-      <a href="#">Profile</a>
-    </nav>
-  </header>
-
-  <div class="search-bar">
-    <div class="sf-cell"><div class="sf-name">Warsaw</div><div class="sf-code">WAW</div></div>
-    <div class="sf-cell"><div class="sf-name">Paris</div><div class="sf-code">CDG</div></div>
-    <div class="sf-cell"><div class="sf-name">27 Jul, Mon</div><div class="sf-code">Departure</div></div>
-    <div class="sf-cell"><div class="sf-name">1 pax</div><div class="sf-code">Adults</div></div>
-    <button class="sf-submit" type="button">Search</button>
+<div class="search__filters">
+  <div class="search__filter">
+    <input type="radio" name="flt1" id="allFlight"><label for="allFlight" class="active">All flights</label>
+    <input type="radio" name="flt1" id="noTransfer"><label for="noTransfer">Direct</label>
+    <input type="radio" name="flt1" id="oneTransfer"><label for="oneTransfer">Up to 1 connection</label>
   </div>
-
-  <div class="ai-filters-bar">
-    <strong>AI Filters</strong>
-    <input type="text" placeholder="Morning departures on Lufthansa or Lot" disabled>
-    <a href="#">Filter flights</a>
+  <div class="search__filter">
+    <input type="radio" name="flt2" id="priceSort"><label for="priceSort">Cheapest</label>
+    <input type="radio" name="flt2" id="durationSort"><label for="durationSort">Fastest</label>
+    <input type="radio" name="flt2" id="smartSort"><label for="smartSort" class="active">Optimal</label>
   </div>
-
-  <div class="filters-row">
-    <div class="fgroup"><span class="filter-toggle is-active">All flights</span><span class="filter-toggle">Direct</span><span class="filter-toggle">Up to 1 connection</span></div>
-    <div class="fgroup"><span class="filter-toggle">Cheapest</span><span class="filter-toggle">Fastest</span><span class="filter-toggle is-active">Optimal</span></div>
-    <div class="fgroup" style="margin-left:auto"><span class="filter-toggle">Without baggage</span><span class="filter-toggle">With baggage</span></div>
+  <div class="search__filter search__filter--right">
+    <input type="radio" name="flt3" id="basicSort"><label for="basicSort">Without baggage
+      <svg class="basic-sort-icon" width="15" height="14" viewBox="0 0 15 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.57715 0.958984C10.9125 0.959138 13.616 3.66367 13.6162 6.99902C13.6161 10.3345 10.9126 13.0379 7.57715 13.0381C4.24179 13.0378 1.53726 10.3344 1.53711 6.99902C1.53736 3.66373 4.24185 0.959237 7.57715 0.958984ZM7.57715 1.95898C4.79414 1.95924 2.53736 4.21601 2.53711 6.99902C2.53726 9.78212 4.79408 12.0378 7.57715 12.0381C10.3603 12.0379 12.6161 9.78218 12.6162 6.99902C12.616 4.21595 10.3602 1.95914 7.57715 1.95898ZM8.19727 10.0215H7.16602V5.81445H8.19727V10.0215ZM7.68164 4.00977C7.8911 4.00978 8.04394 4.05859 8.14062 4.15527C8.23725 4.25191 8.28608 4.37512 8.28613 4.52539V4.68652C8.28613 4.83693 8.23732 4.96092 8.14062 5.05762C8.04393 5.15418 7.89097 5.20214 7.68164 5.20215C7.46677 5.20215 7.31056 5.15431 7.21387 5.05762C7.1226 4.96094 7.07715 4.83689 7.07715 4.68652V4.52539C7.0772 4.37526 7.12279 4.25186 7.21387 4.15527C7.31056 4.05858 7.46677 4.00977 7.68164 4.00977Z" fill="#1B2733"></path></svg>
+    </label>
+    <input type="radio" name="flt3" id="econSort"><label for="econSort">With baggage
+      <svg class="basic-sort-icon" width="15" height="14" viewBox="0 0 15 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.57715 0.958984C10.9125 0.959138 13.616 3.66367 13.6162 6.99902C13.6161 10.3345 10.9126 13.0379 7.57715 13.0381C4.24179 13.0378 1.53726 10.3344 1.53711 6.99902C1.53736 3.66373 4.24185 0.959237 7.57715 0.958984ZM7.57715 1.95898C4.79414 1.95924 2.53736 4.21601 2.53711 6.99902C2.53726 9.78212 4.79408 12.0378 7.57715 12.0381C10.3603 12.0379 12.6161 9.78218 12.6162 6.99902C12.616 4.21595 10.3602 1.95914 7.57715 1.95898ZM8.19727 10.0215H7.16602V5.81445H8.19727V10.0215ZM7.68164 4.00977C7.8911 4.00978 8.04394 4.05859 8.14062 4.15527C8.23725 4.25191 8.28608 4.37512 8.28613 4.52539V4.68652C8.28613 4.83693 8.23732 4.96092 8.14062 5.05762C8.04393 5.15418 7.89097 5.20214 7.68164 5.20215C7.46677 5.20215 7.31056 5.15431 7.21387 5.05762C7.1226 4.96094 7.07715 4.83689 7.07715 4.68652V4.52539C7.0772 4.37526 7.12279 4.25186 7.21387 4.15527C7.31056 4.05858 7.46677 4.00977 7.68164 4.00977Z" fill="#1B2733"></path></svg>
+    </label>
   </div>
+</div>
 
-  <div class="search__flight">
-    <div class="flight-total tabular">322.62 EUR</div>
-    <p class="flight-details__title">Flight to Paris Charles de Gaulle</p>
+<div class="search__result">
+  <div class="search__flight open">
+    <span class="search__flight-total">322.62 EUR</span>
+    <p class="flight-details__title">Flight to Paris</p>
     <p class="flight-details__duration">On the way 2h 25m</p>
     <div class="segment">
-      <span class="segment__time tabular">16:25</span><span class="segment__airport">Warsaw Chopin, WAW</span><span class="segment__day">27 Jul, Mon</span>
-      <span class="segment__dash"></span>
-      <span class="segment__time tabular">18:50</span><span class="segment__airport">Charles de Gaulle, CDG</span><span class="segment__day">27 Jul, Mon</span>
-      <span class="segment__code">LOT, LO 335</span>
+      <div class="segment__from"><span class="segment__time">16:25</span> <span class="segment__airport">Warsaw Chopin ..., WAW</span> <span class="segment__day">27 jul, md</span></div>
+      <i class="segment__icon"></i>
+      <div class="segment__to"><span class="segment__time">18:50</span> <span class="segment__airport">Charles de Gau..., CDG</span> <span class="segment__day">27 jul, md</span></div>
+      <p class="segment__details">LOT, LO 335</p>
     </div>
 
     <div class="search-fares">
-      <div class="fare-card selected">
-        <p class="fare-card__name">Economy saver</p>
-        <p class="fare-card__basis">T1SAV0</p>
-        <div class="fare-card__row"><span>Baggage</span><span>0PC</span></div>
-        <div class="fare-card__row"><span>Changes</span><span>Paid</span></div>
-        <div class="fare-card__row"><span>Refund</span><span>Paid</span></div>
-        <p class="fare-card__price tabular">322.62 EUR</p>
+      <div class="search-fares__fare selected">
+        <div class="search-fares__fare-rules">
+          <p class="search-fares__name">Economy saver</p>
+          <p class="search-fares__basis">T1SAV0</p>
+          <p class="search-fares__rules"><button class="button--link-out button--small" type="button">Fare Rules</button></p>
+          <p><span>Baggage</span><span>0PC</span></p>
+          <p><span>Changes</span><span>Paid</span></p>
+          <p><span>Refund</span><span>Paid</span></p>
+        </div>
+        <p class="search-fares__price">322.62 EUR</p>
       </div>
-      <div class="fare-card">
-        <p class="fare-card__name">Economy standard</p>
-        <p class="fare-card__basis">T1STD0</p>
-        <div class="fare-card__row"><span>Baggage</span><span>1PC</span></div>
-        <p class="fare-card__price tabular">359.62 EUR</p>
+      <div class="search-fares__fare">
+        <div class="search-fares__fare-rules">
+          <p class="search-fares__name">Economy standard</p>
+          <p class="search-fares__basis">T1STD0</p>
+          <p class="search-fares__rules"><button class="button--link-out button--small" type="button">Fare Rules</button></p>
+          <p><span>Baggage</span><span>1PC</span></p>
+          <p><span>Changes</span><span>?</span></p>
+          <p><span>Refund</span><span>?</span></p>
+        </div>
+        <p class="search-fares__price">359.62 EUR</p>
       </div>
-      <div class="fare-card">
-        <p class="fare-card__name">Economy flex</p>
-        <p class="fare-card__basis">T1FLX0</p>
-        <div class="fare-card__row"><span>Baggage</span><span>1PC</span></div>
-        <p class="fare-card__price tabular">436.62 EUR</p>
+      <div class="search-fares__fare">
+        <div class="search-fares__fare-rules">
+          <p class="search-fares__name">Economy flex</p>
+          <p class="search-fares__basis">T1FLX0</p>
+          <p class="search-fares__rules"><button class="button--link-out button--small" type="button">Fare Rules</button></p>
+          <p><span>Baggage</span><span>1PC</span></p>
+          <p><span>Changes</span><span>?</span></p>
+          <p><span>Refund</span><span>?</span></p>
+        </div>
+        <p class="search-fares__price">436.62 EUR</p>
       </div>
-      <div class="fare-card">
-        <p class="fare-card__name">Business semi flex</p>
-        <p class="fare-card__basis">D1SFX0</p>
-        <div class="fare-card__row"><span>Baggage</span><span>2PC</span></div>
-        <p class="fare-card__price tabular">918.12 EUR</p>
+      <div class="search-fares__fare">
+        <div class="search-fares__fare-rules">
+          <p class="search-fares__name">Business semi flex</p>
+          <p class="search-fares__basis">D1SFX0</p>
+          <p class="search-fares__rules"><button class="button--link-out button--small" type="button">Fare Rules</button></p>
+          <p><span>Baggage</span><span>2PC</span></p>
+          <p><span>Changes</span><span>?</span></p>
+          <p><span>Refund</span><span>?</span></p>
+        </div>
+        <p class="search-fares__price">918.12 EUR</p>
+      </div>
+      <div class="search-fares__fare">
+        <div class="search-fares__fare-rules">
+          <p class="search-fares__name">Business semi flex</p>
+          <p class="search-fares__basis">D1SFX0</p>
+          <p class="search-fares__rules"><button class="button--link-out button--small" type="button">Fare Rules</button></p>
+          <p><span>Baggage</span><span>2PC</span></p>
+          <p><span>Changes</span><span>?</span></p>
+          <p><span>Refund</span><span>?</span></p>
+        </div>
+        <p class="search-fares__price">918.12 EUR</p>
+      </div>
+      <div class="search-fares__fare">
+        <div class="search-fares__fare-rules">
+          <p class="search-fares__name">Business semi flex</p>
+          <p class="search-fares__basis">D1SFX0</p>
+          <p class="search-fares__rules"><button class="button--link-out button--small" type="button">Fare Rules</button></p>
+          <p><span>Baggage</span><span>2PC</span></p>
+          <p><span>Changes</span><span>?</span></p>
+          <p><span>Refund</span><span>?</span></p>
+        </div>
+        <p class="search-fares__price">918.12 EUR</p>
+      </div>
+      <div class="search-fares__fare">
+        <div class="search-fares__fare-rules">
+          <p class="search-fares__name">Business full flex</p>
+          <p class="search-fares__basis">D1FFX0</p>
+          <p class="search-fares__rules"><button class="button--link-out button--small" type="button">Fare Rules</button></p>
+          <p><span>Baggage</span><span>2PC</span></p>
+          <p><span>Changes</span><span>?</span></p>
+          <p><span>Refund</span><span>?</span></p>
+        </div>
+        <p class="search-fares__price">996.12 EUR</p>
+      </div>
+      <div class="search-fares__fare">
+        <div class="search-fares__fare-rules">
+          <p class="search-fares__name">Business full flex</p>
+          <p class="search-fares__basis">D1FFX0</p>
+          <p class="search-fares__rules"><button class="button--link-out button--small" type="button">Fare Rules</button></p>
+          <p><span>Baggage</span><span>2PC</span></p>
+          <p><span>Changes</span><span>?</span></p>
+          <p><span>Refund</span><span>?</span></p>
+        </div>
+        <p class="search-fares__price">996.12 EUR</p>
       </div>
     </div>
 
-    <!-- ============================================================
-         .search__passenger — the integrated mini-profile block
-    ============================================================= -->
-    <div class="search__separator"></div>
-    <div class="search__passenger-block">
+    <!-- ===================== Mini Profiles integration point ===================== -->
+    <div class="search__passenger">
+      <div class="search__separator"></div>
+      <div class="search__passenger-block">
 
-      <div class="pmp-title-row">
-        <p class="search__flight-title">Adult</p>
-        <span class="pill pill--tag" id="profileTag" hidden></span>
-        <span class="pmp-filled-note" id="filledNote" hidden>
-          <span class="pill pill--filled">
+        <div class="pmp-title-row">
+          <p class="search__flight-title" id="passengerTitle">Adult</p>
+          <span class="pmp-filled-note" id="filledNote" hidden>
             <svg width="12" height="12" viewBox="0 0 14 14" fill="none"><path d="M2 7.5 5.5 11 12 3.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
             Filled from profile
+            <button type="button" class="pmp-linklike" id="viewSourceBtn">View</button>
           </span>
-          <button type="button" class="pmp-linklike" id="viewSourceBtn">view</button>
-        </span>
-      </div>
-      <p class="search__flight-description">Enter the data in Latin as specified in the document</p>
+        </div>
+        <p class="search__flight-description">Enter the data in Latin as specified in the document</p>
 
-      <dl class="pmp-source-panel" id="sourcePanel" hidden></dl>
+        <dl class="pmp-source-panel" id="sourcePanel" hidden></dl>
 
-      <div class="pmp-alert" id="staleAlert" hidden>
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 5v3.5M8 11h.01" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.3"/></svg>
+        <div class="pmp-notice pmp-notice--warning" id="staleAlert" hidden>
+          <svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M8 5v3.5M8 11h.01" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.3"/></svg>
+          <div><strong>Check this profile's details</strong>This saved profile hasn't been updated since <span id="staleDate"></span>. Confirm the passenger's data is still correct before booking.</div>
+        </div>
+
+        <div class="search__passenger-inputs">
+          <div class="form-field" id="lastNameField">
+            <label class="form-field__label" for="lastName">Last name</label>
+            <div class="input"><input class="input__input" id="lastName" autocomplete="off"></div>
+            <div class="pmp-dropdown" id="lastNameDropdown" hidden></div>
+          </div>
+          <div class="form-field" id="firstNameField">
+            <label class="form-field__label" for="firstName">First name</label>
+            <div class="input"><input class="input__input" id="firstName" autocomplete="off"></div>
+            <div class="pmp-dropdown" id="firstNameDropdown" hidden></div>
+          </div>
+          <div class="form-field search__passenger-inputs__gender">
+            <label class="form-field__label">Gender</label>
+            <div class="gender-radio">
+              <div class="gender-radio__wrapper"><input class="gender-radio__input" type="radio" name="gender" id="genderM" value="M"><label class="gender-radio__label" for="genderM">M</label></div>
+              <div class="gender-radio__wrapper"><input class="gender-radio__input" type="radio" name="gender" id="genderF" value="F"><label class="gender-radio__label" for="genderF">F</label></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pmp-inline-actions" id="editAfterFillRow" hidden>
+          <p>You changed data pulled from <strong id="editedProfileName"></strong>'s saved profile. Apply this change to the saved profile too?</p>
+          <div class="pmp-inline-actions__buttons">
+            <button type="button" class="pmp-btn-primary" id="updateProfileBtn">Update saved profile</button>
+            <button type="button" class="button--link-out button--small" id="keepBookingOnlyBtn">Keep for this booking only</button>
+          </div>
+        </div>
+
         <div>
-          <strong>Check this profile's details</strong>
-          <p>This saved profile hasn't been updated since <span id="staleDate" class="tabular"></span>. Confirm the passenger's data is still correct before booking.</p>
+          <div class="search__passenger-info">
+            <div class="form-field">
+              <label class="form-field__label" for="phone">Phone number</label>
+              <div class="input"><input class="input__input" id="phone" autocomplete="off"></div>
+            </div>
+            <div class="form-field" id="emailField">
+              <label class="form-field__label" for="email">Email</label>
+              <div class="input"><input class="input__input" id="email" autocomplete="off"></div>
+              <div class="pmp-dropdown" id="emailDropdown" hidden></div>
+            </div>
+          </div>
+          <div class="search__passenger-info passenger-input-text"> * Contacts are optional. Fill in the fields in case you need to transfer customer's data to the airline.</div>
         </div>
-      </div>
 
-      <div class="search__passenger-inputs">
-        <div class="form-field" id="lastNameField">
-          <label class="form-field__label" for="lastName">Last name</label>
-          <div class="input"><input class="input__input" id="lastName" autocomplete="off"></div>
-          <div class="pmp-dropdown" id="lastNameDropdown" hidden></div>
+        <div>
+          <div class="search__passenger-info frequent-flyer-info">
+            <div class="form-field">
+              <label class="form-field__label" for="fqtvCarrier">Frequent flyer carrier</label>
+              <div class="input"><input class="input__input" id="fqtvCarrier" autocomplete="off"></div>
+            </div>
+            <div class="form-field">
+              <label class="form-field__label" for="fqtvNumber">Frequent flyer number</label>
+              <div class="input"><input class="input__input" id="fqtvNumber" autocomplete="off"></div>
+            </div>
+          </div>
+          <div class="search__passenger-info passenger-input-text"> * Optional. Add your frequent flyer number to earn miles and other program benefits.</div>
         </div>
-        <div class="form-field" id="firstNameField">
-          <label class="form-field__label" for="firstName">First name</label>
-          <div class="input"><input class="input__input" id="firstName" autocomplete="off"></div>
-          <div class="pmp-dropdown" id="firstNameDropdown" hidden></div>
-        </div>
-        <div class="form-field search__passenger-inputs__gender">
-          <label class="form-field__label">Gender</label>
-          <div class="gender-radio">
-            <div class="gender-radio__wrapper"><input class="gender-radio__input" type="radio" name="gender" id="genderM" value="M"><label class="gender-radio__label" for="genderM">M</label></div>
-            <div class="gender-radio__wrapper"><input class="gender-radio__input" type="radio" name="gender" id="genderF" value="F"><label class="gender-radio__label" for="genderF">F</label></div>
+
+        <div class="pmp-inline-actions" id="saveProfileRow" hidden>
+          <p>No saved profile matches these details.</p>
+          <div class="pmp-inline-actions__buttons">
+            <button type="button" class="pmp-btn-primary" id="saveNewProfileBtn">Save as passenger profile</button>
           </div>
         </div>
-        <div class="form-field" id="dobField">
-          <label class="form-field__label" for="dob">Date of birth</label>
-          <div class="input"><input class="input__input" id="dob" placeholder="DD MMM YYYY" autocomplete="off"></div>
-        </div>
-      </div>
 
-      <div class="pmp-inline-prompt" id="editAfterFillRow" hidden>
-        <p>You changed data pulled from <strong id="editedProfileName"></strong>'s saved profile. Apply this change to the saved profile too?</p>
-        <div class="pmp-inline-prompt__actions">
-          <button type="button" class="btn-primary" id="updateProfileBtn">Update saved profile</button>
-          <button type="button" class="btn-outline-block" id="keepBookingOnlyBtn">Keep for this booking only</button>
-        </div>
-      </div>
-
-      <div>
-        <div class="search__passenger-info">
-          <div class="form-field">
-            <label class="form-field__label" for="phone">Phone number</label>
-            <div class="input"><input class="input__input" id="phone" autocomplete="off"></div>
-          </div>
-          <div class="form-field" id="emailField">
-            <label class="form-field__label" for="email">Email</label>
-            <div class="input"><input class="input__input" id="email" autocomplete="off"></div>
-            <div class="pmp-dropdown" id="emailDropdown" hidden></div>
-          </div>
-        </div>
-        <p class="passenger-input-text">* Contacts are optional. Fill in the fields in case you need to transfer customer's data to the airline.</p>
-      </div>
-
-      <div>
-        <div class="search__passenger-info frequent-flyer-info">
-          <div class="form-field">
-            <label class="form-field__label" for="fqtvCarrier">Frequent flyer carrier</label>
-            <div class="input"><input class="input__input" id="fqtvCarrier" autocomplete="off"></div>
-          </div>
-          <div class="form-field">
-            <label class="form-field__label" for="fqtvNumber">Frequent flyer number</label>
-            <div class="input"><input class="input__input" id="fqtvNumber" autocomplete="off"></div>
-          </div>
-        </div>
-        <p class="passenger-input-text">* Optional. Add your frequent flyer number to earn miles and other program benefits.</p>
-      </div>
-
-      <div class="pmp-inline-prompt pmp-inline-prompt--muted" id="saveProfileRow" hidden>
-        <p>No saved profile matches these details.</p>
-        <div class="pmp-inline-prompt__actions">
-          <button type="button" class="btn-primary" id="saveNewProfileBtn">Save as passenger profile</button>
-        </div>
-      </div>
-
-      <div class="pmp-alert" id="duplicateAlert" hidden>
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 5v3.5M8 11h.01" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.3"/></svg>
-        <div style="flex:1">
-          <strong>This profile may already exist</strong>
-          <p>A saved profile with a matching name and date of birth was found.</p>
-          <div class="pmp-inline-prompt__actions" style="margin-top:10px">
-            <button type="button" class="btn-outline-block" id="viewDuplicateBtn">View existing profile</button>
-            <button type="button" class="btn-outline-block" id="cancelDuplicateBtn">Cancel</button>
-            <button type="button" class="btn-primary" id="saveAnywayBtn">Save as separate profile</button>
+        <div class="pmp-notice pmp-notice--warning" id="duplicateAlert" hidden>
+          <svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M8 5v3.5M8 11h.01" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.3"/></svg>
+          <div style="flex:1">
+            <strong>This profile may already exist</strong>
+            A saved profile with a matching name was found.
+            <div class="pmp-inline-actions__buttons" style="margin-top:8px">
+              <button type="button" class="button--link-out button--small" id="viewDuplicateBtn">View existing profile</button>
+              <button type="button" class="button--link-out button--small" id="cancelDuplicateBtn">Cancel</button>
+              <button type="button" class="pmp-btn-primary" id="saveAnywayBtn">Save as separate profile</button>
+            </div>
           </div>
         </div>
       </div>
 
-      <div class="pmp-toast" id="pmpToast" hidden role="status"></div>
-    </div>
-
-    <div class="search__booking-block">
-      <div class="booking-price">Adult<strong class="tabular">322.62 EUR</strong></div>
-      <button class="btn-primary" type="button" id="bookBtn">Book</button>
+      <div class="search__booking-block">
+        <div class="booking__price">
+          <div class="booking__price__left"><p>Adult</p><p class="booking__price-total">Total</p></div>
+          <div class="booking__price__right"><p>322.62 EUR</p><p class="booking__price-total">322.62 EUR</p></div>
+        </div>
+        <button class="search__book-button" type="button" id="bookBtn" name="button"><span>Book</span></button>
+      </div>
     </div>
   </div>
+</div>
 
-  <div class="search__flight" style="padding:6px;">
-    <div class="alt-flight"><span>07:20 — 09:50 · <strong>LOT</strong> · Direct</span><strong class="tabular">323 EUR</strong></div>
-  </div>
-  <div class="search__flight" style="padding:6px;">
-    <div class="alt-flight"><span>12:25 — 17:45 · <strong>KLM</strong> · 1 connection</span><strong class="tabular">235 EUR</strong></div>
-  </div>
+<div id="pmpToast" class="pmp-toast" hidden role="status"></div>
 
-  <!-- ============================================================
-       Separate checkout-stage card — passport fields only shown here
-  ============================================================= -->
-  <div class="pmp-stage-divider">Later in the booking — the step where LOT requires passport details</div>
-
+<!-- ============================================================
+     Later booking stage — passport fields, shown only here
+============================================================= -->
+<div class="search__result" style="margin-top:0;">
   <div class="search__flight">
-    <div class="search__passenger-block">
-      <p class="search__flight-title">Adult — travel document</p>
-      <p class="search__flight-description">Required for this itinerary · Departure 27 Jul 2026</p>
+    <p class="search__flight-title">Adult — travel document</p>
+    <p class="search__flight-description">Required for this itinerary · Departure 27 Jul 2026</p>
 
-      <div class="form-field" id="passportPickerField" style="max-width:340px;margin-bottom:18px;">
-        <label class="form-field__label" for="passportPicker">Use a saved passport</label>
-        <div class="input"><select class="input__input pmp-select" id="passportPicker">
-          <option value="">— Enter manually —</option>
-          <option value="A">Primary passport · PL · expires 25 Jul 2026</option>
-          <option value="B">Secondary passport · PL · expires 05 Oct 2026</option>
-          <option value="C">Primary passport (renewed) · PL · expires 01 Jan 2029</option>
-        </select></div>
+    <div class="form-field" id="passportPickerField" style="max-width:340px;margin-bottom:18px;">
+      <label class="form-field__label" for="passportPicker">Use a saved passport</label>
+      <div class="input"><select class="input__input pmp-select" id="passportPicker">
+        <option value="">— Enter manually —</option>
+        <option value="A">Primary passport · PL · expires 25 Jul 2026</option>
+        <option value="B">Secondary passport · PL · expires 05 Oct 2026</option>
+        <option value="C">Primary passport (renewed) · PL · expires 01 Jan 2029</option>
+      </select></div>
+    </div>
+
+    <div class="search__passenger-inputs">
+      <div class="form-field">
+        <label class="form-field__label" for="passportDocName">Passport name</label>
+        <div class="input"><input class="input__input" id="passportDocName" placeholder="e.g. Primary passport"></div>
       </div>
-
-      <div class="search__passenger-inputs">
-        <div class="form-field">
-          <label class="form-field__label" for="passportDocName">Passport name</label>
-          <div class="input"><input class="input__input" id="passportDocName" placeholder="e.g. Primary passport"></div>
-        </div>
-        <div class="form-field">
-          <label class="form-field__label" for="passportNumber">Document number</label>
-          <div class="input"><input class="input__input" id="passportNumber"></div>
-        </div>
-        <div class="form-field">
-          <label class="form-field__label" for="passportCountry">Country of issue</label>
-          <div class="input"><input class="input__input" id="passportCountry" placeholder="PL"></div>
-        </div>
-        <div class="form-field" id="passportExpiryField">
-          <label class="form-field__label" for="passportExpiry">Expiry date</label>
-          <div class="input" id="passportExpiryInputWrap"><input class="input__input" id="passportExpiry" type="date"></div>
-          <p class="pmp-field-error" id="passportExpiryError" hidden></p>
-          <p class="pmp-field-ok" id="passportExpiryOk" hidden>Valid for this itinerary</p>
-        </div>
+      <div class="form-field">
+        <label class="form-field__label" for="passportNumber">Document number</label>
+        <div class="input"><input class="input__input" id="passportNumber"></div>
       </div>
-
-      <div class="pmp-alert" id="passportWarningAlert" hidden>
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 5v3.5M8 11h.01" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.3"/></svg>
-        <p id="passportWarningText" style="flex:1;color:var(--dark-70);"></p>
-        <span class="pmp-info-icon" id="passportInfoIcon" tabindex="0">i
-          <span class="pmp-tooltip">Passport validity requirements depend on destination, transit countries, and airline rules. DRCT provides general warnings based on common international requirements.</span>
-        </span>
+      <div class="form-field">
+        <label class="form-field__label" for="passportCountry">Country of issue</label>
+        <div class="input"><input class="input__input" id="passportCountry" placeholder="PL"></div>
+      </div>
+      <div class="form-field" id="passportExpiryField">
+        <label class="form-field__label" for="passportExpiry">Expiry date</label>
+        <div class="input" id="passportExpiryInputWrap"><input class="input__input" id="passportExpiry" type="date"></div>
+        <p class="pmp-field-error" id="passportExpiryError" hidden></p>
+        <p class="pmp-field-ok" id="passportExpiryOk" hidden>Valid for this itinerary</p>
       </div>
     </div>
+
+    <div class="pmp-notice pmp-notice--warning" id="passportWarningAlert" hidden>
+      <svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M8 5v3.5M8 11h.01" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.3"/></svg>
+      <span id="passportWarningText" style="flex:1"></span>
+      <span class="pmp-info-icon" id="passportInfoIcon" tabindex="0">i
+        <span class="pmp-tooltip">Passport validity requirements depend on destination, transit countries, and airline rules. DRCT provides general warnings based on common international requirements.</span>
+      </span>
+    </div>
   </div>
-
-  <!-- ============================================================
-       Provenance — same reuse/new convention as the DRCT design
-       system doc this page was built against.
-  ============================================================= -->
-  <section class="pmp-provenance">
-    <h2>What's reused vs. new</h2>
-    <p>Everything below was matched against DRCT's production design system (color/type/radius tokens, buttons, text field, search bar, gender toggle, field-pop dropdown, result-row &amp; fare-tier-card shadows). Only the rows marked <span class="tag tag--new">new</span> have no direct production equivalent.</p>
-    <table class="compare-table">
-      <thead><tr><th>Component</th><th>Status</th><th>Note</th></tr></thead>
-      <tbody>
-        <tr><td>Color tokens, type scale, radius scale, 1010px container, IBM Plex Sans only</td><td><span class="tag tag--reuse">reused</span></td><td>Matched to the production design system doc, not approximated</td></tr>
-        <tr><td>.search__passenger-block, .form-field, .input, .gender-radio, buttons, search bar</td><td><span class="tag tag--reuse">reused</span></td><td>Real component markup and states from the production booking flow</td></tr>
-        <tr><td>Profile search dropdown</td><td><span class="tag tag--reuse">reused</span></td><td>Same field-pop popover pattern production uses for airline/date/passenger pickers</td></tr>
-        <tr><td>Result-row / fare-tier-card shadows &amp; selection tint</td><td><span class="tag tag--reuse">reused</span></td><td>Shadow-only cards, blue-06 selected tint — no invented borders</td></tr>
-        <tr><td>Profile tag &amp; "filled from profile" indicator</td><td><span class="tag tag--new">new</span></td><td>Built from the existing status-pill primitive and semantic colors</td></tr>
-        <tr><td>Stale-profile warning, duplicate check, update/keep prompt, passport expiry validation</td><td><span class="tag tag--new">new</span></td><td>No production equivalent; assembled from existing card, field and button primitives</td></tr>
-      </tbody>
-    </table>
-  </section>
-
 </div>
 
 <script>
@@ -645,26 +625,24 @@ input,select{font-family:inherit;}
   var $ = function(id){ return document.getElementById(id); };
 
   var els = {
-    lastName: $('lastName'), firstName: $('firstName'), dob: $('dob'), phone: $('phone'), email: $('email'),
+    lastName: $('lastName'), firstName: $('firstName'), phone: $('phone'), email: $('email'),
     fqtvCarrier: $('fqtvCarrier'), fqtvNumber: $('fqtvNumber'),
     lastNameField: $('lastNameField'), firstNameField: $('firstNameField'), emailField: $('emailField'),
     lastNameDropdown: $('lastNameDropdown'), firstNameDropdown: $('firstNameDropdown'), emailDropdown: $('emailDropdown'),
-    profileTag: $('profileTag'), filledNote: $('filledNote'), viewSourceBtn: $('viewSourceBtn'), sourcePanel: $('sourcePanel'),
+    filledNote: $('filledNote'), viewSourceBtn: $('viewSourceBtn'), sourcePanel: $('sourcePanel'),
     staleAlert: $('staleAlert'), staleDate: $('staleDate'),
     editAfterFillRow: $('editAfterFillRow'), editedProfileName: $('editedProfileName'),
     updateProfileBtn: $('updateProfileBtn'), keepBookingOnlyBtn: $('keepBookingOnlyBtn'),
     saveProfileRow: $('saveProfileRow'), saveNewProfileBtn: $('saveNewProfileBtn'),
     duplicateAlert: $('duplicateAlert'), viewDuplicateBtn: $('viewDuplicateBtn'),
     cancelDuplicateBtn: $('cancelDuplicateBtn'), saveAnywayBtn: $('saveAnywayBtn'),
-    toast: $('pmpToast'), simulateErrorToggle: $('simulateErrorToggle'),
+    toast: $('pmpToast'),
     bookBtn: $('bookBtn')
   };
 
-  var SOURCED_FIELDS = ['lastName','firstName','dob','phone','email','fqtvCarrier','fqtvNumber'];
+  var SOURCED_FIELDS = ['lastName','firstName','phone','email','fqtvCarrier','fqtvNumber'];
 
   var state = { activeProfile:null, snapshot:null, pendingDuplicate:null, toastTimer:null };
-
-  /* ---------------- helpers ---------------- */
 
   function fmtDate(iso){
     var d = new Date(iso + 'T00:00:00');
@@ -675,23 +653,19 @@ input,select{font-family:inherit;}
     return (b.getFullYear()-a.getFullYear())*12 + (b.getMonth()-a.getMonth()) - (b.getDate()<a.getDate()?1:0);
   }
   function maskEmail(email){
-    if(!email) return '—';
+    if(!email) return '';
     var parts = email.split('@');
-    var name = parts[0];
-    var visible = name.slice(0, Math.min(2,name.length));
+    var visible = parts[0].slice(0, Math.min(2,parts[0].length));
     return visible + '***@' + (parts[1]||'');
   }
   function maskPhone(phone){
-    if(!phone) return '—';
-    var tail = phone.slice(-2);
-    return phone.slice(0,3) + ' ***** ' + tail;
+    if(!phone) return '';
+    return phone.slice(0,3) + ' ***** ' + phone.slice(-2);
   }
   function fullName(p){ return p.firstName + ' ' + p.lastName; }
 
   function closeAllDropdowns(){
-    [els.lastNameDropdown, els.firstNameDropdown, els.emailDropdown].forEach(function(d){
-      d.hidden = true; d.innerHTML = '';
-    });
+    [els.lastNameDropdown, els.firstNameDropdown, els.emailDropdown].forEach(function(d){ d.hidden = true; d.innerHTML = ''; });
   }
 
   function showToast(message, type){
@@ -701,8 +675,6 @@ input,select{font-family:inherit;}
     els.toast.hidden = false;
     state.toastTimer = setTimeout(function(){ els.toast.hidden = true; }, 4000);
   }
-
-  /* ---------------- search dropdown ---------------- */
 
   function matchProfiles(field, query){
     query = query.trim().toLowerCase();
@@ -715,10 +687,9 @@ input,select{font-family:inherit;}
     });
   }
 
-  function renderDropdown(dropdownEl, matches, query){
+  function renderDropdown(dropdownEl, matches){
     dropdownEl.innerHTML = '';
     if(matches === null){ dropdownEl.hidden = true; return; }
-
     if(matches.length === 0){
       var empty = document.createElement('div');
       empty.className = 'pmp-dropdown__empty';
@@ -727,22 +698,17 @@ input,select{font-family:inherit;}
       dropdownEl.hidden = false;
       return;
     }
-
     matches.forEach(function(p){
       var row = document.createElement('div');
       row.className = 'pmp-dropdown__result';
       row.tabIndex = 0;
       row.setAttribute('role','button');
+      var meta = ['DOB ' + fmtDate(p.dob), 'Edited ' + fmtDate(p.lastEdited)];
+      if(p.email) meta.push(maskEmail(p.email));
+      if(p.phone) meta.push(maskPhone(p.phone));
       row.innerHTML =
-        '<span class="pmp-dropdown__result-top">' + fullName(p) +
-          (p.tag ? ' <span class="pill pill--tag">' + p.tag + '</span>' : '') +
-        '</span>' +
-        '<span class="pmp-dropdown__result-meta">' +
-          '<span>DOB ' + fmtDate(p.dob) + '</span>' +
-          '<span>Edited ' + fmtDate(p.lastEdited) + '</span>' +
-          (p.email ? '<span>' + maskEmail(p.email) + '</span>' : '') +
-          (p.phone ? '<span>' + maskPhone(p.phone) + '</span>' : '') +
-        '</span>';
+        '<div class="pmp-dropdown__result-top">' + fullName(p) + (p.tag ? ' <span class="pmp-dropdown__result-tag">(' + p.tag + ')</span>' : '') + '</div>' +
+        '<div class="pmp-dropdown__result-meta">' + meta.join(' · ') + '</div>';
       row.addEventListener('click', function(){ selectProfile(p); });
       row.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); selectProfile(p); } });
       dropdownEl.appendChild(row);
@@ -758,7 +724,6 @@ input,select{font-family:inherit;}
     state.activeProfile = null;
     state.snapshot = null;
     els.filledNote.hidden = true;
-    els.profileTag.hidden = true;
     els.sourcePanel.hidden = true;
     els.staleAlert.hidden = true;
     els.editAfterFillRow.hidden = true;
@@ -767,17 +732,15 @@ input,select{font-family:inherit;}
   function attachSearch(inputEl, dropdownEl, field){
     inputEl.addEventListener('input', function(){
       checkIdentityDivergence();
-      var matches = matchProfiles(field, inputEl.value);
-      renderDropdown(dropdownEl, matches, inputEl.value);
+      renderDropdown(dropdownEl, matchProfiles(field, inputEl.value));
       checkDirty();
       maybeOfferSave();
     });
     inputEl.addEventListener('focus', function(){
       var matches = matchProfiles(field, inputEl.value);
-      if(matches) renderDropdown(dropdownEl, matches, inputEl.value);
+      if(matches) renderDropdown(dropdownEl, matches);
     });
   }
-
   attachSearch(els.lastName, els.lastNameDropdown, 'lastName');
   attachSearch(els.firstName, els.firstNameDropdown, 'firstName');
   attachSearch(els.email, els.emailDropdown, 'email');
@@ -790,13 +753,10 @@ input,select{font-family:inherit;}
   });
   document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeAllDropdowns(); });
 
-  /* ---------------- profile select / autofill ---------------- */
-
   function selectProfile(p){
     closeAllDropdowns();
     els.lastName.value = p.lastName;
     els.firstName.value = p.firstName;
-    els.dob.value = fmtDate(p.dob);
     els.phone.value = p.phone;
     els.email.value = p.email;
     els.fqtvCarrier.value = p.fqtvCarrier;
@@ -805,12 +765,8 @@ input,select{font-family:inherit;}
 
     state.activeProfile = p;
     state.snapshot = snapshotForm();
-
-    if(p.tag){ els.profileTag.textContent = p.tag; els.profileTag.hidden = false; }
-    else { els.profileTag.hidden = true; }
     els.filledNote.hidden = false;
     els.sourcePanel.hidden = true;
-
     els.saveProfileRow.hidden = true;
     els.duplicateAlert.hidden = true;
     els.editAfterFillRow.hidden = true;
@@ -829,26 +785,22 @@ input,select{font-family:inherit;}
     var p = state.activeProfile;
     if(!els.sourcePanel.hidden){ els.sourcePanel.hidden = true; return; }
     els.sourcePanel.innerHTML =
-      '<dt>Profile</dt><dd>' + fullName(p) + (p.tag ? ' · ' + p.tag : '') + '</dd>' +
+      '<dt>Profile</dt><dd>' + fullName(p) + (p.tag ? ' (' + p.tag + ')' : '') + '</dd>' +
       '<dt>Date of birth</dt><dd>' + fmtDate(p.dob) + '</dd>' +
       '<dt>Last edited</dt><dd>' + fmtDate(p.lastEdited) + '</dd>' +
-      '<dt>Contacts</dt><dd>' + maskEmail(p.email) + ' · ' + maskPhone(p.phone) + '</dd>';
+      '<dt>Contacts</dt><dd>' + (maskEmail(p.email) || '—') + ' · ' + (maskPhone(p.phone) || '—') + '</dd>';
     els.sourcePanel.hidden = false;
   });
 
-  /* ---------------- dirty tracking / update vs keep ---------------- */
-
   function snapshotForm(){
     return {
-      lastName: els.lastName.value, firstName: els.firstName.value, dob: els.dob.value,
+      lastName: els.lastName.value, firstName: els.firstName.value,
       phone: els.phone.value, email: els.email.value,
       fqtvCarrier: els.fqtvCarrier.value, fqtvNumber: els.fqtvNumber.value,
       gender: $('genderM').checked ? 'M' : ($('genderF').checked ? 'F' : '')
     };
   }
-  function formsEqual(a,b){
-    return SOURCED_FIELDS.concat(['gender']).every(function(k){ return a[k] === b[k]; });
-  }
+  function formsEqual(a,b){ return SOURCED_FIELDS.concat(['gender']).every(function(k){ return a[k] === b[k]; }); }
 
   function checkDirty(){
     if(!state.activeProfile) return;
@@ -860,16 +812,12 @@ input,select{font-family:inherit;}
       els.editAfterFillRow.hidden = true;
     }
   }
-  ['dob','phone','fqtvCarrier','fqtvNumber'].forEach(function(id){ els[id].addEventListener('input', checkDirty); });
-  document.getElementById('genderM').addEventListener('change', checkDirty);
-  document.getElementById('genderF').addEventListener('change', checkDirty);
+  ['phone','fqtvCarrier','fqtvNumber'].forEach(function(id){ els[id].addEventListener('input', checkDirty); });
+  $('genderM').addEventListener('change', checkDirty);
+  $('genderF').addEventListener('change', checkDirty);
 
   els.updateProfileBtn.addEventListener('click', function(){
     if(!state.activeProfile) return;
-    if(els.simulateErrorToggle.checked){
-      showToast("Couldn't update the profile. Try again.", 'error');
-      return;
-    }
     var p = state.activeProfile;
     var current = snapshotForm();
     p.lastName=current.lastName; p.firstName=current.firstName; p.phone=current.phone; p.email=current.email;
@@ -884,10 +832,8 @@ input,select{font-family:inherit;}
   els.keepBookingOnlyBtn.addEventListener('click', function(){
     state.snapshot = snapshotForm();
     els.editAfterFillRow.hidden = true;
-    showToast("Changes kept for this booking only — the saved profile wasn't modified.", 'success');
+    showToast("Changes kept for this booking only.", 'success');
   });
-
-  /* ---------------- save new profile / duplicate check ---------------- */
 
   function maybeOfferSave(){
     if(state.activeProfile) { els.saveProfileRow.hidden = true; return; }
@@ -897,37 +843,24 @@ input,select{font-family:inherit;}
   }
   [els.lastName, els.firstName].forEach(function(el){ el.addEventListener('blur', maybeOfferSave); });
 
-  function isoFromDobInput(text){
-    var months={jan:'01',feb:'02',mar:'03',apr:'04',may:'05',jun:'06',jul:'07',aug:'08',sep:'09',oct:'10',nov:'11',dec:'12'};
-    var m = text.trim().toLowerCase().match(/^(\d{1,2})\s+([a-z]{3})\w*\s+(\d{4})$/);
-    if(!m || !months[m[2]]) return null;
-    return m[3] + '-' + months[m[2]] + '-' + (m[1].length===1 ? '0'+m[1] : m[1]);
-  }
-
   function findDuplicate(candidate){
     return PROFILES.find(function(p){
       return p.lastName.toLowerCase() === candidate.lastName.toLowerCase() &&
-             p.firstName.toLowerCase() === candidate.firstName.toLowerCase() &&
-             (!candidate.dob || p.dob === candidate.dob);
+             p.firstName.toLowerCase() === candidate.firstName.toLowerCase();
     }) || null;
   }
 
   function buildCandidate(){
     var current = snapshotForm();
     return {
-      lastName: current.lastName.trim(), firstName: current.firstName.trim(),
-      gender: current.gender, dob: isoFromDobInput(current.dob) || '',
+      lastName: current.lastName.trim(), firstName: current.firstName.trim(), gender: current.gender,
       phone: current.phone, email: current.email,
-      fqtvCarrier: current.fqtvCarrier, fqtvNumber: current.fqtvNumber
+      fqtvCarrier: current.fqtvCarrier, fqtvNumber: current.fqtvNumber, dob:''
     };
   }
 
   function commitSave(candidate){
-    if(els.simulateErrorToggle.checked){
-      showToast("Couldn't save this profile. Try again.", 'error');
-      return;
-    }
-    var p = Object.assign({ id:'p'+(nextProfileId++), tag:'', lastEdited:'2026-07-20' }, candidate);
+    var p = Object.assign({ id:'p'+(nextProfileId++), tag:'', lastEdited:'2026-07-20', dob: candidate.dob || '2000-01-01' }, candidate);
     PROFILES.push(p);
     state.activeProfile = p;
     state.snapshot = snapshotForm();
@@ -948,7 +881,6 @@ input,select{font-family:inherit;}
       commitSave(candidate);
     }
   });
-
   els.viewDuplicateBtn.addEventListener('click', function(){
     if(!state.pendingDuplicate) return;
     els.duplicateAlert.hidden = true;
@@ -968,10 +900,8 @@ input,select{font-family:inherit;}
   });
 
   els.bookBtn.addEventListener('click', function(){
-    showToast('Prototype only — booking is not wired up here.', 'success');
+    showToast('Booking not wired up in this preview.', 'success');
   });
-
-  /* ---------------- passport step ---------------- */
 
   var passportEls = {
     picker: $('passportPicker'), name: $('passportDocName'), number: $('passportNumber'),
@@ -979,21 +909,17 @@ input,select{font-family:inherit;}
     error: $('passportExpiryError'), ok: $('passportExpiryOk'),
     warnAlert: $('passportWarningAlert'), warnText: $('passportWarningText')
   };
-
   var MONTH_BINS = [30,60,90,120,150,180,210,240,270];
   function monthsUntilWarning(diffDays){
     for(var i=0;i<MONTH_BINS.length;i++){ if(diffDays <= MONTH_BINS[i]) return i+1; }
     return null;
   }
-
   function validatePassportExpiry(){
     passportEls.error.hidden = true; passportEls.ok.hidden = true; passportEls.warnAlert.hidden = true;
     passportEls.expiryWrap.classList.remove('input--invalid');
     if(!passportEls.expiry.value) return;
-
     var expiry = new Date(passportEls.expiry.value + 'T00:00:00');
     var diffDays = Math.round((expiry - DEPARTURE) / 86400000);
-
     if(diffDays <= 0){
       passportEls.expiryWrap.classList.add('input--invalid');
       passportEls.error.textContent = 'The passport expiration date must be later than the departure date';
@@ -1010,7 +936,6 @@ input,select{font-family:inherit;}
   }
   passportEls.expiry.addEventListener('change', validatePassportExpiry);
   passportEls.expiry.addEventListener('input', validatePassportExpiry);
-
   passportEls.picker.addEventListener('change', function(){
     var key = passportEls.picker.value;
     if(!key){ passportEls.name.value=''; passportEls.number.value=''; passportEls.country.value=''; passportEls.expiry.value=''; validatePassportExpiry(); return; }
@@ -1019,6 +944,10 @@ input,select{font-family:inherit;}
     passportEls.country.value = d.country; passportEls.expiry.value = d.expiry;
     validatePassportExpiry();
   });
+
+  selectProfile(PROFILES[0]);
+  passportEls.picker.value = 'C';
+  passportEls.picker.dispatchEvent(new Event('change'));
 
 })();
 </script>
