@@ -108,7 +108,7 @@ body {
 }
 .app-header__logo { display: flex; align-items: center; }
 .app-header__logo img { height: 20px; width: auto; }
-.app-header__nav { display: flex; align-items: center; gap: 20px; }
+.app-header__nav { display: flex; align-items: center; gap: 4px; }
 .app-header__link {
   font-size: 13px;
   font-weight: 700;
@@ -116,7 +116,7 @@ body {
   color: var(--dark);
   opacity: .5;
   cursor: pointer;
-  padding: 8px 12px;
+  padding: 8px 10px;
   border-radius: var(--radius-m);
   transition: opacity .14s ease, background .14s ease;
 }
@@ -474,6 +474,7 @@ body {
 .booking-list-row.is-selected .booking-list-row__name,
 .booking-list-row.is-selected .booking-list-row__price { color: var(--white); }
 .booking-list-row.is-selected .booking-list-row__bottom { color: rgba(255,255,255,0.75); }
+.booking-list-row.is-selected .status-pill { background: rgba(255,255,255,0.22); color: var(--white); }
 
 .booking-detail__banner { border-radius: var(--radius-m) var(--radius-m) 0 0; padding: 20px 24px; font-size: 15px; font-weight: 700; color: var(--white); background: var(--blue); }
 .booking-detail__banner--inprogress { background: var(--blue); }
@@ -534,6 +535,11 @@ body {
 .toast__text { font-size: 12.5px; color: rgba(255,255,255,0.75); margin-top: 3px; }
 .toast__close { flex: 0 0 auto; color: rgba(255,255,255,0.5); font-size: 16px; line-height: 1; margin-left: 4px; }
 .toast__close:hover { color: var(--white); }
+.toast__action {
+  flex: 0 0 auto; font-size: 12px; font-weight: 700; letter-spacing: .4px; text-transform: uppercase; color: var(--white);
+  border: 1px solid rgba(255,255,255,0.35); border-radius: var(--radius-s); padding: 6px 10px; white-space: nowrap;
+}
+.toast__action:hover { background: rgba(255,255,255,0.12); }
 
 /* Orange pill toast — "booking creation in progress" */
 .pill-toast-host { display: flex; justify-content: center; margin-bottom: 20px; }
@@ -545,6 +551,164 @@ body {
 }
 .pill-toast__close { width: 16px; height: 16px; border-radius: 50%; border: 1.5px solid rgba(255,255,255,0.7); display: flex; align-items: center; justify-content: center; font-size: 11px; cursor: pointer; }
 .pill-toast__close:hover { background: rgba(255,255,255,0.15); }
+
+/* ----------------------------------------------------------------
+   GROUP BOOKING FLOW — variants of the components above
+---------------------------------------------------------------- */
+
+/* compact system info message (replaces marketing-style banners) */
+.info-note {
+  display: flex; gap: 10px; align-items: flex-start;
+  background: var(--blue-06); border-radius: var(--radius-m); padding: 12px 16px; margin-top: 16px;
+}
+.info-note__icon {
+  flex: 0 0 auto; width: 18px; height: 18px; border-radius: 50%; background: var(--blue); color: var(--white);
+  display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; margin-top: 1px;
+}
+.info-note__text { font-size: 13px; color: var(--dark-70); }
+
+.server-error-panel { border: 1px solid var(--border); border-radius: var(--radius-l); padding: 32px; text-align: center; margin-top: 20px; }
+.server-error-panel__icon { width: 44px; height: 44px; border-radius: 50%; background: var(--error-bg); color: var(--error); display: flex; align-items: center; justify-content: center; margin: 0 auto 14px; font-size: 20px; font-weight: 700; }
+.server-error-panel h3 { font-size: 17px; font-weight: 700; }
+.server-error-panel p { font-size: 13.5px; color: var(--dark-70); margin-top: 6px; }
+.server-error-panel__actions { display: flex; gap: 10px; justify-content: center; margin-top: 18px; }
+
+/* group passenger total-only field */
+.search-field--pax-total { flex: 1.4 1 0; }
+.pax-total-field { display: flex; align-items: center; justify-content: space-between; gap: 10px; white-space: nowrap; }
+
+/* CTA inside PAX dropdown */
+.group-cta-inline { margin-top: 10px; padding-top: 14px; border-top: 1px solid var(--border); }
+.group-cta-inline__title { font-size: 14px; font-weight: 700; color: var(--dark); }
+.group-cta-inline__text { font-size: 12.5px; color: var(--dark-70); margin-top: 3px; margin-bottom: 12px; }
+
+/* airline selection control in the flight result row (group variant) */
+.result-row.is-group-selected { border: 2px solid var(--blue); background: var(--blue-06); padding: 19px 23px; }
+.group-select-col { flex: 0 0 168px; text-align: right; }
+.group-select-col .btn.is-selected-btn { background: var(--blue); color: var(--white); }
+.group-select-col__remove { font-size: 11px; font-weight: 700; color: var(--dark-40); text-transform: uppercase; letter-spacing: .4px; margin-top: 8px; cursor: pointer; }
+.group-select-col__remove:hover { color: var(--error); }
+
+/* sticky selection bar (Group Search Results) */
+.sticky-bar {
+  position: fixed; left: 0; right: 0; bottom: 0; background: var(--dark); color: var(--white); padding: 16px 32px;
+  display: flex; align-items: center; justify-content: space-between; gap: 24px; z-index: 250;
+  transform: translateY(100%); transition: transform .2s ease;
+}
+.sticky-bar.is-visible { transform: translateY(0); }
+.sticky-bar__left { display: flex; align-items: center; gap: 18px; }
+.sticky-bar__count { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: .4px; }
+.sticky-bar__chips { display: flex; gap: 8px; }
+.sticky-bar__chip { display: flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.1); border-radius: var(--radius-s); padding: 5px 10px 5px 6px; font-size: 12px; font-weight: 600; }
+.sticky-bar__chip img { width: 16px; height: 16px; object-fit: contain; background: var(--white); border-radius: 2px; padding: 2px; }
+.sticky-bar__right { display: flex; align-items: center; gap: 14px; }
+.sticky-bar .btn-ghost { color: rgba(255,255,255,0.7); }
+.sticky-bar .btn-ghost:hover { color: var(--white); }
+
+/* progress steps (Request Builder) */
+.progress-steps { display: flex; align-items: center; gap: 10px; margin-bottom: 28px; }
+.progress-step { display: flex; align-items: center; gap: 12px; font-size: 13px; font-weight: 700; color: var(--dark-26); }
+.progress-step__dot { width: 24px; height: 24px; border-radius: 50%; border: 2px solid var(--dark-15); display: flex; align-items: center; justify-content: center; font-size: 12px; color: var(--dark-26); }
+.progress-step.is-active { color: var(--dark); }
+.progress-step.is-active .progress-step__dot { border-color: var(--blue); color: var(--blue); }
+.progress-step.is-done { color: var(--dark-70); }
+.progress-step.is-done .progress-step__dot { border-color: var(--blue); background: var(--blue); color: var(--white); }
+.progress-connector { width: 40px; height: 2px; background: var(--dark-15); }
+.progress-connector.is-done { background: var(--blue); }
+
+/* date-flexibility pill toggle */
+.pill-group { display: flex; flex-wrap: wrap; gap: 8px; }
+.pill { padding: 8px 16px; border: 1px solid var(--border); border-radius: 20px; font-size: 13px; font-weight: 600; color: var(--dark-70); cursor: pointer; }
+.pill:hover { border-color: var(--dark-40); }
+.pill.is-selected { border-color: var(--blue); background: var(--blue-10); color: var(--blue); }
+.pill.is-invalid { border-color: var(--error); }
+
+/* selected-airlines chip list (Request Builder) */
+.chip-list { display: flex; flex-wrap: wrap; gap: 10px; }
+.chip { display: flex; align-items: center; gap: 8px; border: 1px solid var(--border); border-radius: var(--radius-s); padding: 8px 12px; }
+.chip img { width: 20px; height: 20px; object-fit: contain; }
+.chip span { font-size: 13px; font-weight: 600; color: var(--dark); }
+.chip__remove { color: var(--dark-40); font-size: 15px; line-height: 1; }
+.chip__remove:hover { color: var(--error); }
+
+.field-group { margin-top: 20px; }
+.field-group__label { font-size: 13px; font-weight: 700; color: var(--dark); margin-bottom: 10px; }
+.field-group__required { color: var(--error); }
+
+textarea.textarea { width: 100%; border: 1px solid var(--border); border-radius: var(--radius-s); padding: 12px 16px; font-size: 14px; color: var(--dark); min-height: 90px; resize: vertical; }
+textarea.textarea::placeholder { color: var(--dark-26); }
+textarea.textarea:focus { border-color: var(--blue); }
+
+.form-actions { display: flex; align-items: center; justify-content: space-between; margin-top: 28px; }
+
+.summary-box { border: 1px solid var(--border); border-radius: var(--radius-m); padding: 20px 24px; background: var(--off-white); margin-top: 20px; }
+.summary-box__title { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: .4px; color: var(--dark-40); margin-bottom: 14px; }
+.summary-box__row { display: flex; justify-content: space-between; padding: 7px 0; font-size: 13.5px; border-top: 1px solid var(--border); }
+.summary-box__row:first-of-type { border-top: none; }
+.summary-box__row dt { color: var(--dark-40); }
+.summary-box__row dd { color: var(--dark); font-weight: 600; text-align: right; }
+
+.success-panel { border: 1px solid var(--border); border-radius: var(--radius-l); padding: 48px 32px; text-align: center; max-width: 480px; margin: 24px auto 0; }
+.success-panel__icon { width: 56px; height: 56px; border-radius: 50%; background: var(--success-bg); color: #279900; display: flex; align-items: center; justify-content: center; margin: 0 auto 18px; font-size: 26px; }
+.success-panel h2 { font-size: 20px; font-weight: 700; }
+.success-panel p { font-size: 14px; color: var(--dark-70); margin-top: 10px; }
+.success-panel .btn { margin-top: 22px; }
+
+/* status pill (Calculating / Review required / Accepted / Declined) */
+.status-pill { display: inline-flex; align-items: center; gap: 6px; font-size: 10.5px; font-weight: 700; letter-spacing: .4px; text-transform: uppercase; padding: 4px 12px; border-radius: 20px; }
+.status-pill .dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+.status-pill--calculating { background: var(--dark-10); color: var(--dark-45); }
+.status-pill--review { background: var(--blue-12); color: var(--blue); }
+.status-pill--accepted { background: var(--success-bg); color: #279900; }
+.status-pill--declined { background: var(--dark-10); color: var(--dark-40); }
+
+.booking-detail__banner--calculating { background: var(--dark-26); color: var(--dark); }
+.booking-detail__banner--review { background: var(--blue); }
+.booking-detail__banner--accepted { background: #279900; }
+.booking-detail__banner--declined { background: var(--dark-26); color: var(--dark); }
+
+/* Group-request cluster header inside the Bookings list */
+.booking-group-header { font-size: 12px; font-weight: 700; letter-spacing: .3px; text-transform: uppercase; color: var(--dark-40); padding: 14px 4px 4px; }
+.booking-group-header:first-child { padding-top: 0; }
+
+/* Offer Details — group summary blocks */
+.offer-header { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin-top: 8px; font-size: 13.5px; color: var(--dark-70); }
+.offer-header__sep { color: var(--dark-15); }
+.detail-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px 28px; margin-top: 12px; }
+.detail-row dt { font-size: 11.5px; text-transform: uppercase; letter-spacing: .4px; color: var(--dark-40); font-weight: 600; }
+.detail-row dd { font-size: 14.5px; color: var(--dark); margin-top: 4px; font-weight: 500; }
+.conditions-list { display: flex; flex-direction: column; gap: 12px; margin-top: 8px; }
+.conditions-list li { font-size: 13.5px; color: var(--dark-70); display: flex; gap: 8px; }
+.conditions-list li b { color: var(--dark); font-weight: 600; flex: 0 0 170px; }
+
+.offer-sticky-actions {
+  position: fixed; left: 0; right: 0; bottom: 0; background: var(--white); border-top: 1px solid var(--border);
+  padding: 16px 32px; display: flex; align-items: center; justify-content: flex-end; gap: 12px; z-index: 250;
+}
+.offer-sticky-actions__back { margin-right: auto; }
+
+.btn-destructive { background: var(--white); color: var(--error); border: 1px solid var(--error); }
+.btn-destructive:hover:not(:disabled) { background: var(--error-bg); }
+.btn-destructive-solid { background: var(--error); color: var(--white); }
+.btn-destructive-solid:hover:not(:disabled) { background: #e6404f; }
+
+/* Decline modal */
+.modal-overlay { position: fixed; inset: 0; background: rgba(27,39,51,0.45); display: flex; align-items: center; justify-content: center; z-index: 400; }
+.modal { background: var(--white); border-radius: 12px; width: 460px; max-width: calc(100vw - 40px); padding: 28px 28px 24px; }
+.modal h2 { font-size: 19px; font-weight: 700; }
+.modal p.modal__desc { font-size: 13.5px; color: var(--dark-70); margin-top: 6px; margin-bottom: 20px; }
+.modal .field-group { margin-top: 16px; }
+.modal__actions { display: flex; gap: 12px; justify-content: flex-end; margin-top: 24px; }
+.field-label { font-size: 13px; font-weight: 700; color: var(--dark); margin-bottom: 8px; display: block; }
+.select-native {
+  width: 100%; border: 1px solid var(--border); border-radius: var(--radius-s); padding: 12px 14px; font-size: 14px; color: var(--dark);
+  background: var(--white); appearance: none;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6'><path d='M0 0l5 6 5-6z' fill='%231b2733' fill-opacity='0.4'/></svg>");
+  background-repeat: no-repeat; background-position: right 14px center;
+}
+.select-native.is-invalid { border-color: var(--error); }
+
+.placeholder-note { font-size: 13px; color: var(--dark-40); margin-top: 10px; }
 
 /* ----------------------------------------------------------------
    MISC
