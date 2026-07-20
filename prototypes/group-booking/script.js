@@ -302,7 +302,7 @@
           '<div><h1>' + title + '</h1><p class="page-head__desc">' + desc + '</p></div>' +
           '<div class="local-tabs">' + tabsHtml + '</div>' +
         '</div>' +
-        (state.searchTab === 'groups' ? '<div style="margin-top:18px">' + calloutHtml('i', 'Group fares are requested directly from airlines. Final prices, flight details and conditions may differ from the options shown in search results.', 'muted') + '</div>' : '') +
+        (state.searchTab === 'groups' ? '<div style="margin-top:20px">' + calloutHtml('i', 'Group fares are requested directly from airlines. Final prices, flight details and conditions may differ from the options shown in search results.', 'muted') + '</div>' : '') +
       '</div>' +
       body;
   }
@@ -325,11 +325,11 @@
     return '' +
       '<div class="search-bar' + (Object.keys(e).length ? ' has-error' : '') + '">' +
         '<div class="search-field search-field--from' + (e.from ? ' is-invalid' : '') + '">' +
-          '<label>From</label><input type="text" placeholder="City or airport" data-field="regular.from" value="' + escapeHtml(r.from) + '">' +
+          '<label>From</label><input type="text" placeholder="From" data-field="regular.from" value="' + escapeHtml(r.from) + '">' +
         '</div>' +
         '<div class="search-field--swap" data-action="swap-regular" title="Swap origin and destination">' + swapIcon() + '</div>' +
         '<div class="search-field search-field--to' + (e.to ? ' is-invalid' : '') + '">' +
-          '<label>To</label><input type="text" placeholder="City or airport" data-field="regular.to" value="' + escapeHtml(r.to) + '">' +
+          '<label>To</label><input type="text" placeholder="To" data-field="regular.to" value="' + escapeHtml(r.to) + '">' +
         '</div>' +
         '<div class="search-field' + (e.departure ? ' is-invalid' : '') + '">' +
           '<label>Departure</label><input type="date" data-field="regular.departure" min="' + toISO(TODAY) + '" value="' + r.departure + '">' +
@@ -401,11 +401,11 @@
     var loading = state.groupSubmitState === 'loading';
     return '<div class="search-bar' + (Object.keys(e).length ? ' has-error' : '') + '">' +
       '<div class="search-field search-field--from' + (e.from ? ' is-invalid' : '') + '">' +
-        '<label>From</label><input type="text" placeholder="City or airport" data-field="group.from" value="' + escapeHtml(g.from) + '">' +
+        '<label>From</label><input type="text" placeholder="From" data-field="group.from" value="' + escapeHtml(g.from) + '">' +
       '</div>' +
       '<div class="search-field--swap" data-action="swap-group" title="Swap origin and destination">' + swapIcon() + '</div>' +
       '<div class="search-field search-field--to' + (e.to ? ' is-invalid' : '') + '">' +
-        '<label>To</label><input type="text" placeholder="City or airport" data-field="group.to" value="' + escapeHtml(g.to) + '">' +
+        '<label>To</label><input type="text" placeholder="To" data-field="group.to" value="' + escapeHtml(g.to) + '">' +
       '</div>' +
       '<div class="search-field' + (e.departure ? ' is-invalid' : '') + '">' +
         '<label>Departure</label><input type="date" data-field="group.departure" min="' + toISO(TODAY) + '" value="' + g.departure + '">' +
@@ -447,10 +447,9 @@
         summaryField('To', 'group.to', g.to, false) +
         summaryField('Departure', 'group.departure', g.departure, true) +
         summaryField('Return', 'group.return', g.return, true) +
-        '<div class="summary-field">' +
-          '<div class="summary-field__label">Passengers</div>' +
-          '<div class="pax-total-field" style="margin-top:2px">' +
-            '<span class="pax-total-field__count" style="font-size:14px">' + g.pax + ' passengers</span>' +
+        '<div class="summary-field summary-field--pax">' +
+          '<div class="pax-total-field">' +
+            '<span class="pax-total-field__count">' + g.pax + ' passengers</span>' +
             '<div class="stepper">' +
               '<button class="stepper__btn' + (g.pax > 10 ? ' is-active' : '') + '" data-action="group-pax-step" data-dir="-1" ' + (g.pax <= 10 ? 'disabled' : '') + '>&minus;</button>' +
               '<button class="stepper__btn is-active" data-action="group-pax-step" data-dir="1">+</button>' +
@@ -462,8 +461,8 @@
         '</div>' +
       '</div>' +
       '<div style="margin-bottom:20px">' + calloutHtml('!', 'Final group fares, flight times, availability and conditions will be confirmed by each airline after you submit a request.', null, 'These options are indicative') + '</div>' +
-      '<h2 style="font-size:19px;font-weight:700;margin-bottom:2px">Group flight options</h2>' +
-      '<p style="font-size:13.5px;color:var(--dark-70);margin-bottom:18px">Select up to 3 airlines to request final group fares.</p>' +
+      '<h2 class="section-subhead">Group flight options</h2>' +
+      '<p>Select up to 3 airlines to request final group fares.</p>' +
       '<div class="filter-row">' +
         filterToggle('All flights', 'all') + filterToggle('Direct', 'direct') + filterToggle('Up to 1 connection', '1-stop') +
       '</div>' +
@@ -472,11 +471,8 @@
   }
 
   function summaryField(label, field, value, isDate) {
-    if (!field) {
-      return '<div class="summary-field"><div class="summary-field__label">' + label + '</div><div class="summary-field__value">' + escapeHtml(value) + '</div></div>';
-    }
-    return '<div class="summary-field"><div class="summary-field__label">' + label + '</div>' +
-      '<input type="' + (isDate ? 'date' : 'text') + '" data-field="' + field + '" value="' + escapeHtml(value) + '"></div>';
+    return '<div class="summary-field">' +
+      '<input type="' + (isDate ? 'date' : 'text') + '" placeholder="' + label + '" data-field="' + field + '" value="' + escapeHtml(value) + '"></div>';
   }
 
   function filterToggle(label, val) {
@@ -572,7 +568,7 @@
         '</div>' +
         '<div class="field-group">' +
           '<div class="field-group__label">Passengers</div>' +
-          '<div class="pax-total-field" style="max-width:220px;border:1px solid var(--border);border-radius:6px;padding:12px 16px">' +
+          '<div class="pax-total-field" style="max-width:220px;border:1px solid var(--border);border-radius:8px;padding:12px 16px">' +
             '<span class="pax-total-field__count">' + d.pax + ' passengers</span>' +
             '<div class="stepper">' +
               '<button class="stepper__btn' + (d.pax > 10 ? ' is-active' : '') + '" data-action="builder-pax-step" data-dir="-1" ' + (d.pax <= 10 ? 'disabled' : '') + '>&minus;</button>' +
