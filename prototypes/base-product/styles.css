@@ -584,10 +584,32 @@ body {
 
 /* airline selection control in the flight result row (group variant) */
 .result-row.is-group-selected { border: 2px solid var(--blue); background: var(--blue-06); padding: 19px 23px; }
-.group-select-col { flex: 0 0 168px; text-align: right; }
-.group-select-col .btn.is-selected-btn { background: var(--blue); color: var(--white); }
-.group-select-col__remove { font-size: 11px; font-weight: 700; color: var(--dark-40); text-transform: uppercase; letter-spacing: .4px; margin-top: 8px; cursor: pointer; }
-.group-select-col__remove:hover { color: var(--error); }
+.group-select-col { flex: 0 0 140px; text-align: right; }
+.group-select-badge { font-size: 12px; font-weight: 700; letter-spacing: .3px; text-transform: uppercase; color: var(--blue); }
+
+/* Airline filter dropdown — reuses the exact field-pop popover component */
+.rf-group--airlines { position: relative; }
+.filter-airline-trigger { display: flex; align-items: center; gap: 6px; }
+.filter-airline-trigger svg { width: 14px; height: 14px; transition: transform .15s ease; }
+.filter-airline-trigger.active svg { transform: rotate(180deg); }
+.filter-airline-pop {
+  position: absolute; top: calc(100% + 8px); right: 0; left: auto; width: 320px;
+  padding: 8px 0; max-height: 360px; overflow-y: auto;
+}
+.filter-airline-row {
+  display: flex; align-items: center; gap: 12px; padding: 10px 20px; cursor: pointer;
+}
+.filter-airline-row:hover { background: var(--off-white); }
+.filter-airline-row__check {
+  flex: 0 0 auto; width: 18px; height: 18px; border-radius: 4px; border: 1.5px solid var(--dark-26);
+  display: flex; align-items: center; justify-content: center; color: var(--white);
+}
+.filter-airline-row.is-checked .filter-airline-row__check { background: var(--blue); border-color: var(--blue); }
+.filter-airline-row__check svg { width: 12px; height: 12px; }
+.filter-airline-row__logo { flex: 0 0 auto; width: 24px; height: 24px; border-radius: var(--radius-s); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; padding: 3px; background: var(--white); }
+.filter-airline-row__logo img { width: 100%; height: 100%; object-fit: contain; }
+.filter-airline-row__name { font-size: 14px; font-weight: 600; color: var(--dark); flex: 1 1 auto; }
+.filter-airline-row.is-disabled { opacity: .4; cursor: not-allowed; }
 
 /* sticky selection bar (Group Search Results) */
 .sticky-bar {

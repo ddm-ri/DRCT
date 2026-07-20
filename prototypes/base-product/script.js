@@ -245,6 +245,7 @@
     groupSubmitState: 'idle',
     groupResultsQuery: null,
     groupFilter: 'all',
+    airlineFilterOpen: false,
     selectedAirlineIds: [],
     requestDraft: null,
     builderStep: 1,
@@ -485,7 +486,7 @@
   }
 
   function swapIcon() {
-    return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"></polyline><path d="M3 11V9a4 4 0 0 1 4-4h14"></path><polyline points="7 23 3 19 7 15"></polyline><path d="M21 13v2a4 4 0 0 1-4 4H3"></path></svg>';
+    return '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M9.71967 2.21967C9.42678 2.51256 9.42678 2.98744 9.71967 3.28033L10.4393 4H3.75C3.33579 4 3 4.33579 3 4.75C3 5.16421 3.33579 5.5 3.75 5.5H10.4393L9.71967 6.21967C9.42678 6.51256 9.42678 6.98744 9.71967 7.28033C10.0126 7.57322 10.4874 7.57322 10.7803 7.28033L12.7803 5.28033C13.0732 4.98744 13.0732 4.51256 12.7803 4.21967L10.7803 2.21967C10.4874 1.92678 10.0126 1.92678 9.71967 2.21967ZM6.28033 8.71967C6.57322 9.01256 6.57322 9.48744 6.28033 9.78033L5.56066 10.5H12.25C12.6642 10.5 13 10.8358 13 11.25C13 11.6642 12.6642 12 12.25 12H5.56066L6.28033 12.7197C6.57322 13.0126 6.57322 13.4874 6.28033 13.7803C5.98744 14.0732 5.51256 14.0732 5.21967 13.7803L3.21967 11.7803C2.92678 11.4874 2.92678 11.0126 3.21967 10.7197L5.21967 8.71967C5.51256 8.42678 5.98744 8.42678 6.28033 8.71967Z" fill="currentColor"></path></svg>';
   }
 
   /* ----------------------------------------------------------------
@@ -588,7 +589,7 @@
   }
 
   function chevronSvg(dir) {
-    var d = dir === 'left' ? 'M15 18l-6-6 6-6' : 'M9 18l6-6-6-6';
+    var d = dir === 'left' ? 'M15 18l-6-6 6-6' : (dir === 'down' ? 'M6 9l6 6 6-6' : 'M9 18l6-6-6-6');
     return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="' + d + '"></path></svg>';
   }
 
@@ -792,6 +793,13 @@
         '<div class="rf-group rf-group--type">' +
           groupFilterToggle('All flights', 'all') + groupFilterToggle('Direct', 'direct') + groupFilterToggle('Up to 1 connection', '1stop') +
         '</div>' +
+        '<div class="rf-group rf-group--bag rf-group--airlines">' +
+          '<div class="filter-toggle filter-airline-trigger' + (state.airlineFilterOpen ? ' active' : '') + '" data-action="toggle-airline-filter">' +
+            'Airlines' + (state.selectedAirlineIds.length ? ' (' + state.selectedAirlineIds.length + ')' : '') +
+            chevronSvg('down') +
+          '</div>' +
+          (state.airlineFilterOpen ? renderAirlineFilterDropdown() : '') +
+        '</div>' +
       '</div>' +
       rowsHtml +
       '<div style="height:90px"></div>';
@@ -801,17 +809,29 @@
     return '<div class="filter-toggle' + (state.groupFilter === val ? ' active' : '') + '" data-action="set-group-filter" data-filter="' + val + '">' + label + '</div>';
   }
 
+  function renderAirlineFilterDropdown() {
+    var atMax = state.selectedAirlineIds.length >= 3;
+    var rows = GROUP_AIRLINES.map(function (a) {
+      var checked = state.selectedAirlineIds.indexOf(a.id) !== -1;
+      var disabled = !checked && atMax;
+      return '<div class="filter-airline-row' + (checked ? ' is-checked' : '') + (disabled ? ' is-disabled' : '') + '" data-action="toggle-select-airline" data-airline="' + a.id + '">' +
+        '<div class="filter-airline-row__check">' + (checked ? checkSvg() : '') + '</div>' +
+        '<div class="filter-airline-row__logo"><img src="' + a.logo + '" alt=""></div>' +
+        '<div class="filter-airline-row__name">' + escapeHtml(a.name) + '</div>' +
+      '</div>';
+    }).join('');
+    return '<div class="field-pop filter-airline-pop" data-action="noop">' + rows + '</div>';
+  }
+
+  function checkSvg() {
+    return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+  }
+
   function renderGroupResultRow(a) {
     var selected = state.selectedAirlineIds.indexOf(a.id) !== -1;
     var q = state.groupResultsQuery;
     var fromCode = (q && q.fromCode) || 'WAW', toCode = (q && q.toCode) || 'CDG';
-    var cta;
-    if (selected) {
-      cta = '<button class="btn is-selected-btn" data-action="toggle-select-airline" data-airline="' + a.id + '">Selected</button>' +
-        '<div class="group-select-col__remove" data-action="toggle-select-airline" data-airline="' + a.id + '">Remove</div>';
-    } else {
-      cta = '<button class="btn btn-secondary" data-action="toggle-select-airline" data-airline="' + a.id + '">Choose airline</button>';
-    }
+    var cta = selected ? '<div class="group-select-badge">Selected</div>' : '';
     return '<div class="result-row-wrap"><div class="result-row' + (selected ? ' is-group-selected' : '') + '">' +
       '<div class="result-row__logo"><img src="' + a.logo + '" alt="' + a.name + '"></div>' +
       '<div class="result-row__times"><div class="result-row__times-main">' + a.dep + ' — ' + a.arr + '</div><div class="result-row__sub">' + a.name + '</div></div>' +
@@ -1384,16 +1404,20 @@
     return state.regular.paxOpen || state.group.paxOpen || (state.requestDraft && state.requestDraft.paxOpen);
   }
 
+  var AIRLINE_FILTER_ACTIONS = ['toggle-airline-filter', 'toggle-select-airline', 'noop'];
+
   function onClick(e) {
     var el = e.target.closest('[data-action]');
     if (!el) {
       var pax = document.querySelector('.search-field--pax');
-      if (anyPaxOpen() && (!pax || !pax.contains(e.target))) { closeAllPaxPops(); render(); }
-      else if (state.openPopover) { state.openPopover = null; render(); }
+      if (anyPaxOpen() && (!pax || !pax.contains(e.target))) { closeAllPaxPops(); render(); return; }
+      if (state.airlineFilterOpen) { state.airlineFilterOpen = false; render(); return; }
+      if (state.openPopover) { state.openPopover = null; render(); }
       return;
     }
     var action = el.dataset.action;
     if (state.openPopover && POPOVER_ACTIONS.indexOf(action) === -1) state.openPopover = null;
+    if (state.airlineFilterOpen && AIRLINE_FILTER_ACTIONS.indexOf(action) === -1) state.airlineFilterOpen = false;
 
     switch (action) {
       case 'noop': break;
@@ -1601,6 +1625,11 @@
 
       case 'set-group-filter':
         state.groupFilter = el.dataset.filter;
+        render();
+        break;
+
+      case 'toggle-airline-filter':
+        state.airlineFilterOpen = !state.airlineFilterOpen;
         render();
         break;
 
