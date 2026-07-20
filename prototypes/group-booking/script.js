@@ -420,7 +420,7 @@
       (atMax ? '<div class="group-cta-inline">' +
         '<div class="group-cta-inline__title">Looking for group rates?</div>' +
         '<div class="group-cta-inline__text">Request fares for 10 or more passengers.</div>' +
-        '<button class="btn btn-secondary btn-block btn-sm" data-action="try-group-fares">Try group fares</button>' +
+        '<button class="btn btn-tertiary btn-block btn-sm" data-action="try-group-fares">Try group fares</button>' +
       '</div>' : '') +
     '</div>';
   }
@@ -555,10 +555,10 @@
   function renderGroupForm() {
     var g = state.group, e = state.groupErrors;
     if (state.groupSubmitState === 'loading') {
-      return groupSearchBarGroup(g, e) + '<div class="search-multicity" style="visibility:hidden">.</div>';
+      return groupFormBar(g, e) + '<div class="search-multicity" style="visibility:hidden">.</div>';
     }
     if (state.groupSubmitState === 'error') {
-      return groupSearchBarGroup(g, e) +
+      return groupFormBar(g, e) +
         '<div class="server-error-panel">' +
           '<div class="server-error-panel__icon">!</div>' +
           '<h3>We couldn’t load group search results</h3>' +
@@ -568,15 +568,8 @@
           '</div>' +
         '</div>';
     }
-    return groupSearchBarGroup(g, e) +
+    return groupFormBar(g, e) +
       (Object.keys(e).length ? '<div class="field-error" style="margin-top:10px">Please complete all required fields.</div>' : '');
-  }
-
-  function groupSearchBarGroup(g, e) {
-    return '<div class="search-bar-group">' +
-      groupFormBar(g, e) +
-      warningBannerHtml('Group fares are requested directly from airlines. Final prices, flight details and conditions may differ from the options shown in search results.') +
-    '</div>';
   }
 
   function groupFormBar(g, e) {
@@ -637,7 +630,7 @@
           '<button class="btn btn-primary btn-sm" data-action="group-results-update-search">Update search</button>' +
         '</div>' +
       '</div>' +
-      '<div style="margin-bottom:20px">' + calloutHtml('!', 'Final group fares, flight times, availability and conditions will be confirmed by each airline after you submit a request.', null, 'These options are indicative') + '</div>' +
+      '<div style="margin-bottom:20px">' + warningBannerHtml('Group fares are requested directly from airlines. Final prices, flight details and conditions may differ from the options shown in search results.') + '</div>' +
       '<h2 class="section-subhead">Group flight options</h2>' +
       '<p>Select up to 3 airlines to request final group fares.</p>' +
       '<div class="filter-row">' +

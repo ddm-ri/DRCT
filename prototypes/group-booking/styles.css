@@ -130,7 +130,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 32px;
+  padding: 0 214px;
   border-bottom: 1px solid var(--border);
   background: var(--white);
   position: sticky;
@@ -171,9 +171,7 @@ body {
    LAYOUT
 ---------------------------------------------------------------- */
 .page {
-  max-width: 1180px;
-  margin: 0 auto;
-  padding: 40px 32px 120px;
+  padding: 40px 214px 120px;
 }
 
 .page-head { margin-bottom: 24px; }
@@ -274,6 +272,13 @@ body {
   background: transparent;
   color: var(--dark-70);
 }
+
+.btn-tertiary {
+  background: transparent;
+  color: var(--blue);
+}
+.btn-tertiary:hover:not(:disabled) { opacity: .75; }
+.btn-tertiary:disabled { color: var(--dark-26); cursor: not-allowed; }
 .btn-ghost:hover { color: var(--dark); }
 
 .btn-destructive {
@@ -397,14 +402,14 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 8px 0;
+  padding: 14px 0;
 }
-.pax-row__label { font-size: 14px; font-weight: 600; color: var(--dark); }
-.pax-row__sub { font-size: 12px; color: var(--dark-40); margin-top: 2px; }
+.pax-row__label { font-size: 16px; font-weight: 700; color: var(--dark); }
+.pax-row__sub { font-size: 13px; color: var(--dark-40); margin-top: 2px; }
 .stepper { display: flex; align-items: center; gap: 12px; }
 .stepper__btn {
-  width: 28px;
-  height: 28px;
+  width: 32px;
+  height: 32px;
   border-radius: var(--radius-s);
   background: var(--dark-10);
   color: var(--dark);
@@ -601,19 +606,6 @@ body {
   line-height: 1.5;
 }
 .warning-banner b { font-weight: 700; }
-
-/* Search bar + banner fused into one seamless block, like the product's
-   search bar + AI Filters band. overflow stays visible so field
-   dropdown popovers are never clipped. */
-.search-bar-group .search-bar {
-  border-radius: var(--radius-m) var(--radius-m) 0 0;
-}
-.search-bar-group .warning-banner {
-  border-radius: 0 0 var(--radius-m) var(--radius-m);
-  border-left: 1px solid var(--border);
-  border-right: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-}
 
 /* ----------------------------------------------------------------
    FORM STATE / VALIDATION BANNER
@@ -1013,7 +1005,7 @@ textarea.textarea:focus { border-color: var(--blue); }
   gap: 12px;
 }
 .booking-list-row__name { font-size: 14px; font-weight: 700; color: var(--dark); }
-.booking-list-row__price { font-family: var(--font-mono); font-size: 13.5px; font-weight: 700; color: var(--dark); flex: 0 0 auto; text-align: right; }
+.booking-list-row__price { font-size: 13.5px; font-weight: 700; color: var(--dark); flex: 0 0 auto; text-align: right; }
 .booking-list-row__bottom {
   display: flex;
   align-items: baseline;
@@ -1078,7 +1070,7 @@ textarea.textarea:focus { border-color: var(--blue); }
 .segment-row__logo img { width: 100%; height: 100%; object-fit: contain; }
 .segment-row__lines { flex: 1 1 0; min-width: 0; }
 .segment-row__line { display: flex; align-items: baseline; gap: 12px; font-size: 14px; color: var(--dark); padding: 3px 0; }
-.segment-row__time { font-family: var(--font-mono); font-weight: 700; flex: 0 0 44px; }
+.segment-row__time { font-weight: 700; flex: 0 0 44px; }
 .segment-row__airport { flex: 1 1 0; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--dark-70); }
 .segment-row__date { flex: 0 0 auto; color: var(--dark-40); font-size: 12.5px; }
 .segment-row__caption { font-size: 12.5px; color: var(--dark-40); margin-top: 6px; }
@@ -1114,7 +1106,7 @@ textarea.textarea:focus { border-color: var(--blue); }
 .group-offer-row.is-expired { opacity: .7; }
 
 .offer-card__note { font-size: 12px; color: var(--dark-40); margin-top: 4px; text-align: right; }
-.offer-card__price { font-family: var(--font-mono); font-size: 15px; font-weight: 700; min-width: 100px; text-align: right; }
+.offer-card__price { font-size: 15px; font-weight: 700; min-width: 100px; text-align: right; }
 .offer-card__deadline { font-size: 11.5px; color: var(--dark-40); margin-top: 3px; font-weight: 500; text-align: right; }
 
 .status-pill {
@@ -1174,7 +1166,7 @@ textarea.textarea:focus { border-color: var(--blue); }
   border-top: 1px solid var(--border);
 }
 .price-total-row__label { font-size: 14px; font-weight: 700; }
-.price-total-row__value { font-family: var(--font-mono); font-size: 22px; font-weight: 700; color: var(--dark); }
+.price-total-row__value { font-size: 22px; font-weight: 700; color: var(--dark); }
 
 .conditions-list { display: flex; flex-direction: column; gap: 12px; }
 .conditions-list li { font-size: 13.5px; color: var(--dark-70); display: flex; gap: 8px; }
@@ -1282,6 +1274,11 @@ textarea.textarea:focus { border-color: var(--blue); }
   color: var(--dark-40);
   font-size: 14px;
   margin-top: 20px;
+}
+
+@media (max-width: 1100px) {
+  .app-header { padding: 0 64px; }
+  .page { padding: 40px 64px 120px; }
 }
 
 @media (max-width: 900px) {
