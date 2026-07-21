@@ -195,8 +195,8 @@ a{color:inherit;text-decoration:none;}
 .pmp-dropdown__empty-state{padding:8px;}
 .pmp-dropdown__empty-state p{margin:0 0 8px;font-size:11.5px;color:#8D9399;}
 .pmp-dropdown__create{
-  background:none;border:none;padding:0;color:#2a8aea;font-size:11.5px;font-weight:700;
-  text-transform:uppercase;letter-spacing:.02em;cursor:pointer;font-family:inherit;
+  background:none;border:none;padding:0;color:#2a8aea;font-size:11px;font-weight:700;
+  text-transform:uppercase;letter-spacing:.02em;cursor:pointer;font-family:inherit;white-space:nowrap;
 }
 .pmp-dropdown__create:hover{color:#2179d1;}
 
@@ -585,7 +585,7 @@ a{color:inherit;text-decoration:none;}
       var createBtn = document.createElement('button');
       createBtn.type = 'button';
       createBtn.className = 'pmp-dropdown__create';
-      createBtn.textContent = '+ Create new passenger';
+      createBtn.textContent = '+ Add passenger';
       createBtn.addEventListener('click', function(){ startNewPassenger(query); });
       emptyState.appendChild(msg);
       emptyState.appendChild(createBtn);
