@@ -181,20 +181,12 @@ a{color:inherit;text-decoration:none;}
    white surface, hairline border, radius-4, elevation shadow). No new
    component families introduced.
    ===================================================================== */
-.pmp-title-row{display:flex;align-items:center;gap:14px;margin-bottom:2px;}
-.pmp-select-btn{background:none;border:none;padding:0;color:#2a8aea;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.02em;cursor:pointer;font-family:inherit;margin-left:auto;}
+.pmp-select-field{margin-bottom:16px;}
 
-.pmp-popover{
+.pmp-dropdown{
   background:#fff;border:1px solid #dfe2e6;border-radius:4px;
-  box-shadow:0 1px 4px rgba(27,39,51,.08);padding:6px;margin-bottom:16px;
+  box-shadow:0 1px 4px rgba(27,39,51,.08);padding:6px;margin-top:8px;max-height:280px;overflow-y:auto;
 }
-.pmp-popover__search{padding:4px 4px 6px;}
-.pmp-popover__search input{
-  width:100%;height:38px;border:1px solid #dfe2e6;border-radius:4px;padding:0 12px;
-  font-size:13px;font-family:inherit;color:#1B2733;
-}
-.pmp-popover__search input:focus{outline:none;border-color:#2a8aea;}
-.pmp-popover__results{max-height:260px;overflow-y:auto;}
 
 .pmp-dropdown__result{padding:8px 9px;border-radius:3px;cursor:pointer;}
 .pmp-dropdown__result:hover,.pmp-dropdown__result:focus-visible{background:#fafcff;}
@@ -410,17 +402,13 @@ a{color:inherit;text-decoration:none;}
     <!-- ===================== VARIANT 2 — Mini Profiles ===================== -->
     <div class="search__separator"></div>
     <div class="search__passenger-block">
-      <div class="pmp-title-row">
-        <p class="search__flight-title">Adult</p>
-        <button type="button" class="pmp-select-btn" id="selectSavedBtn">Select saved passenger</button>
-      </div>
+      <p class="search__flight-title">Adult</p>
       <p class="search__flight-description">Enter the data in Latin as specified in the document</p>
 
-      <div class="pmp-popover" id="selectPopover" hidden>
-        <div class="pmp-popover__search">
-          <input type="text" id="popoverSearch" placeholder="Search by last name, first name or email" autocomplete="off">
-        </div>
-        <div class="pmp-popover__results" id="popoverResults"></div>
+      <div class="form-field pmp-select-field" id="selectField">
+        <label class="form-field__label" for="popoverSearch">Select passenger</label>
+        <div class="input"><input class="input__input" type="text" id="popoverSearch" placeholder="Search by last name, first name or email" autocomplete="off"></div>
+        <div class="pmp-dropdown" id="popoverResults" hidden></div>
       </div>
 
       <div class="search__passenger-inputs">
@@ -521,8 +509,7 @@ a{color:inherit;text-decoration:none;}
   var els = {
     lastName: $('lastName'), firstName: $('firstName'), dob: $('dob'), phone: $('phone'), email: $('email'),
     fqtvCarrier: $('fqtvCarrier'), fqtvNumber: $('fqtvNumber'),
-    titleRow: $('selectSavedBtn').parentElement, selectBtn: $('selectSavedBtn'),
-    popover: $('selectPopover'), popoverSearch: $('popoverSearch'), popoverResults: $('popoverResults'),
+    selectField: $('selectField'), popoverSearch: $('popoverSearch'), popoverResults: $('popoverResults'),
     updateNotice: $('updateNotice'), updateProfileBtn: $('updateProfileBtn'), keepBookingOnlyBtn: $('keepBookingOnlyBtn'),
     saveRow: $('saveRow'), saveProfileBtn: $('saveProfileBtn'),
     toast: $('pmpToast'), toastMsg: $('pmpToastMsg'), toastClose: $('pmpToastClose'), bookBtn: $('bookBtn')
@@ -560,7 +547,7 @@ a{color:inherit;text-decoration:none;}
   }
   function formsEqual(a,b){ return FIELDS.concat(['gender']).every(function(k){ return a[k] === b[k]; }); }
 
-  /* ---------------- popover: Select saved passenger ---------------- */
+  /* ---------------- Select passenger search field ---------------- */
 
   function matchProfiles(query){
     query = query.trim().toLowerCase();
@@ -575,17 +562,15 @@ a{color:inherit;text-decoration:none;}
   function renderResults(matches){
     els.popoverResults.innerHTML = '';
     if(matches === null){
-      var hint = document.createElement('div');
-      hint.className = 'pmp-dropdown__empty';
-      hint.textContent = 'Type at least 2 characters to search.';
-      els.popoverResults.appendChild(hint);
+      els.popoverResults.hidden = true;
       return;
     }
     if(matches.length === 0){
       var empty = document.createElement('div');
       empty.className = 'pmp-dropdown__empty';
-      empty.textContent = 'No saved profile found. Close this and fill in the details manually.';
+      empty.textContent = 'No saved profile found. You can continue filling in the details manually.';
       els.popoverResults.appendChild(empty);
+      els.popoverResults.hidden = false;
       return;
     }
     matches.forEach(function(p){
@@ -600,32 +585,26 @@ a{color:inherit;text-decoration:none;}
       row.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); selectProfile(p); } });
       els.popoverResults.appendChild(row);
     });
+    els.popoverResults.hidden = false;
   }
 
-  function openPopover(){
-    els.popover.hidden = false;
-    els.popoverSearch.value = '';
-    renderResults(null);
-    els.popoverSearch.focus();
-  }
-  function closePopover(){ els.popover.hidden = true; }
-
-  els.selectBtn.addEventListener('click', function(){
-    if(els.popover.hidden) openPopover(); else closePopover();
-  });
   els.popoverSearch.addEventListener('input', function(){
     renderResults(matchProfiles(els.popoverSearch.value));
   });
-  document.addEventListener('click', function(e){
-    if(!els.titleRow.contains(e.target) && !els.popover.contains(e.target)) closePopover();
+  els.popoverSearch.addEventListener('focus', function(){
+    var matches = matchProfiles(els.popoverSearch.value);
+    if(matches) renderResults(matches);
   });
-  document.addEventListener('keydown', function(e){ if(e.key==='Escape') closePopover(); });
+  document.addEventListener('click', function(e){
+    if(!els.selectField.contains(e.target)) els.popoverResults.hidden = true;
+  });
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape') els.popoverResults.hidden = true; });
 
   /* ---------------- select / autofill ---------------- */
 
   function selectProfile(p){
-    closePopover();
-    els.selectBtn.textContent = 'Change profile';
+    els.popoverResults.hidden = true;
+    els.popoverSearch.value = '';
     els.lastName.value = p.lastName;
     els.firstName.value = p.firstName;
     els.dob.value = fmtDate(p.dob);
@@ -707,7 +686,6 @@ a{color:inherit;text-decoration:none;}
     state.activeProfile = p;
     state.snapshot = snapshotForm();
     els.saveRow.hidden = true;
-    els.selectBtn.textContent = 'Change profile';
     showToast('Passenger profile saved for ' + fullName(p) + '.', 'success');
   });
 
