@@ -181,16 +181,6 @@ a{color:inherit;text-decoration:none;}
    white surface, hairline border, radius-4, elevation shadow). No new
    component families introduced.
    ===================================================================== */
-.pmp-title-row{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;margin-bottom:2px;}
-.pmp-select-field{position:relative;width:300px;flex:none;}
-.pmp-select-field__label{display:block;font-size:14px;font-weight:700;color:#1B2733;margin-bottom:8px;}
-.pmp-select-input{
-  width:100%;height:36px;border:1px solid #dfe2e6;border-radius:4px;padding:0 12px;
-  font-size:13px;font-family:inherit;color:#1B2733;
-}
-.pmp-select-input:focus{outline:none;border-color:#2a8aea;}
-.pmp-select-input::placeholder{color:#8D9399;}
-
 .pmp-dropdown{
   background:#fff;border:1px solid #dfe2e6;border-radius:4px;
   box-shadow:0 1px 4px rgba(27,39,51,.08);padding:6px;margin-bottom:16px;max-height:280px;overflow-y:auto;
@@ -417,14 +407,15 @@ a{color:inherit;text-decoration:none;}
     <!-- ===================== VARIANT 2 — Mini Profiles ===================== -->
     <div class="search__separator"></div>
     <div class="search__passenger-block">
-      <div class="pmp-title-row">
-        <p class="search__flight-title">Adult</p>
-        <div class="pmp-select-field" id="selectField">
-          <label class="pmp-select-field__label" for="popoverSearch">Select passenger</label>
-          <input class="pmp-select-input" type="text" id="popoverSearch" placeholder="Search by last name, first name or email" autocomplete="off">
+      <p class="search__flight-title">Adult</p>
+      <p class="search__flight-description">Enter the data in Latin as specified in the document</p>
+
+      <div class="search__passenger-inputs">
+        <div class="form-field" id="selectField">
+          <label class="form-field__label" for="popoverSearch">Select passenger</label>
+          <div class="input"><input class="input__input" type="text" id="popoverSearch" placeholder="Search by last name, first name or email" autocomplete="off"></div>
         </div>
       </div>
-      <p class="search__flight-description">Enter the data in Latin as specified in the document</p>
 
       <div class="pmp-dropdown" id="popoverResults" hidden></div>
 
