@@ -201,6 +201,13 @@ a{color:inherit;text-decoration:none;}
 .pmp-dropdown__result-name{font-size:12.5px;font-weight:600;}
 .pmp-dropdown__result-dob{font-size:10.5px;color:#8D9399;margin-top:1px;}
 .pmp-dropdown__empty{padding:6px 8px;font-size:11.5px;color:#8D9399;}
+.pmp-dropdown__empty-state{padding:8px;}
+.pmp-dropdown__empty-state p{margin:0 0 8px;font-size:11.5px;color:#8D9399;}
+.pmp-dropdown__create{
+  background:none;border:none;padding:0;color:#2a8aea;font-size:11.5px;font-weight:700;
+  text-transform:uppercase;letter-spacing:.02em;cursor:pointer;font-family:inherit;
+}
+.pmp-dropdown__create:hover{color:#2179d1;}
 
 .pmp-notice{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:15px 0 10px;border-top:1px solid #eef0f2;margin-bottom:0;font-size:12px;}
 .pmp-notice p{margin:0;flex:1 1 260px;color:rgba(27,39,51,.7);}
@@ -573,10 +580,19 @@ a{color:inherit;text-decoration:none;}
       return;
     }
     if(matches.length === 0){
-      var empty = document.createElement('div');
-      empty.className = 'pmp-dropdown__empty';
-      empty.textContent = 'No saved profile found. You can continue filling in the details manually.';
-      els.popoverResults.appendChild(empty);
+      var query = els.popoverSearch.value.trim();
+      var emptyState = document.createElement('div');
+      emptyState.className = 'pmp-dropdown__empty-state';
+      var msg = document.createElement('p');
+      msg.textContent = "Can't find matching passenger.";
+      var createBtn = document.createElement('button');
+      createBtn.type = 'button';
+      createBtn.className = 'pmp-dropdown__create';
+      createBtn.textContent = '+ Create new passenger';
+      createBtn.addEventListener('click', function(){ startNewPassenger(query); });
+      emptyState.appendChild(msg);
+      emptyState.appendChild(createBtn);
+      els.popoverResults.appendChild(emptyState);
       els.popoverResults.hidden = false;
       return;
     }
@@ -625,6 +641,16 @@ a{color:inherit;text-decoration:none;}
     state.snapshot = snapshotForm();
     els.updateNotice.hidden = true;
     els.saveRow.hidden = true;
+  }
+
+  function startNewPassenger(query){
+    els.popoverResults.hidden = true;
+    els.popoverSearch.value = '';
+    if(query){
+      els.lastName.value = query.charAt(0).toUpperCase() + query.slice(1);
+    }
+    els.lastName.focus();
+    els.lastName.scrollIntoView({ block: 'center', behavior: 'smooth' });
   }
 
   /* ---------------- dirty tracking ---------------- */
