@@ -430,7 +430,7 @@ a{color:inherit;text-decoration:none;}
         </div>
         <div class="form-field">
           <label class="form-field__label" for="dob">Date of birth</label>
-          <div class="input"><input class="input__input" id="dob" placeholder="DD MMM YYYY" autocomplete="off"></div>
+          <div class="input"><input class="input__input" id="dob" placeholder="DD.MM.YYYY" autocomplete="off"></div>
         </div>
       </div>
 
@@ -541,9 +541,8 @@ a{color:inherit;text-decoration:none;}
   var state = { activeProfile:null, snapshot:null, toastTimer:null, lastMatches:[], shownKey:null, dismissedKey:null };
 
   function fmtDate(iso){
-    var d = new Date(iso + 'T00:00:00');
-    var months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-    return d.getDate()+' '+months[d.getMonth()]+' '+d.getFullYear();
+    var parts = iso.split('-');
+    return parts[2] + '.' + parts[1] + '.' + parts[0];
   }
   function fullName(p){ return p.firstName + ' ' + p.lastName; }
 
@@ -570,10 +569,11 @@ a{color:inherit;text-decoration:none;}
   function formsEqual(a,b){ return FIELDS.concat(['gender']).every(function(k){ return a[k] === b[k]; }); }
 
   function isoFromDobInput(text){
-    var months={jan:'01',feb:'02',mar:'03',apr:'04',may:'05',jun:'06',jul:'07',aug:'08',sep:'09',oct:'10',nov:'11',dec:'12'};
-    var m = text.trim().toLowerCase().match(/^(\d{1,2})\s+([a-z]{3})\w*\s+(\d{4})$/);
-    if(!m || !months[m[2]]) return null;
-    return m[3] + '-' + months[m[2]] + '-' + (m[1].length===1 ? '0'+m[1] : m[1]);
+    var m = text.trim().match(/^(\d{1,2})[.\/\-\s](\d{1,2})[.\/\-\s](\d{4})$/);
+    if(!m) return null;
+    var day = m[1].length===1 ? '0'+m[1] : m[1];
+    var month = m[2].length===1 ? '0'+m[2] : m[2];
+    return m[3] + '-' + month + '-' + day;
   }
 
   /* ---------------- blur-confirm match check ---------------- */
