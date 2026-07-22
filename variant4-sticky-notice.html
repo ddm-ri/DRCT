@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>DRCT</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+/* ==================================================================
+   VARIANT 4 — Sticky notice bar. Same autocomplete-in-Last-name
+   mechanic as Variant 1 (identical search/apply behavior and the
+   "Applied <Name>'s profile." confirmation toast). The only
+   difference: the update/save prompts ("Passenger details differ...",
+   "No saved profile matches...") no longer render as an inline row
+   with a top hairline — they float as a fixed bottom bar (8px
+   radius, design-system elevation shadow), the same sticky-action-bar
+   pattern already used elsewhere in DRCT (e.g. the "Selected
+   airlines" request bar).
+   Base page (header, search-form, ai-filters, filters row, flight
+   card, fare cards, passenger form, price summary, Book button) is
+   the same production reconstruction as passenger-base.html —
+   unchanged. Only additions: a Date of birth field (4th slot in the
+   already-4-column grid) and the autocomplete dropdown under Last name.
+================================================================== */
+*,*::before,*::after{box-sizing:border-box;}
+[hidden]{display:none !important;}
+html,body{margin:0;padding:0;}
+body{
+  font-family:'IBM Plex Sans','Roboto',sans-serif;
+  color:#1B2733;
+  background:#ffffff;
+  -webkit-font-smoothing:antialiased;
+  font-size:14px;
+  line-height:1.3;
+}
+button,input{font-family:inherit;}
+a{color:inherit;text-decoration:none;}
+:focus-visible{outline:2px solid #2a8aea;outline-offset:1px;}
+
+.header{
+  display:flex;align-items:center;justify-content:space-between;
+  max-width:1010px;margin:0 auto;padding:24px 20px 20px;
+}
+.header__logo{display:block;height:18px;width:auto;}
+.header__nav{display:flex;gap:24px;font-size:13px;}
+.header__nav a{color:#1B2733;opacity:.55;font-weight:700;text-transform:uppercase;letter-spacing:.02em;}
+.header__nav a.active{opacity:1;}
+
+.search-form{max-width:1010px;margin:0 auto 12px;padding:0 20px;}
+.search-form__bar{
+  display:flex;align-items:stretch;height:46px;
+  border:1px solid #e2e4e7;border-radius:4px;overflow:hidden;background:#fff;
+}
+.search-form__bar > *{display:flex;align-items:center;}
+.airport-input{position:relative;flex:1 1 200px;padding:0 14px;gap:8px;}
+.airport-input input{border:none;background:transparent;font-size:14px;color:#1B2733;width:100%;padding:0;}
+.airport-input__code{color:#8D9399;font-size:13px;flex:none;}
+.swap-container{flex:0 0 44px;justify-content:center;cursor:pointer;}
+.search-form__date{padding:0 14px;gap:16px;}
+.datepicker__dummy-wrapper{display:flex;gap:16px;}
+.datepicker__input{font-size:14px;color:#1B2733;cursor:pointer;}
+.datepicker__input--no-value{color:#8D9399;}
+.search-form__pass{flex:0 0 110px;padding:0 14px;}
+.passenger-input__result{font-size:14px;color:#1B2733;cursor:pointer;}
+.search-form__submit{
+  flex:0 0 110px;justify-content:center;
+  background:#2a8aea;color:#fff;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.03em;border:none;cursor:pointer;
+}
+.search-form__submit:hover{background:#2179d1;}
+
+.search-bar-container{max-width:1010px;margin:0 auto 16px;padding:0 20px;}
+.search-bar{
+  display:flex;align-items:center;gap:10px;height:44px;padding:0 16px;
+  border-radius:4px;border:1px solid rgba(42,138,234,.35);
+  background:linear-gradient(90deg,rgba(65,130,255,.07),rgba(58,255,255,.07)),#fff;
+}
+.ai-filters{display:flex;align-items:center;gap:8px;width:100%;}
+.ai-icon{width:18px;height:18px;flex:none;}
+.ai-filters strong{font-size:14px;font-weight:700;flex:none;}
+.info-icon-wrapper{display:flex;flex:none;}
+.info-icon{width:12px;height:13px;}
+.ai-filters input{flex:1;border:none;background:transparent;font-size:14px;color:#8D9399;font-family:inherit;}
+.filter-flights{flex:none;color:#2a8aea;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.02em;cursor:pointer;}
+
+.search__filters{
+  max-width:1010px;margin:0 auto;padding:0 20px 14px;
+  display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #eef0f2;
+}
+.search__filter{display:flex;gap:18px;}
+.search__filter input{position:absolute;opacity:0;width:0;height:0;}
+.search__filter label{
+  font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.02em;
+  color:#1B2733;opacity:.45;cursor:pointer;display:flex;align-items:center;gap:5px;
+}
+.search__filter label.active{opacity:1;}
+.basic-sort-icon{opacity:.6;}
+
+.search__result{max-width:1010px;margin:16px auto 0;padding:0 20px;}
+.search__flight{
+  background:#fff;border-radius:6px;box-shadow:0 1px 6px rgba(35,54,73,.12);
+  padding:22px 24px;margin-bottom:12px;position:relative;
+}
+.search__flight-total{display:block;text-align:right;font-weight:700;font-size:20px;margin-bottom:6px;}
+.flight-details-wrap{border-radius:8px;}
+.flight-details-box{
+  display:flex;gap:14px;align-items:flex-start;
+  border:1px dashed transparent;border-radius:8px;padding:12px 14px;margin-bottom:0;
+  transition:border-color .12s;
+}
+.flight-details-wrap:hover .flight-details-box{border-color:rgba(42,138,234,.4);}
+.flight-details-box__logo{
+  flex:0 0 32px;height:32px;display:flex;align-items:center;justify-content:center;
+  color:#1B2733;font-size:10px;font-weight:800;letter-spacing:-.02em;
+}
+.flight-details-box__main{flex:1;}
+.flight-details__title{font-size:16px;font-weight:700;margin:0 0 2px;}
+.flight-details__duration{font-size:12px;color:#8D9399;margin:0 0 10px;}
+.segment{display:flex;flex-direction:column;gap:5px;font-size:14px;}
+.segment__row{display:flex;align-items:baseline;gap:8px;}
+.segment__time{font-weight:700;width:40px;flex:none;}
+.segment__airport{color:rgba(27,39,51,.85);}
+.segment__day{color:#8D9399;font-size:12px;}
+.segment__details{font-size:12px;color:#8D9399;margin:6px 0 0;}
+.flight-details__copy{display:none;text-align:center;color:#2a8aea;font-size:13px;margin-top:6px;cursor:pointer;}
+.flight-details-wrap:hover .flight-details__copy{display:block;}
+
+.search-fares{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px;margin:18px 0 0;}
+.search-fares__fare{border:1px solid #e2e4e7;border-radius:4px;padding:12px;font-size:12px;display:flex;flex-direction:column;}
+.search-fares__fare.selected{border:2px solid #2a8aea;padding:11px;background:rgba(42,138,234,.05);}
+.search-fares__name{font-size:13px;font-weight:700;margin:0 0 2px;color:rgba(27,39,51,.7);}
+.search-fares__fare.selected .search-fares__name{color:#1B2733;}
+.search-fares__basis{color:#8D9399;font-size:11px;margin:0 0 6px;}
+.search-fares__rules{margin:0 0 8px;}
+.button--link-out.button--small{
+  background:none;border:none;padding:0;color:#2a8aea;font-size:11px;font-weight:700;
+  text-transform:uppercase;letter-spacing:.02em;cursor:pointer;font-family:inherit;
+}
+.search-fares__fare-rules > p{display:flex;justify-content:space-between;color:rgba(27,39,51,.7);margin:0 0 2px;}
+.search-fares__price{font-weight:700;font-size:15px;margin:8px 0 0;}
+
+.search__separator{height:1px;background:#eef0f2;margin:22px 0;}
+.search__flight-title{font-size:15px;font-weight:700;margin:0 0 2px;}
+.search__flight-description{font-size:12px;color:#5A6472;margin:0 0 16px;}
+
+.search__passenger-inputs{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:16px;}
+@media (max-width:820px){.search__passenger-inputs{grid-template-columns:repeat(2,1fr);}}
+.form-field{position:relative;}
+.form-field__label{display:block;font-size:14px;font-weight:700;color:#1B2733;margin-bottom:8px;}
+.input{border:1px solid #dfe2e6;border-radius:4px;background:#fff;height:44px;transition:border-color .12s;}
+.input:hover,.input:focus-within{border-color:#2a8aea;}
+.input__input{width:100%;height:100%;border:none;background:transparent;padding:0 13px;font-size:14px;color:#1B2733;font-family:inherit;border-radius:4px;}
+.input__input:focus{outline:none;}
+
+.gender-radio{display:flex;width:fit-content;height:44px;}
+.gender-radio__wrapper{position:relative;}
+.gender-radio__wrapper:not(:first-child) .gender-radio__label{border-left:none;}
+.gender-radio__input{position:absolute;opacity:0;inset:0;cursor:pointer;margin:0;}
+.gender-radio__label{
+  display:flex;align-items:center;justify-content:center;height:44px;min-width:56px;padding:0 16px;
+  border:1px solid #dfe2e6;font-size:14px;color:rgba(27,39,51,.7);cursor:pointer;
+}
+.gender-radio__wrapper:first-child .gender-radio__label{border-radius:4px 0 0 4px;}
+.gender-radio__wrapper:last-child .gender-radio__label{border-radius:0 4px 4px 0;}
+.gender-radio__input:checked + .gender-radio__label{background:#2a8aea;border-color:#2a8aea;color:#fff;}
+
+.search__passenger-info{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-bottom:8px;}
+.passenger-input-text{font-size:11px;color:#5A6472;margin:0 0 18px;grid-column:1/-1;}
+.frequent-flyer-info{margin-top:6px;}
+
+.search__booking-block{padding-top:18px;border-top:1px solid #eef0f2;margin-top:6px;}
+.booking__price{display:flex;justify-content:flex-end;gap:32px;margin-bottom:16px;font-size:13px;color:rgba(27,39,51,.7);}
+.booking__price p{margin:0 0 6px;}
+.booking__price-total{font-weight:700;color:#1B2733;margin-bottom:0 !important;}
+.booking__price__left{display:flex;flex-direction:column;}
+.booking__price__right{display:flex;flex-direction:column;text-align:right;}
+.search__book-button{
+  display:block;width:100%;background:#fff;border:1px solid #dfe2e6;border-radius:4px;
+  padding:16px;color:#2a8aea;font-size:13px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;
+  cursor:pointer;font-family:inherit;
+}
+.search__book-button:hover{background:#fafcff;}
+
+/* =====================================================================
+   Mini Profiles — Variant 1. Reuses .input, .button--link-out and a
+   plain popover card (same visual language as the rest of the page:
+   white surface, hairline border, radius-4, elevation shadow) for the
+   dropdown. No new component families introduced.
+   ===================================================================== */
+.pmp-dropdown{
+  position:absolute;top:calc(100% + 4px);left:0;right:0;z-index:20;
+  background:#fff;border:1px solid #dfe2e6;border-radius:4px;
+  box-shadow:0 4px 20px rgba(27,39,51,.15);padding:6px;max-height:280px;overflow-y:auto;
+}
+.pmp-dropdown__result{padding:8px 9px;border-radius:3px;cursor:pointer;}
+.pmp-dropdown__result:hover,.pmp-dropdown__result:focus-visible{background:#fafcff;}
+.pmp-dropdown__result-name{font-size:13px;font-weight:600;}
+.pmp-dropdown__result-dob{font-size:11px;color:#8D9399;margin-top:2px;}
+.pmp-dropdown__empty{padding:8px 9px;font-size:12px;color:#8D9399;}
+
+.pmp-notice{
+  position:fixed;left:50%;bottom:20px;transform:translateX(-50%);z-index:60;
+  width:calc(100% - 40px);max-width:970px;box-sizing:border-box;
+  display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+  padding:18px 24px;font-size:12px;
+  background:#fff;border-radius:8px;
+  box-shadow:0px 3px 5px -1px rgba(0,0,0,.2),0px 6px 10px 0px rgba(0,0,0,.14),0px 1px 18px 0px rgba(0,0,0,.12);
+}
+.pmp-notice p{margin:0;flex:1 1 260px;color:rgba(27,39,51,.7);}
+.pmp-notice strong{color:#1B2733;}
+.pmp-notice__buttons{display:flex;gap:10px;flex-wrap:wrap;}
+.pmp-btn-primary{
+  background:#2a8aea;color:#fff;border:none;border-radius:4px;padding:0 18px;height:36px;
+  font-size:12.5px;font-weight:700;text-transform:uppercase;letter-spacing:.03em;cursor:pointer;font-family:inherit;
+}
+.pmp-btn-primary:hover{background:#2179d1;}
+
+.pmp-toast{
+  position:fixed;top:64px;left:50%;transform:translateX(-50%);z-index:100;
+  background:#313131;color:#fff;font-size:.875rem;line-height:1.43;
+  padding:10px 14px 10px 20px;border-radius:999px;
+  display:flex;align-items:center;gap:10px;
+  box-shadow:0px 3px 5px -1px rgba(0,0,0,.2),0px 6px 10px 0px rgba(0,0,0,.14),0px 1px 18px 0px rgba(0,0,0,.12);
+}
+.pmp-toast--success{background:#43a047;}
+.pmp-toast--error{background:#d32f2f;}
+.pmp-toast__close{background:none;border:none;padding:0;color:inherit;opacity:.85;cursor:pointer;font-family:inherit;font-size:18px;line-height:1;}
+.pmp-toast__close:hover{opacity:1;}
+
+@media (max-width:640px){
+  .search-form{flex-wrap:wrap;height:auto;}
+  .search-form > *{border-radius:0 !important;border-right:1px solid #e2e4e7 !important;flex:1 1 45%;}
+}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <a href="#"><img class="header__logo" alt="DRCT" src="data:image/svg+xml,%3csvg%20width='94'%20height='18'%20viewBox='0%200%2094%2018'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20d='M22.1176%200H0V17.9998H22.1176C28.4105%2017.9998%2032.4779%2014.4599%2032.4779%208.98658C32.4779%203.5133%2028.4173%200%2022.1176%200ZM27.9791%209.01325C27.9791%2012.2199%2025.7879%2014.1332%2022.1176%2014.1332H4.3756V3.89329H22.0971C25.7811%203.89329%2027.9791%205.80661%2027.9791%209.01325V9.01325Z'%20fill='%231B2733'/%3e%3cpath%20d='M73.5664%200V3.93413H81.3264V17.9998H85.7627V3.93413H93.5227V0H73.5664Z'%20fill='%231B2733'/%3e%3cpath%20d='M65.2032%203.88753H71.5835V0H65.2032C58.8711%200%2054.7852%203.53473%2054.7852%208.99992C54.7852%2014.4651%2058.8711%2017.9998%2065.2032%2017.9998H71.6111V14.1123H65.2032C61.51%2014.1123%2059.312%2012.2018%2059.312%208.99992C59.312%205.79802%2061.5169%203.88753%2065.2032%203.88753Z'%20fill='%231B2733'/%3e%3cpath%20d='M49.0121%2011.0025C50.1007%2010.6228%2051.0376%209.91123%2051.6861%208.97143C52.3347%208.03164%2052.6611%206.91274%2052.6178%205.7778C52.6178%202.21249%2049.9542%200%2045.6776%200H34.4336V17.9932H38.8119V11.5356H44.4034L48.5377%2017.9998H53.6073L49.0121%2011.0025ZM45.8402%208.20355H38.8119V3.41203H45.8402C46.4642%203.4444%2047.0518%203.71093%2047.4818%204.15667C47.9119%204.60242%2048.1516%205.1934%2048.1516%205.80779C48.1516%206.42219%2047.9119%207.01317%2047.4818%207.45891C47.0518%207.90465%2046.4642%208.17118%2045.8402%208.20355Z'%20fill='%231B2733'/%3e%3c/svg%3e"></a>
+  <nav class="header__nav">
+    <a href="#" class="active">Search</a>
+    <a href="#">Bookings</a>
+    <a href="#">Management</a>
+    <a href="#">Sales</a>
+    <a href="#">Transactions</a>
+    <a href="#">Profile</a>
+  </nav>
+</header>
+
+<div class="search-form">
+  <div class="search-form__bar">
+    <div class="airport-input"><input type="text" value="Chopin Airport" readonly><span class="airport-input__code">WAW</span></div>
+    <div class="swap-container" tabindex="0" role="button" aria-label="Swap departure airport and destination airport">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M9.71967 2.21967C9.42678 2.51256 9.42678 2.98744 9.71967 3.28033L10.4393 4H3.75C3.33579 4 3 4.33579 3 4.75C3 5.16421 3.33579 5.5 3.75 5.5H10.4393L9.71967 6.21967C9.42678 6.51256 9.42678 6.98744 9.71967 7.28033C10.0126 7.57322 10.4874 7.57322 10.7803 7.28033L12.7803 5.28033C13.0732 4.98744 13.0732 4.51256 12.7803 4.21967L10.7803 2.21967C10.4874 1.92678 10.0126 1.92678 9.71967 2.21967ZM6.28033 8.71967C6.57322 9.01256 6.57322 9.48744 6.28033 9.78033L5.56066 10.5H12.25C12.6642 10.5 13 10.8358 13 11.25C13 11.6642 12.6642 12 12.25 12H5.56066L6.28033 12.7197C6.57322 13.0126 6.57322 13.4874 6.28033 13.7803C5.98744 14.0732 5.51256 14.0732 5.21967 13.7803L3.21967 11.7803C2.92678 11.4874 2.92678 11.0126 3.21967 10.7197L5.21967 8.71967C5.51256 8.42678 5.98744 8.42678 6.28033 8.71967Z" fill="#8D9399"></path></svg>
+    </div>
+    <div class="airport-input"><input type="text" value="Charles de Gaulle Intl" readonly><span class="airport-input__code">CDG</span></div>
+    <div class="search-form__date">
+      <div class="datepicker__dummy-wrapper">
+        <div class="datepicker__input">27 jul, mon</div>
+        <div class="datepicker__input datepicker__input--no-value">Return</div>
+      </div>
+    </div>
+    <div class="search-form__pass"><div class="passenger-input__result">1 passenger</div></div>
+    <button class="search-form__submit" type="button">Search</button>
+  </div>
+</div>
+
+<div class="search-bar-container">
+  <div class="search-bar">
+    <div class="ai-filters">
+      <svg class="ai-icon" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="9" cy="9" r="9" fill="white"/><path fill-rule="evenodd" clip-rule="evenodd" d="M8.99479 18.0013C13.9668 18.0013 17.9974 13.9707 17.9974 8.9987C17.9974 4.0267 13.9668 -0.00390625 8.99479 -0.00390625C4.02279 -0.00390625 -0.0078125 4.0267 -0.0078125 8.9987C-0.0078125 13.9707 4.02279 18.0013 8.99479 18.0013ZM9.60929 4.2314C9.61501 4.27917 9.62073 4.32696 9.63025 4.37393C10.0378 6.38535 11.6117 7.9592 13.6231 8.36676C13.67 8.37627 13.7178 8.38199 13.7656 8.38771C13.8365 8.3962 13.9073 8.40467 13.9752 8.42552C14.2207 8.50081 14.3992 8.72926 14.3992 8.9994C14.3992 9.26954 14.2207 9.49799 13.9752 9.57328C13.9073 9.59413 13.8365 9.6026 13.7656 9.61109C13.7178 9.61681 13.67 9.62253 13.6231 9.63204C11.6117 10.0396 10.0378 11.6135 9.63025 13.6249C9.62073 13.6718 9.61501 13.7196 9.60929 13.7674C9.60081 13.8383 9.59233 13.9091 9.57149 13.977C9.4962 14.2225 9.26774 14.401 8.9976 14.401C8.72746 14.401 8.49901 14.2225 8.42372 13.977C8.40288 13.9091 8.3944 13.8383 8.38592 13.7674C8.3802 13.7196 8.37448 13.6718 8.36496 13.6249C7.9574 11.6135 6.38355 10.0396 4.37214 9.63204C4.32517 9.62253 4.27737 9.61681 4.2296 9.61109C4.15875 9.6026 4.08794 9.59413 4.01998 9.57328C3.77452 9.49799 3.59604 9.26954 3.59604 8.9994C3.59604 8.72926 3.77452 8.50081 4.01998 8.42552C4.08794 8.40467 4.15874 8.3962 4.2296 8.38771C4.27737 8.38199 4.32517 8.37627 4.37214 8.36676C6.38355 7.9592 7.9574 6.38535 8.36496 4.37393C8.37448 4.32696 8.3802 4.27917 8.38592 4.2314C8.3944 4.16054 8.40288 4.08974 8.42372 4.02178C8.49901 3.77631 8.72746 3.59784 8.9976 3.59784C9.26774 3.59784 9.4962 3.77631 9.57149 4.02178C9.59233 4.08974 9.60081 4.16054 9.60929 4.2314Z" fill="url(#pmp_ai_grad_v1)"/><defs><linearGradient id="pmp_ai_grad_v1" x1="-0.00781247" y1="18.0013" x2="17.9974" y2="-0.00390622" gradientUnits="userSpaceOnUse"><stop stop-color="#4182FF"/><stop offset="1" stop-color="#3AFFFF"/></linearGradient></defs></svg>
+      <strong>AI Filters</strong>
+      <span class="info-icon-wrapper">
+        <svg class="info-icon" width="12" height="13" viewBox="0 0 12 13" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.104 4.716C5.89067 4.716 5.736 4.668 5.64 4.572C5.54933 4.476 5.504 4.35333 5.504 4.204V4.044C5.504 3.89467 5.54933 3.772 5.64 3.676C5.736 3.58 5.89067 3.532 6.104 3.532C6.312 3.532 6.464 3.58 6.56 3.676C6.656 3.772 6.704 3.89467 6.704 4.044V4.204C6.704 4.35333 6.656 4.476 6.56 4.572C6.464 4.668 6.312 4.716 6.104 4.716ZM5.592 5.324H6.616V9.5H5.592V5.324Z" fill="#1B2733"/><circle cx="6" cy="6.5" r="5.5" stroke="#1B2733"/></svg>
+      </span>
+      <input type="text" placeholder="Morning departures on Lufthansa or Lot" disabled>
+      <a class="filter-flights" href="#">Filter flights</a>
+    </div>
+  </div>
+</div>
+
+<div class="search__filters">
+  <div class="search__filter">
+    <input type="radio" name="flt1" id="allFlight"><label for="allFlight" class="active">All flights</label>
+    <input type="radio" name="flt1" id="noTransfer"><label for="noTransfer">Direct</label>
+    <input type="radio" name="flt1" id="oneTransfer"><label for="oneTransfer">Up to 1 connection</label>
+  </div>
+  <div class="search__filter">
+    <input type="radio" name="flt2" id="priceSort"><label for="priceSort">Cheapest</label>
+    <input type="radio" name="flt2" id="durationSort"><label for="durationSort">Fastest</label>
+    <input type="radio" name="flt2" id="smartSort"><label for="smartSort" class="active">Optimal</label>
+  </div>
+  <div class="search__filter search__filter--right">
+    <input type="radio" name="flt3" id="basicSort"><label for="basicSort">Without baggage
+      <svg class="basic-sort-icon" width="15" height="14" viewBox="0 0 15 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.57715 0.958984C10.9125 0.959138 13.616 3.66367 13.6162 6.99902C13.6161 10.3345 10.9126 13.0379 7.57715 13.0381C4.24179 13.0378 1.53726 10.3344 1.53711 6.99902C1.53736 3.66373 4.24185 0.959237 7.57715 0.958984ZM7.57715 1.95898C4.79414 1.95924 2.53736 4.21601 2.53711 6.99902C2.53726 9.78212 4.79408 12.0378 7.57715 12.0381C10.3603 12.0379 12.6161 9.78218 12.6162 6.99902C12.616 4.21595 10.3602 1.95914 7.57715 1.95898ZM8.19727 10.0215H7.16602V5.81445H8.19727V10.0215ZM7.68164 4.00977C7.8911 4.00978 8.04394 4.05859 8.14062 4.15527C8.23725 4.25191 8.28608 4.37512 8.28613 4.52539V4.68652C8.28613 4.83693 8.23732 4.96092 8.14062 5.05762C8.04393 5.15418 7.89097 5.20214 7.68164 5.20215C7.46677 5.20215 7.31056 5.15431 7.21387 5.05762C7.1226 4.96094 7.07715 4.83689 7.07715 4.68652V4.52539C7.0772 4.37526 7.12279 4.25186 7.21387 4.15527C7.31056 4.05858 7.46677 4.00977 7.68164 4.00977Z" fill="#1B2733"></path></svg>
+    </label>
+    <input type="radio" name="flt3" id="econSort"><label for="econSort">With baggage
+      <svg class="basic-sort-icon" width="15" height="14" viewBox="0 0 15 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.57715 0.958984C10.9125 0.959138 13.616 3.66367 13.6162 6.99902C13.6161 10.3345 10.9126 13.0379 7.57715 13.0381C4.24179 13.0378 1.53726 10.3344 1.53711 6.99902C1.53736 3.66373 4.24185 0.959237 7.57715 0.958984ZM7.57715 1.95898C4.79414 1.95924 2.53736 4.21601 2.53711 6.99902C2.53726 9.78212 4.79408 12.0378 7.57715 12.0381C10.3603 12.0379 12.6161 9.78218 12.6162 6.99902C12.616 4.21595 10.3602 1.95914 7.57715 1.95898ZM8.19727 10.0215H7.16602V5.81445H8.19727V10.0215ZM7.68164 4.00977C7.8911 4.00978 8.04394 4.05859 8.14062 4.15527C8.23725 4.25191 8.28608 4.37512 8.28613 4.52539V4.68652C8.28613 4.83693 8.23732 4.96092 8.14062 5.05762C8.04393 5.15418 7.89097 5.20214 7.68164 5.20215C7.46677 5.20215 7.31056 5.15431 7.21387 5.05762C7.1226 4.96094 7.07715 4.83689 7.07715 4.68652V4.52539C7.0772 4.37526 7.12279 4.25186 7.21387 4.15527C7.31056 4.05858 7.46677 4.00977 7.68164 4.00977Z" fill="#1B2733"></path></svg>
+    </label>
+  </div>
+</div>
+
+<div class="search__result">
+  <div class="search__flight open">
+    <span class="search__flight-total">322.62 EUR</span>
+    <div class="flight-details-wrap">
+      <div class="flight-details-box">
+        <div class="flight-details-box__logo">LOT</div>
+        <div class="flight-details-box__main">
+          <p class="flight-details__title">Flight to Paris</p>
+          <p class="flight-details__duration">On the way 2h 25m</p>
+          <div class="segment">
+            <div class="segment__row"><span class="segment__time">16:25</span><span class="segment__airport">Warsaw Chopin ..., WAW</span><span class="segment__day">27 jul, md</span></div>
+            <div class="segment__row"><span class="segment__time">18:50</span><span class="segment__airport">Charles de Gau..., CDG</span><span class="segment__day">27 jul, md</span></div>
+          </div>
+          <p class="segment__details">LOT, LO 335</p>
+        </div>
+      </div>
+      <a class="flight-details__copy" href="#">Click to copy option</a>
+    </div>
+
+    <div class="search-fares">
+      <div class="search-fares__fare selected">
+        <div class="search-fares__fare-rules">
+          <p class="search-fares__name">Economy saver</p>
+          <p class="search-fares__basis">T1SAV0</p>
+          <p class="search-fares__rules"><button class="button--link-out button--small" type="button">Fare Rules</button></p>
+          <p><span>Baggage</span><span>0PC</span></p>
+          <p><span>Changes</span><span>Paid</span></p>
+          <p><span>Refund</span><span>Paid</span></p>
+        </div>
+        <p class="search-fares__price">322.62 EUR</p>
+      </div>
+      <div class="search-fares__fare">
+        <div class="search-fares__fare-rules">
+          <p class="search-fares__name">Economy standard</p>
+          <p class="search-fares__basis">T1STD0</p>
+          <p class="search-fares__rules"><button class="button--link-out button--small" type="button">Fare Rules</button></p>
+          <p><span>Baggage</span><span>1PC</span></p>
+          <p><span>Changes</span><span>?</span></p>
+          <p><span>Refund</span><span>?</span></p>
+        </div>
+        <p class="search-fares__price">359.62 EUR</p>
+      </div>
+      <div class="search-fares__fare">
+        <div class="search-fares__fare-rules">
+          <p class="search-fares__name">Economy flex</p>
+          <p class="search-fares__basis">T1FLX0</p>
+          <p class="search-fares__rules"><button class="button--link-out button--small" type="button">Fare Rules</button></p>
+          <p><span>Baggage</span><span>1PC</span></p>
+          <p><span>Changes</span><span>?</span></p>
+          <p><span>Refund</span><span>?</span></p>
+        </div>
+        <p class="search-fares__price">436.62 EUR</p>
+      </div>
+      <div class="search-fares__fare">
+        <div class="search-fares__fare-rules">
+          <p class="search-fares__name">Business semi flex</p>
+          <p class="search-fares__basis">D1SFX0</p>
+          <p class="search-fares__rules"><button class="button--link-out button--small" type="button">Fare Rules</button></p>
+          <p><span>Baggage</span><span>2PC</span></p>
+          <p><span>Changes</span><span>?</span></p>
+          <p><span>Refund</span><span>?</span></p>
+        </div>
+        <p class="search-fares__price">918.12 EUR</p>
+      </div>
+      <div class="search-fares__fare">
+        <div class="search-fares__fare-rules">
+          <p class="search-fares__name">Business semi flex</p>
+          <p class="search-fares__basis">D1SFX0</p>
+          <p class="search-fares__rules"><button class="button--link-out button--small" type="button">Fare Rules</button></p>
+          <p><span>Baggage</span><span>2PC</span></p>
+          <p><span>Changes</span><span>?</span></p>
+          <p><span>Refund</span><span>?</span></p>
+        </div>
+        <p class="search-fares__price">918.12 EUR</p>
+      </div>
+      <div class="search-fares__fare">
+        <div class="search-fares__fare-rules">
+          <p class="search-fares__name">Business semi flex</p>
+          <p class="search-fares__basis">D1SFX0</p>
+          <p class="search-fares__rules"><button class="button--link-out button--small" type="button">Fare Rules</button></p>
+          <p><span>Baggage</span><span>2PC</span></p>
+          <p><span>Changes</span><span>?</span></p>
+          <p><span>Refund</span><span>?</span></p>
+        </div>
+        <p class="search-fares__price">918.12 EUR</p>
+      </div>
+      <div class="search-fares__fare">
+        <div class="search-fares__fare-rules">
+          <p class="search-fares__name">Business full flex</p>
+          <p class="search-fares__basis">D1FFX0</p>
+          <p class="search-fares__rules"><button class="button--link-out button--small" type="button">Fare Rules</button></p>
+          <p><span>Baggage</span><span>2PC</span></p>
+          <p><span>Changes</span><span>?</span></p>
+          <p><span>Refund</span><span>?</span></p>
+        </div>
+        <p class="search-fares__price">996.12 EUR</p>
+      </div>
+      <div class="search-fares__fare">
+        <div class="search-fares__fare-rules">
+          <p class="search-fares__name">Business full flex</p>
+          <p class="search-fares__basis">D1FFX0</p>
+          <p class="search-fares__rules"><button class="button--link-out button--small" type="button">Fare Rules</button></p>
+          <p><span>Baggage</span><span>2PC</span></p>
+          <p><span>Changes</span><span>?</span></p>
+          <p><span>Refund</span><span>?</span></p>
+        </div>
+        <p class="search-fares__price">996.12 EUR</p>
+      </div>
+    </div>
+
+    <!-- ===================== VARIANT 1 — Mini Profiles ===================== -->
+    <div class="search__separator"></div>
+    <div class="search__passenger-block">
+      <p class="search__flight-title">Adult</p>
+      <p class="search__flight-description">Enter the data in Latin as specified in the document</p>
+
+      <div class="search__passenger-inputs">
+        <div class="form-field" id="lastNameField">
+          <label class="form-field__label" for="lastName">Last name</label>
+          <div class="input"><input class="input__input" id="lastName" autocomplete="off"></div>
+          <div class="pmp-dropdown" id="lastNameDropdown" hidden></div>
+        </div>
+        <div class="form-field">
+          <label class="form-field__label" for="firstName">First name</label>
+          <div class="input"><input class="input__input" id="firstName" autocomplete="off"></div>
+        </div>
+        <div class="form-field search__passenger-inputs__gender">
+          <label class="form-field__label">Gender</label>
+          <div class="gender-radio">
+            <div class="gender-radio__wrapper"><input class="gender-radio__input" type="radio" name="gender" id="genderM" value="M"><label class="gender-radio__label" for="genderM">M</label></div>
+            <div class="gender-radio__wrapper"><input class="gender-radio__input" type="radio" name="gender" id="genderF" value="F"><label class="gender-radio__label" for="genderF">F</label></div>
+          </div>
+        </div>
+        <div class="form-field">
+          <label class="form-field__label" for="dob">Date of birth</label>
+          <div class="input"><input class="input__input" id="dob" placeholder="DD.MM.YYYY" autocomplete="off"></div>
+        </div>
+      </div>
+
+      <div>
+        <div class="search__passenger-info">
+          <div class="form-field">
+            <label class="form-field__label" for="phone">Phone number</label>
+            <div class="input"><input class="input__input" id="phone" autocomplete="off"></div>
+          </div>
+          <div class="form-field">
+            <label class="form-field__label" for="email">Email</label>
+            <div class="input"><input class="input__input" id="email" autocomplete="off"></div>
+          </div>
+        </div>
+        <div class="search__passenger-info passenger-input-text"> * Contacts are optional. Fill in the fields in case you need to transfer customer's data to the airline.</div>
+      </div>
+
+      <div>
+        <div class="search__passenger-info frequent-flyer-info">
+          <div class="form-field">
+            <label class="form-field__label" for="fqtvCarrier">Frequent flyer carrier</label>
+            <div class="input"><input class="input__input" id="fqtvCarrier" autocomplete="off"></div>
+          </div>
+          <div class="form-field">
+            <label class="form-field__label" for="fqtvNumber">Frequent flyer number</label>
+            <div class="input"><input class="input__input" id="fqtvNumber" autocomplete="off"></div>
+          </div>
+        </div>
+        <div class="search__passenger-info passenger-input-text"> * Optional. Add your frequent flyer number to earn miles and other program benefits.</div>
+      </div>
+
+      <div class="pmp-notice" id="updateNotice" hidden>
+        <p>Passenger details differ from the saved profile.</p>
+        <div class="pmp-notice__buttons">
+          <button type="button" class="pmp-btn-primary" id="updateProfileBtn">Update profile</button>
+          <button type="button" class="button--link-out button--small" id="keepBookingOnlyBtn">Keep for this booking only</button>
+        </div>
+      </div>
+
+      <div class="pmp-notice" id="saveRow" hidden>
+        <p>No saved profile matches these details.</p>
+        <div class="pmp-notice__buttons">
+          <button type="button" class="pmp-btn-primary" id="saveProfileBtn">Save passenger profile</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="search__booking-block">
+      <div class="booking__price">
+        <div class="booking__price__left"><p>Adult</p><p class="booking__price-total">Total</p></div>
+        <div class="booking__price__right"><p>322.62 EUR</p><p class="booking__price-total">322.62 EUR</p></div>
+      </div>
+      <button class="search__book-button" type="button" id="bookBtn" name="button"><span>Book</span></button>
+    </div>
+  </div>
+</div>
+
+<div id="pmpToast" class="pmp-toast" hidden role="status">
+  <span id="pmpToastMsg"></span>
+  <button type="button" class="pmp-toast__close" id="pmpToastClose" aria-label="Dismiss">&times;</button>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  var PROFILES = [
+    { id:'p1', firstName:'Anna', lastName:'Kowalska', dob:'1985-04-12', gender:'F', phone:'+48501112233', email:'anna.kowalska@example.com', fqtvCarrier:'LO', fqtvNumber:'4021178832' },
+    { id:'p2', firstName:'Anna', lastName:'Kowalska', dob:'2014-09-03', gender:'F', phone:'', email:'', fqtvCarrier:'', fqtvNumber:'' },
+    { id:'p3', firstName:'Anna', lastName:'Kowalska', dob:'1992-01-27', gender:'F', phone:'+48660111222', email:'anna.k92@example.com', fqtvCarrier:'', fqtvNumber:'' },
+    { id:'p4', firstName:'Jan', lastName:'Kowalski', dob:'1985-04-12', gender:'M', phone:'+48501234567', email:'jan.kowalski@example.com', fqtvCarrier:'LO', fqtvNumber:'4021178001' },
+    { id:'p5', firstName:'Julia', lastName:'Nowak', dob:'1993-12-30', gender:'F', phone:'+48512987654', email:'julia.nowak@example.com', fqtvCarrier:'', fqtvNumber:'' }
+  ];
+  var nextId = 100;
+
+  var $ = function(id){ return document.getElementById(id); };
+  var els = {
+    lastName: $('lastName'), firstName: $('firstName'), dob: $('dob'), phone: $('phone'), email: $('email'),
+    fqtvCarrier: $('fqtvCarrier'), fqtvNumber: $('fqtvNumber'),
+    lastNameField: $('lastNameField'), dropdown: $('lastNameDropdown'),
+    updateNotice: $('updateNotice'), updateProfileBtn: $('updateProfileBtn'), keepBookingOnlyBtn: $('keepBookingOnlyBtn'),
+    saveRow: $('saveRow'), saveProfileBtn: $('saveProfileBtn'),
+    toast: $('pmpToast'), toastMsg: $('pmpToastMsg'), toastClose: $('pmpToastClose'), bookBtn: $('bookBtn')
+  };
+
+  var FIELDS = ['lastName','firstName','dob','phone','email','fqtvCarrier','fqtvNumber'];
+  var state = { activeProfile:null, snapshot:null, toastTimer:null };
+
+  function fmtDate(iso){
+    var parts = iso.split('-');
+    return parts[2] + '.' + parts[1] + '.' + parts[0];
+  }
+  function fullName(p){ return p.firstName + ' ' + p.lastName; }
+
+  function showToast(message, type){
+    clearTimeout(state.toastTimer);
+    els.toastMsg.textContent = message;
+    els.toast.className = 'pmp-toast pmp-toast--' + type;
+    els.toast.hidden = false;
+    state.toastTimer = setTimeout(function(){ els.toast.hidden = true; }, 4000);
+  }
+  els.toastClose.addEventListener('click', function(){
+    clearTimeout(state.toastTimer);
+    els.toast.hidden = true;
+  });
+
+  function snapshotForm(){
+    return {
+      lastName: els.lastName.value, firstName: els.firstName.value, dob: els.dob.value,
+      phone: els.phone.value, email: els.email.value,
+      fqtvCarrier: els.fqtvCarrier.value, fqtvNumber: els.fqtvNumber.value,
+      gender: $('genderM').checked ? 'M' : ($('genderF').checked ? 'F' : '')
+    };
+  }
+  function formsEqual(a,b){ return FIELDS.concat(['gender']).every(function(k){ return a[k] === b[k]; }); }
+
+  /* ---------------- search dropdown (Last name only) ---------------- */
+
+  function matchProfiles(query){
+    query = query.trim().toLowerCase();
+    if(query.length < 2) return null;
+    return PROFILES.filter(function(p){ return p.lastName.toLowerCase().indexOf(query) === 0; });
+  }
+
+  function renderDropdown(matches){
+    els.dropdown.innerHTML = '';
+    if(matches === null){ els.dropdown.hidden = true; return; }
+    if(matches.length === 0){
+      var empty = document.createElement('div');
+      empty.className = 'pmp-dropdown__empty';
+      empty.textContent = 'No saved profile found. You can continue filling in the details manually.';
+      els.dropdown.appendChild(empty);
+      els.dropdown.hidden = false;
+      return;
+    }
+    matches.forEach(function(p){
+      var row = document.createElement('div');
+      row.className = 'pmp-dropdown__result';
+      row.tabIndex = 0;
+      row.setAttribute('role','button');
+      row.innerHTML =
+        '<div class="pmp-dropdown__result-name">' + fullName(p) + '</div>' +
+        '<div class="pmp-dropdown__result-dob">' + fmtDate(p.dob) + '</div>';
+      row.addEventListener('click', function(){ selectProfile(p); });
+      row.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); selectProfile(p); } });
+      els.dropdown.appendChild(row);
+    });
+    els.dropdown.hidden = false;
+  }
+
+  els.lastName.addEventListener('input', function(){
+    if(state.activeProfile && els.lastName.value.trim().toLowerCase() !== state.activeProfile.lastName.toLowerCase()){
+      clearActiveProfile();
+    }
+    renderDropdown(matchProfiles(els.lastName.value));
+    maybeOfferSave();
+  });
+  els.lastName.addEventListener('focus', function(){
+    var matches = matchProfiles(els.lastName.value);
+    if(matches) renderDropdown(matches);
+  });
+  document.addEventListener('click', function(e){
+    if(!els.lastNameField.contains(e.target)) els.dropdown.hidden = true;
+  });
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape') els.dropdown.hidden = true; });
+
+  /* ---------------- select / autofill ---------------- */
+
+  function clearActiveProfile(){
+    state.activeProfile = null;
+    state.snapshot = null;
+    els.updateNotice.hidden = true;
+  }
+
+  function selectProfile(p){
+    els.dropdown.hidden = true;
+    els.lastName.value = p.lastName;
+    els.firstName.value = p.firstName;
+    els.dob.value = fmtDate(p.dob);
+    els.phone.value = p.phone;
+    els.email.value = p.email;
+    els.fqtvCarrier.value = p.fqtvCarrier;
+    els.fqtvNumber.value = p.fqtvNumber;
+    if(p.gender === 'M'){ $('genderM').checked = true; } else if(p.gender === 'F'){ $('genderF').checked = true; }
+
+    state.activeProfile = p;
+    state.snapshot = snapshotForm();
+    els.updateNotice.hidden = true;
+    els.saveRow.hidden = true;
+    showToast("Applied " + fullName(p) + "'s profile.", 'success');
+  }
+
+  /* ---------------- dirty tracking ---------------- */
+
+  function checkDirty(){
+    if(!state.activeProfile) return;
+    var current = snapshotForm();
+    els.updateNotice.hidden = formsEqual(current, state.snapshot);
+  }
+  ['firstName','dob','phone','fqtvCarrier','fqtvNumber'].forEach(function(id){ els[id].addEventListener('input', checkDirty); });
+  els.email.addEventListener('input', checkDirty);
+  $('genderM').addEventListener('change', checkDirty);
+  $('genderF').addEventListener('change', checkDirty);
+
+  els.updateProfileBtn.addEventListener('click', function(){
+    if(!state.activeProfile) return;
+    var p = state.activeProfile;
+    var current = snapshotForm();
+    p.lastName=current.lastName; p.firstName=current.firstName; p.dob=isoFromDobInput(current.dob)||p.dob;
+    p.phone=current.phone; p.email=current.email; p.fqtvCarrier=current.fqtvCarrier; p.fqtvNumber=current.fqtvNumber; p.gender=current.gender;
+    state.snapshot = current;
+    els.updateNotice.hidden = true;
+    showToast('Profile for ' + fullName(p) + ' updated.', 'success');
+  });
+  els.keepBookingOnlyBtn.addEventListener('click', function(){
+    state.snapshot = snapshotForm();
+    els.updateNotice.hidden = true;
+    showToast('Changes kept for this booking only.', 'success');
+  });
+
+  /* ---------------- save new profile ---------------- */
+
+  function maybeOfferSave(){
+    if(state.activeProfile){ els.saveRow.hidden = true; return; }
+  }
+  function maybeOfferSaveOnBlur(){
+    if(state.activeProfile){ els.saveRow.hidden = true; return; }
+    var hasLast = els.lastName.value.trim().length > 1;
+    var hasFirst = els.firstName.value.trim().length > 1;
+    els.saveRow.hidden = !(hasLast && hasFirst);
+  }
+  [els.lastName, els.firstName].forEach(function(el){ el.addEventListener('blur', maybeOfferSaveOnBlur); });
+
+  function isoFromDobInput(text){
+    var m = text.trim().match(/^(\d{1,2})[.\/\-\s](\d{1,2})[.\/\-\s](\d{4})$/);
+    if(!m) return null;
+    var day = m[1].length===1 ? '0'+m[1] : m[1];
+    var month = m[2].length===1 ? '0'+m[2] : m[2];
+    return m[3] + '-' + month + '-' + day;
+  }
+
+  els.saveProfileBtn.addEventListener('click', function(){
+    var current = snapshotForm();
+    var candidateDob = isoFromDobInput(current.dob) || '';
+    var dup = PROFILES.find(function(p){
+      return p.lastName.toLowerCase() === current.lastName.trim().toLowerCase() &&
+             p.firstName.toLowerCase() === current.firstName.trim().toLowerCase() &&
+             p.dob === candidateDob;
+    });
+    if(dup){
+      showToast("Couldn't save profile — a profile with this name and date of birth already exists.", 'error');
+      return;
+    }
+    var p = {
+      id: 'p'+(nextId++), lastName: current.lastName.trim(), firstName: current.firstName.trim(),
+      dob: candidateDob, gender: current.gender, phone: current.phone, email: current.email,
+      fqtvCarrier: current.fqtvCarrier, fqtvNumber: current.fqtvNumber
+    };
+    PROFILES.push(p);
+    state.activeProfile = p;
+    state.snapshot = snapshotForm();
+    els.saveRow.hidden = true;
+    showToast('Passenger profile saved for ' + fullName(p) + '.', 'success');
+  });
+
+  els.bookBtn.addEventListener('click', function(){
+    showToast('Booking not wired up in this preview.', 'success');
+  });
+
+})();
+</script>
+</body>
+</html>
