@@ -7,7 +7,7 @@
 <meta name="description" content="Altitude is your gateway to a higher travel experience — seamless upgrades to Business Class with exclusive Mastercard premium card benefits.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=IBM+Plex+Mono:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/altitude.css">
 </head>
 <body>
@@ -53,11 +53,11 @@
 </div>
 
 <!-- ================= HERO ================= -->
-<section class="hero">
+<section class="hero grain">
   <div class="container hero__grid">
     <div class="reveal in-view">
       <span class="eyebrow">Mastercard Premium Partner</span>
-      <h1>Fly Business.<br><em>Pay Economy.</em></h1>
+      <h1><span class="lead">Fly Business.</span><span><em>Pay Economy.</em></span></h1>
       <p>Altitude is your gateway to a higher travel experience — with seamless upgrades to Business Class and exclusive service that lifts your journey to new heights. Enjoy exclusive benefits with Mastercard premium cards.</p>
       <div class="hero__actions">
         <a href="#request-form" class="btn btn--primary">Upgrade Your Ticket Now</a>
@@ -66,6 +66,11 @@
       <p class="hero__note">No upfront risk — check your eligible upgrade options for free.</p>
     </div>
     <div class="hero__visual">
+      <div class="porthole">
+        <svg class="porthole__plane" width="46" height="30" viewBox="0 0 46 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M2 18l40-12-4 8-15 4-3 9-4 1 1-9-14 3z" fill="#0b1220" fill-opacity=".85"/>
+        </svg>
+      </div>
       <div class="gauge">
         <div class="gauge__inner"><strong>39,000</strong><span>ft altitude</span></div>
       </div>
@@ -77,15 +82,6 @@
           <div class="mc-mark"><span></span><span></span></div>
         </div>
       </div>
-      <svg class="plane-path" viewBox="0 0 400 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M4 110C90 110 140 40 220 34C280 30 330 46 396 20" stroke="url(#pg)" stroke-width="2" stroke-dasharray="2 8" stroke-linecap="round"/>
-        <g class="plane" transform="translate(220,34) rotate(-18)">
-          <path d="M0 0l14 4-2 5-9-1-3 6-3-1 2-6-8-4 2-4 9 2z" fill="#E8B85C"/>
-        </g>
-        <defs><linearGradient id="pg" x1="0" y1="0" x2="396" y2="0" gradientUnits="userSpaceOnUse">
-          <stop stop-color="#3F86F5" stop-opacity=".2"/><stop offset="1" stop-color="#E8B85C" stop-opacity=".7"/>
-        </linearGradient></defs>
-      </svg>
     </div>
   </div>
 </section>
@@ -191,10 +187,13 @@
 </section>
 
 <!-- ================= SLOGAN 2 BANNER ================= -->
-<section class="banner">
+<section class="banner grain">
   <div class="container">
-    <h2 class="reveal">Higher <span>standards.</span><br>Greater experiences.</h2>
-    <a href="#request-form" class="btn btn--primary">Upgrade Your Ticket Now</a>
+    <div class="banner__type reveal">
+      <span class="line line--a">Higher standards.</span>
+      <span class="line line--b">Greater <em>experiences.</em></span>
+    </div>
+    <div class="banner__cta"><a href="#request-form" class="btn btn--primary">Upgrade Your Ticket Now</a></div>
   </div>
 </section>
 
