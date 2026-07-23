@@ -101,43 +101,4 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  /* ---------------- FAQ accordion ---------------- */
-  document.querySelectorAll('.faq-item').forEach(function (item) {
-    var q = item.querySelector('.faq-q');
-    var a = item.querySelector('.faq-a');
-    if (!q || !a) return;
-    q.addEventListener('click', function () {
-      var isOpen = item.classList.contains('open');
-      item.parentElement.querySelectorAll('.faq-item.open').forEach(function (other) {
-        if (other !== item) {
-          other.classList.remove('open');
-          other.querySelector('.faq-a').style.maxHeight = null;
-        }
-      });
-      if (isOpen) {
-        item.classList.remove('open');
-        a.style.maxHeight = null;
-      } else {
-        item.classList.add('open');
-        a.style.maxHeight = a.scrollHeight + 'px';
-      }
-    });
-  });
-
-  /* ---------------- Dashboard tab switching ---------------- */
-  var dashNavButtons = document.querySelectorAll('.dash-nav button[data-panel]');
-  var dashPanels = document.querySelectorAll('.dash-panel');
-  if (dashNavButtons.length && dashPanels.length) {
-    dashNavButtons.forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        dashNavButtons.forEach(function (b) { b.classList.remove('active'); });
-        dashPanels.forEach(function (p) { p.classList.remove('active'); });
-        btn.classList.add('active');
-        var target = document.getElementById(btn.dataset.panel);
-        if (target) target.classList.add('active');
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      });
-    });
-  }
-
 });
