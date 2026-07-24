@@ -7,36 +7,46 @@
 <meta name="description" content="Altitude is your gateway to a higher travel experience — seamless upgrades to Business Class with exclusive Mastercard premium card benefits.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=IBM+Plex+Mono:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/altitude.css">
 </head>
 <body>
 
+<!-- ================= ANNOUNCEMENT BAR ================= -->
+<div class="announce">
+  Mastercard Premium members save more <a href="#request-form">Learn more <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4.5 2.5 8 6l-3.5 3.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+</div>
+
 <!-- ================= HEADER ================= -->
 <header class="site-header">
   <div class="site-header__inner">
-    <a href="#" class="logo">
-      <svg class="logo__mark" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="14" cy="14" r="14" fill="#E8F0FF"/>
-        <path d="M6 18.5 13 8l3 6.4 6-3.4-3 7.5H6Z" fill="#1D5FD6"/>
-      </svg>
-      Altitude
-    </a>
     <nav class="site-nav">
       <a href="#" class="active">Main</a>
       <a href="#">About Us</a>
       <a href="#how-it-works">How to Use</a>
-      <a href="#">Personal Profile</a>
     </nav>
+    <a href="#" class="logo">
+      <svg class="logo__mark" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="14" cy="14" r="14" fill="#fff" fill-opacity=".12"/>
+        <path d="M6 18.5 13 8l3 6.4 6-3.4-3 7.5H6Z" fill="#fff"/>
+      </svg>
+      altitude
+    </a>
     <div class="site-header__actions">
-      <a href="#" class="site-header__signin">Sign In</a>
-      <a href="#request-form" class="btn btn--primary btn--sm">Upgrade Now</a>
+      <a href="#" class="site-header__signin">Personal Profile</a>
+      <a href="#request-form" class="btn btn--white btn--sm">Upgrade Now</a>
     </div>
     <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation"><span></span><span></span><span></span></button>
   </div>
 </header>
 
 <div class="mobile-menu" id="mobileMenu">
+  <div class="mobile-menu__top">
+    <a href="#" class="logo">
+      <svg class="logo__mark" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="14" cy="14" r="14" fill="#fff" fill-opacity=".12"/><path d="M6 18.5 13 8l3 6.4 6-3.4-3 7.5H6Z" fill="#fff"/></svg>
+      altitude
+    </a>
+  </div>
   <ul>
     <li><a href="#" class="active">Main</a></li>
     <li><a href="#">About Us</a></li>
@@ -44,64 +54,38 @@
     <li><a href="#">Personal Profile</a></li>
   </ul>
   <div class="mobile-menu__actions">
-    <a href="#request-form" class="btn btn--primary btn--block">Upgrade Now</a>
-    <a href="#" class="btn btn--outline btn--block">Sign In</a>
+    <a href="#request-form" class="btn btn--white btn--block">Upgrade Now</a>
   </div>
 </div>
 
 <!-- ================= HERO ================= -->
 <section class="hero">
-  <div class="container">
-    <span class="eyebrow hero__eyebrow reveal in-view">Mastercard Premium Partner</span>
-    <h1 class="reveal in-view">Fly Business. <span>Pay Economy.</span></h1>
+  <div class="hero__glow"></div>
+  <svg class="hero__silhouette" viewBox="0 0 420 520" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- reclined business-class seat, side profile -->
+    <path d="M96 520V300c0-88 34-158 100-158 54 0 82 40 90 96l14 96c4 30 20 46 48 46h44v70c0 38-24 70-64 70H180c-48 0-84-30-84-100Z" fill="#0c0c0d" fill-opacity=".94"/>
+    <path d="M196 142c46 8 66 52 74 108l10 70" stroke="#000" stroke-opacity=".35" stroke-width="2" stroke-linecap="round"/>
+    <rect x="140" y="96" width="76" height="96" rx="38" fill="#0c0c0d" fill-opacity=".94"/>
+    <path d="M110 430h150" stroke="#000" stroke-opacity=".3" stroke-width="2" stroke-linecap="round"/>
+  </svg>
+
+  <div class="container hero__inner">
+    <div class="hero__eyebrow reveal in-view">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="8" fill="#fff" fill-opacity=".16"/><path d="M5 8.2l2 2 4-4.4" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Mastercard Premium eligible
+    </div>
+    <h1 class="reveal in-view">Fly Business.<br>Pay Economy.</h1>
     <p class="reveal in-view">Altitude is your gateway to a higher travel experience — with seamless upgrades to Business Class and exclusive service that lifts your journey to new heights. Enjoy exclusive benefits with Mastercard premium cards.</p>
     <div class="hero__actions reveal in-view">
-      <a href="#request-form" class="btn btn--primary">Upgrade Your Ticket Now</a>
-      <a href="#how-it-works" class="btn btn--outline">See how it works</a>
+      <a href="#request-form" class="btn btn--white">Upgrade Your Ticket Now</a>
+      <a href="#how-it-works" class="btn btn--ghost-dark">See how it works</a>
     </div>
+  </div>
 
-    <div class="hero__visual reveal">
-      <div class="hero-panel">
-        <div class="hero-panel__grid">
-          <div>
-            <h2>Your upgrade, tracked end to end.</h2>
-            <p>One request becomes an offer, a benefit, and an upgraded ticket — with no spreadsheets or phone calls in between.</p>
-            <div class="hero-panel__tags">
-              <span>Instant options</span>
-              <span>Mastercard discounts</span>
-              <span>~15 min issuance</span>
-            </div>
-          </div>
-          <div class="kanban">
-            <div class="kanban__col">
-              <h4>Request</h4>
-              <div class="kanban__card">
-                <div class="kanban__avatar">AM</div>
-                <div><strong>Alex Morgan</strong></div>
-              </div>
-              <div class="kanban__card">
-                <div class="kanban__avatar">DC</div>
-                <div><strong>Daniel Cruz</strong></div>
-              </div>
-            </div>
-            <div class="kanban__col">
-              <h4>Upgraded</h4>
-              <div class="kanban__card kanban__card--done">
-                <div class="kanban__avatar">ES</div>
-                <div>
-                  <strong>Emma Smith</strong>
-                  <span class="kanban__badge">Ticket ready</span>
-                </div>
-              </div>
-              <div class="kanban__card">
-                <div class="kanban__avatar">OB</div>
-                <div><strong>Olivia Bennett</strong></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+  <div class="hero__stats">
+    <div><strong>Seamless upgrade</strong><span>Business Class in seconds</span></div>
+    <div><strong>Exclusive benefit</strong><span>Mastercard premium savings</span></div>
+    <div><strong>Fast delivery</strong><span>Ticket issued in ~15 minutes</span></div>
   </div>
 </section>
 
@@ -109,13 +93,13 @@
 <section class="form-section" id="request-form">
   <div class="container form-wrap">
     <div class="form-wrap__intro reveal">
-      <span class="eyebrow">Request form</span>
+      <span class="mono" style="font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--gray-500);font-weight:700;">Request form</span>
       <h2>You are one step from flying in Business Class with Altitude.</h2>
       <p>Simply fill the form below with your booking details. Selected airlines return options in seconds — for others, our team follows up within 30 minutes.</p>
       <ul class="form-perks">
-        <li><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="10" fill="#E7F7EE"/><path d="M6 10.2l2.6 2.6L14.5 7" stroke="#1F9D5A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Instant options for selected airlines</li>
-        <li><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="10" fill="#E7F7EE"/><path d="M6 10.2l2.6 2.6L14.5 7" stroke="#1F9D5A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Exclusive Mastercard premium discounts</li>
-        <li><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="10" fill="#E7F7EE"/><path d="M6 10.2l2.6 2.6L14.5 7" stroke="#1F9D5A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Secure payment, upgraded ticket in ~15 minutes</li>
+        <li><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 9.4l3 3 7-7.4" stroke="#0c0c0d" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Instant options for selected airlines</li>
+        <li><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 9.4l3 3 7-7.4" stroke="#0c0c0d" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Exclusive Mastercard premium discounts</li>
+        <li><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 9.4l3 3 7-7.4" stroke="#0c0c0d" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Secure payment, upgraded ticket in ~15 minutes</li>
       </ul>
     </div>
 
@@ -158,76 +142,94 @@
         </div>
       </label>
 
-      <div class="form-foot">
-        <button type="submit" class="btn btn--primary btn--block form-submit-btn">Check My Upgrade</button>
-      </div>
-      <small>By submitting, you agree to let Altitude check your itinerary for eligible upgrade options.</small>
+      <button type="submit" class="btn btn--black btn--block form-submit-btn">Check My Upgrade</button>
+      <small class="form-foot">By submitting, you agree to let Altitude check your itinerary for eligible upgrade options.</small>
     </form>
   </div>
 </section>
 
-<!-- ================= ANIMATED HOW IT WORKS ================= -->
-<section class="stepper-section" id="how-it-works">
+<!-- ================= HOW IT WORKS — numbered tile grid ================= -->
+<section class="section section--alt" id="how-it-works">
   <div class="container">
     <div class="section-head reveal">
-      <span class="eyebrow">How it works</span>
-      <h2>From request to upgraded ticket</h2>
-      <p>One simple flow — watch it unfold, then try it yourself.</p>
+      <h2>How it works</h2>
+      <p>It starts with a request, then Altitude handles the rest.</p>
     </div>
-    <div class="stepper" id="stepper">
-      <div class="stepper__rail"><div class="stepper__rail-fill"></div></div>
-      <div class="stepper__item">
-        <div class="stepper__dot">01</div>
+
+    <div class="steps-grid" id="stepsGrid">
+
+      <div class="step-tile">
+        <div class="step-tile__img">
+          <div class="step-tile__badge">1</div>
+          <div class="step-tile__mock mock-card">
+            <div class="mock-card__row"><div class="mock-dot"></div><div class="mock-bar mock-bar--sm"></div></div>
+            <div class="mock-card__row"><div class="mock-bar"></div></div>
+            <div class="mock-card__row"><span class="mock-badge">PNR WQ4TZK</span></div>
+          </div>
+        </div>
         <h3>Fill In the Request Form</h3>
         <p>Enter your booking reference and last name.</p>
       </div>
-      <div class="stepper__item">
-        <div class="stepper__dot">02</div>
+
+      <div class="step-tile">
+        <div class="step-tile__img">
+          <div class="step-tile__badge">2</div>
+          <div class="step-tile__mock mock-card">
+            <div class="mock-card__row"><div class="mock-bar mock-bar--sm"></div><span class="mock-badge">Now</span></div>
+            <div class="mock-card__row"><div class="mock-bar mock-bar--sm"></div></div>
+            <div class="mock-card__row"><div class="mock-bar mock-bar--sm"></div></div>
+          </div>
+        </div>
         <h3>Choose Your Option</h3>
         <p>Upgrade now, monitor the price, or decline.</p>
       </div>
-      <div class="stepper__item">
-        <div class="stepper__dot">03</div>
+
+      <div class="step-tile">
+        <div class="step-tile__img">
+          <div class="step-tile__badge">3</div>
+          <div class="step-tile__mock mock-card">
+            <div class="mock-card__row"><div class="mock-dot"></div><div class="mock-bar mock-bar--sm"></div></div>
+            <div class="mock-card__row"><div class="mock-bar"></div></div>
+          </div>
+        </div>
         <h3>Create Your Profile</h3>
         <p>Confirm your email and secure your account.</p>
       </div>
-      <div class="stepper__item">
-        <div class="stepper__dot">04</div>
+
+      <div class="step-tile">
+        <div class="step-tile__img">
+          <div class="step-tile__badge">4</div>
+          <div class="step-tile__mock mock-card">
+            <div class="mock-card__row"><span class="mock-badge">Mastercard</span></div>
+            <div class="mock-card__row"><div class="mock-bar mock-bar--sm"></div></div>
+          </div>
+        </div>
         <h3>Unlock Your Benefits</h3>
         <p>Validate your Mastercard premium card.</p>
       </div>
-      <div class="stepper__item">
-        <div class="stepper__dot">05</div>
+
+      <div class="step-tile">
+        <div class="step-tile__img">
+          <div class="step-tile__badge">5</div>
+          <div class="step-tile__mock mock-card">
+            <div class="mock-card__row"><div class="mock-dot"></div><div class="mock-bar mock-bar--sm"></div><span class="mock-badge">Ready</span></div>
+            <div class="mock-card__row"><div class="mock-bar"></div></div>
+          </div>
+        </div>
         <h3>Receive Your Upgraded Ticket</h3>
         <p>Issued within 10–15 minutes by email.</p>
       </div>
+
     </div>
   </div>
 </section>
 
-<!-- ================= SLOGAN 2 BANNER ================= -->
-<section class="banner">
+<!-- ================= SLOGAN 2 — bold statement ================= -->
+<section class="statement">
   <div class="container">
-    <div class="banner__card reveal">
-      <div>
-        <h2>Higher <em>standards.</em><br>Greater experiences.</h2>
-        <div class="banner__cta"><a href="#request-form" class="btn btn--dark">Upgrade Your Ticket Now</a></div>
-      </div>
-      <div class="banner__visual">
-        <div class="banner__visual-row">
-          <div class="kanban__card kanban__card--done">
-            <div class="kanban__avatar">AM</div>
-            <div>
-              <strong>Alex Morgan</strong>
-              <span class="kanban__badge">Business · Class J</span>
-            </div>
-          </div>
-          <div class="kanban__card">
-            <div class="kanban__avatar">ES</div>
-            <div><strong>Emma Smith</strong></div>
-          </div>
-        </div>
-      </div>
+    <div class="statement__inner reveal">
+      <h2>Higher standards. <span>Greater experiences.</span></h2>
+      <div class="statement__cta"><a href="#request-form" class="btn btn--black">Upgrade Your Ticket Now</a></div>
     </div>
   </div>
 </section>
@@ -237,11 +239,8 @@
   <div class="container">
     <div class="site-footer__top">
       <a href="#" class="logo">
-        <svg class="logo__mark" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="14" cy="14" r="14" fill="#E8F0FF"/>
-          <path d="M6 18.5 13 8l3 6.4 6-3.4-3 7.5H6Z" fill="#1D5FD6"/>
-        </svg>
-        Altitude
+        <svg class="logo__mark" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="14" cy="14" r="14" fill="#fff" fill-opacity=".12"/><path d="M6 18.5 13 8l3 6.4 6-3.4-3 7.5H6Z" fill="#fff"/></svg>
+        altitude
       </a>
       <nav class="site-footer__nav">
         <a href="#">Main</a>

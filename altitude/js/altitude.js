@@ -32,40 +32,34 @@ document.addEventListener('DOMContentLoaded', function () {
     revealEls.forEach(function (el) { el.classList.add('in-view'); });
   }
 
-  /* ---------------- Animated stepper (How it works) ---------------- */
-  var stepper = document.getElementById('stepper');
-  if (stepper) {
-    var items = Array.prototype.slice.call(stepper.querySelectorAll('.stepper__item'));
-    var railFill = stepper.querySelector('.stepper__rail-fill');
+  /* ---------------- Animated step tiles (How it works) ---------------- */
+  var stepsGrid = document.getElementById('stepsGrid');
+  if (stepsGrid) {
+    var tiles = Array.prototype.slice.call(stepsGrid.querySelectorAll('.step-tile'));
     var current = 0;
     var autoplay = true;
     var timer;
 
-    function setStep(idx) {
+    function setActive(idx) {
       current = idx;
-      items.forEach(function (item, i) {
-        item.classList.toggle('active', i <= idx);
+      tiles.forEach(function (tile, i) {
+        tile.classList.toggle('active', i === idx);
       });
-      if (railFill) {
-        var pct = items.length > 1 ? (idx / (items.length - 1)) * 100 : 0;
-        railFill.style.width = pct + '%';
-      }
     }
 
     function tick() {
       if (!autoplay) return;
-      current = (current + 1) % items.length;
-      setStep(current);
+      setActive((current + 1) % tiles.length);
     }
 
-    setStep(0);
-    timer = setInterval(tick, 2200);
+    setActive(0);
+    timer = setInterval(tick, 1900);
 
-    items.forEach(function (item, i) {
-      item.addEventListener('click', function () {
+    tiles.forEach(function (tile, i) {
+      tile.addEventListener('click', function () {
         autoplay = false;
         clearInterval(timer);
-        setStep(i);
+        setActive(i);
       });
     });
   }
