@@ -7,34 +7,29 @@
 <meta name="description" content="Altitude is your gateway to a higher travel experience — seamless upgrades to Business Class with exclusive Mastercard premium card benefits.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..600&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/altitude.css">
 </head>
 <body>
 
-<!-- ================= ANNOUNCEMENT BAR ================= -->
-<div class="announce">
-  Mastercard Premium members save more <a href="#request-form">Learn more <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4.5 2.5 8 6l-3.5 3.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-</div>
-
 <!-- ================= HEADER ================= -->
 <header class="site-header">
   <div class="site-header__inner">
-    <nav class="site-nav">
-      <a href="#" class="active">Main</a>
-      <a href="#">About Us</a>
-      <a href="#how-it-works">How to Use</a>
-    </nav>
     <a href="#" class="logo">
       <svg class="logo__mark" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="14" cy="14" r="14" fill="#fff" fill-opacity=".12"/>
-        <path d="M6 18.5 13 8l3 6.4 6-3.4-3 7.5H6Z" fill="#fff"/>
+        <circle cx="14" cy="14" r="14" fill="#DCEDF8"/>
+        <path d="M6 18.5 13 8l3 6.4 6-3.4-3 7.5H6Z" fill="#2B2F36"/>
       </svg>
       altitude
     </a>
+    <nav class="site-nav">
+      <a href="#" class="active">Main</a>
+      <a href="#about">About Us</a>
+      <a href="#how-it-works">How to Use</a>
+      <a href="#">Personal Profile</a>
+    </nav>
     <div class="site-header__actions">
-      <a href="#" class="site-header__signin">Personal Profile</a>
-      <a href="#request-form" class="btn btn--white btn--sm">Upgrade Now</a>
+      <a href="#request-form" class="btn btn--ink btn--sm">Upgrade Now</a>
     </div>
     <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation"><span></span><span></span><span></span></button>
   </div>
@@ -43,60 +38,194 @@
 <div class="mobile-menu" id="mobileMenu">
   <div class="mobile-menu__top">
     <a href="#" class="logo">
-      <svg class="logo__mark" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="14" cy="14" r="14" fill="#fff" fill-opacity=".12"/><path d="M6 18.5 13 8l3 6.4 6-3.4-3 7.5H6Z" fill="#fff"/></svg>
+      <svg class="logo__mark" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="14" cy="14" r="14" fill="#DCEDF8"/><path d="M6 18.5 13 8l3 6.4 6-3.4-3 7.5H6Z" fill="#2B2F36"/></svg>
       altitude
     </a>
   </div>
   <ul>
     <li><a href="#" class="active">Main</a></li>
-    <li><a href="#">About Us</a></li>
+    <li><a href="#about">About Us</a></li>
     <li><a href="#how-it-works">How to Use</a></li>
     <li><a href="#">Personal Profile</a></li>
   </ul>
   <div class="mobile-menu__actions">
-    <a href="#request-form" class="btn btn--white btn--block">Upgrade Now</a>
+    <a href="#request-form" class="btn btn--ink btn--block">Upgrade Now</a>
   </div>
 </div>
 
 <!-- ================= HERO ================= -->
 <section class="hero">
-  <div class="hero__glow"></div>
-  <svg class="hero__silhouette" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <!-- airplane climbing into the light -->
-    <path transform="rotate(30 12 12)" d="M21 16v-2l-8-5V3.5C13 2.67 12.33 2 11.5 2S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2.5 1.5V22l4-1 4 1v-1.5L13 19v-5.5l8 2.5z" fill="#050b16" fill-opacity=".92"/>
-  </svg>
+  <div class="hero__cloud hero__cloud--1"></div>
+  <div class="hero__cloud hero__cloud--2"></div>
+  <div class="hero__cloud hero__cloud--3"></div>
 
   <div class="container hero__inner">
-    <div class="hero__eyebrow reveal in-view">
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="8" fill="#fff" fill-opacity=".16"/><path d="M5 8.2l2 2 4-4.4" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      Mastercard Premium eligible
-    </div>
-    <h1 class="reveal in-view">Fly Business.<br>Pay Economy.</h1>
+    <div class="eyebrow hero__eyebrow reveal in-view">Mastercard Premium Partner</div>
+    <h1 class="reveal in-view">Fly Business. <em>Pay Economy.</em></h1>
     <p class="reveal in-view">Altitude is your gateway to a higher travel experience — with seamless upgrades to Business Class and exclusive service that lifts your journey to new heights. Enjoy exclusive benefits with Mastercard premium cards.</p>
     <div class="hero__actions reveal in-view">
-      <a href="#request-form" class="btn btn--white">Upgrade Your Ticket Now</a>
-      <a href="#how-it-works" class="btn btn--ghost-dark">See how it works</a>
+      <a href="#request-form" class="btn btn--primary">Upgrade Your Ticket Now</a>
+      <a href="#how-it-works" class="btn btn--glass">See how it works</a>
     </div>
   </div>
 
-  <div class="hero__stats">
-    <div><strong>Seamless upgrade</strong><span>Business Class in seconds</span></div>
-    <div><strong>Exclusive benefit</strong><span>Mastercard premium savings</span></div>
-    <div><strong>Fast delivery</strong><span>Ticket issued in ~15 minutes</span></div>
+  <div class="container">
+    <div class="hero__visual reveal in-view">
+      <svg class="hero__plane" viewBox="0 0 240 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="planeGrad" x1="0" y1="0" x2="240" y2="240" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#8bb8dc"/>
+            <stop offset="1" stop-color="#e9a878"/>
+          </linearGradient>
+        </defs>
+        <path transform="rotate(28 120 120)" d="M210 160v-20l-80-50V35c0-8.3-6.7-15-15-15s-15 6.7-15 15v55l-80 50v20l80-25v55l-25 15v20l40-10 40 10v-20l-25-15v-55z" fill="url(#planeGrad)"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ABOUT ================= -->
+<section class="section section--cloud" id="about">
+  <div class="container about">
+    <div class="about__copy reveal">
+      <div class="eyebrow about__eyebrow">About Altitude</div>
+      <h2>Elevate Every Journey</h2>
+      <p>Travel is not only about reaching a destination—it is about enjoying every step of the journey.</p>
+      <p>Altitude gives travellers seamless access to Business Class upgrades, premium travel offers, and smart savings through one digital platform. Clients can discover better options, upgrade their journey in seconds, and travel with greater comfort and confidence.</p>
+      <p>Altitude was created by a team passionate about travel and experienced across aviation, digital travel technology, hospitality, and premium travel services. Our expertise includes airline solutions, airport lounges, transfers, travel benefits, and customer experience.</p>
+      <p>Bringing these capabilities together, Altitude is a natural expansion of the premium travel ecosystem—designed to make every journey simpler, more comfortable, and more rewarding.</p>
+    </div>
+
+    <div class="about__cards reveal">
+      <div class="glass-card">
+        <div class="glass-card__icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 17v-3a4 4 0 014-4h8a4 4 0 014 4v3" stroke="#2B2F36" stroke-width="1.5" stroke-linecap="round"/><rect x="3" y="17" width="18" height="3" rx="1.5" stroke="#2B2F36" stroke-width="1.5"/><circle cx="9" cy="8" r="2.4" stroke="#2B2F36" stroke-width="1.5"/></svg>
+        </div>
+        <h4>Business Class upgrades</h4>
+        <p>Seamless access to better seats, on selected flights, in seconds.</p>
+      </div>
+      <div class="glass-card">
+        <div class="glass-card__icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 12l7-7 9 9-7 7z" stroke="#2B2F36" stroke-width="1.5" stroke-linejoin="round"/><circle cx="9.5" cy="9.5" r="1.4" fill="#2B2F36"/></svg>
+        </div>
+        <h4>Premium travel offers</h4>
+        <p>Curated benefits and discounts across our airline partners.</p>
+      </div>
+      <div class="glass-card">
+        <div class="glass-card__icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8.5" stroke="#2B2F36" stroke-width="1.5"/><path d="M12 8v4l2.6 2.6" stroke="#2B2F36" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <h4>Smart savings</h4>
+        <p>Compare, choose, and pay less for a more comfortable seat.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= TRANSITION ================= -->
+<section class="transition">
+  <svg class="transition__wing" viewBox="0 0 600 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M-40 240 L360 40 L420 70 L120 260 Z" fill="#fff" fill-opacity=".55"/>
+    <path d="M-40 260 L300 120 L340 140 L100 275 Z" fill="#fff" fill-opacity=".35"/>
+  </svg>
+  <p class="transition__caption reveal">Somewhere between departure and arrival, travel becomes effortless.</p>
+</section>
+
+<!-- ================= WHY CHOOSE ALTITUDE ================= -->
+<section class="section section--mist">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow" style="justify-content:center;margin-bottom:22px;">Why Choose Altitude</div>
+      <h2>Business Class, made accessible</h2>
+    </div>
+    <p class="why-intro reveal">Altitude makes Business Class travel more accessible, simple, and rewarding. The platform offers seamless upgrades on selected flights, helping travellers enjoy greater comfort, more space, priority services, and an elevated onboard experience. With Altitude, clients can:</p>
+
+    <div class="feature-row reveal">
+      <div class="feature-block">
+        <svg class="feature-block__icon" viewBox="0 0 24 24" fill="none"><circle cx="10.5" cy="10.5" r="6.5" stroke="#2B2F36" stroke-width="1.4"/><path d="M19 19l-4-4" stroke="#2B2F36" stroke-width="1.4" stroke-linecap="round"/></svg>
+        <h4>Discover available Business Class upgrade options</h4>
+      </div>
+      <div class="feature-block">
+        <svg class="feature-block__icon" viewBox="0 0 24 24" fill="none"><path d="M5 12l14-7-4 14-3-6-6-1z" stroke="#2B2F36" stroke-width="1.4" stroke-linejoin="round"/></svg>
+        <h4>Access complimentary or discounted upgrades, where eligible</h4>
+      </div>
+      <div class="feature-block">
+        <svg class="feature-block__icon" viewBox="0 0 24 24" fill="none"><path d="M7 4v13a2 2 0 002 2h1M7 8H3M17 20V7a2 2 0 00-2-2h-1M17 16h4" stroke="#2B2F36" stroke-width="1.4" stroke-linecap="round"/></svg>
+        <h4>Compare offers and select the most suitable option</h4>
+      </div>
+      <div class="feature-block">
+        <svg class="feature-block__icon" viewBox="0 0 24 24" fill="none"><path d="M13 3L5 14h6l-1 7 8-11h-6z" stroke="#2B2F36" stroke-width="1.4" stroke-linejoin="round"/></svg>
+        <h4>Complete the upgrade process quickly through a seamless digital experience</h4>
+      </div>
+      <div class="feature-block">
+        <svg class="feature-block__icon" viewBox="0 0 24 24" fill="none"><path d="M12 3l7 3v6c0 5-3 8-7 9-4-1-7-4-7-9V6z" stroke="#2B2F36" stroke-width="1.4" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke="#2B2F36" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <h4>Travel with greater comfort and confidence</h4>
+      </div>
+    </div>
+
+    <p class="why-outro reveal">From departure to arrival, Altitude removes unnecessary complexity and creates a smarter way to experience premium travel.</p>
+  </div>
+</section>
+
+<!-- ================= HOW IT WORKS — premium timeline ================= -->
+<section class="section section--cloud" id="how-it-works">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow" style="justify-content:center;margin-bottom:22px;">Your Upgrade Journey</div>
+      <h2>Upgrade to Business Class in a few simple steps</h2>
+    </div>
+
+    <div class="timeline">
+      <div class="timeline__item reveal">
+        <div class="timeline__num">01</div>
+        <h3>Fill In the Request Form</h3>
+        <p>Enter your booking reference and last name. For selected airlines, upgrade options are available in as little as few seconds. For other airlines, we will send your options within 30 minutes.</p>
+      </div>
+
+      <div class="timeline__item reveal">
+        <div class="timeline__num">02</div>
+        <h3>Choose Your Option</h3>
+        <p>Select what works best for you:</p>
+        <ul class="timeline__options">
+          <li>Upgrade now</li>
+          <li>Monitor the price</li>
+          <li>Decline the offer</li>
+        </ul>
+        <div class="timeline__note">When you choose price monitoring, Altitude checks available options every hour and notifies you when a better offer becomes available.</div>
+      </div>
+
+      <div class="timeline__item reveal">
+        <div class="timeline__num">03</div>
+        <h3>Create Your Profile</h3>
+        <p>Confirm your email and create a secure Altitude account. Use your profile to track requests, review available offers, manage benefits, and access your upgraded tickets.</p>
+      </div>
+
+      <div class="timeline__item reveal">
+        <div class="timeline__num">04</div>
+        <h3>Unlock Your Benefits</h3>
+        <p>Validate your eligible Mastercard premium card to unlock available upgrade discounts. Review the final price, apply your benefit, and complete the payment securely.</p>
+      </div>
+
+      <div class="timeline__item reveal">
+        <div class="timeline__num">05</div>
+        <h3>Receive Your Upgraded Ticket</h3>
+        <p>After successful payment, your upgraded ticket will normally be issued within 10–15 minutes. You will receive it by email, and it will also be available in your Altitude profile.</p>
+      </div>
+    </div>
   </div>
 </section>
 
 <!-- ================= REQUEST FORM ================= -->
-<section class="form-section" id="request-form">
+<section class="form-section section--sunset" id="request-form">
   <div class="container form-wrap">
     <div class="form-wrap__intro reveal">
-      <span class="mono" style="font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--gray-500);font-weight:700;">Request form</span>
+      <div class="eyebrow">Request form</div>
       <h2>You are one step from flying in Business Class with Altitude.</h2>
       <p>Simply fill the form below with your booking details. Selected airlines return options in seconds — for others, our team follows up within 30 minutes.</p>
       <ul class="form-perks">
-        <li><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 9.4l3 3 7-7.4" stroke="#0c0c0d" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Instant options for selected airlines</li>
-        <li><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 9.4l3 3 7-7.4" stroke="#0c0c0d" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Exclusive Mastercard premium discounts</li>
-        <li><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 9.4l3 3 7-7.4" stroke="#0c0c0d" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Secure payment, upgraded ticket in ~15 minutes</li>
+        <li><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 9.4l3 3 7-7.4" stroke="#2B2F36" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Instant options for selected airlines</li>
+        <li><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 9.4l3 3 7-7.4" stroke="#2B2F36" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Exclusive Mastercard premium discounts</li>
+        <li><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 9.4l3 3 7-7.4" stroke="#2B2F36" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Secure payment, upgraded ticket in ~15 minutes</li>
       </ul>
     </div>
 
@@ -139,94 +268,90 @@
         </div>
       </label>
 
-      <button type="submit" class="btn btn--black btn--block form-submit-btn">Check My Upgrade</button>
+      <button type="submit" class="btn btn--ink btn--block form-submit-btn">Check My Upgrade</button>
       <small class="form-foot">By submitting, you agree to let Altitude check your itinerary for eligible upgrade options.</small>
     </form>
   </div>
 </section>
 
-<!-- ================= HOW IT WORKS — numbered tile grid ================= -->
-<section class="section section--alt" id="how-it-works">
+<!-- ================= FAQ ================= -->
+<section class="section section--mist" id="faq">
   <div class="container">
     <div class="section-head reveal">
-      <h2>How it works</h2>
-      <p>It starts with a request, then Altitude handles the rest.</p>
+      <h2>Frequently Asked Questions</h2>
     </div>
 
-    <div class="steps-grid" id="stepsGrid">
-
-      <div class="step-tile">
-        <div class="step-tile__img">
-          <div class="step-tile__badge">1</div>
-          <div class="step-tile__mock mock-card">
-            <div class="mock-card__row"><div class="mock-dot"></div><div class="mock-bar mock-bar--sm"></div></div>
-            <div class="mock-card__row"><div class="mock-bar"></div></div>
-            <div class="mock-card__row"><span class="mock-badge">PNR WQ4TZK</span></div>
-          </div>
-        </div>
-        <h3>Fill In the Request Form</h3>
-        <p>Enter your booking reference and last name.</p>
+    <div class="faq-list">
+      <div class="faq-item reveal">
+        <h3>What is Altitude Upgrade?</h3>
+        <p>Altitude Upgrade is a digital service that helps travellers access Business Class upgrade offers for eligible flights. Depending on the airline and availability, upgrades may be offered at a special price or with an eligible Mastercard premium card benefit.</p>
       </div>
-
-      <div class="step-tile">
-        <div class="step-tile__img">
-          <div class="step-tile__badge">2</div>
-          <div class="step-tile__mock mock-card">
-            <div class="mock-card__row"><div class="mock-bar mock-bar--sm"></div><span class="mock-badge">Now</span></div>
-            <div class="mock-card__row"><div class="mock-bar mock-bar--sm"></div></div>
-            <div class="mock-card__row"><div class="mock-bar mock-bar--sm"></div></div>
-          </div>
-        </div>
-        <h3>Choose Your Option</h3>
-        <p>Upgrade now, monitor the price, or decline.</p>
+      <div class="faq-item reveal">
+        <h3>How do I check for an upgrade?</h3>
+        <p>Enter your airline booking reference and last name. Altitude will check your itinerary and display available upgrade options for each eligible flight segment.</p>
       </div>
-
-      <div class="step-tile">
-        <div class="step-tile__img">
-          <div class="step-tile__badge">3</div>
-          <div class="step-tile__mock mock-card">
-            <div class="mock-card__row"><div class="mock-dot"></div><div class="mock-bar mock-bar--sm"></div></div>
-            <div class="mock-card__row"><div class="mock-bar"></div></div>
-          </div>
-        </div>
-        <h3>Create Your Profile</h3>
-        <p>Confirm your email and secure your account.</p>
+      <div class="faq-item reveal">
+        <h3>How quickly will I receive an offer?</h3>
+        <p>For selected airlines, upgrade availability may be displayed within few seconds. For other airlines, our team will review your booking and provide available options within approximately 30 minutes.</p>
       </div>
-
-      <div class="step-tile">
-        <div class="step-tile__img">
-          <div class="step-tile__badge">4</div>
-          <div class="step-tile__mock mock-card">
-            <div class="mock-card__row"><span class="mock-badge">Mastercard</span></div>
-            <div class="mock-card__row"><div class="mock-bar mock-bar--sm"></div></div>
-          </div>
-        </div>
-        <h3>Unlock Your Benefits</h3>
-        <p>Validate your Mastercard premium card.</p>
+      <div class="faq-item reveal">
+        <h3>Which airlines are supported?</h3>
+        <p>Instant availability checks are planned for selected airlines, including Turkish Airlines, Qatar Airways, LOT Polish Airlines, and Aegean Airlines. Requests for other airlines may be processed manually. Availability depends on the specific flight, route, fare type, and airline conditions.</p>
       </div>
-
-      <div class="step-tile">
-        <div class="step-tile__img">
-          <div class="step-tile__badge">5</div>
-          <div class="step-tile__mock mock-card">
-            <div class="mock-card__row"><div class="mock-dot"></div><div class="mock-bar mock-bar--sm"></div><span class="mock-badge">Ready</span></div>
-            <div class="mock-card__row"><div class="mock-bar"></div></div>
-          </div>
-        </div>
-        <h3>Receive Your Upgraded Ticket</h3>
-        <p>Issued within 10–15 minutes by email.</p>
+      <div class="faq-item reveal">
+        <h3>Is a Business Class upgrade guaranteed?</h3>
+        <p>No. All upgrades are subject to airline availability, booking eligibility, fare conditions, and confirmation at the time of purchase.</p>
       </div>
-
+      <div class="faq-item reveal">
+        <h3>What happens if my booking includes several flights?</h3>
+        <p>Altitude will check each flight segment separately. You may receive different upgrade options for each eligible part of your journey.</p>
+      </div>
+      <div class="faq-item reveal">
+        <h3>Can Altitude monitor the upgrade price for me?</h3>
+        <p>Yes. Select Monitor the Price, and Altitude will regularly check for new or improved upgrade options. You will be notified by email and through your profile when a suitable offer becomes available.</p>
+      </div>
+      <div class="faq-item reveal">
+        <h3>Do I need to create an Altitude profile?</h3>
+        <p>A profile is required to proceed with an upgrade or activate price monitoring. Your profile allows you to: Track the status of your requests; Review upgrade offers; Manage available benefits; View your request history; Access your upgraded tickets.</p>
+      </div>
+      <div class="faq-item reveal">
+        <h3>How do I unlock a Mastercard premium card benefit?</h3>
+        <p>You may be invited to securely validate your eligible Mastercard premium card. Once eligibility is confirmed, available upgrade discounts will appear in your Altitude profile and can be applied before payment.</p>
+      </div>
+      <div class="faq-item reveal">
+        <h3>Will my card be charged during validation?</h3>
+        <p>Card validation is used to confirm eligibility for the benefit. Any applicable validation conditions will be clearly shown before you continue. The upgrade payment is completed separately after you review and confirm the final offer.</p>
+      </div>
+      <div class="faq-item reveal">
+        <h3>How do I pay for an upgrade?</h3>
+        <p>After selecting an offer, you will see the full order summary, available benefits, and final price. You will then be redirected to a secure payment page to complete the transaction.</p>
+      </div>
+      <div class="faq-item reveal">
+        <h3>When will I receive my upgraded ticket?</h3>
+        <p>Following successful payment, your upgraded ticket will normally be issued within 10–15 minutes. It will be sent to your email and added to your Altitude profile.</p>
+      </div>
+      <div class="faq-item reveal">
+        <h3>What happens if my payment is unsuccessful?</h3>
+        <p>You will receive a notification and will be able to return to your profile to review the request or try the payment again, subject to the continued availability of the offer.</p>
+      </div>
+      <div class="faq-item reveal">
+        <h3>Can an upgrade offer change?</h3>
+        <p>Yes. Airline availability and prices may change until the upgrade is confirmed and successfully paid. An offer is not guaranteed until the transaction is completed.</p>
+      </div>
+      <div class="faq-item reveal">
+        <h3>Can I cancel or change an upgrade?</h3>
+        <p>Cancellation, change, and refund conditions depend on the airline and the specific upgrade offer. The applicable terms will be shown before payment.</p>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ================= SLOGAN 2 — bold statement ================= -->
+<!-- ================= SLOGAN 2 ================= -->
 <section class="statement">
   <div class="container">
     <div class="statement__inner reveal">
-      <h2>Higher standards. <span>Greater experiences.</span></h2>
-      <div class="statement__cta"><a href="#request-form" class="btn btn--black">Upgrade Your Ticket Now</a></div>
+      <h2>Higher standards. <em>Greater experiences.</em></h2>
+      <div class="statement__cta"><a href="#request-form" class="btn btn--primary">Upgrade Your Ticket Now</a></div>
     </div>
   </div>
 </section>
@@ -236,12 +361,12 @@
   <div class="container">
     <div class="site-footer__top">
       <a href="#" class="logo">
-        <svg class="logo__mark" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="14" cy="14" r="14" fill="#fff" fill-opacity=".12"/><path d="M6 18.5 13 8l3 6.4 6-3.4-3 7.5H6Z" fill="#fff"/></svg>
+        <svg class="logo__mark" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="14" cy="14" r="14" fill="#DCEDF8"/><path d="M6 18.5 13 8l3 6.4 6-3.4-3 7.5H6Z" fill="#2B2F36"/></svg>
         altitude
       </a>
       <nav class="site-footer__nav">
         <a href="#">Main</a>
-        <a href="#">About Us</a>
+        <a href="#about">About Us</a>
         <a href="#how-it-works">How to Use</a>
         <a href="#">Personal Profile</a>
       </nav>

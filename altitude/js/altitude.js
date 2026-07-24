@@ -32,38 +32,6 @@ document.addEventListener('DOMContentLoaded', function () {
     revealEls.forEach(function (el) { el.classList.add('in-view'); });
   }
 
-  /* ---------------- Animated step tiles (How it works) ---------------- */
-  var stepsGrid = document.getElementById('stepsGrid');
-  if (stepsGrid) {
-    var tiles = Array.prototype.slice.call(stepsGrid.querySelectorAll('.step-tile'));
-    var current = 0;
-    var autoplay = true;
-    var timer;
-
-    function setActive(idx) {
-      current = idx;
-      tiles.forEach(function (tile, i) {
-        tile.classList.toggle('active', i === idx);
-      });
-    }
-
-    function tick() {
-      if (!autoplay) return;
-      setActive((current + 1) % tiles.length);
-    }
-
-    setActive(0);
-    timer = setInterval(tick, 1900);
-
-    tiles.forEach(function (tile, i) {
-      tile.addEventListener('click', function () {
-        autoplay = false;
-        clearInterval(timer);
-        setActive(i);
-      });
-    });
-  }
-
   /* ---------------- Request form: airline "other" reveal ---------------- */
   var airlineSelect = document.getElementById('airlineSelect');
   var manualField = document.getElementById('manualAirlineField');
