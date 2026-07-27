@@ -475,6 +475,7 @@ main { position: relative; z-index: 1; }
 
 .request__heading {
   font-family: var(--font-heading);
+  font-style: italic;
   font-weight: 500;
   color: var(--text-primary);
   font-size: clamp(1.7rem, 3vw, 2.4rem);
@@ -483,7 +484,7 @@ main { position: relative; z-index: 1; }
 
 .request__subheading {
   font-family: var(--font-heading);
-  font-style: italic;
+  font-style: normal;
   font-weight: 500;
   color: var(--text-secondary);
   font-size: clamp(1.1rem, 1.8vw, 1.4rem);
