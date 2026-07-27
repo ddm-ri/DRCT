@@ -1250,7 +1250,7 @@ main { position: relative; z-index: 1; }
   color: var(--text-primary);
 }
 
-.faq__list { display: flex; flex-direction: column; max-width: 630px; }
+.faq__list { display: flex; flex-direction: column; width: 630px; margin-left: auto; }
 
 .faq__item {
   border-bottom: 1px solid var(--border-hairline-soft);
@@ -1343,6 +1343,7 @@ main { position: relative; z-index: 1; }
   .about-intro__text { margin: 0 auto; }
 
   .faq__group { grid-template-columns: 1fr; gap: 12px; }
+  .faq__list { width: 100%; margin-left: 0; }
 }
 
 @media (max-width: 860px) {
