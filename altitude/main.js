@@ -175,6 +175,18 @@
   }
 
   /* --------------------------------------------------------------
+     FAQ accordion — only present on the How It Works page
+  -------------------------------------------------------------- */
+  document.querySelectorAll('.faq__question').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var item = btn.closest('.faq__item');
+      var isOpen = item.classList.contains('is-open');
+      item.classList.toggle('is-open', !isOpen);
+      btn.setAttribute('aria-expanded', String(!isOpen));
+    });
+  });
+
+  /* --------------------------------------------------------------
      Booking form (airline combobox, upload dropzone, validation)
      — only present on the home page
   -------------------------------------------------------------- */
