@@ -7,7 +7,7 @@
 <meta name="description" content="See how Altitude turns your economy booking into a Business Class upgrade: request, choose, unlock your Mastercard benefit, and fly.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,500;1,600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Doto:wght@400..900&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,500;1,600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -66,63 +66,69 @@
           <h2 class="journey__heading">Your Upgrade Journey</h2>
           <p class="journey__subtitle">Upgrade to Business Class in a few simple steps.</p>
         </div>
+      </div>
 
-        <ol class="journey__list">
-          <li class="journey__step reveal-up" style="--d:0">
-            <div class="journey__media"><img src="journey-1-request.jpg" alt="Car arriving at a premium hotel entrance" loading="lazy"></div>
-            <div class="journey__overlay">
-              <span class="journey__num" aria-hidden="true">01</span>
-              <div>
-                <p class="journey__title">Fill In the Request Form</p>
-                <p class="journey__desc">Enter your booking reference and last name. For selected airlines, upgrade options are available in as little as few seconds. For other airlines, we send your options within 30 minutes.</p>
-              </div>
-            </div>
-          </li>
+      <div class="journey__pin" id="journeyPin" style="--card-count:5">
+        <div class="journey__pin-sticky">
+          <div class="journey__stage-wrap">
+            <ol class="journey__list" id="journeyList">
+              <li class="journey__step" data-index="0">
+                <div class="journey__media"><img src="journey-1-request.jpg" alt="Car arriving at a premium hotel entrance" loading="lazy"></div>
+                <div class="journey__overlay">
+                  <span class="journey__num" aria-hidden="true">01</span>
+                  <div>
+                    <p class="journey__title">Fill In the Request Form</p>
+                    <p class="journey__desc">Enter your booking reference and last name. For selected airlines, upgrade options are available in as little as few seconds. For other airlines, we send your options within 30 minutes.</p>
+                  </div>
+                </div>
+              </li>
 
-          <li class="journey__step reveal-up" style="--d:1">
-            <div class="journey__media"><img src="journey-2-choose.jpg" alt="Traveler reviewing upgrade options in an airport lounge" loading="lazy"></div>
-            <div class="journey__overlay">
-              <span class="journey__num" aria-hidden="true">02</span>
-              <div>
-                <p class="journey__title">Choose Your Option</p>
-                <p class="journey__desc">Select what works best for you: 1/ Upgrade now, 2/ Monitor the price, 3/ Decline the offer. When you choose price monitoring, Altitude checks available options every hour and notifies you when a better offer becomes available.</p>
-              </div>
-            </div>
-          </li>
+              <li class="journey__step" data-index="1">
+                <div class="journey__media"><img src="journey-2-choose.jpg" alt="Traveler reviewing upgrade options in an airport lounge" loading="lazy"></div>
+                <div class="journey__overlay">
+                  <span class="journey__num" aria-hidden="true">02</span>
+                  <div>
+                    <p class="journey__title">Choose Your Option</p>
+                    <p class="journey__desc">Select what works best for you: 1/ Upgrade now, 2/ Monitor the price, 3/ Decline the offer. When you choose price monitoring, Altitude checks available options every hour and notifies you when a better offer becomes available.</p>
+                  </div>
+                </div>
+              </li>
 
-          <li class="journey__step reveal-up" style="--d:2">
-            <div class="journey__media"><img src="journey-3-profile.jpg" alt="Business Class cabin seat with personal items" loading="lazy"></div>
-            <div class="journey__overlay">
-              <span class="journey__num" aria-hidden="true">03</span>
-              <div>
-                <p class="journey__title">Create Your Profile</p>
-                <p class="journey__desc">Confirm your email and create a secure Altitude account. Use your profile to track requests, review available offers, manage benefits, and access your upgraded tickets.</p>
-              </div>
-            </div>
-          </li>
+              <li class="journey__step" data-index="2">
+                <div class="journey__media"><img src="journey-3-profile.jpg" alt="Business Class cabin seat with personal items" loading="lazy"></div>
+                <div class="journey__overlay">
+                  <span class="journey__num" aria-hidden="true">03</span>
+                  <div>
+                    <p class="journey__title">Create Your Profile</p>
+                    <p class="journey__desc">Confirm your email and create a secure Altitude account. Use your profile to track requests, review available offers, manage benefits, and access your upgraded tickets.</p>
+                  </div>
+                </div>
+              </li>
 
-          <li class="journey__step reveal-up" style="--d:3">
-            <div class="journey__media"><img src="journey-4-benefits.jpg" alt="Lounge seating overlooking the runway with an aircraft outside" loading="lazy"></div>
-            <div class="journey__overlay">
-              <span class="journey__num" aria-hidden="true">04</span>
-              <div>
-                <p class="journey__title">Unlock Your Benefits</p>
-                <p class="journey__desc">Validate your eligible Mastercard premium card to unlock available upgrade discounts. Review the final price, apply your benefit, and complete the payment securely.</p>
-              </div>
-            </div>
-          </li>
+              <li class="journey__step" data-index="3">
+                <div class="journey__media"><img src="journey-4-benefits.jpg" alt="Lounge seating overlooking the runway with an aircraft outside" loading="lazy"></div>
+                <div class="journey__overlay">
+                  <span class="journey__num" aria-hidden="true">04</span>
+                  <div>
+                    <p class="journey__title">Unlock Your Benefits</p>
+                    <p class="journey__desc">Validate your eligible Mastercard premium card to unlock available upgrade discounts. Review the final price, apply your benefit, and complete the payment securely.</p>
+                  </div>
+                </div>
+              </li>
 
-          <li class="journey__step reveal-up" style="--d:4">
-            <div class="journey__media"><img src="journey-5-ticket.jpg" alt="Traveler relaxing in a Business Class seat" loading="lazy"></div>
-            <div class="journey__overlay">
-              <span class="journey__num" aria-hidden="true">05</span>
-              <div>
-                <p class="journey__title">Receive Your Upgraded Ticket</p>
-                <p class="journey__desc">After successful payment, your upgraded ticket will normally be issued within 10-15 minutes. You will receive it by email, and it will also be available in your Altitude profile.</p>
-              </div>
-            </div>
-          </li>
-        </ol>
+              <li class="journey__step" data-index="4">
+                <div class="journey__media"><img src="journey-5-ticket.jpg" alt="Traveler relaxing in a Business Class seat" loading="lazy"></div>
+                <div class="journey__overlay">
+                  <span class="journey__num" aria-hidden="true">05</span>
+                  <div>
+                    <p class="journey__title">Receive Your Upgraded Ticket</p>
+                    <p class="journey__desc">After successful payment, your upgraded ticket will normally be issued within 10-15 minutes. You will receive it by email, and it will also be available in your Altitude profile.</p>
+                  </div>
+                </div>
+              </li>
+            </ol>
+          </div>
+        </div>
       </div>
     </section>
 

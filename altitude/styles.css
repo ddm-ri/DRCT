@@ -1150,6 +1150,51 @@ main { position: relative; z-index: 1; }
   list-style: none;
 }
 
+/* Pinned scroll-driven card sequence */
+.journey__pin { position: relative; }
+
+.journey__pin.is-enhanced {
+  height: calc(var(--card-count, 5) * 42vh);
+  height: calc(var(--card-count, 5) * 42svh);
+}
+
+.journey__pin.is-enhanced .journey__pin-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+.journey__stage-wrap {
+  width: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.journey__pin.is-enhanced .journey__list {
+  position: relative;
+  display: block;
+  aspect-ratio: 8 / 3;
+  max-height: 78vh;
+  margin: 0 auto;
+}
+
+.journey__pin.is-enhanced .journey__step {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  will-change: transform, opacity, clip-path;
+}
+
+.journey__pin.is-enhanced .journey__media { height: 100%; }
+
 .journey__step {
   position: relative;
   border-radius: var(--radius-l);
@@ -1188,11 +1233,9 @@ main { position: relative; z-index: 1; }
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  border: 1.5px dashed rgba(51, 51, 51, 0.35);
-  font-size: 0.76rem;
+  line-height: 1;
+  font-family: 'Doto', var(--font-body);
+  font-size: 77px;
   font-weight: 700;
   color: var(--text-primary);
 }
@@ -1382,6 +1425,28 @@ main { position: relative; z-index: 1; }
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
   }
+
+  /* Pinned mode keeps the glass overlay on the photo (taller stage, less travel) */
+  .journey__pin.is-enhanced .journey__list { aspect-ratio: 4 / 3; max-height: 80vh; }
+  .journey__pin.is-enhanced .journey__step { display: block; }
+  .journey__pin.is-enhanced .journey__media { border-radius: var(--radius-l); }
+  .journey__pin.is-enhanced .journey__overlay {
+    position: absolute;
+    left: 14px;
+    right: 14px;
+    bottom: 14px;
+    border-radius: var(--radius-m);
+    background: rgba(255, 255, 255, 0.62);
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(16px) saturate(140%);
+    -webkit-backdrop-filter: blur(16px) saturate(140%);
+  }
+
+  .journey__overlay { padding: 14px 16px; gap: 10px; }
+  .journey__num { font-size: 40px; }
+  .journey__title { font-size: 0.88rem; }
+  .journey__desc { font-size: 0.74rem; }
+
   .faq__question { font-size: 0.88rem; }
   .faq__answer p { padding-right: 0; }
 }

@@ -184,6 +184,95 @@
   });
 
   /* --------------------------------------------------------------
+     Pinned scroll-driven card sequence ("Your Upgrade Journey")
+     — only present on the How It Works page
+  -------------------------------------------------------------- */
+  var journeyPin = document.getElementById('journeyPin');
+  if (journeyPin) {
+    var journeySticky = journeyPin.querySelector('.journey__pin-sticky');
+    var journeySteps = journeyPin.querySelectorAll('.journey__step');
+    var jCount = journeySteps.length;
+    var jStepSize = 1 / jCount;
+    var jTicking = false;
+
+    journeyPin.classList.add('is-enhanced');
+    if (reduceMotion) journeyPin.classList.add('is-reduced');
+
+    function easeOutCubic(t) { return 1 - Math.pow(1 - t, 3); }
+    function clamp01(v) { return Math.min(Math.max(v, 0), 1); }
+    function lerp(a, b, t) { return a + (b - a) * t; }
+
+    function updateJourney() {
+      jTicking = false;
+      var rect = journeyPin.getBoundingClientRect();
+      var scrollable = journeyPin.offsetHeight - journeySticky.offsetHeight;
+      if (scrollable <= 0) return;
+      var globalProgress = clamp01(-rect.top / scrollable);
+
+      var isMobile = window.innerWidth <= 640;
+      var enterY = isMobile ? 40 : 80;
+      var leaveY = isMobile ? -30 : -60;
+      var isReduced = journeyPin.classList.contains('is-reduced');
+
+      journeySteps.forEach(function (step, i) {
+        var cardStart = i * jStepSize;
+        var cardEnd = (i + 1) * jStepSize;
+
+        var enterStart, enterEnd;
+        if (i === 0) {
+          enterStart = -0.001;
+          enterEnd = jStepSize * 0.15;
+        } else {
+          enterStart = cardStart - jStepSize * 0.25;
+          enterEnd = cardStart + jStepSize * 0.2;
+        }
+        var leaveStart = cardEnd - jStepSize * 0.25;
+        var leaveEnd = cardEnd + jStepSize * 0.1;
+
+        var enterProgress = clamp01((globalProgress - enterStart) / (enterEnd - enterStart));
+        var leaveProgress = (i === jCount - 1) ? 0 : clamp01((globalProgress - leaveStart) / (leaveEnd - leaveStart));
+
+        var y, scale, opacity, clipTop;
+
+        if (leaveProgress > 0) {
+          var easedLeave = easeOutCubic(leaveProgress);
+          y = lerp(0, leaveY, easedLeave);
+          scale = lerp(1, 0.97, easedLeave);
+          opacity = lerp(1, 0, easedLeave);
+          clipTop = 0;
+        } else {
+          var easedEnter = easeOutCubic(enterProgress);
+          y = lerp(i === 0 ? 30 : enterY, 0, easedEnter);
+          scale = lerp(i === 0 ? 0.99 : 0.98, 1, easedEnter);
+          opacity = easedEnter;
+          clipTop = lerp(100, 0, easedEnter);
+        }
+
+        step.style.opacity = String(opacity);
+        step.style.zIndex = String(jCount + i);
+        step.style.pointerEvents = opacity > 0.5 ? 'auto' : 'none';
+
+        if (isReduced) {
+          step.style.transform = 'translateZ(0)';
+          step.style.clipPath = 'none';
+        } else {
+          step.style.transform = 'translateY(' + y + 'px) scale(' + scale + ') translateZ(0)';
+          step.style.clipPath = 'inset(' + clipTop + '% 0 0 0 round var(--radius-l))';
+        }
+      });
+    }
+
+    window.addEventListener('scroll', function () {
+      if (!jTicking) {
+        jTicking = true;
+        requestAnimationFrame(updateJourney);
+      }
+    }, { passive: true });
+    window.addEventListener('resize', updateJourney);
+    updateJourney();
+  }
+
+  /* --------------------------------------------------------------
      Booking form (airline combobox, upload dropzone, validation)
      — only present on the home page
   -------------------------------------------------------------- */
