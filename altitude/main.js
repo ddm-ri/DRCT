@@ -125,8 +125,11 @@
   }
 
   /* --------------------------------------------------------------
-     Airline combobox
+     Booking form (airline combobox, upload dropzone, validation)
+     — only present on the home page
   -------------------------------------------------------------- */
+  if (!document.getElementById('bookingForm')) return;
+
   var AIRLINES = [
     'Turkish Airlines',
     'Qatar Airways',
