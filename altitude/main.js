@@ -125,6 +125,56 @@
   }
 
   /* --------------------------------------------------------------
+     Scroll-driven stacked cards ("Why Choose Altitude")
+     — only present on the About page; skipped under reduced motion
+  -------------------------------------------------------------- */
+  var whyStackWrap = document.getElementById('whyStackWrap');
+  if (whyStackWrap && !reduceMotion) {
+    var whyCards = whyStackWrap.querySelectorAll('.why__card');
+    var whyDots = whyStackWrap.querySelectorAll('.why__dot');
+    var whySticky = whyStackWrap.querySelector('.why__stack-sticky');
+    var cardCount = whyCards.length;
+    var whyTicking = false;
+    var whyActiveIndex = -1;
+
+    whyStackWrap.classList.add('is-enhanced');
+
+    function updateWhyStack() {
+      whyTicking = false;
+      var rect = whyStackWrap.getBoundingClientRect();
+      var scrollable = whyStackWrap.offsetHeight - whySticky.offsetHeight;
+      if (scrollable <= 0) return;
+      var scrolled = -rect.top;
+      var progress = Math.min(Math.max(scrolled / scrollable, 0), 0.999);
+      var index = Math.floor(progress * cardCount);
+      index = Math.min(Math.max(index, 0), cardCount - 1);
+
+      if (index === whyActiveIndex) return;
+      whyActiveIndex = index;
+
+      whyCards.forEach(function (card) {
+        var i = Number(card.dataset.index);
+        card.classList.remove('is-active', 'is-next', 'is-passed');
+        if (i === index) card.classList.add('is-active');
+        else if (i === index + 1) card.classList.add('is-next');
+        else if (i < index) card.classList.add('is-passed');
+      });
+      whyDots.forEach(function (dot, i) {
+        dot.classList.toggle('is-active', i === index);
+      });
+    }
+
+    window.addEventListener('scroll', function () {
+      if (!whyTicking) {
+        whyTicking = true;
+        requestAnimationFrame(updateWhyStack);
+      }
+    }, { passive: true });
+    window.addEventListener('resize', updateWhyStack);
+    updateWhyStack();
+  }
+
+  /* --------------------------------------------------------------
      Booking form (airline combobox, upload dropzone, validation)
      — only present on the home page
   -------------------------------------------------------------- */
