@@ -131,7 +131,6 @@
   var whyStackWrap = document.getElementById('whyStackWrap');
   if (whyStackWrap && !reduceMotion) {
     var whyCards = whyStackWrap.querySelectorAll('.why__card');
-    var whyDots = whyStackWrap.querySelectorAll('.why__dot');
     var whySticky = whyStackWrap.querySelector('.why__stack-sticky');
     var cardCount = whyCards.length;
     var whyTicking = false;
@@ -154,13 +153,11 @@
 
       whyCards.forEach(function (card) {
         var i = Number(card.dataset.index);
-        card.classList.remove('is-active', 'is-next', 'is-passed');
+        card.classList.remove('is-active', 'is-next', 'is-next2', 'is-passed');
         if (i === index) card.classList.add('is-active');
         else if (i === index + 1) card.classList.add('is-next');
+        else if (i === index + 2) card.classList.add('is-next2');
         else if (i < index) card.classList.add('is-passed');
-      });
-      whyDots.forEach(function (dot, i) {
-        dot.classList.toggle('is-active', i === index);
       });
     }
 
