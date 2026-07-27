@@ -139,6 +139,111 @@
       </div>
 
     </section>
+
+    <section class="interface" id="how-it-works">
+      <div class="interface__inner">
+
+        <div class="interface__copy reveal-up">
+          <h2 class="interface__heading">From economy seat to<br>Business Class in seconds.</h2>
+          <p class="interface__subtitle">
+            Follow your booking through every step — from retrieving your reservation to boarding
+            with your upgrade confirmed, powered by your Mastercard Premium benefits.
+          </p>
+          <a href="#retrieve-booking" class="btn btn--primary interface__cta">Start your upgrade</a>
+
+          <div class="interface__pills" id="interfacePills" role="tablist" aria-label="Upgrade flow steps">
+            <button type="button" class="pill is-active" data-step="0" role="tab" aria-selected="true">Retrieve booking</button>
+            <button type="button" class="pill" data-step="1" role="tab" aria-selected="false">Compare offers</button>
+            <button type="button" class="pill" data-step="2" role="tab" aria-selected="false">Confirm seat</button>
+            <button type="button" class="pill" data-step="3" role="tab" aria-selected="false">Apply benefit</button>
+            <button type="button" class="pill" data-step="4" role="tab" aria-selected="false">Board Business</button>
+          </div>
+        </div>
+
+        <div class="interface__device reveal-up" style="--d:1">
+          <div class="device" id="deviceMock" aria-hidden="true">
+            <div class="device__bezel">
+              <span class="device__sheen"></span>
+              <div class="device__notch"></div>
+              <div class="device__screen">
+
+                <div class="demo-step is-active" data-step="0">
+                  <p class="demo-form-title">Retrieve booking</p>
+
+                  <div class="demo-field">
+                    <span class="demo-field__label">Select airline</span>
+                    <div class="demo-field__input demo-field__input--icon">
+                      <svg class="demo-field__icon" width="10" height="10" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="7" cy="7" r="5.25" stroke="currentColor" stroke-width="1.4"/><path d="M11 11L14 14" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+                      <strong class="type-target" id="typeAirline"></strong>
+                    </div>
+                  </div>
+
+                  <div class="demo-field">
+                    <span class="demo-field__label">Last name</span>
+                    <div class="demo-field__input"><strong class="type-target" id="typeName"></strong></div>
+                  </div>
+
+                  <div class="demo-field">
+                    <span class="demo-field__label">Booking reference (PNR)</span>
+                    <div class="demo-field__input"><strong class="type-target" id="typePnr"></strong></div>
+                  </div>
+
+                  <div class="demo-toggle">
+                    <span>Mastercard Premium</span>
+                    <span class="demo-switch is-on"><i></i></span>
+                  </div>
+                </div>
+
+                <div class="demo-step" data-step="1">
+                  <p class="demo-step__label">Available upgrades</p>
+                  <div class="demo-card demo-card--sm demo-anim" style="--i:0">
+                    <span>Economy</span><strong>Included</strong>
+                  </div>
+                  <div class="demo-card demo-anim" id="demoOfferCard" style="--i:1">
+                    <span>Business Class</span><strong>$1,240</strong>
+                  </div>
+                  <div class="demo-card demo-card--sm demo-anim" style="--i:2">
+                    <span>Business Flex</span><strong>$1,480</strong>
+                  </div>
+                </div>
+
+                <div class="demo-step" data-step="2">
+                  <p class="demo-step__label">Selected upgrade</p>
+                  <div class="demo-selected">
+                    <span class="demo-badge demo-anim" style="--i:0">Business Class</span>
+                    <strong class="demo-price demo-anim" style="--i:1">$1,240</strong>
+                    <p class="demo-anim" style="--i:2">LH 900 &middot; London &rarr; Frankfurt</p>
+                  </div>
+                </div>
+
+                <div class="demo-step" data-step="3">
+                  <p class="demo-step__label">Mastercard benefit applied</p>
+                  <div class="demo-selected">
+                    <span class="demo-badge">Business Class</span>
+                    <strong class="demo-price" id="demoPrice">$1,240</strong>
+                    <span class="demo-discount demo-anim" style="--i:1">Mastercard Premium &minus;25%</span>
+                  </div>
+                </div>
+
+                <div class="demo-step" data-step="4">
+                  <svg class="demo-check" viewBox="0 0 60 60" width="52" height="52">
+                    <circle cx="30" cy="30" r="27" fill="none" stroke="currentColor" stroke-width="2.5" class="demo-check__circle"/>
+                    <path d="M18 31l8 8 16-18" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="demo-check__mark"/>
+                  </svg>
+                  <p class="demo-step__label">Upgrade confirmed</p>
+                  <div class="demo-pass demo-anim" style="--i:1">
+                    <span>Boarding pass</span>
+                    <strong>Business Class &middot; Seat 4A</strong>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
   </div>
 
 </main>

@@ -395,4 +395,159 @@
       showStatus('Upgrade options found for ' + airlineInput.value + ' — a member of our team will follow up shortly.');
     }, 1400);
   });
+
+  /* --------------------------------------------------------------
+     Interface device demo — autoplaying upgrade-flow walkthrough
+  -------------------------------------------------------------- */
+  var deviceMock = document.getElementById('deviceMock');
+  var interfacePills = document.getElementById('interfacePills');
+
+  if (deviceMock && interfacePills) {
+    var demoSteps = deviceMock.querySelectorAll('.demo-step');
+    var pills = interfacePills.querySelectorAll('.pill');
+    var demoOfferCard = document.getElementById('demoOfferCard');
+    var demoPriceEl = document.getElementById('demoPrice');
+    var typeAirline = document.getElementById('typeAirline');
+    var typeName = document.getElementById('typeName');
+    var typePnr = document.getElementById('typePnr');
+
+    var token = 0;
+
+    function wait(ms, myToken) {
+      return new Promise(function (resolve) {
+        setTimeout(function () {
+          resolve(myToken === token);
+        }, ms);
+      });
+    }
+
+    function setActiveStep(i) {
+      demoSteps.forEach(function (el) {
+        el.classList.toggle('is-active', Number(el.dataset.step) === i);
+      });
+      pills.forEach(function (p) {
+        var active = Number(p.dataset.step) === i;
+        p.classList.toggle('is-active', active);
+        p.setAttribute('aria-selected', active ? 'true' : 'false');
+      });
+      if (i !== 1 && demoOfferCard) demoOfferCard.classList.remove('is-highlighted');
+    }
+
+    function typeText(el, text, myToken) {
+      return new Promise(function (resolve) {
+        el.textContent = '';
+        var i = 0;
+        function tick() {
+          if (myToken !== token) return resolve(false);
+          if (i <= text.length) {
+            el.textContent = text.slice(0, i);
+            i++;
+            setTimeout(tick, 38);
+          } else {
+            resolve(true);
+          }
+        }
+        tick();
+      });
+    }
+
+    function tweenPrice(el, from, to, duration, myToken) {
+      return new Promise(function (resolve) {
+        var start = null;
+        function frame(now) {
+          if (myToken !== token) return resolve(false);
+          if (start === null) start = now;
+          var t = Math.min((now - start) / duration, 1);
+          var eased = 1 - Math.pow(1 - t, 3);
+          var value = Math.round(from - (from - to) * eased);
+          el.textContent = '$' + value.toLocaleString('en-US');
+          if (t < 1) {
+            requestAnimationFrame(frame);
+          } else {
+            resolve(true);
+          }
+        }
+        requestAnimationFrame(frame);
+      });
+    }
+
+    async function playStep0(myToken) {
+      setActiveStep(0);
+      if (!(await wait(300, myToken))) return false;
+      if (!(await typeText(typeAirline, 'Turkish Airlines', myToken))) return false;
+      if (!(await typeText(typeName, 'Smith', myToken))) return false;
+      if (!(await typeText(typePnr, 'SMFA7C', myToken))) return false;
+      return wait(750, myToken);
+    }
+
+    async function playStep1(myToken) {
+      setActiveStep(1);
+      if (!(await wait(650, myToken))) return false;
+      if (demoOfferCard) demoOfferCard.classList.add('is-highlighted');
+      return wait(1300, myToken);
+    }
+
+    async function playStep2(myToken) {
+      setActiveStep(2);
+      return wait(1700, myToken);
+    }
+
+    async function playStep3(myToken) {
+      setActiveStep(3);
+      if (!(await wait(550, myToken))) return false;
+      if (demoPriceEl) {
+        if (!(await tweenPrice(demoPriceEl, 1240, 930, 900, myToken))) return false;
+      }
+      return wait(1000, myToken);
+    }
+
+    async function playStep4(myToken) {
+      setActiveStep(4);
+      return wait(2600, myToken);
+    }
+
+    async function runLoop(startStep) {
+      var myToken = ++token;
+      var step = startStep || 0;
+      var runners = [playStep0, playStep1, playStep2, playStep3, playStep4];
+      while (myToken === token) {
+        var ok = await runners[step](myToken);
+        if (!ok || myToken !== token) return;
+        step = (step + 1) % runners.length;
+      }
+    }
+
+    pills.forEach(function (pill) {
+      pill.addEventListener('click', function () {
+        var step = Number(pill.dataset.step);
+        if (reduceMotion) {
+          token++;
+          setActiveStep(step);
+        } else {
+          runLoop(step);
+        }
+      });
+    });
+
+    if (reduceMotion) {
+      setActiveStep(4);
+    } else if ('IntersectionObserver' in window) {
+      var started = false;
+      var deviceObserver = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting && !started) {
+              started = true;
+              runLoop(0);
+              deviceObserver.disconnect();
+            }
+          });
+        },
+        { threshold: 0.3 }
+      );
+      deviceObserver.observe(deviceMock);
+    } else {
+      runLoop(0);
+    }
+  }
 })();
