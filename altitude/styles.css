@@ -1230,14 +1230,9 @@ main { position: relative; z-index: 1; }
 
 .journey__num {
   flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  line-height: 1;
-  font-family: 'Doto', var(--font-body);
-  font-size: 77px;
-  font-weight: 700;
-  color: var(--text-primary);
+  height: 70px;
+  width: auto;
+  display: block;
 }
 
 .journey__title {
@@ -1443,7 +1438,7 @@ main { position: relative; z-index: 1; }
   }
 
   .journey__overlay { padding: 14px 16px; gap: 10px; }
-  .journey__num { font-size: 40px; }
+  .journey__num { height: 38px; }
   .journey__title { font-size: 0.88rem; }
   .journey__desc { font-size: 0.74rem; }
 
