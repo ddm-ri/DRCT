@@ -840,10 +840,14 @@ main { position: relative; z-index: 1; }
 }
 
 .about-intro__inner,
-.showcase__inner,
 .why__inner,
 .closing__inner {
   max-width: var(--container);
+  margin: 0 auto;
+}
+
+.showcase__inner {
+  max-width: 1400px;
   margin: 0 auto;
 }
 
@@ -922,7 +926,7 @@ main { position: relative; z-index: 1; }
 .showcase__grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+  gap: 24px;
 }
 
 .showcase__item { display: flex; flex-direction: column; gap: 12px; }
@@ -1153,8 +1157,8 @@ main { position: relative; z-index: 1; }
 .journey__pin { position: relative; }
 
 .journey__pin.is-enhanced {
-  height: calc(var(--card-count, 5) * 42vh);
-  height: calc(var(--card-count, 5) * 42svh);
+  height: calc(var(--card-count, 5) * 70vh);
+  height: calc(var(--card-count, 5) * 70svh);
 }
 
 .journey__pin.is-enhanced .journey__pin-sticky {
@@ -1222,7 +1226,6 @@ main { position: relative; z-index: 1; }
   padding: 18px 22px;
   border-radius: var(--radius-m);
   background: rgba(255, 255, 255, 0.62);
-  border: 1px solid rgba(255, 255, 255, 0.7);
   backdrop-filter: blur(16px) saturate(140%);
   -webkit-backdrop-filter: blur(16px) saturate(140%);
 }
@@ -1282,7 +1285,7 @@ main { position: relative; z-index: 1; }
   font-family: var(--font-heading);
   font-style: italic;
   font-weight: 500;
-  font-size: 1.05rem;
+  font-size: 36px;
   color: var(--text-primary);
 }
 
@@ -1431,7 +1434,6 @@ main { position: relative; z-index: 1; }
     bottom: 14px;
     border-radius: var(--radius-m);
     background: rgba(255, 255, 255, 0.62);
-    border: 1px solid rgba(255, 255, 255, 0.7);
     backdrop-filter: blur(16px) saturate(140%);
     -webkit-backdrop-filter: blur(16px) saturate(140%);
   }
