@@ -675,25 +675,14 @@ body {
 .sticky-bar__chip-meta { font-size: 10.5px; color: var(--dark-45); white-space: nowrap; }
 .sticky-bar__right { display: flex; align-items: center; gap: 14px; flex: none; }
 
-/* progress steps (Request Builder) */
-.progress-steps { display: flex; align-items: center; gap: 10px; margin-bottom: 28px; }
-.progress-step { display: flex; align-items: center; gap: 12px; font-size: 13px; font-weight: 700; color: var(--dark-26); }
-.progress-step__dot { width: 24px; height: 24px; border-radius: 50%; border: 2px solid var(--dark-15); display: flex; align-items: center; justify-content: center; font-size: 12px; color: var(--dark-26); }
-.progress-step.is-active { color: var(--dark); }
-.progress-step.is-active .progress-step__dot { border-color: var(--blue); color: var(--blue); }
-.progress-step.is-done { color: var(--dark-70); }
-.progress-step.is-done .progress-step__dot { border-color: var(--blue); background: var(--blue); color: var(--white); }
-.progress-connector { width: 40px; height: 2px; background: var(--dark-15); }
-.progress-connector.is-done { background: var(--blue); }
-
-/* date-flexibility pill toggle */
+/* required-choice pill toggle (Booking class) */
 .pill-group { display: flex; flex-wrap: wrap; gap: 8px; }
 .pill { padding: 8px 16px; border: 1px solid var(--border); border-radius: 20px; font-size: 13px; font-weight: 600; color: var(--dark-70); cursor: pointer; }
 .pill:hover { border-color: var(--dark-40); }
 .pill.is-selected { border-color: var(--blue); background: var(--blue-10); color: var(--blue); }
 .pill.is-invalid { border-color: var(--error); }
 
-/* selected-airlines chip list (Request Builder) */
+/* selected-flights chip list (Create group request modal) */
 .chip-list { display: flex; flex-wrap: wrap; gap: 10px; }
 .chip { display: flex; align-items: center; gap: 8px; border: 1px solid var(--border); border-radius: var(--radius-s); padding: 8px 12px; }
 .chip img { width: 20px; height: 20px; object-fit: contain; }
@@ -708,21 +697,6 @@ body {
 textarea.textarea { width: 100%; border: 1px solid var(--border); border-radius: var(--radius-s); padding: 12px 16px; font-size: 14px; color: var(--dark); min-height: 90px; resize: vertical; }
 textarea.textarea::placeholder { color: var(--dark-26); }
 textarea.textarea:focus { border-color: var(--blue); }
-
-.form-actions { display: flex; align-items: center; justify-content: space-between; margin-top: 28px; }
-
-.summary-box { border: 1px solid var(--border); border-radius: var(--radius-m); padding: 20px 24px; background: var(--off-white); margin-top: 20px; }
-.summary-box__title { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: .4px; color: var(--dark-40); margin-bottom: 14px; }
-.summary-box__row { display: flex; justify-content: space-between; padding: 7px 0; font-size: 13.5px; border-top: 1px solid var(--border); }
-.summary-box__row:first-of-type { border-top: none; }
-.summary-box__row dt { color: var(--dark-40); }
-.summary-box__row dd { color: var(--dark); font-weight: 600; text-align: right; }
-
-.success-panel { border: 1px solid var(--border); border-radius: var(--radius-l); padding: 48px 32px; text-align: center; max-width: 480px; margin: 24px auto 0; }
-.success-panel__icon { width: 56px; height: 56px; border-radius: 50%; background: var(--success-bg); color: #279900; display: flex; align-items: center; justify-content: center; margin: 0 auto 18px; font-size: 26px; }
-.success-panel h2 { font-size: 20px; font-weight: 700; }
-.success-panel p { font-size: 14px; color: var(--dark-70); margin-top: 10px; }
-.success-panel .btn { margin-top: 22px; }
 
 /* status pill (Calculating / Review required / Accepted / Declined) */
 .status-pill { display: inline-flex; align-items: center; gap: 6px; font-size: 10.5px; font-weight: 700; letter-spacing: .4px; text-transform: uppercase; padding: 4px 12px; border-radius: 20px; }
@@ -762,7 +736,7 @@ textarea.textarea:focus { border-color: var(--blue); }
 .btn-destructive-solid { background: var(--error); color: var(--white); }
 .btn-destructive-solid:hover:not(:disabled) { background: #e6404f; }
 
-/* Decline modal */
+/* Modals (Decline offer, Create group request) */
 .modal-overlay { position: fixed; inset: 0; background: rgba(27,39,51,0.45); display: flex; align-items: center; justify-content: center; z-index: 400; }
 .modal { background: var(--white); border-radius: 12px; width: 460px; max-width: calc(100vw - 40px); padding: 28px 28px 24px; }
 .modal h2 { font-size: 19px; font-weight: 700; }
@@ -777,6 +751,19 @@ textarea.textarea:focus { border-color: var(--blue); }
   background-repeat: no-repeat; background-position: right 14px center;
 }
 .select-native.is-invalid { border-color: var(--error); }
+.text-field.is-invalid { border-color: var(--error); }
+
+/* wider variant for the Create group request modal — richer content than the
+   simple label+input modals (decline offer), so it also scrolls internally
+   rather than growing past the viewport. */
+.modal--form { width: 620px; max-height: 88vh; overflow-y: auto; }
+.modal-route-line { font-size: 14px; font-weight: 600; color: var(--dark); }
+.modal-route-line__code { font-size: 11px; font-weight: 400; color: var(--dark-45); }
+.modal-route-line--dates { font-size: 12.5px; font-weight: 400; color: var(--dark-45); margin-top: 3px; }
+
+/* passengers stepper list, inlined directly in the modal instead of behind
+   a popover trigger — the modal already is the "opened" surface. */
+.pax-pop--inline { position: static; width: auto; border: none; box-shadow: none; padding: 0; }
 
 .placeholder-note { font-size: 13px; color: var(--dark-40); margin-top: 10px; }
 

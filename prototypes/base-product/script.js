@@ -182,13 +182,7 @@
   ];
   function groupAirlineById(id) { for (var i = 0; i < GROUP_AIRLINES.length; i++) if (GROUP_AIRLINES[i].id === id) return GROUP_AIRLINES[i]; return null; }
 
-  var TRIP_REASONS = [
-    { v: 'business', l: 'Business' }, { v: 'sports', l: 'Sports' }, { v: 'education', l: 'Education' },
-    { v: 'leisure', l: 'Leisure' }, { v: 'event', l: 'Event' }, { v: 'other', l: 'Other' }
-  ];
-  var FLEX_OPTIONS = [
-    { v: 'exact', l: 'Exact dates' }, { v: '1', l: '± 1 day' }, { v: '2', l: '± 2 days' }, { v: '3', l: '± 3 days' }
-  ];
+  var BOOKING_CLASSES = ['Economy', 'Premium Economy', 'Business', 'First'];
   var DECLINE_REASONS = [
     'Price is too high', 'Flight option is unsuitable', 'Conditions are unsuitable',
     'Decision deadline was missed', 'Client cancelled the trip', 'Another airline was selected', 'Other'
@@ -250,7 +244,6 @@
     airlineFilterIds: [],
     selectedAirlineIds: [],
     requestDraft: null,
-    builderStep: 1,
     builderErrors: {},
     builderSubmitState: 'idle',
     groupRequests: [],
@@ -268,8 +261,9 @@
     var acceptedOffer = buildOfferData('swiss', 16, created);
     state.groupRequests.push({
       id: 'GR-1032', from: 'Warsaw Chopin Airport', fromCode: 'WAW', to: 'John F. Kennedy Intl', toCode: 'JFK',
-      departure: '2026-08-20', ret: '2026-08-27', pax: 16, createdAt: created, dateFlexibility: '2', tripReason: 'sports',
-      baggage: '16 sports bags, 23 kg each', comments: 'Team travelling together, prefer adjacent seating if possible.',
+      departure: '2026-08-20', ret: '2026-08-27', pax: 16, adults: 16, children: 0, infants: 0, createdAt: created,
+      bookingClass: 'Business', represent: 'Nordic Sports Club',
+      additionalNeeds: '16 sports bags, 23 kg each', comment: 'Team travelling together, prefer adjacent seating if possible.',
       offers: [
         Object.assign({ airlineId: 'lufthansa', status: 'review' }, reviewOffer),
         { airlineId: 'lot', status: 'calculating' },
@@ -372,14 +366,13 @@
       main.innerHTML = renderOfferDetails();
     } else if (state.page === 'bookings') {
       main.innerHTML = renderBookings();
-    } else if (state.page === 'request-builder') {
-      main.innerHTML = renderRequestBuilder();
     } else if (state.page === 'group-offer-details') {
       main.innerHTML = renderGroupOfferDetails();
     }
     renderStickyBar();
     renderStickyOfferActions();
     renderDeclineModal();
+    renderRequestModal();
     renderToasts();
     scheduleTimers();
     if (state.openPopover && state.openPopover.type === 'airport') {
@@ -396,7 +389,7 @@
   }
 
   function renderHeader() {
-    var isSearchArea = (state.page === 'search' || state.page === 'offer-details' || state.page === 'request-builder');
+    var isSearchArea = (state.page === 'search' || state.page === 'offer-details');
     var isBookingsArea = (state.page === 'bookings' || state.page === 'group-offer-details');
     document.getElementById('navSearch').className = 'app-header__link' + (isSearchArea ? ' active' : '');
     document.getElementById('navBookings').className = 'app-header__link' + (isBookingsArea ? ' active' : '');
@@ -481,13 +474,14 @@
     '</div>';
   }
 
-  function paxRow(label, sub, key, val, min, max) {
+  function paxRow(label, sub, key, val, min, max, action) {
+    action = action || 'pax-step';
     return '<div class="pax-row">' +
       '<div><div class="pax-row__label">' + label + '</div><div class="pax-row__sub">' + sub + '</div></div>' +
       '<div class="stepper">' +
-        '<button class="stepper__btn" data-action="pax-step" data-key="' + key + '" data-dir="-1" data-min="' + min + '" data-max="' + max + '">&minus;</button>' +
+        '<button class="stepper__btn" data-action="' + action + '" data-key="' + key + '" data-dir="-1" data-min="' + min + '" data-max="' + max + '">&minus;</button>' +
         '<span class="stepper__val">' + val + '</span>' +
-        '<button class="stepper__btn" data-action="pax-step" data-key="' + key + '" data-dir="1" data-min="' + min + '" data-max="' + max + '">+</button>' +
+        '<button class="stepper__btn" data-action="' + action + '" data-key="' + key + '" data-dir="1" data-min="' + min + '" data-max="' + max + '">+</button>' +
       '</div></div>';
   }
 
@@ -703,17 +697,6 @@
     return errs;
   }
 
-  function isStep1Valid() {
-    var d = state.requestDraft;
-    if (!d) return false;
-    if (!d.from.trim() || !d.to.trim() || !d.departure || !d.return) return false;
-    if (parseISO(d.return) < parseISO(d.departure)) return false;
-    if (d.pax < 10) return false;
-    if (d.airlineIds.length < 1) return false;
-    if (!d.dateFlexibility || !d.tripReason) return false;
-    return true;
-  }
-
   /* ----------------------------------------------------------------
      RENDER: GROUP SEARCH FORM
   ---------------------------------------------------------------- */
@@ -881,144 +864,85 @@
   }
 
   /* ----------------------------------------------------------------
-     RENDER: REQUEST BUILDER
+     RENDER: CREATE GROUP REQUEST MODAL
+     Route + selected flights are read-only summaries (already collected
+     on the results screen); everything editable here is what the spec
+     agreed is actually needed to send airlines a group request.
   ---------------------------------------------------------------- */
-  function renderRequestBuilder() {
-    if (state.builderSubmitState === 'success') return renderBuilderSuccess();
-    var d = state.requestDraft;
-    var steps = '<div class="progress-steps">' +
-      progressStep(1, 'Trip details') + '<div class="progress-connector' + (state.builderStep > 1 ? ' is-done' : '') + '"></div>' +
-      progressStep(2, 'Additional details') +
-    '</div>';
-    return '' +
-      '<div class="page-head"><h1>Create group fare request</h1><p class="page-head__desc">Review the trip details and add the information airlines need to prepare group offers.</p></div>' +
-      steps +
-      (state.builderStep === 1 ? renderBuilderStep1(d) : renderBuilderStep2(d));
-  }
+  function renderRequestModal() {
+    var host = document.getElementById('modalHost');
+    if (!state.requestDraft) { host.innerHTML = ''; return; }
+    var d = state.requestDraft, e = state.builderErrors;
+    var submitting = state.builderSubmitState === 'submitting';
 
-  function progressStep(n, label) {
-    var cls = 'progress-step' + (state.builderStep === n ? ' is-active' : (state.builderStep > n ? ' is-done' : ''));
-    var dot = state.builderStep > n ? '✓' : n;
-    return '<div class="' + cls + '"><div class="progress-step__dot">' + dot + '</div>' + label + '</div>';
-  }
-
-  function renderBuilderStep1(d) {
-    var e = state.builderErrors;
     var chips = d.airlineIds.map(function (id) {
       var a = groupAirlineById(id);
-      return '<div class="chip"><img src="' + a.logo + '" alt="">' + '<span>' + a.name + '</span>' +
-        (d.airlineIds.length > 1 ? '<span class="chip__remove" data-action="remove-builder-airline" data-airline="' + id + '">&times;</span>' : '') +
+      return '<div class="chip"><img src="' + a.logo + '" alt="">' +
+        '<span>' + a.dep + ' – ' + a.arr + ' · ' + escapeHtml(a.name) + '</span>' +
+        (d.airlineIds.length > 1 ? '<span class="chip__remove" data-action="remove-request-flight" data-airline="' + id + '">&times;</span>' : '') +
       '</div>';
     }).join('');
 
-    return '' +
-      (e.general ? '<div class="field-error" style="margin-bottom:16px">Please complete all required fields.</div>' : '') +
-      '<div class="section-title" style="margin-top:0">Trip details</div>' +
-      '<div class="section-desc">Route, dates and passenger count can still be edited.</div>' +
-      '<div class="search-bar">' +
-        renderAirportField('requestDraft.from', 'From', ' search-field--from') +
-        '<div class="search-field--swap" data-action="swap-builder" title="Swap origin and destination">' + swapIcon() + '</div>' +
-        renderAirportField('requestDraft.to', 'To', ' search-field--to') +
-        renderCalendarField('requestDraft.departure', 'Departure', toISO(TODAY), false) +
-        renderCalendarField('requestDraft.return', 'Return', d.departure || toISO(TODAY), true) +
-        '<div class="search-field search-field--pax-total search-field--pax' + (d.paxOpen ? ' is-active' : '') + '" data-action="toggle-pax-builder">' +
-          '<span class="search-field__pax-value">' + d.pax + ' passengers</span>' +
-          (d.paxOpen ? renderBuilderPaxPop() : '') +
+    var classPills = BOOKING_CLASSES.map(function (c) {
+      return '<div class="pill' + (d.bookingClass === c ? ' is-selected' : '') + (e.bookingClass ? ' is-invalid' : '') + '" data-action="set-booking-class" data-value="' + c + '">' + c + '</div>';
+    }).join('');
+
+    host.innerHTML = '<div class="modal-overlay" data-action="close-request-modal-overlay">' +
+      '<div class="modal modal--form" data-action="noop">' +
+        '<h2>Create group fare request</h2>' +
+        '<p class="modal__desc">Airlines will use this to prepare group offers for the flights you selected.</p>' +
+
+        '<div class="field-group" style="margin-top:0">' +
+          '<div class="field-group__label">Route</div>' +
+          '<div class="modal-route-line">' + escapeHtml(d.from) + ' <span class="modal-route-line__code">' + d.fromCode + '</span> &rarr; ' + escapeHtml(d.to) + ' <span class="modal-route-line__code">' + d.toCode + '</span></div>' +
+          '<div class="modal-route-line modal-route-line--dates">' + formatDisplay(d.departure) + ' – ' + formatDisplay(d.return) + '</div>' +
+        '</div>' +
+
+        '<div class="field-group">' +
+          '<div class="field-group__label">Selected flights</div>' +
+          '<div class="chip-list">' + chips + '</div>' +
+        '</div>' +
+
+        '<div class="field-group">' +
+          '<div class="field-group__label">Passengers <span class="field-group__required">*</span></div>' +
+          '<div class="pax-pop pax-pop--inline" data-action="noop">' +
+            paxRow('Adults', 'Over 12 years old', 'adults', d.adults, 1, 500, 'request-pax-step') +
+            paxRow('Children', 'From 2 to 12 years', 'children', d.children, 0, 500, 'request-pax-step') +
+            paxRow('Infants', 'Up to 2 years, no seat', 'infants', d.infants, 0, 500, 'request-pax-step') +
+          '</div>' +
+          (e.pax ? '<div class="field-error">Group requests need at least 10 passengers in total.</div>' : '') +
+        '</div>' +
+
+        '<div class="field-group">' +
+          '<div class="field-group__label">Booking class <span class="field-group__required">*</span></div>' +
+          '<div class="pill-group">' + classPills + '</div>' +
+        '</div>' +
+
+        '<div class="field-group">' +
+          '<label class="field-label">Represent <span class="field-group__required">*</span></label>' +
+          '<input class="text-field' + (e.represent ? ' is-invalid' : '') + '" data-field="requestDraft.represent" value="' + escapeHtml(d.represent) + '" placeholder="Company or client this request is for">' +
+          (e.represent ? '<div class="field-error">Please tell us who you represent.</div>' : '') +
+        '</div>' +
+
+        '<div class="field-group">' +
+          '<label class="field-label">Comment (optional)</label>' +
+          '<textarea class="textarea" data-field="requestDraft.comment" placeholder="Preferred departure times, alternative airports or other context">' + escapeHtml(d.comment) + '</textarea>' +
+        '</div>' +
+
+        '<div class="field-group">' +
+          '<label class="field-label">Additional needs (optional)</label>' +
+          '<textarea class="textarea" data-field="requestDraft.additionalNeeds" placeholder="For example: 10 sports bags, 20 kg each, wheelchair assistance">' + escapeHtml(d.additionalNeeds) + '</textarea>' +
+        '</div>' +
+
+        (state.builderSubmitState === 'error' ? '<div class="field-error" style="margin-top:16px">We couldn’t submit your request. Please try again.</div>' : '') +
+
+        '<div class="modal__actions">' +
+          '<button class="btn btn-secondary" data-action="close-request-modal" ' + (submitting ? 'disabled' : '') + '>Cancel</button>' +
+          '<button class="btn btn-primary" data-action="submit-request" ' + (submitting ? 'disabled' : '') + '>' +
+            (submitting ? '<span class="spinner"></span> Submitting' : 'Create request') +
+          '</button>' +
         '</div>' +
       '</div>' +
-
-      '<div class="field-group">' +
-        '<div class="field-group__label">Selected airlines</div>' +
-        '<div class="chip-list">' + chips + '</div>' +
-      '</div>' +
-      '<div class="field-group">' +
-        '<div class="field-group__label">Date flexibility <span class="field-group__required">*</span></div>' +
-        '<div class="pill-group">' + FLEX_OPTIONS.map(function (o) {
-          return '<div class="pill' + (d.dateFlexibility === o.v ? ' is-selected' : '') + (e.dateFlexibility ? ' is-invalid' : '') + '" data-action="set-flex" data-value="' + o.v + '">' + o.l + '</div>';
-        }).join('') + '</div>' +
-      '</div>' +
-      '<div class="field-group">' +
-        '<div class="field-group__label">Trip reason <span class="field-group__required">*</span></div>' +
-        '<div class="pill-group">' + TRIP_REASONS.map(function (o) {
-          return '<div class="pill' + (d.tripReason === o.v ? ' is-selected' : '') + (e.tripReason ? ' is-invalid' : '') + '" data-action="set-reason" data-value="' + o.v + '">' + o.l + '</div>';
-        }).join('') + '</div>' +
-      '</div>' +
-      '<div class="form-actions">' +
-        '<button class="btn btn-secondary" data-action="builder-back-to-results">Back to results</button>' +
-        '<button class="btn btn-primary" data-action="builder-continue" ' + (isStep1Valid() ? '' : 'disabled') + '>Continue</button>' +
-      '</div>';
-  }
-
-  function renderBuilderPaxPop() {
-    var d = state.requestDraft;
-    return '<div class="pax-pop" data-action="noop">' +
-      '<div class="pax-row" style="border-top:none">' +
-        '<div><div class="pax-row__label">Passengers</div><div class="pax-row__sub">Group of 10 or more</div></div>' +
-        '<div class="stepper">' +
-          '<button class="stepper__btn' + (d.pax <= 10 ? ' is-muted' : '') + '" data-action="builder-pax-step" data-dir="-1">&minus;</button>' +
-          '<span class="stepper__val">' + d.pax + '</span>' +
-          '<button class="stepper__btn" data-action="builder-pax-step" data-dir="1">+</button>' +
-        '</div>' +
-      '</div>' +
-    '</div>';
-  }
-
-  function renderBuilderStep2(d) {
-    if (state.builderSubmitState === 'error') {
-      return '<div class="server-error-panel">' +
-        '<div class="server-error-panel__icon">!</div>' +
-        '<h3>We couldn’t submit your request</h3>' +
-        '<p>Your information has been saved. Try submitting again.</p>' +
-        '<div class="server-error-panel__actions">' +
-          '<button class="btn btn-primary" data-action="submit-request">Retry</button>' +
-          '<button class="btn btn-secondary" data-action="builder-error-back">Back to form</button>' +
-        '</div>' +
-      '</div>';
-    }
-    var submitting = state.builderSubmitState === 'submitting';
-    var airlineNames = d.airlineIds.map(function (id) { return groupAirlineById(id).name; }).join(', ');
-    var flexLabel = FLEX_OPTIONS.filter(function (o) { return o.v === d.dateFlexibility; })[0];
-    var reasonLabel = TRIP_REASONS.filter(function (o) { return o.v === d.tripReason; })[0];
-    return '' +
-      '<div class="section-title" style="margin-top:0">Additional details</div>' +
-      '<div class="section-desc">Add any requirements that may affect the airline’s offer.</div>' +
-      '<div class="field-group" style="margin-top:0">' +
-        '<div class="field-group__label">Baggage requirements</div>' +
-        '<textarea class="textarea" data-field="requestDraft.baggage" placeholder="For example: 10 sports bags, 20 kg each">' + escapeHtml(d.baggage) + '</textarea>' +
-      '</div>' +
-      '<div class="field-group">' +
-        '<div class="field-group__label">Additional comments</div>' +
-        '<textarea class="textarea" data-field="requestDraft.comments" placeholder="Add preferred departure times, alternative airports or other important requirements">' + escapeHtml(d.comments) + '</textarea>' +
-      '</div>' +
-      '<div class="summary-box">' +
-        '<div class="summary-box__title">Request summary</div>' +
-        '<dl>' +
-          summaryRow('Route', escapeHtml(d.from) + ' → ' + escapeHtml(d.to)) +
-          summaryRow('Dates', formatDisplay(d.departure) + ' – ' + formatDisplay(d.return)) +
-          summaryRow('Date flexibility', flexLabel ? flexLabel.l : '—') +
-          summaryRow('Passengers', d.pax + ' passengers') +
-          summaryRow('Selected airlines', airlineNames) +
-          summaryRow('Trip reason', reasonLabel ? reasonLabel.l : '—') +
-        '</dl>' +
-      '</div>' +
-      '<div class="form-actions">' +
-        '<button class="btn btn-secondary" data-action="builder-back-step1" ' + (submitting ? 'disabled' : '') + '>Back</button>' +
-        '<button class="btn btn-primary" data-action="submit-request" ' + (submitting ? 'disabled' : '') + '>' +
-          (submitting ? '<span class="spinner"></span> Submitting' : 'Submit request') +
-        '</button>' +
-      '</div>';
-  }
-
-  function summaryRow(label, value) {
-    return '<div class="summary-box__row"><dt>' + label + '</dt><dd>' + value + '</dd></div>';
-  }
-
-  function renderBuilderSuccess() {
-    return '<div class="success-panel">' +
-      '<div class="success-panel__icon">✓</div>' +
-      '<h2>Group fare request submitted</h2>' +
-      '<p>We’ll show each airline’s response in Bookings. Calculation may take up to 24 hours.</p>' +
-      '<button class="btn btn-primary" data-action="goto-bookings-from-success">View in bookings</button>' +
     '</div>';
   }
 
@@ -1422,11 +1346,10 @@
   function closeAllPaxPops() {
     state.regular.paxOpen = false;
     state.group.paxOpen = false;
-    if (state.requestDraft) state.requestDraft.paxOpen = false;
   }
 
   function anyPaxOpen() {
-    return state.regular.paxOpen || state.group.paxOpen || (state.requestDraft && state.requestDraft.paxOpen);
+    return state.regular.paxOpen || state.group.paxOpen;
   }
 
   var AIRLINE_FILTER_ACTIONS = ['toggle-airline-filter', 'toggle-airline-filter-id', 'noop'];
@@ -1687,41 +1610,35 @@
         var q = state.groupResultsQuery;
         state.requestDraft = {
           from: q.from, to: q.to, fromCode: q.fromCode, toCode: q.toCode,
-          departure: q.departure, return: q.return, pax: q.pax, paxOpen: false,
+          departure: q.departure, return: q.return,
           airlineIds: state.selectedAirlineIds.slice(),
-          dateFlexibility: null, tripReason: null, baggage: '', comments: ''
+          adults: q.pax || 10, children: 0, infants: 0,
+          bookingClass: null, represent: '', comment: '', additionalNeeds: ''
         };
-        state.builderStep = 1;
         state.builderErrors = {};
         state.builderSubmitState = 'idle';
-        state.page = 'request-builder';
-        window.scrollTo(0, 0);
         render();
         break;
       }
 
-      case 'swap-builder': {
-        var tmpb = state.requestDraft.from; state.requestDraft.from = state.requestDraft.to; state.requestDraft.to = tmpb;
-        var tmpbC = state.requestDraft.fromCode; state.requestDraft.fromCode = state.requestDraft.toCode; state.requestDraft.toCode = tmpbC;
+      case 'close-request-modal':
+      case 'close-request-modal-overlay':
+        state.requestDraft = null;
+        state.builderErrors = {};
+        state.builderSubmitState = 'idle';
+        render();
+        break;
+
+      case 'request-pax-step': {
+        var pKey = el.dataset.key, pDir = +el.dataset.dir, pMin = +el.dataset.min, pMax = +el.dataset.max;
+        var rd = state.requestDraft;
+        rd[pKey] = Math.max(pMin, Math.min(pMax, rd[pKey] + pDir));
+        if (rd.adults + rd.children + rd.infants >= 10) state.builderErrors.pax = false;
         render();
         break;
       }
 
-      case 'toggle-pax-builder': {
-        var wasOpenB = state.requestDraft.paxOpen;
-        closeAllPaxPops();
-        state.requestDraft.paxOpen = !wasOpenB;
-        render();
-        break;
-      }
-
-      case 'builder-pax-step':
-        state.requestDraft.pax = Math.max(10, state.requestDraft.pax + (+el.dataset.dir));
-        state.requestDraft.paxOpen = true;
-        render();
-        break;
-
-      case 'remove-builder-airline': {
+      case 'remove-request-flight': {
         var rid = el.dataset.airline;
         if (state.requestDraft.airlineIds.length > 1) {
           state.requestDraft.airlineIds = state.requestDraft.airlineIds.filter(function (id) { return id !== rid; });
@@ -1730,47 +1647,25 @@
         break;
       }
 
-      case 'set-flex':
-        state.requestDraft.dateFlexibility = el.dataset.value;
-        render();
-        break;
-
-      case 'set-reason':
-        state.requestDraft.tripReason = el.dataset.value;
-        render();
-        break;
-
-      case 'builder-continue':
-        if (!isStep1Valid()) { state.builderErrors = { general: 1 }; render(); break; }
-        state.builderErrors = {};
-        state.builderStep = 2;
-        window.scrollTo(0, 0);
-        render();
-        break;
-
-      case 'builder-back-to-results':
-        state.page = 'search';
-        window.scrollTo(0, 0);
-        render();
-        break;
-
-      case 'builder-back-step1':
-        state.builderStep = 1;
-        window.scrollTo(0, 0);
-        render();
-        break;
-
-      case 'builder-error-back':
-        state.builderSubmitState = 'idle';
+      case 'set-booking-class':
+        state.requestDraft.bookingClass = el.dataset.value;
+        state.builderErrors.bookingClass = false;
         render();
         break;
 
       case 'submit-request': {
+        var vd = state.requestDraft;
+        var verrs = {};
+        if (vd.adults + vd.children + vd.infants < 10) verrs.pax = 1;
+        if (!vd.bookingClass) verrs.bookingClass = 1;
+        if (!vd.represent.trim()) verrs.represent = 1;
+        if (Object.keys(verrs).length) { state.builderErrors = verrs; render(); break; }
+        state.builderErrors = {};
         state.builderSubmitState = 'submitting';
         render();
         setTimeout(function () {
           var d = state.requestDraft;
-          var failTrigger = /fail/i.test(d.baggage) || /fail/i.test(d.comments);
+          var failTrigger = /fail/i.test(d.comment) || /fail/i.test(d.additionalNeeds);
           if (failTrigger) {
             state.builderSubmitState = 'error';
             render();
@@ -1779,23 +1674,31 @@
           var reqId = 'GR-' + (state.requestCounter++);
           state.groupRequests.push({
             id: reqId, from: d.from, to: d.to, fromCode: d.fromCode, toCode: d.toCode,
-            departure: d.departure, ret: d.return, pax: d.pax, createdAt: new Date(),
-            dateFlexibility: d.dateFlexibility, tripReason: d.tripReason, baggage: d.baggage, comments: d.comments,
+            departure: d.departure, ret: d.return, pax: d.adults + d.children + d.infants,
+            adults: d.adults, children: d.children, infants: d.infants,
+            bookingClass: d.bookingClass, represent: d.represent, comment: d.comment, additionalNeeds: d.additionalNeeds,
+            createdAt: new Date(),
             offers: d.airlineIds.map(function (id) { return { airlineId: id, status: 'calculating' }; })
           });
-          state.builderSubmitState = 'success';
+          state.requestDraft = null;
+          state.builderSubmitState = 'idle';
           render();
+          pushToast({
+            title: 'Group fare request submitted',
+            text: 'We’ll show each airline’s response in Bookings. Calculation may take up to 24 hours.',
+            actionLabel: 'View in bookings',
+            duration: 5000,
+            onAction: function () {
+              state.page = 'bookings';
+              state.bookingsTab = 'inprogress';
+              state.bookingsSelected = null;
+              window.scrollTo(0, 0);
+              render();
+            }
+          });
         }, 900);
         break;
       }
-
-      case 'goto-bookings-from-success':
-        state.page = 'bookings';
-        state.bookingsTab = 'inprogress';
-        state.bookingsSelected = null;
-        window.scrollTo(0, 0);
-        render();
-        break;
 
       case 'open-group-offer':
         state.currentGroupOffer = { requestId: el.dataset.request, airlineId: el.dataset.airline };
@@ -1943,6 +1846,12 @@
     var field = e.target.dataset.field;
     if (!field || field === '__noop') return;
     set(field, e.target.value, state);
+    if (field === 'requestDraft.represent' && state.builderErrors.represent && e.target.value.trim()) {
+      state.builderErrors.represent = false;
+      e.target.classList.remove('is-invalid');
+      var reprErrBox = e.target.parentElement.querySelector('.field-error');
+      if (reprErrBox) reprErrBox.remove();
+    }
   }
 
   function onChange(e) {
