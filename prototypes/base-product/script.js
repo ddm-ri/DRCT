@@ -866,8 +866,10 @@
     var chips = state.selectedAirlineIds.map(function (id) {
       var a = groupAirlineById(id);
       return '<div class="sticky-bar__chip"><img src="' + a.logo + '" alt="">' +
-        '<span class="sticky-bar__chip-time">' + a.dep + '–' + a.arr + '</span>' +
-        '<span class="sticky-bar__chip-code">' + a.code + '</span></div>';
+        '<div class="sticky-bar__chip-info">' +
+          '<div class="sticky-bar__chip-time">' + a.dep + ' – ' + a.arr + '</div>' +
+          '<div class="sticky-bar__chip-meta">' + a.duration + ' · ' + (a.stops === 0 ? 'Direct' : '1 connection') + '</div>' +
+        '</div></div>';
     }).join('');
     host.innerHTML = '<div class="sticky-bar is-visible">' +
       '<div class="sticky-bar__left">' +
