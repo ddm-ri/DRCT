@@ -167,10 +167,14 @@
   var GROUP_AIRLINES = [
     { id: 'lot', name: 'LOT Polish Airlines', code: 'LO', logo: 'assets/logos/LO.png',
       dep: '07:20', arr: '09:50', duration: '2h 30m', stops: 0, connectionCode: null, layover: null, flightNo: 'LO 281' },
+    { id: 'lot2', name: 'LOT Polish Airlines', code: 'LO', logo: 'assets/logos/LO.png',
+      dep: '19:05', arr: '21:35', duration: '2h 30m', stops: 0, connectionCode: null, layover: null, flightNo: 'LO 285' },
     { id: 'airfrance', name: 'Air France', code: 'AF', logo: 'assets/logos/AF.png',
       dep: '12:25', arr: '14:50', duration: '2h 25m', stops: 0, connectionCode: null, layover: null, flightNo: 'AF 1147' },
     { id: 'lufthansa', name: 'Lufthansa', code: 'LH', logo: 'assets/logos/LH.png',
       dep: '06:35', arr: '11:55', duration: '4h 20m', stops: 1, connectionCode: 'FRA', layover: '1h 15m', flightNo: 'LH 1338 / LH 1054' },
+    { id: 'lufthansa2', name: 'Lufthansa', code: 'LH', logo: 'assets/logos/LH.png',
+      dep: '16:10', arr: '21:55', duration: '4h 45m', stops: 1, connectionCode: 'MUC', layover: '1h 40m', flightNo: 'LH 1354 / LH 2418' },
     { id: 'klm', name: 'KLM', code: 'KL', logo: 'assets/logos/KL.png',
       dep: '09:10', arr: '14:35', duration: '4h 25m', stops: 1, connectionCode: 'AMS', layover: '2h 0m', flightNo: 'KL 1372 / KL 1233' },
     { id: 'swiss', name: 'SWISS', code: 'LX', logo: 'assets/logos/LX.png',
@@ -760,9 +764,9 @@
     var flights = GROUP_AIRLINES.filter(function (a) {
       if (state.groupFilter === 'direct' && a.stops !== 0) return false;
       if (state.groupFilter === '1stop' && a.stops > 1) return false;
-      if (state.airlineFilterIds.length && state.airlineFilterIds.indexOf(a.id) === -1) return false;
+      if (state.airlineFilterIds.length && state.airlineFilterIds.indexOf(a.code) === -1) return false;
       return true;
-    });
+    }).sort(function (a, b) { return a.dep < b.dep ? -1 : a.dep > b.dep ? 1 : 0; });
     var g = state.group;
     var rowsHtml = flights.length ? flights.map(renderGroupResultRow).join('') : '<div class="empty-note">No flights match this filter. Try a different filter.</div>';
 
@@ -807,9 +811,15 @@
   }
 
   function renderAirlineFilterDropdown() {
-    var rows = GROUP_AIRLINES.map(function (a) {
-      var checked = state.airlineFilterIds.indexOf(a.id) !== -1;
-      return '<div class="filter-airline-row' + (checked ? ' is-checked' : '') + '" data-action="toggle-airline-filter-id" data-airline="' + a.id + '">' +
+    var seen = {}, carriers = [];
+    GROUP_AIRLINES.forEach(function (a) {
+      if (seen[a.code]) return;
+      seen[a.code] = true;
+      carriers.push(a);
+    });
+    var rows = carriers.map(function (a) {
+      var checked = state.airlineFilterIds.indexOf(a.code) !== -1;
+      return '<div class="filter-airline-row' + (checked ? ' is-checked' : '') + '" data-action="toggle-airline-filter-id" data-airline="' + a.code + '">' +
         '<div class="filter-airline-row__check">' + (checked ? checkSvg() : '') + '</div>' +
         '<div class="filter-airline-row__logo"><img src="' + a.logo + '" alt=""></div>' +
         '<div class="filter-airline-row__name">' + escapeHtml(a.name) + '</div>' +
