@@ -9,15 +9,15 @@
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
 <style>
 /* ==================================================================
-   VARIANT 4 — Sticky notice bar. Same autocomplete-in-Last-name
-   mechanic as Variant 1 (identical search/apply behavior and the
-   "Applied <Name>'s profile." confirmation toast). The only
-   difference: the update/save prompts ("Passenger details differ...",
-   "No saved profile matches...") no longer render as an inline row
-   with a top hairline — they float as a fixed bottom bar (8px
-   radius, design-system elevation shadow), the same sticky-action-bar
-   pattern already used elsewhere in DRCT (e.g. the "Selected
-   airlines" request bar).
+   VARIANT 4 — Fully automatic save/update, no confirmation buttons.
+   Same autocomplete-in-Last-name mechanic as Variant 1. There is no
+   "Update profile" / "Keep for this booking only" / "Save passenger
+   profile" prompt anymore: as soon as the agent finishes editing the
+   passenger block (focus leaves it), an applied profile is updated
+   or a brand-new one is saved automatically, and a toast states
+   exactly what just happened ("Profile for X updated automatically.",
+   "Passenger profile saved automatically for X."). The toast is the
+   only feedback mechanism — nothing to click, nothing to decide.
    Base page (header, search-form, ai-filters, filters row, flight
    card, fare cards, passenger form, price summary, Book button) is
    the same production reconstruction as passenger-base.html —
@@ -198,23 +198,6 @@ a{color:inherit;text-decoration:none;}
 .pmp-dropdown__result-name{font-size:13px;font-weight:600;}
 .pmp-dropdown__result-dob{font-size:11px;color:#8D9399;margin-top:2px;}
 .pmp-dropdown__empty{padding:8px 9px;font-size:12px;color:#8D9399;}
-
-.pmp-notice{
-  position:fixed;left:50%;bottom:20px;transform:translateX(-50%);z-index:60;
-  width:calc(100% - 40px);max-width:900px;box-sizing:border-box;
-  display:flex;align-items:center;gap:14px;flex-wrap:wrap;
-  padding:18px 24px;font-size:12px;
-  background:#fff;border-radius:16px;
-  box-shadow:0 16px 40px rgba(27,39,51,.14),0 4px 12px rgba(27,39,51,.08);
-}
-.pmp-notice p{margin:0;flex:1 1 260px;color:#1B2733;font-weight:600;}
-.pmp-notice strong{color:#1B2733;}
-.pmp-notice__buttons{display:flex;gap:18px;flex-wrap:wrap;}
-.pmp-btn-primary{
-  background:#2a8aea;color:#fff;border:none;border-radius:4px;padding:0 18px;height:36px;
-  font-size:12.5px;font-weight:700;text-transform:uppercase;letter-spacing:.03em;cursor:pointer;font-family:inherit;
-}
-.pmp-btn-primary:hover{background:#2179d1;}
 
 .pmp-toast{
   position:fixed;top:64px;left:50%;transform:translateX(-50%);z-index:100;
@@ -413,7 +396,7 @@ a{color:inherit;text-decoration:none;}
 
     <!-- ===================== VARIANT 1 — Mini Profiles ===================== -->
     <div class="search__separator"></div>
-    <div class="search__passenger-block">
+    <div class="search__passenger-block" id="passengerBlock">
       <p class="search__flight-title">Adult</p>
       <p class="search__flight-description">Enter the data in Latin as specified in the document</p>
 
@@ -468,20 +451,6 @@ a{color:inherit;text-decoration:none;}
         <div class="search__passenger-info passenger-input-text"> * Optional. Add your frequent flyer number to earn miles and other program benefits.</div>
       </div>
 
-      <div class="pmp-notice" id="updateNotice" hidden>
-        <p>Passenger details differ from the saved profile</p>
-        <div class="pmp-notice__buttons">
-          <button type="button" class="button--link-out button--small" id="keepBookingOnlyBtn">Keep for this booking only</button>
-          <button type="button" class="pmp-btn-primary" id="updateProfileBtn">Update profile</button>
-        </div>
-      </div>
-
-      <div class="pmp-notice" id="saveRow" hidden>
-        <p>No saved profile matches these details</p>
-        <div class="pmp-notice__buttons">
-          <button type="button" class="pmp-btn-primary" id="saveProfileBtn">Save passenger profile</button>
-        </div>
-      </div>
     </div>
 
     <div class="search__booking-block">
@@ -517,8 +486,7 @@ a{color:inherit;text-decoration:none;}
     lastName: $('lastName'), firstName: $('firstName'), dob: $('dob'), phone: $('phone'), email: $('email'),
     fqtvCarrier: $('fqtvCarrier'), fqtvNumber: $('fqtvNumber'),
     lastNameField: $('lastNameField'), dropdown: $('lastNameDropdown'),
-    updateNotice: $('updateNotice'), updateProfileBtn: $('updateProfileBtn'), keepBookingOnlyBtn: $('keepBookingOnlyBtn'),
-    saveRow: $('saveRow'), saveProfileBtn: $('saveProfileBtn'),
+    passengerBlock: $('passengerBlock'),
     toast: $('pmpToast'), toastMsg: $('pmpToastMsg'), toastClose: $('pmpToastClose'), bookBtn: $('bookBtn')
   };
 
@@ -592,7 +560,6 @@ a{color:inherit;text-decoration:none;}
       clearActiveProfile();
     }
     renderDropdown(matchProfiles(els.lastName.value));
-    maybeOfferSave();
   });
   els.lastName.addEventListener('focus', function(){
     var matches = matchProfiles(els.lastName.value);
@@ -608,7 +575,6 @@ a{color:inherit;text-decoration:none;}
   function clearActiveProfile(){
     state.activeProfile = null;
     state.snapshot = null;
-    els.updateNotice.hidden = true;
   }
 
   function selectProfile(p){
@@ -624,51 +590,8 @@ a{color:inherit;text-decoration:none;}
 
     state.activeProfile = p;
     state.snapshot = snapshotForm();
-    els.updateNotice.hidden = true;
-    els.saveRow.hidden = true;
     showToast("Applied " + fullName(p) + "'s profile.", 'success');
   }
-
-  /* ---------------- dirty tracking ---------------- */
-
-  function checkDirty(){
-    if(!state.activeProfile) return;
-    var current = snapshotForm();
-    els.updateNotice.hidden = formsEqual(current, state.snapshot);
-  }
-  ['firstName','dob','phone','fqtvCarrier','fqtvNumber'].forEach(function(id){ els[id].addEventListener('input', checkDirty); });
-  els.email.addEventListener('input', checkDirty);
-  $('genderM').addEventListener('change', checkDirty);
-  $('genderF').addEventListener('change', checkDirty);
-
-  els.updateProfileBtn.addEventListener('click', function(){
-    if(!state.activeProfile) return;
-    var p = state.activeProfile;
-    var current = snapshotForm();
-    p.lastName=current.lastName; p.firstName=current.firstName; p.dob=isoFromDobInput(current.dob)||p.dob;
-    p.phone=current.phone; p.email=current.email; p.fqtvCarrier=current.fqtvCarrier; p.fqtvNumber=current.fqtvNumber; p.gender=current.gender;
-    state.snapshot = current;
-    els.updateNotice.hidden = true;
-    showToast('Profile for ' + fullName(p) + ' updated.', 'success');
-  });
-  els.keepBookingOnlyBtn.addEventListener('click', function(){
-    state.snapshot = snapshotForm();
-    els.updateNotice.hidden = true;
-    showToast('Changes kept for this booking only.', 'success');
-  });
-
-  /* ---------------- save new profile ---------------- */
-
-  function maybeOfferSave(){
-    if(state.activeProfile){ els.saveRow.hidden = true; return; }
-  }
-  function maybeOfferSaveOnBlur(){
-    if(state.activeProfile){ els.saveRow.hidden = true; return; }
-    var hasLast = els.lastName.value.trim().length > 1;
-    var hasFirst = els.firstName.value.trim().length > 1;
-    els.saveRow.hidden = !(hasLast && hasFirst);
-  }
-  [els.lastName, els.firstName].forEach(function(el){ el.addEventListener('blur', maybeOfferSaveOnBlur); });
 
   function isoFromDobInput(text){
     var m = text.trim().match(/^(\d{1,2})[.\/\-\s](\d{1,2})[.\/\-\s](\d{4})$/);
@@ -678,18 +601,38 @@ a{color:inherit;text-decoration:none;}
     return m[3] + '-' + month + '-' + day;
   }
 
-  els.saveProfileBtn.addEventListener('click', function(){
+  /* ---------------- automatic save/update ----------------
+     No buttons: whenever the agent finishes editing the block
+     (focus leaves it entirely), an active profile is updated or a
+     brand-new one is saved automatically, and a toast confirms
+     exactly what happened.
+  ==================================================================== */
+
+  function autoSaveOrUpdate(){
+    if(state.activeProfile){
+      var current = snapshotForm();
+      if(formsEqual(current, state.snapshot)) return;
+      var p = state.activeProfile;
+      p.lastName = current.lastName; p.firstName = current.firstName; p.dob = isoFromDobInput(current.dob) || p.dob;
+      p.phone = current.phone; p.email = current.email; p.fqtvCarrier = current.fqtvCarrier; p.fqtvNumber = current.fqtvNumber; p.gender = current.gender;
+      state.snapshot = current;
+      showToast('Profile for ' + fullName(p) + ' updated automatically.', 'success');
+      return;
+    }
+
     var current = snapshotForm();
+    var hasLast = current.lastName.trim().length > 1;
+    var hasFirst = current.firstName.trim().length > 1;
+    if(!hasLast || !hasFirst) return;
+
     var candidateDob = isoFromDobInput(current.dob) || '';
     var dup = PROFILES.find(function(p){
       return p.lastName.toLowerCase() === current.lastName.trim().toLowerCase() &&
              p.firstName.toLowerCase() === current.firstName.trim().toLowerCase() &&
              p.dob === candidateDob;
     });
-    if(dup){
-      showToast("Couldn't save profile — a profile with this name and date of birth already exists.", 'error');
-      return;
-    }
+    if(dup) return;
+
     var p = {
       id: 'p'+(nextId++), lastName: current.lastName.trim(), firstName: current.firstName.trim(),
       dob: candidateDob, gender: current.gender, phone: current.phone, email: current.email,
@@ -698,8 +641,12 @@ a{color:inherit;text-decoration:none;}
     PROFILES.push(p);
     state.activeProfile = p;
     state.snapshot = snapshotForm();
-    els.saveRow.hidden = true;
-    showToast('Passenger profile saved for ' + fullName(p) + '.', 'success');
+    showToast('Passenger profile saved automatically for ' + fullName(p) + '.', 'success');
+  }
+
+  els.passengerBlock.addEventListener('focusout', function(e){
+    if(e.relatedTarget && els.passengerBlock.contains(e.relatedTarget)) return;
+    autoSaveOrUpdate();
   });
 
   els.bookBtn.addEventListener('click', function(){
