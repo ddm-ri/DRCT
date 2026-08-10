@@ -761,6 +761,11 @@ textarea.textarea:focus { border-color: var(--blue); }
 .modal-route-line__code { font-size: 11px; font-weight: 400; color: var(--dark-45); }
 .modal-route-line--dates { font-size: 12.5px; font-weight: 400; color: var(--dark-45); margin-top: 3px; }
 
+/* separates the required fields above from the optional ones below, per spec */
+.modal-divider { display: flex; align-items: center; gap: 10px; margin-top: 26px; }
+.modal-divider::before, .modal-divider::after { content: ''; flex: 1 1 auto; height: 1px; background: var(--border); }
+.modal-divider span { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--dark-40); white-space: nowrap; }
+
 /* passengers stepper list, inlined directly in the modal instead of behind
    a popover trigger — the modal already is the "opened" surface. */
 .pax-pop--inline { position: static; width: auto; border: none; box-shadow: none; padding: 0; }

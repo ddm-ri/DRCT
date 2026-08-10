@@ -183,6 +183,7 @@
   function groupAirlineById(id) { for (var i = 0; i < GROUP_AIRLINES.length; i++) if (GROUP_AIRLINES[i].id === id) return GROUP_AIRLINES[i]; return null; }
 
   var BOOKING_CLASSES = ['Economy', 'Premium Economy', 'Business', 'First'];
+  var GROUP_FLIGHT_LIMIT = 3; // agreed cap on flights per group request; raise here if it needs to grow
   var DECLINE_REASONS = [
     'Price is too high', 'Flight option is unsuitable', 'Conditions are unsuitable',
     'Decision deadline was missed', 'Client cancelled the trip', 'Another airline was selected', 'Other'
@@ -823,7 +824,7 @@
 
   function renderGroupResultRow(a) {
     var selected = state.selectedAirlineIds.indexOf(a.id) !== -1;
-    var atMax = state.selectedAirlineIds.length >= 3;
+    var atMax = state.selectedAirlineIds.length >= GROUP_FLIGHT_LIMIT;
     var q = state.groupResultsQuery;
     var fromCode = (q && q.fromCode) || 'WAW', toCode = (q && q.toCode) || 'CDG';
     var cta = '<button class="group-select-btn' + (selected ? ' is-selected' : '') + (!selected && atMax ? ' is-atmax' : '') +
@@ -856,7 +857,7 @@
     }).join('');
     host.innerHTML = '<div class="sticky-bar is-visible">' +
       '<div class="sticky-bar__left">' +
-        '<div class="sticky-bar__count">Selected flights: ' + state.selectedAirlineIds.length + '/3</div>' +
+        '<div class="sticky-bar__count">Selected flights: ' + state.selectedAirlineIds.length + '/' + GROUP_FLIGHT_LIMIT + '</div>' +
         '<div class="sticky-bar__chips">' + chips + '</div>' +
       '</div>' +
       '<div class="sticky-bar__right"><button class="btn btn-primary" data-action="create-request">Create request</button></div>' +
@@ -924,13 +925,15 @@
           (e.represent ? '<div class="field-error">Please tell us who you represent.</div>' : '') +
         '</div>' +
 
-        '<div class="field-group">' +
-          '<label class="field-label">Comment (optional)</label>' +
+        '<div class="modal-divider"><span>Optional</span></div>' +
+
+        '<div class="field-group" style="margin-top:16px">' +
+          '<label class="field-label">Comment</label>' +
           '<textarea class="textarea" data-field="requestDraft.comment" placeholder="Preferred departure times, alternative airports or other context">' + escapeHtml(d.comment) + '</textarea>' +
         '</div>' +
 
         '<div class="field-group">' +
-          '<label class="field-label">Additional needs (optional)</label>' +
+          '<label class="field-label">Additional needs</label>' +
           '<textarea class="textarea" data-field="requestDraft.additionalNeeds" placeholder="For example: 10 sports bags, 20 kg each, wheelchair assistance">' + escapeHtml(d.additionalNeeds) + '</textarea>' +
         '</div>' +
 
@@ -1595,8 +1598,8 @@
         var idx = state.selectedAirlineIds.indexOf(aid);
         if (idx !== -1) {
           state.selectedAirlineIds.splice(idx, 1);
-        } else if (state.selectedAirlineIds.length >= 3) {
-          pushToast({ title: 'You can select up to 3 flights', text: 'Remove one of the selected flights to choose another.' });
+        } else if (state.selectedAirlineIds.length >= GROUP_FLIGHT_LIMIT) {
+          pushToast({ title: 'You can select up to ' + GROUP_FLIGHT_LIMIT + ' flights', text: 'Remove one of the selected flights to choose another.' });
           break;
         } else {
           state.selectedAirlineIds.push(aid);
