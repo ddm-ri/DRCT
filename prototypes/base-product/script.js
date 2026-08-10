@@ -247,6 +247,7 @@
     groupResultsQuery: null,
     groupFilter: 'all',
     airlineFilterOpen: false,
+    airlineFilterIds: [],
     selectedAirlineIds: [],
     requestDraft: null,
     builderStep: 1,
@@ -773,8 +774,9 @@
   ---------------------------------------------------------------- */
   function renderGroupResults() {
     var flights = GROUP_AIRLINES.filter(function (a) {
-      if (state.groupFilter === 'direct') return a.stops === 0;
-      if (state.groupFilter === '1stop') return a.stops <= 1;
+      if (state.groupFilter === 'direct' && a.stops !== 0) return false;
+      if (state.groupFilter === '1stop' && a.stops > 1) return false;
+      if (state.airlineFilterIds.length && state.airlineFilterIds.indexOf(a.id) === -1) return false;
       return true;
     });
     var g = state.group;
@@ -806,7 +808,7 @@
         '</div>' +
         '<div class="rf-group rf-group--bag rf-group--airlines">' +
           '<div class="filter-toggle filter-airline-trigger' + (state.airlineFilterOpen ? ' active' : '') + '" data-action="toggle-airline-filter">' +
-            'Airlines' + (state.selectedAirlineIds.length ? ' (' + state.selectedAirlineIds.length + ')' : '') +
+            'Airlines' + (state.airlineFilterIds.length ? ' (' + state.airlineFilterIds.length + ')' : '') +
             chevronSvg('down') +
           '</div>' +
           (state.airlineFilterOpen ? renderAirlineFilterDropdown() : '') +
@@ -821,11 +823,9 @@
   }
 
   function renderAirlineFilterDropdown() {
-    var atMax = state.selectedAirlineIds.length >= 3;
     var rows = GROUP_AIRLINES.map(function (a) {
-      var checked = state.selectedAirlineIds.indexOf(a.id) !== -1;
-      var disabled = !checked && atMax;
-      return '<div class="filter-airline-row' + (checked ? ' is-checked' : '') + (disabled ? ' is-disabled' : '') + '" data-action="toggle-select-airline" data-airline="' + a.id + '">' +
+      var checked = state.airlineFilterIds.indexOf(a.id) !== -1;
+      return '<div class="filter-airline-row' + (checked ? ' is-checked' : '') + '" data-action="toggle-airline-filter-id" data-airline="' + a.id + '">' +
         '<div class="filter-airline-row__check">' + (checked ? checkSvg() : '') + '</div>' +
         '<div class="filter-airline-row__logo"><img src="' + a.logo + '" alt=""></div>' +
         '<div class="filter-airline-row__name">' + escapeHtml(a.name) + '</div>' +
@@ -840,15 +840,19 @@
 
   function renderGroupResultRow(a) {
     var selected = state.selectedAirlineIds.indexOf(a.id) !== -1;
+    var atMax = state.selectedAirlineIds.length >= 3;
     var q = state.groupResultsQuery;
     var fromCode = (q && q.fromCode) || 'WAW', toCode = (q && q.toCode) || 'CDG';
-    var cta = selected ? '<div class="group-select-badge">Selected</div>' : '';
+    var cta = '<button class="group-select-btn' + (selected ? ' is-selected' : '') + (!selected && atMax ? ' is-atmax' : '') +
+      '" data-action="toggle-select-airline" data-airline="' + a.id + '">' +
+      (selected ? checkSvg() + 'Selected' : 'Select flight') +
+      '</button>';
     return '<div class="result-row-wrap"><div class="result-row' + (selected ? ' is-group-selected' : '') + '">' +
       '<div class="result-row__logo"><img src="' + a.logo + '" alt="' + a.name + '"></div>' +
-      '<div class="result-row__times"><div class="result-row__times-main">' + a.dep + ' — ' + a.arr + '</div><div class="result-row__sub">' + a.name + '</div></div>' +
+      '<div class="result-row__times"><div class="result-row__times-main">' + a.dep + ' — ' + a.arr + '</div><div class="result-row__sub">' + a.flightNo + ' · ' + a.name + '</div></div>' +
       '<div class="result-row__duration"><div class="result-row__duration-val">' + a.duration + '</div><div class="result-row__sub">' + fromCode + ' — ' + toCode + '</div></div>' +
       '<div class="result-row__stops"><div>' + (a.stops === 0 ? 'Direct flight' : '1 connection') + '</div>' + (a.stops === 1 ? '<div class="result-row__sub">' + a.connectionCode + ' ' + a.layover + '</div>' : '') + '</div>' +
-      '<div class="group-select-col" data-action="noop">' + cta + '</div>' +
+      '<div class="group-select-col">' + cta + '</div>' +
     '</div></div>';
   }
 
@@ -861,11 +865,13 @@
     if (!visible) { host.innerHTML = ''; return; }
     var chips = state.selectedAirlineIds.map(function (id) {
       var a = groupAirlineById(id);
-      return '<div class="sticky-bar__chip"><img src="' + a.logo + '" alt="">' + a.code + '</div>';
+      return '<div class="sticky-bar__chip"><img src="' + a.logo + '" alt="">' +
+        '<span class="sticky-bar__chip-time">' + a.dep + '–' + a.arr + '</span>' +
+        '<span class="sticky-bar__chip-code">' + a.code + '</span></div>';
     }).join('');
     host.innerHTML = '<div class="sticky-bar is-visible">' +
       '<div class="sticky-bar__left">' +
-        '<div class="sticky-bar__count">Selected airlines: ' + state.selectedAirlineIds.length + '/3</div>' +
+        '<div class="sticky-bar__count">Selected flights: ' + state.selectedAirlineIds.length + '/3</div>' +
         '<div class="sticky-bar__chips">' + chips + '</div>' +
       '</div>' +
       '<div class="sticky-bar__right"><button class="btn btn-primary" data-action="create-request">Create request</button></div>' +
@@ -1421,7 +1427,7 @@
     return state.regular.paxOpen || state.group.paxOpen || (state.requestDraft && state.requestDraft.paxOpen);
   }
 
-  var AIRLINE_FILTER_ACTIONS = ['toggle-airline-filter', 'toggle-select-airline', 'noop'];
+  var AIRLINE_FILTER_ACTIONS = ['toggle-airline-filter', 'toggle-airline-filter-id', 'noop'];
 
   function onClick(e) {
     var el = e.target.closest('[data-action]');
@@ -1650,13 +1656,22 @@
         render();
         break;
 
+      case 'toggle-airline-filter-id': {
+        var fid = el.dataset.airline;
+        var fidx = state.airlineFilterIds.indexOf(fid);
+        if (fidx !== -1) state.airlineFilterIds.splice(fidx, 1);
+        else state.airlineFilterIds.push(fid);
+        render();
+        break;
+      }
+
       case 'toggle-select-airline': {
         var aid = el.dataset.airline;
         var idx = state.selectedAirlineIds.indexOf(aid);
         if (idx !== -1) {
           state.selectedAirlineIds.splice(idx, 1);
         } else if (state.selectedAirlineIds.length >= 3) {
-          pushToast({ title: 'You can select up to 3 airlines', text: 'Remove one of the selected airlines to choose another.' });
+          pushToast({ title: 'You can select up to 3 flights', text: 'Remove one of the selected flights to choose another.' });
           break;
         } else {
           state.selectedAirlineIds.push(aid);

@@ -613,10 +613,19 @@ body {
 .group-cta-inline__title { font-size: 14px; font-weight: 700; color: var(--dark); }
 .group-cta-inline__text { font-size: 12.5px; color: var(--dark-70); margin-top: 3px; margin-bottom: 12px; }
 
-/* airline selection control in the flight result row (group variant) */
+/* flight selection control in the flight result row (group variant) */
 .result-row.is-group-selected { border: 2px solid var(--blue); background: var(--blue-06); padding: 19px 23px; }
 .group-select-col { flex: 0 0 140px; text-align: right; }
-.group-select-badge { font-size: 12px; font-weight: 700; letter-spacing: .3px; text-transform: uppercase; color: var(--blue); }
+.group-select-btn {
+  display: inline-flex; align-items: center; gap: 6px; height: 33px; padding: 0 14px;
+  border-radius: var(--radius-s); border: 1px solid var(--blue-20); background: var(--white); color: var(--blue);
+  font-family: var(--font-sans); font-size: 12.5px; font-weight: 600; cursor: pointer;
+}
+.group-select-btn:hover { border-color: var(--blue); background: var(--blue-06); }
+.group-select-btn.is-selected { background: var(--blue); border-color: var(--blue); color: var(--white); }
+.group-select-btn.is-selected svg { width: 13px; height: 13px; }
+.group-select-btn.is-atmax { opacity: .45; cursor: not-allowed; }
+.group-select-btn.is-atmax:hover { border-color: var(--blue-20); background: var(--white); }
 
 /* Airline filter dropdown — reuses the exact field-pop popover component */
 .rf-group--airlines { position: relative; }
@@ -640,7 +649,6 @@ body {
 .filter-airline-row__logo { flex: 0 0 auto; width: 24px; height: 24px; border-radius: var(--radius-s); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; padding: 3px; background: var(--white); }
 .filter-airline-row__logo img { width: 100%; height: 100%; object-fit: contain; }
 .filter-airline-row__name { font-size: 14px; font-weight: 600; color: var(--dark); flex: 1 1 auto; }
-.filter-airline-row.is-disabled { opacity: .4; cursor: not-allowed; }
 
 /* sticky selection bar (Group Search Results) */
 .sticky-bar {
@@ -654,6 +662,8 @@ body {
 .sticky-bar__chips { display: flex; gap: 8px; }
 .sticky-bar__chip { display: flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.1); border-radius: var(--radius-s); padding: 5px 10px 5px 6px; font-size: 12px; font-weight: 600; }
 .sticky-bar__chip img { width: 16px; height: 16px; object-fit: contain; background: var(--white); border-radius: 2px; padding: 2px; }
+.sticky-bar__chip-time { font-variant-numeric: tabular-nums; }
+.sticky-bar__chip-code { opacity: .55; font-weight: 700; }
 .sticky-bar__right { display: flex; align-items: center; gap: 14px; }
 .sticky-bar .btn-ghost { color: rgba(255,255,255,0.7); }
 .sticky-bar .btn-ghost:hover { color: var(--white); }
