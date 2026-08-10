@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How It Works — Altitude</title>
+<meta name="description" content="See how Altitude turns your economy booking into a Business Class upgrade: request, choose, unlock your Mastercard benefit, and fly.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,500;1,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<script>document.documentElement.classList.add('js');</script>
+
+<div class="atmosphere" id="atmosphere" aria-hidden="true">
+  <span class="atmosphere__blob atmosphere__blob--sky"></span>
+  <span class="atmosphere__blob atmosphere__blob--lavender"></span>
+  <span class="atmosphere__blob atmosphere__blob--peach"></span>
+  <span class="atmosphere__blob atmosphere__blob--glow"></span>
+  <span class="atmosphere__cursor-glow" id="cursorGlow"></span>
+</div>
+
+<header class="site-header" id="siteHeader">
+  <div class="nav-pill">
+    <a href="index.html#top" class="nav-pill__logo">Altitude</a>
+
+    <nav class="nav-pill__links" aria-label="Primary">
+      <a href="about.html" class="nav-pill__link">About us</a>
+      <a href="how-it-works.html" class="nav-pill__link is-active" aria-current="page">How It Works</a>
+    </nav>
+
+    <a href="#signin" class="nav-pill__signin">Sign in</a>
+
+    <button type="button" class="nav-pill__toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="about.html" class="mobile-menu__link">About us</a>
+    <a href="how-it-works.html" class="mobile-menu__link is-active" aria-current="page">How It Works</a>
+    <a href="#signin" class="mobile-menu__signin">Sign in</a>
+  </div>
+</header>
+
+<main id="top">
+
+  <section class="hero hero--compact" id="hero">
+    <div class="hero__inner">
+      <h1 class="hero__title" aria-label="Your Journey Starts Here">
+        <span class="hero__line" style="--d:0"><span>Your Journey Starts Here</span></span>
+      </h1>
+
+      <a href="index.html#retrieve-booking" class="btn btn--primary hero__cta reveal-scale" style="--d:1">
+        Upgrade your ticket now
+      </a>
+    </div>
+  </section>
+
+  <div class="transition-panel">
+
+    <section class="journey">
+      <div class="journey__inner">
+        <div class="journey__head reveal-up">
+          <h2 class="journey__heading">Your Upgrade Journey</h2>
+          <p class="journey__subtitle">Upgrade to Business Class in a few simple steps.</p>
+        </div>
+      </div>
+
+      <div class="journey__pin" id="journeyPin" style="--card-count:5">
+        <div class="journey__pin-sticky">
+          <div class="journey__stage-wrap">
+            <ol class="journey__list" id="journeyList">
+              <li class="journey__step" data-index="0">
+                <div class="journey__media"><img src="journey-1-request.jpg" alt="Car arriving at a premium hotel entrance" loading="lazy"></div>
+                <div class="journey__overlay">
+                  <img class="journey__num" src="journey-num-1.png" alt="" aria-hidden="true">
+                  <div>
+                    <p class="journey__title">Fill In the Request Form</p>
+                    <p class="journey__desc">Enter your booking reference and last name. For selected airlines, upgrade options are available in as little as few seconds. For other airlines, we send your options within 30 minutes.</p>
+                  </div>
+                </div>
+              </li>
+
+              <li class="journey__step" data-index="1">
+                <div class="journey__media"><img src="journey-2-choose.jpg" alt="Traveler reviewing upgrade options in an airport lounge" loading="lazy"></div>
+                <div class="journey__overlay">
+                  <img class="journey__num" src="journey-num-2.png" alt="" aria-hidden="true">
+                  <div>
+                    <p class="journey__title">Choose Your Option</p>
+                    <p class="journey__desc">Select what works best for you: 1/ Upgrade now, 2/ Monitor the price, 3/ Decline the offer. When you choose price monitoring, Altitude checks available options every hour and notifies you when a better offer becomes available.</p>
+                  </div>
+                </div>
+              </li>
+
+              <li class="journey__step" data-index="2">
+                <div class="journey__media"><img src="journey-3-profile.jpg" alt="Business Class cabin seat with personal items" loading="lazy"></div>
+                <div class="journey__overlay">
+                  <img class="journey__num" src="journey-num-3.png" alt="" aria-hidden="true">
+                  <div>
+                    <p class="journey__title">Create Your Profile</p>
+                    <p class="journey__desc">Confirm your email and create a secure Altitude account. Use your profile to track requests, review available offers, manage benefits, and access your upgraded tickets.</p>
+                  </div>
+                </div>
+              </li>
+
+              <li class="journey__step" data-index="3">
+                <div class="journey__media"><img src="journey-4-benefits.jpg" alt="Lounge seating overlooking the runway with an aircraft outside" loading="lazy"></div>
+                <div class="journey__overlay">
+                  <img class="journey__num" src="journey-num-4.png" alt="" aria-hidden="true">
+                  <div>
+                    <p class="journey__title">Unlock Your Benefits</p>
+                    <p class="journey__desc">Validate your eligible Mastercard premium card to unlock available upgrade discounts. Review the final price, apply your benefit, and complete the payment securely.</p>
+                  </div>
+                </div>
+              </li>
+
+              <li class="journey__step" data-index="4">
+                <div class="journey__media"><img src="journey-5-ticket.jpg" alt="Traveler relaxing in a Business Class seat" loading="lazy"></div>
+                <div class="journey__overlay">
+                  <img class="journey__num" src="journey-num-5.png" alt="" aria-hidden="true">
+                  <div>
+                    <p class="journey__title">Receive Your Upgraded Ticket</p>
+                    <p class="journey__desc">After successful payment, your upgraded ticket will normally be issued within 10-15 minutes. You will receive it by email, and it will also be available in your Altitude profile.</p>
+                  </div>
+                </div>
+              </li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="faq" id="faq">
+      <div class="faq__inner">
+        <h2 class="faq__heading reveal-up">FAQ</h2>
+
+        <div class="faq__group reveal-up">
+          <h3 class="faq__group-title">Getting Started</h3>
+          <div class="faq__list">
+            <div class="faq__item is-open">
+              <button type="button" class="faq__question" aria-expanded="true">
+                What is Altitude Upgrade?
+                <span class="faq__toggle" aria-hidden="true"></span>
+              </button>
+              <div class="faq__answer">
+                <p>Altitude Upgrade is a digital service that helps travellers access Business Class upgrade offers for eligible flights. Depending on the airline and availability, upgrades may be offered at a special price or with an eligible Mastercard premium card benefit.</p>
+              </div>
+            </div>
+            <div class="faq__item">
+              <button type="button" class="faq__question" aria-expanded="false">
+                Which airlines are supported?
+                <span class="faq__toggle" aria-hidden="true"></span>
+              </button>
+              <div class="faq__answer">
+                <p>Altitude supports upgrade requests across a growing network of partner airlines, including Turkish Airlines, Qatar Airways, LOT Polish Airlines and Aegean Airlines. Coverage varies by route and availability.</p>
+              </div>
+            </div>
+            <div class="faq__item">
+              <button type="button" class="faq__question" aria-expanded="false">
+                Is a Business Class upgrade guaranteed?
+                <span class="faq__toggle" aria-hidden="true"></span>
+              </button>
+              <div class="faq__answer">
+                <p>No. Upgrades depend on real-time availability on your specific flight. If no upgrade is available at the time of your request, Altitude can keep monitoring the price for you.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq__group reveal-up">
+          <h3 class="faq__group-title">Check &amp; Monitor Your Upgrade</h3>
+          <div class="faq__list">
+            <div class="faq__item">
+              <button type="button" class="faq__question" aria-expanded="false">
+                How do I check for an upgrade?
+                <span class="faq__toggle" aria-hidden="true"></span>
+              </button>
+              <div class="faq__answer">
+                <p>Submit your booking reference and last name through the Retrieve Booking form. Altitude instantly checks available upgrade options for your flight.</p>
+              </div>
+            </div>
+            <div class="faq__item">
+              <button type="button" class="faq__question" aria-expanded="false">
+                How quickly will I receive an offer?
+                <span class="faq__toggle" aria-hidden="true"></span>
+              </button>
+              <div class="faq__answer">
+                <p>For selected airlines, offers appear in as little as a few seconds. For other airlines, we typically send your options within 30 minutes.</p>
+              </div>
+            </div>
+            <div class="faq__item">
+              <button type="button" class="faq__question" aria-expanded="false">
+                What happens if my booking includes several flights?
+                <span class="faq__toggle" aria-hidden="true"></span>
+              </button>
+              <div class="faq__answer">
+                <p>Altitude checks upgrade availability for each eligible segment of your booking separately, so you can choose to upgrade one flight or several.</p>
+              </div>
+            </div>
+            <div class="faq__item">
+              <button type="button" class="faq__question" aria-expanded="false">
+                Can Altitude monitor the upgrade price for me?
+                <span class="faq__toggle" aria-hidden="true"></span>
+              </button>
+              <div class="faq__answer">
+                <p>Yes. Choose price monitoring and Altitude will check available options every hour, notifying you as soon as a better offer becomes available.</p>
+              </div>
+            </div>
+            <div class="faq__item">
+              <button type="button" class="faq__question" aria-expanded="false">
+                Can an upgrade offer change?
+                <span class="faq__toggle" aria-hidden="true"></span>
+              </button>
+              <div class="faq__answer">
+                <p>Yes, offers reflect real-time seat availability and pricing, so they can change or expire before you complete your upgrade.</p>
+              </div>
+            </div>
+            <div class="faq__item">
+              <button type="button" class="faq__question" aria-expanded="false">
+                Can I cancel or change an upgrade?
+                <span class="faq__toggle" aria-hidden="true"></span>
+              </button>
+              <div class="faq__answer">
+                <p>Cancellation and change options depend on your airline's fare conditions. Contact our support team and we'll guide you through the available options.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq__group reveal-up">
+          <h3 class="faq__group-title">Account, Benefits &amp; Payment</h3>
+          <div class="faq__list">
+            <div class="faq__item">
+              <button type="button" class="faq__question" aria-expanded="false">
+                Do I need to create an Altitude profile?
+                <span class="faq__toggle" aria-hidden="true"></span>
+              </button>
+              <div class="faq__answer">
+                <p>Yes, a profile lets you track requests, review available offers, manage benefits, and access your upgraded tickets in one place.</p>
+              </div>
+            </div>
+            <div class="faq__item">
+              <button type="button" class="faq__question" aria-expanded="false">
+                How is my Altitude profile created?
+                <span class="faq__toggle" aria-hidden="true"></span>
+              </button>
+              <div class="faq__answer">
+                <p>Simply confirm your email address after choosing an upgrade option, and a secure Altitude profile is created for you automatically.</p>
+              </div>
+            </div>
+            <div class="faq__item">
+              <button type="button" class="faq__question" aria-expanded="false">
+                How do I unlock a Mastercard premium card benefit?
+                <span class="faq__toggle" aria-hidden="true"></span>
+              </button>
+              <div class="faq__answer">
+                <p>Validate your eligible Mastercard premium card in your Altitude profile to unlock any available upgrade discounts before completing payment.</p>
+              </div>
+            </div>
+            <div class="faq__item">
+              <button type="button" class="faq__question" aria-expanded="false">
+                Will my card be charged during validation?
+                <span class="faq__toggle" aria-hidden="true"></span>
+              </button>
+              <div class="faq__answer">
+                <p>No. Validating your Mastercard premium card only checks its eligibility for benefits — it does not charge your card.</p>
+              </div>
+            </div>
+            <div class="faq__item">
+              <button type="button" class="faq__question" aria-expanded="false">
+                How do I pay for an upgrade?
+                <span class="faq__toggle" aria-hidden="true"></span>
+              </button>
+              <div class="faq__answer">
+                <p>Once you review your final price and apply any eligible benefit, you can complete payment securely from your Altitude profile.</p>
+              </div>
+            </div>
+            <div class="faq__item">
+              <button type="button" class="faq__question" aria-expanded="false">
+                When will I receive my upgraded ticket?
+                <span class="faq__toggle" aria-hidden="true"></span>
+              </button>
+              <div class="faq__answer">
+                <p>After successful payment, your upgraded ticket is normally issued within 10-15 minutes, sent to you by email and available in your Altitude profile.</p>
+              </div>
+            </div>
+            <div class="faq__item">
+              <button type="button" class="faq__question" aria-expanded="false">
+                What happens if my payment is unsuccessful?
+                <span class="faq__toggle" aria-hidden="true"></span>
+              </button>
+              <div class="faq__answer">
+                <p>If a payment doesn't go through, your upgrade offer stays on hold for a short time so you can safely try again or choose a different payment method.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="site-footer__top">
+    <div class="site-footer__brand">
+      <p class="site-footer__logo">Altitude</p>
+      <p class="site-footer__desc">Access exclusive airline vouchers and upgrades with your Mastercard Premium card.</p>
+    </div>
+
+    <div class="site-footer__col">
+      <span class="site-footer__col-title">Platform</span>
+      <ul>
+        <li><a href="#">Vouchers</a></li>
+        <li><a href="#">Upgrades</a></li>
+        <li><a href="how-it-works.html">How it works</a></li>
+        <li><a href="how-it-works.html#faq">FAQ</a></li>
+      </ul>
+    </div>
+
+    <div class="site-footer__col">
+      <span class="site-footer__col-title">Company</span>
+      <ul>
+        <li><a href="about.html">About us</a></li>
+        <li><a href="#">Partners</a></li>
+      </ul>
+    </div>
+
+    <div class="site-footer__col">
+      <span class="site-footer__col-title">Legal</span>
+      <ul>
+        <li><a href="#">Terms Conditions</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<script src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Altitude — Elevate Every Journey</title>
+<meta name="description" content="Altitude is a smart travel platform helping clients discover, compare and unlock Business Class upgrades in seconds with their Mastercard Premium card.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,500;1,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<script>document.documentElement.classList.add('js');</script>
+
+<div class="atmosphere" id="atmosphere" aria-hidden="true">
+  <span class="atmosphere__blob atmosphere__blob--sky"></span>
+  <span class="atmosphere__blob atmosphere__blob--lavender"></span>
+  <span class="atmosphere__blob atmosphere__blob--peach"></span>
+  <span class="atmosphere__blob atmosphere__blob--glow"></span>
+  <span class="atmosphere__cursor-glow" id="cursorGlow"></span>
+</div>
+
+<header class="site-header" id="siteHeader">
+  <div class="nav-pill">
+    <a href="index.html#top" class="nav-pill__logo">Altitude</a>
+
+    <nav class="nav-pill__links" aria-label="Primary">
+      <a href="about.html" class="nav-pill__link is-active" aria-current="page">About us</a>
+      <a href="how-it-works.html" class="nav-pill__link">How It Works</a>
+    </nav>
+
+    <a href="#signin" class="nav-pill__signin">Sign in</a>
+
+    <button type="button" class="nav-pill__toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="about.html" class="mobile-menu__link is-active" aria-current="page">About us</a>
+    <a href="how-it-works.html" class="mobile-menu__link">How It Works</a>
+    <a href="#signin" class="mobile-menu__signin">Sign in</a>
+  </div>
+</header>
+
+<main id="top">
+
+  <section class="hero hero--compact" id="hero">
+    <div class="hero__inner">
+      <h1 class="hero__title" aria-label="Elevate Every Journey">
+        <span class="hero__line" style="--d:0"><span>Elevate Every Journey</span></span>
+      </h1>
+
+      <a href="index.html#retrieve-booking" class="btn btn--primary hero__cta reveal-scale" style="--d:1">
+        Upgrade your ticket now
+      </a>
+    </div>
+  </section>
+
+  <div class="transition-panel">
+
+    <section class="about-intro">
+      <div class="about-intro__inner">
+        <div class="about-intro__head reveal-up">
+          <h2 class="about-intro__heading">About Altitude</h2>
+          <p class="about-intro__text">Travel is not only about reaching a destination — it is about enjoying every step of the journey.</p>
+        </div>
+
+        <div class="feature-grid">
+          <div class="feature-card reveal-up" style="--d:0">
+            <span class="feature-card__icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 256 256" fill="currentColor"><path d="M230.91,172A8,8,0,0,1,228,182.91l-96,56a8,8,0,0,1-8.06,0l-96-56A8,8,0,0,1,36,169.09l92,53.65,92-53.65A8,8,0,0,1,230.91,172ZM220,121.09l-92,53.65L36,121.09A8,8,0,0,0,28,134.91l96,56a8,8,0,0,0,8.06,0l96-56A8,8,0,1,0,220,121.09ZM24,80a8,8,0,0,1,4-6.91l96-56a8,8,0,0,1,8.06,0l96,56a8,8,0,0,1,0,13.82l-96,56a8,8,0,0,1-8.06,0l-96-56A8,8,0,0,1,24,80Zm23.88,0L128,126.74,208.12,80,128,33.26Z"/></svg>
+            </span>
+            <h3>Smart Travel Platform</h3>
+            <p>Altitude gives travelers seamless access to Business Class upgrades, premium travel offers, and smart savings through one digital platform.</p>
+          </div>
+
+          <div class="feature-card reveal-up" style="--d:1">
+            <span class="feature-card__icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 256 256" fill="currentColor"><path d="M128,40a96,96,0,1,0,96,96A96.11,96.11,0,0,0,128,40Zm0,176a80,80,0,1,1,80-80A80.09,80.09,0,0,1,128,216ZM173.66,90.34a8,8,0,0,1,0,11.32l-40,40a8,8,0,0,1-11.32-11.32l40-40A8,8,0,0,1,173.66,90.34ZM96,16a8,8,0,0,1,8-8h48a8,8,0,0,1,0,16H104A8,8,0,0,1,96,16Z"/></svg>
+            </span>
+            <h3>Upgrade in Seconds</h3>
+            <p>Clients can discover better options, upgrade their journey in seconds, and travel with greater comfort and confidence.</p>
+          </div>
+
+          <div class="feature-card reveal-up" style="--d:2">
+            <span class="feature-card__icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 256 256" fill="currentColor"><path d="M232,64H208V48a8,8,0,0,0-8-8H56a8,8,0,0,0-8,8V64H24A16,16,0,0,0,8,80V96a40,40,0,0,0,40,40h3.65A80.13,80.13,0,0,0,120,191.61V216H96a8,8,0,0,0,0,16h64a8,8,0,0,0,0-16H136V191.58c31.94-3.23,58.44-25.64,68.08-55.58H208a40,40,0,0,0,40-40V80A16,16,0,0,0,232,64ZM48,120A24,24,0,0,1,24,96V80H48v32q0,4,.39,8Zm144-8.9c0,35.52-29,64.64-64,64.9a64,64,0,0,1-64-64V56H192ZM232,96a24,24,0,0,1-24,24h-.5a81.81,81.81,0,0,0,.5-8.9V80h24Z"/></svg>
+            </span>
+            <h3>Industry Expertise</h3>
+            <p>Altitude was created by a team passionate about travel and experienced across aviation, digital travel technology, hospitality, and premium travel services.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="showcase">
+      <div class="showcase__inner">
+        <h2 class="showcase__heading reveal-up">Designed for clients who expect more</h2>
+
+        <div class="showcase__grid">
+          <figure class="showcase__item reveal-up" style="--d:0">
+            <div class="showcase__media">
+              <img src="about-discover.jpg" alt="Client reviewing upgrade options on a laptop">
+            </div>
+            <figcaption>Discover better options</figcaption>
+          </figure>
+          <figure class="showcase__item reveal-up" style="--d:1">
+            <div class="showcase__media">
+              <img src="about-upgrade.jpg" alt="Traveler looking out over the city skyline">
+            </div>
+            <figcaption>Upgrade their journey in seconds</figcaption>
+          </figure>
+          <figure class="showcase__item reveal-up" style="--d:2">
+            <div class="showcase__media">
+              <img src="about-comfort.jpg" alt="Business Class cabin essentials: headphones, sunglasses and boarding pass">
+            </div>
+            <figcaption>Travel with greater comfort and confidence</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="why">
+      <div class="why__inner">
+        <div class="why__copy reveal-up">
+          <h2 class="why__heading">Why Choose Altitude</h2>
+          <p class="why__text">Altitude makes Business Class travel more accessible, simple, and rewarding. The platform offers seamless upgrades on selected flights, helping travellers enjoy greater comfort, more space, priority services, and an elevated onboard experience.</p>
+          <p class="why__lead">With Altitude, clients can:</p>
+        </div>
+
+        <div class="why__stack-wrap" id="whyStackWrap" style="--card-count:5">
+          <div class="why__stack-sticky">
+            <div class="why__stack" id="whyStack">
+              <article class="why__card" data-index="0">
+                <span class="why__icon" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 256 256" fill="currentColor"><path d="M215.79,118.17a8,8,0,0,0-5-5.66L153.18,90.9l14.66-73.33a8,8,0,0,0-13.69-7l-112,120a8,8,0,0,0,3,13l57.63,21.61L88.16,238.43a8,8,0,0,0,13.69,7l112-120A8,8,0,0,0,215.79,118.17ZM109.37,214l10.47-52.38a8,8,0,0,0-5-9.06L62,132.71l84.62-90.66L136.16,94.43a8,8,0,0,0,5,9.06l52.8,19.8Z"/></svg></span>
+                <p>Complete the upgrade process quickly through a seamless digital experience</p>
+              </article>
+              <article class="why__card" data-index="1">
+                <span class="why__icon" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 256 256" fill="currentColor"><path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"/></svg></span>
+                <p>Discover available Business Class upgrade options</p>
+              </article>
+              <article class="why__card" data-index="2">
+                <span class="why__icon" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 256 256" fill="currentColor"><path d="M213.66,181.66l-32,32a8,8,0,0,1-11.32-11.32L188.69,184H48a8,8,0,0,1,0-16H188.69l-18.35-18.34a8,8,0,0,1,11.32-11.32l32,32A8,8,0,0,1,213.66,181.66Zm-139.32-64a8,8,0,0,0,11.32-11.32L67.31,88H208a8,8,0,0,0,0-16H67.31L85.66,53.66A8,8,0,0,0,74.34,42.34l-32,32a8,8,0,0,0,0,11.32Z"/></svg></span>
+                <p>Compare offers and select the most suitable option</p>
+              </article>
+              <article class="why__card" data-index="3">
+                <span class="why__icon" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 256 256" fill="currentColor"><path d="M216,88.8V72a40,40,0,0,0-40-40H80A40,40,0,0,0,40,72V88.8a40,40,0,0,0,0,78.4V200a16,16,0,0,0,16,16H200a16,16,0,0,0,16-16V167.2a40,40,0,0,0,0-78.4ZM80,48h96a24,24,0,0,1,24,24V88.8A40.07,40.07,0,0,0,168,128H88A40.07,40.07,0,0,0,56,88.8V72A24,24,0,0,1,80,48ZM208.39,152H208a8,8,0,0,0-8,8v40H56V160a8,8,0,0,0-8-8h-.39A24,24,0,1,1,72,128v40a8,8,0,0,0,16,0V144h80v24a8,8,0,0,0,16,0V128a24,24,0,1,1,24.39,24Z"/></svg></span>
+                <p>Travel with greater comfort and confidence.</p>
+              </article>
+              <article class="why__card" data-index="4">
+                <span class="why__icon" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 256 256" fill="currentColor"><path d="M224,48H32A16,16,0,0,0,16,64V192a16,16,0,0,0,16,16H224a16,16,0,0,0,16-16V64A16,16,0,0,0,224,48Zm0,16V88H32V64Zm0,128H32V104H224v88Zm-16-24a8,8,0,0,1-8,8H168a8,8,0,0,1,0-16h32A8,8,0,0,1,208,168Zm-64,0a8,8,0,0,1-8,8H120a8,8,0,0,1,0-16h16A8,8,0,0,1,144,168Z"/></svg></span>
+                <p>Access complimentary or discounted upgrades, where eligible</p>
+              </article>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="closing">
+      <div class="closing__inner reveal-up">
+        <h2 class="closing__heading">A Better Way to Travel</h2>
+        <p class="closing__text">From departure to arrival, Altitude removes unnecessary complexity and creates a smarter way to experience premium travel.</p>
+      </div>
+    </section>
+
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="site-footer__top">
+    <div class="site-footer__brand">
+      <p class="site-footer__logo">Altitude</p>
+      <p class="site-footer__desc">Access exclusive airline vouchers and upgrades with your Mastercard Premium card.</p>
+    </div>
+
+    <div class="site-footer__col">
+      <span class="site-footer__col-title">Platform</span>
+      <ul>
+        <li><a href="#">Vouchers</a></li>
+        <li><a href="#">Upgrades</a></li>
+        <li><a href="how-it-works.html">How it works</a></li>
+        <li><a href="how-it-works.html#faq">FAQ</a></li>
+      </ul>
+    </div>
+
+    <div class="site-footer__col">
+      <span class="site-footer__col-title">Company</span>
+      <ul>
+        <li><a href="about.html">About us</a></li>
+        <li><a href="#">Partners</a></li>
+      </ul>
+    </div>
+
+    <div class="site-footer__col">
+      <span class="site-footer__col-title">Legal</span>
+      <ul>
+        <li><a href="#">Terms Conditions</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<script src="main.js"></script>
+</body>
+</html>

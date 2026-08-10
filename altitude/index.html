@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Altitude — Fly business. Pay economy.</title>
+<meta name="description" content="Altitude is your gateway to a higher travel experience — seamless upgrades to Business Class with exclusive Mastercard premium card benefits.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,500;1,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<script>document.documentElement.classList.add('js');</script>
+
+<div class="atmosphere" id="atmosphere" aria-hidden="true">
+  <span class="atmosphere__blob atmosphere__blob--sky"></span>
+  <span class="atmosphere__blob atmosphere__blob--lavender"></span>
+  <span class="atmosphere__blob atmosphere__blob--peach"></span>
+  <span class="atmosphere__blob atmosphere__blob--glow"></span>
+  <span class="atmosphere__cursor-glow" id="cursorGlow"></span>
+</div>
+
+<header class="site-header" id="siteHeader">
+  <div class="nav-pill">
+    <a href="#top" class="nav-pill__logo">Altitude</a>
+
+    <nav class="nav-pill__links" aria-label="Primary">
+      <a href="about.html" class="nav-pill__link">About us</a>
+      <a href="how-it-works.html" class="nav-pill__link">How It Works</a>
+    </nav>
+
+    <a href="#signin" class="nav-pill__signin">Sign in</a>
+
+    <button type="button" class="nav-pill__toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="about.html" class="mobile-menu__link">About us</a>
+    <a href="how-it-works.html" class="mobile-menu__link">How It Works</a>
+    <a href="#signin" class="mobile-menu__signin">Sign in</a>
+  </div>
+</header>
+
+<main id="top">
+
+  <section class="hero" id="hero">
+    <div class="hero__inner">
+      <h1 class="hero__title" aria-label="Fly business. Pay economy.">
+        <span class="hero__line" style="--d:0"><span>Fly business.</span></span>
+        <span class="hero__line" style="--d:1"><span>Pay economy.</span></span>
+      </h1>
+
+      <p class="hero__subtitle reveal-fade" style="--d:2">
+        Altitude is your gateway to a higher travel experience — with seamless upgrades to Business Class and exclusive service that lifts your journey to new heights. Enjoy exclusive benefits with Mastercard premium cards.
+      </p>
+
+      <a href="#retrieve-booking" class="btn btn--primary hero__cta reveal-scale" style="--d:3">
+        Upgrade your ticket now
+      </a>
+    </div>
+  </section>
+
+  <div class="transition-panel">
+    <section class="request" id="retrieve-booking">
+
+      <div class="request__copy reveal-up">
+        <h2 class="request__heading">You are one step from<br>flying in Business Class<br>with Altitude.</h2>
+        <p class="request__subheading">Simply fill the form.</p>
+
+        <ul class="request__steps">
+          <li class="request__step">
+            <span class="request__step-num">1</span>
+            <div>
+              <p class="request__step-title">Select your airline</p>
+              <p class="request__step-text">Start typing to search — Turkish Airlines, Qatar Airways, LOT Polish Airlines and more.</p>
+            </div>
+          </li>
+          <li class="request__step">
+            <span class="request__step-num">2</span>
+            <div>
+              <p class="request__step-title">Add your last name</p>
+              <p class="request__step-text">Use the surname exactly as it appears on your booking.</p>
+            </div>
+          </li>
+          <li class="request__step">
+            <span class="request__step-num">3</span>
+            <div>
+              <p class="request__step-title">Enter your booking reference</p>
+              <p class="request__step-text">Your 6-character PNR code, found in your confirmation email.</p>
+            </div>
+          </li>
+          <li class="request__step">
+            <span class="request__step-num">4</span>
+            <div>
+              <p class="request__step-title">Attach a document (optional)</p>
+              <p class="request__step-text">Upload your boarding pass or confirmation to speed up the lookup.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="request__form-wrap reveal-up" style="--d:1">
+        <form class="booking-form" id="bookingForm" novalidate>
+          <div class="booking-form__head">
+            <h3 class="booking-form__title">Retrieve booking</h3>
+            <p class="booking-form__subtitle">Enter your booking details to instantly see available upgrades and price.</p>
+          </div>
+
+          <div class="field">
+            <label for="airlineInput" class="field__label">Select airline</label>
+            <div class="combobox" id="airlineCombobox">
+              <span class="combobox__icon" aria-hidden="true">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="7" cy="7" r="5.25" stroke="currentColor" stroke-width="1.4"/><path d="M11 11L14 14" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+              </span>
+              <input
+                type="text"
+                id="airlineInput"
+                class="field__input combobox__input"
+                placeholder="Enter airline or select from list"
+                role="combobox"
+                aria-expanded="false"
+                aria-controls="airlineListbox"
+                aria-autocomplete="list"
+                aria-describedby="airlineError"
+                autocomplete="off"
+              >
+              <ul class="combobox__listbox" id="airlineListbox" role="listbox" aria-label="Airlines" hidden></ul>
+            </div>
+            <p class="field__error" id="airlineError" role="alert"></p>
+          </div>
+
+          <div class="field">
+            <label for="lastNameInput" class="field__label">Last name</label>
+            <input type="text" id="lastNameInput" class="field__input" placeholder="Smith" aria-describedby="lastNameHelper lastNameError">
+            <p class="field__helper" id="lastNameHelper">Use surname exactly as shown in booking</p>
+            <p class="field__error" id="lastNameError" role="alert"></p>
+          </div>
+
+          <div class="field">
+            <label for="pnrInput" class="field__label">Booking reference (PNR)</label>
+            <input type="text" id="pnrInput" class="field__input" placeholder="SMFA7C" aria-describedby="pnrHelper pnrError">
+            <p class="field__helper" id="pnrHelper">Your 6-letter or number booking code</p>
+            <p class="field__error" id="pnrError" role="alert"></p>
+          </div>
+
+          <div class="field">
+            <span class="field__label" id="uploadLabel">Attachment (optional)</span>
+            <div class="dropzone" id="dropzone" tabindex="0" role="button" aria-labelledby="uploadLabel">
+              <input type="file" id="fileInput" class="dropzone__input" accept=".pdf,.png,.jpg,.jpeg" hidden>
+              <svg class="dropzone__icon" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                <path d="M10 13.5V3.5M10 3.5L6 7.5M10 3.5L14 7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M3.5 14v1.5A1.5 1.5 0 0 0 5 17h10a1.5 1.5 0 0 0 1.5-1.5V14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+              <p class="dropzone__text">Drop files here or click to upload</p>
+              <p class="dropzone__hint">PDF, PNG or jpeg</p>
+            </div>
+            <div class="dropzone__file" id="dropzoneFile" hidden>
+              <span class="dropzone__filename" id="dropzoneFilename"></span>
+              <button type="button" class="dropzone__remove" id="dropzoneRemove" aria-label="Remove attached file">&times;</button>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn--primary btn--block" id="submitBtn">
+            <span class="btn__label">Check upgrades</span>
+          </button>
+          <p class="booking-form__footnote" id="formFootnote">No charge now &middot; Secure lookup &middot; Takes less than 10 seconds</p>
+        </form>
+      </div>
+
+    </section>
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="site-footer__top">
+    <div class="site-footer__brand">
+      <p class="site-footer__logo">Altitude</p>
+      <p class="site-footer__desc">Access exclusive airline vouchers and upgrades with your Mastercard Premium card.</p>
+    </div>
+
+    <div class="site-footer__col">
+      <span class="site-footer__col-title">Platform</span>
+      <ul>
+        <li><a href="#">Vouchers</a></li>
+        <li><a href="#">Upgrades</a></li>
+        <li><a href="how-it-works.html">How it works</a></li>
+        <li><a href="how-it-works.html#faq">FAQ</a></li>
+      </ul>
+    </div>
+
+    <div class="site-footer__col">
+      <span class="site-footer__col-title">Company</span>
+      <ul>
+        <li><a href="about.html">About us</a></li>
+        <li><a href="#">Partners</a></li>
+      </ul>
+    </div>
+
+    <div class="site-footer__col">
+      <span class="site-footer__col-title">Legal</span>
+      <ul>
+        <li><a href="#">Terms Conditions</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<script src="main.js"></script>
+</body>
+</html>
