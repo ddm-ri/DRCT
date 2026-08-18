@@ -1529,6 +1529,13 @@
   line-height: 1.25;
   margin-bottom: 0;
 }
+/* When no supporting paragraph follows the heading, the list would sit
+   flush against it — give it the same head-to-content gap the other
+   sections use. Pages that do have a <p> keep its own 60px instead. */
+.questions > h2 + .questions__body { margin-top: 44px; }
+@media (max-width: 767px) {
+  .questions > h2 + .questions__body { margin-top: 32px; }
+}
 .questions__body ul li { padding: 20px 10px; }
 @media (max-width: 767px) {
   .questions { padding-top: 56px; }
