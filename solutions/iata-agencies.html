@@ -11,6 +11,19 @@
   <link rel="stylesheet" href="../css/blocks.css">
   <link rel="stylesheet" href="../css/legacy.css">
   <style>
+    /* Benefits tabs hold at most three cards, so the shared 4-up grid
+       runs as a 3-up here. Same breakpoints as .bcard-grid. */
+    .bcard-grid--3 { grid-template-columns: repeat(3, 1fr); }
+    @media (max-width: 1024px) { .bcard-grid--3 { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 480px)  { .bcard-grid--3 { grid-template-columns: 1fr; } }
+
+    /* These two tab labels are longer than the ones on the home page, so let
+       the toggle fill the row and wrap instead of clipping on small phones. */
+    @media (max-width: 413px) {
+      .gain-toggle { width: 100%; }
+      .gain-toggle__btn { flex: 1; padding: 8px 12px; white-space: normal; }
+    }
+
     /* Product-card visual slot — frames the page-local mockups below.
        Scoped to this page only; the shared .prod-card component is untouched. */
     .prod-card__visual {
@@ -139,18 +152,143 @@
 <!-- ================================================================
      HERO
 ================================================================ -->
-<div class="landing-new loaded" style="background-image: linear-gradient(135deg, rgba(42,138,234,0.15) 0%, rgba(42,138,234,0.04) 100%); overflow: hidden;">
-  <div class="landing-new__body">
-    <section class="hero">
-      <h1 class="hero__title">For IATA Agencies</h1>
-      <p class="hero__subtitle">Direct access to airline offers for IATA agencies serving both retail and corporate clients — integrated into your workflow with NDC integration, unified processes, and 24/7 human support.</p>
-      <p class="hero__description">IATA agencies manage complexity that most platforms ignore: GDS commitments, BSP reporting, NDC inconsistency, and back-office reconciliation. DRCT is built to handle all of it in one system — so your team can focus on selling, not firefighting.</p>
-      <div class="hero__ctas">
+<div class="hv2">
+
+  <!-- Float A: Lufthansa -->
+  <div class="hv2-float hv2-float--a">
+    <div class="hv2-al-tile" style="background:linear-gradient(145deg,#d4d9ef,#c6cde8);">
+      <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="30" cy="30" r="25" stroke="#003264" stroke-width="2.2"/>
+        <path d="M22 32 Q30 27 42 32 Q42 38 34 39 Q24 39 22 32Z" fill="#003264"/>
+        <path d="M24 32 Q17 28 12 30 Q14 34 20 34 Q22 33 24 32Z" fill="#003264"/>
+        <path d="M28 30 Q27 23 30 16 Q32 12 36 10 Q33 14 31 19 Q29 24 28 30Z" fill="#003264"/>
+        <path d="M42 32 Q48 35 50 39 Q46 38 43 36Z" fill="#003264"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- Float B: Emirates -->
+  <div class="hv2-float hv2-float--b">
+    <div class="hv2-al-tile" style="background:#e3251d;">
+      <svg width="64" height="38" viewBox="0 0 64 38" xmlns="http://www.w3.org/2000/svg">
+        <path d="M11 13 Q18 8 28 10 Q36 11 40 13 Q35 14 28 13 Q22 12 16 15" stroke="white" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+        <path d="M34 10 Q42 8 46 12 Q48 15 46 17" stroke="white" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+        <path d="M16 15 Q26 19 42 17" stroke="white" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+        <text x="32" y="34" text-anchor="middle" fill="white" font-family="Georgia, Times New Roman, serif" font-size="12" letter-spacing="1.2">Emirates</text>
+      </svg>
+    </div>
+  </div>
+
+  <!-- Float C: LOT -->
+  <div class="hv2-float hv2-float--c">
+    <div class="hv2-al-tile" style="background:linear-gradient(145deg,#dde9f8,#c9d9f4);">
+      <svg width="58" height="26" viewBox="0 0 58 26" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="8" cy="13" r="7" fill="none" stroke="#1a237e" stroke-width="1.8"/>
+        <path d="M8 6 Q11 9 11 13 Q11 17 8 20" stroke="#1a237e" stroke-width="1.3" fill="none"/>
+        <path d="M2 11 Q5 9 8 9 Q11 9 14 11" stroke="#1a237e" stroke-width="1.3" fill="none"/>
+        <text x="18" y="20" font-family="Arial Black, Helvetica Neue, sans-serif" font-size="18" font-weight="900" fill="#1a237e">LOT</text>
+      </svg>
+    </div>
+  </div>
+
+  <!-- Float D: SWISS -->
+  <div class="hv2-float hv2-float--d">
+    <div class="hv2-al-tile" style="background:#f0f0f0;">
+      <svg width="38" height="52" viewBox="0 0 38 52" xmlns="http://www.w3.org/2000/svg">
+        <path d="M4 50 L10 9 Q13 1 24 4 L30 9 L20 50Z" fill="#e30613"/>
+        <rect x="11" y="20" width="7" height="19" rx="1.5" fill="white"/>
+        <rect x="7" y="26" width="15" height="7" rx="1.5" fill="white"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- Float E: TAP -->
+  <div class="hv2-float hv2-float--e">
+    <div class="hv2-al-tile" style="background:#f0f0f0;">
+      <svg width="52" height="28" viewBox="0 0 52 28" xmlns="http://www.w3.org/2000/svg">
+        <text x="0"  y="23" font-family="Arial Black, sans-serif" font-size="24" font-weight="900" fill="#7ab800">T</text>
+        <text x="13" y="23" font-family="Arial Black, sans-serif" font-size="24" font-weight="900" fill="#007e3a">A</text>
+        <text x="29" y="23" font-family="Arial Black, sans-serif" font-size="24" font-weight="900" fill="#e5322d">P</text>
+      </svg>
+    </div>
+  </div>
+
+  <!-- Float F: British Airways -->
+  <div class="hv2-float hv2-float--f">
+    <div class="hv2-al-tile" style="background:#fff;">
+      <svg width="52" height="32" viewBox="0 0 60 36" xmlns="http://www.w3.org/2000/svg">
+        <path d="M4 28 Q18 6 50 12 Q44 15 32 17 Q18 19 8 26Z" fill="#eb2226"/>
+        <path d="M8 26 Q18 22 32 20 Q44 18 50 14 Q47 19 40 23 Q26 29 10 30Z" fill="#1c4b9c"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- Float G: flydubai -->
+  <div class="hv2-float hv2-float--g">
+    <div class="hv2-al-tile" style="background:#f7f7f7;">
+      <svg width="50" height="19" viewBox="0 0 58 22" xmlns="http://www.w3.org/2000/svg">
+        <text x="0"  y="17" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#f16822">fly</text>
+        <text x="21" y="17" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#333">dubai</text>
+        <circle cx="55" cy="5" r="2.2" fill="#f16822"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- Float H: United Airlines -->
+  <div class="hv2-float hv2-float--h">
+    <div class="hv2-al-tile" style="background:#fff;">
+      <svg width="64" height="26" viewBox="0 0 64 26" xmlns="http://www.w3.org/2000/svg">
+        <text x="0" y="18" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#0052a5" letter-spacing="0.4">UNITED</text>
+        <!-- Globe icon -->
+        <circle cx="55" cy="13" r="9" fill="none" stroke="#0052a5" stroke-width="1.6"/>
+        <ellipse cx="55" cy="13" rx="4.5" ry="9" fill="none" stroke="#0052a5" stroke-width="1.2"/>
+        <line x1="46" y1="13" x2="64" y2="13" stroke="#0052a5" stroke-width="1.2"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- Network: curved flight route + animated plane -->
+  <!-- Tile centers (62px) in 1280×580: LH(121,72) BA(236,234) LOT(108,397) UA(197,503) EK(1148,77) FZ(1057,246) SWISS(1159,397) TAP(1095,503) -->
+  <svg class="hv2-net" viewBox="0 0 1280 580" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <!-- Closed flight loop connecting all 8 tiles -->
+      <path id="flight-loop" d="
+        M 121 72
+        C 500 44 820 54 1148 77
+        C 1158 142 1098 198 1057 246
+        C 740 238 430 230 236 234
+        C 195 288 138 344 108 397
+        C 450 390 808 390 1159 397
+        C 1162 446 1118 476 1095 503
+        C 790 512 448 512 197 503
+        C 148 434 116 304 121 72
+        Z
+      "/>
+    </defs>
+    <!-- Dashed route line -->
+    <use href="#flight-loop" fill="none" stroke="rgba(42,138,234,0.17)" stroke-width="1.1" stroke-dasharray="5 9"/>
+    <!-- Animated dot -->
+    <g opacity="0.85">
+      <circle r="4.5" fill="#2a8aea"/>
+      <animateMotion dur="32s" repeatCount="indefinite" rotate="auto">
+        <mpath href="#flight-loop"/>
+      </animateMotion>
+    </g>
+  </svg>
+
+  <!-- Center content -->
+  <div class="landing-new__body" style="position:relative;z-index:2;">
+    <div class="hv2__content">
+      <h1 class="hv2__h1">For IATA Agencies</h1>
+      <p class="hv2__sub hv2__sub--tight">Direct access to airline offers for IATA agencies serving both retail and corporate clients — integrated into your workflow with NDC integration, unified processes, and 24/7 human support.</p>
+      <p class="hv2__sub">IATA agencies manage complexity that most platforms ignore: GDS commitments, BSP reporting, NDC inconsistency, and back-office reconciliation. DRCT is built to handle all of it in one system — so your team can focus on selling, not firefighting.</p>
+      <div class="hv2__cta">
         <a href="mailto:hello@drct.aero" class="btn-primary">Get Started Today</a>
         <a href="#products" class="btn-secondary">Explore Products</a>
       </div>
-    </section>
+    </div>
   </div>
+
 </div>
 
 <!-- ================================================================
@@ -164,63 +302,74 @@
         <p>Content gaps, workflow friction, BSP complexity — addressed in one platform.</p>
       </div>
 
-      <div class="bcard-group">
-        <div class="bcard-grid">
+      <div class="gain-toggle" role="tablist">
+        <button class="gain-toggle__btn gain-toggle__btn--active" data-tab="distribution" role="tab" aria-selected="true">Distribution &amp; Workflow</button>
+        <button class="gain-toggle__btn" data-tab="finance" role="tab" aria-selected="false">Control &amp; Finance</button>
+      </div>
+
+      <div class="gain-panel gain-panel--active" id="gain-distribution" role="tabpanel">
+        <div class="bcard-grid bcard-grid--3">
 
           <div class="bcard">
-            <div class="bcard__icon">
-              <svg width="22" height="22" viewBox="0 0 26 26" fill="none" aria-hidden="true">
-                <path d="M3 19l10 4.5L23 19M3 13.5l10 4.5 10-4.5M13 2L3 7l10 4.5L23 7 13 2z" stroke="#2a8aea" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
-            <h3 class="bcard__title">Direct access to full airline content</h3>
-            <p class="bcard__desc">DRCT provides direct access to full airline content — including NDC fares, bundles, and ancillaries — in one unified view alongside GDS results.</p>
-          </div>
+                      <div class="bcard__icon">
+                        <svg width="22" height="22" viewBox="0 0 26 26" fill="none" aria-hidden="true">
+                          <path d="M3 19l10 4.5L23 19M3 13.5l10 4.5 10-4.5M13 2L3 7l10 4.5L23 7 13 2z" stroke="#2a8aea" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                      </div>
+                      <h3 class="bcard__title">Direct access to full airline content</h3>
+                      <p class="bcard__desc">DRCT provides direct access to full airline content — including NDC fares, bundles, and ancillaries — in one unified view alongside GDS results.</p>
+                    </div>
 
           <div class="bcard">
-            <div class="bcard__icon">
-              <svg width="22" height="22" viewBox="0 0 26 26" fill="none" aria-hidden="true">
-                <rect x="3" y="5" width="20" height="16" rx="3" stroke="#2a8aea" stroke-width="1.6"/>
-                <path d="M3 10h20" stroke="#2a8aea" stroke-width="1.4" stroke-linecap="round" stroke-opacity="0.4"/>
-                <path d="M8 15h4M8 18h6" stroke="#2a8aea" stroke-width="1.4" stroke-linecap="round"/>
-              </svg>
-            </div>
-            <h3 class="bcard__title">Airline offers integrated into your workflow</h3>
-            <p class="bcard__desc">Search, booking, and servicing happen in one place with consistent data — no switching between tools, no duplicate entry.</p>
-          </div>
+                      <div class="bcard__icon">
+                        <svg width="22" height="22" viewBox="0 0 26 26" fill="none" aria-hidden="true">
+                          <rect x="3" y="5" width="20" height="16" rx="3" stroke="#2a8aea" stroke-width="1.6"/>
+                          <path d="M3 10h20" stroke="#2a8aea" stroke-width="1.4" stroke-linecap="round" stroke-opacity="0.4"/>
+                          <path d="M8 15h4M8 18h6" stroke="#2a8aea" stroke-width="1.4" stroke-linecap="round"/>
+                        </svg>
+                      </div>
+                      <h3 class="bcard__title">Airline offers integrated into your workflow</h3>
+                      <p class="bcard__desc">Search, booking, and servicing happen in one place with consistent data — no switching between tools, no duplicate entry.</p>
+                    </div>
 
           <div class="bcard">
-            <div class="bcard__icon">
-              <svg width="22" height="22" viewBox="0 0 26 26" fill="none" aria-hidden="true">
-                <path d="M14 3L5 14h8l-2 9 9-12h-8l2-8z" stroke="#2a8aea" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
-            <h3 class="bcard__title">Controlled NDC growth</h3>
-            <p class="bcard__desc">DRCT enables controlled NDC adoption — balancing your GDS and NDC distribution mix while maintaining full offer access and operational stability.</p>
-          </div>
+                      <div class="bcard__icon">
+                        <svg width="22" height="22" viewBox="0 0 26 26" fill="none" aria-hidden="true">
+                          <path d="M4 13h4M18 13h4M13 4v4M13 18v4" stroke="#2a8aea" stroke-width="1.5" stroke-linecap="round"/>
+                          <circle cx="13" cy="13" r="4" stroke="#2a8aea" stroke-width="1.6"/>
+                          <circle cx="13" cy="13" r="1.5" fill="#2a8aea"/>
+                        </svg>
+                      </div>
+                      <h3 class="bcard__title">Centralized NDC order management</h3>
+                      <p class="bcard__desc">DRCT centralizes NDC order management in one interface, with 24/7 support for complex cases — changes, cancellations, and refunds handled without airline interaction.</p>
+                    </div>
+
+        </div>
+      </div>
+
+      <div class="gain-panel" id="gain-finance" role="tabpanel">
+        <div class="bcard-grid bcard-grid--3">
 
           <div class="bcard">
-            <div class="bcard__icon">
-              <svg width="22" height="22" viewBox="0 0 26 26" fill="none" aria-hidden="true">
-                <polyline points="3,18 8,11 12,14 17,8 23,11" fill="none" stroke="#2a8aea" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M18 5h5v5" fill="none" stroke="#2a8aea" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
-            <h3 class="bcard__title">Unified reporting and reconciliation</h3>
-            <p class="bcard__desc">DRCT enables unified reporting and a consistent NDC accounting workflow — from booking to BSP reconciliation, in one system.</p>
-          </div>
+                      <div class="bcard__icon">
+                        <svg width="22" height="22" viewBox="0 0 26 26" fill="none" aria-hidden="true">
+                          <path d="M14 3L5 14h8l-2 9 9-12h-8l2-8z" stroke="#2a8aea" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                      </div>
+                      <h3 class="bcard__title">Controlled NDC growth</h3>
+                      <p class="bcard__desc">DRCT enables controlled NDC adoption — balancing your GDS and NDC distribution mix while maintaining full offer access and operational stability.</p>
+                    </div>
 
           <div class="bcard">
-            <div class="bcard__icon">
-              <svg width="22" height="22" viewBox="0 0 26 26" fill="none" aria-hidden="true">
-                <path d="M4 13h4M18 13h4M13 4v4M13 18v4" stroke="#2a8aea" stroke-width="1.5" stroke-linecap="round"/>
-                <circle cx="13" cy="13" r="4" stroke="#2a8aea" stroke-width="1.6"/>
-                <circle cx="13" cy="13" r="1.5" fill="#2a8aea"/>
-              </svg>
-            </div>
-            <h3 class="bcard__title">Centralized NDC order management</h3>
-            <p class="bcard__desc">DRCT centralizes NDC order management in one interface, with 24/7 support for complex cases — changes, cancellations, and refunds handled without airline interaction.</p>
-          </div>
+                      <div class="bcard__icon">
+                        <svg width="22" height="22" viewBox="0 0 26 26" fill="none" aria-hidden="true">
+                          <polyline points="3,18 8,11 12,14 17,8 23,11" fill="none" stroke="#2a8aea" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+                          <path d="M18 5h5v5" fill="none" stroke="#2a8aea" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                      </div>
+                      <h3 class="bcard__title">Unified reporting and reconciliation</h3>
+                      <p class="bcard__desc">DRCT enables unified reporting and a consistent NDC accounting workflow — from booking to BSP reconciliation, in one system.</p>
+                    </div>
 
         </div>
       </div>
