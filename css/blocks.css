@@ -2177,8 +2177,13 @@
 }
 @media (max-width: 413px) { .hv2__h1 { font-size: 30px; } }
 
-/* Lead paragraph followed by a second one — keeps the pair together. */
-.hv2__sub--tight { margin-bottom: 14px; }
+/* Lead paragraph of a two-paragraph hero: carried dark and semibold like
+   .hero__subtitle, with the supporting paragraph left muted below it. */
+.hv2__sub--lead {
+  color: var(--dark);
+  font-weight: 600;
+  margin-bottom: 14px;
+}
 
 @media (prefers-reduced-motion: reduce) {
   .hv2-float { animation: none !important; }
