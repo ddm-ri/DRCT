@@ -553,23 +553,26 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   /* ── What You Gain toggle ──────────────────────────────────────── */
-  var gainBtns = document.querySelectorAll('.gain-toggle__btn');
-  if (gainBtns.length) {
-    gainBtns.forEach(function(btn) {
+  /* Scoped to the section each toggle lives in, so a page can carry more
+     than one tab group without them clearing each other. */
+  document.querySelectorAll('.gain-toggle').forEach(function(group) {
+    var scope = group.closest('section') || document;
+    var btns = group.querySelectorAll('.gain-toggle__btn');
+    btns.forEach(function(btn) {
       btn.addEventListener('click', function() {
-        gainBtns.forEach(function(b) {
+        btns.forEach(function(b) {
           b.classList.remove('gain-toggle__btn--active');
           b.setAttribute('aria-selected', 'false');
         });
-        document.querySelectorAll('.gain-panel').forEach(function(p) {
+        scope.querySelectorAll('.gain-panel').forEach(function(p) {
           p.classList.remove('gain-panel--active');
         });
         btn.classList.add('gain-toggle__btn--active');
         btn.setAttribute('aria-selected', 'true');
-        var panel = document.getElementById('gain-' + btn.dataset.tab);
+        var panel = scope.querySelector('#gain-' + btn.dataset.tab);
         if (panel) panel.classList.add('gain-panel--active');
       });
     });
-  }
+  });
 
 });
