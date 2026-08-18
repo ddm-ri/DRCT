@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Emirates — DRCT Supply Network</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/blocks.css">
+  <link rel="stylesheet" href="../css/legacy.css">
+  <style>
+    /* ── Animated hero gradient ──────────────────────────────────── */
+    .ek-hero-outer { position: relative; }
+    .ek-hero-outer::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+      background: linear-gradient(180deg, rgba(236,27,36,0.22) 0%, rgba(236,27,36,0.04) 65%, transparent 100%);
+      animation: gradBreath 7s ease-in-out infinite;
+      pointer-events: none;
+    }
+    .ek-hero-outer .landing-new__body { position: relative; }
+
+    /* ── Animated aurora gradient ────────────────────────────────── */
+    .aurora-animated { position: relative; }
+    .aurora-animated::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+      background-image: linear-gradient(135deg, rgba(42,138,234,0.15) 0%, rgba(42,138,234,0.04) 100%);
+      animation: auroraDrift 9s ease-in-out infinite;
+      pointer-events: none;
+    }
+    .aurora-animated .landing-new__body { position: relative; }
+
+    @keyframes gradBreath {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.42; }
+    }
+    @keyframes auroraDrift {
+      0%, 100% { opacity: 0.65; }
+      50%       { opacity: 1; }
+    }
+
+    /* ── Airline hero ────────────────────────────────────────────── */
+    .airline-hero {
+      padding: 90px 0 80px;
+      text-align: center;
+    }
+    .airline-logo-tile {
+      width: 76px;
+      height: 76px;
+      border-radius: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 20px auto 26px;
+      overflow: hidden;
+    }
+    .airline-logo-tile img { width: 72%; height: 72%; object-fit: contain; }
+    .airline-hero h1 {
+      font-size: 44px;
+      font-weight: 700;
+      color: var(--dark);
+      letter-spacing: -0.6px;
+      line-height: 1.15;
+      margin: 0 auto;
+      max-width: 760px;
+    }
+    .airline-hero .hero__subtitle {
+      font-size: 18px;
+      font-weight: 400;
+      color: var(--dark-70);
+      line-height: 1.6;
+      margin: 18px auto 0;
+      max-width: 660px;
+    }
+    @media (max-width: 767px) { .airline-hero h1 { font-size: 32px; } }
+    @media (max-width: 413px) { .airline-hero h1 { font-size: 27px; } .airline-hero .hero__subtitle { font-size: 15px; } }
+
+    /* ── Quote block ─────────────────────────────────────────────── */
+    .airline-quote {
+      border-left: 3px solid var(--blue);
+      padding: 18px 24px;
+      background: var(--white);
+      border-radius: 0 8px 8px 0;
+      margin-top: 40px;
+    }
+    .airline-quote__text {
+      font-size: 16px;
+      font-style: italic;
+      color: var(--dark);
+      line-height: 1.65;
+      margin: 0 0 16px;
+    }
+    .airline-quote__name {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--dark);
+      margin: 0;
+    }
+    .airline-quote__role {
+      font-size: 12px;
+      color: var(--dark-40);
+      margin: 2px 0 0;
+    }
+
+    /* ── About section ───────────────────────────────────────────── */
+    .airline-about {
+      padding: 72px 0;
+      text-align: center;
+    }
+    .airline-about h2 {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--dark);
+      margin: 0 0 16px;
+    }
+    .airline-about p {
+      font-size: 14px;
+      color: var(--dark-70);
+      line-height: 1.7;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    /* ── Partnership benefits ────────────────────────────────────── */
+    .partner-benefits {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 44px;
+    }
+    @media (max-width: 767px) { .partner-benefits { grid-template-columns: 1fr; } }
+    .partner-benefit h3 {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--dark);
+      margin: 0 0 8px;
+    }
+    .partner-benefit p {
+      font-size: 13px;
+      color: var(--dark-70);
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    /* ── Availability grid ───────────────────────────────────────── */
+    .avail-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-top: 44px;
+    }
+    @media (max-width: 1024px) { .avail-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 413px)  { .avail-grid { grid-template-columns: 1fr; } }
+    .avail-card {
+      background: var(--white);
+      border: 1px solid var(--dark-10);
+      border-radius: 8px;
+      padding: 18px 16px;
+    }
+    .avail-card h3 {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--dark);
+      margin: 0 0 6px;
+    }
+    .avail-card p {
+      font-size: 12px;
+      color: var(--dark-70);
+      line-height: 1.55;
+      margin: 0;
+    }
+    .avail-note {
+      font-size: 12px;
+      color: var(--dark-40);
+      margin-top: 20px;
+      line-height: 1.5;
+    }
+    .avail-note a { color: var(--blue); }
+
+    /* ── In practice ─────────────────────────────────────────────── */
+    .outcome-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 44px;
+    }
+    @media (max-width: 1024px) { .outcome-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 413px)  { .outcome-grid { grid-template-columns: 1fr; } }
+    .outcome-card {
+      background: var(--white);
+      border: 1px solid var(--dark-10);
+      border-radius: 8px;
+      padding: 22px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .outcome-card__icon { font-size: 20px; line-height: 1; }
+    .outcome-card h3 { font-size: 14px; font-weight: 700; color: var(--dark); margin: 0; }
+    .outcome-card p {
+      font-size: 12px;
+      color: var(--dark-70);
+      line-height: 1.55;
+      margin: 0;
+    }
+    .outcome-icon--up   { color: #2a8aea; }
+    .outcome-icon--down { color: #33c100; }
+
+    /* ── Explore CTA ─────────────────────────────────────────────── */
+    .explore-cta {
+      padding: 88px 0;
+      text-align: center;
+    }
+    .explore-cta h2 {
+      font-size: 31px;
+      font-weight: 700;
+      color: var(--dark);
+      margin: 0 0 14px;
+    }
+    .explore-cta p {
+      font-size: 14px;
+      color: var(--dark-70);
+      line-height: 1.6;
+      max-width: 560px;
+      margin: 0 auto 30px;
+    }
+  </style>
+  <link rel="canonical" href="https://drct.aero/supply-network/emirates.html">
+</head>
+<body>
+<header class="nav-bar" id="header">
+  <div class="nav-bar__inner">
+
+    <a href="../index.html" class="nav-bar__logo"><img src="../img/logo-new.png" alt="DRCT" width="260" height="50"></a>
+
+    <nav class="nav-bar__nav" role="navigation" aria-label="Main">
+
+      <div class="nav-item" data-menu="solutions">
+        <button type="button" class="nav-item__trigger" aria-haspopup="true" aria-expanded="false">Solutions <svg class="nav-chevron" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 4.5l4 3.5 4-3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="mega-menu" role="dialog" aria-label="Solutions">
+          <div class="mm-intro">
+            <strong class="mm-intro__title">Solutions</strong>
+            <p class="mm-intro__desc">Explore how DRCT helps airlines, agencies and distribution partners deliver, distribute and monetize airline offers.</p>
+          </div>
+          <div class="mm-grid">
+            <div class="mm-col">
+              <a class="mm-item" href="../solutions/for-airlines.html"><span class="mm-item__icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 13.5L5.5 8l3 2.5 4-6L16 14" stroke="#2a8aea" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="9" cy="5" r="1.5" fill="#2a8aea" fill-opacity="0.35" stroke="#2a8aea" stroke-width="1.3"/></svg></span><span class="mm-item__body"><strong>For Airlines</strong><span>Distribute offers and grow ancillary revenue across all channel types.</span></span></a>
+              <a class="mm-item" href="../solutions/iata-agencies.html"><span class="mm-item__icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="2" y="4.5" width="14" height="10" rx="2" stroke="#2a8aea" stroke-width="1.4"/><path d="M6 4.5V3.5a1 1 0 011-1h4a1 1 0 011 1v1" stroke="#2a8aea" stroke-width="1.4" stroke-linecap="round"/><path d="M2 8.5h14" stroke="#2a8aea" stroke-width="1.4" stroke-linecap="round" stroke-opacity="0.35"/></svg></span><span class="mm-item__body"><strong>For IATA Agencies</strong><span>Access airline inventory and ancillary products through existing workflows.</span></span></a>
+              <a class="mm-item" href="../solutions/non-iata-agencies.html"><span class="mm-item__icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="6.5" stroke="#2a8aea" stroke-width="1.4"/><path d="M9 2.5C9 2.5 6.5 5.5 6.5 9S9 15.5 9 15.5M9 2.5C9 2.5 11.5 5.5 11.5 9S9 15.5 9 15.5" stroke="#2a8aea" stroke-width="1.4" stroke-linecap="round"/><path d="M2.5 9h13" stroke="#2a8aea" stroke-width="1.4" stroke-linecap="round" stroke-opacity="0.35"/></svg></span><span class="mm-item__body"><strong>For Non-IATA Agencies</strong><span>Expand inventory access without direct airline integrations.</span></span></a>
+            </div>
+            <div class="mm-col">
+              <a class="mm-item" href="../solutions/ota.html"><span class="mm-item__icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="2" y="3" width="14" height="12" rx="2" stroke="#2a8aea" stroke-width="1.4"/><path d="M6 8h6M6 11h4" stroke="#2a8aea" stroke-width="1.4" stroke-linecap="round"/><path d="M2 6.5h14" stroke="#2a8aea" stroke-width="1.4" stroke-linecap="round" stroke-opacity="0.3"/></svg></span><span class="mm-item__body"><strong>For OTA</strong><span>Deliver personalized airline offers at scale.</span></span></a>
+              <a class="mm-item" href="../solutions/tms.html"><span class="mm-item__icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="2" y="5" width="14" height="9" rx="2" stroke="#2a8aea" stroke-width="1.4"/><path d="M6 5V4a1 1 0 011-1h4a1 1 0 011 1v1" stroke="#2a8aea" stroke-width="1.4" stroke-linecap="round"/><path d="M6 10h2M10 10h2" stroke="#2a8aea" stroke-width="1.4" stroke-linecap="round"/></svg></span><span class="mm-item__body"><strong>For TMS</strong><span>Integrate airline offers into corporate travel workflows.</span></span></a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="nav-item" data-menu="products">
+        <button type="button" class="nav-item__trigger" aria-haspopup="true" aria-expanded="false">Products <svg class="nav-chevron" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 4.5l4 3.5 4-3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="mega-menu" role="dialog" aria-label="Products">
+          <div class="mm-intro">
+            <strong class="mm-intro__title">Products</strong>
+            <p class="mm-intro__desc">Discover the DRCT platform, integrations and tools powering modern airline commerce.</p>
+          </div>
+          <div class="mm-grid">
+            <div class="mm-col">
+              <a class="mm-item" href="../products/bt.html"><span class="mm-item__icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="2" y="3" width="14" height="12" rx="2" stroke="#2a8aea" stroke-width="1.4"/><path d="M6 8h6M6 11h4" stroke="#2a8aea" stroke-width="1.4" stroke-linecap="round" stroke-opacity="0.6"/><path d="M2 6.5h14" stroke="#2a8aea" stroke-width="1.4" stroke-opacity="0.28"/></svg></span><span class="mm-item__body"><strong>Business Travel</strong><span>Premium booking and servicing experience for corporate travelers.</span></span></a>
+              <a class="mm-item" href="../products/bt-for-tms.html"><span class="mm-item__icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="2" y="5" width="9" height="9" rx="2" stroke="#2a8aea" stroke-width="1.4"/><rect x="7" y="4" width="9" height="9" rx="2" stroke="#2a8aea" stroke-width="1.4" stroke-opacity="0.45"/></svg></span><span class="mm-item__body"><strong>BT for TMS</strong><span>Travel management integrations and workflows.</span></span></a>
+            </div>
+            <div class="mm-col">
+              <a class="mm-item" href="../products/api.html"><span class="mm-item__icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4.5 7l-3 2 3 2M13.5 7l3 2-3 2M10.5 4l-2.5 10" stroke="#2a8aea" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="mm-item__body"><strong>API Platform</strong><span>Developer tools, APIs, webhooks and integrations.</span></span></a>
+              <a class="mm-item" href="../products/extension.html"><span class="mm-item__icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="2" y="2" width="14" height="11" rx="2" stroke="#2a8aea" stroke-width="1.4"/><path d="M6 16h6M9 13v3" stroke="#2a8aea" stroke-width="1.4" stroke-linecap="round"/><path d="M7 7.5l2 2 3-3" stroke="#2a8aea" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="mm-item__body"><strong>Browser Extension</strong><span>Workflow automation inside existing agency systems.</span></span></a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <a class="nav-item__link" href="../supply-network/index.html">Supply Network</a>
+
+    </nav>
+
+    <div class="nav-bar__right">
+      <div class="nav-item nav-item--lang" data-menu="lang">
+        <button type="button" class="nav-item__trigger" aria-haspopup="true" aria-expanded="false"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><circle cx="7" cy="7" r="5.5" stroke="currentColor" stroke-width="1.3"/><path d="M7 1.5C7 1.5 5 4 5 7s2 5.5 2 5.5M7 1.5C7 1.5 9 4 9 7s-2 5.5-2 5.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><path d="M1.5 7h11" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-opacity="0.6"/></svg> EN <svg class="nav-chevron" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 4.5l4 3.5 4-3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="mm-lang"><a href="#" class="active">English</a><a href="#">Українська</a><a href="#">Polska</a></div>
+      </div>
+      <a class="nav-bar__signin" href="#">Sign In</a>
+      <a class="nav-bar__demo" href="mailto:hello@drct.aero">Book a Demo</a>
+    </div>
+
+    <button class="nav-bar__hamburger" id="menuToggle" aria-label="Toggle navigation" aria-expanded="false">
+      <div class="line-1"></div>
+      <div class="line-2"></div>
+    </button>
+
+  </div>
+</header>
+<div class="mobile-menu" id="mobileMenu">
+  <ul class="menu__links">
+    <li class="menu__group-label">Solutions</li>
+    <li><a href="../solutions/for-airlines.html">For Airlines</a></li>
+    <li><a href="../solutions/iata-agencies.html">For IATA Agencies</a></li>
+    <li><a href="../solutions/non-iata-agencies.html">For Non-IATA Agencies</a></li>
+    <li><a href="../solutions/ota.html">For OTA</a></li>
+    <li><a href="../solutions/tms.html">For TMS</a></li>
+    <li class="menu__group-label">Products</li>
+    <li><a href="../products/bt.html">Business Travel</a></li>
+    <li><a href="../products/bt-for-tms.html">BT for TMS</a></li>
+    <li><a href="../products/api.html">API Platform</a></li>
+    <li><a href="../products/extension.html">Browser Extension</a></li>
+    <li class="menu__group-label">More</li>
+    <li><a href="../supply-network/index.html">Supply Network</a></li>
+    <li><a href="mailto:hello@drct.aero">Book a Demo</a></li>
+  </ul>
+</div>
+
+<!-- ================================================================
+     HERO — Emirates soft red gradient
+================================================================ -->
+<div class="landing-new loaded ek-hero-outer">
+  <div class="landing-new__body">
+    <section class="airline-hero">
+            <div class="airline-logo-tile" style="background:#ec1b24;">
+        <svg width="54" height="54" viewBox="0 0 54 54" xmlns="http://www.w3.org/2000/svg">
+          <!-- Emirates stylised mark: stylised "E" with wave flourish -->
+          <path d="M16 11 Q27 7 38 11" stroke="rgba(255,255,255,0.6)" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+          <path d="M13 19 H41" stroke="white" stroke-width="3" stroke-linecap="round"/>
+          <path d="M13 19 V37" stroke="white" stroke-width="3" stroke-linecap="round"/>
+          <path d="M13 28 H37" stroke="white" stroke-width="3" stroke-linecap="round"/>
+          <path d="M13 37 H41" stroke="white" stroke-width="3" stroke-linecap="round"/>
+          <!-- Stylised wing-like detail -->
+          <path d="M18 43 Q27 47 36 43" stroke="rgba(255,255,255,0.45)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <h1>Emirates expands distribution via DRCT</h1>
+      <p class="hero__subtitle">NDC + GDS access through a single platform — premium content, ancillaries, and full long-haul coverage available across every seller channel.</p>
+      <div class="hero__ctas">
+        <a href="mailto:hello@drct.aero" class="btn-primary">Request Access</a>
+        <a href="mailto:hello@drct.aero" class="btn-secondary">Contact Us</a>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- ================================================================
+     JOINS DRCT — intro + quote
+================================================================ -->
+<div class="landing-new loaded">
+  <div class="landing-new__body">
+    <section class="section-block">
+      <div class="section-block__head">
+        <h2>Emirates joins the DRCT distribution network</h2>
+        <p>Emirates content is now available to travel sellers through DRCT — combining NDC fares, ancillaries, and full post-booking servicing inside a single workflow.</p>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- ================================================================
+     TESTIMONIAL
+================================================================ -->
+<div class="testi-section" style="padding: 0 0 80px;">
+  <div class="landing-new__body">
+    <div class="testi__slide testi__slide--active">
+      <div class="testi__body">
+        <div class="testi__airline-id">
+          <span class="testi__airline-name">Emirates</span>
+        </div>
+        <blockquote class="testi__quote">
+          "Working with DRCT helps us extend the reach of our NDC content to a wider community of travel sellers — without compromising on the experience our customers expect from Emirates."
+        </blockquote>
+        <footer class="testi__author">
+          <strong class="testi__name">John Smith</strong>
+          <span class="testi__role">VP Distribution Strategy, Emirates</span>
+        </footer>
+      </div>
+      <figure class="testi__fig">
+        <img src="../img/airlines/emirates-photo.jpg" alt="Emirates pilots at airport" class="testi__img" loading="lazy">
+      </figure>
+    </div>
+  </div>
+</div>
+
+<!-- ================================================================
+     ABOUT EMIRATES
+================================================================ -->
+<div class="landing-new loaded" style="background-image: linear-gradient(135deg, rgba(42,138,234,0.15) 0%, rgba(42,138,234,0.04) 100%);">
+  <div class="landing-new__body">
+    <section class="airline-about">
+      <h2>About Emirates</h2>
+      <p>Emirates is the flag carrier of the United Arab Emirates and one of the world's largest long-haul airlines, based at its hub in Dubai. The airline operates a wide-body fleet to more than 140 destinations across six continents, with a strong focus on premium cabins and connecting traffic between Europe, Asia, Africa, and the Americas.</p>
+    </section>
+  </div>
+</div>
+
+<!-- ================================================================
+     EMIRATES METRICS
+================================================================ -->
+<div class="landing-new loaded aurora-animated">
+  <div class="landing-new__body">
+    <section class="metrics">
+      <div class="metrics__head">
+        <h2 class="metrics__title">Emirates on DRCT</h2>
+      </div>
+      <div class="metrics__grid">
+        <div class="metrics__col">
+          <span class="metrics__value">140<sup>+</sup></span>
+          <h3 class="metrics__label">Destinations</h3>
+          <p class="metrics__desc">Global network served from DXB, covering six continents.</p>
+        </div>
+        <div class="metrics__col">
+          <span class="metrics__value">6</span>
+          <h3 class="metrics__label">Continents</h3>
+          <p class="metrics__desc">Premium long-haul coverage across every major market.</p>
+        </div>
+        <div class="metrics__col">
+          <span class="metrics__value" style="font-size:58px;letter-spacing:-1px;">NDC</span>
+          <h3 class="metrics__label">Distribution channel</h3>
+          <p class="metrics__desc">Direct-connect content — full fare families, ancillaries included.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- ================================================================
+     WHAT THIS PARTNERSHIP ENABLES — soft gradient
+================================================================ -->
+<div class="landing-new loaded aurora-animated">
+  <div class="landing-new__body">
+    <section class="section-block">
+      <div class="section-block__head">
+        <h2>What this partnership enables</h2>
+        <p>How distribution changes for Emirates after integration with DRCT.</p>
+      </div>
+      <div class="partner-benefits">
+        <div class="partner-benefit">
+          <h3>Broader distribution reach.</h3>
+          <p>Emirates NDC content delivered to IATA agencies, non-IATA sellers, OTAs, TMCs, and Super Apps through a single integration.</p>
+        </div>
+        <div class="partner-benefit">
+          <h3>NDC growth without GDS risk.</h3>
+          <p>Direct channel volume grows gradually while GDS coverage remains intact — no abrupt migration required.</p>
+        </div>
+        <div class="partner-benefit">
+          <h3>Tighter offer control.</h3>
+          <p>Centralised management of fares, ancillaries, and bundles across every channel and audience.</p>
+        </div>
+        <div class="partner-benefit">
+          <h3>Simpler operations.</h3>
+          <p>One distribution layer replaces multiple seller-by-seller integrations — fewer moving parts, unified support.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- ================================================================
+     WHAT'S AVAILABLE THROUGH DRCT
+================================================================ -->
+<div class="landing-new loaded aurora-animated">
+  <div class="landing-new__body">
+    <section class="section-block">
+      <div class="section-block__head">
+        <h2>What's available through DRCT</h2>
+      </div>
+      <div class="avail-grid">
+        <div class="avail-card">
+          <h3>Search &amp; Book</h3>
+          <p>Search fares across GDS and NDC — including multi-city — and issue tickets directly.</p>
+        </div>
+        <div class="avail-card">
+          <h3>Fare Rules</h3>
+          <p>Full fare conditions before booking — baggage, change rules, and restrictions visible at point of sale.</p>
+        </div>
+        <div class="avail-card">
+          <h3>Ancillaries</h3>
+          <p>Add seats, extra baggage, and services alongside the fare — no separate booking flow.</p>
+        </div>
+        <div class="avail-card">
+          <h3>Refund &amp; Void</h3>
+          <p>Cancel, void, or refund tickets directly — no airline portal or manual request needed.</p>
+        </div>
+        <div class="avail-card">
+          <h3>Post-booking Changes</h3>
+          <p>Reissue and modify bookings after ticketing — handled within the platform.</p>
+        </div>
+      </div>
+      <p class="avail-note">Availability may vary by market and integration type. <a href="mailto:hello@drct.aero">Contact the DRCT team</a> to confirm capabilities for your setup.</p>
+    </section>
+  </div>
+</div>
+
+<!-- ================================================================
+     IN PRACTICE
+================================================================ -->
+<div class="landing-new loaded" style="background-image: linear-gradient(135deg, rgba(42,138,234,0.15) 0%, rgba(42,138,234,0.04) 100%);">
+  <div class="landing-new__body">
+    <section class="section-block">
+      <div class="section-block__head">
+        <h2>Emirates via DRCT — in practice</h2>
+        <p>Real-world outcomes from travel sellers using Emirates content through DRCT.</p>
+      </div>
+      <div class="outcome-grid">
+        <div class="outcome-card">
+          <span class="outcome-metric">+30%</span>
+          <h3>NDC booking growth</h3>
+          <p>Agencies using Emirates via DRCT grow their NDC booking share without disrupting existing workflows.</p>
+        </div>
+        <div class="outcome-card">
+          <span class="outcome-card__icon outcome-icon--down">&#8595;</span>
+          <h3>Lower distribution cost</h3>
+          <p>NDC direct connect removes GDS surcharges from every long-haul Emirates booking.</p>
+        </div>
+        <div class="outcome-card">
+          <span class="outcome-card__icon outcome-icon--up">&#8593;</span>
+          <h3>Wider seller access</h3>
+          <p>Emirates NDC content available to non-IATA agencies and OTAs through a single DRCT integration.</p>
+        </div>
+        <div class="outcome-card">
+          <p>Travel agents access Emirates NDC fares directly inside GDS workflows via DRCT Extension — no system switch required.</p>
+        </div>
+        <div class="outcome-card">
+          <p>Premium cabin ancillaries and branded fare families available at booking and post-ticketing.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- ================================================================
+     DRCT PRODUCTS — access Emirates through
+================================================================ -->
+<div class="landing-new loaded aurora-animated">
+  <div class="landing-new__body">
+    <section class="section-block" id="products">
+      <div class="section-block__head">
+        <h2>Access Emirates through DRCT products</h2>
+        <p>Four distribution surfaces — each giving your team or platform access to Emirates NDC content without separate agreements.</p>
+      </div>
+      <div class="prod-grid">
+
+        <div class="prod-card">
+          <div class="prod-card__visual">
+            <svg viewBox="0 0 480 248" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+              <rect width="480" height="248" fill="#f4f6fb"/>
+              <rect x="22" y="14" width="436" height="220" rx="9" fill="#fff" stroke="rgba(27,39,51,0.07)" stroke-width="1"/>
+              <rect x="22" y="14" width="436" height="47" rx="9" fill="#f6f7f8"/>
+              <rect x="22" y="43" width="436" height="18" fill="#f6f7f8"/>
+              <rect x="30" y="18" width="116" height="37" rx="5" fill="#fff" stroke="rgba(27,39,51,0.1)" stroke-width="1"/>
+              <text x="38" y="29" fill="rgba(27,39,51,0.35)" font-size="7" font-family="IBM Plex Mono,monospace" letter-spacing="0.4">FROM</text>
+              <text x="38" y="47" fill="#1b2733" font-size="14" font-family="IBM Plex Sans,sans-serif" font-weight="700">LHR</text>
+              <circle cx="157" cy="37" r="10" fill="#fff" stroke="rgba(27,39,51,0.1)" stroke-width="1"/>
+              <path d="M152 37h10M153 34.5l-2.5 2.5 2.5 2.5M161 39.5l2.5-2.5-2.5-2.5" stroke="#2a8aea" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+              <rect x="169" y="18" width="116" height="37" rx="5" fill="#fff" stroke="#2a8aea" stroke-width="1.3"/>
+              <text x="177" y="29" fill="rgba(27,39,51,0.35)" font-size="7" font-family="IBM Plex Mono,monospace" letter-spacing="0.4">TO</text>
+              <text x="177" y="47" fill="#1b2733" font-size="14" font-family="IBM Plex Sans,sans-serif" font-weight="700">DXB</text>
+              <rect x="293" y="18" width="90" height="37" rx="5" fill="#fff" stroke="rgba(27,39,51,0.1)" stroke-width="1"/>
+              <text x="301" y="29" fill="rgba(27,39,51,0.35)" font-size="7" font-family="IBM Plex Mono,monospace" letter-spacing="0.4">DATE</text>
+              <text x="301" y="47" fill="#1b2733" font-size="11" font-family="IBM Plex Sans,sans-serif" font-weight="500">Apr 10</text>
+              <rect x="391" y="18" width="59" height="37" rx="5" fill="#2a8aea"/>
+              <text x="420" y="40" text-anchor="middle" fill="#fff" font-size="10.5" font-family="IBM Plex Sans,sans-serif" font-weight="700">Search</text>
+              <line x1="22" y1="61" x2="458" y2="61" stroke="rgba(27,39,51,0.07)" stroke-width="1"/>
+              <rect x="30" y="69" width="420" height="46" rx="6" fill="rgba(42,138,234,0.05)" stroke="rgba(42,138,234,0.22)" stroke-width="1"/>
+              <rect x="38" y="79" width="24" height="24" rx="4" fill="#ec1b24"/>
+              <text x="50" y="95" text-anchor="middle" fill="#fff" font-size="8.5" font-family="IBM Plex Mono,monospace" font-weight="700">EK</text>
+              <text x="70" y="87" fill="#1b2733" font-size="10.5" font-family="IBM Plex Sans,sans-serif" font-weight="600">Emirates &#183; Economy</text>
+              <text x="70" y="101" fill="rgba(27,39,51,0.45)" font-size="9" font-family="IBM Plex Mono,monospace">09:40 &#8594; 20:15 &#183; 6h 35m &#183; Direct</text>
+              <text x="442" y="88" text-anchor="end" fill="#2a8aea" font-size="13.5" font-family="IBM Plex Mono,monospace" font-weight="700">&#163; 412</text>
+              <text x="442" y="101" text-anchor="end" fill="rgba(27,39,51,0.33)" font-size="8.5" font-family="IBM Plex Mono,monospace">per pax</text>
+              <rect x="430" y="67" width="22" height="12" rx="2.5" fill="rgba(42,138,234,0.12)"/>
+              <text x="441" y="76" text-anchor="middle" fill="#2a8aea" font-size="6.5" font-family="IBM Plex Mono,monospace" font-weight="700">NDC</text>
+              <rect x="30" y="123" width="420" height="46" rx="6" fill="#fff" stroke="rgba(27,39,51,0.07)" stroke-width="1"/>
+              <rect x="38" y="133" width="24" height="24" rx="4" fill="#ec1b24"/>
+              <text x="50" y="149" text-anchor="middle" fill="#fff" font-size="8.5" font-family="IBM Plex Mono,monospace" font-weight="700">EK</text>
+              <text x="70" y="141" fill="#1b2733" font-size="10.5" font-family="IBM Plex Sans,sans-serif" font-weight="600">Emirates &#183; Business</text>
+              <text x="70" y="155" fill="rgba(27,39,51,0.45)" font-size="9" font-family="IBM Plex Mono,monospace">09:40 &#8594; 20:15 &#183; 6h 35m &#183; Direct</text>
+              <text x="442" y="142" text-anchor="end" fill="rgba(27,39,51,0.55)" font-size="13.5" font-family="IBM Plex Mono,monospace" font-weight="700">&#163; 2,840</text>
+              <text x="442" y="155" text-anchor="end" fill="rgba(27,39,51,0.33)" font-size="8.5" font-family="IBM Plex Mono,monospace">per pax</text>
+              <rect x="30" y="177" width="420" height="40" rx="6" fill="rgba(27,39,51,0.02)" stroke="rgba(27,39,51,0.05)" stroke-width="1"/>
+              <rect x="38" y="188" width="18" height="18" rx="3" fill="rgba(27,39,51,0.06)"/>
+              <rect x="64" y="191" width="76" height="5" rx="2.5" fill="rgba(27,39,51,0.05)"/>
+              <rect x="64" y="201" width="52" height="4" rx="2" fill="rgba(27,39,51,0.04)"/>
+              <rect x="386" y="191" width="44" height="5" rx="2.5" fill="rgba(27,39,51,0.05)"/>
+            </svg>
+          </div>
+          <div class="prod-card__body">
+            <p class="prod-card__tag">Agencies &#183; Non-IATA</p>
+            <h3 class="prod-card__name">DRCT BT</h3>
+            <p class="prod-card__desc">Search, compare, and book Emirates NDC fares — without GDS accreditation or separate airline contracts.</p>
+            <a href="../products/bt.html" class="link-btn">Learn more</a>
+          </div>
+        </div>
+
+        <div class="prod-card">
+          <div class="prod-card__visual">
+            <svg viewBox="0 0 480 248" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+              <rect width="480" height="248" fill="#f4f6fb"/>
+              <rect x="22" y="14" width="436" height="220" rx="9" fill="#fff" stroke="rgba(27,39,51,0.07)" stroke-width="1"/>
+              <text x="38" y="36" fill="#1b2733" font-size="12" font-family="IBM Plex Sans,sans-serif" font-weight="600">Dubai &#183; May 5&#8211;9</text>
+              <text x="38" y="50" fill="rgba(27,39,51,0.38)" font-size="9" font-family="IBM Plex Sans,sans-serif">4 travelers &#183; Emirates EK007</text>
+              <line x1="22" y1="62" x2="458" y2="62" stroke="rgba(27,39,51,0.07)" stroke-width="1"/>
+              <text x="38" y="79" fill="rgba(27,39,51,0.32)" font-size="7.5" font-family="IBM Plex Sans,sans-serif" font-weight="600" letter-spacing="0.3">TRAVELER</text>
+              <text x="300" y="79" fill="rgba(27,39,51,0.32)" font-size="7.5" font-family="IBM Plex Sans,sans-serif" font-weight="600" letter-spacing="0.3">CLASS</text>
+              <text x="400" y="79" fill="rgba(27,39,51,0.32)" font-size="7.5" font-family="IBM Plex Sans,sans-serif" font-weight="600" letter-spacing="0.3">POLICY</text>
+              <circle cx="48" cy="106" r="14" fill="rgba(236,27,36,0.08)"/>
+              <text x="48" y="110" text-anchor="middle" fill="#ec1b24" font-size="8.5" font-family="IBM Plex Sans,sans-serif" font-weight="700">JD</text>
+              <text x="70" y="102" fill="#1b2733" font-size="10.5" font-family="IBM Plex Sans,sans-serif" font-weight="600">James Davies</text>
+              <text x="70" y="115" fill="rgba(27,39,51,0.4)" font-size="8.5" font-family="IBM Plex Mono,monospace">j.davies@corp.com</text>
+              <text x="306" y="107" fill="rgba(27,39,51,0.5)" font-size="9.5" font-family="IBM Plex Sans,sans-serif">Business</text>
+              <rect x="396" y="99" width="46" height="14" rx="3" fill="rgba(51,193,0,0.1)"/>
+              <text x="419" y="109" text-anchor="middle" fill="#33c100" font-size="7.5" font-family="IBM Plex Mono,monospace" font-weight="600">IN POLICY</text>
+              <line x1="36" y1="130" x2="444" y2="130" stroke="rgba(27,39,51,0.06)" stroke-width="1"/>
+              <circle cx="48" cy="156" r="14" fill="rgba(27,39,51,0.05)"/>
+              <text x="48" y="160" text-anchor="middle" fill="rgba(27,39,51,0.4)" font-size="8.5" font-family="IBM Plex Sans,sans-serif" font-weight="700">SR</text>
+              <text x="70" y="152" fill="#1b2733" font-size="10.5" font-family="IBM Plex Sans,sans-serif" font-weight="600">Sarah Roberts</text>
+              <text x="70" y="165" fill="rgba(27,39,51,0.4)" font-size="8.5" font-family="IBM Plex Mono,monospace">s.roberts@corp.com</text>
+              <text x="306" y="157" fill="rgba(27,39,51,0.5)" font-size="9.5" font-family="IBM Plex Sans,sans-serif">Economy</text>
+              <rect x="396" y="149" width="46" height="14" rx="3" fill="rgba(51,193,0,0.1)"/>
+              <text x="419" y="159" text-anchor="middle" fill="#33c100" font-size="7.5" font-family="IBM Plex Mono,monospace" font-weight="600">IN POLICY</text>
+            </svg>
+          </div>
+          <div class="prod-card__body">
+            <p class="prod-card__tag">Corporate travel</p>
+            <h3 class="prod-card__name">DRCT BT for TMC</h3>
+            <p class="prod-card__desc">Book Emirates for corporate travelers with policy controls, multi-pax management, and NDC fares in a single workflow.</p>
+            <a href="../products/bt-for-tms.html" class="link-btn">Learn more</a>
+          </div>
+        </div>
+
+        <div class="prod-card">
+          <div class="prod-card__visual">
+            <svg viewBox="0 0 480 248" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+              <rect width="480" height="248" fill="#f4f6fb"/>
+              <rect x="22" y="14" width="436" height="220" rx="9" fill="#fff" stroke="rgba(27,39,51,0.07)" stroke-width="1"/>
+              <rect x="22" y="14" width="436" height="48" rx="9" fill="#f8f9fa"/>
+              <rect x="22" y="44" width="436" height="18" fill="#f8f9fa"/>
+              <text x="38" y="31" fill="rgba(27,39,51,0.38)" font-size="8.5" font-family="IBM Plex Mono,monospace">GET /v2/offers/search?carrier=EK</text>
+              <text x="38" y="52" fill="#1b2733" font-size="11" font-family="IBM Plex Sans,sans-serif" font-weight="600">LHR &#8594; DXB &#183; Apr 10, 2025</text>
+              <line x1="22" y1="62" x2="458" y2="62" stroke="rgba(27,39,51,0.07)" stroke-width="1"/>
+              <rect x="30" y="70" width="420" height="46" rx="6" fill="rgba(42,138,234,0.05)" stroke="rgba(42,138,234,0.22)" stroke-width="1"/>
+              <rect x="38" y="80" width="24" height="24" rx="4" fill="#ec1b24"/>
+              <text x="50" y="96" text-anchor="middle" fill="#fff" font-size="8.5" font-family="IBM Plex Mono,monospace" font-weight="700">EK</text>
+              <text x="70" y="88" fill="#1b2733" font-size="10.5" font-family="IBM Plex Sans,sans-serif" font-weight="600">Emirates &#183; Economy Flex</text>
+              <text x="70" y="102" fill="rgba(27,39,51,0.45)" font-size="9" font-family="IBM Plex Mono,monospace">09:40 &#8594; 20:15 &#183; Direct</text>
+              <text x="442" y="89" text-anchor="end" fill="#2a8aea" font-size="13.5" font-family="IBM Plex Mono,monospace" font-weight="700">&#163; 412</text>
+              <text x="442" y="102" text-anchor="end" fill="rgba(27,39,51,0.33)" font-size="8.5" font-family="IBM Plex Mono,monospace">per pax</text>
+              <rect x="30" y="124" width="420" height="46" rx="6" fill="#fff" stroke="rgba(27,39,51,0.07)" stroke-width="1"/>
+              <rect x="38" y="134" width="24" height="24" rx="4" fill="#ec1b24"/>
+              <text x="50" y="150" text-anchor="middle" fill="#fff" font-size="8.5" font-family="IBM Plex Mono,monospace" font-weight="700">EK</text>
+              <text x="70" y="142" fill="#1b2733" font-size="10.5" font-family="IBM Plex Sans,sans-serif" font-weight="600">Emirates &#183; Business Saver</text>
+              <text x="70" y="156" fill="rgba(27,39,51,0.45)" font-size="9" font-family="IBM Plex Mono,monospace">09:40 &#8594; 20:15 &#183; Direct</text>
+              <text x="442" y="143" text-anchor="end" fill="rgba(27,39,51,0.55)" font-size="13.5" font-family="IBM Plex Mono,monospace" font-weight="700">&#163; 2,840</text>
+              <text x="442" y="156" text-anchor="end" fill="rgba(27,39,51,0.33)" font-size="8.5" font-family="IBM Plex Mono,monospace">per pax</text>
+              <text x="38" y="228" fill="rgba(27,39,51,0.3)" font-size="8" font-family="IBM Plex Mono,monospace">8 offers returned &#183; 96ms &#183; EK NDC live</text>
+            </svg>
+          </div>
+          <div class="prod-card__body">
+            <p class="prod-card__tag">OTAs &#183; Tech sellers</p>
+            <h3 class="prod-card__name">DRCT API</h3>
+            <p class="prod-card__desc">Programmatic access to Emirates NDC fares — search, price, book, and service through a single REST API integration.</p>
+            <a href="../products/api.html" class="link-btn">Learn more</a>
+          </div>
+        </div>
+
+        <div class="prod-card">
+          <div class="prod-card__visual">
+            <svg viewBox="0 0 480 248" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+              <rect width="480" height="248" fill="#eaecf4"/>
+              <rect x="14" y="22" width="188" height="7" rx="3" fill="rgba(27,39,51,0.07)"/>
+              <rect x="14" y="37" width="156" height="6" rx="3" fill="rgba(27,39,51,0.05)"/>
+              <rect x="14" y="52" width="172" height="6" rx="3" fill="rgba(27,39,51,0.05)"/>
+              <rect x="14" y="67" width="140" height="6" rx="3" fill="rgba(27,39,51,0.04)"/>
+              <rect x="14" y="82" width="164" height="6" rx="3" fill="rgba(27,39,51,0.04)"/>
+              <rect x="14" y="97" width="130" height="6" rx="3" fill="rgba(27,39,51,0.03)"/>
+              <rect x="220" y="10" width="248" height="228" rx="10" fill="rgba(27,39,51,0.1)" transform="translate(2,3)"/>
+              <rect x="220" y="10" width="248" height="228" rx="10" fill="#fff"/>
+              <rect x="220" y="10" width="248" height="48" rx="10" fill="#1b2733"/>
+              <rect x="220" y="38" width="248" height="20" fill="#1b2733"/>
+              <text x="234" y="29" fill="#fff" font-size="12" font-family="IBM Plex Sans,sans-serif" font-weight="700">DRCT</text>
+              <text x="460" y="27" text-anchor="end" fill="rgba(255,255,255,0.4)" font-size="8" font-family="IBM Plex Sans,sans-serif">EK NDC</text>
+              <text x="234" y="47" fill="rgba(255,255,255,0.4)" font-size="8.5" font-family="IBM Plex Sans,sans-serif">LHR &#8594; DXB &#183; Apr 10</text>
+              <rect x="230" y="66" width="228" height="52" rx="6" fill="rgba(42,138,234,0.05)" stroke="rgba(42,138,234,0.22)" stroke-width="1"/>
+              <rect x="238" y="76" width="22" height="22" rx="4" fill="#ec1b24"/>
+              <text x="249" y="91" text-anchor="middle" fill="#fff" font-size="8.5" font-family="IBM Plex Mono,monospace" font-weight="700">EK</text>
+              <text x="267" y="82" fill="#1b2733" font-size="10" font-family="IBM Plex Sans,sans-serif" font-weight="600">Emirates &#183; Economy</text>
+              <text x="267" y="95" fill="rgba(27,39,51,0.45)" font-size="8.5" font-family="IBM Plex Mono,monospace">09:40&#8211;20:15 &#183; Direct</text>
+              <text x="450" y="84" text-anchor="end" fill="#2a8aea" font-size="13" font-family="IBM Plex Mono,monospace" font-weight="700">&#163;412</text>
+              <text x="450" y="97" text-anchor="end" fill="rgba(27,39,51,0.33)" font-size="7.5" font-family="IBM Plex Mono,monospace">per pax</text>
+              <rect x="230" y="126" width="228" height="52" rx="6" fill="#fff" stroke="rgba(27,39,51,0.08)" stroke-width="1"/>
+              <rect x="238" y="136" width="22" height="22" rx="4" fill="#ec1b24"/>
+              <text x="249" y="151" text-anchor="middle" fill="#fff" font-size="8.5" font-family="IBM Plex Mono,monospace" font-weight="700">EK</text>
+              <text x="267" y="142" fill="#1b2733" font-size="10" font-family="IBM Plex Sans,sans-serif" font-weight="600">Emirates &#183; Business</text>
+              <text x="267" y="155" fill="rgba(27,39,51,0.45)" font-size="8.5" font-family="IBM Plex Mono,monospace">09:40&#8211;20:15 &#183; Direct</text>
+              <text x="450" y="144" text-anchor="end" fill="rgba(27,39,51,0.55)" font-size="13" font-family="IBM Plex Mono,monospace" font-weight="700">&#163;2,840</text>
+              <text x="450" y="157" text-anchor="end" fill="rgba(27,39,51,0.33)" font-size="7.5" font-family="IBM Plex Mono,monospace">per pax</text>
+              <rect x="230" y="188" width="228" height="32" rx="6" fill="#2a8aea"/>
+              <text x="344" y="208" text-anchor="middle" fill="#fff" font-size="11" font-family="IBM Plex Sans,sans-serif" font-weight="700">Book NDC fare</text>
+            </svg>
+          </div>
+          <div class="prod-card__body">
+            <p class="prod-card__tag">GDS users</p>
+            <h3 class="prod-card__name">DRCT Extension</h3>
+            <p class="prod-card__desc">Access Emirates NDC fares directly inside your GDS — no workflow change, no separate login, just better fares.</p>
+            <a href="../products/extension.html" class="link-btn">Learn more</a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- ================================================================
+     FAQ
+================================================================ -->
+<div class="landing-new loaded" style="background-image: linear-gradient(135deg, rgba(42,138,234,0.15) 0%, rgba(42,138,234,0.04) 100%);">
+  <div class="landing-new__body">
+    <section class="questions">
+      <h2>FAQ</h2>
+      <div class="questions__body">
+        <ul>
+          <li>
+            <h3>How to access Emirates via DRCT? <span></span></h3>
+            <p>Contact the DRCT team to set up access. Agencies, OTAs, and TMCs can connect via DRCT BT, DRCT API, or the DRCT Extension depending on their integration type. No separate Emirates contract is required.</p>
+          </li>
+          <li>
+            <h3>What Emirates NDC content is available? <span></span></h3>
+            <p>All Emirates fare families — Economy, Business, and First Class — are available through DRCT's NDC connection, including branded fare attributes and ancillaries. Content is consistent across all DRCT products.</p>
+          </li>
+          <li>
+            <h3>Are Emirates ancillaries supported? <span></span></h3>
+            <p>Yes. Seat selection, extra baggage, meal preferences, and lounge upgrades are available at booking and post-ticketing through the DRCT platform, with no separate booking flow required.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- ================================================================
+     EXPLORE ALL AIRLINES CTA
+================================================================ -->
+<div class="landing-new loaded" style="background-image: linear-gradient(135deg, rgba(42,138,234,0.15) 0%, rgba(42,138,234,0.04) 100%);">
+  <div class="landing-new__body">
+    <section class="explore-cta">
+      <h2>Explore all airline partners</h2>
+      <p>Discover airlines available via DRCT and access their NDC and GDS content through a unified airline distribution platform.</p>
+      <a href="../supply-network/index.html" class="btn-primary">View All Airlines</a>
+    </section>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer__top">
+    <div class="footer__left">
+      <div class="footer__links">
+        <span>Solutions</span>
+        <ul>
+          <li><a href="../solutions/for-airlines.html">For Airlines</a></li>
+          <li><a href="../solutions/iata-agencies.html">IATA Agencies</a></li>
+          <li><a href="../solutions/non-iata-agencies.html">Non-IATA Agencies</a></li>
+          <li><a href="../solutions/ota.html">OTA</a></li>
+          <li><a href="../solutions/tms.html">TMS</a></li>
+        </ul>
+      </div>
+      <div class="footer__links">
+        <span>Products</span>
+        <ul>
+          <li><a href="../products/bt.html">Business Travel</a></li>
+          <li><a href="../products/bt-for-tms.html">BT for TMS</a></li>
+          <li><a href="../products/api.html">API Platform</a></li>
+          <li><a href="../products/extension.html">Browser Extension</a></li>
+        </ul>
+      </div>
+      <div class="footer__links">
+        <span>Supply Network</span>
+        <ul>
+          <li><a href="../supply-network/index.html">All Airlines</a></li>
+          <li><a href="../supply-network/lufthansa.html">Lufthansa</a></li>
+          <li><a href="../supply-network/emirates.html">Emirates</a></li>
+        </ul>
+      </div>
+      <div class="footer__links footer__policy">
+        <span>Privacy policy</span>
+        <ul>
+          <li><a href="#">Privacy policy</a></li>
+          <li><a href="#">Website terms of use</a></li>
+          <li><a href="#">Extension terms of use</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__right">
+      <span>Follow us</span>
+      <ul>
+        <li><a href="https://www.linkedin.com/company/drct/" target="_blank" rel="noopener" class="footer__l" aria-label="LinkedIn"></a></li>
+        <li><a href="https://www.facebook.com/drct.aero/" target="_blank" rel="noopener" class="footer__f" aria-label="Facebook"></a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer__bottom">
+    <div>
+      <i>Copyright &#169; 2017-2026 DRCT Ltd, Ewropa Business Centre, Level 3-701, Dun Karm Street, Birkirkara, BKR9034, Malta</i>
+    </div>
+  </div>
+</footer>
+<script src="../js/app.js"></script>
+</body>
+</html>

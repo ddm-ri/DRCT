@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>For OTA — Direct airline content at scale | DRCT</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/blocks.css">
+  <link rel="stylesheet" href="../css/legacy.css">
+  <link rel="stylesheet" href="../css/ds.css">
+  <link rel="canonical" href="https://drct.aero/solutions/ota.html">
+</head>
+<body>
+
+<!-- ================================================================
+     HEADER
+================================================================ -->
+<header class="nav-bar" id="header">
+  <div class="nav-bar__inner">
+    <a href="../index.html" class="nav-bar__logo"><img src="../img/logo-new.png" alt="DRCT" width="260" height="50"></a>
+    <nav class="nav-bar__nav" role="navigation" aria-label="Main">
+      <div class="nav-item" data-menu="solutions">
+        <button type="button" class="nav-item__trigger" aria-haspopup="true" aria-expanded="false">Solutions <svg class="nav-chevron" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 4.5l4 3.5 4-3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="mega-menu" role="dialog" aria-label="Solutions">
+          <div class="mm-intro"><strong class="mm-intro__title">Solutions</strong><p class="mm-intro__desc">Explore how DRCT helps airlines, agencies and distribution partners deliver, distribute and monetize airline offers.</p></div>
+          <div class="mm-grid">
+            <div class="mm-col">
+              <a class="mm-item" href="../solutions/for-airlines.html"><span class="mm-item__icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 13.5L5.5 8l3 2.5 4-6L16 14" stroke="#2a8aea" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="9" cy="5" r="1.5" fill="#2a8aea" fill-opacity="0.35" stroke="#2a8aea" stroke-width="1.3"/></svg></span><span class="mm-item__body"><strong>For Airlines</strong><span>Distribute offers and grow ancillary revenue across all channel types.</span></span></a>
+              <a class="mm-item" href="../solutions/iata-agencies.html"><span class="mm-item__icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="2" y="4.5" width="14" height="10" rx="2" stroke="#2a8aea" stroke-width="1.4"/><path d="M6 4.5V3.5a1 1 0 011-1h4a1 1 0 011 1v1" stroke="#2a8aea" stroke-width="1.4" stroke-linecap="round"/><path d="M2 8.5h14" stroke="#2a8aea" stroke-width="1.4" stroke-linecap="round" stroke-opacity="0.35"/></svg></span><span class="mm-item__body"><strong>For IATA Agencies</strong><span>Access airline inventory and ancillary products through existing workflows.</span></span></a>
+              <a class="mm-item" href="../solutions/non-iata-agencies.html"><span class="mm-item__icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="6.5" stroke="#2a8aea" stroke-width="1.4"/><path d="M9 2.5C9 2.5 6.5 5.5 6.5 9S9 15.5 9 15.5M9 2.5C9 2.5 11.5 5.5 11.5 9S9 15.5 9 15.5" stroke="#2a8aea" stroke-width="1.4" stroke-linecap="round"/><path d="M2.5 9h13" stroke="#2a8aea" stroke-width="1.4" stroke-linecap="round" stroke-opacity="0.35"/></svg></span><span class="mm-item__body"><strong>For Non-IATA Agencies</strong><span>Expand inventory access without direct airline integrations.</span></span></a>
+            </div>
+            <div class="mm-col">
+              <a class="mm-item" href="../solutions/ota.html"><span class="mm-item__icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="2" y="3" width="14" height="12" rx="2" stroke="#2a8aea" stroke-width="1.4"/><path d="M6 8h6M6 11h4" stroke="#2a8aea" stroke-width="1.4" stroke-linecap="round"/><path d="M2 6.5h14" stroke="#2a8aea" stroke-width="1.4" stroke-linecap="round" stroke-opacity="0.3"/></svg></span><span class="mm-item__body"><strong>For OTA</strong><span>Deliver personalized airline offers at scale.</span></span></a>
+              <a class="mm-item" href="../solutions/tms.html"><span class="mm-item__icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="2" y="5" width="14" height="9" rx="2" stroke="#2a8aea" stroke-width="1.4"/><path d="M6 5V4a1 1 0 011-1h4a1 1 0 011 1v1" stroke="#2a8aea" stroke-width="1.4" stroke-linecap="round"/><path d="M6 10h2M10 10h2" stroke="#2a8aea" stroke-width="1.4" stroke-linecap="round"/></svg></span><span class="mm-item__body"><strong>For TMS</strong><span>Integrate airline offers into corporate travel workflows.</span></span></a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="nav-item" data-menu="products">
+        <button type="button" class="nav-item__trigger" aria-haspopup="true" aria-expanded="false">Products <svg class="nav-chevron" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 4.5l4 3.5 4-3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="mega-menu" role="dialog" aria-label="Products">
+          <div class="mm-intro"><strong class="mm-intro__title">Products</strong><p class="mm-intro__desc">Discover the DRCT platform, integrations and tools powering modern airline commerce.</p></div>
+          <div class="mm-grid">
+            <div class="mm-col">
+              <a class="mm-item" href="../products/bt.html"><span class="mm-item__icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="2" y="3" width="14" height="12" rx="2" stroke="#2a8aea" stroke-width="1.4"/><path d="M6 8h6M6 11h4" stroke="#2a8aea" stroke-width="1.4" stroke-linecap="round" stroke-opacity="0.6"/><path d="M2 6.5h14" stroke="#2a8aea" stroke-width="1.4" stroke-opacity="0.28"/></svg></span><span class="mm-item__body"><strong>Business Travel</strong><span>Premium booking and servicing experience for corporate travelers.</span></span></a>
+              <a class="mm-item" href="../products/bt-for-tms.html"><span class="mm-item__icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="2" y="5" width="9" height="9" rx="2" stroke="#2a8aea" stroke-width="1.4"/><rect x="7" y="4" width="9" height="9" rx="2" stroke="#2a8aea" stroke-width="1.4" stroke-opacity="0.45"/></svg></span><span class="mm-item__body"><strong>BT for TMS</strong><span>Travel management integrations and workflows.</span></span></a>
+            </div>
+            <div class="mm-col">
+              <a class="mm-item" href="../products/api.html"><span class="mm-item__icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4.5 7l-3 2 3 2M13.5 7l3 2-3 2M10.5 4l-2.5 10" stroke="#2a8aea" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="mm-item__body"><strong>API Platform</strong><span>Developer tools, APIs, webhooks and integrations.</span></span></a>
+              <a class="mm-item" href="../products/extension.html"><span class="mm-item__icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="2" y="2" width="14" height="11" rx="2" stroke="#2a8aea" stroke-width="1.4"/><path d="M6 16h6M9 13v3" stroke="#2a8aea" stroke-width="1.4" stroke-linecap="round"/><path d="M7 7.5l2 2 3-3" stroke="#2a8aea" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="mm-item__body"><strong>Browser Extension</strong><span>Workflow automation inside existing agency systems.</span></span></a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <a class="nav-item__link" href="../supply-network/index.html">Supply Network</a>
+    </nav>
+    <div class="nav-bar__right">
+      <div class="nav-item nav-item--lang" data-menu="lang">
+        <button type="button" class="nav-item__trigger" aria-haspopup="true" aria-expanded="false"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><circle cx="7" cy="7" r="5.5" stroke="currentColor" stroke-width="1.3"/><path d="M7 1.5C7 1.5 5 4 5 7s2 5.5 2 5.5M7 1.5C7 1.5 9 4 9 7s-2 5.5-2 5.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><path d="M1.5 7h11" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-opacity="0.6"/></svg> EN <svg class="nav-chevron" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 4.5l4 3.5 4-3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="mm-lang"><a href="#" class="active">English</a><a href="#">Українська</a><a href="#">Polska</a></div>
+      </div>
+      <a class="nav-bar__signin" href="#">Sign In</a>
+      <a class="nav-bar__demo" href="mailto:hello@drct.aero">Book a Demo</a>
+    </div>
+    <button class="nav-bar__hamburger" id="menuToggle" aria-label="Toggle navigation" aria-expanded="false"><div class="line-1"></div><div class="line-2"></div></button>
+  </div>
+</header>
+<div class="mobile-menu" id="mobileMenu">
+  <ul class="menu__links">
+    <li class="menu__group-label">Solutions</li>
+    <li><a href="../solutions/for-airlines.html">For Airlines</a></li>
+    <li><a href="../solutions/iata-agencies.html">For IATA Agencies</a></li>
+    <li><a href="../solutions/non-iata-agencies.html">For Non-IATA Agencies</a></li>
+    <li><a href="../solutions/ota.html">For OTA</a></li>
+    <li><a href="../solutions/tms.html">For TMS</a></li>
+    <li class="menu__group-label">Products</li>
+    <li><a href="../products/bt.html">Business Travel</a></li>
+    <li><a href="../products/bt-for-tms.html">BT for TMS</a></li>
+    <li><a href="../products/api.html">API Platform</a></li>
+    <li><a href="../products/extension.html">Browser Extension</a></li>
+    <li class="menu__group-label">More</li>
+    <li><a href="../supply-network/index.html">Supply Network</a></li>
+    <li><a href="mailto:hello@drct.aero">Book a Demo</a></li>
+  </ul>
+</div>
+
+<!-- ================================================================
+     HERO
+================================================================ -->
+<section class="ia-hero">
+  <div class="landing-new__body">
+    <div class="ia-hero__inner">
+            <h1>For OTA</h1>
+      <p class="ia-hero__lead">Direct, fully normalized airline offers. Get every fare — low-cost, traditional, and charter — with competitive pricing, high L2B limits, and 24/7 support.</p>
+      <p class="ia-hero__sub">DRCT unifies airline content into a single, consistent feed — improving pricing, coverage, and conversion for online travel agencies.</p>
+      <div class="ia-hero__ctas">
+        <a href="mailto:hello@drct.aero" class="btn-primary">Request a Demo</a>
+        <a href="../products/api.html" class="btn-outline">Explore OTA Solution</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================
+     CHALLENGES / SOLUTIONS (bcard-grid)
+================================================================ -->
+<section class="ps-section">
+  <div class="landing-new__body">
+    <div class="ps-section__head">
+      <h2>What DRCT delivers for OTAs</h2>
+      <p>Problems online travel agencies encounter with airline content — and how DRCT addresses each one.</p>
+    </div>
+    <div class="bcard-grid">
+      <div class="bcard">
+        <div class="bcard__icon">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M3 17L6 10l4 3.5 5-7.5L19 17" stroke="#2a8aea" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="11" cy="6" r="2" fill="#2a8aea" fill-opacity="0.25" stroke="#2a8aea" stroke-width="1.4"/></svg>
+        </div>
+        <h3 class="bcard__title">Full airline content with competitive pricing</h3>
+        <p class="bcard__desc">DRCT provides access to airline content via NDC and other distribution schemes, low-cost carriers, and charter airlines — delivering full coverage with competitive pricing in one place.</p>
+      </div>
+      <div class="bcard">
+        <div class="bcard__icon">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><rect x="3" y="5" width="16" height="12" rx="2.5" stroke="#2a8aea" stroke-width="1.5"/><path d="M7 10h8M7 13.5h5" stroke="#2a8aea" stroke-width="1.4" stroke-linecap="round"/></svg>
+        </div>
+        <h3 class="bcard__title">Normalized offers, zero edge cases</h3>
+        <p class="bcard__desc">DRCT normalizes all offers into a single structure — consistent fares, ancillaries, and fare rules your platform can process without edge-case handling per airline or source.</p>
+      </div>
+      <div class="bcard">
+        <div class="bcard__icon">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="7.5" stroke="#2a8aea" stroke-width="1.5"/><path d="M11 7.5v3.5l2.5 2" stroke="#2a8aea" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h3 class="bcard__title">Direct airline support, 24/7</h3>
+        <p class="bcard__desc">DRCT provides 24/7 support and handles complex edge cases directly with airlines — so your OTA isn't blocked by operational friction when issues arise.</p>
+      </div>
+      <div class="bcard">
+        <div class="bcard__icon">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M4 18V13M8 18V9M12 18V11M16 18V6" stroke="#2a8aea" stroke-width="1.6" stroke-linecap="round"/></svg>
+        </div>
+        <h3 class="bcard__title">OTA-grade L2B limits</h3>
+        <p class="bcard__desc">DRCT provides OTA-grade L2B limits — increasing the number of bookable options per search and improving overall pricing performance and conversion across your platform.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================
+     HOW IT WORKS
+================================================================ -->
+<section class="ia-how">
+  <div class="landing-new__body">
+    <div class="ia-how__head">
+      <h2>How it works</h2>
+      <p>DRCT sits between airline inventory and your platform — aggregating, normalizing, and delivering a clean data feed your OTA can build on directly.</p>
+    </div>
+
+    <div class="ia-flow">
+      <!-- Left col -->
+      <div class="ia-flow__col">
+        <span class="ia-flow__label">Every Airline</span>
+        <div class="ia-flow__title">NDC, low-cost, charters</div>
+        <div class="ia-flow__sub">Direct airline content</div>
+        <div class="ia-flow__items">
+          <div class="ia-flow__item"><span class="ia-flow__dot" style="background:var(--blue)"></span>NDC</div>
+          <div class="ia-flow__item"><span class="ia-flow__dot" style="background:rgba(27,39,51,0.22)"></span>Low-cost</div>
+          <div class="ia-flow__item"><span class="ia-flow__dot" style="background:rgba(27,39,51,0.22)"></span>Charters</div>
+        </div>
+      </div>
+
+      <!-- Arrow -->
+      <div class="ia-flow__arrow">
+        <svg width="28" height="16" viewBox="0 0 28 16" fill="none"><path d="M1 8h22M20 3l6 5-6 5" stroke="rgba(27,39,51,0.22)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="3 3"/></svg>
+      </div>
+
+      <!-- Core col -->
+      <div class="ia-flow__col ia-flow__col--core">
+        <span class="ia-flow__badge">DRCT</span>
+        <span class="ia-flow__label">Normalization</span>
+        <div class="ia-flow__title">Unified schema, enriched offers</div>
+        <div class="ia-flow__sub">Aggregation · Normalization · Delivery</div>
+        <div class="ia-flow__steps">
+          <div class="ia-flow__step"><span class="ia-flow__n">01</span>Unified schema</div>
+          <div class="ia-flow__step"><span class="ia-flow__n">02</span>Enriched offers</div>
+          <div class="ia-flow__step"><span class="ia-flow__n">03</span>Delivered via single API</div>
+        </div>
+        <div class="ia-flow__note">More bookable results, higher conversion</div>
+      </div>
+
+      <!-- Arrow -->
+      <div class="ia-flow__arrow">
+        <svg width="28" height="16" viewBox="0 0 28 16" fill="none"><path d="M1 8h22M20 3l6 5-6 5" stroke="rgba(27,39,51,0.22)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="3 3"/></svg>
+      </div>
+
+      <!-- Right col -->
+      <div class="ia-flow__col">
+        <span class="ia-flow__label">Your OTA</span>
+        <div class="ia-flow__title">Best prices &amp; L2B</div>
+        <div class="ia-flow__sub">Delivered via single API</div>
+        <div class="ia-flow__items">
+          <div class="ia-flow__item"><span class="ia-flow__dot" style="background:#e0672a"></span>Single API</div>
+          <div class="ia-flow__item"><span class="ia-flow__dot" style="background:#33c100"></span>More bookable results</div>
+          <div class="ia-flow__item"><span class="ia-flow__dot" style="background:var(--blue)"></span>Higher conversion</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4-col feature row -->
+    <div class="ia-feat-row ia-feat-row--4">
+      <div class="ia-feat-col">
+        <div class="ia-feat-icon">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M3 17L6 10l4 3.5 5-7.5L19 17" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="ia-feat-title">Offer ingestion</div>
+        <p class="ia-feat-desc">DRCT ingests airline content from different sources into a single distribution layer with full pricing logic and fare coverage.</p>
+      </div>
+      <div class="ia-feat-col">
+        <div class="ia-feat-icon">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M11 3l2.5 5 5.5.8-4 3.9.95 5.5L11 15.5l-4.95 2.7.95-5.5L3 8.8l5.5-.8L11 3z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="ia-feat-title">Normalization and enrichment</div>
+        <p class="ia-feat-desc">All offers are normalized into a consistent schema and enriched with ancillaries, bundles, and fare conditions — making pricing comparable and eliminating source-specific inconsistencies.</p>
+      </div>
+      <div class="ia-feat-col">
+        <div class="ia-feat-icon">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="7.5" stroke="currentColor" stroke-width="1.5"/><circle cx="11" cy="11" r="3" stroke="currentColor" stroke-width="1.4"/></svg>
+        </div>
+        <div class="ia-feat-title">Delivery into your OTA</div>
+        <p class="ia-feat-desc">Enriched offers are delivered via a single API into your platform. Your system integrates once and receives all airline content in a consistent format, without handling per-source logic.</p>
+      </div>
+      <div class="ia-feat-col">
+        <div class="ia-feat-icon">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="7.5" stroke="currentColor" stroke-width="1.5"/><path d="M8 11l2 2 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="ia-feat-title">Pricing performance and L2B</div>
+        <p class="ia-feat-desc">DRCT provides competitive pricing and OTA-grade L2B limits — increasing the number of bookable results per search and improving conversion without additional airline agreements.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================
+     PRODUCT
+================================================================ -->
+<section class="ia-products">
+  <div class="landing-new__body">
+    <div class="ia-products__head">
+      <h2>Product</h2>
+      <p>Built for programmatic integration at OTA scale.</p>
+    </div>
+
+    <div class="ia-prod-single">
+      <div class="ia-prod-single__main">
+        <span class="ia-prod__tag">OTAs · Tech Sellers</span>
+        <div class="ia-prod__name">DRCT API</div>
+        <p class="ia-prod__desc">Your OTA connects once. All airline sources are accessible through the same API. It delivers the full DRCT aggregation and normalization layer — search, pricing, booking, servicing, and reporting — through a single, consistent endpoint.</p>
+      </div>
+      <a href="../products/api.html" class="ia-prod__link">Learn More →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================
+     BENEFITS
+================================================================ -->
+<section class="ia-why">
+  <div class="landing-new__body">
+    <div class="ia-why__head">
+      <h2>Benefits for OTAs</h2>
+      <p>DRCT brings scalable airline distribution into your platform.</p>
+    </div>
+    <div class="ia-why-grid">
+      <div>
+        <div class="ia-why-icon">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M3 17L6 10l4 3.5 5-7.5L19 17" stroke="#2a8aea" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="ia-why-title">Higher conversion rates.</div>
+        <p class="ia-why-desc">Complete fare coverage, higher L2B limits, and normalized pricing mean your search results include the best available options — travelers find what they need without leaving your platform for a better price.</p>
+      </div>
+      <div>
+        <div class="ia-why-icon">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M11 3l2.5 5 5.5.8-4 3.9.95 5.5L11 15.5l-4.95 2.7.95-5.5L3 8.8l5.5-.8L11 3z" stroke="#2a8aea" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="ia-why-title">Improved pricing competitiveness.</div>
+        <p class="ia-why-desc">NDC fares, direct offers, and ancillary-bundled pricing give your OTA the same content depth that large players use to compete on price.</p>
+      </div>
+      <div>
+        <div class="ia-why-icon">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M4 11h14M4 7h14M4 15h8" stroke="#2a8aea" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <div class="ia-why-title">Reduced integration complexity.</div>
+        <p class="ia-why-desc">One integration replaces multiple separate airline connections. NDC integration challenges — spec variations, session handling, error normalization — are absorbed by DRCT, not your engineering team.</p>
+      </div>
+      <div>
+        <div class="ia-why-icon">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M8 11l2 2 4-4" stroke="#2a8aea" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><rect x="3" y="4" width="16" height="14" rx="2.5" stroke="#2a8aea" stroke-width="1.5"/></svg>
+        </div>
+        <div class="ia-why-title">Consistent data for display and pricing logic.</div>
+        <p class="ia-why-desc">Normalized fares reduce the display edge cases your front-end needs to handle — one fare structure, one ancillary format, regardless of how many airlines are behind the feed.</p>
+      </div>
+      <div>
+        <div class="ia-why-icon">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="7.5" stroke="#2a8aea" stroke-width="1.5"/><path d="M11 7.5v3.5l2.5 2" stroke="#2a8aea" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="ia-why-title">Operational reliability at scale.</div>
+        <p class="ia-why-desc">DRCT manages airline API stability, session recovery, and NDC workflow normalization on your behalf. When airline systems degrade, the impact is absorbed before it reaches your platform.</p>
+      </div>
+      <div>
+        <div class="ia-why-icon">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M4 18V13M8 18V9M12 18V11M16 18V6" stroke="#2a8aea" stroke-width="1.6" stroke-linecap="round"/></svg>
+        </div>
+        <div class="ia-why-title">Faster time to market with new airlines.</div>
+        <p class="ia-why-desc">New airlines and NDC channels added to the DRCT network are immediately available via your existing API connection — no new integration cycles, no re-certification.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================
+     FAQ
+================================================================ -->
+<section class="ia-faq">
+  <div class="landing-new__body">
+    <div class="ia-faq__head">
+      <h2>Frequently Asked Questions</h2>
+    </div>
+    <ul class="questions">
+      <li>
+        <h3>What airline content is included in the DRCT feed? <span></span></h3>
+        <p>DRCT aggregates content from NDC-enabled airlines, low-cost carriers, and charter airlines. This includes fares, ancillaries, fare conditions, seat availability, and booking classes — delivered through a single normalized API regardless of the underlying airline distribution model.</p>
+      </li>
+      <li>
+        <h3>How does fare normalization work, and why does it matter for OTAs? <span></span></h3>
+        <p>Each airline distributes offers in a different format — different field names, pricing structures, ancillary packaging, and fare rule representations. DRCT maps all of these into a consistent schema before delivering them to your platform. This means your front-end and pricing logic only has to handle one format, reducing development overhead and eliminating per-airline edge cases.</p>
+      </li>
+      <li>
+        <h3>How does DRCT handle NDC booking and post-booking servicing? <span></span></h3>
+        <p>DRCT provides end-to-end NDC workflow support — from offer search and pricing to order creation, seat selection, ancillary add-ons, ticketing, and post-booking modifications. All servicing operations (changes, cancellations, refunds) are handled via the same API endpoint your OTA uses for search and booking.</p>
+      </li>
+      <li>
+        <h3>How long does it usually take to integrate your API? <span></span></h3>
+        <p>Most OTAs complete their initial integration within a few weeks. The timeline depends on the complexity of your existing systems and how many workflows (search, booking, servicing) you want to integrate at launch. DRCT provides dedicated technical support and documentation throughout the integration process.</p>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ================================================================
+     FINAL CTA
+================================================================ -->
+<section class="ia-cta">
+  <div class="landing-new__body">
+    <div class="ia-cta__card">
+      <h2>Ready to test the best product for OTA?</h2>
+      <p class="ia-cta__sub">Integrate airline content into your OTA once — scale without added complexity.</p>
+      <a href="mailto:hello@drct.aero" class="btn-primary">
+        Get Started
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer__top">
+    <div class="footer__left">
+      <div class="footer__links">
+        <span>Solutions</span>
+        <ul>
+          <li><a href="../solutions/for-airlines.html">For Airlines</a></li>
+          <li><a href="../solutions/iata-agencies.html">IATA Agencies</a></li>
+          <li><a href="../solutions/non-iata-agencies.html">Non-IATA Agencies</a></li>
+          <li><a href="../solutions/ota.html">OTA</a></li>
+          <li><a href="../solutions/tms.html">TMS</a></li>
+        </ul>
+      </div>
+      <div class="footer__links">
+        <span>Products</span>
+        <ul>
+          <li><a href="../products/bt.html">Business Travel</a></li>
+          <li><a href="../products/bt-for-tms.html">BT for TMS</a></li>
+          <li><a href="../products/api.html">API Platform</a></li>
+          <li><a href="../products/extension.html">Browser Extension</a></li>
+        </ul>
+      </div>
+      <div class="footer__links">
+        <span>Supply Network</span>
+        <ul>
+          <li><a href="../supply-network/index.html">All Airlines</a></li>
+          <li><a href="../supply-network/lufthansa.html">Lufthansa</a></li>
+          <li><a href="../supply-network/emirates.html">Emirates</a></li>
+        </ul>
+      </div>
+      <div class="footer__links footer__policy">
+        <span>Privacy policy</span>
+        <ul>
+          <li><a href="#">Privacy policy</a></li>
+          <li><a href="#">Website terms of use</a></li>
+          <li><a href="#">Extension terms of use</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__right">
+      <span>Follow us</span>
+      <ul>
+        <li><a href="https://www.linkedin.com/company/drct/" target="_blank" rel="noopener" class="footer__l" aria-label="LinkedIn"></a></li>
+        <li><a href="https://www.facebook.com/drct.aero/" target="_blank" rel="noopener" class="footer__f" aria-label="Facebook"></a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer__bottom">
+    <div>
+      <i>Copyright &#169; 2017-2026 DRCT Ltd, Ewropa Business Centre, Level 3-701, Dun Karm Street, Birkirkara, BKR9034, Malta</i>
+    </div>
+  </div>
+</footer>
+<script src="../js/app.js"></script>
+</body>
+</html>
