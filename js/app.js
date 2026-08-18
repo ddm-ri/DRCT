@@ -10,18 +10,115 @@ document.addEventListener('DOMContentLoaded', function () {
   var menuToggle  = document.getElementById('menuToggle');
   var mobileMenu  = document.getElementById('mobileMenu');
 
+  function resetMobilePanels() {
+    var subs = mobileMenu.querySelectorAll('.menu-panel--sub');
+    subs.forEach(function (p) { p.classList.remove('menu-panel--open'); });
+    var main = document.getElementById('menuMain');
+    if (main) main.classList.remove('menu-panel--pushed');
+  }
+
   if (menuToggle && mobileMenu) {
     menuToggle.addEventListener('click', function () {
       var open = mobileMenu.classList.toggle('open');
       menuToggle.classList.toggle('active', open);
       document.body.style.overflow = open ? 'hidden' : '';
+      if (!open) resetMobilePanels();
+    });
+
+    // Drill into sub-panel
+    mobileMenu.addEventListener('click', function (e) {
+      var drillBtn = e.target.closest('[data-open]');
+      if (drillBtn) {
+        var targetId = drillBtn.dataset.open;
+        var target = document.getElementById(targetId);
+        var main = document.getElementById('menuMain');
+        if (target && main) {
+          main.classList.add('menu-panel--pushed');
+          target.classList.add('menu-panel--open');
+        }
+        return;
+      }
+      // Back button
+      var backBtn = e.target.closest('[data-close]');
+      if (backBtn) {
+        var sub = backBtn.closest('.menu-panel--sub');
+        var main = document.getElementById('menuMain');
+        if (sub) sub.classList.remove('menu-panel--open');
+        if (main) main.classList.remove('menu-panel--pushed');
+      }
     });
   }
 
   /* ---------------------------------------------------------------
+     MEGA MENUS — hover + click + keyboard
+  --------------------------------------------------------------- */
+  var navItems = document.querySelectorAll('.nav-item[data-menu]');
+
+  function closeAllMenus() {
+    navItems.forEach(function (it) {
+      it.classList.remove('nav-item--open');
+      var t = it.querySelector('.nav-item__trigger');
+      if (t) t.setAttribute('aria-expanded', 'false');
+    });
+  }
+
+  navItems.forEach(function (item) {
+    var hoverTimer;
+    var closeTimer;
+
+    item.addEventListener('mouseenter', function () {
+      clearTimeout(closeTimer);
+      hoverTimer = setTimeout(function () {
+        closeAllMenus();
+        item.classList.add('nav-item--open');
+        var t = item.querySelector('.nav-item__trigger');
+        if (t) t.setAttribute('aria-expanded', 'true');
+      }, 60);
+    });
+
+    item.addEventListener('mouseleave', function () {
+      clearTimeout(hoverTimer);
+      closeTimer = setTimeout(function () {
+        item.classList.remove('nav-item--open');
+        var t = item.querySelector('.nav-item__trigger');
+        if (t) t.setAttribute('aria-expanded', 'false');
+      }, 130);
+    });
+
+    var trigger = item.querySelector('.nav-item__trigger');
+    if (trigger) {
+      trigger.addEventListener('click', function (e) {
+        e.stopPropagation();
+        var isOpen = item.classList.contains('nav-item--open');
+        closeAllMenus();
+        if (!isOpen) {
+          item.classList.add('nav-item--open');
+          trigger.setAttribute('aria-expanded', 'true');
+        }
+      });
+    }
+
+    item.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') {
+        closeAllMenus();
+        var t = item.querySelector('.nav-item__trigger');
+        if (t) t.focus();
+      }
+    });
+  });
+
+  document.addEventListener('click', function (e) {
+    if (!e.target.closest('.nav-item')) closeAllMenus();
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closeAllMenus();
+  });
+
+  /* ---------------------------------------------------------------
      FAQ ACCORDION
   --------------------------------------------------------------- */
-  var faqItems = document.querySelectorAll('#faqList li');
+  var faqItems = document.querySelectorAll('#faqList li, .questions__body li');
 
   faqItems.forEach(function (item) {
     var heading = item.querySelector('h3');
@@ -29,8 +126,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     heading.addEventListener('click', function () {
       var isActive = item.classList.contains('active');
-      // Close all
-      faqItems.forEach(function (el) { el.classList.remove('active'); });
+      // Close all items in the same list
+      var siblings = item.closest('ul').querySelectorAll('li');
+      siblings.forEach(function (el) { el.classList.remove('active'); });
       // Open clicked (unless it was already open)
       if (!isActive) item.classList.add('active');
     });
@@ -177,6 +275,7 @@ document.addEventListener('DOMContentLoaded', function () {
   --------------------------------------------------------------- */
   var slider            = document.getElementById('savingsSlider');
   var dot               = document.getElementById('savingsDot');
+  var trackFill         = document.getElementById('savingsTrackFill');
   var amountDesktop     = document.getElementById('savingsAmountDesktop');
   var ticketsDesktop    = document.getElementById('savingsTicketsDesktop');
   var amountMobile      = document.getElementById('savingsAmountMobile');
@@ -219,6 +318,11 @@ document.addEventListener('DOMContentLoaded', function () {
     var leftPx = pad + pct * usable;
 
     dot.style.left = leftPx + 'px';
+
+    // Update filled track width
+    if (trackFill) {
+      trackFill.style.width = (leftPx - pad) + 'px';
+    }
 
     // Also move desktop tooltip to follow dot on wide screens
     if (tooltipDesktop && window.innerWidth > 1024) {
@@ -316,27 +420,8 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   /* ---------------------------------------------------------------
-     BENEFITS — SHOW MORE / HIDE
+     BENEFITS — always show all
   --------------------------------------------------------------- */
-  var benefitsToggle = document.getElementById('benefitsToggle');
-  var benefitItems   = document.querySelectorAll('.benefit__item');
-  var showingAll     = false;
-
-  // Initially hide items 4-6 (indices 3-5)
-  benefitItems.forEach(function (item, i) {
-    if (i >= 3) item.classList.add('hidden');
-  });
-
-  if (benefitsToggle) {
-    benefitsToggle.addEventListener('click', function (e) {
-      e.preventDefault();
-      showingAll = !showingAll;
-      benefitItems.forEach(function (item, i) {
-        if (i >= 3) item.classList.toggle('hidden', !showingAll);
-      });
-      benefitsToggle.textContent = showingAll ? 'Hide' : 'View more';
-    });
-  }
 
   /* ---------------------------------------------------------------
      COOKIE BANNER
@@ -355,15 +440,136 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   /* ---------------------------------------------------------------
-     DEMO LINKS (Typeform placeholder)
+     DEMO LINKS
   --------------------------------------------------------------- */
   document.querySelectorAll('[data-demo]').forEach(function (el) {
     el.addEventListener('click', function (e) {
       e.preventDefault();
-      // In production this opens the Typeform popup
-      // Here we just prevent navigation
-      alert('Demo request form would open here.');
+      window.location.href = 'mailto:hello@drct.aero';
     });
   });
+
+  /* ---------------------------------------------------------------
+     TESTIMONIALS CAROUSEL
+  --------------------------------------------------------------- */
+  var testiSlides      = document.querySelectorAll('.testi__slide');
+  var testiDots        = document.querySelectorAll('.testi__dot');
+  var testiPrevBtns    = document.querySelectorAll('.testi__prev-btn');
+  var testiNextBtns    = document.querySelectorAll('.testi__next-btn');
+  var testiWrap        = document.getElementById('testiWrap');
+  var testiProgressBar = document.getElementById('testiProgressBar');
+  var testiIdx         = 0;
+  var testiTotal       = testiSlides.length;
+  var testiTimer       = null;
+  var testiRunning     = false;
+
+  function testiRestartProgress() {
+    if (!testiProgressBar) return;
+    testiProgressBar.classList.remove('testi__progress-bar--running');
+    void testiProgressBar.offsetWidth; // force reflow to restart animation
+    testiProgressBar.classList.add('testi__progress-bar--running');
+  }
+
+  function testiGo(next) {
+    if (!testiTotal || testiRunning) return;
+    next = ((next % testiTotal) + testiTotal) % testiTotal;
+    if (next === testiIdx) return;
+
+    testiRunning = true;
+    var current = testiSlides[testiIdx];
+
+    current.style.transition = 'opacity 0.28s ease';
+    current.style.opacity = '0';
+
+    setTimeout(function () {
+      current.classList.remove('testi__slide--active');
+      current.style.opacity = '';
+      current.style.transition = '';
+
+      testiIdx = next;
+      testiSlides[testiIdx].classList.add('testi__slide--active');
+
+      testiDots.forEach(function (d, i) {
+        d.classList.toggle('testi__dot--active', i === testiIdx);
+        d.setAttribute('aria-selected', i === testiIdx ? 'true' : 'false');
+      });
+
+      testiRestartProgress();
+      testiRunning = false;
+    }, 290);
+  }
+
+  function testiStartAuto() {
+    testiStopAuto();
+    testiRestartProgress();
+    testiTimer = setInterval(function () { testiGo(testiIdx + 1); }, 6000);
+  }
+
+  function testiStopAuto() {
+    if (testiTimer) { clearInterval(testiTimer); testiTimer = null; }
+  }
+
+  if (testiTotal > 1) {
+    testiPrevBtns.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        testiStopAuto(); testiGo(testiIdx - 1); testiStartAuto();
+      });
+    });
+    testiNextBtns.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        testiStopAuto(); testiGo(testiIdx + 1); testiStartAuto();
+      });
+    });
+
+    testiDots.forEach(function (dot) {
+      dot.addEventListener('click', function () {
+        testiStopAuto();
+        testiGo(parseInt(dot.dataset.testi, 10));
+        testiStartAuto();
+      });
+    });
+
+    if (testiWrap) {
+      testiWrap.addEventListener('mouseenter', testiStopAuto);
+      testiWrap.addEventListener('mouseleave', testiStartAuto);
+    }
+
+    if (testiWrap) {
+      var testiTouchX = 0;
+      testiWrap.addEventListener('touchstart', function (e) {
+        testiTouchX = e.touches[0].clientX;
+      }, { passive: true });
+      testiWrap.addEventListener('touchend', function (e) {
+        var diff = testiTouchX - e.changedTouches[0].clientX;
+        if (Math.abs(diff) > 44) {
+          testiStopAuto();
+          testiGo(diff > 0 ? testiIdx + 1 : testiIdx - 1);
+          testiStartAuto();
+        }
+      }, { passive: true });
+    }
+
+    testiStartAuto();
+  }
+
+  /* ── What You Gain toggle ──────────────────────────────────────── */
+  var gainBtns = document.querySelectorAll('.gain-toggle__btn');
+  if (gainBtns.length) {
+    gainBtns.forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        gainBtns.forEach(function(b) {
+          b.classList.remove('gain-toggle__btn--active');
+          b.setAttribute('aria-selected', 'false');
+        });
+        document.querySelectorAll('.gain-panel').forEach(function(p) {
+          p.classList.remove('gain-panel--active');
+        });
+        btn.classList.add('gain-toggle__btn--active');
+        btn.setAttribute('aria-selected', 'true');
+        var panel = document.getElementById('gain-' + btn.dataset.tab);
+        if (panel) panel.classList.add('gain-panel--active');
+      });
+    });
+  }
 
 });

@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>DRCT for Developers</title>
+  <meta name="description" content="Build your travel business with a quickly integrated DRCT API. Issue tickets at unique fares without GDS fees. Get started in 5 minutes.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+
+<!-- ================================================================
+     HEADER
+================================================================ -->
+<header class="header" id="header">
+  <div class="header__links">
+    <div class="header__links-left">
+      <a href="../index.html" class="header__logo">DRCT</a>
+      <a href="../index.html" class="header__nav-link">For agencies</a>
+      <a href="../airlines/index.html" class="header__nav-link">For airlines</a>
+      <a href="index.html" class="header__nav-link active">For developers</a>
+    </div>
+    <div class="header__links-right">
+      <a href="#" class="header__signin">Sign in</a>
+      <a href="#" class="header__try" data-demo>Request Demo</a>
+    </div>
+    <button class="header__menu-cross" id="menuToggle" aria-label="Toggle navigation">
+      <div class="line-1"></div>
+      <div class="line-2"></div>
+    </button>
+  </div>
+</header>
+
+<!-- Mobile menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <ul class="menu__links">
+    <li><a href="../index.html">For agencies</a></li>
+    <li><a href="../airlines/index.html">For airlines</a></li>
+    <li><a href="index.html" class="active">For developers</a></li>
+  </ul>
+</div>
+
+<!-- ================================================================
+     HERO + ADVANTAGES
+================================================================ -->
+<div class="landing-new loaded" style="background-image: linear-gradient(to right, rgba(42,138,234,0.2) 0%, rgba(42,138,234,0) 58%);">
+  <div class="landing-new__body">
+
+    <!-- HERO: network diagram LEFT (info__right), text RIGHT (info__left) -->
+    <section class="info">
+
+      <!-- Diagram placed first = appears on LEFT in desktop flex row -->
+      <div class="info__right">
+        <svg viewBox="0 0 500 340" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:500px;display:block;margin-top:26px">
+
+          <!-- Lines from airlines to DRCT hub -->
+          <path d="M100 50 C178 50 178 168 218 168" stroke="rgba(42,138,234,0.3)" stroke-width="1.5" fill="none"/>
+          <path d="M100 120 C175 120 175 168 218 168" stroke="rgba(42,138,234,0.3)" stroke-width="1.5" fill="none"/>
+          <path d="M100 210 C175 210 175 172 218 172" stroke="rgba(42,138,234,0.3)" stroke-width="1.5" fill="none"/>
+          <path d="M100 280 C178 280 178 172 218 172" stroke="rgba(42,138,234,0.3)" stroke-width="1.5" fill="none"/>
+
+          <!-- D hub to Your Super App -->
+          <line x1="312" y1="170" x2="376" y2="170" stroke="rgba(42,138,234,0.3)" stroke-width="1.5"/>
+          <circle cx="312" cy="170" r="3.5" fill="rgba(42,138,234,0.5)"/>
+
+          <!-- Airline 1: italic B, no container -->
+          <text x="100" y="66" font-family="Georgia,serif" font-size="44" font-weight="700" font-style="italic" fill="#1b2733" text-anchor="middle">B</text>
+
+          <!-- Airline 2: Lufthansa badge, no container -->
+          <circle cx="100" cy="120" r="22" fill="#f9b000"/>
+          <text x="100" y="124" font-family="IBM Plex Sans,sans-serif" font-size="11" font-weight="700" fill="#05164d" text-anchor="middle">LH</text>
+
+          <!-- Airline 3: red swoosh, no container -->
+          <path d="M60 208 Q100 192 140 208" stroke="#e31837" stroke-width="6" fill="none" stroke-linecap="round"/>
+          <path d="M68 222 Q100 207 132 222" stroke="#e31837" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+
+          <!-- Airline 4: red angled mark, no container -->
+          <path d="M80 294 L120 268" stroke="#e31837" stroke-width="5.5" stroke-linecap="round"/>
+          <path d="M80 280 L108 268" stroke="#e31837" stroke-width="2.5" stroke-linecap="round" opacity="0.5"/>
+
+          <!-- DRCT central hub -->
+          <circle cx="264" cy="170" r="48" fill="#2a8aea"/>
+          <text x="264" y="186" font-family="IBM Plex Sans,sans-serif" font-size="42" font-weight="700" fill="white" text-anchor="middle">D</text>
+
+          <!-- Your Super App node -->
+          <circle cx="406" cy="170" r="30" fill="#1b2733"/>
+          <!-- App icon: simplified phone/screen -->
+          <rect x="396" y="159" width="9" height="13" rx="1.5" fill="rgba(255,255,255,0.9)"/>
+          <rect x="407" y="159" width="9" height="6" rx="1.5" fill="rgba(255,255,255,0.6)"/>
+          <rect x="407" y="167" width="9" height="5" rx="1.5" fill="rgba(255,255,255,0.45)"/>
+          <rect x="396" y="174" width="20" height="3" rx="1" fill="rgba(255,255,255,0.3)"/>
+          <text x="406" y="218" font-family="IBM Plex Sans,sans-serif" font-size="11" fill="rgba(27,39,51,0.65)" text-anchor="middle">Your Super App</text>
+
+        </svg>
+      </div>
+
+      <!-- Text placed second = appears on RIGHT in desktop flex row -->
+      <div class="info__left">
+        <h2>Start selling tickets with the DRCT API</h2>
+        <p>Build your travel business with a quickly integrated DRCT API. Issue tickets at unique fares without GDS fees. Explore the documentation and send the first request to get started in 5 minutes.</p>
+        <a href="#" class="btn-primary">Explore the docs</a>
+      </div>
+
+      <a href="#" class="info__try-mobile">Explore the docs</a>
+    </section>
+
+    <!-- ADVANTAGES -->
+    <div class="advantages">
+      <ul>
+        <li>Integration in 5 days</li>
+        <li>No initial charge</li>
+        <li>24/7 support</li>
+      </ul>
+    </div>
+
+  </div><!-- /landing-new__body -->
+</div><!-- /landing-new (hero) -->
+
+<!-- ================================================================
+     ALL FEATURES IN ONE APP
+================================================================ -->
+<div class="landing-new loaded">
+  <div class="landing-new__body">
+
+    <section class="one-place">
+      <div class="one-place__mobile-gradient"></div>
+      <h2>All features in one app</h2>
+      <p>We bring together everything required to issue a ticket at the best price and accompany a customer from purchasing to boarding.</p>
+      <div class="one-place__body">
+
+        <!-- Desktop accordion (left) -->
+        <div class="one-place__options" id="onePlaceOptions">
+          <div class="one-place__option active" data-index="0">
+            <h3>Search <span class="active"></span></h3>
+            <p>All necessary methods of searching for flights and pricing are available to get up-to-date information.</p>
+          </div>
+          <div class="one-place__option" data-index="1">
+            <h3>Booking and issuing <span></span></h3>
+            <p>Create and confirm bookings, issue tickets via existing IATA credentials and BSP settlement, and manage payment in a single API flow.</p>
+          </div>
+          <div class="one-place__option" data-index="2">
+            <h3>Post-sales services <span></span></h3>
+            <p>Exchanges, refunds, and voids are all handled through the same endpoints. DRCT normalises airline-specific rules so your system manages every case consistently.</p>
+          </div>
+          <div class="one-place__option" data-index="3">
+            <h3>Ancillaries <span></span></h3>
+            <p>Search, offer, and add ancillary services — seat selection, extra baggage, lounge access — across all connected airlines via a single API layer.</p>
+          </div>
+        </div>
+
+        <!-- Desktop code panel (right) — no .drct-mock so main.js skips updating it -->
+        <div class="one-place__details" id="onePlaceDetails">
+          <div class="one-place__screenshot-wrap" id="onePlaceScreenshot" style="height:100%">
+            <div style="background:#1b2230;height:580px;font-family:var(--font-mono);font-size:12.5px;line-height:1.7;display:flex;flex-direction:column;">
+              <div style="background:#161c2b;padding:10px 16px;display:flex;gap:6px;align-items:center;flex-shrink:0;">
+                <span style="width:10px;height:10px;border-radius:50%;background:#fd5666;display:inline-block;"></span>
+                <span style="width:10px;height:10px;border-radius:50%;background:#ff9f00;display:inline-block;"></span>
+                <span style="width:10px;height:10px;border-radius:50%;background:#33c100;display:inline-block;"></span>
+              </div>
+              <div style="display:flex;flex:1;padding:18px 0;overflow:auto;">
+                <div style="color:rgba(255,255,255,0.28);text-align:right;padding:0 14px 0 18px;line-height:1.7;user-select:none;font-size:12px;flex-shrink:0;">1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16<br>17<br>18<br>19<br>20<br>21<br>22</div>
+                <pre style="color:rgba(255,255,255,0.85);margin:0;flex:1;padding-right:18px;white-space:pre;font-size:12.5px;line-height:1.7;font-family:inherit;"><span style="color:rgba(255,255,255,0.7)">{</span>
+  <span style="color:#4ec9b0">"method"</span><span style="color:rgba(255,255,255,0.7)">:</span> <span style="color:#ce9178">"POST"</span><span style="color:rgba(255,255,255,0.7)">,</span>
+  <span style="color:#4ec9b0">"url"</span><span style="color:rgba(255,255,255,0.7)">:</span> <span style="color:#ce9178">"https://sandbox-api.drct.aero/offers_search"</span><span style="color:rgba(255,255,255,0.7)">,</span>
+  <span style="color:#4ec9b0">"headers"</span><span style="color:rgba(255,255,255,0.7)">: {</span>
+    <span style="color:#4ec9b0">"Content-Type"</span><span style="color:rgba(255,255,255,0.7)">:</span> <span style="color:#ce9178">"application/json"</span><span style="color:rgba(255,255,255,0.7)">,</span>
+    <span style="color:#4ec9b0">"Authorization"</span><span style="color:rgba(255,255,255,0.7)">:</span> <span style="color:#ce9178">"Bearer YDM322_Dq524DxtDButxwTbtG64pG4"</span>
+  <span style="color:rgba(255,255,255,0.7)">},</span>
+  <span style="color:#4ec9b0">"body"</span><span style="color:rgba(255,255,255,0.7)">: {</span>
+    <span style="color:#4ec9b0">"flights"</span><span style="color:rgba(255,255,255,0.7)">: [</span>
+      <span style="color:rgba(255,255,255,0.7)">{</span>
+        <span style="color:#4ec9b0">"departure_airport_code"</span><span style="color:rgba(255,255,255,0.7)">:</span> <span style="color:#ce9178">"PAR"</span><span style="color:rgba(255,255,255,0.7)">,</span>
+        <span style="color:#4ec9b0">"arrival_airport_code"</span><span style="color:rgba(255,255,255,0.7)">:</span> <span style="color:#ce9178">"NYC"</span><span style="color:rgba(255,255,255,0.7)">,</span>
+        <span style="color:#4ec9b0">"departure_date"</span><span style="color:rgba(255,255,255,0.7)">:</span> <span style="color:#ce9178">"2021-09-27"</span>
+      <span style="color:rgba(255,255,255,0.7)">}</span>
+    <span style="color:rgba(255,255,255,0.7)">],</span>
+    <span style="color:#4ec9b0">"passengers"</span><span style="color:rgba(255,255,255,0.7)">: [</span>
+      <span style="color:rgba(255,255,255,0.7)">{</span>
+        <span style="color:#4ec9b0">"type"</span><span style="color:rgba(255,255,255,0.7)">:</span> <span style="color:#ce9178">"ADT"</span>
+      <span style="color:rgba(255,255,255,0.7)">}</span>
+    <span style="color:rgba(255,255,255,0.7)">]</span>
+  <span style="color:rgba(255,255,255,0.7)">},</span>
+<span style="color:rgba(255,255,255,0.7)">}</span></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /one-place__body -->
+
+      <!-- Mobile carousel -->
+      <div class="one-place__carousel" id="onePlaceCarousel">
+        <div class="one-place__carousel-track" id="carouselTrack">
+          <div class="one-place__carousel-slide">
+            <h3>Search</h3>
+            <p>All necessary methods of searching for flights and pricing are available to get up-to-date information.</p>
+          </div>
+          <div class="one-place__carousel-slide">
+            <h3>Booking and issuing</h3>
+            <p>Create and confirm bookings, issue tickets via existing IATA credentials and BSP settlement, and manage payment in a single API flow.</p>
+          </div>
+          <div class="one-place__carousel-slide">
+            <h3>Post-sales services</h3>
+            <p>Exchanges, refunds, and voids are all handled through the same endpoints. DRCT normalises airline-specific rules so your system manages every case consistently.</p>
+          </div>
+          <div class="one-place__carousel-slide">
+            <h3>Ancillaries</h3>
+            <p>Search, offer, and add ancillary services — seat selection, extra baggage, lounge access — across all connected airlines via a single API layer.</p>
+          </div>
+        </div>
+        <div class="one-place__carousel-nav" id="carouselNav">
+          <span class="active" data-slide="0"></span>
+          <span data-slide="1"></span>
+          <span data-slide="2"></span>
+          <span data-slide="3"></span>
+        </div>
+      </div>
+
+    </section>
+
+  </div><!-- /landing-new__body -->
+</div><!-- /landing-new (one-place) -->
+
+<!-- ================================================================
+     DEVELOPER FRIENDLY  (built-in gradient)
+================================================================ -->
+<section class="benefits">
+  <div class="benefits__container">
+    <h2>Developer friendly 💙</h2>
+    <p>The DRCT API was created with love for developers.
+You don't need to figure out complex airline APIs — we have already done that for you.</p>
+    <div class="benefits__body">
+      <div class="benefits__list">
+
+        <div class="benefit__item">
+          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='42' height='42' viewBox='0 0 42 42'%3E%3Ccircle cx='21' cy='21' r='21' fill='%232a8aea' fill-opacity='.12'/%3E%3Cpath stroke='%232a8aea' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' fill='none' d='M16 16 L10 21 L16 26 M26 16 L32 21 L26 26'/%3E%3C/svg%3E" alt="">
+          <h3>Comprehensive documentation</h3>
+          <p>We did our best to make the documentation clear and simple. Get started quickly with documentation, a Postman workspace, and a stable test environment.</p>
+        </div>
+
+        <div class="benefit__item">
+          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='42' height='42' viewBox='0 0 42 42'%3E%3Ccircle cx='21' cy='21' r='21' fill='%232a8aea' fill-opacity='.12'/%3E%3Crect x='14' y='14' width='14' height='14' rx='2' fill='none' stroke='%232a8aea' stroke-width='1.5'/%3E%3Cpath stroke='%232a8aea' stroke-width='1.5' stroke-linecap='round' d='M14 18 L11 18 M14 24 L11 24 M28 18 L31 18 M28 24 L31 24 M18 14 L18 11 M24 14 L24 11 M18 28 L18 31 M24 28 L24 31'/%3E%3C/svg%3E" alt="">
+          <h3>Easy-to-use booking tool</h3>
+          <p>Helps to make sure that requests are sent correctly so that flights and created bookings are displayed as they should be.</p>
+        </div>
+
+        <div class="benefit__item">
+          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='42' height='42' viewBox='0 0 42 42'%3E%3Ccircle cx='21' cy='21' r='21' fill='%232a8aea' fill-opacity='.12'/%3E%3Cpath fill='none' stroke='%232a8aea' stroke-width='1.5' stroke-linejoin='round' d='M21 30 C16 26 10 22.5 10 17 A7 7 0 0 1 21 13.5 A7 7 0 0 1 32 17 C32 22.5 26 26 21 30 Z'/%3E%3C/svg%3E" alt="">
+          <h3>Support</h3>
+          <p>Keeping our API reference accurate and easy to understand is crucial for us. If you have any questions or want to share your feedback, just contact us in the chat.</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================
+     WORKING WITH
+================================================================ -->
+<div class="landing-new loaded">
+  <div class="landing-new__body">
+
+    <section class="certified">
+      <h2>Working with</h2>
+      <p class="certified__description">Over 40 leading airlines that have already chosen DRCT as a partner.</p>
+      <div class="certified__airlines">
+        <div class="certified__airline" title="Aegean Airlines">
+          <svg xmlns="http://www.w3.org/2000/svg" width="85" height="85" viewBox="0 0 85 85"><rect width="85" height="85" rx="14" fill="#f0f4f8"/><text x="42.5" y="49" font-family="IBM Plex Sans,sans-serif" font-size="11" font-weight="700" fill="#1b2733" text-anchor="middle">A3</text></svg>
+          <p>Aegean Airlines</p>
+        </div>
+        <div class="certified__airline" title="airBaltic">
+          <svg xmlns="http://www.w3.org/2000/svg" width="85" height="85" viewBox="0 0 85 85"><rect width="85" height="85" rx="14" fill="#f0f4f8"/><text x="42.5" y="49" font-family="IBM Plex Sans,sans-serif" font-size="11" font-weight="700" fill="#1b2733" text-anchor="middle">BT</text></svg>
+          <p>airBaltic</p>
+        </div>
+        <div class="certified__airline" title="American Airlines">
+          <svg xmlns="http://www.w3.org/2000/svg" width="85" height="85" viewBox="0 0 85 85"><rect width="85" height="85" rx="14" fill="#f0f4f8"/><text x="42.5" y="49" font-family="IBM Plex Sans,sans-serif" font-size="11" font-weight="700" fill="#1b2733" text-anchor="middle">AA</text></svg>
+          <p>American Airlines</p>
+        </div>
+        <div class="certified__airline" title="Austrian Airlines">
+          <svg xmlns="http://www.w3.org/2000/svg" width="85" height="85" viewBox="0 0 85 85"><rect width="85" height="85" rx="14" fill="#f0f4f8"/><text x="42.5" y="49" font-family="IBM Plex Sans,sans-serif" font-size="11" font-weight="700" fill="#1b2733" text-anchor="middle">OS</text></svg>
+          <p>Austrian Airlines</p>
+        </div>
+        <div class="certified__airline" title="British Airways">
+          <svg xmlns="http://www.w3.org/2000/svg" width="85" height="85" viewBox="0 0 85 85"><rect width="85" height="85" rx="14" fill="#f0f4f8"/><text x="42.5" y="49" font-family="IBM Plex Sans,sans-serif" font-size="11" font-weight="700" fill="#1b2733" text-anchor="middle">BA</text></svg>
+          <p>British Airways</p>
+        </div>
+        <div class="certified__airline" title="Emirates">
+          <svg xmlns="http://www.w3.org/2000/svg" width="85" height="85" viewBox="0 0 85 85"><rect width="85" height="85" rx="14" fill="#f0f4f8"/><text x="42.5" y="49" font-family="IBM Plex Sans,sans-serif" font-size="11" font-weight="700" fill="#1b2733" text-anchor="middle">EK</text></svg>
+          <p>Emirates</p>
+        </div>
+        <div class="certified__airline" title="flydubai">
+          <svg xmlns="http://www.w3.org/2000/svg" width="85" height="85" viewBox="0 0 85 85"><rect width="85" height="85" rx="14" fill="#f0f4f8"/><text x="42.5" y="49" font-family="IBM Plex Sans,sans-serif" font-size="11" font-weight="700" fill="#1b2733" text-anchor="middle">FZ</text></svg>
+          <p>flydubai</p>
+        </div>
+        <div class="certified__airline" title="Iberia">
+          <svg xmlns="http://www.w3.org/2000/svg" width="85" height="85" viewBox="0 0 85 85"><rect width="85" height="85" rx="14" fill="#f0f4f8"/><text x="42.5" y="49" font-family="IBM Plex Sans,sans-serif" font-size="11" font-weight="700" fill="#1b2733" text-anchor="middle">IB</text></svg>
+          <p>Iberia</p>
+        </div>
+        <div class="certified__airline" title="LOT">
+          <svg xmlns="http://www.w3.org/2000/svg" width="85" height="85" viewBox="0 0 85 85"><rect width="85" height="85" rx="14" fill="#f0f4f8"/><text x="42.5" y="49" font-family="IBM Plex Sans,sans-serif" font-size="11" font-weight="700" fill="#1b2733" text-anchor="middle">LO</text></svg>
+          <p>LOT</p>
+        </div>
+        <div class="certified__airline" title="Lufthansa">
+          <svg xmlns="http://www.w3.org/2000/svg" width="85" height="85" viewBox="0 0 85 85"><rect width="85" height="85" rx="14" fill="#f0f4f8"/><text x="42.5" y="49" font-family="IBM Plex Sans,sans-serif" font-size="11" font-weight="700" fill="#1b2733" text-anchor="middle">LH</text></svg>
+          <p>Lufthansa</p>
+        </div>
+        <div class="certified__airline" title="SWISS">
+          <svg xmlns="http://www.w3.org/2000/svg" width="85" height="85" viewBox="0 0 85 85"><rect width="85" height="85" rx="14" fill="#f0f4f8"/><text x="42.5" y="49" font-family="IBM Plex Sans,sans-serif" font-size="11" font-weight="700" fill="#1b2733" text-anchor="middle">LX</text></svg>
+          <p>SWISS</p>
+        </div>
+        <div class="certified__airline" title="TAP">
+          <svg xmlns="http://www.w3.org/2000/svg" width="85" height="85" viewBox="0 0 85 85"><rect width="85" height="85" rx="14" fill="#f0f4f8"/><text x="42.5" y="49" font-family="IBM Plex Sans,sans-serif" font-size="11" font-weight="700" fill="#1b2733" text-anchor="middle">TP</text></svg>
+          <p>TAP</p>
+        </div>
+        <div class="certified__airline" title="United Airlines">
+          <svg xmlns="http://www.w3.org/2000/svg" width="85" height="85" viewBox="0 0 85 85"><rect width="85" height="85" rx="14" fill="#f0f4f8"/><text x="42.5" y="49" font-family="IBM Plex Sans,sans-serif" font-size="11" font-weight="700" fill="#1b2733" text-anchor="middle">UA</text></svg>
+          <p>United Airlines</p>
+        </div>
+        <div class="certified__airline certified__airline--badge" title="+30 airlines in LIVE">
+          <svg xmlns="http://www.w3.org/2000/svg" width="85" height="85" viewBox="0 0 85 85"><rect width="85" height="85" rx="14" fill="#2a8aea" fill-opacity=".12"/><text x="42.5" y="45" font-family="IBM Plex Sans,sans-serif" font-size="10" font-weight="700" fill="#2a8aea" text-anchor="middle">+30</text><text x="42.5" y="58" font-family="IBM Plex Sans,sans-serif" font-size="8" font-weight="500" fill="#2a8aea" text-anchor="middle">LIVE</text></svg>
+          <p>+30 airlines<br>in LIVE</p>
+        </div>
+        <div class="certified__airline certified__airline--badge" title="In implementation">
+          <svg xmlns="http://www.w3.org/2000/svg" width="85" height="85" viewBox="0 0 85 85"><rect width="85" height="85" rx="14" fill="#2a8aea" fill-opacity='.08'/><text x="42.5" y="45" font-family="IBM Plex Sans,sans-serif" font-size="9" font-weight="700" fill="#1b2733" text-anchor="middle">+10</text><text x="42.5" y="57" font-family="IBM Plex Sans,sans-serif" font-size="7.5" font-weight="500" fill="#1b273399" text-anchor="middle">implementing</text></svg>
+          <p>We are currently implementing +10 airlines</p>
+        </div>
+      </div>
+
+      <div class="certified__iata">
+        <svg width="84" height="28" viewBox="0 0 84 28" xmlns="http://www.w3.org/2000/svg" style="margin-left:auto;margin-right:auto;margin-top:78px;display:block">
+          <rect width="84" height="28" rx="4" fill="#1b2733" fill-opacity=".08"/>
+          <text x="42" y="19" font-family="IBM Plex Sans,sans-serif" font-size="11" font-weight="700" fill="#1b2733" text-anchor="middle">IATA ARM</text>
+        </svg>
+        <h3>ARM System Provider certified by IATA</h3>
+        <p>More information at <a href="https://retailing.iata.org/armi/registry/drct/" target="_blank" rel="noopener">IATA ARM index registry</a></p>
+      </div>
+    </section>
+
+  </div><!-- /landing-new__body -->
+</div><!-- /landing-new (working with) -->
+
+<!-- ================================================================
+     FOOTER
+================================================================ -->
+<footer class="footer">
+  <div class="footer__top">
+    <div class="footer__left">
+      <div class="footer__links">
+        <span>Solutions</span>
+        <ul>
+          <li><a href="../solutions/for-airlines.html">For Airlines</a></li>
+          <li><a href="../solutions/iata-agencies.html">IATA Agencies</a></li>
+          <li><a href="../solutions/non-iata-agencies.html">Non-IATA Agencies</a></li>
+          <li><a href="../solutions/ota.html">OTA</a></li>
+          <li><a href="../solutions/tms.html">TMS</a></li>
+        </ul>
+      </div>
+      <div class="footer__links">
+        <span>Products</span>
+        <ul>
+          <li><a href="../products/bt.html">Business Travel</a></li>
+          <li><a href="../products/bt-for-tms.html">BT for TMS</a></li>
+          <li><a href="../products/api.html">API Platform</a></li>
+          <li><a href="../products/extension.html">Browser Extension</a></li>
+        </ul>
+      </div>
+      <div class="footer__links">
+        <span>Supply Network</span>
+        <ul>
+          <li><a href="../supply-network/index.html">All Airlines</a></li>
+          <li><a href="../supply-network/lufthansa.html">Lufthansa</a></li>
+          <li><a href="../supply-network/emirates.html">Emirates</a></li>
+        </ul>
+      </div>
+      <div class="footer__links footer__policy">
+        <span>Privacy policy</span>
+        <ul>
+          <li><a href="#">Privacy policy</a></li>
+          <li><a href="#">Website terms of use</a></li>
+          <li><a href="#">Extension terms of use</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__right">
+      <span>Follow us</span>
+      <ul>
+        <li><a href="https://www.linkedin.com/company/drct/" target="_blank" rel="noopener" class="footer__l" aria-label="LinkedIn"></a></li>
+        <li><a href="https://www.facebook.com/drct.aero/" target="_blank" rel="noopener" class="footer__f" aria-label="Facebook"></a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer__bottom">
+    <div>
+      <i>Copyright &#169; 2017-2026 DRCT Ltd, Ewropa Business Centre, Level 3-701, Dun Karm Street, Birkirkara, BKR9034, Malta</i>
+    </div>
+  </div>
+</footer>
+
+<!-- Cookie banner -->
+<div class="cookie" id="cookieBanner" style="display:none">
+  <div class="cookie__wrapper">
+    <p>By continuing to use this website, you consent to the use of cookies in accordance with our <a href="#">Privacy policy</a>.</p>
+    <button id="cookieAccept">OK</button>
+  </div>
+</div>
+
+<script src="../main.js"></script>
+</body>
+</html>
