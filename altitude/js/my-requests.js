@@ -8,37 +8,7 @@
 (function () {
   'use strict';
 
-  /* --------------------------------------------------------------
-     ICONS (Lucide-style, inline so the page stays self-contained)
-  -------------------------------------------------------------- */
-  var ICONS = {
-    loaderCircle:
-      '<svg class="ico ico--spin" viewBox="0 0 24 24" aria-hidden="true">' +
-      '<path d="M21 12a9 9 0 1 1-6.22-8.56" opacity=".95"/>' +
-      '<path d="M3 12a9 9 0 0 1 .35-2.5" opacity=".25"/></svg>',
-
-    refreshCw:
-      '<svg class="ico ico--spin" viewBox="0 0 24 24" aria-hidden="true">' +
-      '<path d="M20 11a8 8 0 0 0-13.6-4.6L3.5 9"/><path d="M3.5 4.5V9H8"/>' +
-      '<path d="M4 13a8 8 0 0 0 13.6 4.6l2.9-2.6"/><path d="M20.5 19.5V15H16"/></svg>',
-
-    badgeCheck:
-      '<svg class="ico" viewBox="0 0 24 24" aria-hidden="true">' +
-      '<path d="M12 2.6l2.2 1.9 2.9-.3 1.1 2.7 2.6 1.3-.6 2.9.6 2.9-2.6 1.3-1.1 2.7-2.9-.3L12 21.4l-2.2-1.9-2.9.3-1.1-2.7L3.2 15l.6-2.9-.6-2.9 2.6-1.3 1.1-2.7 2.9.3z"/>' +
-      '<path d="M8.6 12.2l2.3 2.3 4.5-4.6"/></svg>',
-
-    clock:
-      '<svg class="ico" viewBox="0 0 24 24" aria-hidden="true">' +
-      '<circle cx="12" cy="13" r="8"/><path d="M12 9.2V13l2.4 1.6"/><path d="M9 2.5h6"/></svg>',
-
-    copy:
-      '<svg class="ico" viewBox="0 0 24 24" aria-hidden="true">' +
-      '<rect x="9" y="9" width="11" height="11" rx="2.5"/>' +
-      '<path d="M5.5 15H5a1.5 1.5 0 0 1-1.5-1.5V5A1.5 1.5 0 0 1 5 3.5h8.5A1.5 1.5 0 0 1 15 5v.5"/></svg>',
-
-    check:
-      '<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>'
-  };
+  var ICONS = ALT_ICONS;
 
   /* --------------------------------------------------------------
      AIRLINE MARKS
@@ -299,22 +269,7 @@
   /* --------------------------------------------------------------
      STATUS DROPDOWN
   -------------------------------------------------------------- */
-  function openMenu() {
-    filterMenu.hidden = false;
-    filterBtn.setAttribute('aria-expanded', 'true');
-  }
-
-  function closeMenu() {
-    filterMenu.hidden = true;
-    filterBtn.setAttribute('aria-expanded', 'false');
-    Array.prototype.forEach.call(filterMenu.children, function (node) {
-      node.classList.remove('is-focused');
-    });
-  }
-
-  filterBtn.addEventListener('click', function () {
-    if (filterMenu.hidden) { openMenu(); } else { closeMenu(); }
-  });
+  var filterPopup = altPopup(filter, filterBtn, filterMenu);
 
   filterMenu.addEventListener('click', function (event) {
     var option = event.target.closest('[role="option"]');
@@ -327,20 +282,9 @@
       node.setAttribute('aria-selected', node === option ? 'true' : 'false');
     });
 
-    closeMenu();
+    filterPopup.close();
     filterBtn.focus();
     render();
-  });
-
-  document.addEventListener('click', function (event) {
-    if (!filterMenu.hidden && !filter.contains(event.target)) closeMenu();
-  });
-
-  document.addEventListener('keydown', function (event) {
-    if (event.key === 'Escape' && !filterMenu.hidden) {
-      closeMenu();
-      filterBtn.focus();
-    }
   });
 
   /* --------------------------------------------------------------

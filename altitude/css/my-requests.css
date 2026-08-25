@@ -82,6 +82,13 @@ body {
   white-space: nowrap; border: 0;
 }
 
+.ico--chevron {
+  width: 16px;
+  height: 16px;
+  color: var(--ink-45);
+  transition: transform .15s ease;
+}
+
 /* Inline icon defaults (Lucide-style stroke icons) */
 .ico {
   width: 18px;
@@ -96,6 +103,8 @@ body {
 
 /* ----------------------------------------------------------------
    HEADER
+   Rendered from one navigation config, so the menu is identical on
+   every page. The current page is marked active, never removed.
 ---------------------------------------------------------------- */
 .alt-header {
   position: sticky;
@@ -122,42 +131,114 @@ body {
   font-weight: 700;
   letter-spacing: -0.01em;
   color: var(--ink);
+  white-space: nowrap;
 }
 
-.alt-header__nav {
+.alt-header__right {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 16px;
+  min-width: 0;
 }
 
-.alt-header__link {
+/* --- Menu --- */
+.alt-nav {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.alt-nav__link {
   display: inline-flex;
   align-items: center;
   gap: 9px;
+  height: 38px;
+  padding: 0 12px;
+  border-radius: 9px;
   font-size: 15px;
   font-weight: 500;
-  color: var(--ink-80);
-  transition: color .15s ease;
+  color: var(--ink-60);
+  white-space: nowrap;
+  transition: color .15s ease, background-color .15s ease;
 }
-.alt-header__link:hover { color: var(--ink); }
+.alt-nav__link:hover {
+  color: var(--ink);
+  background: rgba(19, 26, 33, 0.04);
+}
 
-.alt-account {
+.alt-nav__link.is-active {
+  color: var(--ink);
+  font-weight: 600;
+  background: rgba(19, 26, 33, 0.055);
+}
+
+/* --- Account --- */
+.alt-account { position: relative; }
+
+.alt-account__button {
   display: inline-flex;
   align-items: center;
   gap: 9px;
   height: 42px;
-  padding: 0 20px;
+  padding: 0 14px 0 18px;
   border: 1px solid var(--ink-line);
   border-radius: var(--radius-pill);
   font-size: 15px;
   font-weight: 500;
   color: var(--ink);
+  white-space: nowrap;
   transition: border-color .15s ease, background-color .15s ease;
 }
-.alt-account:hover {
+.alt-account__button:hover,
+.alt-account__button[aria-expanded="true"] {
   border-color: rgba(19, 26, 33, 0.2);
   background: rgba(19, 26, 33, 0.02);
 }
+.alt-account__button[aria-expanded="true"] .ico--chevron { transform: rotate(180deg); }
+
+.alt-account__menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  z-index: 50;
+  min-width: 228px;
+  padding: 6px;
+  border: 1px solid var(--ink-line);
+  border-radius: 14px;
+  background: var(--surface);
+  box-shadow: var(--shadow-pop);
+}
+
+.alt-account__meta {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 10px 10px 12px;
+  margin-bottom: 4px;
+  border-bottom: 1px solid var(--ink-line-soft);
+  font-size: 12.5px;
+  color: var(--ink-45);
+}
+.alt-account__meta strong {
+  font-size: 14.5px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.alt-account__item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  border-radius: 9px;
+  font-size: 14.5px;
+  font-weight: 500;
+  color: var(--ink-80);
+  transition: background-color .15s ease, color .15s ease;
+}
+.alt-account__item:hover { background: var(--surface-sunken); color: var(--ink); }
+.alt-account__item .ico { color: var(--ink-45); }
+.alt-account__item:hover .ico { color: var(--ink); }
 
 /* ----------------------------------------------------------------
    PAGE / GRADIENT
@@ -296,12 +377,6 @@ body {
   background: #fff;
 }
 
-.ico--chevron {
-  width: 16px;
-  height: 16px;
-  color: var(--ink-45);
-  transition: transform .15s ease;
-}
 .statusfilter__button[aria-expanded="true"] .ico--chevron { transform: rotate(180deg); }
 
 .statusfilter__menu {
@@ -636,7 +711,8 @@ body {
 }
 
 @media (max-width: 720px) {
-  .alt-header__inner { padding: 0 18px; }
+  .alt-header__inner { gap: 16px; padding: 0 18px; }
+  .alt-header__right { gap: 12px; }
   .alt-container { padding: 0 18px; }
   .requests__title { font-size: 28px; }
 
@@ -661,9 +737,28 @@ body {
   .rq__cta { width: auto; }
 }
 
+@media (max-width: 560px) {
+  /* The menu never loses an item — labels stay, decoration goes. */
+  .alt-header__inner { gap: 12px; padding: 0 16px; }
+  .alt-logo { font-size: 22px; }
+
+  .alt-nav { gap: 2px; }
+  .alt-nav__link {
+    gap: 0;
+    padding: 0 8px;
+    font-size: 14px;
+  }
+  .alt-nav__link .ico { display: none; }
+
+  .alt-account__button { gap: 6px; padding: 0 10px; }
+  .alt-account__email { display: none; }
+}
+
+@media (max-width: 400px) {
+  .alt-account__button .ico--chevron { display: none; }
+}
+
 @media (max-width: 520px) {
-  .alt-account span { display: none; }
-  .alt-account { padding: 0 13px; }
 
   .rq__identity { flex-wrap: wrap; }
   .rq__top { flex-direction: column; }
