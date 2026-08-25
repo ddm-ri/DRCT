@@ -117,13 +117,26 @@ body {
 .alt-header__inner {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 24px;
+  gap: 16px;
   height: var(--header-h);
   margin: 0 auto;
   max-width: var(--container);
   padding: 0 24px;
 }
+
+/* --- Menu placement variants (set once in js/header.js) --- */
+
+/* Menu next to the brand, account far right. */
+.alt-header--nav-left .alt-nav {
+  margin-left: 12px;
+  margin-right: auto;
+}
+
+/* Menu centred in the bar. */
+.alt-header--nav-center .alt-nav { margin: 0 auto; }
+
+/* Menu grouped with the account on the right. */
+.alt-header--nav-right .alt-logo { margin-right: auto; }
 
 .alt-logo {
   font-family: var(--font-serif);
@@ -132,13 +145,6 @@ body {
   letter-spacing: -0.01em;
   color: var(--ink);
   white-space: nowrap;
-}
-
-.alt-header__right {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  min-width: 0;
 }
 
 /* --- Menu --- */
@@ -711,8 +717,7 @@ body {
 }
 
 @media (max-width: 720px) {
-  .alt-header__inner { gap: 16px; padding: 0 18px; }
-  .alt-header__right { gap: 12px; }
+  .alt-header__inner { gap: 12px; padding: 0 18px; }
   .alt-container { padding: 0 18px; }
   .requests__title { font-size: 28px; }
 
@@ -739,8 +744,10 @@ body {
 
 @media (max-width: 560px) {
   /* The menu never loses an item — labels stay, decoration goes. */
-  .alt-header__inner { gap: 12px; padding: 0 16px; }
-  .alt-logo { font-size: 22px; }
+  .alt-header__inner { gap: 10px; padding: 0 16px; }
+  .alt-logo { font-size: 22px; margin-right: auto; }
+  .alt-header--nav-left .alt-nav,
+  .alt-header--nav-center .alt-nav { margin: 0; }
 
   .alt-nav { gap: 2px; }
   .alt-nav__link {

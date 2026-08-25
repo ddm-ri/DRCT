@@ -23,6 +23,13 @@
 
   var BRAND = { label: 'Altitude', href: '#' };
 
+  /* Menu placement. One of:
+       'left'   — next to the brand, account far right (SaaS default)
+       'center' — centred in the bar, brand left, account right
+       'right'  — grouped with the account on the right
+     The menu items themselves never change; only where the bar puts them. */
+  var LAYOUT = 'left';
+
   function esc(value) {
     return String(value).replace(/[&<>"']/g, function (c) {
       return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
@@ -45,12 +52,12 @@
   function render(mount) {
     var activePage = mount.dataset.page || '';
 
+    mount.classList.add('alt-header--nav-' + LAYOUT);
+
     mount.innerHTML = '' +
       '<div class="alt-header__inner">' +
 
         '<a class="alt-logo" href="' + esc(BRAND.href) + '">' + esc(BRAND.label) + '</a>' +
-
-        '<div class="alt-header__right">' +
 
           '<nav class="alt-nav" aria-label="Main">' +
             NAV.map(function (item) { return linkMarkup(item, activePage); }).join('') +
@@ -76,7 +83,6 @@
 
           '</div>' +
 
-        '</div>' +
       '</div>';
 
     altPopup(
