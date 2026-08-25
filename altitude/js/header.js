@@ -16,19 +16,25 @@
     { id: 'wallet',   label: 'Wallet',      href: '#', icon: ALT_ICONS.wallet }
   ];
 
+  /* The home route. The brand always links here, so in the top-bar
+     layouts it is dropped from the menu — an item sitting directly above
+     the page's own H1 just repeats it. A sidebar has room for it. */
+  var HOME = 'requests';
+
   var ACCOUNT = {
     email: 'ddm@drct.aero',
     signOutHref: '#'
   };
 
-  var BRAND = { label: 'Altitude', href: '#' };
+  var BRAND = { label: 'Altitude', href: '#', title: 'My requests' };
 
   /* Menu placement. One of:
-       'left'   — next to the brand, account far right (SaaS default)
-       'center' — centred in the bar, brand left, account right
-       'right'  — grouped with the account on the right
-     The menu items themselves never change; only where the bar puts them. */
-  var LAYOUT = 'left';
+       'sidebar' — fixed left rail, account pinned to the bottom (default)
+       'right'   — top bar, menu grouped with the account
+       'left'    — top bar, menu next to the brand
+       'center'  — top bar, menu centred
+     Below 900px every layout falls back to the compact top bar. */
+  var LAYOUT = 'sidebar';
 
   function esc(value) {
     return String(value).replace(/[&<>"']/g, function (c) {
@@ -37,10 +43,14 @@
   }
 
   function linkMarkup(item, activePage) {
+    if (item.id === HOME && LAYOUT !== 'sidebar') return '';
+
     var isActive = item.id === activePage;
+    var isHome = item.id === HOME;
 
     return '' +
-      '<a class="alt-nav__link' + (isActive ? ' is-active' : '') + '"' +
+      '<a class="alt-nav__link' + (isActive ? ' is-active' : '') +
+                                  (isHome ? ' alt-nav__link--home' : '') + '"' +
          ' href="' + esc(item.href) + '"' +
          ' data-page="' + esc(item.id) + '"' +
          (isActive ? ' aria-current="page"' : '') + '>' +
@@ -53,11 +63,13 @@
     var activePage = mount.dataset.page || '';
 
     mount.classList.add('alt-header--nav-' + LAYOUT);
+    document.body.classList.add('alt-layout-' + LAYOUT);
 
     mount.innerHTML = '' +
       '<div class="alt-header__inner">' +
 
-        '<a class="alt-logo" href="' + esc(BRAND.href) + '">' + esc(BRAND.label) + '</a>' +
+        '<a class="alt-logo" href="' + esc(BRAND.href) + '"' +
+           ' title="' + esc(BRAND.title) + '">' + esc(BRAND.label) + '</a>' +
 
           '<nav class="alt-nav" aria-label="Main">' +
             NAV.map(function (item) { return linkMarkup(item, activePage); }).join('') +

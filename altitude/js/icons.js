@@ -13,8 +13,9 @@ var ALT_ICONS = {
 
   wallet:
     '<svg class="ico" viewBox="0 0 24 24" aria-hidden="true">' +
-    '<path d="M20 8.5V7a2 2 0 0 0-2-2H5.5A1.5 1.5 0 0 0 4 6.5v11A1.5 1.5 0 0 0 5.5 19H18a2 2 0 0 0 2-2v-1.5"/>' +
-    '<path d="M21 9.5h-4.5a2.5 2.5 0 0 0 0 5H21z"/></svg>',
+    '<path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/>' +
+    '<path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/>' +
+    '<path d="M18 12a2 2 0 0 0 0 4h4v-4z"/></svg>',
 
   user:
     '<svg class="ico" viewBox="0 0 24 24" aria-hidden="true">' +

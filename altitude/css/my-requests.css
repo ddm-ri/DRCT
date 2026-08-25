@@ -38,6 +38,7 @@
   /* Layout */
   --container:      1080px;
   --header-h:       76px;
+  --sidebar-w:      248px;
 
   /* Cards */
   --radius-card:    20px;
@@ -138,6 +139,86 @@ body {
 /* Menu grouped with the account on the right. */
 .alt-header--nav-right .alt-logo { margin-right: auto; }
 
+/* --- Sidebar: the same three slots turned into a left rail --- */
+@media (min-width: 901px) {
+  .alt-header--nav-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: var(--sidebar-w);
+    border-bottom: 0;
+    border-right: 1px solid var(--ink-line-soft);
+  }
+
+  .alt-header--nav-sidebar .alt-header__inner {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    height: 100%;
+    max-width: none;
+    padding: 26px 14px 18px;
+  }
+
+  .alt-header--nav-sidebar .alt-logo {
+    padding: 0 10px;
+    margin-bottom: 30px;
+  }
+
+  .alt-header--nav-sidebar .alt-nav {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 2px;
+  }
+
+  .alt-header--nav-sidebar .alt-nav__link {
+    height: 40px;
+    padding: 0 10px;
+  }
+
+  /* In a rail the filled active state reads as position, not weight. */
+  .alt-header--nav-sidebar .alt-nav__link.is-active {
+    background: rgba(19, 26, 33, 0.055);
+  }
+
+  /* Account sits at the foot of the rail and opens upwards. */
+  .alt-header--nav-sidebar .alt-account {
+    margin-top: auto;
+    padding-top: 14px;
+    border-top: 1px solid var(--ink-line-soft);
+  }
+
+  .alt-header--nav-sidebar .alt-account__button {
+    width: 100%;
+    height: 44px;
+    justify-content: flex-start;
+    padding: 0 10px;
+    border: 0;
+    border-radius: 10px;
+  }
+  .alt-header--nav-sidebar .alt-account__email {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .alt-header--nav-sidebar .alt-account__button .ico--chevron { margin-left: auto; }
+
+  .alt-header--nav-sidebar .alt-account__menu {
+    top: auto;
+    bottom: calc(100% + 8px);
+    left: 0;
+    right: 0;
+  }
+
+  /* The rail is fixed, so the page is inset by its width. */
+  .alt-layout-sidebar .alt-main {
+    min-height: 100vh;
+    padding-top: 52px;
+    padding-left: var(--sidebar-w);
+  }
+  .alt-layout-sidebar .alt-main::before { left: var(--sidebar-w); }
+}
+
 .alt-logo {
   font-family: var(--font-serif);
   font-size: 26px;
@@ -172,10 +253,10 @@ body {
   background: rgba(19, 26, 33, 0.04);
 }
 
+/* Restrained: weight and contrast only, no filled pill. */
 .alt-nav__link.is-active {
   color: var(--ink);
   font-weight: 600;
-  background: rgba(19, 26, 33, 0.055);
 }
 
 /* --- Account --- */
@@ -714,6 +795,13 @@ body {
     align-self: flex-end;
     margin-bottom: 0;
   }
+}
+
+/* Sidebar falls back to the top bar, where the home item would only
+   repeat the page's H1 — the brand still links there. */
+@media (max-width: 900px) {
+  .alt-header--nav-sidebar .alt-nav__link--home { display: none; }
+  .alt-header--nav-sidebar .alt-logo { margin-right: auto; }
 }
 
 @media (max-width: 720px) {
