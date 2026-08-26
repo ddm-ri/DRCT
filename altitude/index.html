@@ -27,43 +27,60 @@
 
       <h1 class="requests__title" id="requestsTitle">My requests</h1>
 
-      <!-- Controls: request type (tabs) + request status (dropdown) -->
-      <div class="requests__controls">
+      <div class="requests__body">
 
-        <div class="segmented" role="tablist" aria-label="Request type" id="typeTabs">
-          <button class="segmented__tab is-active" type="button" role="tab" aria-selected="true" data-type="all">
-            All <span class="segmented__count" data-count="all">0</span>
-          </button>
-          <button class="segmented__tab" type="button" role="tab" aria-selected="false" data-type="upgrade">
-            Upgrades <span class="segmented__count" data-count="upgrade">0</span>
-          </button>
-          <button class="segmented__tab" type="button" role="tab" aria-selected="false" data-type="promo">
-            Promo codes <span class="segmented__count" data-count="promo">0</span>
-          </button>
-        </div>
+        <!-- Filters: request type and request status are two dimensions -->
+        <aside class="filters" aria-label="Filters">
 
-        <div class="statusfilter" id="statusFilter">
-          <button class="statusfilter__button" type="button" id="statusFilterButton"
-                  aria-haspopup="listbox" aria-expanded="false">
-            <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16"/><path d="M7 12h10"/><path d="M10 17h4"/></svg>
-            <span class="statusfilter__label" id="statusFilterLabel">All statuses</span>
-            <svg class="ico ico--chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9.5l6 5.5 6-5.5"/></svg>
-          </button>
+          <div class="filters__group">
+            <h2 class="filters__title" id="filterTypeTitle">Request type</h2>
+            <div class="filters__options" role="group" aria-labelledby="filterTypeTitle" id="typeFilter">
+              <button class="filters__option is-active" type="button" aria-pressed="true" data-type="all">
+                <span class="filters__label">All</span>
+                <span class="filters__count" data-count-type="all">0</span>
+              </button>
+              <button class="filters__option" type="button" aria-pressed="false" data-type="upgrade">
+                <span class="filters__label">Upgrades</span>
+                <span class="filters__count" data-count-type="upgrade">0</span>
+              </button>
+              <button class="filters__option" type="button" aria-pressed="false" data-type="promo">
+                <span class="filters__label">Promo codes</span>
+                <span class="filters__count" data-count-type="promo">0</span>
+              </button>
+            </div>
+          </div>
 
-          <ul class="statusfilter__menu" role="listbox" aria-label="Request status" id="statusFilterMenu" hidden>
-            <li role="option" aria-selected="true"  data-status="all"><span>All statuses</span><svg class="ico ico--check" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></li>
-            <li role="option" aria-selected="false" data-status="progress"><span>In progress</span><svg class="ico ico--check" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></li>
-            <li role="option" aria-selected="false" data-status="action"><span>Action required</span><svg class="ico ico--check" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></li>
-            <li role="option" aria-selected="false" data-status="done"><span>Completed</span><svg class="ico ico--check" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></li>
-          </ul>
+          <div class="filters__group">
+            <h2 class="filters__title" id="filterStatusTitle">Status</h2>
+            <div class="filters__options" role="group" aria-labelledby="filterStatusTitle" id="statusFilter">
+              <button class="filters__option is-active" type="button" aria-pressed="true" data-status="all">
+                <span class="filters__label">All statuses</span>
+                <span class="filters__count" data-count-status="all">0</span>
+              </button>
+              <button class="filters__option" type="button" aria-pressed="false" data-status="progress">
+                <span class="filters__label">In progress</span>
+                <span class="filters__count" data-count-status="progress">0</span>
+              </button>
+              <button class="filters__option" type="button" aria-pressed="false" data-status="action">
+                <span class="filters__label">Action required</span>
+                <span class="filters__count" data-count-status="action">0</span>
+              </button>
+              <button class="filters__option" type="button" aria-pressed="false" data-status="done">
+                <span class="filters__label">Completed</span>
+                <span class="filters__count" data-count-status="done">0</span>
+              </button>
+            </div>
+          </div>
+
+        </aside>
+
+        <div class="requests__main">
+          <div class="requests__list" id="requestsList" role="list"></div>
+          <p class="requests__empty" id="requestsEmpty" hidden>No requests match the selected filters.</p>
         </div>
 
       </div>
 
-      <!-- Request list -->
-      <div class="requests__list" id="requestsList" role="list"></div>
-
-      <p class="requests__empty" id="requestsEmpty" hidden>No requests match the selected filters.</p>
 
     </section>
 

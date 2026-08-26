@@ -34,7 +34,7 @@
        'left'    — top bar, menu next to the brand
        'center'  — top bar, menu centred
      Below 900px every layout falls back to the compact top bar. */
-  var LAYOUT = 'sidebar';
+  var LAYOUT = 'right';
 
   function esc(value) {
     return String(value).replace(/[&<>"']/g, function (c) {

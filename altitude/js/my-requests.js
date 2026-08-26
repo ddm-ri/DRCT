@@ -1,9 +1,8 @@
 /* ================================================================
    ALTITUDE — MY REQUESTS
    One request-card system, two request types (upgrade / promo),
-   filtered along two independent dimensions:
-     - type   -> segmented tabs
-     - status -> dropdown
+   filtered along two independent dimensions — request type and request
+   status — each its own group in the filter panel.
 ================================================================ */
 (function () {
   'use strict';
@@ -108,14 +107,11 @@
   var activeType = 'all';
   var activeStatus = 'all';
 
-  var list        = document.getElementById('requestsList');
-  var empty       = document.getElementById('requestsEmpty');
-  var tabs        = document.getElementById('typeTabs');
-  var filter      = document.getElementById('statusFilter');
-  var filterBtn   = document.getElementById('statusFilterButton');
-  var filterLabel = document.getElementById('statusFilterLabel');
-  var filterMenu  = document.getElementById('statusFilterMenu');
-  var live        = document.getElementById('liveRegion');
+  var list       = document.getElementById('requestsList');
+  var empty      = document.getElementById('requestsEmpty');
+  var typeFilter = document.getElementById('typeFilter');
+  var statusList = document.getElementById('statusFilter');
+  var live       = document.getElementById('liveRegion');
 
   /* --------------------------------------------------------------
      HELPERS
@@ -126,18 +122,18 @@
     });
   }
 
-  function matchesStatus(request) {
-    return activeStatus === 'all' || STATES[request.state].group === activeStatus;
-  }
-
   function matchesType(request, type) {
     return type === 'all' || request.type === type;
   }
 
-  function visibleRequests() {
+  function matchesStatus(request, status) {
+    return status === 'all' || STATES[request.state].group === status;
+  }
+
+  function countBy(type, status) {
     return REQUESTS.filter(function (request) {
-      return matchesType(request, activeType) && matchesStatus(request);
-    });
+      return matchesType(request, type) && matchesStatus(request, status);
+    }).length;
   }
 
   /* --------------------------------------------------------------
@@ -215,19 +211,25 @@
 
   /* --------------------------------------------------------------
      RENDER
+     Each dimension counts against the other one's active value, so the
+     numbers always describe what selecting that option would show.
   -------------------------------------------------------------- */
   function renderCounts() {
     ['all', 'upgrade', 'promo'].forEach(function (type) {
-      var node = tabs.querySelector('[data-count="' + type + '"]');
-      if (!node) return;
-      node.textContent = REQUESTS.filter(function (request) {
-        return matchesType(request, type) && matchesStatus(request);
-      }).length;
+      typeFilter.querySelector('[data-count-type="' + type + '"]').textContent =
+        countBy(type, activeStatus);
+    });
+
+    ['all', 'progress', 'action', 'done'].forEach(function (status) {
+      statusList.querySelector('[data-count-status="' + status + '"]').textContent =
+        countBy(activeType, status);
     });
   }
 
   function render() {
-    var items = visibleRequests();
+    var items = REQUESTS.filter(function (request) {
+      return matchesType(request, activeType) && matchesStatus(request, activeStatus);
+    });
 
     list.innerHTML = items.map(cardMarkup).join('');
     empty.hidden = items.length > 0;
@@ -236,56 +238,27 @@
   }
 
   /* --------------------------------------------------------------
-     TYPE TABS
+     FILTERS
   -------------------------------------------------------------- */
-  tabs.addEventListener('click', function (event) {
-    var tab = event.target.closest('.segmented__tab');
-    if (!tab || tab.dataset.type === activeType) return;
+  function bindFilter(group, attribute, apply) {
+    group.addEventListener('click', function (event) {
+      var option = event.target.closest('.filters__option');
+      if (!option) return;
 
-    activeType = tab.dataset.type;
+      apply(option.dataset[attribute]);
 
-    Array.prototype.forEach.call(tabs.querySelectorAll('.segmented__tab'), function (node) {
-      var isActive = node === tab;
-      node.classList.toggle('is-active', isActive);
-      node.setAttribute('aria-selected', isActive ? 'true' : 'false');
+      Array.prototype.forEach.call(group.querySelectorAll('.filters__option'), function (node) {
+        var isActive = node === option;
+        node.classList.toggle('is-active', isActive);
+        node.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+      });
+
+      render();
     });
+  }
 
-    render();
-  });
-
-  tabs.addEventListener('keydown', function (event) {
-    if (event.key !== 'ArrowRight' && event.key !== 'ArrowLeft') return;
-
-    var nodes = Array.prototype.slice.call(tabs.querySelectorAll('.segmented__tab'));
-    var index = nodes.indexOf(document.activeElement);
-    if (index === -1) return;
-
-    event.preventDefault();
-    var next = nodes[(index + (event.key === 'ArrowRight' ? 1 : nodes.length - 1)) % nodes.length];
-    next.focus();
-    next.click();
-  });
-
-  /* --------------------------------------------------------------
-     STATUS DROPDOWN
-  -------------------------------------------------------------- */
-  var filterPopup = altPopup(filter, filterBtn, filterMenu);
-
-  filterMenu.addEventListener('click', function (event) {
-    var option = event.target.closest('[role="option"]');
-    if (!option) return;
-
-    activeStatus = option.dataset.status;
-    filterLabel.textContent = option.querySelector('span').textContent;
-
-    Array.prototype.forEach.call(filterMenu.children, function (node) {
-      node.setAttribute('aria-selected', node === option ? 'true' : 'false');
-    });
-
-    filterPopup.close();
-    filterBtn.focus();
-    render();
-  });
+  bindFilter(typeFilter, 'type', function (value) { activeType = value; });
+  bindFilter(statusList, 'status', function (value) { activeStatus = value; });
 
   /* --------------------------------------------------------------
      COPY PROMO CODE — secondary utility action

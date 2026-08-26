@@ -400,7 +400,9 @@ body {
 }
 
 /* ----------------------------------------------------------------
-   SECTION HEAD + CONTROLS
+   SECTION HEAD + FILTER PANEL
+   Request type and request status stay two separate dimensions, each
+   its own group in the panel on the right.
 ---------------------------------------------------------------- */
 .requests__title {
   font-size: 34px;
@@ -410,144 +412,90 @@ body {
   color: var(--ink);
 }
 
-.requests__controls {
+.requests__body {
   display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 20px 24px;
-  flex-wrap: wrap;
-  margin-top: 22px;
-  padding-bottom: 0;
-  border-bottom: 1px solid var(--ink-line);
+  align-items: flex-start;
+  gap: 32px;
+  margin-top: 26px;
 }
 
-/* --- Request type: segmented tabs --- */
-.segmented {
-  display: flex;
-  align-items: flex-end;
-  gap: 4px;
-  margin-bottom: -1px;
+.requests__main {
+  flex: 1 1 auto;
+  min-width: 0;
 }
 
-.segmented__tab {
-  position: relative;
-  display: inline-flex;
+.filters {
+  order: 2;
+  flex: none;
+  width: 224px;
+  position: sticky;
+  top: calc(var(--header-h) + 20px);
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+}
+.alt-layout-sidebar .filters { top: 20px; }
+
+.filters__title {
+  margin-bottom: 8px;
+  padding: 0 10px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  color: var(--ink-45);
+}
+
+.filters__options {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.filters__option {
+  display: flex;
   align-items: center;
-  gap: 7px;
-  padding: 9px 12px 12px;
-  border-radius: 8px 8px 0 0;
-  font-size: 15px;
+  justify-content: space-between;
+  gap: 12px;
+  height: 36px;
+  padding: 0 10px;
+  border-radius: 8px;
+  font-size: 14.5px;
   font-weight: 500;
   color: var(--ink-60);
-  white-space: nowrap;
+  text-align: left;
   transition: color .15s ease, background-color .15s ease;
 }
-
-.segmented__tab::after {
-  content: "";
-  position: absolute;
-  left: 8px;
-  right: 8px;
-  bottom: 0;
-  height: 2px;
-  border-radius: 2px;
-  background: transparent;
-  transition: background-color .15s ease;
+.filters__option:hover {
+  color: var(--ink);
+  background: rgba(19, 26, 33, 0.04);
 }
 
-.segmented__tab:hover { color: var(--ink); }
-.segmented__tab:hover:not(.is-active) { background: rgba(19, 26, 33, 0.035); }
-
-.segmented__tab.is-active {
+.filters__option.is-active {
   color: var(--ink);
   font-weight: 600;
+  background: rgba(19, 26, 33, 0.055);
 }
-.segmented__tab.is-active::after { background: var(--ink); }
 
-.segmented__count {
+.filters__label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.filters__count {
+  flex: none;
   font-size: 13px;
   font-weight: 500;
   font-variant-numeric: tabular-nums;
   color: var(--ink-45);
 }
-.segmented__tab.is-active .segmented__count { color: var(--ink-60); }
+.filters__option.is-active .filters__count { color: var(--ink-60); }
 
-/* --- Request status: dropdown --- */
-.statusfilter {
-  position: relative;
-  margin-bottom: 10px;
-}
-
-.statusfilter__button {
-  display: inline-flex;
-  align-items: center;
-  gap: 9px;
-  height: 40px;
-  padding: 0 16px;
-  border: 1px solid var(--ink-line);
-  border-radius: var(--radius-pill);
-  background: rgba(255, 255, 255, .7);
-  font-size: 14.5px;
-  font-weight: 500;
-  color: var(--ink);
-  transition: border-color .15s ease, background-color .15s ease;
-}
-.statusfilter__button:hover {
-  border-color: rgba(19, 26, 33, 0.2);
-  background: #fff;
-}
-.statusfilter__button[aria-expanded="true"] {
-  border-color: rgba(19, 26, 33, 0.24);
-  background: #fff;
-}
-
-.statusfilter__button[aria-expanded="true"] .ico--chevron { transform: rotate(180deg); }
-
-.statusfilter__menu {
-  position: absolute;
-  top: calc(100% + 8px);
-  right: 0;
-  z-index: 30;
-  min-width: 208px;
-  padding: 6px;
-  border: 1px solid var(--ink-line);
-  border-radius: 14px;
-  background: var(--surface);
-  box-shadow: var(--shadow-pop);
-}
-
-.statusfilter__menu li {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 9px 10px;
-  border-radius: 9px;
-  font-size: 14.5px;
-  font-weight: 500;
-  color: var(--ink-80);
-  cursor: pointer;
-}
-.statusfilter__menu li:hover,
-.statusfilter__menu li.is-focused { background: var(--surface-sunken); color: var(--ink); }
-.statusfilter__menu li[aria-selected="true"] { color: var(--ink); }
-
-.ico--check {
-  width: 16px;
-  height: 16px;
-  opacity: 0;
-  color: var(--ink);
-}
-.statusfilter__menu li[aria-selected="true"] .ico--check { opacity: 1; }
-
-/* ----------------------------------------------------------------
-   REQUEST LIST
----------------------------------------------------------------- */
 .requests__list {
   display: flex;
   flex-direction: column;
   gap: 16px;
-  margin-top: 24px;
 }
 
 .requests__empty {
@@ -819,18 +767,46 @@ body {
    RESPONSIVE
    The desktop composition is kept intact well into laptop widths.
 ---------------------------------------------------------------- */
-@media (max-width: 860px) {
-  /* Status filter moves above the tabs so the active tab keeps
-     sitting on the section hairline. */
-  .requests__controls {
-    flex-direction: column-reverse;
-    align-items: stretch;
-    gap: 14px;
+/* Too narrow for a side column — the same groups become chip rows
+   above the list, each scrollable on its own. */
+@media (max-width: 900px) {
+  .requests__body {
+    display: block;
+    margin-top: 22px;
   }
-  .segmented { flex-wrap: wrap; }
-  .statusfilter {
-    align-self: flex-end;
-    margin-bottom: 0;
+
+  .filters {
+    position: static;
+    width: auto;
+    gap: 12px;
+    margin-bottom: 22px;
+  }
+
+  .filters__title {
+    margin-bottom: 6px;
+    padding: 0;
+  }
+
+  .filters__options {
+    flex-direction: row;
+    gap: 6px;
+    overflow-x: auto;
+    padding-bottom: 2px;
+    scrollbar-width: none;
+  }
+  .filters__options::-webkit-scrollbar { display: none; }
+
+  .filters__option {
+    flex: none;
+    height: 34px;
+    padding: 0 13px;
+    border: 1px solid var(--ink-line);
+    border-radius: var(--radius-pill);
+    background: rgba(255, 255, 255, .6);
+  }
+  .filters__option.is-active {
+    border-color: transparent;
+    background: rgba(19, 26, 33, 0.07);
   }
 }
 
@@ -897,5 +873,4 @@ body {
   .rq__booking { width: 100%; justify-content: flex-start; }
   .rq__field { align-items: flex-start; text-align: left; }
   .rq__statusdesc { font-size: 13.5px; }
-  .segmented__tab { padding-left: 8px; padding-right: 8px; }
 }
