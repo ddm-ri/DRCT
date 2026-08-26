@@ -88,6 +88,9 @@
 
   var WAITING_NOTE = 'Usually takes up to 30 min';
 
+  /* The card on file, as shown in the wallet. */
+  var CARD = { brand: 'Mastercard', last4: '0076', holder: 'Tom Hanks' };
+
   /* --------------------------------------------------------------
      DATA
      A realistic mix of both request types.
@@ -143,7 +146,8 @@
     var state = STATES[request.state];
 
     if (request.state === 'upgradeAvailable') {
-      return '<button class="rq__cta" type="button">Pay ' + esc(request.amount) + '</button>';
+      return '<button class="rq__cta" type="button" data-pay="' + esc(request.id) + '">' +
+               'Pay ' + esc(request.amount) + '</button>';
     }
 
     if (request.state === 'upgradeConfirmed') {
@@ -259,6 +263,89 @@
 
   bindFilter(typeFilter, 'type', function (value) { activeType = value; });
   bindFilter(statusList, 'status', function (value) { activeStatus = value; });
+
+
+  /* --------------------------------------------------------------
+     PAYMENT CONFIRMATION
+     Only upgrades reach this step — a promo code is never charged.
+     Confirming moves the request on to the next state in its
+     lifecycle, so the list reflects the payment straight away.
+  -------------------------------------------------------------- */
+  var payModal   = document.getElementById('payModal');
+  var payContext = document.getElementById('payContext');
+  var payPrice   = document.getElementById('payPrice');
+  var payTotal   = document.getElementById('payTotal');
+  var payCardOut = document.getElementById('payCard');
+  var payNote    = document.getElementById('payNote');
+  var payConfirm = document.getElementById('payConfirm');
+
+  var pending = null;
+
+  function openPayment(request) {
+    pending = request;
+
+    payContext.textContent = [
+      AIRLINES[request.airline].name,
+      request.pnr,
+      request.passenger
+    ].join(' · ');
+
+    payPrice.textContent = request.amount;
+    payTotal.textContent = request.amount;
+
+    payCardOut.innerHTML = 'We’ll charge your <strong>' + esc(CARD.brand) +
+      ' •••• ' + esc(CARD.last4) + '</strong> (' + esc(CARD.holder) + ').';
+
+    payNote.textContent = 'One charge of ' + request.amount +
+      '. Your card is charged by Stripe — we never see the number.';
+
+    payConfirm.textContent = 'Pay ' + request.amount;
+    payConfirm.disabled = false;
+
+    payModal.showModal();
+  }
+
+  function closePayment() {
+    pending = null;
+    payModal.close();
+  }
+
+  list.addEventListener('click', function (event) {
+    var button = event.target.closest('[data-pay]');
+    if (!button) return;
+
+    var request = REQUESTS.filter(function (item) {
+      return item.id === button.dataset.pay;
+    })[0];
+
+    if (request) openPayment(request);
+  });
+
+  document.getElementById('payCancel').addEventListener('click', closePayment);
+  document.getElementById('payClose').addEventListener('click', closePayment);
+
+  /* Clicking the backdrop lands on the dialog itself, not the panel. */
+  payModal.addEventListener('click', function (event) {
+    if (event.target === payModal) closePayment();
+  });
+
+  payModal.addEventListener('close', function () { pending = null; });
+
+  payConfirm.addEventListener('click', function () {
+    if (!pending) return;
+
+    var request = pending;
+
+    payConfirm.disabled = true;
+    payConfirm.textContent = 'Processing…';
+
+    setTimeout(function () {
+      request.state = 'upgradeProcessing';
+      closePayment();
+      render();
+      live.textContent = 'Payment received. Your upgrade is now in progress.';
+    }, 700);
+  });
 
   /* --------------------------------------------------------------
      COPY PROMO CODE — secondary utility action

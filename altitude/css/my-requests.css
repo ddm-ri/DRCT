@@ -755,6 +755,199 @@ body {
 .rq__copy.is-copied { color: var(--success); }
 
 /* ----------------------------------------------------------------
+   PAYMENT CONFIRMATION
+   Same surface language as a request card: white, 20px radius, ink
+   scale. The confirm action reuses the card's black CTA so paying
+   looks the same wherever it starts.
+---------------------------------------------------------------- */
+.modal {
+  width: min(468px, calc(100% - 32px));
+  max-height: calc(100vh - 48px);
+  padding: 0;
+  border: 0;
+  background: transparent;
+  overflow: visible;
+}
+
+.modal::backdrop {
+  background: rgba(19, 26, 33, 0.42);
+}
+
+.modal__panel {
+  padding: 24px 28px 28px;
+  border-radius: var(--radius-card);
+  background: var(--surface);
+  box-shadow: 0 24px 64px rgba(19, 26, 33, .24);
+}
+
+.modal[open] .modal__panel {
+  animation: modal-in .18s ease-out;
+}
+@keyframes modal-in {
+  from { opacity: 0; transform: translateY(8px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .modal[open] .modal__panel { animation: none; }
+}
+
+.modal__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.modal__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: var(--surface-sunken);
+  color: var(--ink-80);
+}
+.modal__icon .ico { width: 22px; height: 22px; }
+
+.modal__close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  margin: -4px -6px 0 0;
+  border-radius: 9px;
+  color: var(--ink-45);
+  transition: color .15s ease, background-color .15s ease;
+}
+.modal__close:hover { color: var(--ink); background: var(--surface-sunken); }
+
+.modal__title {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+  line-height: 1.25;
+}
+
+.modal__context {
+  margin-top: 6px;
+  font-size: 14.5px;
+  color: var(--ink-60);
+}
+
+.modal__summary {
+  margin-top: 20px;
+  padding: 4px 16px;
+  border-radius: 14px;
+  background: var(--surface-sunken);
+}
+
+.modal__row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 13px 0;
+}
+.modal__row + .modal__row { border-top: 1px solid var(--ink-line-soft); }
+
+.modal__row-label {
+  font-size: 14.5px;
+  color: var(--ink-60);
+}
+.modal__row-value {
+  font-size: 14.5px;
+  font-weight: 500;
+  color: var(--ink-60);
+  font-variant-numeric: tabular-nums;
+}
+
+.modal__row--total .modal__row-label {
+  font-size: 15.5px;
+  font-weight: 600;
+  color: var(--ink);
+}
+.modal__row--total .modal__row-value {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.modal__card {
+  margin-top: 14px;
+  padding: 14px 16px;
+  border: 1px solid var(--ink-line);
+  border-radius: 12px;
+  font-size: 14.5px;
+  color: var(--ink-80);
+}
+.modal__card strong { font-weight: 600; color: var(--ink); }
+
+.modal__note {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-top: 14px;
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--ink-60);
+}
+.modal__note .ico {
+  width: 17px;
+  height: 17px;
+  margin-top: 1px;
+  color: var(--ink-45);
+}
+
+.modal__actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.modal__cancel {
+  height: 46px;
+  padding: 0 22px;
+  border: 1px solid var(--ink-line);
+  border-radius: var(--radius-pill);
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--ink-80);
+  transition: border-color .15s ease, background-color .15s ease, color .15s ease;
+}
+.modal__cancel:hover {
+  border-color: rgba(19, 26, 33, 0.2);
+  background: rgba(19, 26, 33, 0.02);
+  color: var(--ink);
+}
+
+.modal__confirm {
+  height: 46px;
+  min-width: 150px;
+  padding: 0 26px;
+  border-radius: var(--radius-pill);
+  background: var(--ink);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  transition: background-color .15s ease, opacity .15s ease;
+}
+.modal__confirm:hover { background: #000; }
+.modal__confirm[disabled] {
+  opacity: .55;
+  cursor: default;
+}
+
+@media (max-width: 520px) {
+  .modal__panel { padding: 20px 20px 22px; }
+  .modal__actions { flex-direction: column-reverse; align-items: stretch; }
+  .modal__cancel, .modal__confirm { width: 100%; }
+}
+
+/* ----------------------------------------------------------------
    FOCUS STATES
 ---------------------------------------------------------------- */
 :where(a, button, [role="option"]):focus-visible {
