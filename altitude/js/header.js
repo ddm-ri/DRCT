@@ -53,6 +53,7 @@
                                   (isHome ? ' alt-nav__link--home' : '') + '"' +
          ' href="' + esc(item.href) + '"' +
          ' data-page="' + esc(item.id) + '"' +
+         ' title="' + esc(item.label) + '"' +
          (isActive ? ' aria-current="page"' : '') + '>' +
         item.icon +
         '<span class="alt-nav__label">' + esc(item.label) + '</span>' +
@@ -69,7 +70,10 @@
       '<div class="alt-header__inner">' +
 
         '<a class="alt-logo" href="' + esc(BRAND.href) + '"' +
-           ' title="' + esc(BRAND.title) + '">' + esc(BRAND.label) + '</a>' +
+           ' title="' + esc(BRAND.title) + '" aria-label="' + esc(BRAND.label) + '">' +
+          '<span class="alt-logo__mark" aria-hidden="true">' + esc(BRAND.label.charAt(0)) + '</span>' +
+          '<span class="alt-logo__word" aria-hidden="true">' + esc(BRAND.label) + '</span>' +
+        '</a>' +
 
           '<nav class="alt-nav" aria-label="Main">' +
             NAV.map(function (item) { return linkMarkup(item, activePage); }).join('') +

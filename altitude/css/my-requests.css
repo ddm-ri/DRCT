@@ -140,7 +140,7 @@ body {
 .alt-header--nav-right .alt-logo { margin-right: auto; }
 
 /* --- Sidebar: the same three slots turned into a left rail --- */
-@media (min-width: 901px) {
+@media (min-width: 561px) {
   .alt-header--nav-sidebar {
     position: fixed;
     top: 0;
@@ -218,6 +218,43 @@ body {
   }
   .alt-layout-sidebar .alt-main::before { left: var(--sidebar-w); }
 }
+
+/* Narrow enough that labels no longer fit — the rail stays, the words go. */
+@media (min-width: 561px) and (max-width: 900px) {
+  :root { --sidebar-w: 68px; }
+
+  .alt-header--nav-sidebar .alt-header__inner { padding: 22px 10px 16px; }
+
+  .alt-header--nav-sidebar .alt-logo {
+    padding: 0;
+    margin-bottom: 26px;
+    text-align: center;
+  }
+  .alt-header--nav-sidebar .alt-logo__word { display: none; }
+  .alt-header--nav-sidebar .alt-logo__mark { display: block; }
+
+  .alt-header--nav-sidebar .alt-nav__link {
+    justify-content: center;
+    gap: 0;
+    padding: 0;
+  }
+  .alt-header--nav-sidebar .alt-nav__label { display: none; }
+
+  .alt-header--nav-sidebar .alt-account__button { justify-content: center; padding: 0; }
+  .alt-header--nav-sidebar .alt-account__email { display: none; }
+  .alt-header--nav-sidebar .alt-account__button .ico--chevron { display: none; }
+
+  /* The menu is wider than the rail, so it spills over the content. */
+  .alt-header--nav-sidebar .alt-account__menu {
+    left: 6px;
+    right: auto;
+    min-width: 228px;
+  }
+
+  .alt-layout-sidebar .alt-main { padding-top: 34px; }
+}
+
+.alt-logo__mark { display: none; }
 
 .alt-logo {
   font-family: var(--font-serif);
@@ -799,7 +836,7 @@ body {
 
 /* Sidebar falls back to the top bar, where the home item would only
    repeat the page's H1 — the brand still links there. */
-@media (max-width: 900px) {
+@media (max-width: 560px) {
   .alt-header--nav-sidebar .alt-nav__link--home { display: none; }
   .alt-header--nav-sidebar .alt-logo { margin-right: auto; }
 }
